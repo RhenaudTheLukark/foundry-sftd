@@ -11,12 +11,12 @@ export const preloadHandlebarsTemplates = async function() {
   const templatePaths = [
 
     // Actor Sheet Partials
-    "systems/blades-in-the-dark/templates/parts/coins.html",
-    "systems/blades-in-the-dark/templates/parts/attributes.html",
-    "systems/blades-in-the-dark/templates/parts/turf-list.html",
-    "systems/blades-in-the-dark/templates/parts/cohort-block.html",
-    "systems/blades-in-the-dark/templates/parts/factions.html",
-    "systems/blades-in-the-dark/templates/parts/active-effects.html",
+    "systems/songs-for-the-dusk/templates/parts/coins.html",
+    "systems/songs-for-the-dusk/templates/parts/attributes.html",
+    "systems/songs-for-the-dusk/templates/parts/turf-list.html",
+    "systems/songs-for-the-dusk/templates/parts/cohort-block.html",
+    "systems/songs-for-the-dusk/templates/parts/factions.html",
+    "systems/songs-for-the-dusk/templates/parts/active-effects.html",
   ];
 
   // Load the template parts

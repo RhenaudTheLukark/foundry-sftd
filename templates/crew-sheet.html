@@ -225,9 +225,9 @@
           <a class="up-exp-clock" data-tooltip="{{localize 'BITD.AddXP'}}"><i class="fas fa-caret-up"></i></a>
           <a class="down-exp-clock" data-tooltip="{{localize 'BITD.MinusXP'}}"><i class="fas fa-caret-down"></i></a>
         </div>
-		<img src="systems/blades-in-the-dark/themes/{{system.exp_clock.color}}/{{system.exp_clock.size}}clock_{{system.exp_clock.value}}.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
+		<img src="systems/songs-for-the-dusk/themes/{{system.exp_clock.color}}/{{system.exp_clock.size}}clock_{{system.exp_clock.value}}.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
         <!--
-		<img src="systems/blades-in-the-dark/styles/assets/progressclocks-svg/Progress Clock {{system.exp_clock.size}}-{{system.exp_clock.value}}.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
+		<img src="systems/songs-for-the-dusk/styles/assets/progressclocks-svg/Progress Clock {{system.exp_clock.size}}-{{system.exp_clock.value}}.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
 		-->
         {{#if (gteq system.exp_clock.number 1)}}
         <div class="flex-vertical" style="font-size: 14px; padding-left: 2px; padding-right: 2px">
@@ -236,10 +236,10 @@
         </div>
         {{#if (lteq system.exp_clock.number 4)}}
         {{#times_from 1 system.exp_clock.number}}
-        <img src="systems/blades-in-the-dark/styles/assets/progressclocks-svg/Progress Clock 6-6.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
+        <img src="systems/songs-for-the-dusk/styles/assets/progressclocks-svg/Progress Clock 6-6.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
         {{/times_from}}
         {{else}}
-        <img src="systems/blades-in-the-dark/styles/assets/progressclocks-svg/Progress Clock 6-6.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
+        <img src="systems/songs-for-the-dusk/styles/assets/progressclocks-svg/Progress Clock 6-6.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
         <p style="font-family: Kirsty, serif; font-size: 21px; padding-top: 7px">x {{system.exp_clock.number}}</p>
         {{/if}}
         {{/if}}
@@ -284,7 +284,7 @@
       {{#each items as |item id|}}
       {{#if (eq item.type "crew_type")}}
       <div class="item" data-item-id="{{item._id}}">
-        {{> "systems/blades-in-the-dark/templates/parts/turf-list.html" _id=../_id turfs_data=item.system.turfs can_edit=false not_prison=true}}
+        {{> "systems/songs-for-the-dusk/templates/parts/turf-list.html" _id=../_id turfs_data=item.system.turfs can_edit=false not_prison=true}}
       </div>
       {{/if}}
       {{/each}}
@@ -373,7 +373,7 @@
         {{#each items as |item id|}}
         {{#if (eq item.type "cohort")}}
 
-        {{> "systems/blades-in-the-dark/templates/parts/cohort-block.html" item=item}}
+        {{> "systems/songs-for-the-dusk/templates/parts/cohort-block.html" item=item}}
 
         {{/if}}
         {{/each}}
@@ -389,7 +389,7 @@
       {{#each items as |item id|}}
       {{#if (eq item.type "prison")}}
       <div class="item" data-item-id="{{item._id}}">
-        {{> "systems/blades-in-the-dark/templates/parts/turf-list.html" _id=../_id turfs_data=item.system.turfs can_edit=false not_prison=false}}
+        {{> "systems/songs-for-the-dusk/templates/parts/turf-list.html" _id=../_id turfs_data=item.system.turfs can_edit=false not_prison=false}}
       </div>
       {{/if}}
       {{/each}}
@@ -409,7 +409,7 @@
       <div class="label-stripe">
         <p>{{localize "BITD.Effects"}}</p>
       </div>
-      {{> "systems/blades-in-the-dark/templates/parts/active-effects.html"}}
+      {{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}
     </div>
     {{/if}}
 

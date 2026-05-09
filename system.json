@@ -1,21 +1,21 @@
 {
-  "id": "blades-in-the-dark",
-  "title": "Blades in the Dark",
-  "description": "Blades in the Dark game system.",
-  "version": "6.1.1",
+  "id": "songs-for-the-dusk",
+  "title": "Songs For The Dusk",
+  "description": "Songs For The Dusk game system.",
+  "version": "0.0.1",
   "compatibility": {
     "minimum": 11,
     "verified": "14.359"
   },
-  "background": "systems/blades-in-the-dark/images/BITD_title.webp",
-  "url": "https://github.com/Dez384/foundryvtt-blades-in-the-dark/",
-  "manifest": "https://raw.githubusercontent.com/Dez384/foundryvtt-blades-in-the-dark/master/system.json",
-  "download": "https://github.com/Dez384/foundryvtt-blades-in-the-dark/archive/refs/tags/v6.1.1.zip",
+  "background": "systems/songs-for-the-dusk/images/BITD_title.webp",
+  "url": "https://github.com/RhenaudTheLukark/foundry-sftd/",
+  "manifest": "https://raw.githubusercontent.com/RhenaudTheLukark/foundry-sftd/master/system.json",
   "authors": [
     { "name": "megastruktur" },
     { "name": "drewg13" },
     { "name": "justinross" },
-    { "name": "Dez384" }
+    { "name": "Dez384" },
+    { "name": "RhenaudTheLukark" }
   ],
   "esmodules": [
     "module/blades.js"
@@ -74,137 +74,137 @@
     {
       "name": "class",
       "label": "Classes",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/classes.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_00.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_00.webp",
       "type": "Item"
     },
     {
       "name": "heritage",
       "label": "Heritages",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/heritages.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_01.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_01.webp",
       "type": "Item"
     },
     {
       "name": "vice",
       "label": "Vices",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/vices.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_02.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_02.webp",
       "type": "Item"
     },
     {
       "name": "prison",
       "label": "Prisons",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/prison.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_03.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_03.webp",
       "type": "Item"
     },
     {
       "name": "background",
       "label": "Backgrounds",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/backgrounds.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_04.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_04.webp",
       "type": "Item"
     },
     {
       "name": "item",
       "label": "Items",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/items.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_05.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_05.webp",
       "type": "Item"
     },
     {
       "name": "ability",
       "label": "Abilities",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/abilities.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_06.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_06.webp",
       "type": "Item"
     },
     {
       "name": "crew_reputation",
       "label": "Crew Reputation",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/crew_reputation.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_07.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_07.webp",
       "type": "Item"
     },
     {
       "name": "crew_type",
       "label": "Crew Types",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/crew_types.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_08.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_08.webp",
       "type": "Item"
     },
     {
       "name": "crew_upgrade",
       "label": "Crew Upgrades",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/crew_upgrades.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_09.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_09.webp",
       "type": "Item"
     },
     {
       "name": "crew_ability",
       "label": "Crew Abilities",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/crew_abilities.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_10.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_10.webp",
       "type": "Item"
     },
     {
       "name": "hunting_grounds",
       "label": "Hunting Grounds",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/hunting_grounds.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_11.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_11.webp",
       "type": "Item"
     },
-	{
+	  {
       "name": "faction",
       "label": "Factions",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/factions.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_12.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_12.webp",
       "type": "Item"
     },
     {
       "name": "npc",
       "label": "NPCs",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/npcs.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_13.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_13.webp",
       "type": "Actor"
     },
-	{
+	  {
       "name": "entanglements",
       "label": "Entanglements",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/entanglements.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_14.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_14.webp",
       "type": "RollTable"
     },
-	{
+	  {
       "name": "entanglements-journals",
       "label": "Entanglements Journals",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/entanglements-journals.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_15.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_15.webp",
       "type": "JournalEntry"
     },
-	{
+	  {
       "name": "entanglements-macro",
       "label": "Entanglements Macro",
-      "system": "blades-in-the-dark",
+      "system": "songs-for-the-dusk",
       "path": "./packs/entanglements-macro.db",
-      "banner": "systems/blades-in-the-dark/images/compendium-banners/Doskvol_16.webp",
+      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_16.webp",
       "type": "Macro"
     }
   ],
@@ -213,21 +213,21 @@
       "name": "Character Options",
       "sorting": "m",
       "packs": ["class", "ability", "item", "background", "heritage", "vice"]
-	},
+	  },
     {
       "name": "Crew Options",
       "sorting": "m",
       "packs": ["crew_type", "crew_ability", "crew_upgrade", "prison", "crew_reputation", "hunting_grounds"]
-	},
+	  },
     {
       "name": "Factions & NPCs",
       "sorting": "m",
       "packs": ["faction", "npc"]
-	},
+	  },
     {
       "name": "Entanglements",
       "sorting": "m",
       "packs": ["entanglements-macro", "entanglements", "entanglements-journals"]
-	}
+	  }
   ]
 }

@@ -112,7 +112,7 @@ export class BladesActor extends Actor {
         <fieldset class="form-group" style="display:grid; gap:0.5em;">
           <legend>Roll Types</legend>`;
 		// Row 1: Action Roll (if enabled)
-		if (game.settings.get('blades-in-the-dark', 'ActionRoll')) {
+		if (game.settings.get('songs-for-the-dusk', 'ActionRoll')) {
 		  content += `
           <div style="display:grid; grid-template-columns:auto auto auto; gap:0.5em 1em; align-items:center;">
             <label><input type="radio" id="actionRoll" name="rollSelection" value="actionRoll" checked=true> ${game.i18n.localize("BITD.ActionRoll")}</label>
@@ -121,7 +121,7 @@ export class BladesActor extends Actor {
           </div>`;
 		}
 		// Row 2: Threat Roll (if enabled)
-		if (game.settings.get('blades-in-the-dark', 'ThreatRoll')) {
+		if (game.settings.get('songs-for-the-dusk', 'ThreatRoll')) {
 		  content += `
           <div style="display:grid; grid-template-columns:auto auto auto; gap:0.5em 1em; align-items:center;">
             <label><input type="radio" id="threatRoll" name="rollSelection" value="threatRoll" checked=true> ${game.i18n.localize("BITD.ThreatRoll")}</label>

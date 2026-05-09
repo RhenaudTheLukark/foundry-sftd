@@ -264,7 +264,7 @@ export class BladesHelpers {
   static async importAcquaintance(actor, acqId) {
     //try to import from a compendium
     try {
-      let new_actor = await game.actors.importFromCompendium(game.packs.get("blades-in-the-dark.npc"), acqId);
+      let new_actor = await game.actors.importFromCompendium(game.packs.get("songs-for-the-dusk.npc"), acqId);
       //get the UUID of newly created actor
       let new_id = new_actor.id;
       console.log(new_id);

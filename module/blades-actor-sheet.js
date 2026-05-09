@@ -12,8 +12,8 @@ export class BladesActorSheet extends BladesSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ["blades-in-the-dark", "sheet", "actor", "pc"],
-            template: "systems/blades-in-the-dark/templates/actor-sheet.html",
+            classes: ["songs-for-the-dusk", "sheet", "actor", "pc"],
+            template: "systems/songs-for-the-dusk/templates/actor-sheet.html",
             width: 790,
             height: 890,
             tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "abilities"}]
@@ -52,7 +52,7 @@ export class BladesActorSheet extends BladesSheet {
         // Encumbrance Levels
         let load_level;
         let mule_level;
-        if (game.settings.get('blades-in-the-dark', 'DeepCutLoad')) {
+        if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad')) {
             load_level = ["BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Conspicuous", "BITD.Conspicuous", "BITD.Encumbered",
                 "BITD.Encumbered", "BITD.Encumbered", "BITD.OverMax", "BITD.OverMax"];
             mule_level = ["BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Discreet", "BITD.Conspicuous",
@@ -81,7 +81,7 @@ export class BladesActorSheet extends BladesSheet {
             sheetData.system.load_level = load_level[loadout];
         }
 
-        if (game.settings.get('blades-in-the-dark', 'DeepCutLoad')) {
+        if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad')) {
             sheetData.system.load_levels = {"BITD.Discreet": "BITD.Discreet", "BITD.Conspicuous": "BITD.Conspicuous"};
         } else {
             sheetData.system.load_levels = {

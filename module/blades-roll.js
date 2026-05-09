@@ -73,7 +73,7 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
 		//process the die results
 		roll_status = getBladesRollStatus(z_rolls, zeromode);
 		if (position === "desperate") {if (roll_status === "partial-success") {roll_status = "failure";} }
-		result = await renderTemplate("systems/blades-in-the-dark/templates/chat/threat-roll.html", {rolls: z_rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: true, body: true, footer: false});
+		result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/threat-roll.html", {rolls: z_rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: true, body: true, footer: false});
 		firstLoop = false;
 		
 		// decrement for one result output to the chat message
@@ -105,16 +105,16 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
 
 		//render the html
 		if (firstLoop) {
-			result = await renderTemplate("systems/blades-in-the-dark/templates/chat/threat-roll.html", {rolls: use_die, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: true, body: true, footer: false});
+			result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/threat-roll.html", {rolls: use_die, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: true, body: true, footer: false});
 		firstLoop = false;
 		} else {
-			result += await renderTemplate("systems/blades-in-the-dark/templates/chat/threat-roll.html", {rolls: use_die, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: false, body: true, footer: false});
+			result += await renderTemplate("systems/songs-for-the-dusk/templates/chat/threat-roll.html", {rolls: use_die, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: false, body: true, footer: false});
 		}
 
 	} //end for loop
 
 	// render html for the note and the remaining die results
-	result += await renderTemplate("systems/blades-in-the-dark/templates/chat/threat-roll.html", {rolls: s_rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: false, body: false, footer: true, edge: edge});		
+	result += await renderTemplate("systems/songs-for-the-dusk/templates/chat/threat-roll.html", {rolls: s_rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: false, body: false, footer: true, edge: edge});		
   
   }
   
@@ -145,14 +145,14 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
         effect_localize = 'BITD.EffectStandard'
     }
 
-    result = await renderTemplate("systems/blades-in-the-dark/templates/chat/action-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, position_localize: position_localize, effect: effect, effect_localize: effect_localize, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/action-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, position_localize: position_localize, effect: effect, effect_localize: effect_localize, note: note, edge: edge});
   }
   // Check for Resistance roll
   else if (BladesHelpers.isAttributeAttribute(attribute_name)) {
     let stress = getBladesRollStress(rolls, zeromode);
-	let filepath = "systems/blades-in-the-dark/templates/chat/resistance-roll.html";
-	if (game.settings.get('blades-in-the-dark', 'PushYourself')){
-		filepath = "systems/blades-in-the-dark/templates/chat/push-yourself-roll.html";
+	let filepath = "systems/songs-for-the-dusk/templates/chat/resistance-roll.html";
+	if (game.settings.get('songs-for-the-dusk', 'PushYourself')){
+		filepath = "systems/songs-for-the-dusk/templates/chat/push-yourself-roll.html";
 	}
     result = await renderTemplate(filepath, {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, stress: stress, note: note, edge: edge});
   }
@@ -167,15 +167,15 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
       clear_stress = current_stress;
     }
 
-    result = await renderTemplate("systems/blades-in-the-dark/templates/chat/vice-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, clear_stress: clear_stress, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/vice-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, clear_stress: clear_stress, note: note, edge: edge});
   }
   // Check for Gather Information roll
   else if (attribute_name == 'BITD.GatherInformation') {
-    result = await renderTemplate("systems/blades-in-the-dark/templates/chat/gather-info-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/gather-info-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
   }
   // Check for Engagement roll
   else if (attribute_name == 'BITD.Engagement') {
-    result = await renderTemplate("systems/blades-in-the-dark/templates/chat/engagement-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/engagement-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
   }
   // Check for Asset roll
   else if (attribute_name == 'BITD.AcquireAsset') {
@@ -197,11 +197,11 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
         break;
     }
 
-    result = await renderTemplate("systems/blades-in-the-dark/templates/chat/asset-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, tier_quality: tier_quality, note: note,  edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/asset-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, tier_quality: tier_quality, note: note,  edge: edge});
   }
   // Fortune roll if not specified
   else {
-    result = await renderTemplate("systems/blades-in-the-dark/templates/chat/fortune-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: "BITD.Fortune", note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/fortune-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: "BITD.Fortune", note: note, edge: edge});
   }
 
   let messageData;

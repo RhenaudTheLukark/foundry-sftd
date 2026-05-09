@@ -1,2 +1,7 @@
-/.idea/*
-/blades-in-the-dark.lock
+.idea/*
+/*.lock
+/LOG*
+/*.log
+/*.ldb
+/CURRENT
+/MANIFEST-*

@@ -59,7 +59,7 @@ export class BladesActiveEffect extends ActiveEffect {
       case "create":
         return owner.createEmbeddedDocuments("ActiveEffect", [{
           name: "New Effect",
-          img: "systems/blades-in-the-dark/styles/assets/icons/Icon.3_13.png",
+          img: "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
           origin: owner.uuid,
           "duration.rounds": selector.dataset.effectType === "temporary" ? 1 : undefined,
           disabled: selector.dataset.effectType === "inactive"
