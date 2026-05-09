@@ -1,7 +1,7 @@
-# FoundryVTT Songs For The Dusk character and crew sheets
+# FoundryVTT - Songs For The Dusk
 
 <p align="center">
-<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/RhenaudTheLukark/foundry-sftd"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/RhenaudTheLukark/foundry-sftd"> <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/RhenaudTheLukark/foundry-sftd/total" /> <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/RhenaudTheLukark/foundry-sftd?label=latest%20release" /> 
+<img alt="GitHub release (latest by date)" src="https://img.shields.io/github/v/release/RhenaudTheLukark/foundry-sftd"> <img alt="GitHub last commit" src="https://img.shields.io/github/last-commit/RhenaudTheLukark/foundry-sftd"> <img alt="GitHub All Releases" src="https://img.shields.io/github/downloads/RhenaudTheLukark/foundry-sftd/total" /> <img alt="GitHub Release Date" src="https://img.shields.io/github/release-date/RhenaudTheLukark/foundry-sftd?label=latest%20release" />
 </p>
 <p align="center">
 <img alt="GitHub" src="https://img.shields.io/github/license/RhenaudTheLukark/foundry-sftd"> <a href="https://github.com/RhenaudTheLukark/foundry-sftd/issues"><img alt="GitHub issues" src="https://img.shields.io/github/issues/RhenaudTheLukark/foundry-sftd"></a> <a href="https://github.com/RhenaudTheLukark/foundry-sftd/network"><img alt="GitHub forks" src="https://img.shields.io/github/forks/RhenaudTheLukark/foundry-sftd"></a> <a href="https://github.com/RhenaudTheLukark/foundry-sftd/stargazers"><img alt="GitHub stars" src="https://img.shields.io/github/stars/RhenaudTheLukark/foundry-sftd"></a>
@@ -67,7 +67,7 @@ Clocks are now here!
 - If you can't find the drag-n-dropped item, refer to "All Items" tab on each sheet.
 
 ## Credits
-- This work is based on Songs For The Dusk (found at http://www.bladesinthedark.com/), product of Kavita Poduri (https://yrgirlkv.itch.io), with game design by Quinn Vega (https://crtgirl.itch.io/), and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).
+- This work is based on Songs For The Dusk (found at https://yrgirlkv.itch.io/songsforthedusk), product of Kavita Poduri, with game design by Quinn Vega (https://crtgirl.itch.io/), and licensed for our use under the Creative Commons Attribution 3.0 Unported license (http://creativecommons.org/licenses/by/3.0/).
 - This game system for FoundryVTT is originated from the Blades In The Dark system made and maintained by Dez384 (https://github.com/dez384/foundryvtt-blades-in-the-dark)
 - Some assets were taken from here (thank you timdenee and joesinghaus): https://github.com/joesinghaus/Blades-in-the-Dark
 
