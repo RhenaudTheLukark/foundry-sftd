@@ -12,7 +12,7 @@ export class BladesStriderSheet extends BladesSheet {
     /** @override */
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
-            classes: ["songs-for-the-dusk", "sheet", "actor", "pc"],
+            classes: ["songs-for-the-dusk", "sheet", "actor", "strider"],
             template: "systems/songs-for-the-dusk/templates/actor-sheet.html",
             width: 790,
             height: 890,

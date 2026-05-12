@@ -27,18 +27,18 @@ $hover-brightness: 0.8;
   @import 'import/general-styles.scss';
   @import 'import/clocks.scss';
 
-  &.crew.sheet{
+  &.crew.sheet {
     @import 'import/crew-sheet.scss';
   }
 
-  &.actor.pc{
+  &.actor.strider {
     @import 'import/strider-sheet.scss';
   }
 
-  &.actor.clock{
+  &.actor.clock {
   }
 
-  &.item.sheet{
+  &.item.sheet {
     @import 'import/item-sheet.scss';
   }
 }
