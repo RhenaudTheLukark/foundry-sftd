@@ -251,7 +251,7 @@ export class BladesHelpers {
     if (unique_id) {
       await actor.update({system: {acquaintances: current_acquaintances.concat([acquaintance])}});
     } else {
-      ui.notifications.info(game.i18n.localize("BITD.log.info.SameNPC"));
+      ui.notifications.info(game.i18n.localize("SFTD.log.info.SameNPC"));
     }
   }
 
@@ -276,7 +276,7 @@ export class BladesHelpers {
       await actor.update({system: {acquaintances: updated_acquaintances}});
       await new_actor.sheet.render(true);
     } catch (error) {
-      ui.notifications.warn(game.i18n.localize(("BITD.log.warn.NoNPC")));
+      ui.notifications.warn(game.i18n.localize(("SFTD.log.warn.NoNPC")));
       console.error(error);
     }
   }
@@ -387,7 +387,7 @@ export class BladesHelpers {
       actor.update({system: {crew: [new_crew]}});
 
     } else {
-      ui.notifications.info(game.i18n.localize("BITD.log.info.SameCrew"));
+      ui.notifications.info(game.i18n.localize("SFTD.log.info.SameCrew"));
     }
   }
 

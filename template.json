@@ -16,21 +16,21 @@
       "max": 1
     },
     "acquaintances": [],
-    "acquaintances_label": "BITD.Acquaintances",
+    "acquaintances_label": "SFTD.Acquaintances",
     "stress": {
       "value": [0],
       "max": 9,
       "max_default": 9,
-      "name_default": "BITD.Stress",
-      "name": "BITD.Stress"
+      "name_default": "SFTD.Stress",
+      "name": "SFTD.Stress"
     },
     "trauma": {
       "max": 4,
       "max_default": 4,
       "value": [0],
-      "name": "BITD.Trauma",
-      "name_default": "BITD.Trauma",
-      "options": ["BITD.TraumaCold", "BITD.TraumaHaunted", "BITD.TraumaObsessed", "BITD.TraumaParanoid", "BITD.TraumaReckless", "BITD.TraumaSoft", "BITD.TraumaUnstable", "BITD.TraumaVicious"],
+      "name": "SFTD.Trauma",
+      "name_default": "SFTD.Trauma",
+      "options": ["SFTD.TraumaCold", "SFTD.TraumaHaunted", "SFTD.TraumaObsessed", "SFTD.TraumaParanoid", "SFTD.TraumaReckless", "SFTD.TraumaSoft", "SFTD.TraumaUnstable", "SFTD.TraumaVicious"],
       "list": []
     },
     "healing-clock": [0],
@@ -41,7 +41,7 @@
     },
     "experience": [0],
     "experience_max": 8,
-    "experience_clues": ["BITD.ClassExpClue3", "BITD.ClassExpClue2"],
+    "experience_clues": ["SFTD.ClassExpClue3", "SFTD.ClassExpClue2"],
     "exp_clock": {
       "value": 0,
       "number": 0,
@@ -85,28 +85,28 @@
           "exp": 0,
           "exp_max": 6,
           "bonus": 0,
-          "label": "BITD.SkillsInsight",
+          "label": "SFTD.SkillsInsight",
           "skills": {
             "hunt": {
-              "label": "BITD.SkillsHunt",
+              "label": "SFTD.SkillsHunt",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "study": {
-              "label": "BITD.SkillsStudy",
+              "label": "SFTD.SkillsStudy",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "survey": {
-              "label": "BITD.SkillsSurvey",
+              "label": "SFTD.SkillsSurvey",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "tinker": {
-              "label": "BITD.SkillsTinker",
+              "label": "SFTD.SkillsTinker",
               "value": 0,
               "max": 3,
               "min": 0
@@ -117,28 +117,28 @@
           "exp": 0,
           "exp_max": 6,
           "bonus": 0,
-          "label": "BITD.SkillsProwess",
+          "label": "SFTD.SkillsProwess",
           "skills": {
             "finesse": {
-              "label": "BITD.SkillsFinesse",
+              "label": "SFTD.SkillsFinesse",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "prowl": {
-              "label": "BITD.SkillsProwl",
+              "label": "SFTD.SkillsProwl",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "skirmish": {
-              "label": "BITD.SkillsSkirmish",
+              "label": "SFTD.SkillsSkirmish",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "wreck": {
-              "label": "BITD.SkillsWreck",
+              "label": "SFTD.SkillsWreck",
               "value": 0,
               "max": 3,
               "min": 0
@@ -149,28 +149,28 @@
           "exp": 0,
           "exp_max": 6,
           "bonus": 0,
-          "label": "BITD.SkillsResolve",
+          "label": "SFTD.SkillsResolve",
           "skills": {
             "attune": {
-              "label": "BITD.SkillsAttune",
+              "label": "SFTD.SkillsAttune",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "command": {
-              "label": "BITD.SkillsCommand",
+              "label": "SFTD.SkillsCommand",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "consort": {
-              "label": "BITD.SkillsConsort",
+              "label": "SFTD.SkillsConsort",
               "value": 0,
               "max": 3,
               "min": 0
             },
             "sway": {
-              "label": "BITD.SkillsSway",
+              "label": "SFTD.SkillsSway",
               "value": 0,
               "max": 3,
               "min": 0
@@ -188,7 +188,7 @@
     "rep2": {
       "value": "",
       "visible": false,
-      "label": "BITD.Description"
+      "label": "SFTD.Description"
     },
     "hold": ["strong"],
     "experience": [0],
@@ -216,9 +216,9 @@
     "heat": [0],
     "wanted": [0],
     "acquaintances": [],
-    "acquaintances_label": "BITD.Contacts",
+    "acquaintances_label": "SFTD.Contacts",
     "hunting_grounds": [],
-    "hunting_grounds_label": "BITD.HuntingGrounds",
+    "hunting_grounds_label": "SFTD.HuntingGrounds",
     "scoundrel": {
       "add_trauma": 0,
       "add_stress": 0,
@@ -321,15 +321,15 @@
         "value": [1],
         "max": 2,
         "max_default": 2,
-        "name_default": "BITD.Hold",
-        "name": "BITD.Hold"
+        "name_default": "SFTD.Hold",
+        "name": "SFTD.Hold"
       },
       "status": {
         "value": [4],
         "max": 7,
         "max_default": 7,
-        "name_default": "BITD.Status",
-        "name": "BITD.Status"
+        "name_default": "SFTD.Status",
+        "name": "SFTD.Status"
       }
     },
     "item": {
@@ -382,34 +382,34 @@
     "quality": 0,
     "cohort_list": {
       "Gang": {
-        "label": "BITD.Gang"
+        "label": "SFTD.Gang"
       },
       "Expert": {
-        "label": "BITD.Expert"
+        "label": "SFTD.Expert"
       }
     },
     "gang_type": ["Adepts"],
     "gang_type_list": {
 
       "Adepts": {
-        "label": "BITD.GangTypeAdepts",
-        "description": "BITD.GangTypeAdeptsDescription"
+        "label": "SFTD.GangTypeAdepts",
+        "description": "SFTD.GangTypeAdeptsDescription"
       },
       "Rooks": {
-        "label": "BITD.GangTypeRooks",
-        "description": "BITD.GangTypeRooksDescription"
+        "label": "SFTD.GangTypeRooks",
+        "description": "SFTD.GangTypeRooksDescription"
       },
       "Rovers": {
-        "label": "BITD.GangTypeRovers",
-        "description": "BITD.GangTypeRoversDescription"
+        "label": "SFTD.GangTypeRovers",
+        "description": "SFTD.GangTypeRoversDescription"
       },
       "Skulks": {
-        "label": "BITD.GangTypeSkulks",
-        "description": "BITD.GangTypeSkulksDescription"
+        "label": "SFTD.GangTypeSkulks",
+        "description": "SFTD.GangTypeSkulksDescription"
       },
       "Thugs": {
-        "label": "BITD.GangTypeThugs",
-        "description": "BITD.GangTypeThugsDescription"
+        "label": "SFTD.GangTypeThugs",
+        "description": "SFTD.GangTypeThugsDescription"
       }
     },
     "expert_type": "",
@@ -418,74 +418,74 @@
     "edges": [],
     "edges_list": {
       "Fearsome": {
-        "label": "BITD.EdgesFearsome",
-        "description": "BITD.EdgesFearsomeDescription",
+        "label": "SFTD.EdgesFearsome",
+        "description": "SFTD.EdgesFearsomeDescription",
         "selected": false
       },
       "Independent": {
-        "label": "BITD.EdgesIndependent",
-        "description": "BITD.EdgesIndependentDescription",
+        "label": "SFTD.EdgesIndependent",
+        "description": "SFTD.EdgesIndependentDescription",
         "selected": false
       },
       "Loyal": {
-        "label": "BITD.EdgesLoyal",
-        "description": "BITD.EdgesLoyalDescription",
+        "label": "SFTD.EdgesLoyal",
+        "description": "SFTD.EdgesLoyalDescription",
         "selected": false
       },
       "Tenacious": {
-        "label": "BITD.EdgesTenacious",
-        "description": "BITD.EdgesTenaciousDescription",
+        "label": "SFTD.EdgesTenacious",
+        "description": "SFTD.EdgesTenaciousDescription",
         "selected": false
       }
     },
     "flaws": [],
     "flaws_list": {
       "Principled": {
-        "label": "BITD.FlawsPrincipled",
-        "description": "BITD.FlawsPrincipledDescription",
+        "label": "SFTD.FlawsPrincipled",
+        "description": "SFTD.FlawsPrincipledDescription",
         "selected": false
       },
       "Savage": {
-        "label": "BITD.FlawsSavage",
-        "description": "BITD.FlawsSavageDescription",
+        "label": "SFTD.FlawsSavage",
+        "description": "SFTD.FlawsSavageDescription",
         "selected": false
       },
       "Unreliable": {
-        "label": "BITD.FlawsUnreliable",
-        "description": "BITD.FlawsUnreliableDescription",
+        "label": "SFTD.FlawsUnreliable",
+        "description": "SFTD.FlawsUnreliableDescription",
         "selected": false
       },
       "Wild": {
-        "label": "BITD.FlawsWild",
-        "description": "BITD.FlawsWildDescription",
+        "label": "SFTD.FlawsWild",
+        "description": "SFTD.FlawsWildDescription",
         "selected": false
       }
     },
     "harm": ["No"],
     "harm_list": {
       "No": {
-        "label": "BITD.HarmNoHarm",
-        "description": "BITD.HarmNoHarmDescription",
+        "label": "SFTD.HarmNoHarm",
+        "description": "SFTD.HarmNoHarmDescription",
         "value": 0
       },
       "Weakened": {
-        "label": "BITD.HarmWeakened",
-        "description": "BITD.HarmWeakenedDescription",
+        "label": "SFTD.HarmWeakened",
+        "description": "SFTD.HarmWeakenedDescription",
         "value": 1
       },
       "Impaired": {
-        "label": "BITD.HarmImpaired",
-        "description": "BITD.HarmImpairedDescription",
+        "label": "SFTD.HarmImpaired",
+        "description": "SFTD.HarmImpairedDescription",
         "value": 2
       },
       "Broken": {
-        "label": "BITD.HarmBroken",
-        "description": "BITD.HarmBrokenDescription",
+        "label": "SFTD.HarmBroken",
+        "description": "SFTD.HarmBrokenDescription",
         "value": 3
       },
       "Dead": {
-        "label": "BITD.HarmDead",
-        "description": "BITD.HarmDeadDescription",
+        "label": "SFTD.HarmDead",
+        "description": "SFTD.HarmDeadDescription",
         "value": 4
       }
     },
@@ -549,7 +549,7 @@
         "connects": []
       },
       "8": {
-        "name": "BITD.Lair",
+        "name": "SFTD.Lair",
         "value": 1,
         "description": "",
         "connects": []
@@ -632,7 +632,7 @@
         "connects": []
       },
       "6": {
-        "name": "BITD.Prison",
+        "name": "SFTD.Prison",
         "value": 1,
         "description": "",
         "connects": []

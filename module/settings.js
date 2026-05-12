@@ -14,8 +14,8 @@ export const registerSystemSettings = function() {
   if (foundry.utils.isNewerVersion(game.version, 12)) {
 
     game.settings.register('songs-for-the-dusk', 'ActionRoll', {
-	name: game.i18n.localize('BITD.Settings.Action.Name'),
-	hint: game.i18n.localize('BITD.Settings.Action.Hint'),
+	name: game.i18n.localize('SFTD.Settings.Action.Name'),
+	hint: game.i18n.localize('SFTD.Settings.Action.Hint'),
 	config: true,
 	default: true,
 	scope: 'world',
@@ -24,8 +24,8 @@ export const registerSystemSettings = function() {
   });
 	
 	game.settings.register('songs-for-the-dusk', 'ThreatRoll', {
-	name: game.i18n.localize('BITD.Settings.Threat.Name'),
-	hint: game.i18n.localize('BITD.Settings.Threat.Hint'),
+	name: game.i18n.localize('SFTD.Settings.Threat.Name'),
+	hint: game.i18n.localize('SFTD.Settings.Threat.Hint'),
 	config: true,
 	scope: 'world',
 	type: new foundry.data.fields.BooleanField(),
@@ -33,8 +33,8 @@ export const registerSystemSettings = function() {
   });
   
   game.settings.register('songs-for-the-dusk', 'PushYourself', {
-	name: game.i18n.localize('BITD.Settings.Push.Name'),
-	hint: game.i18n.localize('BITD.Settings.Push.Hint'),
+	name: game.i18n.localize('SFTD.Settings.Push.Name'),
+	hint: game.i18n.localize('SFTD.Settings.Push.Hint'),
 	config: true,
 	scope: 'world',
 	type: new foundry.data.fields.BooleanField(),
@@ -42,8 +42,8 @@ export const registerSystemSettings = function() {
   });
   
     game.settings.register('songs-for-the-dusk', 'DeepCutLoad', {
-	name: game.i18n.localize('BITD.Settings.Load.Name'),
-	hint: game.i18n.localize('BITD.Settings.Load.Hint'),
+	name: game.i18n.localize('SFTD.Settings.Load.Name'),
+	hint: game.i18n.localize('SFTD.Settings.Load.Hint'),
 	config: true,
 	scope: 'world',
 	type: new foundry.data.fields.BooleanField(),
@@ -51,8 +51,8 @@ export const registerSystemSettings = function() {
   });
   
     game.settings.register('songs-for-the-dusk', 'ClockXP', {
-	name: game.i18n.localize('BITD.Settings.ClockXP.Name'),
-	hint: game.i18n.localize('BITD.Settings.ClockXP.Hint'),
+	name: game.i18n.localize('SFTD.Settings.ClockXP.Name'),
+	hint: game.i18n.localize('SFTD.Settings.ClockXP.Hint'),
 	config: true,
 	scope: 'world',
 	type: new foundry.data.fields.BooleanField(),
@@ -60,8 +60,8 @@ export const registerSystemSettings = function() {
   });
   
     game.settings.register('songs-for-the-dusk', 'Edge', {
-	name: game.i18n.localize('BITD.Settings.Edge.Name'),
-	hint: game.i18n.localize('BITD.Settings.Edge.Hint'),
+	name: game.i18n.localize('SFTD.Settings.Edge.Name'),
+	hint: game.i18n.localize('SFTD.Settings.Edge.Hint'),
 	config: true,
 	scope: 'world',
 	type: new foundry.data.fields.BooleanField(),
@@ -69,8 +69,8 @@ export const registerSystemSettings = function() {
   });
   
   	game.settings.register('songs-for-the-dusk', 'PublicClocks', {
-	name: game.i18n.localize('BITD.Settings.PublicClocks.Name'),
-	hint: game.i18n.localize('BITD.Settings.PublicClocks.Hint'),
+	name: game.i18n.localize('SFTD.Settings.PublicClocks.Name'),
+	hint: game.i18n.localize('SFTD.Settings.PublicClocks.Hint'),
 	config: true,
 	scope: 'world',
 	type: new foundry.data.fields.BooleanField(),
@@ -93,8 +93,8 @@ export const registerSystemSettings = function() {
   for (let i=0; i<set_array.length; i++) {
 	  
 	game.settings.register('songs-for-the-dusk', set_array[i][0], {
-		name: game.i18n.localize('BITD.Settings.'+set_array[i][1]+'.Name'),
-		hint: game.i18n.localize('BITD.Settings.'+set_array[i][1]+'.Hint'),
+		name: game.i18n.localize('SFTD.Settings.'+set_array[i][1]+'.Name'),
+		hint: game.i18n.localize('SFTD.Settings.'+set_array[i][1]+'.Hint'),
 		config: true,
 		scope: 'world',
 		type: Boolean,

@@ -2,20 +2,20 @@
   <header class="sheet-header">
       <img src="{{img}}" data-edit="img" title="{{name}}"/>
       <div class="header-fields">
-          <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'BITD.Name'}}"/></h1>
+          <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'SFTD.Name'}}"/></h1>
       </div>
   </header>
 
   <section class="flex-vertical">
-    <label class="label-stripe">{{localize "BITD.Description"}}</label>
+    <label class="label-stripe">{{localize "SFTD.Description"}}</label>
     {{editor system.description target="system.description" button=true editable=editable}}
-    <label class="label-stripe">{{localize "BITD.ExpClues"}}</label>
+    <label class="label-stripe">{{localize "SFTD.ExpClues"}}</label>
     {{editor system.experience_clues target="system.experience_clues" button=true editable=editable}}
 
-    <label class="label-stripe">{{localize "BITD.Turf"}}</label>
+    <label class="label-stripe">{{localize "SFTD.Turf"}}</label>
     <div id="turf-container">{{> "systems/songs-for-the-dusk/templates/parts/turf-list.html" turfs_data=system.turfs can_edit=true editable=editable}}</div>
 	{{#if isGM}}
-	<div class="label-stripe">{{localize "BITD.Effects"}}</div>
+	<div class="label-stripe">{{localize "SFTD.Effects"}}</div>
     <div id="effects">{{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}</div>
 	{{/if}}
   </section>

@@ -34,13 +34,13 @@ export class BladesClockSheet extends BladesSheet {
 		"12": "12",
 	};
 	sheetData.colorDropdown = {
-		"black": "BITD.Colors.Black",
-		"blue": "BITD.Colors.Blue",
-		"green": "BITD.Colors.Green",
-		"grey": "BITD.Colors.Grey",
-		"red": "BITD.Colors.Red",
-		"white": "BITD.Colors.White",
-		"yellow": "BITD.Colors.Yellow"
+		"black": "SFTD.Colors.Black",
+		"blue": "SFTD.Colors.Blue",
+		"green": "SFTD.Colors.Green",
+		"grey": "SFTD.Colors.Grey",
+		"red": "SFTD.Colors.Red",
+		"white": "SFTD.Colors.White",
+		"yellow": "SFTD.Colors.Yellow"
 	};
 
     return sheetData;

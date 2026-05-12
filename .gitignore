@@ -1,7 +1,8 @@
 .idea/*
 /*.lock
-/LOG*
-/*.log
-/*.ldb
-/CURRENT
-/MANIFEST-*
+**/LOG*
+**/LOCK
+**/*.log
+**/*.ldb
+**/CURRENT
+**/MANIFEST-*

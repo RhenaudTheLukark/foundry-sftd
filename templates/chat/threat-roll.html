@@ -23,11 +23,11 @@
 
   <li>
 	{{#if (eq roll_status "success")}}
-		{{{localize "BITD.RollSuccess"}}}
+		{{{localize "SFTD.RollSuccess"}}}
 	{{else if (eq roll_status "partial-success")}}
-		{{{localize "BITD.RollPeril"}}}
+		{{{localize "SFTD.RollPeril"}}}
 	{{else}}
-		{{{localize "BITD.ThreatRoll"}}}
+		{{{localize "SFTD.ThreatRoll"}}}
 	{{/if}}
   </li>
   </ol>
@@ -35,11 +35,11 @@
   <div class="description">
     <p>
 	{{#if (eq roll_status "success")}}
-		{{{localize "BITD.RollThreatSuccess"}}}
+		{{{localize "SFTD.RollThreatSuccess"}}}
 	{{else if (eq roll_status "partial-success")}}
-		{{{localize "BITD.RollThreatPeril"}}}
+		{{{localize "SFTD.RollThreatPeril"}}}
 	{{else}}
-		{{{localize "BITD.RollThreatThreat"}}}
+		{{{localize "SFTD.RollThreatThreat"}}}
 	{{/if}}
     </p>
   </div>
@@ -51,7 +51,7 @@
   <div class="description">
 	  {{#if (getSetting 'Edge')}}
 		{{#if edge}}
-			<p>{{{localize "BITD.GainEdge"}}}</p>
+			<p>{{{localize "SFTD.GainEdge"}}}</p>
 		{{/if}}
 	  {{/if}}
   </div>
@@ -60,7 +60,7 @@
   {{/if}}
   <ol class="dice-rolls">
 	{{#if (gteq rolls.length 1)}}
-		<li><b>{{localize "BITD.UnusedDice"}}: </b></li>
+		<li><b>{{localize "SFTD.UnusedDice"}}: </b></li>
 	{{/if}}
     {{#each this.rolls}}
     {{#if this.result}}

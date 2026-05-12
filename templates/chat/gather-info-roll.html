@@ -4,24 +4,24 @@
 	<div class="chat-label-small label-stripe-chat-small">0d</div>
 	{{/if}}
   {{#if (or (eq roll_status "success") (eq roll_status "critical-success"))}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollSuccess"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollGatherInformationSuccess"}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollSuccess"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollGatherInformationSuccess"}}}</p></div>
   {{/if}}
 
   {{#if (eq roll_status "partial-success")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollPartialSuccess"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollGatherInformationPartialSuccess"}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollPartialSuccess"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollGatherInformationPartialSuccess"}}}</p></div>
   {{/if}}
 
   {{#if (eq roll_status "failure")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollFailure"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollGatherInformationFailure"}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollFailure"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollGatherInformationFailure"}}}</p></div>
   {{/if}}
 
   <div class="description">
 	  {{#if (getSetting 'Edge')}}
 		{{#if edge}}
-			<p>{{{localize "BITD.GainEdge"}}}</p>
+			<p>{{{localize "SFTD.GainEdge"}}}</p>
 		{{/if}}
 	  {{/if}}
   </div>

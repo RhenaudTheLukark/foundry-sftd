@@ -18,7 +18,7 @@ export async function bladesRoll(dice_amount, attribute_name = "", position = "r
   
   //if using Threat Rolls, increase dice pool by number of extra threats after establishing zeromode
 	//Threat Roll comes in as 'effect' and number of Extra dice from threats is coming in as 'current_stress'
-	if (effect === 'BITD.ThreatRoll') {dice_amount = Number(dice_amount)+Number(current_stress);}
+	if (effect === 'SFTD.ThreatRoll') {dice_amount = Number(dice_amount)+Number(current_stress);}
 
 	let r = new Roll( `${dice_amount}d6`, {} );
 
@@ -58,7 +58,7 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
   }
 
   // if the roll is a Threat Roll
-  if (effect === 'BITD.ThreatRoll') {
+  if (effect === 'SFTD.ThreatRoll') {
 	let firstLoop = true; //codes for the header of the chat message
 	let r_rolls = [];
 	
@@ -122,27 +122,27 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
     let position_localize = '';
     switch (position) {
       case 'controlled':
-        position_localize = 'BITD.PositionControlled'
+        position_localize = 'SFTD.PositionControlled'
         break;
       case 'desperate':
-        position_localize = 'BITD.PositionDesperate'
+        position_localize = 'SFTD.PositionDesperate'
         break;
       case 'risky':
       default:
-        position_localize = 'BITD.PositionRisky'
+        position_localize = 'SFTD.PositionRisky'
     }
 
     let effect_localize = '';
     switch (effect) {
       case 'limited':
-        effect_localize = 'BITD.EffectLimited'
+        effect_localize = 'SFTD.EffectLimited'
         break;
       case 'great':
-        effect_localize = 'BITD.EffectGreat'
+        effect_localize = 'SFTD.EffectGreat'
         break;
       case 'standard':
       default:
-        effect_localize = 'BITD.EffectStandard'
+        effect_localize = 'SFTD.EffectStandard'
     }
 
     result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/action-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, position_localize: position_localize, effect: effect, effect_localize: effect_localize, note: note, edge: edge});
@@ -157,7 +157,7 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
     result = await renderTemplate(filepath, {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, stress: stress, note: note, edge: edge});
   }
   // Check for Indugle Vice roll
-  else if (attribute_name == 'BITD.Vice') {
+  else if (attribute_name == 'SFTD.Vice') {
     let clear_stress = getBladesRollVice(rolls, zeromode);
 
     if (current_stress - clear_stress >= 0) {
@@ -170,15 +170,15 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
     result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/vice-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, clear_stress: clear_stress, note: note, edge: edge});
   }
   // Check for Gather Information roll
-  else if (attribute_name == 'BITD.GatherInformation') {
+  else if (attribute_name == 'SFTD.GatherInformation') {
     result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/gather-info-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
   }
   // Check for Engagement roll
-  else if (attribute_name == 'BITD.Engagement') {
+  else if (attribute_name == 'SFTD.Engagement') {
     result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/engagement-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
   }
   // Check for Asset roll
-  else if (attribute_name == 'BITD.AcquireAsset') {
+  else if (attribute_name == 'SFTD.AcquireAsset') {
     let tier_quality = Number(current_crew_tier);
     let status = String(roll_status);
     switch (status) {
@@ -201,7 +201,7 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
   }
   // Fortune roll if not specified
   else {
-    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/fortune-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: "BITD.Fortune", note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/fortune-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: "SFTD.Fortune", note: note, edge: edge});
   }
 
   let messageData;
@@ -377,10 +377,10 @@ export async function simpleRollPopup() {
 	else {console.log("No Token is selected.");}
 	
   const content = `
-      <h2>${game.i18n.localize("BITD.RollSomeDice")}</h2>
+      <h2>${game.i18n.localize("SFTD.RollSomeDice")}</h2>
       <form class="bitd-simple-roll-dialog">
         <div class="form-group">
-          <label>${game.i18n.localize("BITD.RollNumberOfDice")}:</label>
+          <label>${game.i18n.localize("SFTD.RollNumberOfDice")}:</label>
           <select id="qty" name="qty">
             ${Array(11).fill().map((item, i) => `<option value="${i}">${i}d</option>`).join('')}
           </select>
@@ -389,20 +389,20 @@ export async function simpleRollPopup() {
           <legend>Roll Types</legend>
           <div style="display:grid; grid-template-columns:auto auto; gap:1em;">
             <div style="display:grid; gap:0.4em;">
-              <label><input type="radio" id="fortune" name="rollSelection" value="fortune" checked=true> ${game.i18n.localize("BITD.Fortune")}</label>
-              <label><input type="radio" id="gatherInfo" name="rollSelection" value="gatherInfo"> ${game.i18n.localize("BITD.GatherInformation")}</label>
-              <label><input type="radio" id="engagement" name="rollSelection" value="engagement"> ${game.i18n.localize("BITD.Engagement")}</label>
-              <label><input type="radio" id="indulgeVice" name="rollSelection" value="indulgeVice"> ${game.i18n.localize("BITD.IndulgeVice")}</label>
-              <label><input type="radio" id="acquireAsset" name="rollSelection" value="acquireAsset"> ${game.i18n.localize("BITD.AcquireAsset")}</label>
+              <label><input type="radio" id="fortune" name="rollSelection" value="fortune" checked=true> ${game.i18n.localize("SFTD.Fortune")}</label>
+              <label><input type="radio" id="gatherInfo" name="rollSelection" value="gatherInfo"> ${game.i18n.localize("SFTD.GatherInformation")}</label>
+              <label><input type="radio" id="engagement" name="rollSelection" value="engagement"> ${game.i18n.localize("SFTD.Engagement")}</label>
+              <label><input type="radio" id="indulgeVice" name="rollSelection" value="indulgeVice"> ${game.i18n.localize("SFTD.IndulgeVice")}</label>
+              <label><input type="radio" id="acquireAsset" name="rollSelection" value="acquireAsset"> ${game.i18n.localize("SFTD.AcquireAsset")}</label>
             </div>
             <div style="display:grid; gap:0.4em; align-content:end;">
-              <span><label>${game.i18n.localize('BITD.Stress')}:</label> <select id="stress" name="stress"><option value="${current_stress}" selected disabled hidden>${current_stress}</option>${Array(11).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
-              <span><label>${game.i18n.localize('BITD.CrewTier')}:</label> <select id="tier" name="tier"><option value="${current_tier}" selected disabled hidden>${current_tier}</option>${Array(5).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
+              <span><label>${game.i18n.localize('SFTD.Stress')}:</label> <select id="stress" name="stress"><option value="${current_stress}" selected disabled hidden>${current_stress}</option>${Array(11).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
+              <span><label>${game.i18n.localize('SFTD.CrewTier')}:</label> <select id="tier" name="tier"><option value="${current_tier}" selected disabled hidden>${current_tier}</option>${Array(5).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
             </div>
           </div>
         </fieldset>
         <div className="form-group">
-          <label>${game.i18n.localize('BITD.Notes')}:</label>
+          <label>${game.i18n.localize('SFTD.Notes')}:</label>
           <input id="note" name="note" type="text" value="">
         </div><br/>
       </form>
@@ -427,17 +427,17 @@ export async function simpleRollPopup() {
 
   switch (selection) {
     case 'gatherInfo':
-      await bladesRoll(diceQty,"BITD.GatherInformation","","",note,"");
+      await bladesRoll(diceQty,"SFTD.GatherInformation","","",note,"");
       break;
     case 'engagement':
-      await bladesRoll(diceQty,"BITD.Engagement","","",note,"");
+      await bladesRoll(diceQty,"SFTD.Engagement","","",note,"");
       break;
     case 'indulgeVice':
-      await bladesRoll(diceQty,"BITD.Vice","","",note,stress);
+      await bladesRoll(diceQty,"SFTD.Vice","","",note,stress);
       break;
     case 'acquireAsset':
 	  diceQty = diceQty + tier;
-      await bladesRoll(diceQty,"BITD.AcquireAsset","","",note,"",tier);
+      await bladesRoll(diceQty,"SFTD.AcquireAsset","","",note,"",tier);
       break;
     default:
       await bladesRoll(diceQty,"","","",note,"");

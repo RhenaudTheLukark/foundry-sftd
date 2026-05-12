@@ -47,7 +47,7 @@
 			type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dtype="Number"
             name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="{{this}}">
         <label {{#if (and (gt skill.min 0) (lteq this skill.min))}}
-			data-tooltip="{{localize "BITD.DisabledByAE"}}" 
+			data-tooltip="{{localize "SFTD.DisabledByAE"}}" 
 			{{/if}}
 			{{#if (lteq this (oneless skill.min))}}style="filter: unset; opacity: unset; cursor: unset;" 
 			{{/if}}
@@ -57,7 +57,7 @@
 		{{#if (eq skill.max 3)}}
 		    <input type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dtype="Number"
             name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="{{this}}">
-			<label data-tooltip="{{localize "BITD.NoMastery"}}" style="filter: unset; opacity: unset; cursor: unset; background-color: #dadbed; border-color: gray"></label>
+			<label data-tooltip="{{localize "SFTD.NoMastery"}}" style="filter: unset; opacity: unset; cursor: unset; background-color: #dadbed; border-color: gray"></label>
 		{{/if}}
 
         <div class="attribute-skill-label roll-die-attribute rollable-text" data-roll-attribute="{{skill_name}}">{{localize skill.label}}</div>

@@ -2,22 +2,22 @@
   <header class="sheet-header">
       <img src="{{img}}" data-edit="img" title="{{name}}"/>
       <div class="header-fields">
-          <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'BITD.Faction'}}"/></h1>
+          <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'SFTD.Faction'}}"/></h1>
       </div>
   </header>
 
   <section class="flex-vertical">
-	<label class="label-stripe">{{localize "BITD.Description"}}</label>
+	<label class="label-stripe">{{localize "SFTD.Description"}}</label>
     <textarea rows="2" name="system.description">{{system.description}}</textarea>
-	<label class="label-stripe">{{localize "BITD.FactionType"}}</label>
+	<label class="label-stripe">{{localize "SFTD.FactionType"}}</label>
     <textarea rows="1" name="system.type">{{system.type}}</textarea>
-	<label class="label-stripe">{{localize "BITD.Tier"}}</label>
+	<label class="label-stripe">{{localize "SFTD.Tier"}}</label>
     <textarea rows="1" name="system.tier">{{system.tier}}</textarea>
-	<label class="label-stripe">{{localize "BITD.Notes"}}</label>
+	<label class="label-stripe">{{localize "SFTD.Notes"}}</label>
     <textarea rows="2" name="system.notes">{{system.notes}}</textarea>
 
     {{#if isGM }}
-        <label class="label-stripe">{{localize "BITD.Goal"}}</label>
+        <label class="label-stripe">{{localize "SFTD.Goal"}}</label>
 
         <div class="flex-vertical clock-block" id="faction-goal-clock">
           <div class="clocks clocks-{{system.goal_1_clock_max}} small" id="faction-clock-1">
@@ -41,19 +41,19 @@
           <textarea rows="1" name="system.goal_2">{{system.goal_2}}</textarea>
 
         </div>
-        <label class="label-stripe">{{localize "BITD.NotableNPCs"}}</label>
+        <label class="label-stripe">{{localize "SFTD.NotableNPCs"}}</label>
         <textarea rows="10" name="system.notables">{{system.notables}}</textarea>
-        <label class="label-stripe">{{localize "BITD.Turf"}}</label>
+        <label class="label-stripe">{{localize "SFTD.Turf"}}</label>
         <textarea rows="2" name="system.turf">{{system.turf}}</textarea>
-        <label class="label-stripe">{{localize "BITD.Assets"}}</label>
+        <label class="label-stripe">{{localize "SFTD.Assets"}}</label>
         <textarea rows="1" name="system.assets">{{system.assets}}</textarea>
-        <label class="label-stripe">{{localize "BITD.Quirks"}}</label>
+        <label class="label-stripe">{{localize "SFTD.Quirks"}}</label>
         <textarea rows="1" name="system.quirks">{{system.quirks}}</textarea>
-        <label class="label-stripe">{{localize "BITD.Allies"}}</label>
+        <label class="label-stripe">{{localize "SFTD.Allies"}}</label>
         <textarea rows="1" name="system.allies">{{system.allies}}</textarea>
-        <label class="label-stripe">{{localize "BITD.Enemies"}}</label>
+        <label class="label-stripe">{{localize "SFTD.Enemies"}}</label>
         <textarea rows="1" name="system.enemies">{{system.enemies}}</textarea>
-        <label class="label-stripe">{{localize "BITD.Situation"}}</label>
+        <label class="label-stripe">{{localize "SFTD.Situation"}}</label>
         <textarea rows="10" name="system.situation">{{system.situation}}</textarea>
     {{/if}}
   </section>

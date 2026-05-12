@@ -2,7 +2,7 @@
     <header class="sheet-header">
         <img src="{{img}}" data-edit="img" title="{{name}}"/>
         <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'BITD.Name'}}"/></h1>
+            <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'SFTD.Name'}}"/></h1>
         </div>
     </header>
 
@@ -11,14 +11,14 @@
       {{editor system.description target="system.description" button=true editable=editable}}
     </section>
     <div class="flex-vertical">
-      <label class="label-stripe">{{localize "BITD.AbilityPrice"}}</label>
-      <input id="ability-price" type="text" name="system.price" value="{{system.price}}" placeholder="{{localize 'BITD.AbilityPrice'}}">
-      <label class="label-stripe">{{localize "BITD.AbilityClass"}}</label>
-      <input id="ability-class" type="text" name="system.class" value="{{system.class}}" placeholder="{{localize 'BITD.AbilityClass'}}">
+      <label class="label-stripe">{{localize "SFTD.AbilityPrice"}}</label>
+      <input id="ability-price" type="text" name="system.price" value="{{system.price}}" placeholder="{{localize 'SFTD.AbilityPrice'}}">
+      <label class="label-stripe">{{localize "SFTD.AbilityClass"}}</label>
+      <input id="ability-class" type="text" name="system.class" value="{{system.class}}" placeholder="{{localize 'SFTD.AbilityClass'}}">
       {{#if isGM}}
-       <!-- <div class="label-stripe">{{localize "BITD.Logic"}}</div>
+       <!-- <div class="label-stripe">{{localize "SFTD.Logic"}}</div>
         <textarea name="system.logic">{{{system.logic}}}</textarea> -->
-        <div class="label-stripe">{{localize "BITD.Effects"}}</div>
+        <div class="label-stripe">{{localize "SFTD.Effects"}}</div>
         <div id="effects">{{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}</div>
       {{/if}}
     </div>

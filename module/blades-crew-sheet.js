@@ -39,7 +39,7 @@ export class BladesCrewSheet extends BladesSheet {
 
       if (item.type === "crew_type") {
         Object.entries(item.system.turfs).forEach(([key, turf]) => {
-          if (turf.name === 'BITD.Turf') {
+          if (turf.name === 'SFTD.Turf') {
             turfs_amount += (turf.value === true) ? 1 : 0;
           }
         });

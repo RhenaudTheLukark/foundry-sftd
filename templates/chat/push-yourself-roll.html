@@ -1,34 +1,34 @@
 <div class="dice-tooltip blades-die-tooltip">
   {{#if attribute_label}}<div class="chat-label label-stripe-chat">{{localize attribute_label}}</div>{{/if}}
     <div class="chat-label-small label-stripe-chat-small">
-      {{{localize "BITD.PushYourself"}}} {{#if zeromode}}| 0d {{/if}}
+      {{{localize "SFTD.PushYourself"}}} {{#if zeromode}}| 0d {{/if}}
     </div>
   {{#if (eq roll_status "critical-success")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollCriticalSuccess"}}</div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollCriticalSuccess"}}</div>
   <div class="description">
-    <p>{{{localize "BITD.RollResistance" stress=0}}}</p>
+    <p>{{{localize "SFTD.RollResistance" stress=0}}}</p>
   </div>
   {{/if}}
   
   {{#if (eq roll_status "success")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollSuccess"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollResistance" stress=1}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollSuccess"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollResistance" stress=1}}}</p></div>
   {{/if}}
   
   {{#if (eq roll_status "partial-success")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollPartialSuccess"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollResistance" stress=2}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollPartialSuccess"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollResistance" stress=2}}}</p></div>
   {{/if}}
   
   {{#if (eq roll_status "failure")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollFailure"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollResistance" stress=3}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollFailure"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollResistance" stress=3}}}</p></div>
   {{/if}}
 
   <div class="description">
 	  {{#if (getSetting 'Edge')}}
 		{{#if edge}}
-			<p>{{{localize "BITD.GainEdge"}}}</p>
+			<p>{{{localize "SFTD.GainEdge"}}}</p>
 		{{/if}}
 	  {{/if}}
   </div>

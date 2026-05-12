@@ -44,7 +44,7 @@ export class BladesActor extends Actor {
 
     // Calculate Dice to throw.
     let dice_amount = {};
-    dice_amount['BITD.Vice'] = 4;
+    dice_amount['SFTD.Vice'] = 4;
 
     for (var attribute_name in this.system.attributes) {
       //dice_amount[attribute_name] = 0;
@@ -59,7 +59,7 @@ export class BladesActor extends Actor {
         }
       }
       // Vice dice roll uses lowest attribute dice amount
-      dice_amount['BITD.Vice'] = Math.min(dice_amount['insight'],dice_amount['prowess'],dice_amount['resolve']);
+      dice_amount['SFTD.Vice'] = Math.min(dice_amount['insight'],dice_amount['prowess'],dice_amount['resolve']);
     }
 
     return dice_amount;
@@ -99,10 +99,10 @@ export class BladesActor extends Actor {
     }
 
     let content = `
-        <h2>${game.i18n.localize('BITD.Roll')} ${game.i18n.localize(attribute_label)}</h2>
+        <h2>${game.i18n.localize('SFTD.Roll')} ${game.i18n.localize(attribute_label)}</h2>
         <form class="bitd-roll-dialog">
           <div class="form-group">
-            <label>${game.i18n.localize('BITD.Modifier')}:</label>
+            <label>${game.i18n.localize('SFTD.Modifier')}:</label>
             <select id="mod" name="mod">
               ${this.createListOfDiceMods(-3,+3,0)}
             </select>
@@ -115,33 +115,33 @@ export class BladesActor extends Actor {
 		if (game.settings.get('songs-for-the-dusk', 'ActionRoll')) {
 		  content += `
           <div style="display:grid; grid-template-columns:auto auto auto; gap:0.5em 1em; align-items:center;">
-            <label><input type="radio" id="actionRoll" name="rollSelection" value="actionRoll" checked=true> ${game.i18n.localize("BITD.ActionRoll")}</label>
-            <span><label>${game.i18n.localize('BITD.Position')}:</label> <select id="pos" name="pos"><option value="controlled">${game.i18n.localize('BITD.PositionControlled')}</option><option value="risky" selected>${game.i18n.localize('BITD.PositionRisky')}</option><option value="desperate">${game.i18n.localize('BITD.PositionDesperate')}</option></select></span>
-            <span><label>${game.i18n.localize('BITD.Effect')}:</label> <select id="fx" name="fx"><option value="limited">${game.i18n.localize('BITD.EffectLimited')}</option><option value="standard" selected>${game.i18n.localize('BITD.EffectStandard')}</option><option value="great">${game.i18n.localize('BITD.EffectGreat')}</option></select></span>
+            <label><input type="radio" id="actionRoll" name="rollSelection" value="actionRoll" checked=true> ${game.i18n.localize("SFTD.ActionRoll")}</label>
+            <span><label>${game.i18n.localize('SFTD.Position')}:</label> <select id="pos" name="pos"><option value="controlled">${game.i18n.localize('SFTD.PositionControlled')}</option><option value="risky" selected>${game.i18n.localize('SFTD.PositionRisky')}</option><option value="desperate">${game.i18n.localize('SFTD.PositionDesperate')}</option></select></span>
+            <span><label>${game.i18n.localize('SFTD.Effect')}:</label> <select id="fx" name="fx"><option value="limited">${game.i18n.localize('SFTD.EffectLimited')}</option><option value="standard" selected>${game.i18n.localize('SFTD.EffectStandard')}</option><option value="great">${game.i18n.localize('SFTD.EffectGreat')}</option></select></span>
           </div>`;
 		}
 		// Row 2: Threat Roll (if enabled)
 		if (game.settings.get('songs-for-the-dusk', 'ThreatRoll')) {
 		  content += `
           <div style="display:grid; grid-template-columns:auto auto auto; gap:0.5em 1em; align-items:center;">
-            <label><input type="radio" id="threatRoll" name="rollSelection" value="threatRoll" checked=true> ${game.i18n.localize("BITD.ThreatRoll")}</label>
-            <span><label>${game.i18n.localize('BITD.Position')}:</label> <select id="pos2" name="pos2"><option value="risky" selected>${game.i18n.localize('BITD.PositionRisky')}</option><option value="desperate">${game.i18n.localize('BITD.PositionDesperate')}</option></select></span>
-            <span><label>${game.i18n.localize('BITD.ExtraThreats')}:</label> <select id="extraThreats" name="extraThreats">${Array(6).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
+            <label><input type="radio" id="threatRoll" name="rollSelection" value="threatRoll" checked=true> ${game.i18n.localize("SFTD.ThreatRoll")}</label>
+            <span><label>${game.i18n.localize('SFTD.Position')}:</label> <select id="pos2" name="pos2"><option value="risky" selected>${game.i18n.localize('SFTD.PositionRisky')}</option><option value="desperate">${game.i18n.localize('SFTD.PositionDesperate')}</option></select></span>
+            <span><label>${game.i18n.localize('SFTD.ExtraThreats')}:</label> <select id="extraThreats" name="extraThreats">${Array(6).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
           </div>`;
 		}
 		// Row 3: Other roll types
 		content += `
           <div style="display:grid; grid-template-columns:auto auto; gap:0.4em 1em;">
             <div style="display:grid; gap:0.4em;">
-              <label><input type="radio" id="fortune" name="rollSelection" value="fortune"> ${game.i18n.localize("BITD.Fortune")}</label>
-              <label><input type="radio" id="gatherInfo" name="rollSelection" value="gatherInfo"> ${game.i18n.localize("BITD.GatherInformation")}</label>
-              <label><input type="radio" id="indulgeVice" name="rollSelection" value="indulgeVice"> ${game.i18n.localize("BITD.IndulgeVice")}</label>
-              <label><input type="radio" id="engagement" name="rollSelection" value="engagement"> ${game.i18n.localize("BITD.Engagement")}</label>
-              <label><input type="radio" id="acquireAsset" name="rollSelection" value="acquireAsset"> ${game.i18n.localize("BITD.AcquireAsset")}</label>
+              <label><input type="radio" id="fortune" name="rollSelection" value="fortune"> ${game.i18n.localize("SFTD.Fortune")}</label>
+              <label><input type="radio" id="gatherInfo" name="rollSelection" value="gatherInfo"> ${game.i18n.localize("SFTD.GatherInformation")}</label>
+              <label><input type="radio" id="indulgeVice" name="rollSelection" value="indulgeVice"> ${game.i18n.localize("SFTD.IndulgeVice")}</label>
+              <label><input type="radio" id="engagement" name="rollSelection" value="engagement"> ${game.i18n.localize("SFTD.Engagement")}</label>
+              <label><input type="radio" id="acquireAsset" name="rollSelection" value="acquireAsset"> ${game.i18n.localize("SFTD.AcquireAsset")}</label>
             </div>
             <div style="display:grid; gap:0.4em; align-content:end;">
-              <span><label>${game.i18n.localize("BITD.RollNumberOfDice")}:</label> <select id="qty" name="qty">${Array.from({ length: 11 }, (_, i) => { const selected = i === sanitizedDefaultDice ? " selected" : ""; return `<option value="${i}"${selected}>${i}d</option>`; }).join("")}</select></span>
-              <span><label>${game.i18n.localize('BITD.CrewTier')}:</label> <select id="tier" name="tier"><option value="${current_tier}" selected disabled hidden>${current_tier}</option>${Array(5).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
+              <span><label>${game.i18n.localize("SFTD.RollNumberOfDice")}:</label> <select id="qty" name="qty">${Array.from({ length: 11 }, (_, i) => { const selected = i === sanitizedDefaultDice ? " selected" : ""; return `<option value="${i}"${selected}>${i}d</option>`; }).join("")}</select></span>
+              <span><label>${game.i18n.localize('SFTD.CrewTier')}:</label> <select id="tier" name="tier"><option value="${current_tier}" selected disabled hidden>${current_tier}</option>${Array(5).fill().map((item, i) => `<option value="${i}">${i}</option>`).join('')}</select></span>
             </div>
           </div>
         </fieldset>
@@ -154,15 +154,15 @@ export class BladesActor extends Actor {
     }
     content += `
         <div className="form-group">
-          <label>${game.i18n.localize('BITD.Notes')}:</label>
+          <label>${game.i18n.localize('SFTD.Notes')}:</label>
           <input id="note" name="note" type="text" value="">
         </div><br/>
        </form>
       `;
     const dialogResult = await openFormDialog({
-      title: `${game.i18n.localize('BITD.Roll')} ${game.i18n.localize(attribute_label)}`,
+      title: `${game.i18n.localize('SFTD.Roll')} ${game.i18n.localize(attribute_label)}`,
       content,
-      okLabel: game.i18n.localize('BITD.Roll'),
+      okLabel: game.i18n.localize('SFTD.Roll'),
       cancelLabel: game.i18n.localize('Close'),
       defaultButton: "ok",
     });
@@ -175,7 +175,7 @@ export class BladesActor extends Actor {
     const note = dialogResult.note ?? "";
     const rollData = this.getRollData();
     const actionDiceAmount = rollData.dice_amount[attribute_name] + modifier;
-    const viceDiceAmount = rollData.dice_amount['BITD.Vice'] + modifier;
+    const viceDiceAmount = rollData.dice_amount['SFTD.Vice'] + modifier;
     const stress = Number(this.system.stress.value) || 0;
 
     if (!BladesHelpers.isAttributeAction(attribute_name)) {
@@ -194,27 +194,27 @@ export class BladesActor extends Actor {
       case "threatRoll": {
         const extraThreats = Number(dialogResult.extraThreats ?? 0) || 0;
         const position2 = dialogResult.pos2 ?? "risky";
-        await bladesRoll(actionDiceAmount, attribute_name, position2, 'BITD.ThreatRoll', note, extraThreats);
+        await bladesRoll(actionDiceAmount, attribute_name, position2, 'SFTD.ThreatRoll', note, extraThreats);
         break;
       }
       case "fortune":
-        await bladesRoll(actionDiceAmount, "BITD.Fortune", "", "", note, "");
+        await bladesRoll(actionDiceAmount, "SFTD.Fortune", "", "", note, "");
         break;
       case "gatherInfo":
-        await bladesRoll(actionDiceAmount, "BITD.GatherInformation", "", "", note, "");
+        await bladesRoll(actionDiceAmount, "SFTD.GatherInformation", "", "", note, "");
         break;
       case "indulgeVice":
-        await bladesRoll(viceDiceAmount, "BITD.Vice", "", "", note, stress);
+        await bladesRoll(viceDiceAmount, "SFTD.Vice", "", "", note, stress);
         break;
       case "engagement": {
         const engagementDice = Number(dialogResult.qty ?? sanitizedDefaultDice) || 0;
-        await bladesRoll(engagementDice, "BITD.Engagement", "", "", note, "");
+        await bladesRoll(engagementDice, "SFTD.Engagement", "", "", note, "");
         break;
       }
       case "acquireAsset": {
         const tier = Number(dialogResult.tier ?? current_tier) || 0;
         const assetDice = tier + modifier;
-        await bladesRoll(assetDice, "BITD.AcquireAsset", "", "", note, "", tier);
+        await bladesRoll(assetDice, "SFTD.AcquireAsset", "", "", note, "", tier);
         break;
       }
       default:

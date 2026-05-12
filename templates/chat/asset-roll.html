@@ -4,33 +4,33 @@
 	<div class="chat-label-small label-stripe-chat-small">0d</div>
 	{{/if}}
   {{#if (eq roll_status "critical-success")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollCriticalSuccess"}}</div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollCriticalSuccess"}}</div>
   <div class="description">
-    <p>{{{localize "BITD.RollAcquireAssetCritical"}}} {{{localize "BITD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p>
+    <p>{{{localize "SFTD.RollAcquireAssetCritical"}}} {{{localize "SFTD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p>
   </div>
   {{/if}}
 
   {{#if (eq roll_status "success")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollSuccess"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollAcquireAssetSuccess"}}} {{{localize "BITD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollSuccess"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollAcquireAssetSuccess"}}} {{{localize "SFTD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p></div>
   {{/if}}
 
   {{#if (eq roll_status "partial-success")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollPartialSuccess"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollAcquireAssetPartialSuccess"}}} {{{localize "BITD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollPartialSuccess"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollAcquireAssetPartialSuccess"}}} {{{localize "SFTD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p></div>
   {{/if}}
 
   {{#if (eq roll_status "failure")}}
-  <div class="die {{roll_status}}">{{localize "BITD.RollFailure"}}</div>
-  <div class="description"><p>{{{localize "BITD.RollAcquireAssetFailure"}}} {{{localize "BITD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p></div>
+  <div class="die {{roll_status}}">{{localize "SFTD.RollFailure"}}</div>
+  <div class="description"><p>{{{localize "SFTD.RollAcquireAssetFailure"}}} {{{localize "SFTD.RollAcquireAssetResult" tier_quality=tier_quality}}}</p></div>
   {{/if}}
 
-  <div class="description"><p><em>{{{localize "BITD.AcquireAssetExtra"}}}</em></p></div>
+  <div class="description"><p><em>{{{localize "SFTD.AcquireAssetExtra"}}}</em></p></div>
   
   <div class="description">
 	  {{#if (getSetting 'Edge')}}
 		{{#if edge}}
-			<p>{{{localize "BITD.GainEdge"}}}</p>
+			<p>{{{localize "SFTD.GainEdge"}}}</p>
 		{{/if}}
 	  {{/if}}
   </div>

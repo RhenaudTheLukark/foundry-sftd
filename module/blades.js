@@ -361,7 +361,7 @@ Hooks.on('getSceneControlButtons', controls => {
 	if (foundry.utils.isNewerVersion(game.version,13)) {
 		controls.tokens.tools.DiceRoller = {
 			name: "DiceRoller",
-			title: "BITD.DiceRoller",
+			title: "SFTD.DiceRoller",
 			icon: "fas fa-dice",
 			onChange: (event, active) => {
 				simpleRollPopup();
