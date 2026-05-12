@@ -247,7 +247,7 @@ Hooks.once("init", async function() {
     if (current_value === null || current_value === 'null') {
       current_value = 0;
     }
-	if (color === undefined) {
+	  if (color === undefined) {
       color = "black";
     }
 
@@ -304,11 +304,11 @@ Hooks.once("init", async function() {
     html += `</div>`;
     return html;
   });
-  
+
   Handlebars.registerHelper('pc', function( string ) {
     return BladesHelpers.getProperCase( string );
   });
-  
+
   // check for game settings
   Handlebars.registerHelper('getSetting', function( string ) {
 	  return (game.settings.get('songs-for-the-dusk', string));
@@ -357,7 +357,6 @@ Hooks.once("ready", async function() {
 
 // getSceneControlButtons
 Hooks.on('getSceneControlButtons', controls => {
-	
 	if (foundry.utils.isNewerVersion(game.version,13)) {
 		controls.tokens.tools.DiceRoller = {
 			name: "DiceRoller",
@@ -367,16 +366,16 @@ Hooks.on('getSceneControlButtons', controls => {
 				simpleRollPopup();
 			},
 			button: true
-		};		
+		};
 	}
 });
-	
-Hooks.on("renderSceneControls", async (app, html) => {	
 
-	if (foundry.utils.isNewerVersion(13,game.version)) { 
+Hooks.on("renderSceneControls", async (app, html) => {
+
+	if (foundry.utils.isNewerVersion(13,game.version)) {
 	  let dice_roller = $('<li class="scene-control" data-tooltip="Dice Roll"><i class="fas fa-dice"></i></li>');
 	  dice_roller.click( async function() {
-		await simpleRollPopup();
+		  await simpleRollPopup();
 	  });
 	  html.children().first().append( dice_roller );
 	}
