@@ -1,5 +1,5 @@
 /**
- * A simple and flexible system for world-building using an arbitrary collection of character and item attributes
+ * A simple and flexible system for world-building using an arbitrary collection of strider and item attributes
  * Author: Atropos
  * Software License: GNU GPLv3
  */
@@ -12,7 +12,7 @@ import { BladesHelpers } from "./blades-helpers.js";
 import { BladesActor } from "./blades-actor.js";
 import { BladesItem } from "./blades-item.js";
 import { BladesItemSheet } from "./blades-item-sheet.js";
-import { BladesActorSheet } from "./blades-actor-sheet.js";
+import { BladesStriderSheet } from "./blades-strider-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesCrewSheet } from "./blades-crew-sheet.js";
 import { BladesClockSheet } from "./blades-clock-sheet.js";
@@ -37,7 +37,7 @@ Hooks.once("init", async function() {
     sizes: [ 4, 6, 8, 10, 12 ]
   };
 
-  game.system.traumas = [ "cold", "haunted", "obsessed", "paranoid", "reckless", "soft", "unstable", "vicious" ];
+  game.system.scars = [ "cold", "haunted", "obsessed", "paranoid", "reckless", "soft", "unstable", "vicious" ];
 
   CONFIG.Item.documentClass = BladesItem;
   CONFIG.Actor.documentClass = BladesActor;
@@ -95,14 +95,14 @@ Hooks.once("init", async function() {
     return html;
   });
 
-  // Trauma Counter
-  Handlebars.registerHelper('traumacounter', function(selected, options) {
+  // Scars Counter
+  Handlebars.registerHelper('scarscounter', function(selected, options) {
 
     let html = options.fn(this);
 
     var count = 0;
-    for (const trauma in selected) {
-      if (selected[trauma] === true) {
+    for (const scars in selected) {
+      if (selected[scars] === true) {
         count++;
       }
     }
@@ -327,7 +327,7 @@ Hooks.once("ready", async function() {
   const itemSheetClass = getItemSheetClass();
 
   unregisterActorSheet("core", actorSheetClass);
-  registerActorSheet("blades", BladesActorSheet, { types: ["character"], makeDefault: true });
+  registerActorSheet("blades", BladesStriderSheet, { types: ["strider"], makeDefault: true });
   registerActorSheet("blades", BladesCrewSheet, { types: ["crew"], makeDefault: true });
   registerActorSheet("blades", BladesFactionSheet, { types: ["factions"], makeDefault: true });
   registerActorSheet("blades", BladesClockSheet, { types: ["\uD83D\uDD5B clock"], makeDefault: true });

@@ -36,9 +36,7 @@ $coin_margin: 3px;
   margin-bottom: 10px;
 }
 
-.name,
-.lair,
-{
+.name, .lair {
   margin-bottom: 10px;
 }
 
@@ -293,7 +291,6 @@ nav{
     @include toothradio(17px, 50px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
   }
 
-  /* Trauma */
   .small-teeth-container {
 
     .small-teeth-wrap {
@@ -307,7 +304,7 @@ nav{
     }
   }
 
-  .trauma-list {
+  .scars-list {
     @include check_underscore();
     justify-content: space-between;
     align-items: flex-start;

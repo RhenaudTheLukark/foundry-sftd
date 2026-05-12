@@ -7,7 +7,7 @@ import { enrichHTML } from "./compat.js";
  * Extend the basic ActorSheet with some very simple modifications
  * @extends {BladesSheet}
  */
-export class BladesActorSheet extends BladesSheet {
+export class BladesStriderSheet extends BladesSheet {
 
     /** @override */
     static get defaultOptions() {
@@ -99,9 +99,9 @@ export class BladesActorSheet extends BladesSheet {
         // catch unmigrated actor data and apply the Mastery crew ability to attribute maxes
         sheetData.system.attributes = this.actor.getComputedAttributes();
 
-        //check for additional stress and trauma from crew sources
+        //check for additional stress and scars from crew sources
         sheetData.system.stress.max = this.actor.getMaxStress();
-        sheetData.system.trauma.max = this.actor.getMaxTrauma();
+        sheetData.system.scars.max = this.actor.getMaxScars();
 
         //check for healing minimums
         sheetData.system.healing_clock.value = this.actor.getHealingMin();
@@ -113,7 +113,7 @@ export class BladesActorSheet extends BladesSheet {
     async _onDropItem(event, droppedItem) {
         await super._onDropItem(event, droppedItem);
         if (!this.actor.isOwner) {
-            ui.notifications.error(`You do not have sufficient permissions to edit this character. Please speak to your GM if you feel you have reached this message in error.`, {permanent: true});
+            ui.notifications.error(`You do not have sufficient permissions to edit this strider. Please speak to your GM if you feel you have reached this message in error.`, {permanent: true});
             return false;
         }
         await this.handleDrop(event, droppedItem);
@@ -123,7 +123,7 @@ export class BladesActorSheet extends BladesSheet {
     async _onDropActor(event, droppedActor) {
         await super._onDropActor(event, droppedActor);
         if (!this.actor.isOwner) {
-            ui.notifications.error(`You do not have sufficient permissions to edit this character. Please speak to your GM if you feel you have reached this message in error.`, {permanent: true});
+            ui.notifications.error(`You do not have sufficient permissions to edit this strider. Please speak to your GM if you feel you have reached this message in error.`, {permanent: true});
             return false;
         }
         await this.handleDrop(event, droppedActor);
@@ -159,7 +159,7 @@ export class BladesActorSheet extends BladesSheet {
         // Everything below here is only needed if the sheet is editable
         if (!this.options.editable) return;
 
-        // Remove Crew from character sheet
+        // Remove Crew from strider sheet
         html.find('.crew-delete').click(ev => {
             const element = $(ev.currentTarget).parents(".item");
             let crewId = element.data("itemId");

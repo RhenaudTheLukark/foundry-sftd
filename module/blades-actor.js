@@ -13,9 +13,9 @@ export class BladesActor extends Actor {
 
     data.prototypeToken = data.prototypeToken || {};
 
-    // For Crew and Character set the Token to sync with charsheet.
+    // For Crew and Strider set the Token to sync with charsheet.
     switch (data.type) {
-      case 'character':
+      case 'strider':
       case 'crew':
       case '\uD83D\uDD5B clock':
 	  case 'npc':
@@ -87,7 +87,7 @@ export class BladesActor extends Actor {
       return Math.max(0, Math.min(Math.floor(numeric), 10));
     })();
 
-    // get crew tier info from character sheet if available
+    // get crew tier info from strider sheet if available
     let current_tier = 0;
     try {
       const crewActor = this._getCrewActor();
@@ -340,7 +340,7 @@ export class BladesActor extends Actor {
     let max_stress = this.system.stress.max;
     const crew_actor = this._getCrewActor();
     if (crew_actor) {
-      const bonus = Number(crew_actor?.system?.scoundrel?.add_stress);
+      const bonus = Number(crew_actor?.system?.strider?.add_stress);
       if (Number.isFinite(bonus)) {
         max_stress += bonus;
       }
@@ -348,16 +348,16 @@ export class BladesActor extends Actor {
     return max_stress;
   }
 
-  getMaxTrauma() {
-    let max_trauma = this.system.trauma.max;
+  getMaxScars() {
+    let max_scars = this.system.scars.max;
     const crew_actor = this._getCrewActor();
     if (crew_actor) {
-      const bonus = Number(crew_actor?.system?.scoundrel?.add_trauma);
+      const bonus = Number(crew_actor?.system?.strider?.add_scars);
       if (Number.isFinite(bonus)) {
-        max_trauma += bonus;
+        max_scars += bonus;
       }
     }
-    return max_trauma;
+    return max_scars;
   }
 
   getHasMastery(){
@@ -365,7 +365,7 @@ export class BladesActor extends Actor {
     if (!crew_actor) {
       return false;
     }
-    return Boolean(crew_actor?.system?.scoundrel?.mastery);
+    return Boolean(crew_actor?.system?.strider?.mastery);
   }
   
   getHealingMin(){

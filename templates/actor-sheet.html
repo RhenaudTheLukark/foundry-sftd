@@ -1,18 +1,18 @@
 <form class="{{cssClass}} actor-sheet" autocomplete="off">
 
-  <section id="character-{{_id}}-name-alias" class="flex-horizontal name-alias">
+  <section id="strider-{{_id}}-name-alias" class="flex-horizontal name-alias">
 
     <div class="grow-two">
       <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" class="portrait" />
     </div>
 
     <div class="grow-two">
-      <div id="character-{{_id}}-name-box">
-        <label for="character-{{_id}}-name"><b>{{localize "SFTD.Name"}}</b></label>
-        <input type="text" id="character-{{_id}}-name" class="name" name="name" value="{{name}}">
+      <div id="strider-{{_id}}-name-box">
+        <label for="strider-{{_id}}-name"><b>{{localize "SFTD.Name"}}</b></label>
+        <input type="text" id="strider-{{_id}}-name" class="name" name="name" value="{{name}}">
       </div>
 
-      <div id="character-{{_id}}-traits" class="flex-column">
+      <div id="strider-{{_id}}-traits" class="flex-column">
 
         <div class="item-block flex-horizontal">
           <div class="item-class-label"><a class="item-add-popup" data-distinct="true" data-item-type="heritage"><b>{{localize "SFTD.Heritage"}}</b></a></div>
@@ -101,9 +101,9 @@
     </div>
 
     <div class="grow-two">
-      <div id="character-{{_id}}-alias-box">
-        <label for="character-{{_id}}-alias"><b>{{localize "SFTD.Alias"}}</b></label>
-        <input type="text" id="character-{{_id}}-alias" class="alias" name="system.alias" value="{{system.alias}}">
+      <div id="strider-{{_id}}-alias-box">
+        <label for="strider-{{_id}}-alias"><b>{{localize "SFTD.Alias"}}</b></label>
+        <input type="text" id="strider-{{_id}}-alias" class="alias" name="system.alias" value="{{system.alias}}">
       </div>
 
       {{> "systems/songs-for-the-dusk/templates/parts/coins.html" actor=actor}}
@@ -154,81 +154,81 @@
     {{/if}}
     {{/if}}
   </section>
-  {{!-- Stress and Trauma --}}
-  <div id="character-{{_id}}-stress-trauma" class="section big-teeth-section">
-    <div id="character-{{_id}}-stress" class="big-teeth character-stress">
+  {{!-- Stress and Scars --}}
+  <div id="strider-{{_id}}-stress-scars" class="section big-teeth-section">
+    <div id="strider-{{_id}}-stress" class="big-teeth strider-stress">
       {{#multiboxes system.stress.value}}
 
-      <input type="radio" id="character-{{_id}}-stress-0" name="system.stress.value" value="0" dtype="Radio">
-      <!--<label class="black-label" for="character-{{_id}}-stress-0">{{localize system.stress.name}}</label>-->
+      <input type="radio" id="strider-{{_id}}-stress-0" name="system.stress.value" value="0" dtype="Radio">
+      <!--<label class="black-label" for="strider-{{_id}}-stress-0">{{localize system.stress.name}}</label>-->
       <div class="black-label">{{localize system.stress.name}}</div>
 
       {{#times_from 1 system.stress.max}}
-      <input type="radio" id="character-{{../_id}}-stress-{{this}}" name="system.stress.value" value="{{this}}"
+      <input type="radio" id="strider-{{../_id}}-stress-{{this}}" name="system.stress.value" value="{{this}}"
              dtype="Radio">
-      <label class="radio-toggle" for="character-{{../_id}}-stress-{{this}}"></label>
+      <label class="radio-toggle" for="strider-{{../_id}}-stress-{{this}}"></label>
       {{/times_from}}
 
       {{/multiboxes}}
 
     </div>
-    <div id="character-{{_id}}-trauma-container" class="small-teeth-container">
-      {{#traumacounter system.trauma.list}}
-      <div id="character-{{_id}}-trauma" class="small-teeth-wrap">
-        <!--<label class="black-label" for="character-{{_id}}-trauma-counter-0">{{localize system.trauma.name}}</label>-->
-        <div class="black-label">{{localize system.trauma.name}}</div>
-        <div id="character-{{_id}}-trauma-teeth" class="small-teeth">
-          <input type="radio" id="character-{{_id}}-trauma-counter-0" name="system.trauma.value" value="0">
+    <div id="strider-{{_id}}-scars-container" class="small-teeth-container">
+      {{#scarscounter system.scars.list}}
+      <div id="strider-{{_id}}-scars" class="small-teeth-wrap">
+        <!--<label class="black-label" for="strider-{{_id}}-scars-counter-0">{{localize system.scars.name}}</label>-->
+        <div class="black-label">{{localize system.scars.name}}</div>
+        <div id="strider-{{_id}}-scars-teeth" class="small-teeth">
+          <input type="radio" id="strider-{{_id}}-scars-counter-0" name="system.scars.value" value="0">
 
-          {{#times_from 1 system.trauma.max}}
-          <input type="radio" id="character-{{../_id}}-trauma-counter-{{this}}" name="system.trauma.value" value="{{this}}" disabled>
-          <label for="character-{{../_id}}-trauma-counter-{{this}}"></label>
+          {{#times_from 1 system.scars.max}}
+          <input type="radio" id="strider-{{../_id}}-scars-counter-{{this}}" name="system.scars.value" value="{{this}}" disabled>
+          <label for="strider-{{../_id}}-scars-counter-{{this}}"></label>
           {{/times_from}}
         </div>
       </div>
-      {{/traumacounter}}
+      {{/scarscounter}}
     </div>
 
-    <div id="character-{{_id}}-trauma-list" class="trauma-list">
+    <div id="strider-{{_id}}-scars-list" class="scars-list">
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.cold" value="cold" {{checked system.trauma.list.cold}}>
-        <span class="checkmark">{{localize system.trauma.options.[0]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.cold" value="cold" {{checked system.scars.list.cold}}>
+        <span class="checkmark">{{localize system.scars.options.[0]}}</span>
       </label>
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.haunted" value="haunted" {{checked system.trauma.list.haunted}}>
-        <span class="checkmark">{{localize system.trauma.options.[1]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.haunted" value="haunted" {{checked system.scars.list.haunted}}>
+        <span class="checkmark">{{localize system.scars.options.[1]}}</span>
       </label>
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.obsessed" value="obsessed" {{checked system.trauma.list.obsessed}}>
-        <span class="checkmark">{{localize system.trauma.options.[2]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.obsessed" value="obsessed" {{checked system.scars.list.obsessed}}>
+        <span class="checkmark">{{localize system.scars.options.[2]}}</span>
       </label>
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.paranoid" value="paranoid" {{checked system.trauma.list.paranoid}}>
-        <span class="checkmark">{{localize system.trauma.options.[3]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.paranoid" value="paranoid" {{checked system.scars.list.paranoid}}>
+        <span class="checkmark">{{localize system.scars.options.[3]}}</span>
       </label>
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.reckless" value="reckless" {{checked system.trauma.list.reckless}}>
-        <span class="checkmark">{{localize system.trauma.options.[4]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.reckless" value="reckless" {{checked system.scars.list.reckless}}>
+        <span class="checkmark">{{localize system.scars.options.[4]}}</span>
       </label>
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.soft" value="soft" {{checked system.trauma.list.soft}}>
-        <span class="checkmark">{{localize system.trauma.options.[5]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.soft" value="soft" {{checked system.scars.list.soft}}>
+        <span class="checkmark">{{localize system.scars.options.[5]}}</span>
       </label>
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.unstable" value="unstable" {{checked system.trauma.list.unstable}}>
-        <span class="checkmark">{{localize system.trauma.options.[6]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.unstable" value="unstable" {{checked system.scars.list.unstable}}>
+        <span class="checkmark">{{localize system.scars.options.[6]}}</span>
       </label>
       <label>
-        <input type="checkbox" data-dType="Boolean" name="system.trauma.list.vicious" value="vicious" {{checked system.trauma.list.vicious}}>
-        <span class="checkmark">{{localize system.trauma.options.[7]}}</span>
+        <input type="checkbox" data-dType="Boolean" name="system.scars.list.vicious" value="vicious" {{checked system.scars.list.vicious}}>
+        <span class="checkmark">{{localize system.scars.options.[7]}}</span>
       </label>
     </div>
 
   </div>
 
   {{!-- Harm, Healing and Armor --}}
-  <section id="character-{{_id}}-harm-armor" class="flex harm-armor">
-    <div id="character-{{_id}}-character-harm" class="character-harm">
+  <section id="strider-{{_id}}-harm-armor" class="flex harm-armor">
+    <div id="strider-{{_id}}-strider-harm" class="strider-harm">
       <table>
         <thead>
         <th class="black-white" colspan="4">{{localize "SFTD.Harm"}}</th>
@@ -239,46 +239,46 @@
         <tr>
           <td>3</td>
           <td colspan="2">
-            <input type="text" id="character-{{_id}}-harm-3-1" name="system.harm.heavy.one" value="{{system.harm.heavy.one}}">
+            <input type="text" id="strider-{{_id}}-harm-3-1" name="system.harm.heavy.one" value="{{system.harm.heavy.one}}">
           </td>
           <td>{{localize "SFTD.NeedHelp"}}</td>
           <td rowspan="3">
-            <div id="character-{{_id}}-health-clock" class="character-health-clock clocks-{{system.healing_clock.max}}">
+            <div id="strider-{{_id}}-health-clock" class="strider-health-clock clocks-{{system.healing_clock.max}}">
               {{{blades-clock "system.healing_clock.value" system.healing_clock.max system.healing_clock.value _id}}}
             </div>
           </td>
-          <td rowspan="3" id="character-{{_id}}-armor-uses" class="character-armor-uses">
+          <td rowspan="3" id="strider-{{_id}}-armor-uses" class="strider-armor-uses">
             <div>
-              <label for="character-{{_id}}-armor-uses-armor">{{localize "SFTD.Armor"}}</label>
-              <input id="character-{{_id}}-armor-uses-armor" type="checkbox" name="system.armor-uses.armor" {{checked system.armor-uses.armor}}>
+              <label for="strider-{{_id}}-armor-uses-armor">{{localize "SFTD.Armor"}}</label>
+              <input id="strider-{{_id}}-armor-uses-armor" type="checkbox" name="system.armor-uses.armor" {{checked system.armor-uses.armor}}>
             </div>
             <div>
-              <label for="character-{{_id}}-armor-uses-heavy">{{localize "SFTD.Heavy"}}</label>
-              <input id="character-{{_id}}-armor-uses-heavy" type="checkbox" name="system.armor-uses.heavy" {{checked system.armor-uses.heavy}}>
+              <label for="strider-{{_id}}-armor-uses-heavy">{{localize "SFTD.Heavy"}}</label>
+              <input id="strider-{{_id}}-armor-uses-heavy" type="checkbox" name="system.armor-uses.heavy" {{checked system.armor-uses.heavy}}>
             </div>
             <div>
-              <label for="character-{{_id}}-armor-uses-special">{{localize "SFTD.Special"}}</label>
-              <input id="character-{{_id}}-armor-uses-special" type="checkbox" name="system.armor-uses.special" {{checked system.armor-uses.special}}>
+              <label for="strider-{{_id}}-armor-uses-special">{{localize "SFTD.Special"}}</label>
+              <input id="strider-{{_id}}-armor-uses-special" type="checkbox" name="system.armor-uses.special" {{checked system.armor-uses.special}}>
             </div>
           </td>
         </tr>
         <tr>
           <td>2</td>
           <td>
-            <input type="text" id="character-{{_id}}-harm-2-1" name="system.harm.medium.one" value="{{system.harm.medium.one}}">
+            <input type="text" id="strider-{{_id}}-harm-2-1" name="system.harm.medium.one" value="{{system.harm.medium.one}}">
           </td>
           <td>
-            <input type="text" id="character-{{_id}}-harm-2-2" name="system.harm.medium.two" value="{{system.harm.medium.two}}">
+            <input type="text" id="strider-{{_id}}-harm-2-2" name="system.harm.medium.two" value="{{system.harm.medium.two}}">
           </td>
           <td>-1D</td>
         </tr>
         <tr>
           <td>1</td>
           <td>
-            <input type="text" id="character-{{_id}}-harm-1-1" name="system.harm.light.one" value="{{system.harm.light.one}}">
+            <input type="text" id="strider-{{_id}}-harm-1-1" name="system.harm.light.one" value="{{system.harm.light.one}}">
           </td>
           <td>
-            <input type="text" id="character-{{_id}}-harm-1-2" name="system.harm.light.two" value="{{system.harm.light.two}}">
+            <input type="text" id="strider-{{_id}}-harm-1-2" name="system.harm.light.two" value="{{system.harm.light.two}}">
           </td>
           <td>{{localize "SFTD.LessEffect"}}</td>
         </tr>
@@ -300,33 +300,33 @@
         <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
         <a class="item" data-tab="loadout">{{localize "SFTD.Loadout"}}</a>
         <a class="item" data-tab="contacts">{{localize 'SFTD.Contacts'}}</a>
-        <a class="item" data-tab="character-notes">{{localize "SFTD.Notes"}}</a>
+        <a class="item" data-tab="strider-notes">{{localize "SFTD.Notes"}}</a>
         {{#if isGM}}
         <a class="item" data-tab="effects">{{localize "SFTD.Effects"}}</a>
         {{/if}}
-        <a class="item" data-tab="all-character-items">{{localize "SFTD.AllItems"}}</a>
+        <a class="item" data-tab="all-strider-items">{{localize "SFTD.AllItems"}}</a>
       </nav>
 
-      <div id="character-{{_id}}-abilities" class="tab flex-vertical abilities" data-tab="abilities">
+      <div id="strider-{{_id}}-abilities" class="tab flex-vertical abilities" data-tab="abilities">
         <div class="label-stripe">
-          <p><label for="character-{{_id}}-experience-0">{{localize "SFTD.Abilities"}}</label></p>
+          <p><label for="strider-{{_id}}-experience-0">{{localize "SFTD.Abilities"}}</label></p>
           <p><a class="item-add-popup" data-item-type="ability" data-tooltip="{{localize 'SFTD.AddAbility'}}"><i class="fas fa-plus-square"></i></a></p>
           {{#if (getSetting 'ClockXP')}}
           {{else}}
-          <div id="character-{{_id}}-experience" class="teeth-experience">
-            <!--<label for="character-{{_id}}-experience-0"><i class="fab fa-creative-commons-zero nullifier"></i></label>-->
+          <div id="strider-{{_id}}-experience" class="teeth-experience">
+            <!--<label for="strider-{{_id}}-experience-0"><i class="fab fa-creative-commons-zero nullifier"></i></label>-->
             {{#multiboxes system.experience}}
-            <input type="radio" id="character-{{_id}}-experience-0" name="system.experience" value="0" dtype="Radio">
+            <input type="radio" id="strider-{{_id}}-experience-0" name="system.experience" value="0" dtype="Radio">
             {{#times_from 1 system.experience_max}}
-            <input type="radio" id="character-{{../_id}}-experience-{{this}}" name="system.experience" value="{{this}}" dtype="Radio">
-            <label class="radio-toggle" for="character-{{../_id}}-experience-{{this}}"></label>
+            <input type="radio" id="strider-{{../_id}}-experience-{{this}}" name="system.experience" value="{{this}}" dtype="Radio">
+            <label class="radio-toggle" for="strider-{{../_id}}-experience-{{this}}"></label>
             {{/times_from}}
             {{/multiboxes}}
           </div>
           {{/if}}
         </div>
 
-        <div id="character-{{_id}}-abilities-list">
+        <div id="strider-{{_id}}-abilities-list">
           {{#each items as |item id|}}
           {{#if (eq item.type "ability")}}
           <div class="item flex-horizontal" data-item-id="{{item._id}}">
@@ -344,7 +344,7 @@
       </div>
 
       {{!-- Owned Items Tab --}}
-      <div id="character-{{_id}}-loadout" class="tab flex-vertical loadout" data-tab="loadout">
+      <div id="strider-{{_id}}-loadout" class="tab flex-vertical loadout" data-tab="loadout">
         <div class="label-stripe flex-horizontal">
           <p>{{localize "SFTD.Loadout"}} <a class="item-add-popup" data-item-type="item" data-tooltip="{{localize 'SFTD.AddItem'}}"><i class="fas fa-plus-square"></i></a></p>
           <p>{{system.loadout}}/{{localize system.load_level}} </p>
@@ -372,7 +372,7 @@
         </div>
       </div>
 
-      <div class="tab flex-vertical" data-tab="character-notes">
+      <div class="tab flex-vertical" data-tab="strider-notes">
         <div class="label-stripe">
           <p>{{localize "SFTD.Notes"}}</p>
         </div>
@@ -380,7 +380,7 @@
       </div>
 
       {{!-- Contacts --}}
-      <div id="character-{{_id}}-contacts" class="tab flex-vertical" data-tab="contacts">
+      <div id="strider-{{_id}}-contacts" class="tab flex-vertical" data-tab="contacts">
         <div class="label-stripe flex-horizontal">
           <p>{{localize system.acquaintances_label}}</p>
           <p>
@@ -412,7 +412,7 @@
       </div>
 
       {{!-- Active Effects --}}
-      <div id="character-{{_id}}-effects" class="tab effects flex-vertical" data-tab="effects">
+      <div id="strider-{{_id}}-effects" class="tab effects flex-vertical" data-tab="effects">
         <div class="label-stripe">
           <p>{{localize "SFTD.Effects"}}</p>
         </div>
@@ -420,7 +420,7 @@
       </div>
 
       {{!-- Full Item List --}}
-      <div class="tab grow-two flex-vertical" data-tab="all-character-items">
+      <div class="tab grow-two flex-vertical" data-tab="all-strider-items">
         <div class="label-stripe">
           <p><label>{{localize "SFTD.AllItems"}}</label></p>
         </div>

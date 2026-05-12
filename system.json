@@ -170,7 +170,7 @@
   ],
   "packFolders": [
     {
-      "name": "Character Options",
+      "name": "Strider Options",
       "sorting": "m",
       "packs": ["class", "ability", "item", "background", "heritage", "vice"]
 	  },

@@ -1,7 +1,7 @@
 {
   "Actor": {
-  "types": ["\uD83D\uDD5B clock", "character", "npc", "crew",  "factions"],
-  "character": {
+  "types": ["\uD83D\uDD5B clock", "strider", "npc", "crew",  "factions"],
+  "strider": {
     "alias": "",
     "look": "",
     "heritage": "",
@@ -24,13 +24,13 @@
       "name_default": "SFTD.Stress",
       "name": "SFTD.Stress"
     },
-    "trauma": {
+    "scars": {
       "max": 4,
       "max_default": 4,
       "value": [0],
-      "name": "SFTD.Trauma",
-      "name_default": "SFTD.Trauma",
-      "options": ["SFTD.TraumaCold", "SFTD.TraumaHaunted", "SFTD.TraumaObsessed", "SFTD.TraumaParanoid", "SFTD.TraumaReckless", "SFTD.TraumaSoft", "SFTD.TraumaUnstable", "SFTD.TraumaVicious"],
+      "name": "SFTD.Scars",
+      "name_default": "SFTD.Scars",
+      "options": ["SFTD.ScarsCold", "SFTD.ScarsHaunted", "SFTD.ScarsObsessed", "SFTD.ScarsParanoid", "SFTD.ScarsReckless", "SFTD.ScarsSoft", "SFTD.ScarsUnstable", "SFTD.ScarsVicious"],
       "list": []
     },
     "healing-clock": [0],
@@ -219,8 +219,8 @@
     "acquaintances_label": "SFTD.Contacts",
     "hunting_grounds": [],
     "hunting_grounds_label": "SFTD.HuntingGrounds",
-    "scoundrel": {
-      "add_trauma": 0,
+    "strider": {
+      "add_scars": 0,
       "add_stress": 0,
       "mastery": false
     },

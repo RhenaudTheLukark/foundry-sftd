@@ -18,7 +18,7 @@ If you have questions, please ask them on the #forged-in-the-dark channel of the
 - All "class/crew" specific items are prefixed with first letters
 - To enable Deep Cuts options, use the settings menu.
 
-- I don't want the "class/crew items" to be prepopulated, so the character sheet contains less "compendium" info.
+- I don't want the "class/crew items" to be prepopulated, so the strider sheet contains less "compendium" info.
 - To see the description of Class, Vice, Background, etc you can just click added item and see all the info in the popup.
 - When adding a new item you can hower a "question-circle" icon to see the item's description.
 - To add Custom abilities just add a new "Foundry Item" of the corresponding type and fill all the necessary info. Then drag it to the sheet or add via button on a sheet.
@@ -45,7 +45,7 @@ Crew Types:
 
 ## Screenshots
 
-### Character Sheet, Crew Sheet and Clock
+### Strider Sheet, Crew Sheet and Clock
 ![alt screen][screenshot_all]
 
 ### Compendium

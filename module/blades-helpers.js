@@ -131,7 +131,7 @@ export class BladesHelpers {
    */
   static getAttributeLabel(attribute_name) {
     let attribute_labels = {};
-    const attributes = game.model.Actor.character.attributes;
+    const attributes = game.model.Actor.strider.attributes;
 
     for (const att_name in attributes) {
       attribute_labels[att_name] = attributes[att_name].label;
@@ -152,7 +152,7 @@ export class BladesHelpers {
    */
   static getRollLabel(roll_name) {
     let attribute_labels = {};
-    const attributes = game.model.Actor.character.attributes;
+    const attributes = game.model.Actor.strider.attributes;
 
     for (const att_name in attributes) {
       if (att_name == roll_name) {
@@ -175,7 +175,7 @@ export class BladesHelpers {
    * @returns {Boolean}
    */
   static isAttributeAction(attribute_name) {
-    const attributes = game.model.Actor.character.attributes;
+    const attributes = game.model.Actor.strider.attributes;
 
     for (const att_name in attributes) {
       for (const skill_name in attributes[att_name].skills) {
@@ -195,7 +195,7 @@ export class BladesHelpers {
    * @returns {Boolean}
    */
   static isAttributeAttribute(attribute_name) {
-    const attributes = game.model.Actor.character.attributes;
+    const attributes = game.model.Actor.strider.attributes;
 
     return (attribute_name in attributes);
   }
@@ -236,7 +236,7 @@ export class BladesHelpers {
 
   }
 
-  // adds an NPC to the character as an acquaintance of neutral standing
+  // adds an NPC to the strider as an acquaintance of neutral standing
   static async addAcquaintance(actor, acq) {
     let current_acquaintances = actor.system.acquaintances;
     let acquaintance = {
@@ -348,7 +348,7 @@ export class BladesHelpers {
   static async getPlaybookAcquaintances(actor_type, selected_playbook) {
     let all_acquaintances = await this.getSourcedItemsByType('npc');
     let playbook_acquaintances = [];
-    if (actor_type == "character") {
+    if (actor_type == "strider") {
       playbook_acquaintances = all_acquaintances.filter(i => i.system.associated_class === selected_playbook);
     } else if (actor_type == "crew") {
       playbook_acquaintances = all_acquaintances.filter(i => i.system.associated_crew_type === selected_playbook);
@@ -369,7 +369,7 @@ export class BladesHelpers {
     }
   }
 
-  // adds a crew to the character
+  // adds a crew to the strider
   static async addCrew(actor, dropped_crew) {
     let current_crew = actor.system.crew;
     let new_crew = {
@@ -391,7 +391,7 @@ export class BladesHelpers {
     }
   }
 
-  // removes a crew from the character
+  // removes a crew from the strider
   static async removeCrew(actor, crewId) {
     let current_crew = actor.system.crew;
     let updated_crew = current_crew.filter(acq => acq._id !== crewId && acq.id !== crewId);

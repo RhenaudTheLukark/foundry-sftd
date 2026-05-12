@@ -1,7 +1,7 @@
 {
   "TYPES": {
     "Actor": {
-      "character": "Character",
+      "strider": "Strider",
       "npc": "NPC",
       "crew": "Crew",
       "\uD83D\uDD5B clock": "\uD83D\uDD5B Clock",
@@ -65,28 +65,28 @@
     "Enemies": "Enemies",
     "AtWar": "At War!",
     "Defeated": "Defeated",
-    "Trauma": "Trauma",
-    "TraumaCold": "Cold",
-    "TraumaHaunted": "Haunted",
-    "TraumaObsessed": "Obsessed",
-    "TraumaParanoid": "Paranoid",
-    "TraumaReckless": "Reckless",
-    "TraumaSoft": "Soft",
-    "TraumaUnstable": "Unstable",
-    "TraumaVicious": "Vicious",
-    "TraumaClanking": "Clanking",
-    "TraumaLeaking": "Leaking",
-    "TraumaFixated": "Fixated",
-    "TraumaSmoking": "Smoking",
-    "TraumaSparking": "Sparking",
-    "TraumaChaotic": "Chaotic",
-    "TraumaDestructive": "Destructive",
-    "TraumaFurious": "Furious",
-    "TraumaObsessive": "Obsessive",
-    "TraumaTerritorial": "Territorial",
-    "TraumaSavage": "Savage",
-    "TraumaRuthless": "Ruthless",
-    "TraumaSecretive": "Secretive",
+    "Scars": "Scars",
+    "ScarsCold": "Cold",
+    "ScarsHaunted": "Haunted",
+    "ScarsObsessed": "Obsessed",
+    "ScarsParanoid": "Paranoid",
+    "ScarsReckless": "Reckless",
+    "ScarsSoft": "Soft",
+    "ScarsUnstable": "Unstable",
+    "ScarsVicious": "Vicious",
+    "ScarsClanking": "Clanking",
+    "ScarsLeaking": "Leaking",
+    "ScarsFixated": "Fixated",
+    "ScarsSmoking": "Smoking",
+    "ScarsSparking": "Sparking",
+    "ScarsChaotic": "Chaotic",
+    "ScarsDestructive": "Destructive",
+    "ScarsFurious": "Furious",
+    "ScarsObsessive": "Obsessive",
+    "ScarsTerritorial": "Territorial",
+    "ScarsSavage": "Savage",
+    "ScarsRuthless": "Ruthless",
+    "ScarsSecretive": "Secretive",
     "Harm": "Harm",
     "Healing": "Healing",
     "Armor": "Armor",
@@ -120,7 +120,7 @@
     "AddAdditionalTypeOfGangText": "You can add an additional type to a gang or expert by spending two crew upgrades.<br>When a cohort performs actions for which its types apply, it uses its full quality rating. Otherwise, its quality is zero. A given cohort can have up to two types. Some crew upgrades will add the “Elite” feature to a gang, which gives them +1d when they roll for a given Type.",
     "ClassExpClue1": "Every time you roll a desperate action, mark xp in that action's attribute.",
     "ClassExpClue2": "You expressed your beliefs, drives, heritage, or background.",
-    "ClassExpClue3": "You struggled with issues from your vice or traumas during the session.",
+    "ClassExpClue3": "You struggled with issues from your vice or scars during the session.",
     "ClassExpClueDescription": "At the end of each session, for each item below, mark 1 xp (in your playbook or an attribute) or 2 xp if that item occurred multiple times.",
     "Turf": "Turf",
     "Claims": "Claims",
@@ -314,7 +314,7 @@
     "RollViceFailure": "You <strong>overindulge</strong>. Clear <strong>{clear_stress} stress</strong> and choose <strong>one</strong> of the following consequences:",
     "RollViceFailureAttactTrouble": "<strong>Attract Trouble.</strong> Select or roll an additional <strong>entanglement.</strong>",
     "RollViceFailureBrag": "<strong>Brag</strong> about your exploits. <strong>+2 Heat</strong>",
-    "RollViceFailureLost": "<strong>Lost.</strong> Your character vanishes for a few weeks. Play a different character until this one returns from their bender. When your character returns, they've also healed any harm they had.",
+    "RollViceFailureLost": "<strong>Lost.</strong> Your strider vanishes for a few weeks. Play a different strider until this one returns from their bender. When your strider returns, they've also healed any harm they had.",
     "RollViceFailureTapped": "<strong>Tapped.</strong> Your current purveyor cuts you off. Find a new source for your vice.",
 
     "RollFortuneCritical": "The result is <strong>exceptional</strong>. You have <strong>great</strong> or <strong>extreme effect</strong>.",
@@ -341,7 +341,7 @@
     "Full": "Full",
     "Associated": "Associated",
     "DisabledByAE": "Minimum Value set by an Active Effect",
-    "NoMastery": "This Scoundrel lacks Mastery",
+    "NoMastery": "This Strider lacks Mastery",
     "UnusedDice": "Unused Dice",
     "Edge": "Edge",
     "GainEdge": "Gain an <strong>Edge</strong>.",
@@ -380,7 +380,7 @@
       },
       "Edge": {
         "Name": "Edge",
-        "Hint": "Adds Edge to character sheets from the Deep Cuts supplement."
+        "Hint": "Adds Edge to strider sheets from the Deep Cuts supplement."
       },
       "PublicClocks": {
         "Name": "Default Observable Clocks",
@@ -389,8 +389,8 @@
     },
     "log": {
       "info": {
-        "SameNPC": "The dropped NPC is already an acquaintance of this character.",
-        "SameCrew": "The dropped Crew is the current crew of this character."
+        "SameNPC": "The dropped NPC is already an acquaintance of this strider.",
+        "SameCrew": "The dropped Crew is the current crew of this strider."
       },
       "warn": {
         "NoNPC": "This NPC does not exist in the World or in a Compendium."

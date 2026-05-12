@@ -19,7 +19,7 @@ $hover-brightness: 0.8;
 
 /*
  * General Styles
- * Cleaned out things that don't appear to apply to the character sheet, and exist in other, separated SCSS files.
+ * Cleaned out things that don't appear to apply to the strider sheet, and exist in other, separated SCSS files.
  * Some things *might* be missing, but at a glance, everything looks to be in order.
  */
 
@@ -47,7 +47,7 @@ $hover-brightness: 0.8;
     }
   }
 
-  // Stress and Trauma
+  // Stress and Scars
 
   .big-teeth-section {
 
@@ -74,7 +74,6 @@ $hover-brightness: 0.8;
       @include toothradio(17px, 50px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
     }
 
-    /* Trauma */
     .small-teeth-container {
 
       .small-teeth-wrap {
@@ -88,7 +87,7 @@ $hover-brightness: 0.8;
       }
     }
 
-    .trauma-list {
+    .scars-list {
       @include check_underscore();
       justify-content: space-between;
       align-items: flex-start;
@@ -96,7 +95,7 @@ $hover-brightness: 0.8;
 
   }
 
-  .character-stress {
+  .strider-stress {
     label {
       &[for$="-0"] {
         margin-right: 0px;
@@ -146,7 +145,7 @@ $hover-brightness: 0.8;
     display: flex;
 
     // Harm
-    .character-harm {
+    .strider-harm {
 
       width: 100%;
 
@@ -165,12 +164,12 @@ $hover-brightness: 0.8;
     }
 
     // Clock
-    .character-health-clock {
+    .strider-health-clock {
       margin: 0 auto;
       @include clock(4, 88);
     }
 
-    .character-armor-uses {
+    .strider-armor-uses {
 
       div {
         display: flex;

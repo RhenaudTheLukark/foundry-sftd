@@ -2,7 +2,7 @@
 *  Elements that can be changed will hint this by dimming and fading a little on hover
 */
 /*
- * Toothradio. Some (eg trauma) are not changeable, hence the option.
+ * Toothradio. Some (eg scars) are not changeable, hence the option.
  */
 /*
  * Custom Radio
@@ -1149,7 +1149,7 @@
   display: flex;
   flex-direction: row;
   margin-bottom: 0px;
-  /* Trauma */
+  /* Scars */
 }
 .songs-for-the-dusk.crew.sheet .big-teeth-section > * {
   margin-right: 10px;
@@ -1238,13 +1238,13 @@
   display: flex;
   flex-direction: row;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .trauma-list {
+.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .trauma-list label {
+.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label {
   cursor: pointer;
   font-size: 19px;
   -webkit-user-select: none;
@@ -1256,17 +1256,17 @@
   cursor: pointer;
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .trauma-list label:hover {
+.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .trauma-list label input {
+.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .trauma-list label input:checked ~ .checkmark {
+.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label input:checked ~ .checkmark {
   color: red;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .trauma-list label .checkmark {
+.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label .checkmark {
   text-decoration: none;
   font-weight: bold;
 }
@@ -1278,7 +1278,7 @@
   *  Elements that can be changed will hint this by dimming and fading a little on hover
   */
   /*
-   * Toothradio. Some (eg trauma) are not changeable, hence the option.
+   * Toothradio. Some (eg scars) are not changeable, hence the option.
    */
   /*
    * Custom Radio
@@ -1303,7 +1303,7 @@
    */
   /*
    * General Styles
-   * Cleaned out things that don't appear to apply to the character sheet, and exist in other, separated SCSS files.
+   * Cleaned out things that don't appear to apply to the strider sheet, and exist in other, separated SCSS files.
    * Some things *might* be missing, but at a glance, everything looks to be in order.
    */
 }
@@ -1328,7 +1328,7 @@
   flex-direction: row;
   margin-bottom: 0px;
   margin-top: 10px;
-  /* Trauma */
+  /* Scars */
 }
 .songs-for-the-dusk.actor.pc * .big-teeth-section > * {
   margin-right: 10px;
@@ -1417,13 +1417,13 @@
   display: flex;
   flex-direction: row;
 }
-.songs-for-the-dusk.actor.pc * .big-teeth-section .trauma-list {
+.songs-for-the-dusk.actor.pc * .big-teeth-section .scars-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
   align-items: flex-start;
 }
-.songs-for-the-dusk.actor.pc * .big-teeth-section .trauma-list label {
+.songs-for-the-dusk.actor.pc * .big-teeth-section .scars-list label {
   cursor: pointer;
   font-size: 19px;
   -webkit-user-select: none;
@@ -1435,21 +1435,21 @@
   cursor: pointer;
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.actor.pc * .big-teeth-section .trauma-list label:hover {
+.songs-for-the-dusk.actor.pc * .big-teeth-section .scars-list label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.actor.pc * .big-teeth-section .trauma-list label input {
+.songs-for-the-dusk.actor.pc * .big-teeth-section .scars-list label input {
   display: none;
 }
-.songs-for-the-dusk.actor.pc * .big-teeth-section .trauma-list label input:checked ~ .checkmark {
+.songs-for-the-dusk.actor.pc * .big-teeth-section .scars-list label input:checked ~ .checkmark {
   color: red;
 }
-.songs-for-the-dusk.actor.pc * .big-teeth-section .trauma-list label .checkmark {
+.songs-for-the-dusk.actor.pc * .big-teeth-section .scars-list label .checkmark {
   text-decoration: none;
   font-weight: bold;
 }
-.songs-for-the-dusk.actor.pc * .character-stress label[for$="-0"] {
+.songs-for-the-dusk.actor.pc * .strider-stress label[for$="-0"] {
   margin-right: 0px;
 }
 .songs-for-the-dusk.actor.pc * .abilities .item-name, .songs-for-the-dusk.actor.pc * .loadout .item-name {
@@ -1512,24 +1512,24 @@
 .songs-for-the-dusk.actor.pc * .harm-armor {
   display: flex;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-harm {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-harm {
   width: 100%;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-harm table {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-harm table {
   width: 100%;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-harm table th {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-harm table th {
   background-color: #191813;
   color: #EEEFFF;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-harm table input[type=text] {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-harm table input[type=text] {
   width: 100%;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock {
   margin: 0 auto;
   position: relative;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock {
   position: relative;
   padding: 0;
   width: 88px;
@@ -1539,7 +1539,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock label {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -1550,30 +1550,30 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock label:hover {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock input {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock input[value="0"] {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock *:nth-child(3) {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(180deg);
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock *:nth-child(5) {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock *:nth-child(5) {
   transform: rotate(90deg) skewY(180deg);
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock *:nth-child(7) {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock *:nth-child(7) {
   transform: rotate(180deg) skewY(180deg);
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-health-clock .blades-clock *:nth-child(9) {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-health-clock .blades-clock *:nth-child(9) {
   transform: rotate(270deg) skewY(180deg);
 }
-.songs-for-the-dusk.actor.pc * .harm-armor .character-armor-uses div {
+.songs-for-the-dusk.actor.pc * .harm-armor .strider-armor-uses div {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
