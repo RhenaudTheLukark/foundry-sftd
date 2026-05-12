@@ -135,31 +135,31 @@
 
     </div>
 
-    {{!-- Heat/Wanted --}}
-    <div id="crew-{{_id}}-heat-wanted" class="flex-horizontal big-teeth-section crew-heat-wanted">
-      <div id="crew-{{_id}}-heat" class="big-teeth">
-        <div class="black-label">{{localize "SFTD.Heat"}}</div>
-        {{#multiboxes system.heat}}
-        <input type="radio" id="crew-{{_id}}-heat-0" name="system.heat" value="0" dtype="Radio">
-        <!--<label class="black-label" for="crew-{{_id}}-heat-0">{{localize "SFTD.Heat"}}</label>-->
-        {{#times_from 1 system.max.heat}}
-        <input id="crew-{{../_id}}-heat-{{this}}" type="radio" name="system.heat" value="{{this}}">
-        <label class= "radio-toggle" for="crew-{{../_id}}-heat-{{this}}"></label>
+    {{!-- Pressure/Hazard --}}
+    <div id="crew-{{_id}}-pressure-hazard" class="flex-horizontal big-teeth-section crew-pressure-hazard">
+      <div id="crew-{{_id}}-pressure" class="big-teeth">
+        <div class="black-label">{{localize "SFTD.Pressure"}}</div>
+        {{#multiboxes system.pressure}}
+        <input type="radio" id="crew-{{_id}}-pressure-0" name="system.pressure" value="0" dtype="Radio">
+        <!--<label class="black-label" for="crew-{{_id}}-pressure-0">{{localize "SFTD.Pressure"}}</label>-->
+        {{#times_from 1 system.max.pressure}}
+        <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" name="system.pressure" value="{{this}}">
+        <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
         {{/times_from}}
         {{/multiboxes}}
 
       </div>
-      <div id="crew-{{_id}}-wanted-container" class="small-teeth-container crew-wanted-container">
+      <div id="crew-{{_id}}-hazard-container" class="small-teeth-container crew-hazard-container">
 
-        {{#multiboxes system.wanted}}
-        <div id="crew-{{_id}}-wanted" class="small-teeth-wrap">
-          <!--<label class="black-label" for="crew-{{_id}}-wanted-counter-0">{{localize "SFTD.Wanted"}}</label>-->
-          <div class="black-label">{{localize "SFTD.Wanted"}}</div>
+        {{#multiboxes system.hazard}}
+        <div id="crew-{{_id}}-hazard" class="small-teeth-wrap">
+          <!--<label class="black-label" for="crew-{{_id}}-hazard-counter-0">{{localize "SFTD.Hazard"}}</label>-->
+          <div class="black-label">{{localize "SFTD.Hazard"}}</div>
           <div class="small-teeth">
-            <input type="radio" id="crew-{{_id}}-wanted-counter-0" name="system.wanted" value="0">
-            {{#times_from 1 system.max.wanted}}
-            <input id="crew-{{../_id}}-wanted-counter-{{this}}" type="radio" name="system.wanted" value="{{this}}">
-            <label class= "radio-toggle" for="crew-{{../_id}}-wanted-counter-{{this}}"></label>
+            <input type="radio" id="crew-{{_id}}-hazard-counter-0" name="system.hazard" value="0">
+            {{#times_from 1 system.max.hazard}}
+            <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" name="system.hazard" value="{{this}}">
+            <label class= "radio-toggle" for="crew-{{../_id}}-hazard-counter-{{this}}"></label>
             {{/times_from}}
           </div>
         </div>
