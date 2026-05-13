@@ -11,7 +11,6 @@ export const preloadHandlebarsTemplates = async function() {
   const templatePaths = [
 
     // Actor Sheet Partials
-    "systems/songs-for-the-dusk/templates/parts/coins.html",
     "systems/songs-for-the-dusk/templates/parts/attributes.html",
     "systems/songs-for-the-dusk/templates/parts/turf-list.html",
     "systems/songs-for-the-dusk/templates/parts/cohort-block.html",

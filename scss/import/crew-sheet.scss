@@ -1,8 +1,6 @@
 $coin_size: 15px;
 $coin_margin: 3px;
 
-@import 'coins.scss';
-
 .item {
 
   justify-content: space-between;
@@ -46,21 +44,8 @@ form {
   }
 }
 
-nav{
+nav {
   padding-bottom: 10px;
-}
-
-
-// Crew Coins
-.crew-coins {
-  @include custom_radio_square($coin_size);
-  flex-wrap: wrap;
-  max-width: 4 * ($coin_size + $coin_margin);
-
-  label {
-    margin-right: $coin_margin;
-    margin-bottom: $coin_margin;
-  }
 }
 
 
@@ -120,7 +105,6 @@ nav{
 }
 
 .crew-tier {
-
   background-color: $gray;
   height: 33px;
   width: 145px;
@@ -182,6 +166,20 @@ nav{
 
   .gang-type-boxes {
     flex-wrap: wrap;
+  }
+}
+
+.economy {
+  .shell-container {
+    gap: 1em;
+
+    .teeth-shells {
+      @include toothradio(10px, 30px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
+    }
+  }
+
+  .cache {
+    max-width: 216px;
   }
 }
 

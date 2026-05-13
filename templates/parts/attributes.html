@@ -40,22 +40,22 @@
 
         {{#multiboxes skill.value}}
 		<input {{#if (lteq 0 (oneless skill.min))}}disabled {{/if}}
-			type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-0" data-dtype="Number"
+			type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-0" data-dType="Number"
             name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="0">
         {{#times_from 1 skill.max}}
         <input {{#if (lteq this (oneless skill.min))}}disabled {{/if}}
-			type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dtype="Number"
+			type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dType="Number"
             name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="{{this}}">
         <label {{#if (and (gt skill.min 0) (lteq this skill.min))}}
-			data-tooltip="{{localize "SFTD.DisabledByAE"}}" 
+			data-tooltip="{{localize "SFTD.DisabledByAE"}}"
 			{{/if}}
 			{{#if (lteq this (oneless skill.min))}}style="filter: unset; opacity: unset; cursor: unset;" 
 			{{/if}}
 		class="radio-toggle" for="attributes-{{../../../_id}}-{{skill_name}}-{{this}}"></label>
         {{/times_from}}
-		
+
 		{{#if (eq skill.max 3)}}
-		    <input type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dtype="Number"
+		    <input type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dType="Number"
             name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="{{this}}">
 			<label data-tooltip="{{localize "SFTD.NoMastery"}}" style="filter: unset; opacity: unset; cursor: unset; background-color: #dadbed; border-color: gray"></label>
 		{{/if}}

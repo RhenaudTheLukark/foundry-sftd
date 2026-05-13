@@ -21,7 +21,7 @@ $hover-brightness: 0.8;
 @import 'fonts.scss';
 
 //namespacing to avoid conflicts with other modules
-.songs-for-the-dusk{
+.songs-for-the-dusk {
   font-family: "Crimson Text", serif;
 
   @import 'import/general-styles.scss';
@@ -41,6 +41,8 @@ $hover-brightness: 0.8;
   &.item.sheet {
     @import 'import/item-sheet.scss';
   }
+
+  @import 'import/coins.scss';
 }
 
 //top-level styles

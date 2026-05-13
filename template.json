@@ -1,6 +1,6 @@
 {
   "Actor": {
-  "types": ["\uD83D\uDD5B clock", "strider", "npc", "crew",  "factions"],
+  "types": ["\uD83D\uDD5B clock", "strider", "npc", "crew", "factions"],
   "strider": {
     "alias": "",
     "look": "",
@@ -48,12 +48,6 @@
       "size": 6,
       "color": "black"
 	  },
-    "coins": [0],
-    "coins_stashed": [0],
-    "coins_max": {
-      "hand": 4,
-      "stash": 40
-    },
     "special_abilities": [],
     "loadout": 0,
     "load_level": "",
@@ -199,13 +193,13 @@
       "color": "black"
 	  },
     "hold_types": ["weak", "strong"],
-    "coins": {
-      "max": 4,
-      "value": [0]
+    "shells": {
+      "value": 0,
+      "max": 6
     },
-    "vault": {
-      "value": [0],
-      "max": 0
+    "cache": {
+      "value": 12,
+      "max": 48
     },
     "turf": {
       "descriptions": [],

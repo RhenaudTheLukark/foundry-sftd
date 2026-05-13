@@ -94,47 +94,6 @@
       <div class="gray-label">{{localize "SFTD.Turf"}}</div>
     </div>
 
-    {{!-- Coins --}}
-    <div id="crew-{{_id}}-coins" class="crew-coins-container">
-
-      <div id="crew-{{_id}}-coins-hands" class="crew-coins-hands">
-        <div class="stripe">
-          <!--<label for="crew-{{_id}}-coins-hands-0"><b>{{localize "SFTD.Coins"}}</b> <i class="fab fa-creative-commons-zero nullifier"></i></label>-->
-          <b>{{localize "SFTD.Coins"}}</b>
-        </div>
-        <div class="crew-coins coins-hands">
-          {{#multiboxes system.coins.value}}
-          <input type="radio" id="crew-{{_id}}-coins-hands-0" name="system.coins.value" value="0" checked>
-          {{#times_from 1 system.coins.max}}
-          <input id="crew-{{../_id}}-coins-hands-{{this}}" type="radio" name="system.coins.value" value="{{this}}">
-          <label class= "radio-toggle" for="crew-{{../_id}}-coins-hands-{{this}}"></label>
-          {{/times_from}}
-          {{/multiboxes}}
-        </div>
-      </div>
-
-      {{#if system.vault.max}}
-      <div id="crew-{{_id}}-coins-vault" class="crew-coins-vault">
-
-        <div class="stripe">
-          <!--<label for="crew-{{_id}}-coins-vault-0"><b>{{localize "SFTD.Vault"}}<b> <i class="fab fa-creative-commons-zero nullifier"></i></label>
-		  --><b>{{localize "SFTD.Vault"}}</b>
-        </div>
-        <div class="crew-coins coins-vault">
-          {{#multiboxes system.vault.value}}
-          <input type="radio" id="crew-{{_id}}-coins-vault-0" name="system.vault.value" value="0" checked="checked">
-          {{#times_from 1 system.vault.max}}
-          <input id="crew-{{../_id}}-coins-vault-{{this}}" type="radio" name="system.vault.value" value="{{this}}">
-          <label class= "radio-toggle" for="crew-{{../_id}}-coins-vault-{{this}}"></label>
-          {{/times_from}}
-          {{/multiboxes}}
-        </div>
-
-      </div>
-      {{/if}}
-
-    </div>
-
     {{!-- Pressure/Hazard --}}
     <div id="crew-{{_id}}-pressure-hazard" class="flex-horizontal big-teeth-section crew-pressure-hazard">
       <div id="crew-{{_id}}-pressure" class="big-teeth">
@@ -202,6 +161,7 @@
     </div>
     <nav class="tabs flex-horizontal" style="padding-top: 8px">
       <a class="item" data-tab="turfs">{{localize "SFTD.Claims"}}</a>
+      <a class="item" data-tab="economy">{{localize "SFTD.Caches"}}</a>
       <a class="item" data-tab="upgrades">{{localize "SFTD.Upgrades"}}</a>
       <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
       <a class="item" data-tab="contacts">{{localize "SFTD.Contacts"}}</a>
@@ -290,6 +250,36 @@
       {{/each}}
     </div>
 
+
+    {{!-- Economy Tab --}}
+    <div id="crew-{{_id}}-economy" class="tab flex-vertical economy" data-tab="economy">
+      <div class="label-stripe flex-horizontal">
+        <p><label>{{localize "SFTD.Caches"}}</label></p>
+        <div class="flex-horizontal shell-container">
+          <p><label>{{localize "SFTD.Shells"}}</label></p>
+          <div id="crew-{{_id}}-shells" class="teeth-shells">
+            {{#multiboxes system.shells.value}}
+            <input type="radio" id="crew-{{_id}}-shells-0" name="system.shells.value" value="0" data-dType="Number">
+            {{#times_from 1 system.shells.max}}
+            <input type="radio" id="crew-{{../_id}}-shells-{{this}}" name="system.shells.value" value="{{this}}" data-dType="Number">
+            <label class="radio-toggle" for="crew-{{../_id}}-shells-{{this}}"></label>
+            {{/times_from}}
+            {{/multiboxes}}
+          </div>
+        </div>
+      </div>
+      <div id="crew-{{_id}}-cache">
+        <div class="cache">
+          {{#multiboxes system.cache.value}}
+          <input type="radio" id="crew-{{_id}}-cache-0" name="system.cache.value" value="0" data-dType="Number">
+          {{#times_from 1 system.cache.max}}
+          <input type="radio" id="crew-{{../_id}}-cache-{{this}}" name="system.cache.value" value="{{this}}" data-dType="Number">
+          <label class="radio-toggle" for="crew-{{../_id}}-cache-{{this}}"></label>
+          {{/times_from}}
+          {{/multiboxes}}
+        </div>
+      </div>
+    </div>
 
     {{!-- Crew Upgrades --}}
     <div id="crew-{{_id}}-upgrades" class="crew-upgrades tab grow-two flex-vertical" data-tab="upgrades">
