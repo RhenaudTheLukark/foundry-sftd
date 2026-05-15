@@ -18,6 +18,7 @@ import { BladesCrewSheet } from "./blades-crew-sheet.js";
 import { BladesClockSheet } from "./blades-clock-sheet.js";
 import { BladesNPCSheet } from "./blades-npc-sheet.js";
 import { BladesFactionSheet } from "./blades-faction-sheet.js";
+import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 import * as migrations from "./migration.js";
 import { getActorSheetClass, getItemSheetClass, registerActorSheet, unregisterActorSheet, registerItemSheet, unregisterItemSheet } from "./compat.js";
 
@@ -37,11 +38,10 @@ Hooks.once("init", async function() {
     sizes: [ 4, 6, 8, 10, 12 ]
   };
 
-  game.system.scars = [ "cold", "haunted", "obsessed", "paranoid", "reckless", "soft", "unstable", "vicious" ];
-
   CONFIG.Item.documentClass = BladesItem;
   CONFIG.Actor.documentClass = BladesActor;
   CONFIG.ActiveEffect.documentClass = BladesActiveEffect;
+  CONFIG.ChatMessage.documentClass = SFTDChatMessage;
 
   // Register System Settings
   registerSystemSettings();
@@ -93,25 +93,6 @@ Hooks.once("init", async function() {
       });
     }
     return html;
-  });
-
-  // Scars Counter
-  Handlebars.registerHelper('scarscounter', function(selected, options) {
-
-    let html = options.fn(this);
-
-    var count = 0;
-    for (const scars in selected) {
-      if (selected[scars] === true) {
-        count++;
-      }
-    }
-
-    //if (count > 4) count = 4;
-
-    const rgx = new RegExp(' value=\"' + count + '\"');
-    return html.replace(rgx, "$& checked");
-
   });
 
   // NotEquals handlebar.
@@ -339,7 +320,7 @@ Hooks.once("ready", async function() {
 
 /**
   // Determine whether a system migration is required
-  const currentVersion = game.settings.get("bitd", "systemMigrationVersion");
+  const currentVersion = game.settings.get("songs-for-the-dusk", "systemMigrationVersion");
   const NEEDS_MIGRATION_VERSION = 2.15;
 
   let needMigration = (currentVersion < NEEDS_MIGRATION_VERSION) || (currentVersion === null);

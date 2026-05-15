@@ -6,7 +6,7 @@ export const migrateWorld = async function() {
   ui.notifications.info(`Applying SFTD Actors migration for version ${game.system.data.version}. Please be patient and do not close your game or shut down your server.`, {permanent: true});
 
   // Set the migration as complete
-  game.settings.set("bitd", "systemMigrationVersion", game.system.version);
+  game.settings.set("songs-for-the-dusk", "systemMigrationVersion", game.system.version);
   ui.notifications.info(`SFTD System Migration to version ${game.system.version} completed!`, {permanent: true});
 };
 

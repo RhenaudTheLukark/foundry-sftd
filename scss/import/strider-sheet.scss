@@ -23,76 +23,184 @@ $hover-brightness: 0.8;
  * Some things *might* be missing, but at a glance, everything looks to be in order.
  */
 
-& * {
-  .name-alias{
-
-    img.portrait{
-      max-width: 200px;
-      max-height: 200px;
-      width: auto;
-      height: auto;
-    }
+.name-alias {
+  & a:not(.item-name), & label {
+    font-family: "Kirsty", serif;
   }
 
-  .tab[data-tab]{
-    display: none;
-    &.active{
-      display: block;
-    }
+  img.portrait {
+    max-width: 200px;
+    max-height: 200px;
+    width: auto;
+    height: auto;
+    margin-right: 40px;
+    margin-bottom: 20px;
   }
 
-  form {
-    &.actor-sheet {
-      padding: 20px;
-    }
+  .item-name {
+    width: auto;
+    height: auto;
   }
 
-  // Stress and Scars
+  .name, .gender, .form {
+    width: 90%;
+    margin-bottom: 10px;
+  }
+}
 
-  .big-teeth-section {
+.traits {
+  .item-name {
+    margin-right: 0;
+  }
 
-    border-top: 3px solid $almost_black;
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 0px;
-    margin-top: 10px;
+  .item-class-label {
+    align-self: center;
+    min-width: 100px;
+  }
 
-    > * {
-      margin-right: 10px;
+  .two-line {
+    gap: 2em;
 
-      &:last-child {
-        margin-right: 0px;
+    .item-class-label {
+      align-self: center;
+      min-width: auto;
+    }
+
+    > .item-block {
+      width: 50%;
+      gap: 2em;
+    }
+  }
+}
+
+.big-teeth-section {
+  .small-teeth-container.hazard {
+    .small-teeth-wrap {
+      @include toothradio(17px, 30px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png", false);
+    }
+  }
+}
+
+table.drive-table {
+  th:nth-child(2), th:nth-child(3), td:nth-child(2), td:nth-child(3) {
+    width: 98px;
+  }
+}
+
+.tab-content {
+  .tab.community {
+    .belief {
+      margin: 10px 0;
+
+      label {
+        font-family: "Kirsty", serif;
       }
     }
+  }
+
+  .tab.abilities, .tab.loadout, .tab.all-items {
+    > .tab-list, .item-container-list {
+      background: rgba(0, 0, 0, 0.05);
+
+      > * {
+        &:nth-child(odd) {
+          background-color: var(--table-row-color-odd);
+        }
+
+        &:nth-child(even) {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+
+      .hackrig-type, .ammo, .drone-type, .expertise, .stay-late, .experimental, .hidden-item, .form-toggle {
+        text-align: center;
+        align-self: center;
+        align-items: center;
+
+        input {
+          margin: 0px;
+        }
+      }
+
+      .item:has(.extra-description) {
+        .item-body {
+          width: auto;
+          .item-description {
+            display: none;
+          }
+        }
+      }
+
+      .extra-description {
+        text-align: center;
+        align-self: center;
+        width: 100%;
+
+        textarea {
+          text-align: left;
+          text-wrap: wrap;
+        }
+      }
+    }
+  }
+}
+
+.black-white-header {
+  background-color: $almost_black;
+  color: $almost_white;
+  text-align: center;
+  width: 100%;
+
+  &:is(div) {
+    padding: 0.25em;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.big-teeth-section {
+  border-top: 3px solid $almost_black;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0px;
+
+  > * {
+    margin-right: 10px;
 
     &:last-child {
       margin-right: 0px;
     }
+  }
 
-    // Stress
-    .big-teeth {
-      @include toothradio(17px, 50px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
-    }
+  &:last-child {
+    margin-right: 0px;
+  }
 
-    .small-teeth-container {
+  // Stress
+  .big-teeth {
+    @include toothradio(17px, 50px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
+  }
 
-      .small-teeth-wrap {
-        @include toothradio(17px, 50px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png", false);
-        flex-direction: column;
+  .small-teeth-container {
+    .small-teeth-wrap {
+      flex-direction: column;
 
-        .small-teeth {
-          display: flex;
-          flex-direction: row;
-        }
+      .small-teeth {
+        display: flex;
+        flex-direction: row;
       }
     }
-
-    .scars-list {
-      @include check_underscore();
-      justify-content: space-between;
-      align-items: flex-start;
+    &:not(.hazard) {
+      .small-teeth-wrap {
+        @include toothradio(17px, 30px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png");
+      }
     }
+  }
 
+  .scars-list {
+    input[type=text]:not(:placeholder-shown) {
+      background: rgba(255, 0, 0, 0.1);
+    }
   }
 
   .strider-stress {
@@ -102,166 +210,176 @@ $hover-brightness: 0.8;
       }
     }
   }
+}
 
-  //Abilitiers and loadout
-  .abilities, .loadout {
-    .item-name {
-      width: 100px;
-    }
-    .item-body {
-      width: auto;
-    }
-    .item-description {
-      width: 260px;
-    }
+// Abilities and loadout
+.abilities, .loadout {
+  .item-name {
+    width: 100px;
   }
 
-  // Abilities
-  .abilities {
-    .label-stripe {
-      p:first-child {
-        margin-right: 10px;
-      }
+  .item-description {
+    margin: 0.5em 0;
+  }
+}
+
+// Experience teeth
+.teeth-experience {
+  @include toothradio(10px, 30px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
+  position: absolute;
+  top: 0px;
+  right: 10px;
+}
+
+
+.harm-armor {
+  display: flex;
+
+  & > div {
+    margin: 7px 0;
+    width: 100%;
+  }
+
+  input[type=text]:not(:placeholder-shown) {
+    background: rgba(255, 0, 0, 0.1);
+  }
+
+  .td:first-of-type {
+    width: 20px;
+  }
+
+  .death-block {
+    align-items: center;
+
+    & > * {
+      margin: 5px;
     }
-  }
 
-  // Loadout
-  .loadout {
-    .item-add-popup {
-      margin-left: 10px;
-    }
-  }
-
-  // Experience teeth
-  .teeth-experience {
-    @include toothradio(10px, 30px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
-    position: absolute;
-    top: 0px;
-    right: 10px;
-  }
-
-  .harm-armor {
-
-    display: flex;
-
-    // Harm
-    .strider-harm {
-
+    & > input {
       width: 100%;
-
-      table {
-        width: 100%;
-
-        th {
-          background-color: $almost_black;
-          color: $almost_white;
-        }
-
-        input[type="text"] {
-          width: 100%;
-        }
-      }
     }
 
-    // Clock
-    .strider-health-clock {
-      margin: 0 auto;
-      @include clock(4, 88);
+    & > div {
+      text-align: center;
     }
 
-    .strider-armor-uses {
-
-      div {
-        display: flex;
-        flex-direction: row;
-        justify-content: space-between;
-      }
+    div:first-of-type {
+      width: 16px;
     }
   }
 
-
-  .attributes {
-
-    display: flex;
-    flex-direction: column;
-    width: 200px;
-
-    .stripe {
-      background-color: $almost_black;
-      color: $almost_white;
-      font-size: 17px;
-      padding-left: 5px;
-    }
-
-    .attribute-label,
-    .attribute-skill-label {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
-    .attribute-skill-label {
-      letter-spacing: 1px;
-    }
-    .attributes-exp {
-
-      position: relative;
-      margin-bottom: 10px;
-
-      .stripe-tooth-body {
-        @include toothradio(10px, 30px, "assets/teeth/xptooth-white.png", "assets/teeth/xptooth-red.png");
-        position: absolute;
-        top: 0px;
-        right: 0px;
-      }
-    }
-
-    .attributes-container {
-      display: flex;
-      margin: 3px 0px;
-      @include custom_radio(15px, 15px);
-
-      * {
-        margin-right: 5px;
-      }
-    }
-  }
-
-  // ITEM
-  .item {
-
-    justify-content: space-between;
-
-    .item-body {
-
-      margin-bottom: 10px;
-      * {
-        margin-right: 10px;
-      }
-
-      .item-description {
-        font-style: italic;
-        text-align: justify;
-      }
-    }
+  .strider-armor {
+    align-items: center;
 
     div {
-      flex-grow: 2;
+      gap: 5px;
+      justify-content: space-around;
+
+      input {
+        display: none;
+      }
+
+      .radio-toggle > a > i {
+        font-size: 20px;
+
+        &.fa-shield {
+          &.fas {
+            color: $gold;
+          }
+          &.fa-regular {
+            color: $almost_black;
+          }
+        }
+      }
     }
-    .item-control {
-      flex-grow: 1;
+  }
+}
+
+.quirks, .connections {
+  tr {
+    display: flex;
+  }
+}
+
+.quirks {
+  .add-quirk {
+    float: right;
+    margin-right: 10px;
+  }
+
+  td:has(input[type=checkbox]:not(:checked)) {
+    input {
+      color: $gray;
     }
-    .item-body,
-    .item-class-label {
-      width: 100px;
+  }
+}
+
+.connections {
+  td {
+    width: 100%;
+    gap: 5px;
+
+    .fa-triangle-exclamation {
+      font-size: 20px;
+      color: $red;
+    }
+
+    .item-name {
+      width: 88px;
+      min-width: 88px;
+      text-align: center;
+    }
+
+    .open-actor {
+      .item-name {
+        width: auto;
+        text-align: left;
+      }
+    }
+
+    .clock-block {
+      align-self: center;
+    }
+
+    .beliefs {
+      width: 100%;
     }
   }
 
-  .item-class-label {
-    margin-bottom: 10px;
+  .add-connection, .add-old-connection {
+    font-weight: bold;
+  }
+}
+
+.item-block {
+  margin-bottom: 5px;
+}
+
+.open-actor {
+  align-self: center;
+}
+
+.extra-rolls {
+  width: 100%;
+  border-top: 2px solid black;
+  margin-top: 1em;
+  padding-top: 1em;
+  justify-content: center;
+  gap: 1em;
+
+  .other-rolls {
+    align-self: center;
+    font-size: 20px;
   }
 
-  .name,
-  .lair,
-  .alias {
-    margin-bottom: 10px;
+  .downtime {
+    .fas {
+      font-size: 24px;
+      transition: all 0.2s ease-in-out;
+
+      &:hover {
+        transform: scale(1.25);
+      }
+    }
   }
 }

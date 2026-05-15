@@ -8,6 +8,7 @@
   height: 30px !important;
   text-transform: capitalize;
 }
+
 .chat-label-small {
   background-color: $gray;
   color: $almost_black;
@@ -40,12 +41,18 @@
   font-weight: bold;
 }
 
-.blades-die-tooltip {
+.flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
 
+.blades-die-tooltip {
   .die {
     font-weight: bold;
     text-transform: capitalize;
     font-size: large;
+    margin-top: 10px;
 
     &.critical-success {
       color: $light_green;
@@ -63,5 +70,38 @@
       color: $red;
     }
   }
+}
 
+.leader-block {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  flex-direction: column;
+  padding-bottom: 10px;
+
+  & > div {
+    display: flex;
+    align-self: center;
+    gap: 10px;
+
+    & > img {
+      border: black 1px solid;
+    }
+
+    .leader-name {
+      align-self: center;
+    }
+  }
+}
+
+.message-content {
+  .button {
+    display: flex;
+    flex-direction: column;
+    padding-top: 0.25em;
+  }
+}
+
+&.update-message {
+  display: none;
 }

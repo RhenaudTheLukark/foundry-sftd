@@ -44,11 +44,9 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
 
   // Retrieve Roll status.
   let roll_status = getBladesRollStatus(rolls, zeromode);
-  let edge = false;
-  if (roll_status == 'critical-success') {edge = true;}
 
   let result;
-  
+
   // Check and log if Dice Configuration is Manual
   let method = {};
   method.type = (r.terms)[0].method;
@@ -114,7 +112,7 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
 	} //end for loop
 
 	// render html for the note and the remaining die results
-	result += await renderTemplate("systems/songs-for-the-dusk/templates/chat/threat-roll.html", {rolls: s_rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: false, body: false, footer: true, edge: edge});		
+	result += await renderTemplate("systems/songs-for-the-dusk/templates/chat/threat-roll.html", {rolls: s_rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, effect: effect, note: note, header: false, body: false, footer: true});		
   
   }
   
@@ -145,7 +143,7 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
         effect_localize = 'SFTD.EffectStandard'
     }
 
-    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/action-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, position_localize: position_localize, effect: effect, effect_localize: effect_localize, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/action-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, position: position, position_localize: position_localize, effect: effect, effect_localize: effect_localize, note: note});
   }
   // Check for Resistance roll
   else if (BladesHelpers.isAttributeAttribute(attribute_name)) {
@@ -154,7 +152,7 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
 	if (game.settings.get('songs-for-the-dusk', 'PushYourself')){
 		filepath = "systems/songs-for-the-dusk/templates/chat/push-yourself-roll.html";
 	}
-    result = await renderTemplate(filepath, {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, stress: stress, note: note, edge: edge});
+    result = await renderTemplate(filepath, {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, stress: stress, note: note});
   }
   // Check for Indugle Vice roll
   else if (attribute_name == 'SFTD.Vice') {
@@ -167,15 +165,15 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
       clear_stress = current_stress;
     }
 
-    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/vice-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, clear_stress: clear_stress, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/vice-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, clear_stress: clear_stress, note: note});
   }
   // Check for Gather Information roll
   else if (attribute_name == 'SFTD.GatherInformation') {
-    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/gather-info-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/gather-info-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note});
   }
   // Check for Engagement roll
   else if (attribute_name == 'SFTD.Engagement') {
-    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/engagement-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/engagement-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, note: note});
   }
   // Check for Asset roll
   else if (attribute_name == 'SFTD.AcquireAsset') {
@@ -197,11 +195,11 @@ async function showChatRollMessage(r, zeromode, attribute_name = "", position = 
         break;
     }
 
-    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/asset-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, tier_quality: tier_quality, note: note,  edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/asset-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: attribute_label, tier_quality: tier_quality, note: note});
   }
   // Fortune roll if not specified
   else {
-    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/fortune-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: "SFTD.Fortune", note: note, edge: edge});
+    result = await renderTemplate("systems/songs-for-the-dusk/templates/chat/fortune-roll.html", {rolls: rolls, zeromode: zeromode, method: method, roll_status: roll_status, attribute_label: "SFTD.Fortune", note: note});
   }
 
   let messageData;
@@ -361,7 +359,7 @@ export async function simpleRollPopup() {
 		if (target_actor.type == "strider") {
 			current_stress = parseInt(target_actor.system.stress.value);
 			try {
-				let current_crew = game.actors.get(target_actor.system.crew[0].id);
+				let current_crew = game.actors.get(target_actor.system.crew);
 				current_tier = parseInt(current_crew.system.tier);
 			}
 			catch (error) {

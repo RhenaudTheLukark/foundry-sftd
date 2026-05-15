@@ -1,73 +1,39 @@
 <div id="strider-{{_id}}-attributes" class="attributes">
-
   {{#each system.attributes as |attribute attribute_name|}}
-
   <div id="strider-{{../_id}}-attributes-{{attribute_name}}" class="attribute">
     <div id="strider-{{../_id}}-attributes-{{attribute_name}}-title" class="attributes-exp">
       <div class="stripe">
-        <!-- <a class="attribute-label roll-die-attribute rollable-text" data-roll-attribute="{{attribute_name}}">{{localize (concat attribute.label 'Short')}}</a> -->
-		<a class="attribute-label roll-die-attribute rollable-text" data-roll-attribute="{{attribute_name}}">{{localize attribute.label}}</a>
+        <a class="attribute-label roll-die-attribute rollable-text" data-tooltip="{{localize (concat attribute.label 'Info')}}" data-roll-attribute="{{attribute_name}}">{{localize attribute.label}}</a>
       </div>
       <div class="stripe-tooth-body">
-	      {{#if (getSetting 'ClockXP')}}
-		  {{else}}
         {{#multiboxes attribute.exp}}
-
-        <!--
-		<label
-                for="{{../_id}}-{{attribute_name}}-exp-0"><i
-                class="fab fa-creative-commons-zero nullifier"></i></label>
-		-->
-		
-        <input type="radio" id="{{../_id}}-{{attribute_name}}-exp-0"
-               name="system.attributes.{{attribute_name}}.exp" value="0" checked="checked">
+        <input type="radio" id="{{../_id}}-{{attribute_name}}-exp-0" data-dtype="Number" name="system.attributes.{{attribute_name}}.exp" value="0">
         {{#times_from 1 attribute.exp_max}}
-          <input type="radio" id="{{../../_id}}-{{attribute_name}}-exp-{{this}}"
-                 name="system.attributes.{{attribute_name}}.exp" value="{{this}}">
-          <label class="radio-toggle" for="{{../../_id}}-{{attribute_name}}-exp-{{this}}"></label>
+        <input type="radio" id="{{../../_id}}-{{attribute_name}}-exp-{{this}}" data-dtype="Number" name="system.attributes.{{attribute_name}}.exp" value="{{this}}">
+        <label class="radio-toggle"></label>
         {{/times_from}}
         {{/multiboxes}}
       </div>
-	  {{/if}}
     </div>
 
-    {{!-- Skills --}}
-
-    {{#each attribute.skills as |skill skill_name|}}
-
+    {{!-- Actions --}}
+    {{#each attribute.actions as |action action_name|}}
     <div class="flex-horizontal">
       <div class="attributes-container">
-
-        {{#multiboxes skill.value}}
-		<input {{#if (lteq 0 (oneless skill.min))}}disabled {{/if}}
-			type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-0" data-dType="Number"
-            name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="0">
-        {{#times_from 1 skill.max}}
-        <input {{#if (lteq this (oneless skill.min))}}disabled {{/if}}
-			type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dType="Number"
-            name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="{{this}}">
-        <label {{#if (and (gt skill.min 0) (lteq this skill.min))}}
-			data-tooltip="{{localize "SFTD.DisabledByAE"}}"
-			{{/if}}
-			{{#if (lteq this (oneless skill.min))}}style="filter: unset; opacity: unset; cursor: unset;" 
-			{{/if}}
-		class="radio-toggle" for="attributes-{{../../../_id}}-{{skill_name}}-{{this}}"></label>
+        {{#multiboxes action.value}}
+        <input type="radio"{{#if (lteq 0 (oneless action.min))}} disabled{{/if}} id="attributes-{{../../_id}}-{{action_name}}-0" data-dtype="Number" name="system.attributes.{{attribute_name}}.actions.{{action_name}}.value" value="0">
+        {{#times_from 1 action.max}}
+        <input type="radio"{{#if (lteq this (oneless action.min))}} disabled{{/if}} id="attributes-{{../../../_id}}-{{action_name}}-{{this}}" data-dtype="Number" name="system.attributes.{{attribute_name}}.actions.{{action_name}}.value" value="{{this}}">
+        <label class="radio-toggle"{{#if (and (gt action.min 0) (lteq this action.min))}} data-tooltip="{{localize 'SFTD.DisabledByAE'}}"{{/if}}{{#if (lteq this (oneless action.min))}} style="filter: unset; opacity: unset; cursor: unset;"{{/if}}></label>
         {{/times_from}}
 
-		{{#if (eq skill.max 3)}}
-		    <input type="radio" id="attributes-{{../../../_id}}-{{skill_name}}-{{this}}" data-dType="Number"
-            name="system.attributes.{{attribute_name}}.skills.{{skill_name}}.value" value="{{this}}">
-			<label data-tooltip="{{localize "SFTD.NoMastery"}}" style="filter: unset; opacity: unset; cursor: unset; background-color: #dadbed; border-color: gray"></label>
-		{{/if}}
-
-        <div class="attribute-skill-label roll-die-attribute rollable-text" data-roll-attribute="{{skill_name}}">{{localize skill.label}}</div>
+        <div class="attribute-action-label roll-die-attribute rollable-text" data-tooltip="{{localize (concat action.label 'Info')}}" data-roll-attribute="{{action_name}}">
+        {{localize action.label}}
+        </div>
         {{/multiboxes}}
       </div>
     </div>
     {{/each}}
-
   </div>
   {{/each}}
-
-
 </div>

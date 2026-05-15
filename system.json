@@ -40,38 +40,6 @@
       "type": "Item"
     },
     {
-      "name": "heritage",
-      "label": "Heritages",
-      "system": "songs-for-the-dusk",
-      "path": "./packs/heritages.db",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_01.webp",
-      "type": "Item"
-    },
-    {
-      "name": "vice",
-      "label": "Vices",
-      "system": "songs-for-the-dusk",
-      "path": "./packs/vices.db",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_02.webp",
-      "type": "Item"
-    },
-    {
-      "name": "prison",
-      "label": "Prisons",
-      "system": "songs-for-the-dusk",
-      "path": "./packs/prison.db",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_03.webp",
-      "type": "Item"
-    },
-    {
-      "name": "background",
-      "label": "Backgrounds",
-      "system": "songs-for-the-dusk",
-      "path": "./packs/backgrounds.db",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_04.webp",
-      "type": "Item"
-    },
-    {
       "name": "item",
       "label": "Items",
       "system": "songs-for-the-dusk",
@@ -119,14 +87,6 @@
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_10.webp",
       "type": "Item"
     },
-    {
-      "name": "hunting_grounds",
-      "label": "Hunting Grounds",
-      "system": "songs-for-the-dusk",
-      "path": "./packs/hunting_grounds.db",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_11.webp",
-      "type": "Item"
-    },
 	  {
       "name": "faction",
       "label": "Factions",
@@ -172,12 +132,12 @@
     {
       "name": "Strider Options",
       "sorting": "m",
-      "packs": ["class", "ability", "item", "background", "heritage", "vice"]
+      "packs": ["class", "ability", "item"]
 	  },
     {
       "name": "Crew Options",
       "sorting": "m",
-      "packs": ["crew_type", "crew_ability", "crew_upgrade", "prison", "crew_reputation", "hunting_grounds"]
+      "packs": ["crew_type", "crew_ability", "crew_upgrade", "crew_reputation"]
 	  },
     {
       "name": "Factions & NPCs",

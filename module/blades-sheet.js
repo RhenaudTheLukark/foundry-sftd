@@ -1,7 +1,6 @@
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { getActorSheetClass } from "./compat.js";
-import { openFormDialog } from "./lib/dialog-compat.js";
 
 const BaseActorSheet = getActorSheetClass();
 
@@ -17,331 +16,370 @@ export class BladesSheet extends BaseActorSheet {
   /** @override */
 	activateListeners(html) {
     super.activateListeners(html);
-    html.find(".item-add-popup").click(this._onItemAddClick.bind(this));
-    html.find(".update-box").click(this._onUpdateBoxClick.bind(this));
-	
-	//for compatibility with bitd-alternate-sheets v1.0.10
-	let alt_sheets = false;
-	try {alt_sheets = game.modules.get("bitd-alternate-sheets").active;} catch {}
-	if (alt_sheets) {
-		html.find("input.radio-toggle, label.radio-toggle").click((e) => e.preventDefault());
-		html.find("input.radio-toggle, label.radio-toggle").mousedown((e) => {
-			this._onRadioToggle(e);
-		});
-		html.find("input.radio-toggle, label.radio-toggle").contextmenu((e) => {	
-			this._onRadioToggle(e);
-		});		
-	} else {
-		html.find("input.radio-toggle, label.radio-toggle").click((e) => {	
-			this._onRadioToggle(e);
-		});
-		html.find("input.radio-toggle, label.radio-toggle").contextmenu((e) => {	
-			this._onRadioToggle(e);
-		});		
-	}
+
+    // Everything below here is only needed if the sheet is editable
+    if (!this.options.editable) return;
+
+    html.find('.item-add-popup').click(this.onItemAddClick.bind(this));
+    html.find('.actor-add-popup').click(this.onActorAddClick.bind(this));
+    html.find('.update-box').click(this.onUpdateBoxClick.bind(this));
+
+    html.find('label.radio-toggle').click((e) => {
+      BladesHelpers.onRadioToggle(e);
+      e.preventDefault();
+    });
+    html.find('label.radio-toggle').contextmenu((e) => {
+      BladesHelpers.onRadioToggle(e);
+      e.preventDefault();
+    });
+    html.find('label.radio-toggle.middle').mousedown((e) => {
+      // Middle click
+      if (e && (e.which == 2 || e.button == 1)) {
+        this.onRadioMiddleClick(e);
+        e.preventDefault();
+      }
+    });
 
     // Post item to chat
-    html.find(".item-post").click((ev) => {
-      const element = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(element.data("itemId"));
+    html.find('.item-post').click((ev) => {
+      const element = $(ev.currentTarget).closest('.item');
+      const item = this.actor.items.get(element.data('itemId'));
       item.sendToChat();
     });
 
-    // This is a workaround until is being fixed in FoundryVTT.
-    if ( this.options.submitOnChange ) {
-      html.on("change", "textarea", this._onChangeInput.bind(this));  // Use delegated listener on the form
-    }
+    html.find('.roll-die-attribute').click(this.onRollAttributeDieClick.bind(this));
 
-    html.find(".roll-die-attribute").click((event) => {
-      const attributeName = event.currentTarget?.dataset?.rollAttribute;
-      let defaultDice = 0;
-      try {
-        const rollData = this.actor.getRollData?.();
-        defaultDice = Number(rollData?.dice_amount?.[attributeName] ?? 0);
-      } catch (err) {
-        console.warn("Failed to determine dice amount for roll.", err);
-        defaultDice = 0;
-      }
-
-      const sanitizedDice = Number.isNaN(defaultDice) ? 0 : defaultDice;
-
-      this.actor.rollAttributePopup(attributeName, sanitizedDice);
-    });
-	
     // Update Inventory Item
-    html.find('.item-body').click(ev => {
-      const element = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(element.data("itemId"));
-      item.sheet.render(true);
+    html.find('.item-body').click(async ev => {
+      const element = $(ev.currentTarget).closest('.item');
+      let item = this.actor.items.get(element.data('itemId'));
+      item?.sheet.render(true);
     });
-    // Update Inventory Item
-    html.find('.item-sheet-open').click(ev => {
-      const element = $(ev.currentTarget).parents(".item");
-      const item = this.actor.items.get(element.data("itemId"));
-      item.sheet.render(true);
+
+    // Open Actor
+    html.find('.open-actor').click(async ev => {
+      const element = $(ev.currentTarget).closest('.item');
+      //acqId is the UUID of the Actor
+      let acqId = element.data('itemId');
+      // if the Actor is not in the world the if loop will trigger
+      let actor = BladesHelpers.resolveActor(acqId);
+      actor?.sheet.render(true);
     });
 
     // Delete Inventory Item
-    html.find('.item-delete').click( async ev => {
-      const element = $(ev.currentTarget).parents(".item");
-      await this.actor.deleteEmbeddedDocuments("Item", [element.data("itemId")]);
-      element.slideUp(200, () => this.render(false));
+    html.find('.delete-item').click(async ev => {
+      let element = $(ev.currentTarget).closest('.item');
+      let item = this.actor.items.get(element.data('itemId'));
+      if (element.parent().hasClass('item-with-container'))
+        element = element.parent();
+      element.slideUp(200, async () => await this.actor.removeItem(item));
+    });
+
+    // Delete Relationship
+    html.find('.delete-relationship:not(.disabled-item)').click(async ev => {
+      const element = $(ev.currentTarget).closest(".item");
+      let entityFull = BladesHelpers.resolveActor(element.data("itemId"));
+      if (entityFull)
+        BladesHelpers.removeRelationship(this.actor, entityFull);
+    });
+
+    html.find('.death-toggle').click(async ev => {
+      const targetId = $(ev.currentTarget).data('targetId') ?? this.actor.uuid;
+      const targetFull = BladesHelpers.resolveActor(targetId);
+      await BladesHelpers.tryUpdate(targetFull, {system: {'==dead': !targetFull.system.dead}});
+      const pilotFull = BladesHelpers.resolveActor(targetFull.system.pilot);
+      if (pilotFull)
+        await BladesHelpers.tryUpdate(pilotFull, {'==name': pilotFull.name});
     });
 
     // manage active effects
     html.find(".effect-control").click(ev => BladesActiveEffect.onManageActiveEffect(ev, this.actor));	
-	
-	
-		// acquaintance status toggle
-    html.find('.standing-toggle').click(ev => {
-      let acquaintances = this.actor.system.acquaintances;
-      let acqId = ev.target.closest('.acquaintance').dataset.acquaintance;
-      let clickedAcqIdx = acquaintances.findIndex(item => item.id == acqId);
-      let clickedAcq = acquaintances[clickedAcqIdx];
-      let oldStanding = clickedAcq.standing;
-      let newStanding;
-      switch(oldStanding){
-        case "friend":
-          newStanding = "rival";
-          break;
-        case "rival":
-          newStanding = "neutral";
-          break;
-        case "neutral":
-          newStanding = "friend";
-          break;
-      }
-      clickedAcq.standing = newStanding;
-      acquaintances.splice(clickedAcqIdx, 1, clickedAcq);
-      this.actor.update({system: {acquaintances : acquaintances}});
-    });
-	html.find('.standing-toggle').keydown(ev => {
-	  if (ev.key === " " || ev.key === "Spacebar" || ev.key === "Enter") {
-		 ev.preventDefault();
-		 ev.currentTarget.click();
-	  }
-	});
-	
-	  // Open Acquaintance
-    html.find('.open-friend').click(ev => {
-      const element = $(ev.currentTarget).parents(".item");
-		//acqId is the UUID of the Acquaintance
-	  let acqId = element.data("itemId");
-		// if the Acquaintance is not in the world the if loop will trigger
-	  if (game.actors.get(element.data("itemId")) == undefined) {
-		  //send the UUID and this actor to a helper fuction
-		  BladesHelpers.importAcquaintance(this.actor, acqId);
-	  } else {
-      const actor = game.actors.get(element.data("itemId"));
-      actor?.sheet.render(true);
-	  }
-    });
-	
-	// Remove Acquaintance from strider sheet
-    html.find('.acquaintance-delete').click(ev => {
-      //let acqId = ev.target.closest('.acquaintance').dataset.acquaintance; //used when <div class="acquaintance"
-	  const element = $(ev.currentTarget).parents(".item");
-	  let acqId = element.data("itemId");
-	  BladesHelpers.removeAcquaintance(this.actor, acqId);
-    });
-
-	  // Import Acquaintance by playbook
-    html.find('.import-contacts').click(ev => {
-	  const actor_type = this.actor.type;
-	  let item_type;
-	  if (actor_type=="strider") {item_type = "class";}
-		else if (actor_type=="crew") {item_type = "crew_type";}
-	  const playbook = this.actor.items.filter(i=> i.type === item_type)[0]?.name;
-	  BladesHelpers.import_pb_contacts(this.actor, playbook);
-
-    });
-
-		// Increment Exp Clock
-	html.find('.up-exp-clock').click(ev => {
-		let value = this.actor.system.exp_clock.value;
-		let number = this.actor.system.exp_clock.number;
-		value = value + 1;
-		if (value >= this.actor.system.exp_clock.size) {
-			value = 0;
-			number = number + 1;
-		}
-		this.actor.update({"system.exp_clock": {value : value, number : number}});
-	});
-	
-			// Decrement Exp Clock
-	html.find('.down-exp-clock').click(ev => {
-		let value = this.actor.system.exp_clock.value;
-		let number = this.actor.system.exp_clock.number;
-		value = value - 1;
-		if (value < 0) {
-			value = this.actor.system.exp_clock.size - 1;
-			number = number - 1;
-		}
-		this.actor.update({"system.exp_clock": {value : value, number : number}});
-	});
-	
-			// Add a whole Exp Clock
-	html.find('.add-exp-clock').click(ev => {
-		let number = this.actor.system.exp_clock.number;
-		number = number + 1;
-		this.actor.update({"system.exp_clock": {number : number}});
-	});
-	
-				// Remove a whole Exp Clock
-	html.find('.minus-exp-clock').click(ev => {
-		let number = this.actor.system.exp_clock.number;
-		if (number > 0) {number = number - 1;}
-		else {number = 0;}
-		this.actor.update({"system.exp_clock": {number : number}});
-	});
-	
-	
   }
 
   /* -------------------------------------------- */
 
-  async _onItemAddClick(event) {
+  async onItemAddClick(event) {
     event.preventDefault();
-    const item_type = $(event.currentTarget).data("itemType")
-    const distinct = $(event.currentTarget).data("distinct")
-    let input_type = "checkbox";
+    const itemTypes = $(event.currentTarget).data('itemType').split(',');
+    const valuePath = $(event.currentTarget).data('valuePath');
+    const unique = $(event.currentTarget).data('unique');
+    const addAsItem = $(event.currentTarget).data('addAsItem');
+    const containerId = $(event.currentTarget).data('containerId');
+    let inputType = 'checkbox';
 
-    if (typeof distinct !== "undefined") {
-      input_type = "radio";
-    }
-
-    let items = await BladesHelpers.getAllItemsByType(item_type, game);
-
-    // Filter out "Veteran" items and group by class
-    items = items.filter(i => !i.name.includes("Veteran"));
-    const grouped_items = BladesHelpers.groupItemsByClass(items);
-
-    // Build HTML with grouped items
-    let items_html = '<div class="items-list">';
-    for (const [itemclass, group] of Object.entries(grouped_items)) {
-      items_html += `<div class="item-group"><header>${itemclass}</header>`;
-      for (const item of group) {
-        const trimmedName = BladesHelpers.trimClassFromName(item.name);
-        const description = BladesHelpers.stripHtml(item.system?.description || "");
-
-        items_html += `
-          <div class="item-block">
-            <input id="select-item-${item._id}" type="${input_type}" name="select_items" value="${item._id}">
-            <label for="select-item-${item._id}" title="${description}">
-              ${game.i18n.localize(trimmedName)}
-            </label>
-          </div>`;
+    let itemElement = $(event.currentTarget).closest('.item-with-container').children('.item');
+    if (itemElement.length) {
+      let [_, item] = this.actor.getItemOwner(itemElement[0].data('itemId'));
+      if (item.system.suppressed) {
+        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NoAddFromSuppressedContainer'));
+        return;
       }
-      items_html += "</div>";
     }
-    items_html += "</div>";
 
-    const content = `
-      <form class="items-to-add">
-        ${items_html}
-      </form>
-    `;
+    if (unique !== undefined)
+      inputType = 'radio';
 
-    const formResult = await openFormDialog({
-      title: `${game.i18n.localize('Add')} ${item_type}`,
-      content,
-      okLabel: game.i18n.localize('Add'),
-      cancelLabel: game.i18n.localize('Cancel'),
-    });
-
-    if (!formResult || !formResult.select_items) {
+    let items = await BladesHelpers.getAllObjectDocumentsByType(itemTypes, [], game);
+    let title = '';
+    for (let itemType of itemTypes)
+      title += (title.length ? ' / ' : '') + game.i18n.localize(`TYPES.Item.${itemType}`);
+    if (items.length == 0) {
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NothingToAdd'));
       return;
     }
+    let dialogId = foundry.applications.api.ApplicationV2._appId + 1;
+    let html = `<input id="${dialogId}-search-bar" type="text" value="" placeholder="${game.i18n.format('SFTD.SearchBar', { obj: title })}" autofocus>`;
+    html += `<div class="objects-to-add">`;
+    items.forEach(e => {
+      let additionPriceLoad = ``;
+      if (typeof e.system.load !== 'undefined') additionPriceLoad += `(${e.system.load})`
+      else if (typeof e.system.price !== 'undefined') additionPriceLoad += `(${e.system.price})`
 
-    await this.addItemsToSheet(item_type, formResult.select_items);
+      html += `<input id="${dialogId}-select-item-${e._id}" name="select_items" type="${inputType}" value="${e._id}">`;
+      html += `<label class="entry" for="${dialogId}-select-item-${e._id}">`;
+      html += `${game.i18n.localize(e.name)} ${additionPriceLoad} <i class="fas fa-question-circle" data-tooltip="${game.i18n.localize(e.system.description)}"></i>`;
+      html += `</label>`;
+    });
+
+    html += `</div>`;
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('Add')} ${title}` },
+      content: html,
+      buttons: [
+        {
+          icon: 'fas fa-check',
+          label: game.i18n.localize('Add'),
+          action: 'add',
+          default: true
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Cancel'),
+          action: 'cancel'
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result == 'add')
+          for (let itemType of itemTypes)
+            await this.addItemsToSheet(itemType, $(dialog.element).find('.objects-to-add'), valuePath, addAsItem, containerId);
+      }
+    });
+
+    dialog._onFirstRender = this.dialogOnFirstRender;
+    dialog.render(true);
+  }
+
+  async onActorAddClick(event) {
+    event.preventDefault();
+    let actorTypes = $(event.currentTarget).data('actorType');
+    let valuePaths = $(event.currentTarget).data('valuePath');
+    const parentPath = $(event.currentTarget).data('parentPath');
+    const unique = $(event.currentTarget).data('unique');
+    let title = $(event.currentTarget).data('title');
+
+    let inputType = 'checkbox';
+    if (unique !== undefined)
+      inputType = 'radio';
+
+    if (actorTypes) actorTypes = actorTypes.split(',');
+    if (valuePaths) valuePaths = valuePaths.split(',');
+
+    let exclusionList = [];
+    if (unique === undefined && valuePaths)
+      for (let valuePath of valuePaths.split(',')) {
+        exclusionList = BladesHelpers.getNestedProperty(this.actor, valuePath);
+        exclusionList = Object.values(exclusionList).map(e => e.uuid);
+      }
+
+    if (!title)
+      title = game.i18n.localize(`TYPES.Actor.${actorTypes}`);
+
+    let dialogId = foundry.applications.api.ApplicationV2._appId + 1;
+    let actors = [];
+    if (actorTypes && actorTypes[0] == 'crewmate') {
+      actorTypes = ['strider', 'npc'];
+      let crewFull;
+      if (this.actor.system.crew)
+        crewFull = BladesHelpers.resolveActor(this.actor.system.crew);
+      if (!crewFull) {
+        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NoCrewToAddConnection'));
+        return;
+      }
+      actors = BladesHelpers.fetchSimpleData(Object.values(crewFull.system.members).filter(m => m.uuid != this.actor.uuid && !Object.values(this.actor.system.connections).map(c => c.uuid).includes(m.uuid)), [], BladesHelpers._simpleCompareFunc);
+    } else
+      for (let actorType of actorTypes)
+        actors = actors.concat(await BladesHelpers.getAllObjectDocumentsByType(actorType, exclusionList, game));
+    if (actors.length == 0) {
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NothingToAdd'));
+      return;
+    }
+    let html = `<input id="${dialogId}-search-bar" type="text" value="" placeholder="${game.i18n.format('SFTD.SearchBar', {obj: title})}" autofocus>`
+    html += `<div class="objects-to-add">`;
+
+    for (let actor of actors) {
+      html += `<input id="${dialogId}-select-actor-${actor._id}" name="select_actors" type="${inputType}" value="${actor._id}">`;
+      html += `<label class="entry" for="${dialogId}-select-actor-${actor._id}">`;
+      // Try to fetch known parent if it exists
+      let parentName = ``;
+      let parentValue = undefined;
+      if (parentPath) {
+        parentValue = BladesHelpers.getNestedProperty(actor, parentPath);
+        if (parentValue) parentValue = BladesHelpers.resolveActor(parentValue);
+        if (parentValue) parentName = `(${game.i18n.localize(parentValue.name)})`;
+      }
+      html += `${game.i18n.localize(actor.name)} ${parentName}`;
+      html += `</label>`;
+    }
+
+    html += `</div>`;
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('Add')} ${title}` },
+      content: html,
+      buttons: [
+        {
+          icon: 'fas fa-check',
+          label: game.i18n.localize('Add'),
+          action: 'add',
+          default: true
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Cancel'),
+          action: 'cancel'
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result == 'add')
+          await this.addActorsToSheet(actorTypes, $(dialog.element).find('.objects-to-add'));
+      }
+    });
+
+    dialog._onFirstRender = this.dialogOnFirstRender;
+    dialog.render(true);
+  }
+
+  dialogOnFirstRender(context, options) {
+    let searchBar = this.element.querySelector('input[type=text]');
+    searchBar.addEventListener('input', (event) => {
+      let labels = this.element.querySelector('.objects-to-add').getElementsByClassName('entry');
+      for (let label of labels)
+        label.style.display = label.innerText.toLowerCase().includes(event.target.value.toLowerCase()) ? 'block' : 'none';
+    });
+
+    let scroll = this.element.querySelector('.window-content');
+    scroll.scrollTop = 0;
   }
 
   /* -------------------------------------------- */
 
-  async addItemsToSheet(item_type, selections) {
+  async addItemsToSheet(itemType, el, valuePath, addAsItem, containerId) {
+    let items = await BladesHelpers.getAllObjectDocumentsByType(itemType, [], game);
+    let itemsToAdd = [];
+    el.find('input:checked').each(function() {
+      let item = items.find(e => e._id === $(this).val());
+      if (item)
+        itemsToAdd.push(items.find(e => e._id === $(this).val()));
+    });
 
-    let items = await BladesHelpers.getAllItemsByType(item_type, game);
-    let selectedIds = selections;
-    if (!Array.isArray(selectedIds)) {
-      selectedIds = selectedIds ? [selectedIds] : [];
+    if (!valuePath) {
+      let items = await Item.create(itemsToAdd, {parent: this.actor});
+      for (let item of items) {
+        if (containerId)
+          await BladesHelpers.tryUpdate(item, {system: {'==owner': containerId}});
+        if (item?.system?.uses?.value != undefined)
+          await BladesHelpers.tryUpdate(item, {system: {uses: {'==value': item.system.uses.max}}});
+      }
     }
-
-    const items_to_add = selectedIds
-      .map((selectedId) => items.find((e) => e._id === selectedId))
-      .filter((item) => Boolean(item));
-
-    if (items_to_add.length === 0) {
-      return;
-    }
-
-    if (item_type == "crew") {
-		let actor = this.actor;
-		await BladesHelpers.addCrew(actor,items_to_add[0]);
-	}
-	else {
-		await Item.create(items_to_add, {parent: this.document});
-	}
+    await this.handleAddedObjects(itemsToAdd);
   }
+
+  async addItemAsObjectAndStoreReference(itemToAdd, valuePath) {
+    let itemsFull = await Item.create([itemToAdd], {parent: this.document});
+    if (itemsFull[0].system.uses)
+      await BladesHelpers.tryUpdate(itemsFull[0], {system: {uses: {'==value': itemsFull[0].system.uses.max}}});
+    let updateObject = BladesHelpers.createUpdateObjectFromPath(itemsFull[0]._id, valuePath);
+    // Fetch object and delete it if it exists
+    let objectToDelete = this.actor;
+    for (let pathPart of valuePath.split('.')) {
+      if (!objectToDelete)
+        break;
+      objectToDelete = objectToDelete[pathPart];
+    }
+    if (typeof objectToDelete != 'undefined' && this.actor.items.find(i => i._id == objectToDelete))
+      await this.actor.removeItem(await BladesHelpers.getOwnedItem(this.actor, objectToDelete));
+    await BladesHelpers.tryUpdate(this.actor, updateObject);
+  }
+
+  async addActorsToSheet(actorTypes, el) {
+    let actors = await BladesHelpers.getAllObjectDocumentsByType(actorTypes, [], game);
+    let actorsToAdd = [];
+    el.find('input:checked').each(function() {
+      actorsToAdd.push(actors.find(e => e._id === $(this).val()));
+    });
+
+    await this.actor.sheet.handleAddedObjects(actorsToAdd);
+  }
+
   /* -------------------------------------------- */
 
   /**
    * Roll an Attribute die.
    * @param {*} event
    */
-  async _onRollAttributeDieClick(event) {
-
-    const attribute_name = $(event.currentTarget).data("rollAttribute");
-    this.actor.rollAttributePopup(attribute_name);
-
+  async onRollAttributeDieClick(event) {
+    const attributeName = $(event.currentTarget).data('rollAttribute');
+    await this.actor.rollAttributePopup(attributeName);
   }
 
   /* -------------------------------------------- */
 
-  async _onUpdateBoxClick(event) {
+  async onUpdateBoxClick(event) {
     event.preventDefault();
-    const item_id = $(event.currentTarget).data("item");
-    var update_value = $(event.currentTarget).data("value");
-      const update_type = $(event.currentTarget).data("utype");
-      if ( update_value === undefined) {
-      update_value = document.getElementById('fac-' + update_type + '-' + item_id).value;
-    };
+    const itemId = $(event.currentTarget).data('item');
+    var updateValue = $(event.currentTarget).data('value');
+    const updateType = $(event.currentTarget).data('utype');
+    if (updateValue === undefined)
+      updateValue = document.getElementById('fac-' + updateType + '-' + itemId).value;
     var update;
-    if ( update_type === "status" ) {
-      update = {_id: item_id, system:{status:{value: update_value}}};
-    }
-    else if (update_type == "hold") {
-      update = {_id: item_id, system:{hold:{value: update_value}}};
-    } else {
-      console.log("update attempted for type undefined in blades-sheet.js onUpdateBoxClick function");
+    if (updateType === 'status')
+      update = {_id: itemId, system: {status: {value: updateValue}}};
+    else if (updateType == 'hold')
+      update = {_id: itemId, system: {hold: {value: updateValue}}};
+    else {
+      console.log('update attempted for type undefined in blades-sheet.js onUpdateBoxClick function');
       return;
     };
 
-    await this.actor.updateEmbeddedDocuments("Item", [update]);
-
-
-    }
+    await this.actor.updateEmbeddedDocuments('Item', [update]);
+  }
 
   /* -------------------------------------------- */
-  
-   async _onRadioToggle(event) {
+
+  async onRadioMiddleClick(event) {
     let type = event.target.tagName.toLowerCase();
-    let target = event.target;
-    if (type == "label") {
-      let labelID = $(target).attr("for");
-      target = $(`#${labelID}`).get(0);
-    }
+    let element = event.target;
+    let target = type == 'label' ? element : element.parentElement;
+    let label = target;
+    type = target.tagName.toLowerCase();
+    if (type == 'label')
+      target = label.previousElementSibling;
 
-    if (target.checked || (event.type == "contextmenu")) {
-      //find the next lowest-value input with the same name and click that one instead
-      let name = target.name;
-      let value = parseInt(target.value) - 1;
-      this.element
-        .find(`input[name="${name}"][value="${value}"]`)
-        .trigger("click");
-    } else {
-      //trigger the click on this one
-      $(target).trigger("click");
-    }
-  }	
+    let actor = this.actor;
 
+    let value = parseInt(target.value);
+    let fieldList = $(target).data('name').split('.');
+    let attributeName = fieldList[2];
+    let actionName = fieldList[4];
+    let actionData = (await this.getData()).system.attributes[attributeName].actions[actionName];
+    let oldFormField = actionData.first_form != 0 ? 'first_form' : actionData.second_form != 0 ? 'second_form' : '';
+    let formField = oldFormField == 'first_form' ? 'second_form' : oldFormField == 'second_form' ? '' : 'first_form';
+    let updateObject = {system: {attributes: {}}};
+    updateObject.system.attributes[attributeName] = {actions: {}};
+    updateObject.system.attributes[attributeName].actions[actionName] = {};
+    if (formField) updateObject.system.attributes[attributeName].actions[actionName][`==${formField}`] = value - actionData.value;
+    if (oldFormField) updateObject.system.attributes[attributeName].actions[actionName][`==${oldFormField}`] = 0;
+    await BladesHelpers.tryUpdate(actor, updateObject);
+  }
 }

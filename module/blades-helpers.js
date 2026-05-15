@@ -1,7 +1,37 @@
+import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 import { generateRandomId } from "./compat.js";
 import { openFormDialog } from "./lib/dialog-compat.js";
 
 export class BladesHelpers {
+
+  static createUpdateObjectFromPath(value, path) {
+    let reversePath = path.split('.').reverse();
+    let updateObject = {};
+    updateObject[`==${reversePath[0]}`] = value;
+    reversePath.splice(0, 1);
+    while (reversePath.length > 0) {
+      let newUpdateObject = {};
+      newUpdateObject[reversePath[0]] = updateObject;
+      updateObject = newUpdateObject;
+      reversePath.splice(0, 1);
+    }
+    return updateObject;
+  }
+
+  static mergeAddObjects(obj1, ignoredFields, ...objs) {
+    let output = Object.assign({}, obj1);
+    for (let obj of objs) {
+      for (let [k, v] of Object.entries(obj)) {
+        if (ignoredFields.includes(k))
+          { /* Nothing */ }
+        else if (output[k] !== undefined)
+          output[k] += v;
+        else
+          output[k] = v;
+      }
+    }
+    return output;
+  }
 
   /**
    * Identifies duplicate items by type and returns a array of item ids to remove
@@ -13,7 +43,7 @@ export class BladesHelpers {
    */
   static removeDuplicatedItemType(item_data, actor) {
     let dupe_list = [];
-    let distinct_types = ["crew_type", "crew_reputation", "class", "vice", "background", "heritage", "prison"];
+    let distinct_types = ["crew_type", "crew_reputation", "class"];
     let allowed_types = ["item"];
     let should_be_distinct = distinct_types.includes(item_data.type);
     // If the Item has the exact same name - remove it from list.
@@ -39,21 +69,204 @@ export class BladesHelpers {
     }, obj);
   }
 
+  /**
+   * Get the list of all available ingame objects by type.
+   *
+   * @param {string | List<string>} objectTypes
+   * @param {Object} game
+   */
+  static getAllObjectsByType(objectTypes, exclusionList, game) {
+    if (!Array.isArray(objectTypes))
+      objectTypes = [objectTypes];
+
+    let output = [];
+    for (let objectType of objectTypes) {
+      let isActor = ['faction', 'crew', 'strider', 'npc'].includes(objectType);
+      let container = isActor ? game.actors : game.items;
+      let worldObjects = container.filter(e => e.type === objectType && !exclusionList.includes(e.uuid)).map(e => { return e });
+
+      let objectList = worldObjects;
+      if (!isActor) {
+        let pack = game.packs.find(e => e.metadata.name === objectType);
+        let compendiumItems = [];
+        for (let object of pack)
+          compendiumItems.push(object);
+        objectList = objectList.concat(compendiumItems);
+      }
+      output = output.concat(objectList.sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())));
+    }
+    return output;
+  }
+
+  /**
+   * Get the list of all available ingame object documents by type.
+   *
+   * @param {string | List<string>} objectTypes
+   * @param {Object} game
+   */
+  static async getAllObjectDocumentsByType(objectTypes, exclusionList, game) {
+    if (!Array.isArray(objectTypes))
+      objectTypes = [objectTypes];
+
+    let output = [];
+    for (let objectType of objectTypes) {
+      let isActor = ['faction', 'crew', 'strider', 'npc'].includes(objectType);
+      let container = isActor ? game.actors : game.items;
+      let worldObjects = container.filter(e => e.type === objectType && !exclusionList.includes(e.uuid)).map(e => { return e });
+
+      let objectList = worldObjects;
+      if (!isActor) {
+        let pack = game.packs.find(e => e.metadata.name === objectType);
+        let compendiumContent = await pack.getDocuments();
+        let compendiumItems = compendiumContent.map(e => { return e });
+        objectList = objectList.concat(compendiumItems);
+      }
+      output = output.concat(objectList.sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())));
+    }
+    return output;
+  }
+
+  static prepareItemDropdown(itemType, allowEmpty, game) {
+    let items = BladesHelpers.getAllObjectsByType(itemType, [], game);
+
+    let result = {};
+    if (allowEmpty)
+      result[''] = game.i18n.localize('SFTD.None');
+    items.forEach(item => { result[item._id] = item.name; });
+
+    return result;
+  }
+
+  static getOwnedItem(obj, itemId, defaultValue = null) {
+    if (itemId) {
+      const itemCollectionId = obj.items.contents.findIndex(i => i._id == itemId);
+      if (itemCollectionId >= 0)
+        return obj.items.contents[itemCollectionId];
+    }
+    return defaultValue;
+  }
+
+  static resolveOwnedItem(itemId, itemType, defaultValue, game) {
+    if (!itemId)
+      return defaultValue;
+
+    // Check World Objects
+    let worldResult = BladesHelpers.resolveWorldItem(itemId, game);
+    if (worldResult)
+      return worldResult;
+
+    // Check Compendium Objects
+    if (itemType) {
+      let compendiumResult = BladesHelpers.resolveCompendiumItem(itemId, itemType, game);
+      if (compendiumResult)
+        return compendiumResult;
+    }
+
+    console.warn(`Could not resolve actor or item with ID ${itemId}.`)
+    return {}
+  }
+
+  static resolveWorldItem(itemId, game) {
+    // Check Actor
+    let actor = game.actors.filter(e => e._id === itemId);
+    if (actor.length > 0)
+      return actor[0];
+
+    // Check World Items
+    let item = game.items.filter(e => e._id === itemId);
+    if (item.length > 0)
+      return item[0];
+  }
+
+  static resolveCompendiumItem(itemId, itemType, game) {
+    let pack = game.packs.find(e => e.metadata.name === itemType);
+    return pack?.contents.find(e => e._id == itemId);
+  }
+
+  /**
+   *
+   * @param {Actor} objectFull
+   * @param {object} updateObject
+   */
+  static async tryUpdate(objectFull, updateObject) {
+    if (!objectFull)
+      return;
+    if (objectFull.canUserModify(game.user, 'update'))
+      await objectFull.update(updateObject);
+    else {
+      // Send a specific message to the GM to update some data on their end
+      let speaker = ChatMessage.getSpeaker();
+      let messageData = {
+        speaker: speaker,
+        updateQuery: JSON.stringify(updateObject),
+        updateDocumentUuid: objectFull.uuid,
+        content: '',
+        blind: true,
+        whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
+      }
+      let message = await BeamChatMessage.create(messageData);
+
+      if (game.users.activeGM)
+        // Wait for the message to be handled to continue;
+        await BladesHelpers.until(_ => message.system.handled == true);
+      else
+        // Notify the player that the data will be handled when a GM connects
+        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.TryUpdateNoActiveGM'));
+    }
+  }
+
+  static async until(conditionFunction) {
+    const poll = resolve => {
+      if (conditionFunction())
+        resolve();
+      else
+        setTimeout(_ => poll(resolve), 10);
+    }
+
+    return new Promise(poll);
+  }
+
+  static async onRadioToggle(event) {
+    let type = event.target.tagName.toLowerCase();
+    let element = event.target;
+    let target = type == 'label' ? element : element.parentElement;
+    let label = target;
+    type = target.tagName.toLowerCase();
+    if (type == 'label')
+      target = label.previousElementSibling;
+
+    // Get the last enabled element
+    let enabledLabels = Object.values(target.parentElement.children).filter(e => e.classList.contains('enabled'));
+    if (enabledLabels[enabledLabels.length-1] == label || (event.type == 'contextmenu')) {
+      //find the next lowest-value input with the same name and click that one instead
+      let name = target.name;
+      if (!name) name = $(target).data('name');
+      let value = target.value;
+      if (!value) value = $(target).data('value');
+      value = parseInt(value);
+      if (value < 0) value += 1;
+      else value -= 1;
+      let prevEl = $(target.parentElement).find(`*[name='${name}'][value='${value}'], *[data-name='${name}'][value='${value}'], *[name='${name}'][data-value='${value}'], *[data-name='${name}'][data-value='${value}']`);
+      prevEl.trigger('click');
+    } else {
+      //trigger the click on this one
+      $(target).trigger('click');
+    }
+  }
 
   /**
    * Add item functionality
    */
-  static _addOwnedItem(event, actor) {
-
+  static async _addOwnedItem(event, actor) {
     event.preventDefault();
     const a = event.currentTarget;
-    const item_type = a.dataset.itemType;
+    const itemType = a.dataset.itemType;
 
     let data = {
-      name: generateRandomId(),
-      type: item_type
+      name: randomID(),
+      type: itemType
     };
-    return actor.createEmbeddedDocuments("Item", [data]);
+    return await actor.createEmbeddedDocuments('Item', [data]);
   }
 
   /**
@@ -123,6 +336,20 @@ export class BladesHelpers {
 
   /* -------------------------------------------- */
 
+  static resolveActor(obj, errorObj) {
+    let objFull;
+    if (obj) {
+      if (obj.uuid) obj = obj.uuid;
+      objFull = fromUuidSync(obj);
+      if (!objFull)
+        objFull = errorObj;
+    } else
+      objFull = null;
+    return objFull;
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Returns the label for attribute.
    *
@@ -135,8 +362,8 @@ export class BladesHelpers {
 
     for (const att_name in attributes) {
       attribute_labels[att_name] = attributes[att_name].label;
-      for (const skill_name in attributes[att_name].skills) {
-        attribute_labels[skill_name] = attributes[att_name].skills[skill_name].label;
+      for (const action_name in attributes[att_name].actions) {
+        attribute_labels[action_name] = attributes[att_name].actions[action_name].label;
       }
 
     }
@@ -158,9 +385,9 @@ export class BladesHelpers {
       if (att_name == roll_name) {
         return attributes[att_name].label;
       }
-      for (const skill_name in attributes[att_name].skills) {
-        if (skill_name == roll_name) {
-          return attributes[att_name].skills[skill_name].label;
+      for (const action_name in attributes[att_name].actions) {
+        if (action_name == roll_name) {
+          return attributes[att_name].actions[action_name].label;
         }
       }
     }
@@ -178,8 +405,8 @@ export class BladesHelpers {
     const attributes = game.model.Actor.strider.attributes;
 
     for (const att_name in attributes) {
-      for (const skill_name in attributes[att_name].skills) {
-        if (skill_name == attribute_name) {
+      for (const action_name in attributes[att_name].actions) {
+        if (action_name == attribute_name) {
           return true;
         }
       }
@@ -198,6 +425,14 @@ export class BladesHelpers {
     const attributes = game.model.Actor.strider.attributes;
 
     return (attribute_name in attributes);
+  }
+
+  /* -------------------------------------------- */
+
+  static sortObjects(objs, fetchFunc, compareFunc, rebuildFunc, extraFields = []) {
+    let objsFull = fetchFunc(objs, extraFields);
+    let objsFullSortedArray = Object.values(objsFull).sort(compareFunc);
+    return rebuildFunc(objsFullSortedArray, extraFields);
   }
 
   /* -------------------------------------------- */
@@ -236,104 +471,6 @@ export class BladesHelpers {
 
   }
 
-  // adds an NPC to the strider as an acquaintance of neutral standing
-  static async addAcquaintance(actor, acq) {
-    let current_acquaintances = actor.system.acquaintances;
-    let acquaintance = {
-      id: acq.id,
-      name: acq.name,
-      description_short: acq.system.description_short,
-      standing: "neutral"
-    };
-    let unique_id = !current_acquaintances.some((oldAcq) => {
-      return oldAcq.id == acq.id;
-    });
-    if (unique_id) {
-      await actor.update({system: {acquaintances: current_acquaintances.concat([acquaintance])}});
-    } else {
-      ui.notifications.info(game.i18n.localize("SFTD.log.info.SameNPC"));
-    }
-  }
-
-  static async removeAcquaintance(actor, acqId) {
-    let current_acquaintances = actor.system.acquaintances;
-    let updated_acquaintances = current_acquaintances.filter(acq => acq._id !== acqId && acq.id !== acqId);
-    await actor.update({system: {acquaintances: updated_acquaintances}});
-  }
-
-  static async importAcquaintance(actor, acqId) {
-    //try to import from a compendium
-    try {
-      let new_actor = await game.actors.importFromCompendium(game.packs.get("songs-for-the-dusk.npc"), acqId);
-      //get the UUID of newly created actor
-      let new_id = new_actor.id;
-      console.log(new_id);
-      //get array index of Acquaintance being updated
-      let old_index = await actor.system.acquaintances.findIndex(e => e.id == acqId);
-      // update Acquaintance on actor with new UUID
-      let updated_acquaintances = actor.system.acquaintances;
-      updated_acquaintances[old_index].id = new_id;
-      await actor.update({system: {acquaintances: updated_acquaintances}});
-      await new_actor.sheet.render(true);
-    } catch (error) {
-      ui.notifications.warn(game.i18n.localize(("SFTD.log.warn.NoNPC")));
-      console.error(error);
-    }
-  }
-
-  static async addCustomContact(actor) {
-    const dialogContent = `
-    <form>
-      <div class="form-group">
-        <label>Name:</label>
-        <input type="text" name="name" required />
-      </div>
-      <div class="form-group">
-        <label>Description:</label>
-        <input type="text" name="description_short" />
-      </div>
-      <div class="form-group">
-        <label>Standing:</label>
-        <select name="standing">
-          <option value="neutral">Neutral</option>
-          <option value="friend">Friend</option>
-          <option value="rival">Rival</option>
-        </select>
-      </div>
-    </form>
-  `;
-
-    const result = await openFormDialog({
-      title: "Add Custom Contact",
-      content: dialogContent,
-      okLabel: "Add Contact",
-      cancelLabel: "Cancel",
-      defaultButton: "ok",
-    });
-
-    if (!result) {
-      return false;
-    }
-
-    const name = String(result.name ?? "").trim();
-    if (!name) {
-      ui.notifications?.warn?.("Name is required for a custom contact.");
-      return false;
-    }
-
-    const newContact = {
-      id: generateRandomId(),
-      name,
-      description_short: String(result.description_short ?? ""),
-      standing: result.standing ?? "neutral",
-    };
-
-    const acquaintances = actor.system.acquaintances || [];
-    acquaintances.push(newContact);
-    await actor.update({ "system.acquaintances": acquaintances });
-    return true;
-  }
-
   static async getSourcedItemsByType(item_type) {
     const limited_items = await this.getAllItemsByType(item_type);
     return limited_items;
@@ -345,57 +482,33 @@ export class BladesHelpers {
     return item;
   }
 
-  static async getPlaybookAcquaintances(actor_type, selected_playbook) {
-    let all_acquaintances = await this.getSourcedItemsByType('npc');
-    let playbook_acquaintances = [];
-    if (actor_type == "strider") {
-      playbook_acquaintances = all_acquaintances.filter(i => i.system.associated_class === selected_playbook);
-    } else if (actor_type == "crew") {
-      playbook_acquaintances = all_acquaintances.filter(i => i.system.associated_crew_type === selected_playbook);
+  // Sets the crew of a strider and add the strider to the crew's member list
+  static async addCrewStrider(crewFull, striderFull, fromCrew) {
+    if (striderFull.system.crew === crewFull.uuid) {
+      BladesHelpers.printSameObjectError(fromCrew, 'crew', 'strider');
+      return;
     }
-    return playbook_acquaintances;
 
+    if (striderFull.system.crew)
+      await BladesHelpers.removeCrewStrider(striderFull);
+    let crewMembersArray = Object.values(crewFull.system.members);
+    crewMembersArray.push({uuid: striderFull.uuid});
+    crewMembersArray = BladesHelpers.sortObjects(crewMembersArray, BladesHelpers.fetchSimpleData, BladesHelpers._simpleCompareFunc, BladesHelpers.rebuildSimplesFromData);
+    let newCrewMembers = Object.assign({}, crewMembersArray);
+    await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
+    await BladesHelpers.tryUpdate(striderFull, {system: {'==crew': crewFull.uuid}});
   }
 
-  static async import_pb_contacts(actor, playbook) {
-    const pb_type = await actor.type;
-    const pb_actor = await this.getPlaybookAcquaintances(pb_type, playbook);
-    const LM = pb_actor.length;
-    let i = 0;
-    while (i < LM) {
-      const new_acq = pb_actor[i];
-      await this.addAcquaintance(actor, new_acq);
-      i++;
+  // Removes a strider's crew and remove the strider from its crew's member list
+  static async removeCrewStrider(striderFull) {
+    let crewFull = BladesHelpers.resolveActor(striderFull.system.crew);
+    if (crewFull) {
+      let crewMembersArray = Object.values(crewFull.system.members);
+      crewMembersArray.splice(crewMembersArray.map(e => e.uuid).indexOf(striderFull.uuid), 1);
+      let newCrewMembers = Object.assign({}, crewMembersArray);
+      await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
     }
-  }
-
-  // adds a crew to the strider
-  static async addCrew(actor, dropped_crew) {
-    let current_crew = actor.system.crew;
-    let new_crew = {
-      id: dropped_crew.id,
-      name: dropped_crew.name,
-      description: dropped_crew.system.description,
-      img: dropped_crew.img
-    };
-
-    let unique_id = !current_crew.some((oldAcq) => {
-      return oldAcq.id == dropped_crew.id;
-    });
-
-    if (unique_id) {
-      actor.update({system: {crew: [new_crew]}});
-
-    } else {
-      ui.notifications.info(game.i18n.localize("SFTD.log.info.SameCrew"));
-    }
-  }
-
-  // removes a crew from the strider
-  static async removeCrew(actor, crewId) {
-    let current_crew = actor.system.crew;
-    let updated_crew = current_crew.filter(acq => acq._id !== crewId && acq.id !== crewId);
-    await actor.update({system: {crew: updated_crew}});
+    await BladesHelpers.tryUpdate(striderFull, {system: {'==crew': null}});
   }
 
   /**
@@ -454,5 +567,37 @@ export class BladesHelpers {
     if (!html) return "";
     let doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
+  }
+
+  /* -------------------------------------------- */
+
+  static fetchSimpleData(simpleObjs, extraFields = [], compareFunc = undefined) {
+    let simpleObjsFull = [];
+    for (let simpleObj of Object.values(simpleObjs)) {
+      let simpleObjFull = BladesHelpers.resolveActor(simpleObj.uuid);
+      if (!simpleObjFull)
+        continue;
+      for (let extraField of extraFields)
+        simpleObjFull.system[extraField] = simpleObj[extraField];
+      simpleObjsFull.push(simpleObjFull);
+    }
+    if (compareFunc)
+      simpleObjsFull = simpleObjsFull.sort(compareFunc);
+    return simpleObjsFull;
+  }
+
+  static _simpleCompareFunc(a, b) {
+    return a.name.localeCompare(b.name, 'en-US');
+  }
+
+  static rebuildSimplesFromData(simpleObjsFull, extraFields = []) {
+    let simpleObjs = [];
+    for (let simpleObjFull of Object.values(simpleObjsFull)) {
+      let simpleObj = {uuid: simpleObjFull.uuid};
+      for (let extraField of extraFields)
+        simpleObj[extraField] = simpleObjFull.system[extraField];
+      simpleObjs.push(simpleObj);
+    }
+    return simpleObjs;
   }
 }

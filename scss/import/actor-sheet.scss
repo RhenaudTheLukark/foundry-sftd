@@ -1,0 +1,207 @@
+form.actor-sheet {
+  padding: 20px;
+  gap: 5px;
+}
+
+ul {
+  margin: 0;
+}
+
+$supply_size: 15px;
+$supply_margin: 3px;
+
+.supply-container {
+  &:has(.supply.uses) {
+    text-align: center;
+    align-self: center;
+    align-items: center;
+  }
+}
+
+.supply {
+  @include custom_radio_square($supply_size);
+
+  &:not(.uses) {
+    flex-wrap: wrap;
+  }
+
+  label {
+    margin-right: $supply_margin;
+    margin-bottom: $supply_margin;
+
+    @include changeable($transition-period, $hover-brightness, $hover-opacity);
+  }
+}
+
+.item {
+  justify-content: space-between;
+  gap: 10px;
+
+  img {
+    margin-right: 10px;
+  }
+
+  .item-name {
+    width: 150px;
+    align-self: center;
+  }
+
+  .item-body, .open-actor {
+    justify-content: flex-start;
+    align-items: center;
+
+    .item-name {
+      margin-right: 10px;
+    }
+
+    .item-description {
+      /*font-style: italic;*/
+      text-align: justify;
+    }
+  }
+
+  .item-controls {
+    > .item-post {
+      margin-left: 10px;
+    }
+  }
+}
+
+.trust-block, .beliefs-block, .status-block {
+  text-align: center;
+
+  .supply {
+    width: 90px;
+
+    label {
+      margin-right: 0;
+    }
+  }
+
+  input {
+    min-width: 193px;
+  }
+}
+
+.status-block {
+  .supply {
+    label.negative.enabled {
+      background-color: $red;
+    }
+
+    label.enabled {
+      background-color: $green;
+    }
+  }
+}
+
+.tabs > a {
+  font-family: "Kirsty", serif;
+}
+
+.tab-content {
+  .tab {
+    width: 100%;
+
+    table {
+      margin: 0;
+    }
+  }
+
+  .item {
+    .item-name {
+      font-weight: bold;
+    }
+    .item-body, .open-actor {
+      width: 100%;
+    }
+  }
+
+  .item-container {
+    margin-left: 24px;
+
+    .label-stripe-gray {
+      align-items: end;
+    }
+
+    .current-load {
+      display: inline;
+    }
+    .red {
+      color: $red;
+    }
+  }
+
+  .item-description {
+    width: 100%;
+  }
+  .item-add-popup {
+    margin-left: 10px;
+  }
+
+  .relationship-container {
+    .collapse {
+      margin-left: 10px;
+    }
+
+    .patron {
+      background: rgba(0, 0, 192, 0.2);
+    }
+
+    .item {
+      width: 100%;
+
+      img {
+        width: 48px;
+        height: 48px;
+      }
+
+      .item-name {
+        width: 100%;
+      }
+    }
+
+    .relationship-child-list {
+      margin-left: 10px;
+    }
+  }
+
+  .all-items {
+    .item {
+      .item-name {
+        width: auto;
+      }
+    }
+  }
+}
+
+.item-control {
+  flex-grow: 0;
+  align-self: center;
+}
+
+.disabled-item * {
+  color: $gray;
+}
+
+.death-toggle {
+  float: right;
+  position: relative;
+
+  i {
+    font-size: 20px;
+
+    &.fa-skull {
+      &.fas {
+        color: $red;
+      }
+      &.fa-regular {
+        color: $almost_black;
+      }
+    }
+  }
+}
+
+.dead {
+  filter: grayscale(1);
+}

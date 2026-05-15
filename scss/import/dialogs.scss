@@ -1,13 +1,16 @@
 // Add Items modal styling.
-.items-to-add {
+.window-content {
+  overflow: hidden auto;
+}
 
+.objects-to-add {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
 
-  input[type="radio"],
-  input[type="checkbox"] {
+  input[type=radio],
+  input[type=checkbox] {
     display: none;
 
     &:checked + label {
@@ -17,7 +20,6 @@
 
  //Tooltip.
   .tooltip {
-
     .tooltiptext {
       visibility: hidden;
       width: 200px;
@@ -35,5 +37,183 @@
     &:hover .tooltiptext {
       visibility: visible;
     }
+  }
+}
+
+h2 {
+  margin-bottom: 0;
+}
+
+fieldset.form-group {
+  &:has(.radio-group, .modifier) {
+    flex-direction: column;
+  }
+
+  .radio-group, .modifier, &:not(:has(.radio-group, .modifier)) {
+    display: inline-flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1em;
+
+    & > label {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    & > div {
+      display: inline-flex;
+      gap: 1em;
+    }
+
+    & span {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5em;
+      white-space: nowrap;
+    }
+  }
+}
+
+.standard-form .form-group > label,
+.standard-form .form-group > span.label {
+  flex: 0.5;
+}
+
+.form-group-inline {
+  display: inline-flex;
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+  gap: 1em;
+
+  & > label {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  & > div {
+    display: inline-flex;
+    gap: 1em;
+  }
+
+  & span {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5em;
+    white-space: nowrap;
+
+    &:first-child {
+      width: 100%;
+    }
+  }
+}
+
+.flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.toggleable-modifiers {
+  overflow: hidden auto;
+  max-height: 200px;
+  flex-wrap: nowrap;
+}
+
+.spark-options {
+  overflow: hidden auto;
+  max-height: 500px;
+  flex-wrap: nowrap;
+}
+
+&.upgrade-connection {
+  .form-group:empty {
+    display: none;
+  }
+}
+
+&.stay-late {
+  table.form-group {
+    width: auto;
+
+    tr {
+      display: table;
+      table-layout: fixed;
+      background-color: var(--table-row-color-odd);
+
+      td {
+        display: table-cell;
+        width: 2%;
+        padding: 1em;
+
+        &.selected {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+}
+
+&.start-mission, &.end-mission, &.end-session {
+  ul {
+    margin-top: 0.25em;
+    margin-bottom: 0px;
+  }
+
+  div.category-collapse {
+    font-size: var(--font-size-15);
+    font-weight: bold;
+    display: none;
+
+    &:has(+ fieldset.collapsed-category) {
+      display: block;
+    }
+  }
+
+  fieldset.collapsed-category {
+    display: none;
+  }
+
+  .form-group-inline {
+    &:has(> input[type=checkbox]:not(:checked)) {
+      color: $gray;
+    }
+    & > label {
+      justify-content: left;
+      width: 100%;
+    }
+    & > div {
+      display: flex;
+      width: 100%;
+      gap: 1em;
+      justify-content: space-between;
+      align-items: center;
+
+      select {
+        width: auto;
+      }
+    }
+  }
+
+  input[type=checkbox].automated:checked::after {
+    color: $light_green;
+  }
+}
+
+.actor-contents {
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+select {
+  min-height: 32px;
+  overflow-y: auto;
+  height: auto;
+
+  option:checked {
+    color: light-dark(rgb(16, 16, 16), rgb(255, 255, 255));
   }
 }

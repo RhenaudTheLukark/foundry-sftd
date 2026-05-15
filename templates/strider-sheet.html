@@ -1,0 +1,309 @@
+<form class="{{cssClass}} actor-sheet" autocomplete="off">
+
+  <section id="strider-{{_id}}-name-alias" class="flex-horizontal name-alias">
+
+    {{!-- Portrait --}}
+    <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" class="portrait{{#if system.dead}} dead{{/if}}" />
+
+    <div class="grow-two">
+      <div class="flex-horizontal">
+        {{!-- Name --}}
+        <div id="strider-{{_id}}-name-box">
+          <label for="strider-{{_id}}-name">{{localize 'SFTD.Name'}}:</label>
+          <input type="text" id="strider-{{_id}}-name" class="name" name="name" value="{{name}}">
+        </div>
+        {{!-- Gender --}}
+        <div id="strider-{{_id}}-gender-box">
+          <label for="strider-{{_id}}-gender">{{localize 'SFTD.Gender'}}:</label>
+          <input type="text" id="strider-{{_id}}-gender" class="gender" name="system.gender" value="{{system.gender}}">
+        </div>
+        {{!-- Form --}}
+        <div id="strider-{{_id}}-form-box">
+          <label for="strider-{{_id}}-form">{{localize 'SFTD.Form'}}:</label>
+          <input type="text" id="strider-{{_id}}-form" class="alias" name="system.form" value="{{system.form}}">
+        </div>
+      </div>
+
+      {{!-- Traits --}}
+      <div id="strider-{{_id}}-traits" class="traits flex-vertical">
+        {{!-- Look --}}
+        <div class="item-block flex-horizontal">
+          <label class="item-class-label" for="strider-{{_id}}-look">{{localize 'SFTD.Look'}}:</label>
+          <input type="text" id="strider-{{_id}}-look" name="system.look" value="{{system.look}}">
+        </div>
+
+        {{!-- Heritage --}}
+        <div class="item-block flex-horizontal">
+          <label class="item-class-label" for="strider-{{_id}}-heritage">{{localize 'SFTD.Heritage'}}:</label>
+          <input type="text" id="strider-{{_id}}-heritage" name="system.heritage" value="{{system.heritage}}">
+        </div>
+
+        {{!-- Background --}}
+        <div class="item-block flex-horizontal">
+          <label class="item-class-label" for="strider-{{_id}}-background">{{localize 'SFTD.Background'}}:</label>
+          <input type="text" id="strider-{{_id}}-background" name="system.background" value="{{system.background}}">
+        </div>
+
+        {{!-- Anchors --}}
+        <div class="item-block flex-horizontal">
+          <label class="item-class-label" for="strider-{{_id}}-anchors">{{localize 'SFTD.Anchors'}}:</label>
+          <input type="text" id="strider-{{_id}}-anchors" name="system.anchors" value="{{system.anchors}}">
+        </div>
+
+        <div class="two-line flex-horizontal">
+          {{!-- Class --}}
+          <div class="item-block flex-horizontal grow-one">
+            <div class="item-class-label"><a class="item-add-popup" data-item-type="class" data-unique="true" data-value-path="system.class" data-add-as-item="true">{{localize 'TYPES.Item.class'}}:</a></div>
+            {{#if (ne system.class null)}}
+            <div class="item flex-horizontal" data-item-id="{{system.class.uuid}}">
+              <div class="open-actor flex-horizontal">
+                <img src="{{system.class.img}}" data-tooltip="{{system.class.name}}" width="24" height="24"/>
+                <a class="item-name">{{system.class.name}}</a>
+              </div>
+              <a class="item-control delete-class" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+            </div>
+            {{/if}}
+          </div>
+          {{!-- Crew --}}
+          <div class="item-block flex-horizontal grow-one">
+            <div class="item-class-label"><a class="actor-add-popup" data-actor-type="crew" data-unique="true" data-value-path="system.crew">{{localize 'TYPES.Actor.crew'}}:</a></div>
+            {{#if (ne system.crew null)}}
+            <div class="item flex-horizontal" data-item-id="{{system.crew.uuid}}" data-item-type="{{system.crew.type}}">
+              <div class="open-actor flex-horizontal">
+                <img src="{{system.crew.img}}" data-tooltip="{{system.crew.name}}" width="24" height="24"/>
+                <a class="item-name">{{system.crew.name}}</a>
+              </div>
+              <a class="item-control delete-crew" data-tooltip="{{localize 'SFTD.TitleDeleteCrew'}}"><i class="fas fa-trash"></i></a>
+            </div>
+            {{/if}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {{!-- Stress and Scars --}}
+  <div id="strider-{{_id}}-stress-scars" class="section big-teeth-section">
+    <div id="strider-{{_id}}-stress" class="big-teeth strider-stress">
+      {{#multiboxes system.stress.value}}
+      <input type="radio" id="strider-{{_id}}-stress-0" name="system.stress.value" value="0" dtype="Radio">
+      <div class="black-label">{{localize 'SFTD.Stress'}}</div>
+      {{#times_from 1 system.stress.max}}
+      <input type="radio" id="strider-{{../_id}}-stress-{{this}}" name="system.stress.value" value="{{this}}" dtype="Radio">
+      <label class="radio-toggle"></label>
+      {{/times_from}}
+      {{/multiboxes}}
+    </div>
+    <div id="strider-{{_id}}-scars-container" class="small-teeth-container scars">
+      <div id="strider-{{_id}}-scars" class="small-teeth-wrap">
+        <div class="black-label">{{localize 'SFTD.Scars'}}</div>
+        <div id="strider-{{_id}}-scars-teeth" class="small-teeth">
+          {{#multiboxes system.scars.value}}
+          <input type="radio" id="strider-{{_id}}-scars-counter-0" name="system.scars.value" value="0">
+          {{#times_from 1 system.scars.max}}
+          <input type="radio" id="strider-{{../_id}}-scars-counter-{{this}}" name="system.scars.value" value="{{this}}" disabled>
+          <label for="strider-{{../_id}}-scars-counter-{{this}}"></label>
+          {{/times_from}}
+          {{/multiboxes}}
+        </div>
+      </div>
+    </div>
+
+    <div id="strider-{{_id}}-scars-list" class="scars-list grow-two">
+      <div class="two-line flex-horizontal">
+        <div class="item-block grow-one">
+          <input type="text" name="system.scars.values.one" value="{{system.scars.values.one}}" placeholder=" ">
+        </div>
+        <div class="item-block grow-one">
+          <input type="text" name="system.scars.values.two" value="{{system.scars.values.two}}" placeholder=" ">
+        </div>
+      </div>
+      <div class="two-line flex-horizontal">
+        <div class="item-block grow-one">
+          <input type="text" name="system.scars.values.three" value="{{system.scars.values.three}}" placeholder=" ">
+        </div>
+        <div class="item-block grow-one">
+          <input type="text" name="system.scars.values.four" value="{{system.scars.values.four}}" placeholder=" ">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {{!-- Harm and Armor --}}
+  <section id="strider-{{_id}}-harm-armor" class="harm-armor">
+    {{#if (not system.dead)}}
+    <table>
+      <thead>
+        <th class="black-white-header" colspan="4">{{localize 'SFTD.Harm'}}</th>
+        {{#if (gt system.armor.max 0)}}
+        <th class="black-white-header">{{localize 'SFTD.Armor'}}</th>
+        {{/if}}
+      </thead>
+      <tbody>
+        <tr>
+          <td>3</td>
+          <td colspan="2">
+            <input type="text" id="strider-{{_id}}-harm-3-1" name="system.harm.heavy.one" value="{{system.harm.heavy.one}}" placeholder=" ">
+          </td>
+          <td>{{localize 'SFTD.NeedHelp'}}<a class="death-toggle"><i class="fa-regular fa-skull"></i></a></span></td>
+          {{#if (gt system.armor.max 0)}}
+          <td rowspan="3" id="strider-{{_id}}-armor" class="strider-armor">
+            <div class="flex-horizontal">
+              {{#multiboxes system.armor.value}}
+              <input type="radio" id="strider-{{_id}}-armor-0" name="system.armor.value" value="0" dtype="Radio">
+
+              {{#times_from 1 system.armor.max}}
+              <input type="radio" id="strider-{{../_id}}-armor-{{this}}" name="system.armor.value" value="{{this}}" dtype="Radio">
+              <label class="radio-toggle{{#if (lteq this ../system.armor.value)}} enabled{{/if}}"><a><i class="fa{{#if (lteq this ../system.armor.value)}}s{{else}}-regular{{/if}} fa-shield"></i></a></label>
+              {{/times_from}}
+              {{/multiboxes}}
+            </div>
+          </td>
+          {{/if}}
+        </tr>
+        <tr>
+          <td>2</td>
+          <td>
+            <input type="text" id="strider-{{_id}}-harm-2-1" name="system.harm.medium.one" value="{{system.harm.medium.one}}" placeholder=" ">
+          </td>
+          <td>
+            <input type="text" id="strider-{{_id}}-harm-2-2" name="system.harm.medium.two" value="{{system.harm.medium.two}}" placeholder=" ">
+          </td>
+          <td>-1D</td>
+        </tr>
+        <tr>
+          <td>1</td>
+          <td>
+            <input type="text" id="strider-{{_id}}-harm-1-1" name="system.harm.light.one" value="{{system.harm.light.one}}" placeholder=" ">
+          </td>
+          <td>
+            <input type="text" id="strider-{{_id}}-harm-1-2" name="system.harm.light.two" value="{{system.harm.light.two}}" placeholder=" ">
+          </td>
+          <td>{{localize 'SFTD.LessEffect'}}</td>
+        </tr>
+      </tbody>
+    </table>
+    {{else}}
+    <div class="flex-vertical">
+      <div class="black-white-header">{{localize 'SFTD.Harm'}}</div>
+      <div>
+        <div class="flex-horizontal death-block">
+          <div>4</div>
+          <input type="text" id="strider-{{_id}}-harm-4-1" name="system.harm.deadly.one" value="{{system.harm.deadly.one}}" placeholder=" ">
+          <a class="death-toggle"><i class="fas fa-skull"></i></a></span>
+        </div>
+      </div>
+    </div>
+    {{/if}}
+  </section>
+
+  {{!-- Attributes --}}
+  <section class="flex-horizontal">
+    <div class="tab-content flex-vertical grow-two">
+
+      {{!-- Nav menu --}}
+      <nav class="tabs flex-horizontal">
+        <a class="item" data-tab="community">{{localize "SFTD.Community"}}</a>
+        <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
+        <a class="item" data-tab="loadout">{{localize "SFTD.Loadout"}}</a>
+        <a class="item" data-tab="notes">{{localize "SFTD.Notes"}}</a>
+        {{#if isGM}}
+        <a class="item" data-tab="effects">{{localize "SFTD.Effects"}}</a>
+        {{/if}}
+        <a class="item" data-tab="all-items">{{localize "SFTD.AllItems"}}</a>
+      </nav>
+
+      {{!-- Community Section --}}
+      <div id="strider-{{_id}}-community" class="tab flex-vertical community" data-tab="community">
+        <div class="label-stripe flex-horizontal">
+          <p><label for="strider-{{_id}}-experience-0">{{localize 'SFTD.Community'}}</p>
+        </div>
+
+        <div id="strider-{{_id}}-belief-box" class="flex-vertical belief">
+          <label for="strider-{{_id}}-belief">{{localize 'SFTD.Beliefs'}}:</label>
+          <textarea rows="3" id="strider-{{_id}}-belief" name="system.belief">{{system.belief}}</textarea>
+        </div>
+      </div>
+
+      {{!-- Abilities Section --}}
+      <div id="strider-{{_id}}-abilities" class="tab flex-vertical abilities" data-tab="abilities">
+        <div class="label-stripe flex-horizontal">
+          <p><label for="strider-{{_id}}-experience-0">{{localize 'SFTD.Abilities'}}</label><a class="item-add-popup" data-item-type="ability" data-tooltip="{{localize 'SFTD.AddAbility'}}"><i class="fas fa-plus-square"></i></a></p>
+          <div id="strider-{{_id}}-experience" class="teeth-experience">
+            {{#multiboxes system.experience.value}}
+            <input type="radio" id="strider-{{_id}}-experience-0" name="system.experience.value" value="0" dtype="Radio">
+            {{#times_from 1 system.experience.max}}
+            <input type="radio" id="strider-{{../_id}}-experience-{{this}}" name="system.experience.value" value="{{this}}" dtype="Radio">
+            <label class="radio-toggle"></label>
+            {{/times_from}}
+            {{/multiboxes}}
+          </div>
+        </div>
+
+        <div id="strider-{{_id}}-abilities-list" class="tab-list">
+          {{#each items as |item id|}}
+          {{#if (eq item.type "ability")}}
+          {{> "systems/songs-for-the-dusk/templates/parts/item_display/ability.html" item=item id=id actor=../this}}
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+
+      {{!-- Owned Items Tab --}}
+      <div id="strider-{{_id}}-loadout" class="tab flex-vertical loadout" data-tab="loadout">
+        <div class="label-stripe flex-horizontal">
+          <p>{{localize 'SFTD.Loadout'}} <a class="item-add-popup" data-item-type="item" data-tooltip="{{localize 'SFTD.AddItem'}}"><i class="fas fa-plus-square"></i></a></p>
+          <p>{{system.loadout}}/{{localize system.load_level}} </p>
+          <div class="dropdown">
+            <select name="system.selected_load_level">
+              {{selectOptions system.load_levels selected=system.selected_load_level localize=true}}
+            </select>
+          </div>
+        </div>
+        <div class="tab-list">
+          {{#each items as |item id|}}
+          {{#if (eq item.type "item")}}
+          {{> "systems/songs-for-the-dusk/templates/parts/item_display/item.html" item=item id=id actor=../this gearOwner=../gearOwner}}
+          {{/if}}
+          {{/each}}
+        </div>
+      </div>
+
+      <div class="tab flex-vertical" data-tab="notes">
+        <div class="label-stripe">
+          <p>{{localize "SFTD.Notes"}}</p>
+        </div>
+        <textarea rows="13" name="system.description">{{{system.description}}}</textarea>
+      </div>
+
+      {{!-- Active Effects --}}
+      <div id="strider-{{_id}}-effects" class="tab effects flex-vertical" data-tab="effects">
+        <div class="label-stripe">
+          <p>{{localize "SFTD.Effects"}}</p>
+        </div>
+        {{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}
+      </div>
+
+      {{!-- Full Item List --}}
+      <div class="tab grow-two flex-vertical" data-tab="all-items">
+        <div class="label-stripe">
+          <p><label>{{localize "SFTD.AllItems"}}</label></p>
+        </div>
+        {{#each items as |item id|}}
+        <div class="item flex-horizontal" data-item-id="{{item._id}}">
+          <div class="item-body item-sheet-open flex-horizontal">
+            <img src="{{item.img}}" data-tooltip="{{item.name}}" width="24" height="24"/>
+            <div class="item-name">{{item.name}}</div>
+          </div>
+          <a class="item-control item-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+          <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
+        </div>
+        {{/each}}
+      </div>
+
+    </div>
+    {{!-- Attributes --}}
+    {{> "systems/songs-for-the-dusk/templates/parts/attributes.html" actor=actor}}
+  </section>
+
+</form>

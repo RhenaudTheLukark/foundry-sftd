@@ -1,0 +1,36 @@
+<div class="item flex-horizontal" data-item-id="{{item._id}}">
+  <div class="item-body flex-horizontal">
+    <div class="item-name"><p>{{item.name}}</p></div>
+    <div class="item-description">{{{item.system.description}}}</div>
+  </div>
+  {{#if item.system.expertise}}
+  <div class="expertise flex-vertical">
+    <label><b>{{localize 'SFTD.Action'}}</b></label>
+    <select>
+      {{selectOptions actor.expertiseDropdown selected=item.system.expertise_action localize=true}}
+    </select>
+  </div>
+  {{/if}}
+  {{#if item.system.stay_late}}
+  <div class="stay-late flex-vertical">
+    <button>{{localize 'SFTD.Use'}}</button>
+  </div>
+  {{/if}}
+  {{#if (gteq item.system.uses.max 1)}}
+  <div class="supply-container flex-vertical">
+    <label id="{{actor.type}}-{{actor._id}}-ability-uses-{{id}}"><b>{{localize 'SFTD.UsesShort'}}</b></label>
+    <div class="supply uses">
+      {{#multiboxes item.system.uses.value}}
+      {{#times_from 0 item.system.uses.max}}
+      <input id="{{../actor.type}}-{{../actor._id}}-ability-uses-{{../id}}-{{this}}" type="radio" name="item.system.uses.value" value="{{this}}">
+      <label class="radio-toggle{{#if (lteq this ../item.system.uses.value)}} enabled{{/if}}"></label>
+      {{/times_from}}
+      {{/multiboxes}}
+    </div>
+  </div>
+  {{/if}}
+  <div class="item-controls flex-horizontal">
+    <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+    <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
+  </div>
+</div>

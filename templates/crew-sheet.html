@@ -27,16 +27,6 @@
           {{/if}}
           {{/each}}
         </div>
-        {{#if system.rep2.visible}}
-        <div class="item-crew-rep flex-horizontal">
-          <div class="item-class-label">
-            {{localize system.rep2.label}}:
-          </div>
-          <div id="crew-{{_id}}-rep2-box" class="crew-name">
-            <input type="text" id="crew-{{_id}}-rep2-value" name="system.rep2.value" value="{{system.rep2.value}}">
-          </div>
-        </div>
-        {{/if}}
       </div>
     </div>
 
@@ -128,97 +118,46 @@
     </div>
   </section>
 
-  <section class="flex-horizontal" style="justify-content:flex-start; padding-top: 6px;">
-
+  <section class="flex-horizontal" style="padding-top: 6px;">
     <div class="flex-vertical">
       <div class="flex-horizontal">
         <div id="crew-{{_id}}-class" class="class-name crew-class flex-vertical" data-tooltip="{{localize "SFTD.CrewTypeBox"}}" data-distinct="true" data-item-type="crew_type">
-        {{#each items as |item id|}}
-        {{#if (eq item.type "crew_type")}}
-        <div class="big-name">{{item.name}}</div>
-        <div class="big-description">{{{item.system.description}}}</div>
-        {{/if}}
-        {{/each}}
-      </div>
-      <div class="hunting-ground flex-column">
-        <div class="hunting-ground-label">
-          <a class="item-add-popup" data-item-type="hunting_grounds"><u>{{localize system.hunting_grounds_label}}</u></a>
+          {{#each items as |item id|}}
+          {{#if (eq item.type "crew_type")}}
+          <div class="big-name">{{item.name}}</div>
+          <div class="big-description">{{{item.system.description}}}</div>
+          {{/if}}
+          {{/each}}
         </div>
-        {{#each items as |item id|}}
-        {{#if (eq item.type "hunting_grounds")}}
-        <div class="item flex-horizontal" data-item-id="{{item._id}}">
-          <div class="item-body item-sheet-open flex-horizontal">
-            <img src="{{item.img}}" data-tooltip="{{item.name}}" width="20" height="20"/>
-            <div class="item-name">{{item.name}}</div>
-          </div>
-          <a class="item-control item-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
-          <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
-        </div>
-        {{/if}}
-        {{/each}}
       </div>
 
+      <nav class="tabs flex-horizontal" style="padding-top: 8px">
+        <a class="item" data-tab="economy">{{localize "SFTD.Caches"}}</a>
+        <a class="item" data-tab="upgrades">{{localize "SFTD.Upgrades"}}</a>
+        <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
+        <a class="item" data-tab="cohorts">{{localize "SFTD.Cohorts"}}</a>
+        <a class="item" data-tab="notes">{{localize "SFTD.Notes"}}</a>
+        <a class="item" data-tab="all-items">{{localize "SFTD.AllItems"}}</a>
+        {{#if isGM}}
+        <a class="item" data-tab="effects">{{localize "SFTD.Effects"}}</a>
+        {{/if}}
+      </nav>
     </div>
-    <nav class="tabs flex-horizontal" style="padding-top: 8px">
-      <a class="item" data-tab="turfs">{{localize "SFTD.Claims"}}</a>
-      <a class="item" data-tab="economy">{{localize "SFTD.Caches"}}</a>
-      <a class="item" data-tab="upgrades">{{localize "SFTD.Upgrades"}}</a>
-      <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
-      <a class="item" data-tab="contacts">{{localize "SFTD.Contacts"}}</a>
-      <a class="item" data-tab="cohorts">{{localize "SFTD.Cohorts"}}</a>
-      <a class="item" data-tab="prison">{{localize "SFTD.Prison"}}</a>
-      <a class="item" data-tab="notes">{{localize "SFTD.Notes"}}</a>
-      <a class="item" data-tab="all-items">{{localize "SFTD.AllItems"}}</a>
-      {{#if isGM}}
-      <a class="item" data-tab="effects">{{localize "SFTD.Effects"}}</a>
-      {{/if}}
-    </nav>
-    </div>
-
 
     {{!-- Crew XP --}}
     <div class="flex-vertical">
-      {{#if (getSetting 'ClockXP')}}
-      <div class="flex-horizontal" style="justify-content:flex-start">
-        <p class="black-label" style="width: 90px; padding-top: 3px"> {{localize "SFTD.CrewXP"}}</p>
-        <div class="flex-vertical" style="font-size: 16px; padding-left: 6px; padding-right: 2px">
-          <a class="up-exp-clock" data-tooltip="{{localize 'SFTD.AddXP'}}"><i class="fas fa-caret-up"></i></a>
-          <a class="down-exp-clock" data-tooltip="{{localize 'SFTD.MinusXP'}}"><i class="fas fa-caret-down"></i></a>
-        </div>
-		<img src="systems/songs-for-the-dusk/themes/{{system.exp_clock.color}}/{{system.exp_clock.size}}clock_{{system.exp_clock.value}}.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
-        <!--
-		<img src="systems/songs-for-the-dusk/styles/assets/progressclocks-svg/Progress Clock {{system.exp_clock.size}}-{{system.exp_clock.value}}.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
-		-->
-        {{#if (gteq system.exp_clock.number 1)}}
-        <div class="flex-vertical" style="font-size: 14px; padding-left: 2px; padding-right: 2px">
-          <a class="add-exp-clock" data-tooltip="{{localize 'SFTD.MinusXPClock'}}" style="visibility:hidden"><i class="fas fa-angles-up"></i></a>
-          <a class="minus-exp-clock" data-tooltip="{{localize 'SFTD.MinusXPClock'}}"><i class="fas fa-angles-down"></i></a>
-        </div>
-        {{#if (lteq system.exp_clock.number 4)}}
-        {{#times_from 1 system.exp_clock.number}}
-        <img src="systems/songs-for-the-dusk/styles/assets/progressclocks-svg/Progress Clock 6-6.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
-        {{/times_from}}
-        {{else}}
-        <img src="systems/songs-for-the-dusk/styles/assets/progressclocks-svg/Progress Clock 6-6.svg" height="40" width="40" style="border-style: none; padding-top: 8px"/>
-        <p style="font-family: Kirsty, serif; font-size: 21px; padding-top: 7px">x {{system.exp_clock.number}}</p>
-        {{/if}}
-        {{/if}}
-      </div>
-      {{else}}
       <div class="big-teeth-section">
         <div id="crew-{{_id}}-xp" class="big-teeth">
-          <!--<label class="black-label" for="crew-{{_id}}-experience-0">{{localize "SFTD.CrewXP"}}</label> -->
           <div class="black-label">{{localize "SFTD.CrewXP"}}</div>
-          {{#multiboxes system.experience}}
-          <input type="radio" id="crew-{{_id}}-experience-0" name="system.experience" value="0" dtype="Radio">
-          {{#times_from 1 system.max.exp}}
-          <input id="crew-{{../_id}}-experience-{{this}}" type="radio" name="system.experience" value="{{this}}">
+          {{#multiboxes system.experience.value}}
+          <input type="radio" id="crew-{{_id}}-experience-0" name="system.experience.value" value="0" dtype="Radio">
+          {{#times_from 1 system.experience.max}}
+          <input id="crew-{{../_id}}-experience-{{this}}" type="radio" name="system.experience.value" value="{{this}}">
           <label class= "radio-toggle" for="crew-{{../_id}}-experience-{{this}}"></label>
           {{/times_from}}
           {{/multiboxes}}
         </div>
       </div>
-      {{/if}}
       <div class="experience-clues-container" style="padding-top: 6px;">
         <div class="experience-clues-description">{{localize "SFTD.CrewExpClue1"}}</div>
         <div class="experience-clues">
@@ -235,21 +174,6 @@
 
   {{!-- Tabs --}}
   <section class="tab-content">
-
-    {{!-- Turfs --}}
-    <div class="tab" data-tab="turfs">
-      <div class="label-stripe">
-        <p><label>{{localize "SFTD.Claims"}}</label></p>
-      </div>
-      {{#each items as |item id|}}
-      {{#if (eq item.type "crew_type")}}
-      <div class="item" data-item-id="{{item._id}}">
-        {{> "systems/songs-for-the-dusk/templates/parts/turf-list.html" _id=../_id turfs_data=item.system.turfs can_edit=false not_prison=true}}
-      </div>
-      {{/if}}
-      {{/each}}
-    </div>
-
 
     {{!-- Economy Tab --}}
     <div id="crew-{{_id}}-economy" class="tab flex-vertical economy" data-tab="economy">
@@ -321,38 +245,6 @@
       {{/each}}
     </div>
 
-    {{!-- Contacts --}}
-    <div id="crew-{{_id}}-contacts" class="tab flex-vertical" data-tab="contacts">
-      <div class="label-stripe flex-horizontal">
-        <p>{{localize "SFTD.Contacts"}}</p>
-        <p>
-          <a class="import-contacts" data-tooltip="{{localize 'SFTD.ImportPlaybookContacts'}}"><i class="fa-solid fa-file-import"></i></a>
-          <a class="add-custom-contact" data-tooltip="Add Custom Contact"><i class="fas fa-user-plus"></i></a>
-        </p>
-      </div>
-      {{#if system.acquaintances}}
-      {{#each system.acquaintances as |item id|}}
-      <div class="item flex-horizontal" data-item-id="{{item.id}}" data-item-type="{{item.type}}">
-        <div class="acquaintance" data-acquaintance="{{this.id}}">
-            <i data-acquaintance="{{this.id}}" class="standing-toggle fas
-                    {{#if (eq this.standing "friend" )}} fa-caret-up green-icon
-          {{else if (eq this.standing "rival")}} fa-caret-down red-icon
-          {{else}}fa-minus
-          {{/if}}"
-               role="button"
-               tabindex="0"
-               aria-label="{{localize 'SFTD.ToggleStanding' name=this.name standing=this.standing}}"></i>
-          <class="standing-toggle"><a class="open-friend"><strong>{{this.name}}</strong></a>, {{this.description_short}}
-          <!--
-          <a class="acquaintance-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
-          -->
-        </div>
-        <a class="acquaintance-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
-      </div>
-      {{/each}}
-      {{/if}}
-    </div>
-
     {{!-- Cohorts --}}
     <div id="crew-{{_id}}-cohorts" class="crew-cohorts tab grow-two flex-vertical" data-tab="cohorts">
       <div class="label-stripe flex-horizontal">
@@ -368,21 +260,6 @@
         {{/if}}
         {{/each}}
       </div>
-    </div>
-
-    {{!-- Prison --}}
-    <div id="crew-{{_id}}-prison" class="tab" data-tab="prison">
-      <div class="label-stripe flex-horizontal">
-        <p><label>{{localize "SFTD.Prison"}}</label></p>
-        <p><a class="item-add-popup" data-distinct="true" data-item-type="prison"><i class="fas fa-plus-square"></i></a></p>
-      </div>
-      {{#each items as |item id|}}
-      {{#if (eq item.type "prison")}}
-      <div class="item" data-item-id="{{item._id}}">
-        {{> "systems/songs-for-the-dusk/templates/parts/turf-list.html" _id=../_id turfs_data=item.system.turfs can_edit=false not_prison=false}}
-      </div>
-      {{/if}}
-      {{/each}}
     </div>
 
     {{!-- Notes --}}

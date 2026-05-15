@@ -301,13 +301,6 @@ nav {
       }
     }
   }
-
-  .scars-list {
-    @include check_underscore();
-    justify-content: space-between;
-    align-items: flex-start;
-  }
-
 }
 
 header {

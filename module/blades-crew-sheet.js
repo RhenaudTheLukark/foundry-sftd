@@ -27,64 +27,64 @@ export class BladesCrewSheet extends BladesSheet {
     sheetData.owner = superData.owner;
     sheetData.editable = superData.editable;
     sheetData.isGM = game.user.isGM;
-	
+
     // Prepare active effects
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.actor.effects);
 
-    // Calculate Turfs amount.
-    let turfs_amount = 0;
-	let turfs_max = sheetData.system.turf.max;
-
-    sheetData.items.forEach(item => {
-
-      if (item.type === "crew_type") {
-        Object.entries(item.system.turfs).forEach(([key, turf]) => {
-          if (turf.name === 'SFTD.Turf') {
-            turfs_amount += (turf.value === true) ? 1 : 0;
-          }
-        });
-      }
-
-    });
-	
-	turfs_amount = turfs_amount + sheetData.system.turf.bonus;
-	if (turfs_amount > turfs_max) {turfs_amount = turfs_max;};
-    sheetData.system.turfs_amount = turfs_amount;
-	
-	//return data
     return sheetData;
-	
   }
-  
-  /** @override **/
-  async _onDropActor(event, droppedActor){
+
+  /** @override */
+  async _onDropItem(event, droppedItem) {
+    await super._onDropItem(event, droppedItem);
+    if (!this.actor.isOwner) {
+      ui.notifications.error(`You do not have sufficient permissions to edit this squad. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
+      return false;
+    }
+    await this.handleDrop(event, droppedItem);
+  }
+
+  /** @override */
+  async _onDropActor(event, droppedActor) {
     await super._onDropActor(event, droppedActor);
     if (!this.actor.isOwner) {
-      ui.notifications.error(`You do not have sufficient permissions to edit this strider. Please speak to your GM if you feel you have reached this message in error.`, {permanent: true});
+      ui.notifications.error(`You do not have sufficient permissions to edit this squad. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
       return false;
     }
     await this.handleDrop(event, droppedActor);
-  }  
-  
-  /** @override **/
-  async handleDrop(event, droppedEntity){
-    let droppedEntityFull = await fromUuid(droppedEntity.uuid);
-    switch (droppedEntityFull.type) {
-      case "npc":
-        await BladesHelpers.addAcquaintance(this.actor, droppedEntityFull);
-        break;
-      case "item":
-        break;
-      case "crew_type":
-        break;
-      case "ability":
-        break;
-      case "class":
-        break ;
-      default:
-        break;
+  }
+
+  /** @override */
+  async handleDrop(event, droppedEntity) {
+    let droppedEntityFull = BladesHelpers.resolveActor(droppedEntity.uuid);
+    await this.handleAddedObjects([droppedEntityFull]);
+  }
+
+  async handleAddedObjects(droppedEntitiesFull) {
+    let currentTab = this._tabs[0].active;
+    for (let droppedEntityFull of droppedEntitiesFull) {
+      if (!droppedEntityFull || droppedEntityFull.uuid == this.actor.uuid)
+        continue;
+
+      switch (droppedEntityFull.type) {
+        case 'crew':
+          //await BladesHelpers.addRelationship(this.actor, droppedEntityFull);
+          break;
+        case 'strider':
+          await BladesHelpers.addCrewStrider(this.actor, droppedEntityFull, true);
+          break;
+        case 'npc':
+          //await BladesHelpers.addSquadNPC(this.actor, droppedEntityFull, true);
+          break;
+        case 'crew_type':
+          await this.addItemAsObjectAndStoreReference(droppedEntityFull, 'system.type');
+          break;
+        default:
+          break;
+      }
     }
   }
+
   /* -------------------------------------------- */
 
   /** @override */
@@ -95,11 +95,11 @@ export class BladesCrewSheet extends BladesSheet {
     if (!this.options.editable) return;
 
     // Add Crew Type
-    html.find(".crew-class").click(this._onItemAddClick.bind(this));
+    html.find(".crew-class").click(this.onItemAddClick.bind(this));
 
     // Add a new Cohort
-    html.find('.add-item').click(ev => {
-      BladesHelpers._addOwnedItem(ev, this.actor);
+    html.find('.add-item').click(async ev => {
+      await BladesHelpers._addOwnedItem(ev, this.actor);
     });
 
     // Toggle Turf
@@ -128,11 +128,6 @@ export class BladesCrewSheet extends BladesSheet {
         _id: item_id,
         "system.harm": [harm_id]}]);
       this.render(false);
-    });
-
-    // Add custom contact
-    html.find('.add-custom-contact').click(() => {
-      BladesHelpers.addCustomContact(this.actor);
     });
 
   }

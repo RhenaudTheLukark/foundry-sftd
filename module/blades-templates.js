@@ -16,6 +16,8 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/songs-for-the-dusk/templates/parts/cohort-block.html",
     "systems/songs-for-the-dusk/templates/parts/factions.html",
     "systems/songs-for-the-dusk/templates/parts/active-effects.html",
+    "systems/songs-for-the-dusk/templates/parts/item_display/ability.html",
+    "systems/songs-for-the-dusk/templates/parts/item_display/item.html",
   ];
 
   // Load the template parts

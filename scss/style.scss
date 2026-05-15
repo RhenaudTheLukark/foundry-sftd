@@ -9,12 +9,13 @@ $gold: #DAA520;
 $green: #008000;
 $light_green: #12a012;
 $blue: #04578f;
+$purple: #8a2be2;
+$lightblue: #add8e6;
 
 // Transition period for sheet parts that hint what they can do
 $transition-period: 0.2s;
 $hover-opacity: 0.9;
 $hover-brightness: 0.8;
-
 
 // Utility imports
 @import 'import/mixin';
@@ -27,15 +28,19 @@ $hover-brightness: 0.8;
   @import 'import/general-styles.scss';
   @import 'import/clocks.scss';
 
-  &.crew.sheet {
+  &.actor.sheet {
+    @import 'import/actor-sheet.scss';
+  }
+
+  &.actor.sheet.crew {
     @import 'import/crew-sheet.scss';
   }
 
-  &.actor.strider {
+  &.actor.sheet.strider {
     @import 'import/strider-sheet.scss';
   }
 
-  &.actor.clock {
+  &.actor.sheet.clock {
   }
 
   &.item.sheet {
@@ -45,7 +50,10 @@ $hover-brightness: 0.8;
   @import 'import/coins.scss';
 }
 
-//top-level styles
-@import 'import/chat.scss';
-@import 'import/dialogs.scss';
-//@import 'import/tooltip.scss';
+.application.dialog {
+  @import 'import/dialogs.scss';
+}
+
+ol.chat-log li.chat-message.message {
+  @import 'import/chat.scss';
+}

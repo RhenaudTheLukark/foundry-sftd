@@ -49,29 +49,20 @@ export class BladesActor extends Actor {
     for (var attribute_name in this.system.attributes) {
       //dice_amount[attribute_name] = 0;
 	  dice_amount[attribute_name] = this.system.attributes[attribute_name].bonus;
-      for (var skill_name in this.system.attributes[attribute_name].skills) {
-       // dice_amount[skill_name] = parseInt(this.system.attributes[attribute_name].skills[skill_name]['value'][0])
-        dice_amount[skill_name] = parseInt(this.system.attributes[attribute_name].skills[skill_name]['value'])
+      for (var action_name in this.system.attributes[attribute_name].actions) {
+       // dice_amount[action_name] = parseInt(this.system.attributes[attribute_name].actions[action_name]['value'][0])
+        dice_amount[action_name] = parseInt(this.system.attributes[attribute_name].actions[action_name]['value'])
 
-        // We add a +1d for every skill higher than 0.
-        if (dice_amount[skill_name] > 0) {
+        // We add a +1d for every action higher than 0.
+        if (dice_amount[action_name] > 0) {
           dice_amount[attribute_name]++;
         }
       }
       // Vice dice roll uses lowest attribute dice amount
-      dice_amount['SFTD.Vice'] = Math.min(dice_amount['insight'],dice_amount['prowess'],dice_amount['resolve']);
+      dice_amount['SFTD.Vice'] = Math.min(dice_amount['analysis'],dice_amount['kinesis'],dice_amount['semiosis']);
     }
 
     return dice_amount;
-  }
-
-  /* -------------------------------------------- */
-
-  _getCrewActor() {
-    const crewInfo = this.system?.crew?.[0];
-    if (!crewInfo?.id) return null;
-    const crewActor = game.actors.get(crewInfo.id);
-    return crewActor ?? null;
   }
 
   /* -------------------------------------------- */
@@ -90,7 +81,7 @@ export class BladesActor extends Actor {
     // get crew tier info from strider sheet if available
     let current_tier = 0;
     try {
-      const crewActor = this._getCrewActor();
+      const crewActor = BladesHelpers.resolveActor(this.system?.crew);
       const parsedTier = Number(crewActor?.system?.tier);
       current_tier = Number.isFinite(parsedTier) ? parsedTier : 0;
     } catch (error) {
@@ -250,18 +241,18 @@ export class BladesActor extends Actor {
    */
   createListOfActions() {
 
-    let text, attribute, skill;
+    let text, attribute, action;
     let attributes = this.system.attributes;
 
     for ( attribute in attributes ) {
 
-      const skills = attributes[attribute].skills;
+      const actions = attributes[attribute].actions;
 
       text += `<optgroup label="${attribute} Actions">`;
       text += `<option value="${attribute}">${attribute} (Resist)</option>`;
 
-      for ( skill in skills ) {
-        text += `<option value="${skill}">${skill}</option>`;
+      for ( action in actions ) {
+        text += `<option value="${action}">${action}</option>`;
       }
 
       text += `</optgroup>`;
@@ -311,25 +302,11 @@ export class BladesActor extends Actor {
   /* -------------------------------------------- */
   getComputedAttributes() {
     let attributes = this.system.attributes;
-    for( const a in attributes ) {
-      for( const s in attributes[a].skills ) {
-        if( attributes[a].skills[s].max === undefined || attributes[a].skills[s].max === 4){
-          attributes[a].skills[s].max = 3;
-        }
-		
-		//include Active Effect alterations to skill minimums
-        if( attributes[a].skills[s].value <= attributes[a].skills[s].min ) { 
-          attributes[a].skills[s].value = attributes[a].skills[s].min;
-        }
-      }
-    }
-    //check for mastery
-    if (this.getHasMastery()) {
-      for( const b in attributes ) {
-        for( const t in attributes[b].skills ) {
-          if (attributes[b].skills[t].max === 3) {
-            attributes[b].skills[t].max = 4;
-          }
+    for (const a in attributes) {
+      for (const s in attributes[a].actions) {
+    		// Include Active Effect alterations to action minimums
+        if (attributes[a].actions[s].value <= attributes[a].actions[s].min) {
+          attributes[a].actions[s].value = attributes[a].actions[s].min;
         }
       }
     }
@@ -338,7 +315,7 @@ export class BladesActor extends Actor {
 
   getMaxStress() {
     let max_stress = this.system.stress.max;
-    const crew_actor = this._getCrewActor();
+    const crew_actor = BladesHelpers.resolveActor(this.system?.crew);
     if (crew_actor) {
       const bonus = Number(crew_actor?.system?.strider?.add_stress);
       if (Number.isFinite(bonus)) {
@@ -348,33 +325,9 @@ export class BladesActor extends Actor {
     return max_stress;
   }
 
-  getMaxScars() {
-    let max_scars = this.system.scars.max;
-    const crew_actor = this._getCrewActor();
-    if (crew_actor) {
-      const bonus = Number(crew_actor?.system?.strider?.add_scars);
-      if (Number.isFinite(bonus)) {
-        max_scars += bonus;
-      }
-    }
-    return max_scars;
-  }
+  /* -------------------------------------------- */
 
-  getHasMastery(){
-    const crew_actor = this._getCrewActor();
-    if (!crew_actor) {
-      return false;
-    }
-    return Boolean(crew_actor?.system?.strider?.mastery);
+  async removeItem(item) {
+    await this.deleteEmbeddedDocuments("Item", [item._id]);
   }
-  
-  getHealingMin(){
-	let current_healing = parseInt(this.system.healing_clock.value);
-	if (current_healing < this.system.healing_clock.min) {
-		current_healing = this.system.healing_clock.min;
-	}
-	return current_healing;
-  }
-
-	
 }

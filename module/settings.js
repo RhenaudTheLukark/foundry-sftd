@@ -3,7 +3,7 @@ export const registerSystemSettings = function() {
   /**
    * Track the system version upon which point a migration was last applied
    */
-  game.settings.register("bitd", "systemMigrationVersion", {
+  game.settings.register("songs-for-the-dusk", "systemMigrationVersion", {
     name: "System Migration Version",
     scope: "world",
     config: false,
@@ -50,24 +50,6 @@ export const registerSystemSettings = function() {
 	requiresReload: true
   });
   
-    game.settings.register('songs-for-the-dusk', 'ClockXP', {
-	name: game.i18n.localize('SFTD.Settings.ClockXP.Name'),
-	hint: game.i18n.localize('SFTD.Settings.ClockXP.Hint'),
-	config: true,
-	scope: 'world',
-	type: new foundry.data.fields.BooleanField(),
-	requiresReload: true
-  });
-  
-    game.settings.register('songs-for-the-dusk', 'Edge', {
-	name: game.i18n.localize('SFTD.Settings.Edge.Name'),
-	hint: game.i18n.localize('SFTD.Settings.Edge.Hint'),
-	config: true,
-	scope: 'world',
-	type: new foundry.data.fields.BooleanField(),
-	requiresReload: true
-  });
-  
   	game.settings.register('songs-for-the-dusk', 'PublicClocks', {
 	name: game.i18n.localize('SFTD.Settings.PublicClocks.Name'),
 	hint: game.i18n.localize('SFTD.Settings.PublicClocks.Hint'),
@@ -85,8 +67,6 @@ export const registerSystemSettings = function() {
     ['ThreatRoll','Threat', false],
     ['PushYourself','Push', false],
     ['DeepCutLoad','Load', false],
-    ['ClockXP','ClockXP', false],
-    ['Edge','Edge', false],
     ['PublicClocks','PublicClocks', false]
   ];
  

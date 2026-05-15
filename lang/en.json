@@ -11,15 +11,10 @@
       "item": "Item",
       "class": "Class",
       "ability": "Ability",
-      "heritage": "Heritage",
-      "background": "Background",
-      "vice": "Vice",
       "crew_type": "Crew Type",
       "crew_reputation": "Crew Reputation",
       "crew_upgrade": "Crew Upgrade",
       "crew_ability": "Crew Ability",
-      "hunting_grounds": "Hunting Grounds",
-      "prison": "Prison",
       "faction": "Faction",
       "cohort": "Cohort"
     }
@@ -27,8 +22,10 @@
 
   "SFTD": {
     "HelloThere": "General Kenobi",
+    "Look": "Colors/Look",
     "Heritage": "Heritage",
     "Background": "Background",
+    "Anchors": "Anchors",
     "TitleDeleteItem": "Delete item",
     "ToggleStanding": "Toggle standing for {name}, currently {standing}",
     "TitlePostItem": "Post item",
@@ -37,7 +34,6 @@
     "Stress": "Stress",
     "Alias": "Alias",
     "Designation": "Designation",
-    "Look": "Colors/Look",
     "System": "System",
     "Systems": "Systems",
     "Planet": "Planet",
@@ -66,29 +62,7 @@
     "AtWar": "At War!",
     "Defeated": "Defeated",
     "Scars": "Scars",
-    "ScarsCold": "Cold",
-    "ScarsHaunted": "Haunted",
-    "ScarsObsessed": "Obsessed",
-    "ScarsParanoid": "Paranoid",
-    "ScarsReckless": "Reckless",
-    "ScarsSoft": "Soft",
-    "ScarsUnstable": "Unstable",
-    "ScarsVicious": "Vicious",
-    "ScarsClanking": "Clanking",
-    "ScarsLeaking": "Leaking",
-    "ScarsFixated": "Fixated",
-    "ScarsSmoking": "Smoking",
-    "ScarsSparking": "Sparking",
-    "ScarsChaotic": "Chaotic",
-    "ScarsDestructive": "Destructive",
-    "ScarsFurious": "Furious",
-    "ScarsObsessive": "Obsessive",
-    "ScarsTerritorial": "Territorial",
-    "ScarsSavage": "Savage",
-    "ScarsRuthless": "Ruthless",
-    "ScarsSecretive": "Secretive",
     "Harm": "Harm",
-    "Healing": "Healing",
     "Armor": "Armor",
     "NeedHelp": "Need Help",
     "Light": "Light",
@@ -134,6 +108,8 @@
     "CrewReputation": "Crew Reputation",
     "DeityDescription": "Deity Description",
     "CrewUpgrades": "Crew Upgrades",
+    "Community": "Community",
+    "Beliefs": "Beliefs",
     "Hold": "Hold",
     "Weak": "Weak",
     "Strong": "Strong",
@@ -228,30 +204,41 @@
     "EffectStandard": "Standard",
     "EffectGreat": "Great",
 
-    "SkillsInsight": "Insight",
-    "SkillsInsightShort": "Insight",
-    "SkillsHunt": "Hunt",
-    "SkillsStudy": "Study",
-    "SkillsSurvey": "Survey",
-    "SkillsTinker": "Tinker",
+    "ActionsAnalysis": "Analysis",
+    "ActionsAnalysisInfo": "Analysis is the act of detailed observation. It reflects your mental focus.",
+    "ActionsDecipher": "Decipher",
+    "ActionsDecipherInfo": "When you Decipher, you use fine details to figure out people, systems, and secrets.",
+    "ActionsShape": "Shape",
+    "ActionsShapeInfo": "When you Shape, you alter existing technology or craft new things from disparate parts.",
+    "ActionsSunder": "Sunder",
+    "ActionsSunderInfo": "When you Sunder, you find weak points and break them open.",
+    "ActionsTrace": "Trace",
+    "ActionsTraceInfo": "When you Trace, you carefully track targets or search for hidden things.",
 
-    "SkillsProwess": "Prowess",
-    "SkillsProwessShort": "Prowess",
-    "SkillsFinesse": "Finesse",
-    "SkillsProwl": "Prowl",
-    "SkillsSkirmish": "Skirmish",
-    "SkillsWreck": "Wreck",
+    "ActionsKinesis": "Kinesis",
+    "ActionsKinesisInfo": "Kinesis is the act of physical motion.",
+    "ActionsClash": "Clash",
+    "ActionsClashInfo": "When you Clash, you engage in pitched and open combat.",
+    "ActionsHandle": "Handle",
+    "ActionsHandleInfo": "When you Handle, you employ dexterity, deftness, or subtle skill.",
+    "ActionsShadow": "Shadow",
+    "ActionsShadowInfo": "When you Shadow, you move quickly and quietly.",
+    "ActionsWayfare": "Wayfare",
+    "ActionsWayfareInfo": "When you Wayfare, you explore safely and traverse skillfully.",
 
-    "SkillsResolve": "Resolve",
-    "SkillsResolveShort": "Resolve",
-    "SkillsAttune": "Attune",
-    "SkillsCommand": "Command",
-    "SkillsConsort": "Consort",
-    "SkillsSway": "Sway",
+    "ActionsSemiosis": "Semiosis",
+    "ActionsSemiosisInfo": "Semiosis is the act of making meaning.",
+    "ActionsBluff": "Bluff",
+    "ActionsBluffInfo": "When you Bluff, you manipulate with charm, deception, or fast talk.",
+    "ActionsCommand": "Command",
+    "ActionsCommandInfo": "When you Command, you employ good leadership or compel by force of personality.",
+    "ActionsConnect": "Connect",
+    "ActionsConnectInfo": "When you Connect, you socialize with friends and contacts, form sincere emotional bonds, or persuade from a position of genuine belief.",
+    "ActionsTune": "Tune",
+    "ActionsTuneInfo": "When you Tune, you align your senses to the transcendent forces that underlie the material world.",
 
     "AddAbility": "Add Ability",
     "AddItem": "Add Item",
-    "ImportPlaybookContacts": "Import Playbook Contacts",
     "Uses": "No. of Uses",
     "NumberAvailable": "Number Available",
     "AdditionalInfo": "Additional Information",
@@ -278,6 +265,8 @@
     "EffectWarning": "Managing Active Effects within an Owned Item is not currently supported by FoundryVTT and will be added in a subsequent update.",
 
     "Name": "Name",
+    "Gender": "Gender",
+    "Form": "Form",
     "CampaignName": "Campaign Name",
     "CrewName": "Crew Name",
 
@@ -291,14 +280,10 @@
     "ShrewdFriends": "Shrewd Friends",
     "DarkServants": "Dark Servants",
     "StrangeFriends": "Strange Friends",
-    "Acquaintances": "Acquaintances",
-    "Contacts": "Contacts",
 
-    "HuntingGrounds": "Hunting Grounds",
     "SacredSites": "Sacred Sites",
     "SalesTerritory": "Sales Territory",
     "CargoTypes": "Cargo Types",
-    "Prison": "Prison",
 
     "ActionRoll": "Action",
     "ThreatRoll": "Threat",
@@ -344,11 +329,11 @@
     "Full": "Full",
     "Associated": "Associated",
     "DisabledByAE": "Minimum Value set by an Active Effect",
-    "NoMastery": "This Strider lacks Mastery",
     "UnusedDice": "Unused Dice",
-    "Edge": "Edge",
-    "GainEdge": "Gain an <strong>Edge</strong>.",
     "DiceRoller": "Dice Roller",
+
+    "SearchBar": "Search {obj}...",
+    "None": "None",
 
     "Colors": {
       "Black": "Black",
@@ -377,14 +362,6 @@
         "Name": "Alternate Load",
         "Hint": "Replaces the base Load Rules (Light/Normal/Heavy) with the Load Rules (Discreet/Conspicuous) from the Deep Cuts supplement."
       },
-      "ClockXP": {
-        "Name": "Experience Clocks",
-        "Hint": "Replaces the base Experience Rules with Experience Clocks from the Deep Cuts supplement."
-      },
-      "Edge": {
-        "Name": "Edge",
-        "Hint": "Adds Edge to strider sheets from the Deep Cuts supplement."
-      },
       "PublicClocks": {
         "Name": "Default Observable Clocks",
         "Hint": "All newly made Clock actors will have permissions set to Observer for all players."
@@ -392,11 +369,16 @@
     },
     "log": {
       "info": {
-        "SameNPC": "The dropped NPC is already an acquaintance of this strider.",
+        "SameObjectFromOwner": "The dropped {obj} already belongs to this {owner}.",
+        "SameObjectFromOwned": "The dropped {owner} is already this {obj}'s {owner}.",
         "SameCrew": "The dropped Crew is the current crew of this strider."
       },
       "warn": {
-        "NoNPC": "This NPC does not exist in the World or in a Compendium."
+        "NoNPC": "This NPC does not exist in the World or in a Compendium.",
+        "TryUpdateNoActiveGM": "Some data could not be updated due to having no Gamemaster or Assistant Gamemaster currently connected. It will be updated once one of them connects to the server.",
+        "NoAddFromSuppressedContainer": "Items cannot be added to a disabled container.",
+        "NoCrewToAddConnection": "The Strider needs a Crew in order to display a list of connections to add!",
+        "NothingToAdd": "There is no available object that can be added to this actor."
       }
     }
   }

@@ -88,16 +88,6 @@
 .songs-for-the-dusk {
   font-family: "Crimson Text", serif;
 }
-.songs-for-the-dusk textarea {
-  margin-top: 10px;
-  margin-bottom: 20px;
-}
-.songs-for-the-dusk .debug-toggle {
-  opacity: 0.1;
-}
-.songs-for-the-dusk .debug-toggle.on {
-  opacity: 0.75;
-}
 .songs-for-the-dusk .rollable-text {
   transition: color 0.2s;
 }
@@ -105,15 +95,29 @@
   cursor: pointer;
   color: red;
 }
+.songs-for-the-dusk nav {
+  margin-bottom: 10px;
+}
+.songs-for-the-dusk td {
+  padding: 5px !important;
+}
+.songs-for-the-dusk header {
+  margin-bottom: 10px;
+}
+.songs-for-the-dusk {
+  /* ul {
+    list-style: none;
+  } */
+}
 .songs-for-the-dusk section {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 }
-.songs-for-the-dusk section > *:not(.label-stripe) {
+.songs-for-the-dusk section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe) {
   margin-right: 10px;
 }
-.songs-for-the-dusk section > *:not(.label-stripe):last-child {
+.songs-for-the-dusk section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe):last-child {
   margin-right: 0px;
 }
 .songs-for-the-dusk section .grow-one {
@@ -125,6 +129,10 @@
 .songs-for-the-dusk section.experience {
   margin-bottom: 0px;
   justify-content: center;
+}
+.songs-for-the-dusk .editor,
+.songs-for-the-dusk .editor-content {
+  min-height: 150px;
 }
 .songs-for-the-dusk .flex-horizontal {
   display: flex;
@@ -149,7 +157,7 @@
   padding: 0px 5px;
   height: 30px !important;
   text-transform: capitalize;
-  font-family: Kirsty, serif;
+  font-family: "Kirsty", serif;
 }
 .songs-for-the-dusk .gray-label {
   background-color: #999;
@@ -159,37 +167,48 @@
   padding: 0px 5px;
   height: 30px !important;
   text-transform: capitalize;
-  font-family: Kirsty, serif;
+  font-family: "Kirsty", serif;
 }
 .songs-for-the-dusk .label-stripe {
   text-transform: uppercase;
   background-color: #191813;
   color: #EEEFFF;
-  margin-bottom: 10px;
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
   display: flex;
   font-weight: bold;
+}
+.songs-for-the-dusk .label-stripe .dropdown option {
+  background-color: #191813;
+  color: #EEEFFF;
 }
 .songs-for-the-dusk .label-stripe-gray {
   text-transform: uppercase;
-  background-color: #999;
-  margin-bottom: 10px;
+  background-color: #666;
+  color: #EEEFFF;
   position: relative;
   padding-left: 10px;
   padding-right: 10px;
   display: flex;
   font-weight: bold;
 }
-.songs-for-the-dusk .editor,
-.songs-for-the-dusk .editor-content {
-  min-height: 150px;
+.songs-for-the-dusk .label-stripe-gray .dropdown option {
+  background-color: #666;
+  color: #EEEFFF;
 }
 .songs-for-the-dusk .description {
   font-style: italic;
 }
+.songs-for-the-dusk .grouped-radio-list {
+  display: flex;
+  gap: 5px;
+}
+.songs-for-the-dusk .effects-list {
+  margin: 0 0;
+}
 .songs-for-the-dusk i.nullifier {
+  display: none;
   transition: filter 0.2s;
   cursor: pointer;
 }
@@ -198,42 +217,172 @@
   opacity: 0.9;
   color: red;
 }
-.songs-for-the-dusk .loadout select {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  box-shadow: none;
-  border: none;
-  cursor: pointer;
-  background: url("data:image/svg+xml;utf8,<svg fill='white' height='24' viewBox='0 0 24 24' width='24' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/><path d='M0 0h24v24H0z' fill='none'/></svg>") no-repeat right;
-  padding: 0 20px 0 0;
-  margin: 0.1em -6px 0 0;
+.songs-for-the-dusk .half {
+  flex: 1;
+}
+.songs-for-the-dusk .attributes {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  min-width: 180px;
+}
+.songs-for-the-dusk .attributes .stripe {
   background-color: #191813;
-  font-family: Georgia, "Bitstream Charter", "Times New Roman", serif;
-  font-size: 14px;
+  color: #EEEFFF;
+  font-size: 17px;
+  padding-left: 5px;
+}
+.songs-for-the-dusk .attributes .attribute {
+  margin-bottom: 5px;
+}
+.songs-for-the-dusk .attributes .attribute .attribute-label,
+.songs-for-the-dusk .attributes .attribute .attribute-action-label {
   font-weight: bold;
   text-transform: uppercase;
-  color: white;
-  text-align: right;
 }
-.songs-for-the-dusk .loadout select option {
-  color: white;
+.songs-for-the-dusk .attributes .attribute .attribute-action-label {
+  letter-spacing: 1px;
 }
-.songs-for-the-dusk .loadout select:hover {
-  color: red;
+.songs-for-the-dusk .attributes .attribute .attributes-exp {
+  position: relative;
+  margin-bottom: 10px;
 }
-.songs-for-the-dusk .abilities .item-name, .songs-for-the-dusk .loadout .item-name, .songs-for-the-dusk .faction-items .item-name {
-  width: 100px;
-  margin-left: 10px;
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body {
+  display: flex;
 }
-.songs-for-the-dusk .abilities .item-body, .songs-for-the-dusk .loadout .item-body, .songs-for-the-dusk .faction-items .item-body {
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body label {
+  height: 30px;
+  width: 10px;
+  background-image: url("assets/teeth/xptooth-red.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body label:last-of-type {
+  margin-right: 0px;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body label[for$="-0"] {
   width: auto;
+  height: auto;
+  background-image: none !important;
+  color: #EEEFFF;
 }
-.songs-for-the-dusk .abilities .item-description, .songs-for-the-dusk .loadout .item-description, .songs-for-the-dusk .faction-items .item-description {
-  width: 260px;
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body label[for$="-0"] i {
+  margin-top: 4px;
 }
-.songs-for-the-dusk td {
-  padding: 5px;
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body {
+  /* Hide the browser's default checkbox */
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body input {
+  display: none;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body input:checked ~ label {
+  background-image: url("assets/teeth/xptooth-white.png");
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body input:checked + label {
+  background-image: url("assets/teeth/xptooth-red.png");
+}
+.songs-for-the-dusk .attributes .attribute .attributes-exp .stripe-tooth-body {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container {
+  display: flex;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container label {
+  height: 15px;
+  width: 15px;
+  background-color: #191813;
+  vertical-align: middle;
+  border: 2px solid #191813;
+  border-radius: 24px;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container label[for$="-0"] {
+  height: 5px;
+  width: 5px;
+  border-radius: 24px;
+  background-image: none !important;
+  background-color: red !important;
+  margin-right: 0px;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container label:hover {
+  filter: brightness(0.7);
+  opacity: 0.7;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container {
+  /* Hide the browser's default checkbox */
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container input {
+  display: none;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container input:checked ~ label {
+  background-color: #EEEFFF;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container input:checked + label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container input:checked + label:hover {
+  filter: brightness(0.7);
+  opacity: 0.7;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container input:checked + label {
+  background-color: #191813;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container {
+  margin: 3px 0px;
+}
+.songs-for-the-dusk .attributes .attribute .attributes-container * {
+  margin-right: 5px;
+}
+.songs-for-the-dusk .extra-content {
+  border-top: 2px solid black;
+  margin-top: 1em;
+}
+.songs-for-the-dusk .extra-content > *:first-child {
+  margin-top: 1em;
+}
+.songs-for-the-dusk .extra-content input[type=checkbox] {
+  margin-right: 0px;
+}
+.songs-for-the-dusk .d20-svg {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.songs-for-the-dusk .d20-svg:hover {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+.songs-for-the-dusk .collapse {
+  align-items: center;
+  justify-items: center;
+}
+.songs-for-the-dusk .collapse .fas:before {
+  font-size: 24px;
+}
+.songs-for-the-dusk .collapsed {
+  display: none;
 }
 .songs-for-the-dusk {
   min-width: 420px;
@@ -543,46 +692,225 @@
 .songs-for-the-dusk .blades-clock-name-type .blades-clock {
   margin: 10px auto;
 }
-.songs-for-the-dusk.crew.sheet .item {
+.songs-for-the-dusk.actor.sheet form.actor-sheet {
+  padding: 20px;
+  gap: 5px;
+}
+.songs-for-the-dusk.actor.sheet ul {
+  margin: 0;
+}
+.songs-for-the-dusk.actor.sheet .supply-container:has(.supply.uses) {
+  text-align: center;
+  align-self: center;
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet .supply {
+  display: flex;
+}
+.songs-for-the-dusk.actor.sheet .supply label {
+  height: 15px;
+  width: 15px;
+  background-color: #DAA520;
+  vertical-align: middle;
+  border: 1px solid #191813;
+}
+.songs-for-the-dusk.actor.sheet .supply label[for$="-0"] {
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet .supply label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet .supply label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk.actor.sheet .supply {
+  /* Hide the browser's default checkbox */
+}
+.songs-for-the-dusk.actor.sheet .supply input {
+  display: none;
+}
+.songs-for-the-dusk.actor.sheet .supply input:checked ~ label {
+  background-color: #EEEFFF;
+}
+.songs-for-the-dusk.actor.sheet .supply input:checked + label {
+  background-color: #DAA520;
+}
+.songs-for-the-dusk.actor.sheet .supply:not(.uses) {
+  flex-wrap: wrap;
+}
+.songs-for-the-dusk.actor.sheet .supply label {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  transition: filter 0.2s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet .supply label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk.actor.sheet .item {
   justify-content: space-between;
+  gap: 10px;
 }
-.songs-for-the-dusk.crew.sheet .item .item-body {
-  margin-bottom: 10px;
-}
-.songs-for-the-dusk.crew.sheet .item .item-body * {
+.songs-for-the-dusk.actor.sheet .item img {
   margin-right: 10px;
 }
-.songs-for-the-dusk.crew.sheet .item .item-body .item-description {
+.songs-for-the-dusk.actor.sheet .item .item-name {
+  width: 150px;
+  align-self: center;
+}
+.songs-for-the-dusk.actor.sheet .item .item-body, .songs-for-the-dusk.actor.sheet .item .open-actor {
+  justify-content: flex-start;
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet .item .item-body .item-name, .songs-for-the-dusk.actor.sheet .item .open-actor .item-name {
+  margin-right: 10px;
+}
+.songs-for-the-dusk.actor.sheet .item .item-body .item-description, .songs-for-the-dusk.actor.sheet .item .open-actor .item-description {
+  /*font-style: italic;*/
+  text-align: justify;
+}
+.songs-for-the-dusk.actor.sheet .item .item-controls > .item-post {
+  margin-left: 10px;
+}
+.songs-for-the-dusk.actor.sheet .trust-block, .songs-for-the-dusk.actor.sheet .beliefs-block, .songs-for-the-dusk.actor.sheet .status-block {
+  text-align: center;
+}
+.songs-for-the-dusk.actor.sheet .trust-block .supply, .songs-for-the-dusk.actor.sheet .beliefs-block .supply, .songs-for-the-dusk.actor.sheet .status-block .supply {
+  width: 90px;
+}
+.songs-for-the-dusk.actor.sheet .trust-block .supply label, .songs-for-the-dusk.actor.sheet .beliefs-block .supply label, .songs-for-the-dusk.actor.sheet .status-block .supply label {
+  margin-right: 0;
+}
+.songs-for-the-dusk.actor.sheet .trust-block input, .songs-for-the-dusk.actor.sheet .beliefs-block input, .songs-for-the-dusk.actor.sheet .status-block input {
+  min-width: 193px;
+}
+.songs-for-the-dusk.actor.sheet .status-block .supply label.negative.enabled {
+  background-color: red;
+}
+.songs-for-the-dusk.actor.sheet .status-block .supply label.enabled {
+  background-color: #008000;
+}
+.songs-for-the-dusk.actor.sheet .tabs > a {
+  font-family: "Kirsty", serif;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab {
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab table {
+  margin: 0;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item .item-name {
+  font-weight: bold;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item .item-body, .songs-for-the-dusk.actor.sheet .tab-content .item .open-actor {
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item-container {
+  margin-left: 24px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item-container .label-stripe-gray {
+  align-items: end;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item-container .current-load {
+  display: inline;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item-container .red {
+  color: red;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item-description {
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .item-add-popup {
+  margin-left: 10px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .collapse {
+  margin-left: 10px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .patron {
+  background: rgba(0, 0, 192, 0.2);
+}
+.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .item {
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .item img {
+  width: 48px;
+  height: 48px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .item .item-name {
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .relationship-child-list {
+  margin-left: 10px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .all-items .item .item-name {
+  width: auto;
+}
+.songs-for-the-dusk.actor.sheet .item-control {
+  flex-grow: 0;
+  align-self: center;
+}
+.songs-for-the-dusk.actor.sheet .disabled-item * {
+  color: #999;
+}
+.songs-for-the-dusk.actor.sheet .death-toggle {
+  float: right;
+  position: relative;
+}
+.songs-for-the-dusk.actor.sheet .death-toggle i {
+  font-size: 20px;
+}
+.songs-for-the-dusk.actor.sheet .death-toggle i.fa-skull.fas {
+  color: red;
+}
+.songs-for-the-dusk.actor.sheet .death-toggle i.fa-skull.fa-regular {
+  color: #191813;
+}
+.songs-for-the-dusk.actor.sheet .dead {
+  filter: grayscale(1);
+}
+.songs-for-the-dusk.actor.sheet.crew .item {
+  justify-content: space-between;
+}
+.songs-for-the-dusk.actor.sheet.crew .item .item-body {
+  margin-bottom: 10px;
+}
+.songs-for-the-dusk.actor.sheet.crew .item .item-body * {
+  margin-right: 10px;
+}
+.songs-for-the-dusk.actor.sheet.crew .item .item-body .item-description {
   font-style: italic;
   text-align: justify;
 }
-.songs-for-the-dusk.crew.sheet .item div {
+.songs-for-the-dusk.actor.sheet.crew .item div {
   flex-grow: 2;
 }
-.songs-for-the-dusk.crew.sheet .item .item-control {
+.songs-for-the-dusk.actor.sheet.crew .item .item-control {
   flex-grow: 1;
 }
-.songs-for-the-dusk.crew.sheet .item .item-body,
-.songs-for-the-dusk.crew.sheet .item .item-class-label {
+.songs-for-the-dusk.actor.sheet.crew .item .item-body,
+.songs-for-the-dusk.actor.sheet.crew .item .item-class-label {
   width: 100px;
 }
-.songs-for-the-dusk.crew.sheet .item-class-label {
+.songs-for-the-dusk.actor.sheet.crew .item-class-label {
   margin-bottom: 10px;
 }
-.songs-for-the-dusk.crew.sheet .name, .songs-for-the-dusk.crew.sheet .lair {
+.songs-for-the-dusk.actor.sheet.crew .name, .songs-for-the-dusk.actor.sheet.crew .lair {
   margin-bottom: 10px;
 }
-.songs-for-the-dusk.crew.sheet form.actor-sheet {
+.songs-for-the-dusk.actor.sheet.crew form.actor-sheet {
   padding: 20px;
 }
-.songs-for-the-dusk.crew.sheet nav {
+.songs-for-the-dusk.actor.sheet.crew nav {
   padding-bottom: 10px;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation {
   border-top: 3px solid #191813;
   display: flex;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation label {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation label {
   height: 50px;
   width: 17px;
   background-image: url("assets/teeth/stresstooth-red.png");
@@ -590,70 +918,70 @@
   background-size: contain;
   margin-right: 5px;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation label:last-of-type {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation label:last-of-type {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation label[for$="-0"] {
   width: auto;
   height: auto;
   background-image: none !important;
   color: #EEEFFF;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation label[for$="-0"] i {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation label[for$="-0"] i {
   margin-top: 4px;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation label {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation label:hover {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation input {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation input:checked ~ label {
   background-image: url("assets/teeth/stresstooth-halfgrey.png");
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation input:checked + label {
   background-image: url("assets/teeth/stresstooth-red.png");
 }
-.songs-for-the-dusk.crew.sheet .crew-reputation input:disabled + label {
+.songs-for-the-dusk.actor.sheet.crew .crew-reputation input:disabled + label {
   background-image: url(assets/teeth/stresstooth-black.png);
 }
-.songs-for-the-dusk.crew.sheet .turf-container {
+.songs-for-the-dusk.actor.sheet.crew .turf-container {
   overflow-x: scroll;
   overflow-y: clip;
 }
-.songs-for-the-dusk.crew.sheet .turf-list {
+.songs-for-the-dusk.actor.sheet.crew .turf-list {
   display: flex;
   flex-direction: column;
   width: 855px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list .turf-row {
+.songs-for-the-dusk.actor.sheet.crew .turf-list .turf-row {
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
 }
-.songs-for-the-dusk.crew.sheet .turf-list .turf-row *:first-child {
+.songs-for-the-dusk.actor.sheet.crew .turf-list .turf-row *:first-child {
   margin-left: 0px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list .turf-row *:last-child {
+.songs-for-the-dusk.actor.sheet.crew .turf-list .turf-row *:last-child {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block:hover {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block {
   width: 130px;
   height: 100px;
   background-color: #bbb;
@@ -661,41 +989,41 @@
   margin: 20px;
   flex-grow: initial;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block.turf-selected .connector {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block.turf-selected .connector {
   background-color: #999;
   z-index: 1;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector {
   position: absolute;
   display: block;
   background-color: #bbb;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.right, .songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.left {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.right, .songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.left {
   width: 40px;
   height: 20px;
   top: 40px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.left {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.left {
   left: -40px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.right {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.right {
   left: 130px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.top, .songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.bottom {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.top, .songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.bottom {
   height: 40px;
   width: 20px;
   left: 55px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.top {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.top {
   top: -40px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .connector.bottom {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .connector.bottom {
   top: 100px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block.turf-selected {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block.turf-selected {
   background-color: #999;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .turf-description {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .turf-description {
   border: none;
   background: none;
   resize: none;
@@ -704,29 +1032,29 @@
   min-height: auto;
   font-size: 12px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .turf-name {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .turf-name {
   border: none;
   border-radius: 0px;
   text-align: center;
   font-weight: bold;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block input[type=checkbox] {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block input[type=checkbox] {
   transform: scale(1);
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-non-editable .turf-block .turf-control.turf-select {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-non-editable .turf-block .turf-control.turf-select {
   position: absolute;
   top: -7px;
   left: -7px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block:hover {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block {
   width: 130px;
   height: 125px;
   background-color: #bbb;
@@ -734,41 +1062,41 @@
   margin: 20px;
   flex-grow: initial;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block.turf-selected .connector {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block.turf-selected .connector {
   background-color: #999;
   z-index: 1;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector {
   position: absolute;
   display: block;
   background-color: #bbb;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.right, .songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.left {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.right, .songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.left {
   width: 40px;
   height: 25px;
   top: 50px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.left {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.left {
   left: -40px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.right {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.right {
   left: 130px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.top, .songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.bottom {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.top, .songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.bottom {
   height: 40px;
   width: 25px;
   left: 52.5px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.top {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.top {
   top: -40px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .connector.bottom {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .connector.bottom {
   top: 125px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block.turf-selected {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block.turf-selected {
   background-color: #999;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .turf-description {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .turf-description {
   border: none;
   background: none;
   resize: none;
@@ -777,33 +1105,33 @@
   min-height: auto;
   font-size: 12px;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .turf-name {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .turf-name {
   border: none;
   border-radius: 0px;
   text-align: center;
   font-weight: bold;
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block input[type=checkbox] {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block input[type=checkbox] {
   transform: scale(1);
 }
-.songs-for-the-dusk.crew.sheet .turf-list.section-editable .turf-block .turf-control.turf-select {
+.songs-for-the-dusk.actor.sheet.crew .turf-list.section-editable .turf-block .turf-control.turf-select {
   position: absolute;
   top: -7px;
   left: -7px;
 }
-.songs-for-the-dusk.crew.sheet .crew-hold {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold {
   border-top: 3px solid #191813;
   display: flex;
 }
-.songs-for-the-dusk.crew.sheet .crew-hold label {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.crew.sheet .crew-hold label:hover {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .crew-hold label {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold label {
   height: 50px;
   width: 17px;
   background-image: url("assets/teeth/stresstooth-halfgrey.png");
@@ -811,22 +1139,22 @@
   background-size: contain;
   margin-right: 5px;
 }
-.songs-for-the-dusk.crew.sheet .crew-hold label:last-of-type {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold label:last-of-type {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .crew-hold {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.crew.sheet .crew-hold input {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .crew-hold input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold input:checked + label {
   background-image: url("assets/teeth/stresstooth-red.png");
 }
-.songs-for-the-dusk.crew.sheet .crew-hold {
+.songs-for-the-dusk.actor.sheet.crew .crew-hold {
   width: 221px;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier {
   background-color: #999;
   height: 33px;
   width: 145px;
@@ -835,15 +1163,15 @@
   border-top: 3px solid #191813;
   display: flex;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier label {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier label:hover {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier label:not([for$="-0"]) {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier label:not([for$="-0"]) {
   height: 18px;
   width: 18px;
   background-color: #191813;
@@ -851,57 +1179,57 @@
   border: 2px solid #191813;
   border-radius: 9px;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.crew.sheet .crew-tier input {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier input:checked ~ label:not([for$="-0"]) {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier input:checked ~ label:not([for$="-0"]) {
   border-color: gray;
   background-color: #EEEFFF;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier input:checked + label:not([for$="-0"]) {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier input:checked + label:not([for$="-0"]) {
   background-color: #191813;
   border-color: #191813;
 }
-.songs-for-the-dusk.crew.sheet .crew-tier > * {
+.songs-for-the-dusk.actor.sheet.crew .crew-tier > * {
   margin-right: 5px;
 }
-.songs-for-the-dusk.crew.sheet .pressure-hazard .small-teeth {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard .small-teeth {
   height: 20px;
 }
-.songs-for-the-dusk.crew.sheet .pressure-hazard .small-teeth label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard .small-teeth label {
   height: 100%;
   width: 100%;
   cursor: default;
 }
-.songs-for-the-dusk.crew.sheet .experience-clues-container {
+.songs-for-the-dusk.actor.sheet.crew .experience-clues-container {
   width: 340px;
   font-size: 12px;
 }
-.songs-for-the-dusk.crew.sheet .experience-clues-container .experience-clues-description {
+.songs-for-the-dusk.actor.sheet.crew .experience-clues-container .experience-clues-description {
   font-weight: bold;
 }
-.songs-for-the-dusk.crew.sheet .experience-clues-container .experience-clues {
+.songs-for-the-dusk.actor.sheet.crew .experience-clues-container .experience-clues {
   font-style: italic;
 }
-.songs-for-the-dusk.crew.sheet .edgeflaw input {
+.songs-for-the-dusk.actor.sheet.crew .edgeflaw input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .edgeflaw input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .edgeflaw input:checked + label {
   color: red;
 }
-.songs-for-the-dusk.crew.sheet .gang-expert-type-selector .gang-type-boxes {
+.songs-for-the-dusk.actor.sheet.crew .gang-expert-type-selector .gang-type-boxes {
   flex-wrap: wrap;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container {
   gap: 1em;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells {
   display: flex;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells label {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells label {
   height: 30px;
   width: 10px;
   background-image: url("assets/teeth/stresstooth-red.png");
@@ -909,78 +1237,78 @@
   background-size: contain;
   margin-right: 5px;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells label:last-of-type {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells label:last-of-type {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells label[for$="-0"] {
   width: auto;
   height: auto;
   background-image: none !important;
   color: #EEEFFF;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells label[for$="-0"] i {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells label[for$="-0"] i {
   margin-top: 4px;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells label {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells label:hover {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells input {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells input:checked ~ label {
   background-image: url("assets/teeth/stresstooth-halfgrey.png");
 }
-.songs-for-the-dusk.crew.sheet .economy .shell-container .teeth-shells input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells input:checked + label {
   background-image: url("assets/teeth/stresstooth-red.png");
 }
-.songs-for-the-dusk.crew.sheet .economy .cache {
+.songs-for-the-dusk.actor.sheet.crew .economy .cache {
   max-width: 216px;
 }
-.songs-for-the-dusk.crew.sheet .cohorts {
+.songs-for-the-dusk.actor.sheet.crew .cohorts {
   flex-wrap: wrap;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .cohort-block-wrapper {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .cohort-block-wrapper {
   width: 400px;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .label-stripe {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .label-stripe {
   align-items: center;
   cursor: pointer;
   margin-bottom: 0px;
   padding-top: 2px;
   padding-bottom: 2px;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .item-control {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .item-control {
   flex-grow: 0;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .cohort-body img {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .cohort-body img {
   border: 2px solid #191813;
   width: 1.75rem;
   height: 1.75rem;
   border-top: none;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .cohort-body > div {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .cohort-body > div {
   margin-bottom: 10px;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .cohort-block-harm {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .cohort-block-harm {
   justify-content: space-around;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .cohort-block-harm input[type=radio] {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .cohort-block-harm input[type=radio] {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .cohort-block-harm input[type=radio]:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .cohort-block-harm input[type=radio]:checked + label {
   color: #EEEFFF;
   font-weight: bold;
   background-color: #191813;
 }
-.songs-for-the-dusk.crew.sheet .cohorts .cohort-block-harm label {
+.songs-for-the-dusk.actor.sheet.crew .cohorts .cohort-block-harm label {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -991,7 +1319,7 @@
   padding: 0 5px;
   text-align: center;
 }
-.songs-for-the-dusk.crew.sheet .class-name {
+.songs-for-the-dusk.actor.sheet.crew .class-name {
   width: 512px;
   height: 120px;
   display: flex;
@@ -1001,34 +1329,34 @@
   text-transform: uppercase;
   border: 3px solid #191813;
 }
-.songs-for-the-dusk.crew.sheet .class-name .big-name {
+.songs-for-the-dusk.actor.sheet.crew .class-name .big-name {
   font-weight: bold;
   font-family: Kirsty, serif;
 }
-.songs-for-the-dusk.crew.sheet .class-name .big-description {
+.songs-for-the-dusk.actor.sheet.crew .class-name .big-description {
   font-size: 20px;
   font-family: "Crimson Text", serif;
   color: #191813;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section {
   border-top: 3px solid #191813;
   display: flex;
   flex-direction: row;
   margin-bottom: 0px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section > * {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section > * {
   margin-right: 10px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section > *:last-child {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section > *:last-child {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section:last-child {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section:last-child {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth {
   display: flex;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth label {
   height: 50px;
   width: 17px;
   background-image: url("assets/teeth/stresstooth-red.png");
@@ -1036,42 +1364,42 @@
   background-size: contain;
   margin-right: 5px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth label:last-of-type {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth label:last-of-type {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth label[for$="-0"] {
   width: auto;
   height: auto;
   background-image: none !important;
   color: #EEEFFF;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth label[for$="-0"] i {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth label[for$="-0"] i {
   margin-top: 4px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth label:hover {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth input {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth input:checked ~ label {
   background-image: url("assets/teeth/stresstooth-halfgrey.png");
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .big-teeth input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .big-teeth input:checked + label {
   background-image: url("assets/teeth/stresstooth-red.png");
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap {
   display: flex;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap label {
   height: 50px;
   width: 17px;
   background-image: url("assets/teeth/shorttooth-red.png");
@@ -1079,80 +1407,44 @@
   background-size: contain;
   margin-right: 5px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap label:last-of-type {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap label:last-of-type {
   margin-right: 0px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap label[for$="-0"] {
   width: auto;
   height: auto;
   background-image: none !important;
   color: #EEEFFF;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap label[for$="-0"] i {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap label[for$="-0"] i {
   margin-top: 4px;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap label {
   cursor: not-allowed;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap input {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap input {
   display: none;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap input:checked ~ label {
   background-image: url("assets/teeth/shorttooth-grey.png");
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap input:checked + label {
   background-image: url("assets/teeth/shorttooth-red.png");
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap {
   flex-direction: column;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .small-teeth-container .small-teeth-wrap .small-teeth {
+.songs-for-the-dusk.actor.sheet.crew .big-teeth-section .small-teeth-container .small-teeth-wrap .small-teeth {
   display: flex;
   flex-direction: row;
 }
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list {
-  display: flex;
-  flex-wrap: wrap;
-}
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label {
-  cursor: pointer;
-  font-size: 19px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin-right: 10px;
-  transition: filter 0.1s;
-  cursor: pointer;
-}
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-}
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label {
-  /* Hide the browser's default checkbox */
-}
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label input {
-  display: none;
-}
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label input:checked ~ .checkmark {
-  color: red;
-}
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list label .checkmark {
-  text-decoration: none;
-  font-weight: bold;
-}
-.songs-for-the-dusk.crew.sheet .big-teeth-section .scars-list {
-  justify-content: space-between;
-  align-items: flex-start;
-}
-.songs-for-the-dusk.crew.sheet header {
+.songs-for-the-dusk.actor.sheet.crew header {
   margin-bottom: 10px;
 }
-.songs-for-the-dusk.actor.strider {
+.songs-for-the-dusk.actor.sheet.strider {
   /*
   *  Elements that can be changed will hint this by dimming and fading a little on hover
   */
@@ -1186,41 +1478,152 @@
    * Some things *might* be missing, but at a glance, everything looks to be in order.
    */
 }
-.songs-for-the-dusk.actor.strider * .name-alias img.portrait {
+.songs-for-the-dusk.actor.sheet.strider .name-alias a:not(.item-name), .songs-for-the-dusk.actor.sheet.strider .name-alias label {
+  font-family: "Kirsty", serif;
+}
+.songs-for-the-dusk.actor.sheet.strider .name-alias img.portrait {
   max-width: 200px;
   max-height: 200px;
   width: auto;
   height: auto;
+  margin-right: 40px;
+  margin-bottom: 20px;
 }
-.songs-for-the-dusk.actor.strider * .tab[data-tab] {
+.songs-for-the-dusk.actor.sheet.strider .name-alias .item-name {
+  width: auto;
+  height: auto;
+}
+.songs-for-the-dusk.actor.sheet.strider .name-alias .name, .songs-for-the-dusk.actor.sheet.strider .name-alias .gender, .songs-for-the-dusk.actor.sheet.strider .name-alias .form {
+  width: 90%;
+  margin-bottom: 10px;
+}
+.songs-for-the-dusk.actor.sheet.strider .traits .item-name {
+  margin-right: 0;
+}
+.songs-for-the-dusk.actor.sheet.strider .traits .item-class-label {
+  align-self: center;
+  min-width: 100px;
+}
+.songs-for-the-dusk.actor.sheet.strider .traits .two-line {
+  gap: 2em;
+}
+.songs-for-the-dusk.actor.sheet.strider .traits .two-line .item-class-label {
+  align-self: center;
+  min-width: auto;
+}
+.songs-for-the-dusk.actor.sheet.strider .traits .two-line > .item-block {
+  width: 50%;
+  gap: 2em;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap {
+  display: flex;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap label {
+  height: 30px;
+  width: 17px;
+  background-image: url("assets/teeth/shorttooth-red.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap label:last-of-type {
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap label[for$="-0"] {
+  width: auto;
+  height: auto;
+  background-image: none !important;
+  color: #EEEFFF;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap label[for$="-0"] i {
+  margin-top: 4px;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap label {
+  cursor: not-allowed;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap {
+  /* Hide the browser's default checkbox */
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap input {
   display: none;
 }
-.songs-for-the-dusk.actor.strider * .tab[data-tab].active {
-  display: block;
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap input:checked ~ label {
+  background-image: url("assets/teeth/shorttooth-grey.png");
 }
-.songs-for-the-dusk.actor.strider * form.actor-sheet {
-  padding: 20px;
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container.hazard .small-teeth-wrap input:checked + label {
+  background-image: url("assets/teeth/shorttooth-red.png");
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section {
+.songs-for-the-dusk.actor.sheet.strider table.drive-table th:nth-child(2), .songs-for-the-dusk.actor.sheet.strider table.drive-table th:nth-child(3), .songs-for-the-dusk.actor.sheet.strider table.drive-table td:nth-child(2), .songs-for-the-dusk.actor.sheet.strider table.drive-table td:nth-child(3) {
+  width: 98px;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .belief {
+  margin: 10px 0;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .belief label {
+  font-family: "Kirsty", serif;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list {
+  background: rgba(0, 0, 0, 0.05);
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list > *:nth-child(odd), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list > *:nth-child(odd), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list > *:nth-child(odd), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list > *:nth-child(odd), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list > *:nth-child(odd), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list > *:nth-child(odd) {
+  background-color: var(--table-row-color-odd);
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list > *:nth-child(even) {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .hackrig-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .ammo, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .drone-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .expertise, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .stay-late, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .experimental, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .hidden-item, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .form-toggle, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .hackrig-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .ammo, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .drone-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .expertise, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .stay-late, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .experimental, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .hidden-item, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .form-toggle, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .hackrig-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .ammo, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .drone-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .expertise, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .stay-late, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .experimental, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .hidden-item, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .form-toggle, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .hackrig-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .ammo, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .drone-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .expertise, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .stay-late, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .experimental, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .hidden-item, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .form-toggle, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .hackrig-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .ammo, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .drone-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .expertise, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .stay-late, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .experimental, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .hidden-item, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .form-toggle, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .hackrig-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .ammo, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .drone-type, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .expertise, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .stay-late, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .experimental, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .hidden-item, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .form-toggle {
+  text-align: center;
+  align-self: center;
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .hackrig-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .ammo input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .drone-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .expertise input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .stay-late input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .experimental input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .hidden-item input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .form-toggle input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .hackrig-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .ammo input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .drone-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .expertise input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .stay-late input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .experimental input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .hidden-item input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .form-toggle input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .hackrig-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .ammo input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .drone-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .expertise input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .stay-late input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .experimental input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .hidden-item input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .form-toggle input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .hackrig-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .ammo input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .drone-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .expertise input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .stay-late input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .experimental input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .hidden-item input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .form-toggle input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .hackrig-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .ammo input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .drone-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .expertise input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .stay-late input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .experimental input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .hidden-item input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .form-toggle input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .hackrig-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .ammo input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .drone-type input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .expertise input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .stay-late input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .experimental input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .hidden-item input, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .form-toggle input {
+  margin: 0px;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .item:has(.extra-description) .item-body, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .item:has(.extra-description) .item-body, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .item:has(.extra-description) .item-body, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .item:has(.extra-description) .item-body, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .item:has(.extra-description) .item-body, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .item:has(.extra-description) .item-body {
+  width: auto;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .item:has(.extra-description) .item-body .item-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .item:has(.extra-description) .item-body .item-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .item:has(.extra-description) .item-body .item-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .item:has(.extra-description) .item-body .item-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .item:has(.extra-description) .item-body .item-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .item:has(.extra-description) .item-body .item-description {
+  display: none;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .extra-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .extra-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .extra-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .extra-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .extra-description, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .extra-description {
+  text-align: center;
+  align-self: center;
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list .extra-description textarea, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list .extra-description textarea, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list .extra-description textarea, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list .extra-description textarea, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list .extra-description textarea, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list .extra-description textarea {
+  text-align: left;
+  text-wrap: wrap;
+}
+.songs-for-the-dusk.actor.sheet.strider .black-white-header {
+  background-color: #191813;
+  color: #EEEFFF;
+  text-align: center;
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet.strider .black-white-header:is(div) {
+  padding: 0.25em;
+  font-weight: bold;
+  text-align: center;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section {
   border-top: 3px solid #191813;
   display: flex;
   flex-direction: row;
   margin-bottom: 0px;
-  margin-top: 10px;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section > * {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section > * {
   margin-right: 10px;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section > *:last-child {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section > *:last-child {
   margin-right: 0px;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section:last-child {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section:last-child {
   margin-right: 0px;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth {
   display: flex;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth label {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth label {
   height: 50px;
   width: 17px;
   background-image: url("assets/teeth/stresstooth-red.png");
@@ -1228,141 +1631,104 @@
   background-size: contain;
   margin-right: 5px;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth label:last-of-type {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth label:last-of-type {
   margin-right: 0px;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth label[for$="-0"] {
   width: auto;
   height: auto;
   background-image: none !important;
   color: #EEEFFF;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth label[for$="-0"] i {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth label[for$="-0"] i {
   margin-top: 4px;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth label {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth label:hover {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth input {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth input {
   display: none;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth input:checked ~ label {
   background-image: url("assets/teeth/stresstooth-halfgrey.png");
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .big-teeth input:checked + label {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .big-teeth input:checked + label {
   background-image: url("assets/teeth/stresstooth-red.png");
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap {
-  display: flex;
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap label {
-  height: 50px;
-  width: 17px;
-  background-image: url("assets/teeth/shorttooth-red.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-right: 5px;
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap label:last-of-type {
-  margin-right: 0px;
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap label[for$="-0"] {
-  width: auto;
-  height: auto;
-  background-image: none !important;
-  color: #EEEFFF;
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap label[for$="-0"] i {
-  margin-top: 4px;
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap label {
-  cursor: not-allowed;
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap {
-  /* Hide the browser's default checkbox */
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap input {
-  display: none;
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap input:checked ~ label {
-  background-image: url("assets/teeth/shorttooth-grey.png");
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap input:checked + label {
-  background-image: url("assets/teeth/shorttooth-red.png");
-}
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container .small-teeth-wrap {
   flex-direction: column;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .small-teeth-container .small-teeth-wrap .small-teeth {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container .small-teeth-wrap .small-teeth {
   display: flex;
   flex-direction: row;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap {
   display: flex;
-  flex-wrap: wrap;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list label {
-  cursor: pointer;
-  font-size: 19px;
-  -webkit-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
-  margin-right: 10px;
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap label {
+  height: 30px;
+  width: 17px;
+  background-image: url("assets/teeth/shorttooth-red.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap label:last-of-type {
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap label[for$="-0"] {
+  width: auto;
+  height: auto;
+  background-image: none !important;
+  color: #EEEFFF;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap label[for$="-0"] i {
+  margin-top: 4px;
+}
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list label:hover {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list label {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list label input {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap input {
   display: none;
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list label input:checked ~ .checkmark {
-  color: red;
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap input:checked ~ label {
+  background-image: url("assets/teeth/shorttooth-grey.png");
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list label .checkmark {
-  text-decoration: none;
-  font-weight: bold;
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .small-teeth-container:not(.hazard) .small-teeth-wrap input:checked + label {
+  background-image: url("assets/teeth/shorttooth-red.png");
 }
-.songs-for-the-dusk.actor.strider * .big-teeth-section .scars-list {
-  justify-content: space-between;
-  align-items: flex-start;
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .scars-list input[type=text]:not(:placeholder-shown) {
+  background: rgba(255, 0, 0, 0.1);
 }
-.songs-for-the-dusk.actor.strider * .strider-stress label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.strider .big-teeth-section .strider-stress label[for$="-0"] {
   margin-right: 0px;
 }
-.songs-for-the-dusk.actor.strider * .abilities .item-name, .songs-for-the-dusk.actor.strider * .loadout .item-name {
+.songs-for-the-dusk.actor.sheet.strider .abilities .item-name, .songs-for-the-dusk.actor.sheet.strider .loadout .item-name {
   width: 100px;
 }
-.songs-for-the-dusk.actor.strider * .abilities .item-body, .songs-for-the-dusk.actor.strider * .loadout .item-body {
-  width: auto;
+.songs-for-the-dusk.actor.sheet.strider .abilities .item-description, .songs-for-the-dusk.actor.sheet.strider .loadout .item-description {
+  margin: 0.5em 0;
 }
-.songs-for-the-dusk.actor.strider * .abilities .item-description, .songs-for-the-dusk.actor.strider * .loadout .item-description {
-  width: 260px;
-}
-.songs-for-the-dusk.actor.strider * .abilities .label-stripe p:first-child {
-  margin-right: 10px;
-}
-.songs-for-the-dusk.actor.strider * .loadout .item-add-popup {
-  margin-left: 10px;
-}
-.songs-for-the-dusk.actor.strider * .teeth-experience {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience {
   display: flex;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience label {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience label {
   height: 30px;
   width: 10px;
   background-image: url("assets/teeth/stresstooth-red.png");
@@ -1370,265 +1736,150 @@
   background-size: contain;
   margin-right: 5px;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience label:last-of-type {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience label:last-of-type {
   margin-right: 0px;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience label[for$="-0"] {
   width: auto;
   height: auto;
   background-image: none !important;
   color: #EEEFFF;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience label[for$="-0"] i {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience label[for$="-0"] i {
   margin-top: 4px;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience label {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience label:hover {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience input {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience input {
   display: none;
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience input:checked ~ label {
   background-image: url("assets/teeth/stresstooth-halfgrey.png");
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience input:checked + label {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience input:checked + label {
   background-image: url("assets/teeth/stresstooth-red.png");
 }
-.songs-for-the-dusk.actor.strider * .teeth-experience {
+.songs-for-the-dusk.actor.sheet.strider .teeth-experience {
   position: absolute;
   top: 0px;
   right: 10px;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor {
+.songs-for-the-dusk.actor.sheet.strider .harm-armor {
   display: flex;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-harm {
+.songs-for-the-dusk.actor.sheet.strider .harm-armor > div {
+  margin: 7px 0;
   width: 100%;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-harm table {
+.songs-for-the-dusk.actor.sheet.strider .harm-armor input[type=text]:not(:placeholder-shown) {
+  background: rgba(255, 0, 0, 0.1);
+}
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .td:first-of-type {
+  width: 20px;
+}
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .death-block {
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .death-block > * {
+  margin: 5px;
+}
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .death-block > input {
   width: 100%;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-harm table th {
-  background-color: #191813;
-  color: #EEEFFF;
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .death-block > div {
+  text-align: center;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-harm table input[type=text] {
-  width: 100%;
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .death-block div:first-of-type {
+  width: 16px;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock {
-  margin: 0 auto;
-  position: relative;
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor {
+  align-items: center;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock {
-  position: relative;
-  padding: 0;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  list-style: none;
-  overflow: hidden;
-  background-size: cover;
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div {
+  gap: 5px;
+  justify-content: space-around;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock label {
-  overflow: hidden;
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 100%;
-  transform-origin: 0% 100%;
-  transition: filter 0.1s;
-  cursor: pointer;
-}
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock label:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-}
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock input {
-  position: absolute;
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div input {
   display: none;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock input[value="0"] {
-  display: none;
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i {
+  font-size: 20px;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(180deg);
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i.fa-shield.fas {
+  color: #DAA520;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock *:nth-child(5) {
-  transform: rotate(90deg) skewY(180deg);
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i.fa-shield.fa-regular {
+  color: #191813;
 }
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock *:nth-child(7) {
-  transform: rotate(180deg) skewY(180deg);
-}
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-health-clock .blades-clock *:nth-child(9) {
-  transform: rotate(270deg) skewY(180deg);
-}
-.songs-for-the-dusk.actor.strider * .harm-armor .strider-armor-uses div {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-.songs-for-the-dusk.actor.strider * .attributes {
-  display: flex;
-  flex-direction: column;
-  width: 200px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .stripe {
-  background-color: #191813;
-  color: #EEEFFF;
-  font-size: 17px;
-  padding-left: 5px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attribute-label,
-.songs-for-the-dusk.actor.strider * .attributes .attribute-skill-label {
-  font-weight: bold;
-  text-transform: uppercase;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attribute-skill-label {
-  letter-spacing: 1px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp {
-  position: relative;
-  margin-bottom: 10px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body {
+.songs-for-the-dusk.actor.sheet.strider .quirks tr, .songs-for-the-dusk.actor.sheet.strider .connections tr {
   display: flex;
 }
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body label {
-  height: 30px;
-  width: 10px;
-  background-image: url("assets/teeth/xptooth-red.png");
-  background-repeat: no-repeat;
-  background-size: contain;
-  margin-right: 5px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body label:last-of-type {
-  margin-right: 0px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body label[for$="-0"] {
-  width: auto;
-  height: auto;
-  background-image: none !important;
-  color: #EEEFFF;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body label[for$="-0"] i {
-  margin-top: 4px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body label {
-  transition: filter 0.1s;
-  cursor: pointer;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body label:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body {
-  /* Hide the browser's default checkbox */
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body input {
-  display: none;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body input:checked ~ label {
-  background-image: url("assets/teeth/xptooth-white.png");
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body input:checked + label {
-  background-image: url("assets/teeth/xptooth-red.png");
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-exp .stripe-tooth-body {
-  position: absolute;
-  top: 0px;
-  right: 0px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container {
-  display: flex;
-  margin: 3px 0px;
-  display: flex;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container label {
-  height: 15px;
-  width: 15px;
-  background-color: #191813;
-  vertical-align: middle;
-  border: 2px solid #191813;
-  border-radius: 24px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container label[for$="-0"] {
-  height: 5px;
-  width: 5px;
-  border-radius: 24px;
-  background-image: none !important;
-  background-color: red !important;
-  margin-right: 0px;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container label {
-  transition: filter 0.1s;
-  cursor: pointer;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container label:hover {
-  filter: brightness(0.7);
-  opacity: 0.7;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container {
-  /* Hide the browser's default checkbox */
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container input {
-  display: none;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container input:checked ~ label {
-  background-color: #EEEFFF;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container input:checked + label {
-  transition: filter 0.1s;
-  cursor: pointer;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container input:checked + label:hover {
-  filter: brightness(0.7);
-  opacity: 0.7;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container input:checked + label {
-  background-color: #191813;
-}
-.songs-for-the-dusk.actor.strider * .attributes .attributes-container * {
-  margin-right: 5px;
-}
-.songs-for-the-dusk.actor.strider * .item {
-  justify-content: space-between;
-}
-.songs-for-the-dusk.actor.strider * .item .item-body {
-  margin-bottom: 10px;
-}
-.songs-for-the-dusk.actor.strider * .item .item-body * {
+.songs-for-the-dusk.actor.sheet.strider .quirks .add-quirk {
+  float: right;
   margin-right: 10px;
 }
-.songs-for-the-dusk.actor.strider * .item .item-body .item-description {
-  font-style: italic;
-  text-align: justify;
+.songs-for-the-dusk.actor.sheet.strider .quirks td:has(input[type=checkbox]:not(:checked)) input {
+  color: #999;
 }
-.songs-for-the-dusk.actor.strider * .item div {
-  flex-grow: 2;
+.songs-for-the-dusk.actor.sheet.strider .connections td {
+  width: 100%;
+  gap: 5px;
 }
-.songs-for-the-dusk.actor.strider * .item .item-control {
-  flex-grow: 1;
+.songs-for-the-dusk.actor.sheet.strider .connections td .fa-triangle-exclamation {
+  font-size: 20px;
+  color: red;
 }
-.songs-for-the-dusk.actor.strider * .item .item-body,
-.songs-for-the-dusk.actor.strider * .item .item-class-label {
-  width: 100px;
+.songs-for-the-dusk.actor.sheet.strider .connections td .item-name {
+  width: 88px;
+  min-width: 88px;
+  text-align: center;
 }
-.songs-for-the-dusk.actor.strider * .item-class-label {
-  margin-bottom: 10px;
+.songs-for-the-dusk.actor.sheet.strider .connections td .open-actor .item-name {
+  width: auto;
+  text-align: left;
 }
-.songs-for-the-dusk.actor.strider * .name,
-.songs-for-the-dusk.actor.strider * .lair,
-.songs-for-the-dusk.actor.strider * .alias {
-  margin-bottom: 10px;
+.songs-for-the-dusk.actor.sheet.strider .connections td .clock-block {
+  align-self: center;
+}
+.songs-for-the-dusk.actor.sheet.strider .connections td .beliefs {
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet.strider .connections .add-connection, .songs-for-the-dusk.actor.sheet.strider .connections .add-old-connection {
+  font-weight: bold;
+}
+.songs-for-the-dusk.actor.sheet.strider .item-block {
+  margin-bottom: 5px;
+}
+.songs-for-the-dusk.actor.sheet.strider .open-actor {
+  align-self: center;
+}
+.songs-for-the-dusk.actor.sheet.strider .extra-rolls {
+  width: 100%;
+  border-top: 2px solid black;
+  margin-top: 1em;
+  padding-top: 1em;
+  justify-content: center;
+  gap: 1em;
+}
+.songs-for-the-dusk.actor.sheet.strider .extra-rolls .other-rolls {
+  align-self: center;
+  font-size: 20px;
+}
+.songs-for-the-dusk.actor.sheet.strider .extra-rolls .downtime .fas {
+  font-size: 24px;
+  transition: all 0.2s ease-in-out;
+}
+.songs-for-the-dusk.actor.sheet.strider .extra-rolls .downtime .fas:hover {
+  transform: scale(1.25);
 }
 .songs-for-the-dusk.item.sheet .item {
   justify-content: space-between;
@@ -1706,82 +1957,24 @@
   opacity: 0.9;
 }
 
-.chat-label {
-  background-color: #191813;
-  font-family: Kirsty, serif;
-  color: #EEEFFF;
-  font-size: 21px;
-  text-align: center;
-  padding: 0px 5px;
-  height: 30px !important;
-  text-transform: capitalize;
+.application.dialog .window-content {
+  overflow: hidden auto;
 }
-
-.chat-label-small {
-  background-color: #999;
-  color: #191813;
-  font-size: small;
-  text-align: center;
-  padding: 3px 5px;
-  height: 20px !important;
-}
-
-.label-stripe-chat {
-  text-transform: uppercase;
-  background-color: #191813;
-  color: #EEEFFF;
-  margin-bottom: 10px;
-  position: relative;
-  padding-top: 3px;
-  display: flex;
-  font-weight: bold;
-  margin: 0;
-}
-
-.label-stripe-chat-small {
-  text-transform: capitalize;
-  background-color: #999;
-  color: #191813;
-  margin-bottom: 10px;
-  position: relative;
-  padding-top: 3px;
-  display: flex;
-  font-weight: bold;
-}
-
-.blades-die-tooltip .die {
-  font-weight: bold;
-  text-transform: capitalize;
-  font-size: large;
-}
-.blades-die-tooltip .die.critical-success {
-  color: #12a012;
-}
-.blades-die-tooltip .die.success {
-  color: #008000;
-}
-.blades-die-tooltip .die.partial-success {
-  color: #04578f;
-}
-.blades-die-tooltip .die.failure {
-  color: red;
-}
-
-.items-to-add {
+.application.dialog .objects-to-add {
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
   justify-content: space-around;
 }
-.items-to-add input[type=radio],
-.items-to-add input[type=checkbox] {
+.application.dialog .objects-to-add input[type=radio],
+.application.dialog .objects-to-add input[type=checkbox] {
   display: none;
 }
-.items-to-add input[type=radio]:checked + label,
-.items-to-add input[type=checkbox]:checked + label {
+.application.dialog .objects-to-add input[type=radio]:checked + label,
+.application.dialog .objects-to-add input[type=checkbox]:checked + label {
   font-weight: bold;
 }
-.items-to-add .tooltip .tooltiptext {
+.application.dialog .objects-to-add .tooltip .tooltiptext {
   visibility: hidden;
   width: 200px;
   background-color: #191813;
@@ -1792,8 +1985,235 @@
   position: absolute;
   z-index: 9999;
 }
-.items-to-add .tooltip:hover .tooltiptext {
+.application.dialog .objects-to-add .tooltip:hover .tooltiptext {
   visibility: visible;
+}
+.application.dialog h2 {
+  margin-bottom: 0;
+}
+.application.dialog fieldset.form-group:has(.radio-group, .modifier) {
+  flex-direction: column;
+}
+.application.dialog fieldset.form-group .radio-group, .application.dialog fieldset.form-group .modifier, .application.dialog fieldset.form-group:not(:has(.radio-group, .modifier)) {
+  display: inline-flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1em;
+}
+.application.dialog fieldset.form-group .radio-group > label, .application.dialog fieldset.form-group .modifier > label, .application.dialog fieldset.form-group:not(:has(.radio-group, .modifier)) > label {
+  display: inline-flex;
+  align-items: center;
+}
+.application.dialog fieldset.form-group .radio-group > div, .application.dialog fieldset.form-group .modifier > div, .application.dialog fieldset.form-group:not(:has(.radio-group, .modifier)) > div {
+  display: inline-flex;
+  gap: 1em;
+}
+.application.dialog fieldset.form-group .radio-group span, .application.dialog fieldset.form-group .modifier span, .application.dialog fieldset.form-group:not(:has(.radio-group, .modifier)) span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+}
+.application.dialog .standard-form .form-group > label,
+.application.dialog .standard-form .form-group > span.label {
+  flex: 0.5;
+}
+.application.dialog .form-group-inline {
+  display: inline-flex;
+  width: 100%;
+  justify-content: left;
+  align-items: center;
+  gap: 1em;
+}
+.application.dialog .form-group-inline > label {
+  display: inline-flex;
+  align-items: center;
+}
+.application.dialog .form-group-inline > div {
+  display: inline-flex;
+  gap: 1em;
+}
+.application.dialog .form-group-inline span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5em;
+  white-space: nowrap;
+}
+.application.dialog .form-group-inline span:first-child {
+  width: 100%;
+}
+.application.dialog .flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.application.dialog .toggleable-modifiers {
+  overflow: hidden auto;
+  max-height: 200px;
+  flex-wrap: nowrap;
+}
+.application.dialog .spark-options {
+  overflow: hidden auto;
+  max-height: 500px;
+  flex-wrap: nowrap;
+}
+.application.dialog.upgrade-connection .form-group:empty {
+  display: none;
+}
+.application.dialog.stay-late table.form-group {
+  width: auto;
+}
+.application.dialog.stay-late table.form-group tr {
+  display: table;
+  table-layout: fixed;
+  background-color: var(--table-row-color-odd);
+}
+.application.dialog.stay-late table.form-group tr td {
+  display: table-cell;
+  width: 2%;
+  padding: 1em;
+}
+.application.dialog.stay-late table.form-group tr td.selected {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+.application.dialog.start-mission ul, .application.dialog.end-mission ul, .application.dialog.end-session ul {
+  margin-top: 0.25em;
+  margin-bottom: 0px;
+}
+.application.dialog.start-mission div.category-collapse, .application.dialog.end-mission div.category-collapse, .application.dialog.end-session div.category-collapse {
+  font-size: var(--font-size-15);
+  font-weight: bold;
+  display: none;
+}
+.application.dialog.start-mission div.category-collapse:has(+ fieldset.collapsed-category), .application.dialog.end-mission div.category-collapse:has(+ fieldset.collapsed-category), .application.dialog.end-session div.category-collapse:has(+ fieldset.collapsed-category) {
+  display: block;
+}
+.application.dialog.start-mission fieldset.collapsed-category, .application.dialog.end-mission fieldset.collapsed-category, .application.dialog.end-session fieldset.collapsed-category {
+  display: none;
+}
+.application.dialog.start-mission .form-group-inline:has(> input[type=checkbox]:not(:checked)), .application.dialog.end-mission .form-group-inline:has(> input[type=checkbox]:not(:checked)), .application.dialog.end-session .form-group-inline:has(> input[type=checkbox]:not(:checked)) {
+  color: #999;
+}
+.application.dialog.start-mission .form-group-inline > label, .application.dialog.end-mission .form-group-inline > label, .application.dialog.end-session .form-group-inline > label {
+  justify-content: left;
+  width: 100%;
+}
+.application.dialog.start-mission .form-group-inline > div, .application.dialog.end-mission .form-group-inline > div, .application.dialog.end-session .form-group-inline > div {
+  display: flex;
+  width: 100%;
+  gap: 1em;
+  justify-content: space-between;
+  align-items: center;
+}
+.application.dialog.start-mission .form-group-inline > div select, .application.dialog.end-mission .form-group-inline > div select, .application.dialog.end-session .form-group-inline > div select {
+  width: auto;
+}
+.application.dialog.start-mission input[type=checkbox].automated:checked::after, .application.dialog.end-mission input[type=checkbox].automated:checked::after, .application.dialog.end-session input[type=checkbox].automated:checked::after {
+  color: #12a012;
+}
+.application.dialog .actor-contents {
+  gap: 1em;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.application.dialog select {
+  min-height: 32px;
+  overflow-y: auto;
+  height: auto;
+}
+.application.dialog select option:checked {
+  color: light-dark(rgb(16, 16, 16), rgb(255, 255, 255));
+}
+
+ol.chat-log li.chat-message.message .chat-label {
+  background-color: #191813;
+  font-family: Kirsty, serif;
+  color: #EEEFFF;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  height: 30px !important;
+  text-transform: capitalize;
+}
+ol.chat-log li.chat-message.message .chat-label-small {
+  background-color: #999;
+  color: #191813;
+  font-size: small;
+  text-align: center;
+  padding: 3px 5px;
+  height: 20px !important;
+}
+ol.chat-log li.chat-message.message .label-stripe-chat {
+  text-transform: uppercase;
+  background-color: #191813;
+  color: #EEEFFF;
+  margin-bottom: 10px;
+  position: relative;
+  padding-top: 3px;
+  display: flex;
+  font-weight: bold;
+  margin: 0;
+}
+ol.chat-log li.chat-message.message .label-stripe-chat-small {
+  text-transform: capitalize;
+  background-color: #999;
+  color: #191813;
+  margin-bottom: 10px;
+  position: relative;
+  padding-top: 3px;
+  display: flex;
+  font-weight: bold;
+}
+ol.chat-log li.chat-message.message .flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+ol.chat-log li.chat-message.message .blades-die-tooltip .die {
+  font-weight: bold;
+  text-transform: capitalize;
+  font-size: large;
+  margin-top: 10px;
+}
+ol.chat-log li.chat-message.message .blades-die-tooltip .die.critical-success {
+  color: #12a012;
+}
+ol.chat-log li.chat-message.message .blades-die-tooltip .die.success {
+  color: #008000;
+}
+ol.chat-log li.chat-message.message .blades-die-tooltip .die.partial-success {
+  color: #04578f;
+}
+ol.chat-log li.chat-message.message .blades-die-tooltip .die.failure {
+  color: red;
+}
+ol.chat-log li.chat-message.message .leader-block {
+  display: flex;
+  text-align: center;
+  width: 100%;
+  flex-direction: column;
+  padding-bottom: 10px;
+}
+ol.chat-log li.chat-message.message .leader-block > div {
+  display: flex;
+  align-self: center;
+  gap: 10px;
+}
+ol.chat-log li.chat-message.message .leader-block > div > img {
+  border: black 1px solid;
+}
+ol.chat-log li.chat-message.message .leader-block > div .leader-name {
+  align-self: center;
+}
+ol.chat-log li.chat-message.message .message-content .button {
+  display: flex;
+  flex-direction: column;
+  padding-top: 0.25em;
+}
+ol.chat-log li.chat-message.message.update-message {
+  display: none;
 }
 
 /*# sourceMappingURL=blades.css.map */
