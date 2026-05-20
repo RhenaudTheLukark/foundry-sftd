@@ -149,25 +149,30 @@
           }
         }
       },
-      "belief": ""
+      "belief": {
+        "text": "",
+        "clock": {
+          "value": 0,
+          "max": 6
+        },
+        "memories": {
+          "one": "",
+          "two": "",
+          "three": "",
+          "four": "",
+          "five": ""
+        }
+      }
     },
     "crew": {
       "name": "",
-      "reputation": {
-        "value": 0,
-        "max": 12
-      },
       "lair": "",
-      "tier": 0,
-      "deity": "",
       "members": {},
-      "hold": ["strong"],
       "experience": {
         "value": 0,
         "max": 10,
         "clues": ["SFTD.ClassExpClue3", "SFTD.ClassExpClue2"]
       },
-      "hold_types": ["weak", "strong"],
       "shells": {
         "value": 0,
         "max": 6
@@ -188,16 +193,13 @@
       "strider": {
         "add_scars": 0,
         "add_stress": 0
-      },
-      "max": {
-        "tier": 4,
-        "rep": 12
       }
     },
     "\uD83D\uDD5B clock": {
       "name": "",
       "type": 4,
-      "value": "0",
+      "value": 0,
+      "styleId": 0,
       "owner": ""
     },
     "factions": {
@@ -279,13 +281,6 @@
       "situation": "",
       "goal_clock": 0,
       "notes": "",
-      "hold": {
-        "value": [1],
-        "max": 2,
-        "max_default": 2,
-        "name_default": "SFTD.Hold",
-        "name": "SFTD.Hold"
-      },
       "status": {
         "value": [4],
         "max": 7,

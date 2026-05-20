@@ -2,119 +2,52 @@
 
   <section class="flex-horizontal">
 
-    <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" height="100" width="100"/>
+    <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" height="120" width="120"/>
 
-    <div id="crew-{{_id}}-name-alias" class="crew-name-alias grow-two flex-column">
-      <div id="crew-{{_id}}-name-box" class="crew-name">
-        <label for="crew-{{_id}}-name"><b>{{localize "SFTD.Name"}}</b></label>
-        <input type="text" id="crew-{{_id}}-name" name="name" value="{{name}}" placeholder={{localize "SFTD.CrewName"}}>
-      </div>
-      <div class="flex-vertical" style="justify-content: start">
-        <div class="item-crew-rep flex-horizontal">
-          <div class="item-class-label">
-            <a class="item-add-popup" data-distinct="true" data-item-type="crew_reputation">{{localize "SFTD.CrewReputation"}}:</a>
-          </div>
-          {{#each items as |item id|}}
-          {{#if (eq item.type "crew_reputation")}}
-          <div class="item flex-horizontal" data-item-id="{{item._id}}">
-            <div class="item-body item-sheet-open flex-horizontal">
-              <img src="{{item.img}}" data-tooltip="{{item.name}}" width="24" height="24"/>
-              <div class="item-name">{{item.name}}</div>
-            </div>
-            <a class="item-control item-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
-            <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
-          </div>
-          {{/if}}
-          {{/each}}
+    <div class="flex-vertical top-area">
+      <div class="flex-horizontal">
+        <div id="crew-{{_id}}-name-box" class="name grow-two">
+          <label for="crew-{{_id}}-name"><b>{{localize "SFTD.Name"}}</b></label>
+          <input type="text" id="crew-{{_id}}-name" name="name" value="{{name}}" placeholder="{{localize 'SFTD.CrewName'}}">
+        </div>
+
+        <div id="crew-{{_id}}-lair-box" class="grow-two lair">
+          <label for="crew-{{_id}}-lair"><b>{{localize "SFTD.Lair"}}</b></label>
+          <input type="text" id="crew-{{_id}}-lair" name="system.lair" value="{{system.lair}}" placeholder="{{localize 'SFTD.Lair'}} {{localize 'SFTD.Description'}}">
         </div>
       </div>
-    </div>
-
-    <div class="grow-two flex-vertical">
-      <div id="crew-{{_id}}-lair-box" class="lair">
-        <label for="crew-{{_id}}-lair"><b>{{localize "SFTD.Lair"}}</b></label>
-        <input type="text" id="crew-{{_id}}-lair" name="system.lair" value="{{system.lair}}" placeholder="{{localize "SFTD.Lair"}} {{localize "SFTD.Description"}}">
-      </div>
-
 
       <div class="flex-horizontal">
-        <div id="crew-{{_id}}-hold-box" class="flex-horizontal crew-hold">
-          <div class="black-label">{{localize "SFTD.Hold"}}</div>
-          {{#multiboxes system.hold}}
-          <div class="flex-horizontal">
-            <div class="gray-label">{{localize "SFTD.Weak"}}</div>
-            <input id="crew-{{_id}}-hold-weak" type="radio" name="system.hold" value="weak">
-            <label for="crew-{{_id}}-hold-weak"></label>
-          </div>
-          <div class="flex-horizontal">
-            <div class="gray-label">{{localize "SFTD.Strong"}}</div>
-            <input id="crew-{{_id}}-hold-strong" type="radio" name="system.hold" value="strong">
-            <label for="crew-{{_id}}-hold-strong"></label>
-          </div>
-          {{/multiboxes}}
-        </div>
-
-        <div class="crew-tier">
-          <div class="black-label">{{localize "SFTD.Tier"}}</div>
-          {{#multiboxes system.tier}}
-          <input id="crew-{{_id}}-tier-0" type="radio" name="system.tier" value="0">
-          <!--<label for="crew-{{_id}}-tier-0" class="black-label">{{localize "SFTD.Tier"}}</label>-->
-          {{#times_from 1 system.max.tier}}
-          <input id="crew-{{../_id}}-tier-{{this}}" type="radio" name="system.tier" value="{{this}}">
-          <label class= "radio-toggle" for="crew-{{../_id}}-tier-{{this}}"></label>
-          {{/times_from}}
-          {{/multiboxes}}
-        </div>
-      </div>
-
-    </div>
-  </section>
-
-
-  <section class="flex-horizontal" style="padding-top: 4px;">
-    <div id="crew-{{_id}}-reputation" class="crew-reputation">
-      <div class="black-label">{{localize "SFTD.Rep"}}</div>
-      {{#multiboxes system.reputation}}
-
-      <input type="radio" id="crew-{{../_id}}-reputation-0" name="system.reputation" value="0" dtype="Radio">
-      <!--<label class="black-label" for="crew-{{../_id}}-reputation-0">{{localize "SFTD.Rep"}}</label>-->
-      {{#repturf _id system.turfs_amount system.max.rep}}
-      {{/repturf}}
-      {{/multiboxes}}
-      <div class="gray-label">{{localize "SFTD.Turf"}}</div>
-    </div>
-
-    {{!-- Pressure/Hazard --}}
-    <div id="crew-{{_id}}-pressure-hazard" class="flex-horizontal big-teeth-section crew-pressure-hazard">
-      <div id="crew-{{_id}}-pressure" class="big-teeth">
-        <div class="black-label">{{localize "SFTD.Pressure"}}</div>
-        {{#multiboxes system.pressure}}
-        <input type="radio" id="crew-{{_id}}-pressure-0" name="system.pressure" value="0" dtype="Radio">
-        <!--<label class="black-label" for="crew-{{_id}}-pressure-0">{{localize "SFTD.Pressure"}}</label>-->
-        {{#times_from 1 system.max.pressure}}
-        <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" name="system.pressure" value="{{this}}">
-        <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
-        {{/times_from}}
-        {{/multiboxes}}
-
-      </div>
-      <div id="crew-{{_id}}-hazard-container" class="small-teeth-container crew-hazard-container">
-
-        {{#multiboxes system.hazard}}
-        <div id="crew-{{_id}}-hazard" class="small-teeth-wrap">
-          <!--<label class="black-label" for="crew-{{_id}}-hazard-counter-0">{{localize "SFTD.Hazard"}}</label>-->
-          <div class="black-label">{{localize "SFTD.Hazard"}}</div>
-          <div class="small-teeth">
-            <input type="radio" id="crew-{{_id}}-hazard-counter-0" name="system.hazard" value="0">
-            {{#times_from 1 system.max.hazard}}
-            <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" name="system.hazard" value="{{this}}">
-            <label class= "radio-toggle" for="crew-{{../_id}}-hazard-counter-{{this}}"></label>
+        <div></div>
+        {{!-- Pressure/Hazard --}}
+        <div id="crew-{{_id}}-pressure-hazard" class="flex-horizontal big-teeth-section pressure-hazard">
+          <div id="crew-{{_id}}-pressure" class="big-teeth">
+            <div class="black-label">{{localize "SFTD.Pressure"}}</div>
+            {{#multiboxes system.pressure}}
+            <input type="radio" id="crew-{{_id}}-pressure-0" name="system.pressure" value="0" dtype="Radio">
+            {{#times_from 1 system.max.pressure}}
+            <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" name="system.pressure" value="{{this}}">
+            <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
             {{/times_from}}
+            {{/multiboxes}}
+
+          </div>
+          <div id="crew-{{_id}}-hazard-container" class="small-teeth-container crew-hazard-container">
+            {{#multiboxes system.hazard}}
+            <div id="crew-{{_id}}-hazard" class="small-teeth-wrap">
+              <div class="black-label">{{localize "SFTD.Hazard"}}</div>
+              <div class="small-teeth">
+                <input type="radio" id="crew-{{_id}}-hazard-counter-0" name="system.hazard" value="0">
+                {{#times_from 1 system.max.hazard}}
+                <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" name="system.hazard" value="{{this}}">
+                <label class= "radio-toggle" for="crew-{{../_id}}-hazard-counter-{{this}}"></label>
+                {{/times_from}}
+              </div>
+            </div>
+            {{/multiboxes}}
           </div>
         </div>
-        {{/multiboxes}}
       </div>
-
     </div>
   </section>
 

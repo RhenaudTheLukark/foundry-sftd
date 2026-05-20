@@ -1,5 +1,7 @@
-export const registerSystemSettings = function() {
+import { ClockStylesData } from "./models/clock-styles.js";
+import { ClockStylesSettings } from "./settings/clock-styles.js"
 
+export const registerSystemSettings = function() {
   /**
    * Track the system version upon which point a migration was last applied
    */
@@ -10,79 +12,90 @@ export const registerSystemSettings = function() {
     type: Number,
     default: 0
   });
-  
-  if (foundry.utils.isNewerVersion(game.version, 12)) {
 
-    game.settings.register('songs-for-the-dusk', 'ActionRoll', {
-	name: game.i18n.localize('SFTD.Settings.Action.Name'),
-	hint: game.i18n.localize('SFTD.Settings.Action.Hint'),
-	config: true,
-	default: true,
-	scope: 'world',
-	type: new foundry.data.fields.BooleanField(),
-	requiresReload: true
+  game.settings.registerMenu('songs-for-the-dusk', 'ClockStylesMenu', {
+    name: game.i18n.localize('SFTD.Settings.ClockStyles.Name'),
+    label: game.i18n.localize('SFTD.Settings.ClockStyles.Label'),
+    hint: game.i18n.localize('SFTD.Settings.ClockStyles.Hint'),
+    icon: "fa-solid fa-chart-pie",
+    type: ClockStylesSettings,
+    restricted: true
   });
-	
-	game.settings.register('songs-for-the-dusk', 'ThreatRoll', {
-	name: game.i18n.localize('SFTD.Settings.Threat.Name'),
-	hint: game.i18n.localize('SFTD.Settings.Threat.Hint'),
-	config: true,
-	scope: 'world',
-	type: new foundry.data.fields.BooleanField(),
-	requiresReload: true
+
+  game.settings.register('songs-for-the-dusk', 'DefaultClockStyle', {
+    name: game.i18n.localize('SFTD.Settings.DefaultClockStyle.Name'),
+    hint: game.i18n.localize('SFTD.Settings.DefaultClockStyle.Hint'),
+    scope: 'world',
+    config: true,
+    requiresReload: true,
+    type: String,
+    choices: () => {
+      let styles = {};
+      for (let [index, style] of Object.entries(game.settings.get('songs-for-the-dusk', 'ClockStyles').contents)) {
+        styles[Number(index)] = style.name;
+      }
+      return styles;
+    },
+    default: 0
   });
-  
+
+  game.settings.register('songs-for-the-dusk', 'ActionRoll', {
+    name: game.i18n.localize('SFTD.Settings.Action.Name'),
+    hint: game.i18n.localize('SFTD.Settings.Action.Hint'),
+    config: true,
+    default: true,
+    scope: 'world',
+    type: new foundry.data.fields.BooleanField(),
+    requiresReload: true
+  });
+
+  game.settings.register('songs-for-the-dusk', 'ThreatRoll', {
+    name: game.i18n.localize('SFTD.Settings.Threat.Name'),
+    hint: game.i18n.localize('SFTD.Settings.Threat.Hint'),
+    config: true,
+    scope: 'world',
+    type: new foundry.data.fields.BooleanField(),
+    requiresReload: true
+  });
+
   game.settings.register('songs-for-the-dusk', 'PushYourself', {
-	name: game.i18n.localize('SFTD.Settings.Push.Name'),
-	hint: game.i18n.localize('SFTD.Settings.Push.Hint'),
-	config: true,
-	scope: 'world',
-	type: new foundry.data.fields.BooleanField(),
-	requiresReload: true
+    name: game.i18n.localize('SFTD.Settings.Push.Name'),
+    hint: game.i18n.localize('SFTD.Settings.Push.Hint'),
+    config: true,
+    scope: 'world',
+    type: new foundry.data.fields.BooleanField(),
+    requiresReload: true
   });
-  
-    game.settings.register('songs-for-the-dusk', 'DeepCutLoad', {
-	name: game.i18n.localize('SFTD.Settings.Load.Name'),
-	hint: game.i18n.localize('SFTD.Settings.Load.Hint'),
-	config: true,
-	scope: 'world',
-	type: new foundry.data.fields.BooleanField(),
-	requiresReload: true
-  });
-  
-  	game.settings.register('songs-for-the-dusk', 'PublicClocks', {
-	name: game.i18n.localize('SFTD.Settings.PublicClocks.Name'),
-	hint: game.i18n.localize('SFTD.Settings.PublicClocks.Hint'),
-	config: true,
-	scope: 'world',
-	type: new foundry.data.fields.BooleanField(),
-	requiresReload: true
-  });
-  
-  } //end if for game.version >12
-  else {
-	  
-  const set_array = [
-    ['ActionRoll','Action', true],
-    ['ThreatRoll','Threat', false],
-    ['PushYourself','Push', false],
-    ['DeepCutLoad','Load', false],
-    ['PublicClocks','PublicClocks', false]
-  ];
- 
-  for (let i=0; i<set_array.length; i++) {
-	  
-	game.settings.register('songs-for-the-dusk', set_array[i][0], {
-		name: game.i18n.localize('SFTD.Settings.'+set_array[i][1]+'.Name'),
-		hint: game.i18n.localize('SFTD.Settings.'+set_array[i][1]+'.Hint'),
-		config: true,
-		scope: 'world',
-		type: Boolean,
-		default: set_array[i][2],
-		requiresReload: true
-	});
-  }
-	  
-  }
 
+  game.settings.register('songs-for-the-dusk', 'DeepCutLoad', {
+    name: game.i18n.localize('SFTD.Settings.Load.Name'),
+    hint: game.i18n.localize('SFTD.Settings.Load.Hint'),
+    config: true,
+    scope: 'world',
+    type: new foundry.data.fields.BooleanField(),
+    requiresReload: true
+  });
+
+  game.settings.register('songs-for-the-dusk', 'PublicClocks', {
+    name: game.i18n.localize('SFTD.Settings.PublicClocks.Name'),
+    hint: game.i18n.localize('SFTD.Settings.PublicClocks.Hint'),
+    config: true,
+    scope: 'world',
+    type: new foundry.data.fields.BooleanField(),
+    requiresReload: true
+  });
+
+  game.settings.register('songs-for-the-dusk', 'ClockStyles', {
+    name: game.i18n.localize('SFTD.Settings.ClockStyles.Name'),
+    hint: game.i18n.localize('SFTD.Settings.ClockStyles.Hint'),
+    config: false,
+    default: {
+      contents: [
+        { name: "default", inWorldFolder: false, isColored: true, imageType: "svg" }
+      ]
+    },
+    scope: 'world',
+    type: ClockStylesData,
+    requiresReload: true
+  });
 };

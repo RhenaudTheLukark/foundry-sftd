@@ -221,7 +221,26 @@
 
         <div id="strider-{{_id}}-belief-box" class="flex-vertical belief">
           <label for="strider-{{_id}}-belief">{{localize 'SFTD.Beliefs'}}:</label>
-          <textarea rows="3" id="strider-{{_id}}-belief" name="system.belief">{{system.belief}}</textarea>
+          <textarea rows="3" id="strider-{{_id}}-belief" name="system.belief.text">{{system.belief.text}}</textarea>
+        </div>
+
+        <div class="belief-clock-zone">
+          <div class="flex-horizontal">
+            <label>{{localize 'SFTD.Relationship'}}:</label>
+            <label>{{localize 'SFTD.Memories'}}:</label>
+          </div>
+          <div class="flex-horizontal">
+            <div class="clock-block">
+              <div class="clocks clocks-6 medium">
+                {{{blades-clock "system.belief.clock.value" system.belief.clock.max system.belief.clock.value defaultClockStyle "belief_clock"}}}
+              </div>
+            </div>
+            <div class="flex-vertical memories">
+              {{#each system.belief.memories as |memory id2|}}
+              <input type="text" name="system.belief.memories.{{id2}}" value="{{memory}}">
+              {{/each}}
+            </div>
+          </div>
         </div>
       </div>
 

@@ -1,0 +1,23 @@
+<div class="flex-vertical">
+  <p class="hint">{{localize 'SFTD.Settings.ClockStyles.Hint'}}</p>
+  <header class="table-header flexrow">
+    <label class="long text">{{localize 'SFTD.Settings.ClockStyles.NameField'}}</label>
+    <label>{{localize 'SFTD.Settings.ClockStyles.InWorldFolderField'}}</label>
+    <label>{{localize 'SFTD.Settings.ClockStyles.IsColoredField'}}</label>
+    <label class="text">{{localize 'SFTD.Settings.ClockStyles.ImageTypeField'}}</label>
+    <a data-action="addStyle" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Add'}}"><i class="fas fa-plus"></i></a>
+  </header>
+  <ul class="clock-styles-list">
+    {{#each settings.contents as |style id|}}
+    <li class="clock-style form-group">
+      <div class="form-fields">
+        <input type="text" class="long" name="contents.{{id}}.name" value="{{style.name}}">
+        <input type="checkbox" name="contents.{{id}}.inWorldFolder" {{checked style.inWorldFolder}}>
+        <input type="checkbox" name="contents.{{id}}.isColored" {{checked style.isColored}}>
+        <input type="text" name="contents.{{id}}.imageType" value="{{style.imageType}}">
+      </div>
+      <a {{#if (ne id 0)}}data-action="removeStyle" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Delete'}}"{{else}}data-tooltip="{{localize 'SFTD.Settings.ClockStyles.NoDelete'}}"{{/if}}><i class="fas fa-trash"></i></a>
+    </li>
+    {{/each}}
+  </ul>
+</div>

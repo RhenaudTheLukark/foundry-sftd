@@ -14,6 +14,7 @@ import { BladesItem } from "./blades-item.js";
 import { BladesItemSheet } from "./blades-item-sheet.js";
 import { BladesStriderSheet } from "./blades-strider-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
+import { ClockStylesSettings } from "./settings/clock-styles.js";
 import { BladesCrewSheet } from "./blades-crew-sheet.js";
 import { BladesClockSheet } from "./blades-clock-sheet.js";
 import { BladesNPCSheet } from "./blades-npc-sheet.js";
@@ -45,7 +46,6 @@ Hooks.once("init", async function() {
 
   // Register System Settings
   registerSystemSettings();
-
 
   if (game.settings.get('songs-for-the-dusk', "PublicClocks")) {
 	Hooks.on("preCreateActor", (actor, createData, options, userId) => {
@@ -112,23 +112,6 @@ Hooks.once("init", async function() {
 
   Handlebars.registerHelper('oneless', (a) => {
     return (a - 1);
-  });
-
-	//Reputation and Turf Bar on Crew Sheet
-    Handlebars.registerHelper('repturf', (_id, turfs_amount, max_rep, options) => {
-
-    let html = options.fn(this);
-	var turfs_amount_int = parseInt(turfs_amount);
-    for (let i = 1; i <= max_rep; i++) {
-
-      if (i > max_rep - turfs_amount_int) {
-		  html += `<input disabled type="radio" id="crew-${_id}-reputation-${i}" name="system.reputation" value="${i} dtype="Radio"><label style="background-image: url('systems/songs-for-the-dusk/styles/assets/teeth/stresstooth-black.png')" class="radio-toggle" for="crew-${_id}-reputation-${i}"></label>`;
-	  } else {
-	  html += `<input type="radio" id="crew-${_id}-reputation-${i}" name="system.reputation" value="${i}" dtype="Radio"><label class="radio-toggle" for="crew-${_id}-reputation-${i}"></label>`;
-	  }
-	}
-
-    return html;
   });
 
   // Enrich the HTML replace /n with <br>
@@ -216,29 +199,29 @@ Hooks.once("init", async function() {
     return new Handlebars.SafeString(html);
   });
 
-
   /**
    * Create appropriate Blades clock
    */
   // Clocks in color for Clock Actors
-  Handlebars.registerHelper('blades-clock-color', function(parameter_name, type, color, current_value, uniq_id) {
-
+  Handlebars.registerHelper('blades-clock-color', function (parameter_name, type, color, styleId, current_value, uniq_id) {
     let html = '';
-
     if (current_value === null || current_value === 'null') {
       current_value = 0;
     }
-	  if (color === undefined) {
+    if (color === undefined) {
       color = "black";
     }
-
     if (parseInt(current_value) > parseInt(type)) {
       current_value = type;
     }
 
+    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
+    let clockStyle = clockStyles[Number(styleId)];
+    let clockStylePath = BladesHelpers.getClockStyleFolderPath(clockStyle, game);
+
     // Label for 0
     html += `<label class="clock-zero-label" for="clock-0-${uniq_id}}"><i class="fab fa-creative-commons-zero nullifier"></i></label>`;
-    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('systems/songs-for-the-dusk/themes/${color}/${type}clock_${current_value}.svg');">`;
+    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('${clockStylePath}/${color}/${type}clock_${current_value}.${clockStyle.imageType}');">`;
 
     let zero_checked = (parseInt(current_value) === 0) ? 'checked' : '';
     html += `<input type="radio" value="0" id="clock-0-${uniq_id}}" data-dType="String" name="${parameter_name}" ${zero_checked}>`;
@@ -247,38 +230,40 @@ Hooks.once("init", async function() {
       let checked = (parseInt(current_value) === i) ? 'checked' : '';
       html += `
         <input type="radio" value="${i}" id="clock-${i}-${uniq_id}" data-dType="String" name="${parameter_name}" ${checked}>
-        <label class="radio-toggle" for="clock-${i}-${uniq_id}"></label>
+        <label class="radio-toggle"></label>
       `;
     }
 
     html += `</div>`;
     return html;
   });
+
   // Clocks in black for clocks embedded in sheets
-  Handlebars.registerHelper('blades-clock', function(parameter_name, type, current_value, uniq_id) {
-
+  Handlebars.registerHelper('blades-clock', function (parameter_name, type, current_value, styleId, uniq_id, is_vehicle_proxy, is_vehicle) {
     let html = '';
-
     if (current_value === null || current_value === 'null') {
       current_value = 0;
     }
-
     if (parseInt(current_value) > parseInt(type)) {
       current_value = type;
     }
 
+    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
+    let clockStyle = clockStyles[Number(styleId)];
+    let clockStylePath = BladesHelpers.getClockStyleFolderPath(clockStyle, game);
+
     // Label for 0
     html += `<label class="clock-zero-label" for="clock-0-${uniq_id}}"><i class="fab fa-creative-commons-zero nullifier"></i></label>`;
-    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('systems/songs-for-the-dusk/themes/black/${type}clock_${current_value}.svg');">`;
+    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('${clockStylePath}/black/${type}clock_${current_value}.${clockStyle.imageType}');">`;
 
     let zero_checked = (parseInt(current_value) === 0) ? 'checked' : '';
-    html += `<input type="radio" value="0" id="clock-0-${uniq_id}}" data-dType="String" name="${parameter_name}" ${zero_checked}>`;
+    html += `<input ${is_vehicle_proxy == true ? 'class="vehicle-data" ' : is_vehicle == true ? 'class="pilot-shared-data" ' : ''}type="radio" value="0" id="clock-0-${uniq_id}}" data-dType="String" ${is_vehicle_proxy == true ? 'data-' : ''}name="${parameter_name}" ${zero_checked}>`;
 
     for (let i = 1; i <= parseInt(type); i++) {
       let checked = (parseInt(current_value) === i) ? 'checked' : '';
       html += `
-        <input type="radio" value="${i}" id="clock-${i}-${uniq_id}" data-dType="String" name="${parameter_name}" ${checked}>
-        <label class="radio-toggle" for="clock-${i}-${uniq_id}"></label>
+        <input ${is_vehicle_proxy == true ? 'class="vehicle-data" ' : is_vehicle == true ? 'class="pilot-shared-data" ' : ''}type="radio" value="${i}" id="clock-${i}-${uniq_id}" data-dType="String" ${is_vehicle_proxy == true ? 'data-' : ''}name="${parameter_name}" ${checked}>
+        <label class="radio-toggle"></label>
       `;
     }
 
@@ -315,10 +300,10 @@ Hooks.once("ready", async function() {
   registerActorSheet("blades", BladesNPCSheet, { types: ["npc"], makeDefault: true });
   unregisterItemSheet("core", itemSheetClass);
   registerItemSheet("blades", BladesItemSheet, {makeDefault: true});
-
+  foundry.documents.collections.WorldSettings.registerSheet("blades", ClockStylesSettings, {});
   await preloadHandlebarsTemplates();
 
-/**
+  /**
   // Determine whether a system migration is required
   const currentVersion = game.settings.get("songs-for-the-dusk", "systemMigrationVersion");
   const NEEDS_MIGRATION_VERSION = 2.15;

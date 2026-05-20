@@ -132,6 +132,8 @@
     "CrewExpClue1": "At the end of each session, for each item below, mark 1 xp (or instead mark 2xp if that item occurred multiple times).",
     "SpecialAbilities": "Special Abilities",
     "Claimed": "Claimed",
+    "Relationship": "Relationship",
+    "Memories": "Memories",
 
     "Gang": "Gang",
     "Expert": "Expert",
@@ -365,6 +367,22 @@
       "PublicClocks": {
         "Name": "Default Observable Clocks",
         "Hint": "All newly made Clock actors will have permissions set to Observer for all players."
+      },
+      "ClockStyles": {
+        "Name": "Clock Styles",
+        "Label": "Set Clock Styles...",
+        "Hint": "List of all known clock styles to be used.\nSystem clock styles are stored in your Foundry folder's systems/beamsaber/themes folder.\nWorld clock styles are stored in your Foundry folder's worlds/<YourWorld>/themes folder.",
+        "NameField": "Folder Name",
+        "InWorldFolderField": "In World Folder?",
+        "IsColoredField": "Is Colored?",
+        "ImageTypeField": "Image Type",
+        "Add": "Add New Clock Style",
+        "Delete": "Delete Clock Style",
+        "NoDelete": "Cannot delete the first clock style."
+      },
+      "DefaultClockStyle": {
+        "Name": "Default Clock Style",
+        "Hint": "Clock style used by default in sheets."
       }
     },
     "log": {

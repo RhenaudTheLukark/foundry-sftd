@@ -1,0 +1,60 @@
+p {
+  padding-bottom: 1em;
+}
+
+header.table-header {
+  background: var(--table-header-bg-color);
+  color: var(--table-header-text-color);
+  border: 1px solid var(--table-header-border-color);
+  font-weight: bold;
+
+  a {
+    padding-left: 0.5em;
+  }
+}
+
+.clock-styles-list {
+  padding: 0;
+
+  .form-group {
+    .form-fields {
+      justify-content: space-between;
+    }
+  }
+}
+
+header.table-header, .clock-style {
+  padding: 0.5rem;
+  text-align: center;
+  align-items: center;
+
+  label.text {
+    min-width: 120px;
+    max-width: 120px;
+    width: 120px;
+
+    &.long {
+      min-width: 300px;
+      max-width: 300px;
+      width: 300px;
+    }
+  }
+
+  input[type=text] {
+    min-width: calc(120px - 1em);
+    max-width: calc(120px - 1em);
+    width: calc(120px - 1em);
+
+    &.long {
+      min-width: calc(300px - 1em);
+      max-width: calc(300px - 1em);
+      width: calc(300px - 1em);
+    }
+  }
+
+  a {
+    min-width: 17.5px;
+    max-width: 17.5px;
+    width: 17.5px;
+  }
+}

@@ -33,6 +33,15 @@ export class BladesHelpers {
     return output;
   }
 
+  static getClockStyleFolderPath(clockStyle, game) {
+    let path = 'systems/beamsaber/themes/';
+    if (clockStyle === undefined)
+      throw new Error('Clock style does not exist');
+    if (clockStyle.inWorldFolder)
+      path = `worlds/${game.world.id}/themes/`;
+    return path + clockStyle.name;
+  }
+
   /**
    * Identifies duplicate items by type and returns a array of item ids to remove
    *

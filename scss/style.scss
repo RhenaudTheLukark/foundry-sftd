@@ -29,25 +29,30 @@ $hover-brightness: 0.8;
   @import 'import/clocks.scss';
 
   &.actor.sheet {
-    @import 'import/actor-sheet.scss';
-  }
+    @import 'import/sheets/actor-sheet.scss';
 
-  &.actor.sheet.crew {
-    @import 'import/crew-sheet.scss';
-  }
+    &.crew {
+      @import 'import/sheets/crew-sheet.scss';
+    }
 
-  &.actor.sheet.strider {
-    @import 'import/strider-sheet.scss';
-  }
+    &.strider {
+      @import 'import/sheets/strider-sheet.scss';
+    }
 
-  &.actor.sheet.clock {
+    &.clock {
+      @import 'import/sheets/clock-sheet.scss';
+    }
   }
 
   &.item.sheet {
-    @import 'import/item-sheet.scss';
+    @import 'import/sheets/item-sheet.scss';
   }
+}
 
-  @import 'import/coins.scss';
+.settings {
+  &.clock-styles {
+    @import 'import/settings/clock-styles.scss';
+  }
 }
 
 .application.dialog {

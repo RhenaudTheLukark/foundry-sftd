@@ -129,24 +129,5 @@ export class BladesCrewSheet extends BladesSheet {
         "system.harm": [harm_id]}]);
       this.render(false);
     });
-
   }
-
-
-  /* -------------------------------------------- */
-  /*  Form Submission                             */
-	/* -------------------------------------------- */
-
-  /** @override */
-  async _updateObject(event, formData) {
-
-    // Update the Item
-    await super._updateObject(event, formData);
-
-    if (event.target && event.target.name === "system.tier") {
-      this.render(true);
-    }
-  }
-  /* -------------------------------------------- */
-
 }

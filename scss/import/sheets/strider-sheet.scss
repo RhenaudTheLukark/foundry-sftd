@@ -15,7 +15,7 @@ $hover-opacity: 0.9;
 $hover-brightness: 0.8;
 
 // Imports
-@import 'mixin.scss';
+@import '../mixin.scss';
 
 /*
  * General Styles
@@ -89,11 +89,31 @@ table.drive-table {
 
 .tab-content {
   .tab.community {
+    label {
+      font-family: "Kirsty", serif;
+    }
+
     .belief {
       margin: 10px 0;
+    }
 
-      label {
-        font-family: "Kirsty", serif;
+    .belief-clock-zone {
+      & > div > *:first-child {
+        min-width: 200px;
+        width: 200px;
+      }
+
+      & > div > *:not(:first-child) {
+        width: 100%;
+      }
+
+      .clock-block {
+        align-self: center;
+      }
+
+      .memories {
+        justify-content: space-around;
+        height: 150px;
       }
     }
   }
@@ -311,43 +331,6 @@ table.drive-table {
     input {
       color: $gray;
     }
-  }
-}
-
-.connections {
-  td {
-    width: 100%;
-    gap: 5px;
-
-    .fa-triangle-exclamation {
-      font-size: 20px;
-      color: $red;
-    }
-
-    .item-name {
-      width: 88px;
-      min-width: 88px;
-      text-align: center;
-    }
-
-    .open-actor {
-      .item-name {
-        width: auto;
-        text-align: left;
-      }
-    }
-
-    .clock-block {
-      align-self: center;
-    }
-
-    .beliefs {
-      width: 100%;
-    }
-  }
-
-  .add-connection, .add-old-connection {
-    font-weight: bold;
   }
 }
 

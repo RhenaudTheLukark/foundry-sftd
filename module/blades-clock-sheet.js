@@ -43,38 +43,48 @@ export class BladesClockSheet extends BladesSheet {
 		"yellow": "SFTD.Colors.Yellow"
 	};
 
+    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles");
+    sheetData.styleDropdown = {}
+    for (let [index, style] of Object.entries(clockStyles.contents)) {
+      sheetData.styleDropdown[Number(index)] = style.name;
+    }
+
+    let clockStyle = clockStyles.contents[sheetData.system.styleId];
+    sheetData.isColored = clockStyle.isColored;
+    sheetData.styleName = clockStyle.name;
+
     return sheetData;
   }
 
-    /* -------------------------------------------- */
-
+  /* -------------------------------------------- */
   /** @override */
   async _updateObject(event, formData) {
-    let image_path = `systems/songs-for-the-dusk/themes/${formData['system.color']}/${formData['system.type']}clock_${formData['system.value']}.svg`;
-    formData['img'] = image_path;
-    formData['prototypeToken.texture.src'] = image_path;
-    let data = [];
-    let update = {
-      "texture.src": image_path
-    };
-
-    let tokens = this.actor.getActiveTokens();
-    tokens.forEach( function( token ) {
-      data.push(
-        foundry.utils.mergeObject(
-          { _id: token.id },
-          update
-        )
-      );
-    });
-    if(game.scenes.current){
-      await TokenDocument.updateDocuments( data, { parent: game.scenes.current } )
+    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles");
+    let clockStyle = clockStyles.contents[Number(formData['system.styleId'])];
+    if (clockStyle === undefined) {
+      formData['system.styleId'] = 0;
+      this._updateObject(event, formData);
+      return;
     }
 
+    if (!clockStyle.isColored || formData['system.color'] === undefined)
+      formData['system.color'] = "black";
+
+    let clockStylePath = BladesHelpers.getClockStyleFolderPath(clockStyle, game);
+    let imagePath = `${clockStylePath}/${formData['system.color']}/${formData['system.type']}clock_${formData['system.value']}.${clockStyle.imageType}`;
+    formData['img'] = imagePath;
+    formData['prototypeToken.texture.src'] = imagePath;
+    let data = [];
+    let update = { "texture.src": imagePath };
+
+    let tokens = this.actor.getActiveTokens();
+    tokens.forEach(function(token) {
+      data.push(foundry.utils.mergeObject({ _id: token.id }, update));
+    });
+    if(game.scenes.current)
+      await TokenDocument.updateDocuments(data, { parent: game.scenes.current })
+
     // Update the Actor
-    return this.object.update(formData);
+    return this.actor.update(formData);
   }
-
-  /* -------------------------------------------- */
-
 }

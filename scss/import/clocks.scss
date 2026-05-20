@@ -1,27 +1,57 @@
-&{
-  min-width: 420px;
-  min-height: 320px;
-}
-
 .clock-zero-label {
   color: $almost_black;
 }
 
-.clocks {
-  &.clocks-4 {
-    @include clock(4, 200);
-  }
-  &.clocks-6 {
-    @include clock(6, 200);
-  }
-  &.clocks-8 {
-    @include clock(8, 200);
-  }
-  &.clocks-10 {
-    @include clock(10, 200);
-  }
-  &.clocks-12 {
-    @include clock(12, 200);
+.clock-block {
+  .clocks {
+    display: flex;
+    justify-content: center;
+
+    &.clocks-4 {
+      @include clock(4, 200);
+      &.medium {
+        @include clock(4, 150);
+      }
+      &.small {
+        @include clock(4, 88);
+      }
+    }
+    &.clocks-6 {
+      @include clock(6, 200);
+      &.medium {
+        @include clock(6, 150);
+      }
+      &.small {
+        @include clock(6, 88);
+      }
+    }
+    &.clocks-8 {
+      @include clock(8, 200);
+      &.medium {
+        @include clock(8, 150);
+      }
+      &.small {
+        @include clock(8, 88);
+      }
+    }
+    &.clocks-10 {
+      @include clock(10, 200);
+      &.medium {
+        @include clock(10, 150);
+      }
+      &.small {
+        @include clock(10, 88);
+      }
+    }
+    &.clocks-12 {
+      @include clock(12, 200);
+      &.medium {
+        @include clock(12, 150);
+      }
+      &.small {
+        @include clock(12, 88);
+      }
+    }
   }
 }
 
@@ -29,8 +59,4 @@
   > * {
     margin-bottom: 10px;
   }
-  .blades-clock{
-    margin: 10px auto;
-  }
 }
-

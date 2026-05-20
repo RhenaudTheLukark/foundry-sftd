@@ -1,5 +1,6 @@
 import { renderHandlebarsTemplate as renderTemplate } from "./compat.js";
 import { openFormDialog } from "./lib/dialog-compat.js";
+import { BladesHelpers } from "./blades-helpers.js";
 
 /**
  * Roll Dice.
@@ -358,25 +359,16 @@ export async function simpleRollPopup() {
 		let target_actor = game.actors.get(selected_tokens[0].document.actorId);
 		if (target_actor.type == "strider") {
 			current_stress = parseInt(target_actor.system.stress.value);
-			try {
-				let current_crew = game.actors.get(target_actor.system.crew);
-				current_tier = parseInt(current_crew.system.tier);
-			}
-			catch (error) {
-				console.warn("No Crew is attached to the selected Token.");
-				console.error(error);
-			}
+			let current_crew = BladesHelpers.resolveActor(target_actor.system.crew);
+			current_tier = current_crew ? current_crew.getTier() : 0;
+		} else if (target_actor.type == "crew") {
+			current_tier = target_actor.getTier();
 		}
-		if (target_actor.type == "crew") {
-			current_tier = parseInt(target_actor.system.tier);
-		}
-		console.log("For the selected token, Stress is "+current_stress+" and Tier is "+current_tier);
-	} 
-	else {console.log("No Token is selected.");}
-	
+	}
+
   const content = `
       <h2>${game.i18n.localize("SFTD.RollSomeDice")}</h2>
-      <form class="bitd-simple-roll-dialog">
+      <form class="sftd-simple-roll-dialog">
         <div class="form-group">
           <label>${game.i18n.localize("SFTD.RollNumberOfDice")}:</label>
           <select id="qty" name="qty">

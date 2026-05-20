@@ -78,20 +78,14 @@ export class BladesActor extends Actor {
       return Math.max(0, Math.min(Math.floor(numeric), 10));
     })();
 
-    // get crew tier info from strider sheet if available
+    // get crew tier info from crew sheet if available
     let current_tier = 0;
-    try {
-      const crewActor = BladesHelpers.resolveActor(this.system?.crew);
-      const parsedTier = Number(crewActor?.system?.tier);
-      current_tier = Number.isFinite(parsedTier) ? parsedTier : 0;
-    } catch (error) {
-      console.warn("No Crew is attached to the Actor.");
-      console.error(error);
-    }
+    const crewActor = BladesHelpers.resolveActor(this.system?.crew);
+    current_tier = Number(crewActor ? crewActor.getTier() : 0);
 
     let content = `
         <h2>${game.i18n.localize('SFTD.Roll')} ${game.i18n.localize(attribute_label)}</h2>
-        <form class="bitd-roll-dialog">
+        <form class="sftd-roll-dialog">
           <div class="form-group">
             <label>${game.i18n.localize('SFTD.Modifier')}:</label>
             <select id="mod" name="mod">
@@ -323,6 +317,13 @@ export class BladesActor extends Actor {
       }
     }
     return max_stress;
+  }
+
+  /* -------------------------------------------- */
+
+  getTier() {
+    if (this.type != 'crew') return 0;
+    return Math.floor(this.cache.value / 12);
   }
 
   /* -------------------------------------------- */

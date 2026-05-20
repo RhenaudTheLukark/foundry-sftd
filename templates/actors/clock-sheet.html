@@ -1,34 +1,40 @@
 <form class="{{cssClass}} clock-block" autocomplete="off">
+  {{#if editable}}
+  <div class="clock-name editable">
+    <input type="text" id="{{id}}-clock-name" name="name" value="{{name}}" />
+  </div>
+  {{else}}
+  <div class="clock-name">
+    <input name="name" value="{{actor.name}}" readonly />
+  </div>
+  {{/if}}
 
-	{{#if editable}}
-    <div class="clock-name editable">
-        <input type="text" id="{{id}}-clock-name" name="name" value="{{name}}" />
-	</div>
-	{{else}}
-	<div class="clock-name">
-		<input name="name" value="{{actor.name}}" readonly /> 
-	</div>
-	{{/if}}
-	{{#if editable}}
-	<div class="clock-config">
-		<div class="clock-config-group">
-			<label for="system.type"><i class="fa fa-chart-pie"></i></label>
-			<select data-type="String" name="system.type">
-				{{selectOptions this.sizeDropdown selected=system.type}}
+  {{#if editable}}
+  <div class="clock-config">
+    <div class="clock-config-group">
+      <label><i class="fa fa-chart-pie"></i></label>
+      <select data-type="String" name="system.type">
+        {{selectOptions sizeDropdown selected=system.type}}
+      </select>
+    </div>
+    <div class="clock-config-group">
+      <label><i class="fa fa-paintbrush"></i></label>
+      <select data-type="String" name="system.styleId">
+        {{selectOptions styleDropdown selected=system.styleId localize=true}}
+      </select>
+    </div>
+    {{#if isColored}}
+    <div class="clock-config-group">
+      <label><i class="fa fa-palette"></i></label>
+      <select data-type="String" name="system.color">
+        {{selectOptions colorDropdown selected=system.color localize=true}}
+      </select>
+    </div>
+    {{/if}}
+  </div>
+  {{/if}}
 
-			</select>
-		</div>
-		<div class="clock-config-group">
-			<label for="system.color"><i class="fa fa-palette"></i></label>
-			<select data-type="String" name="system.color">
-				{{selectOptions this.colorDropdown selected=system.color localize=true}}
-
-			</select>
-		</div>
-	</div>
-	{{/if}}
-        <div class="clocks clocks-{{system.type}}">
-            {{{blades-clock-color "system.value" system.type system.color system.value _id}}}
-        </div>
-
+  <div class="clocks clocks-{{system.type}}">
+    {{{blades-clock-color "system.value" system.type system.color system.styleId system.value _id}}}
+  </div>
 </form>

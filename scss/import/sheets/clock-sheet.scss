@@ -1,0 +1,55 @@
+& {
+  min-width: 300px;
+  min-height: 300px;
+}
+
+.clock-name {
+  input {
+    height: 40px;
+    line-height: 48px;
+    font-size: 32px;
+    width: 100%;
+    background: none;
+    border: 1px solid transparent;
+    padding: 1px 3px;
+    font-family: "Kirsty", "Crimson Text", serif;
+    border-radius: 3px;
+    color: rgb(25, 24, 19);
+    margin: 3px;
+    text-align: center;
+  }
+
+  &.editable {
+    input:hover, input:focus {
+      border: 1px solid rgb(25, 24, 19);
+    }
+  }
+}
+
+.clock-config {
+  text-align: center;
+  gap: 1.5em;
+
+  .clock-config-group {
+    display: inline-block;
+    margin-bottom: 0.5em;
+
+    &:first-child {
+      margin-left: 0;
+    }
+
+    label {
+      margin-right: 3px;
+    }
+
+    select {
+      width: 100px;
+    }
+  }
+}
+
+.clock-block {
+  .clocks {
+    margin-top: 25px;
+  }
+}

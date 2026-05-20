@@ -63,12 +63,12 @@ export class BladesItem extends Item {
     if (this.actor?.system) {
       switch (item_data.cohort) {
         case "Gang":
-          scale = parseInt(this.actor.system.tier);
-          quality = parseInt(this.actor.system.tier);
+          scale = parseInt(this.actor.getTier());
+          quality = parseInt(this.actor.getTier());
           break;
         case "Expert":
           scale = 0;
-          quality = parseInt(this.actor.system.tier) + 1;
+          quality = parseInt(this.actor.getTier()) + 1;
           break;
       }
     }

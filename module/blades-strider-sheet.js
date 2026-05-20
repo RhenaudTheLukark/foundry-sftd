@@ -92,6 +92,8 @@ export class BladesStriderSheet extends BladesSheet {
     sheetData.system.stress.max = this.actor.getMaxStress();
     sheetData.system.scars.value = Object.values(sheetData.system.scars.values).filter(s => s != "").length;
 
+    sheetData.defaultClockStyle = game.settings.get('songs-for-the-dusk', 'DefaultClockStyle');
+
     return sheetData;
   }
 
