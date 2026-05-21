@@ -114,6 +114,19 @@ Hooks.once("init", async function() {
     return (a - 1);
   });
 
+  Handlebars.registerHelper('add', (a, b) => {
+    return (a + b);
+  });
+
+  Handlebars.registerHelper('mult', (a, b) => {
+    return (a * b);
+  });
+
+  Handlebars.registerHelper('typeof', (a) => {
+    let type = typeof a;
+    return type;
+  });
+
   // Enrich the HTML replace /n with <br>
   Handlebars.registerHelper('html', (options) => {
 
@@ -150,11 +163,9 @@ Hooks.once("init", async function() {
   //   <span>{{this}}</span>
   // {{/times_from}}
   Handlebars.registerHelper('times_from', function(start, n, block) {
-
     let accum = '';
-    for (let i = start; i <= n; ++i) {
+    for (let i = start; i <= n; ++i)
       accum += block.fn(i);
-    }
     return accum;
   });
 

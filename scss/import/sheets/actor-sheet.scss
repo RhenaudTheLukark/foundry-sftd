@@ -7,29 +7,11 @@ ul {
   margin: 0;
 }
 
-$supply_size: 15px;
-$supply_margin: 3px;
-
 .supply-container {
   &:has(.supply.uses) {
     text-align: center;
     align-self: center;
     align-items: center;
-  }
-}
-
-.supply {
-  @include custom_radio_square($supply_size);
-
-  &:not(.uses) {
-    flex-wrap: wrap;
-  }
-
-  label {
-    margin-right: $supply_margin;
-    margin-bottom: $supply_margin;
-
-    @include changeable($transition-period, $hover-brightness, $hover-opacity);
   }
 }
 

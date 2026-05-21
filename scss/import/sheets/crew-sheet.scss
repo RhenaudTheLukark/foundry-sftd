@@ -107,10 +107,6 @@ form {
       @include toothradio(10px, 30px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
     }
   }
-
-  .cache {
-    max-width: 216px;
-  }
 }
 
 .cohorts {
@@ -237,16 +233,21 @@ header {
   margin-bottom: 10px;
 }
 
-$coin_size: 15px;
-$coin_margin: 3px;
-
 .cache {
-  @include custom_radio_square($coin_size);
-  flex-wrap: wrap;
+  @include custom_radio_diamond(20px);
+
+  gap: 5px;
+
+  & > div {
+    flex-wrap: nowrap;
+    justify-content: left;
+  }
 
   input ~ label {
-    margin-right: $coin_margin;
-    margin-bottom: $coin_margin;
+    margin-left: 5px;
+    margin-top: 5px;
+    margin-bottom: 2px;
+    margin-right: 2px;
 
     /*&[for$="0"] {
       border-width: 2px;

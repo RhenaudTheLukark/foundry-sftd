@@ -11,6 +11,9 @@
  * Custom Radio Squared
  */
 /*
+ * Custom Radio Diamond
+ */
+/*
  * Checkboxes underscored.
  */
 /*
@@ -1291,52 +1294,6 @@
   align-self: center;
   align-items: center;
 }
-.songs-for-the-dusk.actor.sheet .supply {
-  display: flex;
-}
-.songs-for-the-dusk.actor.sheet .supply label {
-  height: 15px;
-  width: 15px;
-  background-color: #DAA520;
-  vertical-align: middle;
-  border: 1px solid #191813;
-}
-.songs-for-the-dusk.actor.sheet .supply label[for$="-0"] {
-  margin-right: 0px;
-}
-.songs-for-the-dusk.actor.sheet .supply label {
-  transition: filter 0.1s;
-  cursor: pointer;
-}
-.songs-for-the-dusk.actor.sheet .supply label:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-}
-.songs-for-the-dusk.actor.sheet .supply {
-  /* Hide the browser's default checkbox */
-}
-.songs-for-the-dusk.actor.sheet .supply input {
-  display: none;
-}
-.songs-for-the-dusk.actor.sheet .supply input:checked ~ label {
-  background-color: #EEEFFF;
-}
-.songs-for-the-dusk.actor.sheet .supply input:checked + label {
-  background-color: #DAA520;
-}
-.songs-for-the-dusk.actor.sheet .supply:not(.uses) {
-  flex-wrap: wrap;
-}
-.songs-for-the-dusk.actor.sheet .supply label {
-  margin-right: 3px;
-  margin-bottom: 3px;
-  transition: filter 0.2s;
-  cursor: pointer;
-}
-.songs-for-the-dusk.actor.sheet .supply label:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-}
 .songs-for-the-dusk.actor.sheet .item {
   justify-content: space-between;
   gap: 10px;
@@ -1472,6 +1429,9 @@
    * Custom Radio Squared
    */
   /*
+   * Custom Radio Diamond
+   */
+  /*
    * Checkboxes underscored.
    */
   /*
@@ -1597,9 +1557,6 @@
 }
 .songs-for-the-dusk.actor.sheet.crew .economy .shell-container .teeth-shells input:checked + label {
   background-image: url("assets/teeth/stresstooth-red.png");
-}
-.songs-for-the-dusk.actor.sheet.crew .economy .cache {
-  max-width: 216px;
 }
 .songs-for-the-dusk.actor.sheet.crew .cohorts {
   flex-wrap: wrap;
@@ -1776,15 +1733,31 @@
 .songs-for-the-dusk.actor.sheet.crew .cache {
   display: flex;
 }
-.songs-for-the-dusk.actor.sheet.crew .cache label {
-  height: 15px;
-  width: 15px;
+.songs-for-the-dusk.actor.sheet.crew .cache *:has(~ * > input:checked) label {
   background-color: #DAA520;
+}
+.songs-for-the-dusk.actor.sheet.crew .cache * input {
+  display: none;
+}
+.songs-for-the-dusk.actor.sheet.crew .cache * input:checked ~ label {
+  background-color: #EEEFFF;
+}
+.songs-for-the-dusk.actor.sheet.crew .cache * input:checked + label {
+  background-color: #DAA520;
+}
+.songs-for-the-dusk.actor.sheet.crew .cache label {
+  height: 20px;
+  width: 20px;
+  background-color: #EEEFFF;
+  transform: rotate(45deg); /* square turned into a diamond */
   vertical-align: middle;
   border: 1px solid #191813;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache label[for$="-0"] {
   margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet.crew .cache label:has(~ input:checked) {
+  background-color: #DAA520;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache label {
   transition: filter 0.1s;
@@ -1807,11 +1780,17 @@
   background-color: #DAA520;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache {
-  flex-wrap: wrap;
+  gap: 5px;
+}
+.songs-for-the-dusk.actor.sheet.crew .cache > div {
+  flex-wrap: nowrap;
+  justify-content: left;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache input ~ label {
-  margin-right: 3px;
-  margin-bottom: 3px;
+  margin-left: 5px;
+  margin-top: 5px;
+  margin-bottom: 2px;
+  margin-right: 2px;
   /*&[for$="0"] {
     border-width: 2px;
   }*/
@@ -1834,6 +1813,9 @@
    */
   /*
    * Custom Radio Squared
+   */
+  /*
+   * Custom Radio Diamond
    */
   /*
    * Checkboxes underscored.

@@ -136,28 +136,91 @@
   $circle_border_color: $almost_black;
 
   label {
+    height: $side;
+    width: $side;
+    background-color: $accent_color;
 
-    & {
-      height: $side;
-      width: $side;
-      background-color: $accent_color;
+    vertical-align: middle;
+    border: 1px solid $circle_border_color;
 
-      vertical-align: middle;
-      border: 1px solid $circle_border_color;
-
-      &[for$="-0"] {
-        margin-right: 0px;
-      }
-      @include changeable(0.1s, 0.8, 0.9);
+    &[for$="-0"] {
+      margin-right: 0px;
     }
+
+    @include changeable(0.1s, 0.8, 0.9);
   }
 
   /* Hide the browser's default checkbox */
   input {
     display: none;
-  
+
     &:checked {
-  
+      & ~ label {
+        background-color: $default_color;
+      }
+      & + label {
+        background-color: $accent_color;
+      }
+    }
+  }
+}
+
+/*
+ * Custom Radio Diamond
+ */
+@mixin custom_radio_diamond($side) {
+
+  display: flex;
+  $default_color: $almost_white;
+  $accent_color: $gold;
+  $circle_border_color: $almost_black;
+
+  * {
+    &:has(~ * > input:checked) {
+      label {
+        background-color: $accent_color;
+      }
+    }
+
+    input {
+      display: none;
+
+      &:checked {
+        & ~ label {
+          background-color: $default_color;
+        }
+        & + label {
+          background-color: $accent_color;
+        }
+      }
+    }
+  }
+
+  label {
+    height: $side;
+    width: $side;
+    background-color: $default_color;
+    transform: rotate(45deg); /* square turned into a diamond */
+
+    vertical-align: middle;
+    border: 1px solid $circle_border_color;
+
+    &[for$="-0"] {
+      margin-right: 0px;
+    }
+
+    &:has(~ input:checked) {
+      background-color: $accent_color;
+    }
+
+    @include changeable(0.1s, 0.8, 0.9);
+  }
+
+  /* Hide the browser's default checkbox */
+  input {
+    display: none;
+
+    &:checked {
       & ~ label {
         background-color: $default_color;
       }

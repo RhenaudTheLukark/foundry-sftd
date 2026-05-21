@@ -126,12 +126,21 @@
         </div>
       </div>
       <div id="crew-{{_id}}-cache">
-        <div class="cache">
+        <div class="flex-vertical cache">
           {{#multiboxes system.cache.value}}
-          <input type="radio" id="crew-{{_id}}-cache-0" name="system.cache.value" value="0" data-dType="Number">
-          {{#times_from 1 system.cache.max}}
-          <input type="radio" id="crew-{{../_id}}-cache-{{this}}" name="system.cache.value" value="{{this}}" data-dType="Number">
-          <label class="radio-toggle" for="crew-{{../_id}}-cache-{{this}}"></label>
+          {{#times_from 0 3}}
+          <div class="flex-horizontal">
+            <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}" name="system.cache.value" value="{{#mult this 12}}{{/mult}}" data-dType="Number">
+            {{#times_from 1 12}}
+            {{#if (ne (typeof ../this) 'number')}}
+            <input type="radio" id="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}" name="system.cache.value" value="{{#mult this (add 12 1)}}{{/mult}}" data-dType="Number">
+            <label class="radio-toggle{{#if (eq (mult this (add 12 1)) ../system.cache.value)}} enabled{{/if}}" for="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"></label>
+            {{else}}
+            <input type="radio" id="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}" name="system.cache.value" value="{{#add (mult ../this 12) this}}{{/add}}" data-dType="Number">
+            <label class="radio-toggle{{#if (eq (add (mult ../this 12) this) ../../system.cache.value)}} enabled{{/if}}" for="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"></label>
+            {{/if}}
+            {{/times_from}}
+          </div>
           {{/times_from}}
           {{/multiboxes}}
         </div>
@@ -151,7 +160,7 @@
           <b><div class="item-name">{{item.name}}</div></b>
           <div class="item-description">{{{item.system.description}}}</div>
         </div>
-        <a class="item-control item-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+        <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
         <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
       </div>
       {{/if}}
@@ -171,7 +180,7 @@
           <b><div class="item-name">{{item.name}}</div></b>
           <div class="item-description">{{{item.system.description}}}</div>
         </div>
-        <a class="item-control item-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+        <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
         <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
       </div>
       {{/if}}
@@ -225,7 +234,7 @@
           <img src="{{item.img}}" data-tooltip="{{item.name}}" width="24" height="24"/>
           <div class="item-name">{{item.name}}</div>
         </div>
-        <a class="item-control item-delete" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+        <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
         <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
       </div>
       {{/each}}
