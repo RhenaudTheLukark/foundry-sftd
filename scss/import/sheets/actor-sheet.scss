@@ -15,6 +15,57 @@ ul {
   }
 }
 
+.title-label {
+  font-family: "Kirsty", serif;
+}
+
+.big-teeth-section {
+  border-top: 3px solid $almost_black;
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 0px;
+
+  > * {
+    margin-right: 10px;
+
+    &:last-child {
+      margin-right: 0px;
+    }
+  }
+
+  &:last-child {
+    margin-right: 0px;
+  }
+
+  // Stress
+  .big-teeth {
+    @include toothradio(17px, 50px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
+  }
+
+  .small-teeth-container {
+    .small-teeth-wrap {
+      flex-direction: column;
+
+      .small-teeth {
+        display: flex;
+        flex-direction: row;
+      }
+    }
+
+    &:not(.scars) {
+      .small-teeth-wrap {
+        @include toothradio(17px, 30px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png");
+      }
+    }
+
+    &.scars {
+      .small-teeth-wrap {
+        @include toothradio(17px, 30px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png", false);
+      }
+    }
+  }
+}
+
 .item {
   justify-content: space-between;
   gap: 10px;

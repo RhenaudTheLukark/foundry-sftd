@@ -39,7 +39,7 @@
 
 		  <input class="turf-name" type="text" name="system.turfs.{{id}}.name" value="{{#if ../editable}}{{turf.name}}{{else}}{{localize turf.name}}{{/if}}">
           {{#noteq turf.name "SFTD.Turf"}}
-          {{#noteq turf.name "SFTD.Lair"}}
+          {{#noteq turf.name "SFTD.Base"}}
 		  <textarea class="turf-description" name="system.turfs.{{id}}.description">{{localize turf.description}}</textarea>
           {{/noteq}}
           {{/noteq}}

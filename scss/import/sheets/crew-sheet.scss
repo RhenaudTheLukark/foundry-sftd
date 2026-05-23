@@ -1,64 +1,116 @@
 // Imports
 @import '../mixin.scss';
 
-.item {
+.actor-sheet > section {
+  width: 100%;
+  margin: 1em 0px;
 
-  justify-content: space-between;
-
-  .item-body {
-
-    margin-bottom: 10px;
-    * {
-      margin-right: 10px;
-    }
-
-    .item-description {
-      font-style: italic;
-      text-align: justify;
-    }
+  &:first-of-type {
+    margin-top: 0px;
   }
 
-  div {
-    flex-grow: 2;
-  }
-  .item-control {
-    flex-grow: 1;
-  }
-  .item-body,
-  .item-class-label {
-    width: 100px;
-  }
-}
-
-.item-class-label {
-  margin-bottom: 10px;
-}
-
-form {
-  &.actor-sheet {
-    padding: 20px;
+  &:last-of-type {
+    margin-bottom: 0px;
   }
 }
 
 .top-area {
   width: 100%;
-  & > div {
+  gap: 1em;
+
+  .top-area-text {
+    width: 100%;
     gap: 1em;
+
+    .name {
+      width: 100%;
+    }
+
+    .base-specialties {
+      width: 100%;
+      gap: 1em;
+    }
   }
 
-  .name, .lair {
-    margin-bottom: 10px;
+  .harmony {
+    justify-content: space-between;
   }
+}
+
+.cache-container {
+  gap: 0.5em;
+
+  .cache {
+    gap: 5px;
+
+    @include custom_radio_diamond(20px, $almost_white, $gold, $almost_black);
+
+    .cache-line {
+      :first-child {
+        align-self: center;
+        margin-right: 1em;
+        min-width: 80px;
+        width: 80px;
+
+        &.current-prosperity {
+          color: $blue;
+          text-shadow: 0 0 10px $clearblue;
+        }
+      }
+    }
+
+    .invested {
+      background-color: $green !important;
+    }
+  }
+}
+
+.pressure-hazard-shells {
+  justify-content: space-evenly;
 
   .pressure-hazard {
     .small-teeth {
       height: 30px;
       label {
         height: 100%;
-        width: 100%;
-        cursor: default;
+        width: 17px;
       }
     }
+  }
+
+  .shells-container {
+    width: fit-content;
+    align-self: center;
+    justify-content: center;
+    gap: 0.5em;
+
+    .shells {
+      @include custom_radio_diamond(20px, $almost_white, $clearblue, $almost_black);
+
+      justify-content: center;
+    }
+  }
+}
+
+.class-name {
+  width: 512px;
+  height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  font-size: 48px;
+  text-transform: uppercase;
+  border: 3px solid $almost_black;
+
+  .big-name {
+    font-weight: bold;
+    font-family: "Kirsty", serif;
+  }
+
+  .big-description {
+    font-size: 20px;
+    font-family: "Crimson Text", serif;
+    color: $almost_black;
   }
 }
 
@@ -75,9 +127,83 @@ form {
   }
 }
 
+section:has(~ .tab-content) {
+  margin-bottom: 0px !important;
+}
+
+.tab-content {
+  margin-top: 0px !important;
+
+  .tab.community {
+    & > div:not(:first-child) {
+      margin: 10px 0;
+      gap: 1em;
+    }
+
+    .community-data {
+      gap: 10px;
+
+      .community-name-region {
+        gap: 1em;
+      }
+    }
+
+    .community-members {
+      .member-data {
+        width: 100%;
+        gap: 10px;
+        justify-content: space-between;
+
+        .member-name-class {
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+
+          .member-name {
+            width: auto;
+          }
+        }
+
+        .member-class {
+          height: 100%;
+          width: fit-content !important;
+          justify-content: space-evenly;
+          text-align: center;
+          align-self: center;
+        }
+      }
+    }
+  }
+
+  .tab.community, .tab.foundations, .tab.abilities, .tab.all-items {
+    .tab-list, .item-container-list {
+      background: rgba(0, 0, 0, 0.05);
+
+      > * {
+        &:nth-child(odd) {
+          background-color: var(--table-row-color-odd);
+        }
+
+        &:nth-child(even) {
+          background-color: rgba(255, 255, 255, 0.2);
+        }
+      }
+    }
+  }
+
+  .tab.foundations, .tab.abilities {
+    .item-name {
+      width: 100px;
+    }
+
+    .item-description {
+      margin: 0.5em 0;
+    }
+  }
+}
+
 // Cohorts styling
 .edgeflaw {
-
   input {
     display: none;
 
@@ -86,26 +212,13 @@ form {
       & + label {
         color: $red;
       }
-
     }
   }
-
 }
 
 .gang-expert-type-selector {
-
   .gang-type-boxes {
     flex-wrap: wrap;
-  }
-}
-
-.economy {
-  .shell-container {
-    gap: 1em;
-
-    .teeth-shells {
-      @include toothradio(10px, 30px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
-    }
   }
 }
 
@@ -169,75 +282,7 @@ form {
   }
 }
 
-.class-name {
-  width: 512px;
-  height: 120px;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  font-size: 48px;
-  text-transform: uppercase;
-  border: 3px solid $almost_black;
-
-  .big-name {
-    font-weight: bold;
-    font-family: Kirsty, serif;
-  }
-
-  .big-description {
-    font-size: 20px;
-    font-family: "Crimson Text", serif;
-    color: $almost_black;
-  }
-}
-
-.big-teeth-section {
-
-  border-top: 3px solid $almost_black;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 0px;
-
-  > * {
-    margin-right: 10px;
-
-    &:last-child {
-      margin-right: 0px;
-    }
-  }
-
-  &:last-child {
-    margin-right: 0px;
-  }
-
-  // Stress
-  .big-teeth {
-    @include toothradio(17px, 50px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
-  }
-
-  .small-teeth-container {
-
-    .small-teeth-wrap {
-      @include toothradio(17px, 50px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png", false);
-      flex-direction: column;
-
-      .small-teeth {
-        display: flex;
-        flex-direction: row;
-      }
-    }
-  }
-}
-
-header {
-  margin-bottom: 10px;
-}
-
-.cache {
-  @include custom_radio_diamond(20px);
-
-  gap: 5px;
-
+.cache, .shells {
   & > div {
     flex-wrap: nowrap;
     justify-content: left;

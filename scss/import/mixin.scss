@@ -110,15 +110,15 @@
   /* Hide the browser's default checkbox */
   input {
     display: none;
-  
+
     &:checked {
-  
+
       & ~ label {
         background-color: $default_color;
       }
       & + label {
         // Less opacity here cos otherwise it's barely visible on the dark
-        @include changeable(0.1s, 0.7, 0.7); 
+        @include changeable(0.1s, 0.7, 0.7);
         background-color: $accent_color;
       }
     }
@@ -168,12 +168,8 @@
 /*
  * Custom Radio Diamond
  */
-@mixin custom_radio_diamond($side) {
-
+@mixin custom_radio_diamond($side, $default_color: $almost_white, $accent_color: $gold, $circle_border_color: $almost_black) {
   display: flex;
-  $default_color: $almost_white;
-  $accent_color: $gold;
-  $circle_border_color: $almost_black;
 
   * {
     &:has(~ * > input:checked) {

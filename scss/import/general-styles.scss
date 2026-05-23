@@ -74,6 +74,35 @@ section {
   }
 }
 
+.black-white-header {
+  background-color: $almost_black;
+  color: $almost_white;
+  text-align: center;
+  width: 100%;
+
+  &:is(div) {
+    padding: 0.25em;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.wide-black-label {
+  background-color: $almost_black;
+  color: $almost_white;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  width: 100%;
+  height: 30px !important;
+  text-transform: capitalize;
+  font-family: "Kirsty", serif;
+
+  i {
+    font-size: 18px;
+  }
+}
+
 .black-label {
   background-color: $almost_black;
   color: $almost_white;

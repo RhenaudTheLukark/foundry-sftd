@@ -520,6 +520,12 @@ export class BladesHelpers {
     await BladesHelpers.tryUpdate(striderFull, {system: {'==crew': null}});
   }
 
+  static _crewMemberCompareFunc(a, b) {
+    if (a.type != b.type)
+      return a.type == 'strider' ? -1 : 1;
+    return a.name.localeCompare(b.name, 'en-US');
+  }
+
   /**
    * Groups items by their system.class property.
    * Items without a class are grouped under "General".

@@ -9,17 +9,17 @@
       <div class="flex-horizontal">
         {{!-- Name --}}
         <div id="strider-{{_id}}-name-box">
-          <label for="strider-{{_id}}-name">{{localize 'SFTD.Name'}}:</label>
+          <label for="strider-{{_id}}-name" class="title-label">{{localize 'SFTD.Name'}}:</label>
           <input type="text" id="strider-{{_id}}-name" class="name" name="name" value="{{name}}">
         </div>
         {{!-- Gender --}}
         <div id="strider-{{_id}}-gender-box">
-          <label for="strider-{{_id}}-gender">{{localize 'SFTD.Gender'}}:</label>
+          <label for="strider-{{_id}}-gender" class="title-label">{{localize 'SFTD.Gender'}}:</label>
           <input type="text" id="strider-{{_id}}-gender" class="gender" name="system.gender" value="{{system.gender}}">
         </div>
         {{!-- Form --}}
         <div id="strider-{{_id}}-form-box">
-          <label for="strider-{{_id}}-form">{{localize 'SFTD.Form'}}:</label>
+          <label for="strider-{{_id}}-form" class="title-label">{{localize 'SFTD.Form'}}:</label>
           <input type="text" id="strider-{{_id}}-form" class="alias" name="system.form" value="{{system.form}}">
         </div>
       </div>
@@ -28,32 +28,32 @@
       <div id="strider-{{_id}}-traits" class="traits flex-vertical">
         {{!-- Look --}}
         <div class="item-block flex-horizontal">
-          <label class="item-class-label" for="strider-{{_id}}-look">{{localize 'SFTD.Look'}}:</label>
+          <label class="item-class-label title-label" for="strider-{{_id}}-look">{{localize 'SFTD.Look'}}:</label>
           <input type="text" id="strider-{{_id}}-look" name="system.look" value="{{system.look}}">
         </div>
 
         {{!-- Heritage --}}
         <div class="item-block flex-horizontal">
-          <label class="item-class-label" for="strider-{{_id}}-heritage">{{localize 'SFTD.Heritage'}}:</label>
+          <label class="item-class-label title-label" for="strider-{{_id}}-heritage">{{localize 'SFTD.Heritage'}}:</label>
           <input type="text" id="strider-{{_id}}-heritage" name="system.heritage" value="{{system.heritage}}">
         </div>
 
         {{!-- Background --}}
         <div class="item-block flex-horizontal">
-          <label class="item-class-label" for="strider-{{_id}}-background">{{localize 'SFTD.Background'}}:</label>
+          <label class="item-class-label title-label" for="strider-{{_id}}-background">{{localize 'SFTD.Background'}}:</label>
           <input type="text" id="strider-{{_id}}-background" name="system.background" value="{{system.background}}">
         </div>
 
         {{!-- Anchors --}}
         <div class="item-block flex-horizontal">
-          <label class="item-class-label" for="strider-{{_id}}-anchors">{{localize 'SFTD.Anchors'}}:</label>
+          <label class="item-class-label title-label" for="strider-{{_id}}-anchors">{{localize 'SFTD.Anchors'}}:</label>
           <input type="text" id="strider-{{_id}}-anchors" name="system.anchors" value="{{system.anchors}}">
         </div>
 
         <div class="two-line flex-horizontal">
           {{!-- Class --}}
           <div class="item-block flex-horizontal grow-one">
-            <div class="item-class-label"><a class="item-add-popup" data-item-type="class" data-unique="true" data-value-path="system.class" data-add-as-item="true">{{localize 'TYPES.Item.class'}}:</a></div>
+            <div class="item-class-label title-label"><a class="item-add-popup" data-item-type="class" data-unique="true" data-value-path="system.class" data-add-as-item="true">{{localize 'TYPES.Item.class'}}:</a></div>
             {{#if (ne system.class null)}}
             <div class="item flex-horizontal" data-item-id="{{system.class.uuid}}">
               <div class="open-actor flex-horizontal">
@@ -66,7 +66,7 @@
           </div>
           {{!-- Crew --}}
           <div class="item-block flex-horizontal grow-one">
-            <div class="item-class-label"><a class="actor-add-popup" data-actor-type="crew" data-unique="true" data-value-path="system.crew">{{localize 'TYPES.Actor.crew'}}:</a></div>
+            <div class="item-class-label title-label"><a class="actor-add-popup" data-actor-type="crew" data-unique="true" data-value-path="system.crew">{{localize 'TYPES.Actor.crew'}}:</a></div>
             {{#if (ne system.crew null)}}
             <div class="item flex-horizontal" data-item-id="{{system.crew.uuid}}" data-item-type="{{system.crew.type}}">
               <div class="open-actor flex-horizontal">
@@ -216,18 +216,18 @@
       {{!-- Community Section --}}
       <div id="strider-{{_id}}-community" class="tab flex-vertical community" data-tab="community">
         <div class="label-stripe flex-horizontal">
-          <p><label for="strider-{{_id}}-experience-0">{{localize 'SFTD.Community'}}</p>
+          <p><label>{{localize 'SFTD.Community'}}</p>
         </div>
 
         <div id="strider-{{_id}}-belief-box" class="flex-vertical belief">
-          <label for="strider-{{_id}}-belief">{{localize 'SFTD.Beliefs'}}:</label>
+          <label for="strider-{{_id}}-belief" class="title-label">{{localize 'SFTD.Beliefs'}}:</label>
           <textarea rows="3" id="strider-{{_id}}-belief" name="system.belief.text">{{system.belief.text}}</textarea>
         </div>
 
         <div class="belief-clock-zone">
           <div class="flex-horizontal">
-            <label>{{localize 'SFTD.Relationship'}}:</label>
-            <label>{{localize 'SFTD.Memories'}}:</label>
+            <label class="title-label">{{localize 'SFTD.Relationship'}}:</label>
+            <label class="title-label">{{localize 'SFTD.Memories'}}:</label>
           </div>
           <div class="flex-horizontal">
             <div class="clock-block">

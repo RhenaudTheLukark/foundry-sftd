@@ -1,57 +1,108 @@
 <form class="{{cssClass}} actor-sheet" autocomplete="off">
-
   <section class="flex-horizontal">
-
     <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" height="120" width="120"/>
 
-    <div class="flex-vertical top-area">
-      <div class="flex-horizontal">
-        <div id="crew-{{_id}}-name-box" class="name grow-two">
-          <label for="crew-{{_id}}-name"><b>{{localize "SFTD.Name"}}</b></label>
-          <input type="text" id="crew-{{_id}}-name" name="name" value="{{name}}" placeholder="{{localize 'SFTD.CrewName'}}">
+    <div class="flex-horizontal top-area">
+      <div class="flex-vertical top-area-text">
+        <div id="crew-{{_id}}-name-box" class="name">
+          <label for="crew-{{_id}}-name" class="title-label">{{localize "SFTD.CrewName"}}:</label>
+          <input type="text" id="crew-{{_id}}-name" name="name" value="{{name}}">
         </div>
 
-        <div id="crew-{{_id}}-lair-box" class="grow-two lair">
-          <label for="crew-{{_id}}-lair"><b>{{localize "SFTD.Lair"}}</b></label>
-          <input type="text" id="crew-{{_id}}-lair" name="system.lair" value="{{system.lair}}" placeholder="{{localize 'SFTD.Lair'}} {{localize 'SFTD.Description'}}">
+        <div class="flex-horizontal base-specialties">
+          <div id="crew-{{_id}}-base-box" class="base grow-two">
+            <label for="crew-{{_id}}-base" class="title-label">{{localize "SFTD.Base"}}:</label>
+            <input type="text" id="crew-{{_id}}-base" name="system.base" value="{{system.base}}">
+          </div>
+          <div id="crew-{{_id}}-specialties-box" class="specialties grow-two">
+            <label for="crew-{{_id}}-specialties" class="title-label">{{localize "SFTD.Specialties"}}:</label>
+            <input type="text" id="crew-{{_id}}-specialties" name="system.specialties" value="{{system.specialties}}">
+          </div>
         </div>
       </div>
 
-      <div class="flex-horizontal">
-        <div></div>
-        {{!-- Pressure/Hazard --}}
-        <div id="crew-{{_id}}-pressure-hazard" class="flex-horizontal big-teeth-section pressure-hazard">
-          <div id="crew-{{_id}}-pressure" class="big-teeth">
-            <div class="black-label">{{localize "SFTD.Pressure"}}</div>
-            {{#multiboxes system.pressure}}
-            <input type="radio" id="crew-{{_id}}-pressure-0" name="system.pressure" value="0" dtype="Radio">
-            {{#times_from 1 system.max.pressure}}
-            <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" name="system.pressure" value="{{this}}">
-            <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
-            {{/times_from}}
-            {{/multiboxes}}
-
-          </div>
-          <div id="crew-{{_id}}-hazard-container" class="small-teeth-container crew-hazard-container">
-            {{#multiboxes system.hazard}}
-            <div id="crew-{{_id}}-hazard" class="small-teeth-wrap">
-              <div class="black-label">{{localize "SFTD.Hazard"}}</div>
-              <div class="small-teeth">
-                <input type="radio" id="crew-{{_id}}-hazard-counter-0" name="system.hazard" value="0">
-                {{#times_from 1 system.max.hazard}}
-                <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" name="system.hazard" value="{{this}}">
-                <label class= "radio-toggle" for="crew-{{../_id}}-hazard-counter-{{this}}"></label>
-                {{/times_from}}
-              </div>
-            </div>
-            {{/multiboxes}}
+      <div class="flex-vertical harmony">
+        <div class="black-white-header">{{localize 'SFTD.Harmony'}} <i class="fas fa-question-circle" data-tooltip="{{{localize 'SFTD.HarmonyClue'}}}"></i></div>
+        <div class="clock-block">
+          <div class="clocks clocks-8 small">
+            {{{blades-clock 'system.harmony.value' system.harmony.max system.harmony.value defaultClockStyle 'harmony_clock'}}}
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <section class="flex-horizontal" style="padding-top: 6px;">
+  {{!-- Pressure/Hazard & Currencies --}}
+  <section class="flex-horizontal currency-line">
+    <div id="crew-{{_id}}-cache" class="flex-vertical cache-container">
+      <div class="black-white-header">{{localize "SFTD.Caches"}}</div>
+      <div class="flex-vertical cache">
+        {{#multiboxes system.cache.value}}
+        {{#times_from 0 3}}
+        <div class="flex-horizontal cache-line">
+          <div class="title-label{{#if (and (lt ../system.cache.value (mult (add this 1) 12)) (gteq ../system.cache.value (mult this 12)))}} current-prosperity{{/if}}">{{localize 'SFTD.Prosperity'}} {{add this 1}}</div>
+          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}" name="system.cache.value" value="{{#mult this 12}}{{/mult}}" data-dType="Number">
+          {{#times_from 1 12}}
+          {{#if (ne (typeof ../this) 'number')}}
+          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}" name="system.cache.value" value="{{#mult this (add 12 1)}}{{/mult}}" data-dType="Number">
+          <label class="radio-toggle{{#if (eq (mult this (add 12 1)) ../system.cache.value)}} enabled{{/if}}" for="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"></label>
+          {{else}}
+          <input type="radio" id="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}" name="system.cache.value" value="{{#add (mult ../this 12) this}}{{/add}}" data-dType="Number">
+          <label class="radio-toggle{{#if (eq (add (mult ../this 12) this) ../../system.cache.value)}} enabled{{/if}}" for="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"></label>
+          {{/if}}
+          {{/times_from}}
+        </div>
+        {{/times_from}}
+        {{/multiboxes}}
+      </div>
+    </div>
+
+    {{!-- Pressure/Hazard --}}
+    <div class="flex-vertical pressure-hazard-shells">
+      <div id="crew-{{_id}}-pressure-hazard" class="flex-horizontal big-teeth-section pressure-hazard">
+        <div id="crew-{{_id}}-pressure" class="big-teeth">
+          <div class="black-label">{{localize "SFTD.Pressure"}}</div>
+          {{#multiboxes system.pressure}}
+          <input type="radio" id="crew-{{_id}}-pressure-0" name="system.pressure" value="0" dtype="Radio">
+          {{#times_from 1 system.max.pressure}}
+          <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" name="system.pressure" value="{{this}}">
+          <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
+          {{/times_from}}
+          {{/multiboxes}}
+
+        </div>
+        <div id="crew-{{_id}}-hazard-container" class="small-teeth-container hazard crew-hazard-container">
+          {{#multiboxes system.hazard}}
+          <div id="crew-{{_id}}-hazard" class="small-teeth-wrap">
+            <div class="black-label">{{localize "SFTD.Hazard"}}</div>
+            <div class="small-teeth">
+              <input type="radio" id="crew-{{_id}}-hazard-counter-0" name="system.hazard" value="0">
+              {{#times_from 1 system.max.hazard}}
+              <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" name="system.hazard" value="{{this}}">
+              <label class= "radio-toggle" for="crew-{{../_id}}-hazard-counter-{{this}}"></label>
+              {{/times_from}}
+            </div>
+          </div>
+          {{/multiboxes}}
+        </div>
+      </div>
+
+      <div class="flex-vertical shells-container">
+        <div class="black-white-header">{{localize "SFTD.Shells"}}</div>
+        <div class="flex-horizontal shells">
+          {{#multiboxes system.shells.value}}
+          <input type="radio" id="crew-{{_id}}-shells-0" name="system.shells.value" value="0" data-dType="Number">
+          {{#times_from 1 system.shells.max}}
+          <input type="radio" id="crew-{{../_id}}-shells-{{this}}" name="system.shells.value" value="{{this}}" data-dType="Number">
+          <label class="radio-toggle{{#if (eq this ../system.shells.value)}} enabled{{/if}}" for="crew-{{../_id}}-shells-{{this}}"></label>
+          {{/times_from}}
+          {{/multiboxes}}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="flex-horizontal">
     <div class="flex-vertical">
       <div class="flex-horizontal">
         <div id="crew-{{_id}}-class" class="class-name crew-class flex-vertical" data-tooltip="{{localize "SFTD.CrewTypeBox"}}" data-distinct="true" data-item-type="crew_type">
@@ -65,10 +116,11 @@
       </div>
 
       <nav class="tabs flex-horizontal" style="padding-top: 8px">
-        <a class="item" data-tab="economy">{{localize "SFTD.Caches"}}</a>
-        <a class="item" data-tab="upgrades">{{localize "SFTD.Upgrades"}}</a>
+        <a class="item" data-tab="community">{{localize "SFTD.Community"}}</a>
+        <a class="item" data-tab="foundations">{{localize "SFTD.Foundations"}}</a>
         <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
-        <a class="item" data-tab="cohorts">{{localize "SFTD.Cohorts"}}</a>
+        <a class="item" data-tab="projects">{{localize "SFTD.Projects"}}</a>
+        <a class="item" data-tab="specialists">{{localize "SFTD.Specialists"}}</a>
         <a class="item" data-tab="notes">{{localize "SFTD.Notes"}}</a>
         <a class="item" data-tab="all-items">{{localize "SFTD.AllItems"}}</a>
         {{#if isGM}}
@@ -108,97 +160,126 @@
   {{!-- Tabs --}}
   <section class="tab-content">
 
-    {{!-- Economy Tab --}}
-    <div id="crew-{{_id}}-economy" class="tab flex-vertical economy" data-tab="economy">
+    {{!-- Community Tab --}}
+    <div id="crew-{{_id}}-community" class="community tab grow-two flex-vertical" data-tab="community">
       <div class="label-stripe flex-horizontal">
-        <p><label>{{localize "SFTD.Caches"}}</label></p>
-        <div class="flex-horizontal shell-container">
-          <p><label>{{localize "SFTD.Shells"}}</label></p>
-          <div id="crew-{{_id}}-shells" class="teeth-shells">
-            {{#multiboxes system.shells.value}}
-            <input type="radio" id="crew-{{_id}}-shells-0" name="system.shells.value" value="0" data-dType="Number">
-            {{#times_from 1 system.shells.max}}
-            <input type="radio" id="crew-{{../_id}}-shells-{{this}}" name="system.shells.value" value="{{this}}" data-dType="Number">
-            <label class="radio-toggle" for="crew-{{../_id}}-shells-{{this}}"></label>
-            {{/times_from}}
-            {{/multiboxes}}
+        <p>{{localize 'SFTD.Community'}}</p>
+      </div>
+
+      <div class="community-container flex-horizontal">
+        <div class="community-data grow-two flex-vertical">
+          <div class="community-name-region flex-horizontal">
+            <div class="flex-vertical grow-one">
+              <label for="crew-{{_id}}-community-name" class="title-label">{{localize 'SFTD.CommunityName'}}:</label>
+              <input id="crew-{{_id}}-community-name" type="text" name="system.community.name" value="{{system.community.name}}">
+            </div>
+            <div class="flex-vertical grow-one">
+              <label for="crew-{{_id}}-community-region" class="title-label">{{localize 'SFTD.Region'}}:</label>
+              <input id="crew-{{_id}}-community-region" type="text" name="system.community.region" value="{{system.community.region}}">
+            </div>
+          </div>
+
+          <div class="flex-vertical">
+            <label for="crew-{{_id}}-community-geography" class="title-label">{{localize 'SFTD.GeographicalFeatures'}}:</label>
+            <input id="crew-{{_id}}-community-geography" type="text" name="system.community.geographical_features" value="{{system.community.geographical_features}}">
+          </div>
+          <div class="flex-vertical">
+            <label for="crew-{{_id}}-community-structure" class="title-label">{{localize 'SFTD.StructuralElements'}}:</label>
+            <input id="crew-{{_id}}-community-structure" type="text" name="system.community.structural_elements" value="{{system.community.structural_elements}}">
+          </div>
+
+          <div class="flex-vertical">
+            <label for="crew-{{_id}}-community-aesthetic" class="title-label">{{localize 'SFTD.AestheticTouches'}}:</label>
+            <input id="crew-{{_id}}-community-aesthetic" type="text" name="system.community.aesthetic_touches" value="{{system.community.aesthetic_touches}}">
+          </div>
+          <div class="flex-vertical">
+            <label for="crew-{{_id}}-community-ideals" class="title-label">{{localize 'SFTD.CommunityIdeals'}}:</label>
+            <textarea id="crew-{{_id}}-community-ideals" rows="3" name="system.community.ideals">{{system.community.ideals}}</textarea>
           </div>
         </div>
-      </div>
-      <div id="crew-{{_id}}-cache">
-        <div class="flex-vertical cache">
-          {{#multiboxes system.cache.value}}
-          {{#times_from 0 3}}
-          <div class="flex-horizontal">
-            <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}" name="system.cache.value" value="{{#mult this 12}}{{/mult}}" data-dType="Number">
-            {{#times_from 1 12}}
-            {{#if (ne (typeof ../this) 'number')}}
-            <input type="radio" id="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}" name="system.cache.value" value="{{#mult this (add 12 1)}}{{/mult}}" data-dType="Number">
-            <label class="radio-toggle{{#if (eq (mult this (add 12 1)) ../system.cache.value)}} enabled{{/if}}" for="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"></label>
-            {{else}}
-            <input type="radio" id="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}" name="system.cache.value" value="{{#add (mult ../this 12) this}}{{/add}}" data-dType="Number">
-            <label class="radio-toggle{{#if (eq (add (mult ../this 12) this) ../../system.cache.value)}} enabled{{/if}}" for="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"></label>
-            {{/if}}
-            {{/times_from}}
+
+        <div class="community-members grow-two flex-vertical">
+          <div class="black-white-header">{{localize 'SFTD.Members'}}</div>
+          <div class="tab-list">
+            {{#each system.members as |member id|}}
+            <div class="item flex-horizontal" data-item-id="{{member.data.uuid}}">
+              <div class="open-actor flex-horizontal">
+                <img src="{{member.data.img}}" data-tooltip="{{member.data.name}}" width="48" height="48"/>
+                <div class="member-data flex-horizontal">
+                  <div class="member-name-class flex-vertical">
+                    <a class="member-name"><b>{{member.data.name}}</b>{{#if (ne member.data.system.gender '')}} ({{member.data.system.gender}}){{/if}}</a>
+                    <label>{{#if (ne member.data.system.form '')}}{{member.data.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' member.data.type)}}</label>
+                  </div>
+                  {{#if (eq member.data.type 'strider')}}
+                  <div class="member-class flex-vertical">
+                    <label class="title-label">{{localize "SFTD.Class"}}:</label>
+                    {{#if (ne member.data.system.class null)}}
+                    <div class="flex-horizontal">
+                      <img src="{{member.class.img}}" data-tooltip="{{member.class.name}}" width="24" height="24"/>
+                      <label>{{member.class.name}}</label>
+                    </div>
+                    {{else}}
+                    <label>{{localize "SFTD.None"}}</label>
+                    {{/if}}
+                  </div>
+                  {{else}}
+                  {{/if}}
+                  <div class="item-controls flex-horizontal">
+                    <a class="item-control delete-member" data-tooltip="{{localize 'BITD.TitleDeleteMember'}}"><i class="fas fa-trash"></i></a>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {{/each}}
           </div>
-          {{/times_from}}
-          {{/multiboxes}}
         </div>
       </div>
     </div>
 
-    {{!-- Crew Upgrades --}}
-    <div id="crew-{{_id}}-upgrades" class="crew-upgrades tab grow-two flex-vertical" data-tab="upgrades">
+    {{!-- Foundations --}}
+    <div id="crew-{{_id}}-foundations" class="foundations tab grow-two flex-vertical" data-tab="foundations">
       <div class="label-stripe flex-horizontal">
-        <p>{{localize "SFTD.CrewUpgrades"}}</p>
+        <p>{{localize 'SFTD.Foundations'}}</p>
         <p><a class="item-add-popup" data-item-type="crew_upgrade"><i class="fas fa-plus-square"></i></a></p>
       </div>
-      {{#each items as |item id|}}
-      {{#if (eq item.type "crew_upgrade")}}
-      <div class="item flex-horizontal" data-item-id="{{item._id}}">
-        <div class="item-body item-sheet-open flex-horizontal">
-          <b><div class="item-name">{{item.name}}</div></b>
-          <div class="item-description">{{{item.system.description}}}</div>
-        </div>
-        <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
-        <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
+      <div class="tab-list">
+        {{#each items as |item id|}}
+        {{#if (eq item.type "crew_upgrade")}}
+        {{> "systems/songs-for-the-dusk/templates/parts/item_display/crew_upgrade.html" item=item id=id actor=../this}}
+        {{/if}}
+        {{/each}}
       </div>
-      {{/if}}
-      {{/each}}
     </div>
 
     {{!-- Crew Abilities --}}
-    <div id="crew-{{_id}}-abilities" class="crew-abilities tab grow-two flex-vertical" data-tab="abilities">
+    <div id="crew-{{_id}}-abilities" class="abilities tab grow-two flex-vertical" data-tab="abilities">
       <div class="label-stripe flex-horizontal">
-        <p>{{localize "SFTD.SpecialAbilities"}}</p>
+        <p>{{localize 'SFTD.SpecialAbilities'}}</p>
         <p><a class="item-add-popup" data-item-type="crew_ability"><i class="fas fa-plus-square"></i></a></p>
       </div>
-      {{#each items as |item id|}}
-      {{#if (eq item.type "crew_ability")}}
-      <div class="item flex-horizontal" data-item-id="{{item._id}}">
-        <div class="item-body item-sheet-open flex-horizontal">
-          <b><div class="item-name">{{item.name}}</div></b>
-          <div class="item-description">{{{item.system.description}}}</div>
-        </div>
-        <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
-        <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
+      <div class="tab-list">
+        {{#each items as |item id|}}
+        {{#if (eq item.type "crew_ability")}}
+        {{> "systems/songs-for-the-dusk/templates/parts/item_display/crew_ability.html" item=item id=id actor=../this}}
+        {{/if}}
+        {{/each}}
       </div>
-      {{/if}}
-      {{/each}}
     </div>
 
-    {{!-- Cohorts --}}
-    <div id="crew-{{_id}}-cohorts" class="crew-cohorts tab grow-two flex-vertical" data-tab="cohorts">
+    {{!-- Projects Tab --}}
+    <div id="crew-{{_id}}-projects" class="projects tab grow-two flex-vertical" data-tab="projects">
+    </div>
+
+    {{!-- Specialists Tab --}}
+    <div id="crew-{{_id}}-specialists" class="crew-specialists tab grow-two flex-vertical" data-tab="specialists">
       <div class="label-stripe flex-horizontal">
-        <p>{{localize "SFTD.Cohorts"}}</p>
+        <p>{{localize "SFTD.Specialists"}}</p>
         <p><a class="add-item" data-item-type="cohort"><i class="fas fa-plus-square"></i></a></p>
       </div>
-      <div class="cohorts flex-horizontal">
+      <div class="specialists flex-horizontal">
         {{#each items as |item id|}}
         {{#if (eq item.type "cohort")}}
-
         {{> "systems/songs-for-the-dusk/templates/parts/cohort-block.html" item=item}}
-
         {{/if}}
         {{/each}}
       </div>
@@ -221,7 +302,6 @@
       {{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}
     </div>
     {{/if}}
-
 
     {{!-- Full Item List --}}
     <div class="tab grow-two flex-vertical" data-tab="all-items">

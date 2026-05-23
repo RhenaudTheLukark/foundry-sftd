@@ -14,7 +14,7 @@ export class BladesCrewSheet extends BladesSheet {
   	  template: "systems/songs-for-the-dusk/templates/crew-sheet.html",
       width: 940,
       height: 940,
-      tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "turfs"}]
+      tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "upgrades"}]
     });
   }
 
@@ -28,8 +28,13 @@ export class BladesCrewSheet extends BladesSheet {
     sheetData.editable = superData.editable;
     sheetData.isGM = game.user.isGM;
 
+    sheetData.system.members = BladesHelpers.fetchSimpleData(sheetData.system.members, [], BladesHelpers._crewMemberCompareFunc);
+    sheetData.system.members = sheetData.system.members.map((m) => { return { data: m, class: BladesHelpers.getOwnedItem(m, m.system.class) }; });
+
     // Prepare active effects
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.actor.effects);
+
+    sheetData.defaultClockStyle = game.settings.get('songs-for-the-dusk', 'DefaultClockStyle');
 
     return sheetData;
   }

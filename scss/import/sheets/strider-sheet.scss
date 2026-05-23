@@ -1,22 +1,3 @@
-// Colors
-$lightgray: #CCC;
-$gray: #999;
-$red: red;
-$almost_black: #191813;
-$almost_white: #EEEFFF;
-$gold: #DAA520;
-$green: #008000;
-$light_green: #12a012;
-$blue: #04578f;
-
-// Transition period for sheet parts that hint what they can do
-$transition-period: 0.2s;
-$hover-opacity: 0.9;
-$hover-brightness: 0.8;
-
-// Imports
-@import '../mixin.scss';
-
 /*
  * General Styles
  * Cleaned out things that don't appear to apply to the strider sheet, and exist in other, separated SCSS files.
@@ -24,10 +5,6 @@ $hover-brightness: 0.8;
  */
 
 .name-alias {
-  & a:not(.item-name), & label {
-    font-family: "Kirsty", serif;
-  }
-
   img.portrait {
     max-width: 200px;
     max-height: 200px;
@@ -73,11 +50,9 @@ $hover-brightness: 0.8;
   }
 }
 
-.big-teeth-section {
-  .small-teeth-container.hazard {
-    .small-teeth-wrap {
-      @include toothradio(17px, 30px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png", false);
-    }
+.small-teeth-container.scars {
+  .small-teeth-wrap {
+    @include toothradio(17px, 30px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png", false);
   }
 }
 
@@ -89,10 +64,6 @@ table.drive-table {
 
 .tab-content {
   .tab.community {
-    label {
-      font-family: "Kirsty", serif;
-    }
-
     .belief {
       margin: 10px 0;
     }
@@ -131,92 +102,21 @@ table.drive-table {
           background-color: rgba(255, 255, 255, 0.2);
         }
       }
-
-      .hackrig-type, .ammo, .drone-type, .expertise, .stay-late, .experimental, .hidden-item, .form-toggle {
-        text-align: center;
-        align-self: center;
-        align-items: center;
-
-        input {
-          margin: 0px;
-        }
-      }
-
-      .item:has(.extra-description) {
-        .item-body {
-          width: auto;
-          .item-description {
-            display: none;
-          }
-        }
-      }
-
-      .extra-description {
-        text-align: center;
-        align-self: center;
-        width: 100%;
-
-        textarea {
-          text-align: left;
-          text-wrap: wrap;
-        }
-      }
     }
   }
-}
 
-.black-white-header {
-  background-color: $almost_black;
-  color: $almost_white;
-  text-align: center;
-  width: 100%;
+  .tab.abilities, .tab.loadout {
+    .item-name {
+      width: 100px;
+    }
 
-  &:is(div) {
-    padding: 0.25em;
-    font-weight: bold;
-    text-align: center;
+    .item-description {
+      margin: 0.5em 0;
+    }
   }
 }
 
 .big-teeth-section {
-  border-top: 3px solid $almost_black;
-  display: flex;
-  flex-direction: row;
-  margin-bottom: 0px;
-
-  > * {
-    margin-right: 10px;
-
-    &:last-child {
-      margin-right: 0px;
-    }
-  }
-
-  &:last-child {
-    margin-right: 0px;
-  }
-
-  // Stress
-  .big-teeth {
-    @include toothradio(17px, 50px, "assets/teeth/stresstooth-halfgrey.png", "assets/teeth/stresstooth-red.png");
-  }
-
-  .small-teeth-container {
-    .small-teeth-wrap {
-      flex-direction: column;
-
-      .small-teeth {
-        display: flex;
-        flex-direction: row;
-      }
-    }
-    &:not(.hazard) {
-      .small-teeth-wrap {
-        @include toothradio(17px, 30px, "assets/teeth/shorttooth-grey.png", "assets/teeth/shorttooth-red.png");
-      }
-    }
-  }
-
   .scars-list {
     input[type=text]:not(:placeholder-shown) {
       background: rgba(255, 0, 0, 0.1);
@@ -229,17 +129,6 @@ table.drive-table {
         margin-right: 0px;
       }
     }
-  }
-}
-
-// Abilities and loadout
-.abilities, .loadout {
-  .item-name {
-    width: 100px;
-  }
-
-  .item-description {
-    margin: 0.5em 0;
   }
 }
 
