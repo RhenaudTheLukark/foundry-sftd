@@ -34,6 +34,23 @@ export class BladesCrewSheet extends BladesSheet {
     // Prepare active effects
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.actor.effects);
 
+    // Compute invested caches
+    let invested = 0;
+    for (let project of Object.values(sheetData.system.projects))
+      if (Number(project.clock.value) < Number(project.clock.max))
+        invested += Number(project.invested_caches);
+    sheetData.system.cache.invested = invested;
+
+    sheetData.clockSizeDropdown = {
+      '4': '4',
+      '6': '6',
+      '8': '8',
+      '10': '10',
+      '12': '12',
+    };
+
+    sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
+
     sheetData.defaultClockStyle = game.settings.get('songs-for-the-dusk', 'DefaultClockStyle');
 
     return sheetData;
@@ -92,6 +109,31 @@ export class BladesCrewSheet extends BladesSheet {
 
   /* -------------------------------------------- */
 
+  investedCacheClick(ev) {
+    ev.preventDefault();
+
+    let label = ev.currentTarget;
+    let element = ev.currentTarget;
+    if (label.tagName.toLowerCase() == 'label')
+      element = element.previousElementSibling;
+
+    if (label.classList.contains('enabled') || (ev.type == 'contextmenu')) {
+      // Find the next lowest-value input with the same name
+      let name = element.name;
+      if (!name) name = element.dataset.name;
+      let value = element.value;
+      if (!value) value = element.dataset.value;
+      value = parseInt(value);
+      value = value + (value < 0 ? 1 : -1);
+      element = element.parentElement.querySelector(`[name='${name}'][value='${value}']`);
+    }
+    const investedCaches = element.closest('.cache').querySelectorAll('input.invested');
+    if (element.id == investedCaches[investedCaches.length - 1].id)
+      BladesHelpers.onRadioToggle(ev);
+    else
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.TriedRemovingInvestedCache'));
+  }
+
   /** @override */
 	activateListeners(html) {
     super.activateListeners(html);
@@ -99,27 +141,43 @@ export class BladesCrewSheet extends BladesSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
+    // Add a new Cohort
+    html.find('label.invested').click(this.investedCacheClick);
+    html.find('label.invested').contextmenu(this.investedCacheClick);
+
     // Add Crew Type
-    html.find(".crew-class").click(this.onItemAddClick.bind(this));
+    html.find('.crew-class').click(this.onItemAddClick.bind(this));
 
     // Add a new Cohort
     html.find('.add-item').click(async ev => {
       await BladesHelpers._addOwnedItem(ev, this.actor);
     });
 
-    // Toggle Turf
-    html.find('.turf-select').click( async ev => {
-      const element = $(ev.currentTarget).parents(".item");
+    // Add Project
+    html.find('.add-project').click(async _ => {
+      let projects = this.actor.system.projects;
+      projects[Object.keys(projects).length] = {
+        title: '',
+        clock: {
+          value: 0,
+          max: 4,
+          min: 0,
+          invested_caches: 0
+        },
+        description: ''
+      }
+      await BladesHelpers.tryUpdate(this.actor, {system: {'==projects': projects}});
+    });
 
-      let item_id = element.data("itemId")
-      let turf_id = $(ev.currentTarget).data("turfId");
-      let turf_current_status = $(ev.currentTarget).data("turfStatus");
-      let turf_checkbox_name = 'system.turfs.' + turf_id + '.value';
-
-      await this.actor.updateEmbeddedDocuments('Item', [{
-        _id: item_id,
-        [turf_checkbox_name]: !turf_current_status}]);
-      this.render(false);
+    // Delete Project
+    html.find('.delete-project').click(async ev => {
+      const element = $(ev.currentTarget).closest('.item');
+      let currentProjectId = element.data('projectId');
+      let projectsEntries = Object.entries(this.actor.system.projects);
+      projectsEntries.splice(currentProjectId, 1);
+      for (let id in projectsEntries)
+        projectsEntries[id][0] = String(id);
+      await BladesHelpers.tryUpdate(this.actor, {system: {'==projects': Object.fromEntries(projectsEntries)}});
     });
 
     // Cohort Block Harm handler

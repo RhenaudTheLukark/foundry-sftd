@@ -12,9 +12,7 @@
     <label class="label-stripe">{{localize "SFTD.ExpClues"}}</label>
     {{editor system.experience_clues target="system.experience_clues" button=true editable=editable}}
 
-    <label class="label-stripe">{{localize "SFTD.Turf"}}</label>
-    <div id="turf-container">{{> "systems/songs-for-the-dusk/templates/parts/turf-list.html" turfs_data=system.turfs can_edit=true editable=editable}}</div>
-	{{#if isGM}}
+    {{#if isGM}}
 	<div class="label-stripe">{{localize "SFTD.Effects"}}</div>
     <div id="effects">{{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}</div>
 	{{/if}}

@@ -182,7 +182,8 @@
       },
       "cache": {
         "value": 0,
-        "max": 48
+        "max": 48,
+        "invested": 0
       },
       "pressure": {
         "value": 0,
@@ -201,6 +202,7 @@
         "ideals": ""
       },
       "members": {},
+      "projects": {},
       "strider": {
         "add_scars": 0,
         "add_stress": 0

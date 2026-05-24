@@ -32,13 +32,6 @@ export class BladesSheet extends BaseActorSheet {
       BladesHelpers.onRadioToggle(e);
       e.preventDefault();
     });
-    html.find('label.radio-toggle.middle').mousedown((e) => {
-      // Middle click
-      if (e && (e.which == 2 || e.button == 1)) {
-        this.onRadioMiddleClick(e);
-        e.preventDefault();
-      }
-    });
 
     // Post item to chat
     html.find('.item-post').click((ev) => {
@@ -353,33 +346,5 @@ export class BladesSheet extends BaseActorSheet {
     };
 
     await this.actor.updateEmbeddedDocuments('Item', [update]);
-  }
-
-  /* -------------------------------------------- */
-
-  async onRadioMiddleClick(event) {
-    let type = event.target.tagName.toLowerCase();
-    let element = event.target;
-    let target = type == 'label' ? element : element.parentElement;
-    let label = target;
-    type = target.tagName.toLowerCase();
-    if (type == 'label')
-      target = label.previousElementSibling;
-
-    let actor = this.actor;
-
-    let value = parseInt(target.value);
-    let fieldList = $(target).data('name').split('.');
-    let attributeName = fieldList[2];
-    let actionName = fieldList[4];
-    let actionData = (await this.getData()).system.attributes[attributeName].actions[actionName];
-    let oldFormField = actionData.first_form != 0 ? 'first_form' : actionData.second_form != 0 ? 'second_form' : '';
-    let formField = oldFormField == 'first_form' ? 'second_form' : oldFormField == 'second_form' ? '' : 'first_form';
-    let updateObject = {system: {attributes: {}}};
-    updateObject.system.attributes[attributeName] = {actions: {}};
-    updateObject.system.attributes[attributeName].actions[actionName] = {};
-    if (formField) updateObject.system.attributes[attributeName].actions[actionName][`==${formField}`] = value - actionData.value;
-    if (oldFormField) updateObject.system.attributes[attributeName].actions[actionName][`==${oldFormField}`] = 0;
-    await BladesHelpers.tryUpdate(actor, updateObject);
   }
 }

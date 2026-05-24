@@ -247,15 +247,14 @@ export class BladesHelpers {
     // Get the last enabled element
     let enabledLabels = Object.values(target.parentElement.children).filter(e => e.classList.contains('enabled'));
     if (enabledLabels[enabledLabels.length-1] == label || (event.type == 'contextmenu')) {
-      //find the next lowest-value input with the same name and click that one instead
+      // Find the next lowest-value input with the same name
       let name = target.name;
-      if (!name) name = $(target).data('name');
+      if (!name) name = target.dataset.name;
       let value = target.value;
-      if (!value) value = $(target).data('value');
+      if (!value) value = target.dataset.value;
       value = parseInt(value);
-      if (value < 0) value += 1;
-      else value -= 1;
-      let prevEl = $(target.parentElement).find(`*[name='${name}'][value='${value}'], *[data-name='${name}'][value='${value}'], *[name='${name}'][data-value='${value}'], *[data-name='${name}'][data-value='${value}']`);
+      value = value + (value < 0 ? 1 : -1);
+      let prevEl = target.parentElement.querySelector(`[name='${name}'][value='${value}']`);
       prevEl.trigger('click');
     } else {
       //trigger the click on this one

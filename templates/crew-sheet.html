@@ -41,14 +41,14 @@
         {{#times_from 0 3}}
         <div class="flex-horizontal cache-line">
           <div class="title-label{{#if (and (lt ../system.cache.value (mult (add this 1) 12)) (gteq ../system.cache.value (mult this 12)))}} current-prosperity{{/if}}">{{localize 'SFTD.Prosperity'}} {{add this 1}}</div>
-          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}" name="system.cache.value" value="{{#mult this 12}}{{/mult}}" data-dType="Number">
+          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}"{{#if (gteq ../system.cache.invested (mult this 12))}} class="invested"{{/if}} name="system.cache.value" value="{{#mult this 12}}{{/mult}}" data-dType="Number">
           {{#times_from 1 12}}
           {{#if (ne (typeof ../this) 'number')}}
-          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}" name="system.cache.value" value="{{#mult this (add 12 1)}}{{/mult}}" data-dType="Number">
-          <label class="radio-toggle{{#if (eq (mult this (add 12 1)) ../system.cache.value)}} enabled{{/if}}" for="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"></label>
+          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"{{#if (gteq ../system.cache.invested (mult this (add 12 1)))}} class="invested"{{/if}} name="system.cache.value" value="{{#mult this (add 12 1)}}{{/mult}}" data-dType="Number">
+          <label class="{{#if (eq (mult this (add 12 1)) ../system.cache.value)}}enabled {{/if}}{{#if (gteq ../system.cache.invested (mult this (add 12 1)))}}invested" data-tooltip="{{localize 'SFTD.InvestedCacheInfo'}}{{else}}radio-toggle{{/if}}" for="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"></label>
           {{else}}
-          <input type="radio" id="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}" name="system.cache.value" value="{{#add (mult ../this 12) this}}{{/add}}" data-dType="Number">
-          <label class="radio-toggle{{#if (eq (add (mult ../this 12) this) ../../system.cache.value)}} enabled{{/if}}" for="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"></label>
+          <input type="radio" id="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"{{#if (gteq ../../system.cache.invested (add (mult ../this 12) this))}} class="invested"{{/if}} name="system.cache.value" value="{{#add (mult ../this 12) this}}{{/add}}" data-dType="Number">
+          <label class="{{#if (eq (add (mult ../this 12) this) ../../system.cache.value)}}enabled {{/if}}{{#if (gteq ../../system.cache.invested (add (mult ../this 12) this))}}invested" data-tooltip="{{localize 'SFTD.InvestedCacheInfo'}}{{else}}radio-toggle{{/if}}" for="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"></label>
           {{/if}}
           {{/times_from}}
         </div>
@@ -181,20 +181,20 @@
 
           <div class="flex-vertical">
             <label for="crew-{{_id}}-community-geography" class="title-label">{{localize 'SFTD.GeographicalFeatures'}}:</label>
-            <input id="crew-{{_id}}-community-geography" type="text" name="system.community.geographical_features" value="{{system.community.geographical_features}}">
+            <textarea id="crew-{{_id}}-community-geography" name="system.community.geographical_features">{{system.community.geographical_features}}</textarea>
           </div>
           <div class="flex-vertical">
             <label for="crew-{{_id}}-community-structure" class="title-label">{{localize 'SFTD.StructuralElements'}}:</label>
-            <input id="crew-{{_id}}-community-structure" type="text" name="system.community.structural_elements" value="{{system.community.structural_elements}}">
+            <textarea id="crew-{{_id}}-community-structure" name="system.community.structural_elements">{{system.community.structural_elements}}</textarea>
           </div>
 
           <div class="flex-vertical">
             <label for="crew-{{_id}}-community-aesthetic" class="title-label">{{localize 'SFTD.AestheticTouches'}}:</label>
-            <input id="crew-{{_id}}-community-aesthetic" type="text" name="system.community.aesthetic_touches" value="{{system.community.aesthetic_touches}}">
+            <textarea id="crew-{{_id}}-community-aesthetic" name="system.community.aesthetic_touches">{{system.community.aesthetic_touches}}</textarea>
           </div>
           <div class="flex-vertical">
             <label for="crew-{{_id}}-community-ideals" class="title-label">{{localize 'SFTD.CommunityIdeals'}}:</label>
-            <textarea id="crew-{{_id}}-community-ideals" rows="3" name="system.community.ideals">{{system.community.ideals}}</textarea>
+            <textarea id="crew-{{_id}}-community-ideals" name="system.community.ideals">{{system.community.ideals}}</textarea>
           </div>
         </div>
 
@@ -266,8 +266,52 @@
       </div>
     </div>
 
-    {{!-- Projects Tab --}}
+    {{!-- Projects --}}
     <div id="crew-{{_id}}-projects" class="projects tab grow-two flex-vertical" data-tab="projects">
+      <div class="label-stripe flex-horizontal">
+        <p>{{localize 'SFTD.Projects'}}</p>
+        <p><a class="add-project"><i class="fas fa-plus-square"></i></a></p>
+      </div>
+      <table class="projects">
+        {{#each system.projects as |project id|}}
+        {{#if (eq (modulo id 2) 0)}}
+        <tr>
+        {{/if}}
+          <td class="flex-vertical">
+            <td class="flex-vertical grow-two project item" data-project-id="{{id}}">
+              <section class="flex-horizontal">
+                <div class="clock-block">
+                  <div class="project-clock clocks clocks-{{project.clock.max}} small">
+                    {{{blades-clock (concat "system.projects." id ".clock.value") project.clock.max project.clock.value ../defaultClockStyle (concat ../_id "-project-" id)}}}
+                  </div>
+                </div>
+                <div class="flex-vertical clock-settings">
+                  <div class="flex-horizontal clock-size">
+                    <label><i class="fa fa-chart-pie" data-tooltip="{{localize 'SFTD.ClockSize'}}"></i></label>
+                    <select data-type="String" name="system.projects.{{id}}.clock.max">
+                      {{selectOptions ../clockSizeDropdown selected=project.clock.max}}
+                    </select>
+                  </div>
+                  <div class="flex-horizontal invested-caches">
+                    <label><i class="fa fa-treasure-chest" data-tooltip="{{localize 'SFTD.InvestedCaches'}}"></i></label>
+                    <select data-type="Number" name="system.projects.{{id}}.invested_caches">
+                      {{selectOptions ../investedCachesDropdown selected=project.invested_caches}}
+                    </select>
+                  </div>
+                </div>
+                <div class="flex-vertical project-text">
+                  <input type="text" name="system.projects.{{id}}.title" value="{{project.title}}" placeholder="{{localize BITD.Title}}">
+                  <textarea class="project-description" rows="1" name="system.projects.{{id}}.description">{{project.description}}</textarea>
+                </div>
+                <a class="item-control delete-project" data-tooltip="{{localize 'BITD.TitleDeleteProject'}}"><i class="fas fa-trash"></i></a>
+              </section>
+            </td>
+          </td>
+          {{#if (or (eq (modulo id 2) 1) @last)}}
+        </tr>
+        {{/if}}
+        {{/each}}
+      </table>
     </div>
 
     {{!-- Specialists Tab --}}

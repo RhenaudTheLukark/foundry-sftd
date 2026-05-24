@@ -1657,7 +1657,7 @@
   display: flex;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache *:has(~ * > input:checked) label {
-  background-color: #DAA520;
+  background-color: #c27ba0;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache * input {
   display: none;
@@ -1666,7 +1666,7 @@
   background-color: #EEEFFF;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache * input:checked + label {
-  background-color: #DAA520;
+  background-color: #c27ba0;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache label {
   height: 20px;
@@ -1680,7 +1680,7 @@
   margin-right: 0px;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache label:has(~ input:checked) {
-  background-color: #DAA520;
+  background-color: #c27ba0;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache label {
   transition: filter 0.1s;
@@ -1700,7 +1700,7 @@
   background-color: #EEEFFF;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache input:checked + label {
-  background-color: #DAA520;
+  background-color: #c27ba0;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache .cache-line :first-child {
   align-self: center;
@@ -1713,7 +1713,7 @@
   text-shadow: 0 0 10px #8080ff;
 }
 .songs-for-the-dusk.actor.sheet.crew .cache-container .cache .invested {
-  background-color: #008000 !important;
+  background-color: #7a546c !important;
 }
 .songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells {
   justify-content: space-evenly;
@@ -1847,6 +1847,33 @@
   justify-content: space-evenly;
   text-align: center;
   align-self: center;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects {
+  margin: 0px;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects tr {
+  display: flex;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects .clock-settings {
+  height: 100%;
+  align-self: center;
+  align-items: center;
+  justify-content: space-evenly;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects .clock-settings .clock-size, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects .clock-settings .invested-caches {
+  align-self: center;
+  align-items: center;
+  gap: 10px;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects .project-text {
+  width: 100%;
+  gap: 5px;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects .project-text .project-description {
+  height: 100%;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects .add-project {
+  font-weight: bold;
 }
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .tab-list, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .item-container-list, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .tab-list, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .item-container-list, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .tab-list, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .item-container-list, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .tab-list, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .item-container-list {
   background: rgba(0, 0, 0, 0.05);

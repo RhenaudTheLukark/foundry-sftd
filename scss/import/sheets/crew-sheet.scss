@@ -43,7 +43,7 @@
   .cache {
     gap: 5px;
 
-    @include custom_radio_diamond(20px, $almost_white, $gold, $almost_black);
+    @include custom_radio_diamond(20px, $almost_white, $cache_active, $almost_black);
 
     .cache-line {
       :first-child {
@@ -60,7 +60,7 @@
     }
 
     .invested {
-      background-color: $green !important;
+      background-color: $cache_invested !important;
     }
   }
 }
@@ -172,6 +172,40 @@ section:has(~ .tab-content) {
           align-self: center;
         }
       }
+    }
+  }
+
+  .tab.projects {
+    margin: 0px;
+
+    tr {
+      display: flex;
+    }
+
+    .clock-settings {
+      height: 100%;
+      align-self: center;
+      align-items: center;
+      justify-content: space-evenly;
+
+      .clock-size, .invested-caches {
+        align-self: center;
+        align-items: center;
+        gap: 10px;
+      }
+    }
+
+    .project-text {
+      width: 100%;
+      gap: 5px;
+
+      .project-description {
+        height: 100%;
+      }
+    }
+
+    .add-project {
+      font-weight: bold;
     }
   }
 

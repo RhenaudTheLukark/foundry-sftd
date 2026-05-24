@@ -33,7 +33,7 @@ Hooks.once("init", async function() {
 
   game.blades = {
     dice: bladesRoll,
-	roller: simpleRollPopup
+	  roller: simpleRollPopup
   };
   game.system.bladesClocks = {
     sizes: [ 4, 6, 8, 10, 12 ]
@@ -58,24 +58,13 @@ Hooks.once("init", async function() {
   }
 
 
-  // Is the value Turf side.
-  Handlebars.registerHelper('is_turf_side', function(value, options) {
-    if (["left", "right", "top", "bottom"].includes(value)) {
-      return options.fn(this);
-    } else {
-      return options.inverse(this);
-    }
-  });
-
   // Multiboxes.
   Handlebars.registerHelper('multiboxes', function(selected, options) {
-
     let html = options.fn(this);
 
     // Fix for single non-array values.
-    if ( !Array.isArray(selected) ) {
+    if (!Array.isArray(selected))
       selected = [selected];
-    }
 
     if (typeof selected !== 'undefined') {
       selected.forEach(selected_value => {
@@ -84,7 +73,7 @@ Hooks.once("init", async function() {
           let rgx = new RegExp(' value=\"' + escapedValue + '\"');
           let oldHtml = html;
           html = html.replace(rgx, "$& checked");
-          while( ( oldHtml === html ) && ( escapedValue >= 0 ) ){
+          while((oldHtml === html) && (escapedValue >= 0)) {
             escapedValue--;
             rgx = new RegExp(' value=\"' + escapedValue + '\"');
             html = html.replace(rgx, "$& checked");
@@ -95,64 +84,24 @@ Hooks.once("init", async function() {
     return html;
   });
 
-  // NotEquals handlebar.
-  Handlebars.registerHelper('noteq', (a, b, options) => {
-    return (a !== b) ? options.fn(this) : '';
-  });
+  Handlebars.registerHelper('lteq', (a, b) => a <= b);
+  Handlebars.registerHelper('gteq', (a, b) => a >= b);
 
-  //Less than comparison
-  Handlebars.registerHelper('lteq', (a, b) => {
-    return (a <= b);
-  });
+  Handlebars.registerHelper('oneless', (a) => Number(a) - 1);
 
-  //Greater than comparison
-  Handlebars.registerHelper('gteq', (a, b) => {
-    return (a >= b);
-  });
+  Handlebars.registerHelper('add', (a, b) => Number(a) + Number(b));
+  Handlebars.registerHelper('minus', (a, b) => Number(a) - Number(b));
+  Handlebars.registerHelper('mult', (a, b) => Number(a) * Number(b));
 
-  Handlebars.registerHelper('oneless', (a) => {
-    return (a - 1);
-  });
+  Handlebars.registerHelper('modulo', (a, b) => Number(a) % Number(b));
 
-  Handlebars.registerHelper('add', (a, b) => {
-    return (a + b);
-  });
 
-  Handlebars.registerHelper('mult', (a, b) => {
-    return (a * b);
-  });
-
-  Handlebars.registerHelper('typeof', (a) => {
-    let type = typeof a;
-    return type;
-  });
+  Handlebars.registerHelper('typeof', (a) => typeof a);
 
   // Enrich the HTML replace /n with <br>
   Handlebars.registerHelper('html', (options) => {
-
     let text = options.hash['text'].replace(/\n/g, "<br />");
-
     return new Handlebars.SafeString(text);
-  });
-
-  // times_from_1 left as legacy code to not break Alternate Sheets compatibility
-  Handlebars.registerHelper('times_from_1', function(n, block) {
-
-    var accum = '';
-    for (var i = 1; i <= n; ++i) {
-      accum += block.fn(i);
-    }
-    return accum;
-  });
-
-  // times_from_0 left as legacy code to not break Alternate Sheets compatibility
-  Handlebars.registerHelper('times_from_0', function(n, block) {
-
-    var accum = '';
-    for (var i = 0; i <= n; ++i) {
-      accum += block.fn(i);
-    }
-    return accum;
   });
 
   // "N Times" loop for handlebars.
@@ -174,11 +123,9 @@ Hooks.once("init", async function() {
   // Usage: (concat 'first 'second')
   Handlebars.registerHelper('concat', function() {
     var outStr = '';
-    for(var arg in arguments){
-        if(typeof arguments[arg]!='object'){
-            outStr += arguments[arg];
-        }
-    }
+    for (var arg in arguments)
+      if (typeof arguments[arg] != 'object')
+        outStr += arguments[arg];
     return outStr;
   });
 
@@ -189,7 +136,6 @@ Hooks.once("init", async function() {
    */
 
   Handlebars.registerHelper('selectOptionsWithLabel', function(choices, options) {
-
     const localize = options.hash['localize'] ?? false;
     let selected = options.hash['selected'] ?? null;
     let blank = options.hash['blank'] || null;
@@ -197,14 +143,14 @@ Hooks.once("init", async function() {
 
     // Create an option
     const option = (key, object) => {
-      if ( localize ) object.label = game.i18n.localize(object.label);
+      if (localize) object.label = game.i18n.localize(object.label);
       let isSelected = selected.includes(key);
-      html += `<option value="${key}" ${isSelected ? "selected" : ""}>${object.label}</option>`
+      html += `<option value="${key}" ${isSelected ? "selected" : ""}>${object.label}</option>`;
     };
 
     // Create the options
     let html = "";
-    if ( blank ) option("", blank);
+    if (blank) option("", blank);
     Object.entries(choices).forEach(e => option(...e));
 
     return new Handlebars.SafeString(html);
@@ -216,15 +162,12 @@ Hooks.once("init", async function() {
   // Clocks in color for Clock Actors
   Handlebars.registerHelper('blades-clock-color', function (parameter_name, type, color, styleId, current_value, uniq_id) {
     let html = '';
-    if (current_value === null || current_value === 'null') {
+    if (current_value === null || current_value === 'null')
       current_value = 0;
-    }
-    if (color === undefined) {
+    if (color === undefined)
       color = "black";
-    }
-    if (parseInt(current_value) > parseInt(type)) {
+    if (parseInt(current_value) > parseInt(type))
       current_value = type;
-    }
 
     let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
     let clockStyle = clockStyles[Number(styleId)];
@@ -252,12 +195,10 @@ Hooks.once("init", async function() {
   // Clocks in black for clocks embedded in sheets
   Handlebars.registerHelper('blades-clock', function (parameter_name, type, current_value, styleId, uniq_id, is_vehicle_proxy, is_vehicle) {
     let html = '';
-    if (current_value === null || current_value === 'null') {
+    if (current_value === null || current_value === 'null')
       current_value = 0;
-    }
-    if (parseInt(current_value) > parseInt(type)) {
+    if (parseInt(current_value) > parseInt(type))
       current_value = type;
-    }
 
     let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
     let clockStyle = clockStyles[Number(styleId)];
@@ -289,7 +230,6 @@ Hooks.once("init", async function() {
   // check for game settings
   Handlebars.registerHelper('getSetting', function( string ) {
 	  return (game.settings.get('songs-for-the-dusk', string));
-
   });
 });
 
