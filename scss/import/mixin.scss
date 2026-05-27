@@ -20,7 +20,6 @@
  * Toothradio. Some (eg scars) are not changeable, hence the option.
  */
 @mixin toothradio($width, $height, $unchecked_background, $checked_background, $changeable: true) {
-
   display: flex;
 
   label {
@@ -32,10 +31,11 @@
       background-repeat: no-repeat;
       background-size: contain;
       margin-right: 5px;
-  
+
       &:last-of-type {
         margin-right: 0px;
       }
+
       &[for$="-0"] {
         width: auto;
         height: auto;
@@ -58,11 +58,9 @@
 
   /* Hide the browser's default checkbox */
   input {
-  
     display: none;
-  
+
     &:checked {
-  
       & ~ label {
         background-image: url($unchecked_background);
       }
@@ -77,14 +75,12 @@
  * Custom Radio
  */
 @mixin custom_radio($width, $height) {
-
   display: flex;
   $default_color: $almost_white;
   $accent_color: $almost_black;
   $circle_border_color: $almost_black;
 
   label {
-
     & {
       height: $height;
       width: $width;
@@ -112,10 +108,10 @@
     display: none;
 
     &:checked {
-
       & ~ label {
         background-color: $default_color;
       }
+
       & + label {
         // Less opacity here cos otherwise it's barely visible on the dark
         @include changeable(0.1s, 0.7, 0.7);
@@ -129,7 +125,6 @@
  * Custom Radio Squared
  */
 @mixin custom_radio_square($side) {
-
   display: flex;
   $default_color: $almost_white;
   $accent_color: $gold;
@@ -158,6 +153,7 @@
       & ~ label {
         background-color: $default_color;
       }
+
       & + label {
         background-color: $accent_color;
       }
@@ -185,6 +181,7 @@
         & ~ label {
           background-color: $default_color;
         }
+
         & + label {
           background-color: $accent_color;
         }
@@ -220,6 +217,7 @@
       & ~ label {
         background-color: $default_color;
       }
+
       & + label {
         background-color: $accent_color;
       }
@@ -246,7 +244,6 @@
 
     /* Hide the browser's default checkbox */
     input {
-      
       display: none;
 
       &:checked ~ .checkmark {
@@ -265,8 +262,7 @@
 /*
  * Create Clock
  */
-@mixin clock($segments, $size, $default_color:null, $accent_color:null) {
-
+@mixin clock($segments, $size, $shifted:false, $default_color:null, $accent_color:null) {
   $angle: calc(360 / $segments);
   $skew: 90 + $angle;
   $border_width: 3;
@@ -274,7 +270,6 @@
   position: relative;
 
   .blades-clock {
-
     position: relative;
     @if $default_color {
       border: #{$border_width}px solid $almost_black;
@@ -290,11 +285,18 @@
     label {
       overflow: hidden;
       position: absolute;
-      top: -50%;
+      @if $segments > 2 {
+        top: -50%;
+      }
       right: -50%;
       width: 100%;
       height: 100%;
-      transform-origin: 0% 100%;
+      @if $segments == 2 {
+        transform-origin: 0% 50%;
+      }
+      @else if $segments > 2 {
+        transform-origin: 0% 100%;
+      }
       background-color: $accent_color;
 
       @include changeable(0.1s, 0.8, 0.9);
@@ -324,11 +326,25 @@
     }
 
     @for $i from 1 through $segments {
+      $rotate_angle: $angle * ($i - if($shifted, 1.5, 1));
 
-      $rotate_angle: $angle * ($i - 1);
       *:nth-child(#{$i * 2 + 1}) {
-        transform: rotate(#{$rotate_angle}deg) skewY(#{$skew}deg);
+        @if $segments > 2 {
+          transform: rotate(#{$rotate_angle}deg) skewY(#{$skew}deg);
+        }
+        @else if $segments == 2 {
+          transform: rotate(#{$rotate_angle}deg);
+        }
       }
+    }
+
+    img {
+      float: right;
+      width: 100%;
+      height: 100%;
+      margin: 0px;
+      border: 0px;
+      padding: 0px;
     }
   }
 
@@ -444,7 +460,7 @@
       background-repeat: no-repeat;
       background-size: contain;
       margin-right: 5px;
-  
+
       &:last-of-type {
         margin-right: 0px;
       }
@@ -453,9 +469,8 @@
 
   /* Hide the browser's default checkbox */
   input {
-  
     display: none;
-  
+
     &:checked {
       & + label {
         background-image: url($checked_background);
@@ -487,7 +502,7 @@
   /* Hide the browser's default checkbox */
   input {
     display: none;
-  
+
     &:checked {
       & ~ label:not([for$="-0"]) {
         border-color: $circle_border_color;

@@ -27,7 +27,9 @@
 }
 
 .clock-config {
+  margin: 1em 0;
   text-align: center;
+  justify-content: center;
   gap: 1.5em;
 
   .clock-config-group {
@@ -43,13 +45,12 @@
     }
 
     select {
-      width: 100px;
+      &.size {
+        width: 50px;
+      }
+      &.theme-color {
+        width: 150px;
+      }
     }
-  }
-}
-
-.clock-block {
-  .clocks {
-    margin-top: 25px;
   }
 }

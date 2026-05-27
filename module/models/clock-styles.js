@@ -4,16 +4,7 @@ const {
 
 export class ClockStylesData extends foundry.abstract.TypeDataModel {
   static defineSchema() {
-    return {
-      contents: new ArrayField(
-        new ObjectField({
-          name: new StringField({ initial: "style" }),
-          inWorldFolder: new BooleanField({ initial: true }),
-          isColored: new BooleanField({ initial: false }),
-          imageType: new StringField({ initial: "svg" })
-        })
-      )
-    };
+    return { contents: new ObjectField({}) };
   }
 
   /**

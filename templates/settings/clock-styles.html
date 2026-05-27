@@ -1,23 +1,65 @@
 <div class="flex-vertical">
   <p class="hint">{{localize 'SFTD.Settings.ClockStyles.Hint'}}</p>
-  <header class="table-header flexrow">
-    <label class="long text">{{localize 'SFTD.Settings.ClockStyles.NameField'}}</label>
-    <label>{{localize 'SFTD.Settings.ClockStyles.InWorldFolderField'}}</label>
-    <label>{{localize 'SFTD.Settings.ClockStyles.IsColoredField'}}</label>
-    <label class="text">{{localize 'SFTD.Settings.ClockStyles.ImageTypeField'}}</label>
-    <a data-action="addStyle" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Add'}}"><i class="fas fa-plus"></i></a>
-  </header>
-  <ul class="clock-styles-list">
-    {{#each settings.contents as |style id|}}
-    <li class="clock-style form-group">
-      <div class="form-fields">
-        <input type="text" class="long" name="contents.{{id}}.name" value="{{style.name}}">
-        <input type="checkbox" name="contents.{{id}}.inWorldFolder" {{checked style.inWorldFolder}}>
-        <input type="checkbox" name="contents.{{id}}.isColored" {{checked style.isColored}}>
-        <input type="text" name="contents.{{id}}.imageType" value="{{style.imageType}}">
+
+  <div class="theme flex-vertical">
+    {{#each settings as |theme themeName|}}
+    {{#if (and (ne themeName 'dataReason') (ne themeName 'collapsed'))}}
+    <div class="theme-container row-container">
+      <div class="theme-row flex-horizontal">
+        <a data-action="collapse" class="collapse collapse-button"><i class="fas fa-plus-square"></i></a>
+        <label class="folder-name">{{themeName}}</label>
+        <div class="validity">
+          {{#if (eq theme.dataReason '')}}
+          <i class="fas fa-check" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Fine1'}}{{localize 'SFTD.Settings.ClockStyles.Theme'}}{{localize 'SFTD.Settings.ClockStyles.Fine2'}}"></i>
+          {{else}}
+          <i class="fas fa-x" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Error1'}}{{localize 'SFTD.Settings.ClockStyles.Theme'}}{{localize 'SFTD.Settings.ClockStyles.Error2'}}<br/>{{theme.dataReason}}"></i>
+          {{/if}}
+        </div>
       </div>
-      <a {{#if (ne id 0)}}data-action="removeStyle" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Delete'}}"{{else}}data-tooltip="{{localize 'SFTD.Settings.ClockStyles.NoDelete'}}"{{/if}}><i class="fas fa-trash"></i></a>
-    </li>
+      <div class="data-container{{#if (eq theme.collapsed true)}} collapsed{{/if}} flex-vertical" data-theme="{{themeName}}">
+        {{#each theme as |color colorName|}}
+        {{#if (and (ne colorName 'dataReason') (ne colorName 'collapsed'))}}
+        <div class="color-container row-container">
+          <div class="color-row flex-horizontal">
+            <a data-action="collapse" class="collapse collapse-button"><i class="fas fa-plus-square"></i></a>
+            <label class="folder-name">{{colorName}}</label>
+            <div class="validity">
+              {{#if (eq color.dataReason '')}}
+              <i class="fas fa-check" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Fine1'}}{{localize 'SFTD.Settings.ClockStyles.Color'}}{{localize 'SFTD.Settings.ClockStyles.Fine2'}}"></i>
+              {{else}}
+              <i class="fas fa-x" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Error1'}}{{localize 'SFTD.Settings.ClockStyles.Color'}}{{localize 'SFTD.Settings.ClockStyles.Error2'}}<br/>{{color.dataReason}}"></i>
+              {{/if}}
+            </div>
+          </div>
+          <div class="data-container{{#if (eq color.collapsed true)}} collapsed{{/if}} flex-vertical" data-theme="{{themeName}}" data-color="{{colorName}}">
+            {{#each color as |size sizeName|}}
+            {{#if (and (ne sizeName 'dataReason') (ne sizeName 'collapsed'))}}
+            <div class="size-container row-container">
+              <div class="size-row flex-horizontal">
+                <img src="{{#if size.inWorldFolder}}{{../../../worldPath}}{{else}}{{../../../systemPath}}{{/if}}{{themeName}}/{{colorName}}/{{size.baseSprite}}" width="32" height="32">
+                <label class="folder-name">{{sizeName}}</label>
+                <div class="shifted flex-horizontal">
+                  <label>{{{localize 'SFTD.Settings.ClockStyles.IsShifted'}}}</label>
+                  <input type="checkbox" data-theme="{{themeName}}" data-color="{{colorName}}" data-size="{{sizeName}}" name="contents.{{themeName}}.{{colorName}}.{{sizeName}}.shifted"{{#if size.shifted}} checked{{/if}}>
+                </div>
+                <div class="validity">
+                  {{#if (eq size.dataReason '')}}
+                  <i class="fas fa-check" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Fine1'}}{{localize 'SFTD.Settings.ClockStyles.Color'}}{{localize 'SFTD.Settings.ClockStyles.Fine2'}}"></i>
+                  {{else}}
+                  <i class="fas fa-x" data-tooltip="{{localize 'SFTD.Settings.ClockStyles.Error1'}}{{localize 'SFTD.Settings.ClockStyles.Size'}}{{localize 'SFTD.Settings.ClockStyles.Error2'}}<br/>{{size.dataReason}}"></i>
+                  {{/if}}
+                </div>
+              </div>
+            </div>
+            {{/if}}
+            {{/each}}
+          </div>
+        </div>
+        {{/if}}
+        {{/each}}
+      </div>
+    </div>
+    {{/if}}
     {{/each}}
-  </ul>
+  </div>
 </div>

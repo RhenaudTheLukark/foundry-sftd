@@ -419,10 +419,10 @@
   display: flex;
   justify-content: center;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 {
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 200px;
@@ -432,7 +432,541 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 50%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-90deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(90deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 50%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 50%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-90deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(90deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 50%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 50%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-90deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(90deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 50%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -443,33 +977,408 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock *:nth-child(3) {
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-60deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(60deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(180deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(120deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(240deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-60deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(60deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(180deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(120deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(240deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-60deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(60deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(180deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(120deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(240deg) skewY(210deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-45deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(45deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(135deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(225deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock *:nth-child(5) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock *:nth-child(5) {
   transform: rotate(90deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock *:nth-child(7) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock *:nth-child(7) {
   transform: rotate(180deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4 .blades-clock *:nth-child(9) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock *:nth-child(9) {
   transform: rotate(270deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium {
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 150px;
@@ -479,7 +1388,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -490,33 +1399,96 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock *:nth-child(3) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-45deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(45deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(135deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(225deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock *:nth-child(5) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock *:nth-child(5) {
   transform: rotate(90deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock *:nth-child(7) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock *:nth-child(7) {
   transform: rotate(180deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.medium .blades-clock *:nth-child(9) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock *:nth-child(9) {
   transform: rotate(270deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 88px;
@@ -526,7 +1498,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -537,33 +1509,96 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock *:nth-child(3) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-45deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(45deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(135deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(225deg) skewY(180deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock *:nth-child(5) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock *:nth-child(5) {
   transform: rotate(90deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock *:nth-child(7) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock *:nth-child(7) {
   transform: rotate(180deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-4.small .blades-clock *:nth-child(9) {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock *:nth-child(9) {
   transform: rotate(270deg) skewY(180deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 {
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 200px;
@@ -573,7 +1608,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -584,39 +1619,456 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock *:nth-child(3) {
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-36deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(36deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(108deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(180deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(252deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(72deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(144deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(216deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(288deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-36deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(36deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(108deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(180deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(252deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(72deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(144deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(216deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(288deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-36deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(36deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(108deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(180deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(252deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(72deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(144deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(216deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(288deg) skewY(162deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-30deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(30deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(90deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(150deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(210deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(270deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock *:nth-child(5) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock *:nth-child(5) {
   transform: rotate(60deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock *:nth-child(7) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock *:nth-child(7) {
   transform: rotate(120deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock *:nth-child(9) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock *:nth-child(9) {
   transform: rotate(180deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock *:nth-child(11) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock *:nth-child(11) {
   transform: rotate(240deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6 .blades-clock *:nth-child(13) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock *:nth-child(13) {
   transform: rotate(300deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium {
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 150px;
@@ -626,7 +2078,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -637,39 +2089,108 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock *:nth-child(3) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-30deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(30deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(90deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(150deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(210deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(270deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock *:nth-child(5) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock *:nth-child(5) {
   transform: rotate(60deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock *:nth-child(7) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock *:nth-child(7) {
   transform: rotate(120deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock *:nth-child(9) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock *:nth-child(9) {
   transform: rotate(180deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock *:nth-child(11) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock *:nth-child(11) {
   transform: rotate(240deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.medium .blades-clock *:nth-child(13) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock *:nth-child(13) {
   transform: rotate(300deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 88px;
@@ -679,7 +2200,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -690,39 +2211,108 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock *:nth-child(3) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-30deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(30deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(90deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(150deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(210deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(270deg) skewY(150deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock *:nth-child(5) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock *:nth-child(5) {
   transform: rotate(60deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock *:nth-child(7) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock *:nth-child(7) {
   transform: rotate(120deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock *:nth-child(9) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock *:nth-child(9) {
   transform: rotate(180deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock *:nth-child(11) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock *:nth-child(11) {
   transform: rotate(240deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-6.small .blades-clock *:nth-child(13) {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock *:nth-child(13) {
   transform: rotate(300deg) skewY(150deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 {
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 200px;
@@ -732,7 +2322,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -743,163 +2333,50 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(135deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-25.7142857143deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(5) {
-  transform: rotate(45deg) skewY(135deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(25.7142857143deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(7) {
-  transform: rotate(90deg) skewY(135deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(77.1428571429deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(9) {
-  transform: rotate(135deg) skewY(135deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(128.5714285714deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(11) {
-  transform: rotate(180deg) skewY(135deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(180deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(13) {
-  transform: rotate(225deg) skewY(135deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(231.4285714286deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(15) {
-  transform: rotate(270deg) skewY(135deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(282.8571428571deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8 .blades-clock *:nth-child(17) {
-  transform: rotate(315deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium {
-  position: relative;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock {
-  position: relative;
-  padding: 0;
-  width: 150px;
-  height: 150px;
-  border-radius: 50%;
-  list-style: none;
-  overflow: hidden;
-  background-size: cover;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock label {
-  overflow: hidden;
-  position: absolute;
-  top: -50%;
-  right: -50%;
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock img {
+  float: right;
   width: 100%;
   height: 100%;
-  transform-origin: 0% 100%;
-  transition: filter 0.1s;
-  cursor: pointer;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock label:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock input {
-  position: absolute;
-  display: none;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock input[value="0"] {
-  display: none;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(5) {
-  transform: rotate(45deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(7) {
-  transform: rotate(90deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(9) {
-  transform: rotate(135deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(11) {
-  transform: rotate(180deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(13) {
-  transform: rotate(225deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(15) {
-  transform: rotate(270deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.medium .blades-clock *:nth-child(17) {
-  transform: rotate(315deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock {
-  position: relative;
-  padding: 0;
-  width: 88px;
-  height: 88px;
-  border-radius: 50%;
-  list-style: none;
-  overflow: hidden;
-  background-size: cover;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock label {
-  overflow: hidden;
-  position: absolute;
-  top: -50%;
-  right: -50%;
-  width: 100%;
-  height: 100%;
-  transform-origin: 0% 100%;
-  transition: filter 0.1s;
-  cursor: pointer;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock label:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock input {
-  position: absolute;
-  display: none;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock input[value="0"] {
-  display: none;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(5) {
-  transform: rotate(45deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(7) {
-  transform: rotate(90deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(9) {
-  transform: rotate(135deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(11) {
-  transform: rotate(180deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(13) {
-  transform: rotate(225deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(15) {
-  transform: rotate(270deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-8.small .blades-clock *:nth-child(17) {
-  transform: rotate(315deg) skewY(135deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-10 {
-  position: relative;
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock {
   position: relative;
   padding: 0;
   width: 200px;
@@ -909,7 +2386,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -920,51 +2397,50 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(5) {
-  transform: rotate(36deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(51.4285714286deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(7) {
-  transform: rotate(72deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(102.8571428571deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(9) {
-  transform: rotate(108deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(154.2857142857deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(11) {
-  transform: rotate(144deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(205.7142857143deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(13) {
-  transform: rotate(180deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(257.1428571429deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(15) {
-  transform: rotate(216deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(308.5714285714deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(17) {
-  transform: rotate(252deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(19) {
-  transform: rotate(288deg) skewY(126deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-10 .blades-clock *:nth-child(21) {
-  transform: rotate(324deg) skewY(126deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 150px;
@@ -974,7 +2450,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -985,51 +2461,114 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-25.7142857143deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(5) {
-  transform: rotate(36deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(25.7142857143deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(7) {
-  transform: rotate(72deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(77.1428571429deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(9) {
-  transform: rotate(108deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(128.5714285714deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(11) {
-  transform: rotate(144deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(180deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(13) {
-  transform: rotate(180deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(231.4285714286deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(15) {
-  transform: rotate(216deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(282.8571428571deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(17) {
-  transform: rotate(252deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(19) {
-  transform: rotate(288deg) skewY(126deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-10.medium .blades-clock *:nth-child(21) {
-  transform: rotate(324deg) skewY(126deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(51.4285714286deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(102.8571428571deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(154.2857142857deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(205.7142857143deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(257.1428571429deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(308.5714285714deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 88px;
@@ -1039,7 +2578,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -1050,51 +2589,114 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-25.7142857143deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(5) {
-  transform: rotate(36deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(25.7142857143deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(7) {
-  transform: rotate(72deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(77.1428571429deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(9) {
-  transform: rotate(108deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(128.5714285714deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(11) {
-  transform: rotate(144deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(180deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(13) {
-  transform: rotate(180deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(231.4285714286deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(15) {
-  transform: rotate(216deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(282.8571428571deg) skewY(141.4285714286deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(17) {
-  transform: rotate(252deg) skewY(126deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(19) {
-  transform: rotate(288deg) skewY(126deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-10.small .blades-clock *:nth-child(21) {
-  transform: rotate(324deg) skewY(126deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-12 {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(51.4285714286deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(102.8571428571deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(154.2857142857deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(205.7142857143deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(257.1428571429deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(308.5714285714deg) skewY(141.4285714286deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 200px;
@@ -1104,7 +2706,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -1115,57 +2717,120 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-22.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(5) {
-  transform: rotate(30deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(22.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(7) {
-  transform: rotate(60deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(67.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(9) {
-  transform: rotate(90deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(112.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(11) {
-  transform: rotate(120deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(157.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(13) {
-  transform: rotate(150deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(202.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(15) {
-  transform: rotate(180deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(247.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(17) {
-  transform: rotate(210deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(292.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(19) {
-  transform: rotate(240deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(21) {
-  transform: rotate(270deg) skewY(120deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(23) {
-  transform: rotate(300deg) skewY(120deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-12 .blades-clock *:nth-child(25) {
-  transform: rotate(330deg) skewY(120deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium {
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(45deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(90deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(135deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(180deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(225deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(270deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(315deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 150px;
@@ -1175,7 +2840,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -1186,57 +2851,120 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(3) {
-  transform: rotate(0deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-22.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(5) {
-  transform: rotate(30deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(22.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(7) {
-  transform: rotate(60deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(67.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(9) {
-  transform: rotate(90deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(112.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(11) {
-  transform: rotate(120deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(157.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(13) {
-  transform: rotate(150deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(202.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(15) {
-  transform: rotate(180deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(247.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(17) {
-  transform: rotate(210deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(292.5deg) skewY(135deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(19) {
-  transform: rotate(240deg) skewY(120deg);
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(21) {
-  transform: rotate(270deg) skewY(120deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(23) {
-  transform: rotate(300deg) skewY(120deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-12.medium .blades-clock *:nth-child(25) {
-  transform: rotate(330deg) skewY(120deg);
-}
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) {
   position: relative;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(45deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(90deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(135deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(180deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(225deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(270deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(315deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock {
   position: relative;
   padding: 0;
   width: 88px;
@@ -1246,7 +2974,7 @@
   overflow: hidden;
   background-size: cover;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock label {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock label {
   overflow: hidden;
   position: absolute;
   top: -50%;
@@ -1257,52 +2985,1903 @@
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock label:hover {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock input {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock input {
   position: absolute;
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock input[value="0"] {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock input[value="0"] {
   display: none;
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(3) {
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-22.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(22.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(67.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(112.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(157.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(202.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(247.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(292.5deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(45deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(90deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(135deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(180deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(225deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(270deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(315deg) skewY(135deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-20deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(20deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(60deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(100deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(140deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(180deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(220deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(260deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(300deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(40deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(80deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(120deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(160deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(200deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(240deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(280deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(320deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-20deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(20deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(60deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(100deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(140deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(180deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(220deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(260deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(300deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(40deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(80deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(120deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(160deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(200deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(240deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(280deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(320deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-20deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(20deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(60deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(100deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(140deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(180deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(220deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(260deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(300deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(40deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(80deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(120deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(160deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(200deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(240deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(280deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(320deg) skewY(130deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-18deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(18deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(54deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(90deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(126deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(162deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(198deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(234deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(270deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(306deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(36deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(72deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(108deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(144deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(180deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(216deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(252deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(288deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(324deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-18deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(18deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(54deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(90deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(126deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(162deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(198deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(234deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(270deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(306deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(36deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(72deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(108deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(144deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(180deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(216deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(252deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(288deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(324deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-18deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(18deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(54deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(90deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(126deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(162deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(198deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(234deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(270deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(306deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(36deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(72deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(108deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(144deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(180deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(216deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(252deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(288deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(324deg) skewY(126deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-16.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(16.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(49.0909090909deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(81.8181818182deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(114.5454545455deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(147.2727272727deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(180deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(212.7272727273deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(245.4545454545deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(278.1818181818deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock *:nth-child(23) {
+  transform: rotate(310.9090909091deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(32.7272727273deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(65.4545454545deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(98.1818181818deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(130.9090909091deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(163.6363636364deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(196.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(229.0909090909deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(261.8181818182deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(294.5454545455deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock *:nth-child(23) {
+  transform: rotate(327.2727272727deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-16.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(16.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(49.0909090909deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(81.8181818182deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(114.5454545455deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(147.2727272727deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(180deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(212.7272727273deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(245.4545454545deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(278.1818181818deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock *:nth-child(23) {
+  transform: rotate(310.9090909091deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(32.7272727273deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(65.4545454545deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(98.1818181818deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(130.9090909091deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(163.6363636364deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(196.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(229.0909090909deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(261.8181818182deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(294.5454545455deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock *:nth-child(23) {
+  transform: rotate(327.2727272727deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-16.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(16.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(49.0909090909deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(81.8181818182deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(114.5454545455deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(147.2727272727deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(180deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(212.7272727273deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(245.4545454545deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(278.1818181818deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock *:nth-child(23) {
+  transform: rotate(310.9090909091deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(32.7272727273deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(65.4545454545deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(98.1818181818deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(130.9090909091deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(163.6363636364deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(196.3636363636deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(229.0909090909deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(261.8181818182deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(294.5454545455deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock *:nth-child(23) {
+  transform: rotate(327.2727272727deg) skewY(122.7272727273deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-15deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(15deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(45deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(75deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(105deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(135deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(165deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(195deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(225deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(255deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(23) {
+  transform: rotate(285deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock *:nth-child(25) {
+  transform: rotate(315deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 200px;
+  height: 200px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(3) {
   transform: rotate(0deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(5) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(5) {
   transform: rotate(30deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(7) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(7) {
   transform: rotate(60deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(9) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(9) {
   transform: rotate(90deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(11) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(11) {
   transform: rotate(120deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(13) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(13) {
   transform: rotate(150deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(15) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(15) {
   transform: rotate(180deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(17) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(17) {
   transform: rotate(210deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(19) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(19) {
   transform: rotate(240deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(21) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(21) {
   transform: rotate(270deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(23) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(23) {
   transform: rotate(300deg) skewY(120deg);
 }
-.songs-for-the-dusk .clock-block .clocks.clocks-12.small .blades-clock *:nth-child(25) {
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock *:nth-child(25) {
   transform: rotate(330deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-15deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(15deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(45deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(75deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(105deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(135deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(165deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(195deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(225deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(255deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(23) {
+  transform: rotate(285deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock *:nth-child(25) {
+  transform: rotate(315deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(30deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(60deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(90deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(120deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(150deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(180deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(210deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(240deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(270deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(23) {
+  transform: rotate(300deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock *:nth-child(25) {
+  transform: rotate(330deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(3) {
+  transform: rotate(-15deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(5) {
+  transform: rotate(15deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(7) {
+  transform: rotate(45deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(9) {
+  transform: rotate(75deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(11) {
+  transform: rotate(105deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(13) {
+  transform: rotate(135deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(15) {
+  transform: rotate(165deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(17) {
+  transform: rotate(195deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(19) {
+  transform: rotate(225deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(21) {
+  transform: rotate(255deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(23) {
+  transform: rotate(285deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock *:nth-child(25) {
+  transform: rotate(315deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) {
+  position: relative;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock {
+  position: relative;
+  padding: 0;
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  list-style: none;
+  overflow: hidden;
+  background-size: cover;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock label {
+  overflow: hidden;
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 100%;
+  height: 100%;
+  transform-origin: 0% 100%;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock input {
+  position: absolute;
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock input[value="0"] {
+  display: none;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(3) {
+  transform: rotate(0deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(5) {
+  transform: rotate(30deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(7) {
+  transform: rotate(60deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(9) {
+  transform: rotate(90deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(11) {
+  transform: rotate(120deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(13) {
+  transform: rotate(150deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(15) {
+  transform: rotate(180deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(17) {
+  transform: rotate(210deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(19) {
+  transform: rotate(240deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(21) {
+  transform: rotate(270deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(23) {
+  transform: rotate(300deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock *:nth-child(25) {
+  transform: rotate(330deg) skewY(120deg);
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock img {
+  float: right;
+  width: 100%;
+  height: 100%;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
 }
 .songs-for-the-dusk .blades-clock-name-type > * {
   margin-bottom: 10px;
@@ -1511,7 +5090,10 @@
 .songs-for-the-dusk.actor.sheet .status-block .supply label.enabled {
   background-color: #008000;
 }
-.songs-for-the-dusk.actor.sheet .tabs > a {
+.songs-for-the-dusk.actor.sheet .tabs {
+  justify-content: space-around;
+}
+.songs-for-the-dusk.actor.sheet .tabs a {
   font-family: "Kirsty", serif;
 }
 .songs-for-the-dusk.actor.sheet .tab-content .tab {
@@ -1785,7 +5367,7 @@
 }
 .songs-for-the-dusk.actor.sheet.crew .class-name {
   width: 512px;
-  height: 120px;
+  min-height: 120px;
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -2237,7 +5819,9 @@
   border: 1px solid rgb(25, 24, 19);
 }
 .songs-for-the-dusk.actor.sheet.clock .clock-config {
+  margin: 1em 0;
   text-align: center;
+  justify-content: center;
   gap: 1.5em;
 }
 .songs-for-the-dusk.actor.sheet.clock .clock-config .clock-config-group {
@@ -2250,11 +5834,11 @@
 .songs-for-the-dusk.actor.sheet.clock .clock-config .clock-config-group label {
   margin-right: 3px;
 }
-.songs-for-the-dusk.actor.sheet.clock .clock-config .clock-config-group select {
-  width: 100px;
+.songs-for-the-dusk.actor.sheet.clock .clock-config .clock-config-group select.size {
+  width: 50px;
 }
-.songs-for-the-dusk.actor.sheet.clock .clock-block .clocks {
-  margin-top: 25px;
+.songs-for-the-dusk.actor.sheet.clock .clock-config .clock-config-group select.theme-color {
+  width: 150px;
 }
 .songs-for-the-dusk.item.sheet .item {
   justify-content: space-between;
@@ -2280,53 +5864,362 @@
   margin-bottom: 10px;
 }
 
+.settings.clock-styles .rollable-text {
+  transition: color 0.2s;
+}
+.settings.clock-styles .rollable-text:hover {
+  cursor: pointer;
+  color: red;
+}
+.settings.clock-styles nav {
+  margin-bottom: 10px;
+}
+.settings.clock-styles td {
+  padding: 5px !important;
+}
+.settings.clock-styles header {
+  margin-bottom: 10px;
+}
+.settings.clock-styles {
+  /* ul {
+    list-style: none;
+  } */
+}
+.settings.clock-styles section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.settings.clock-styles section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe) {
+  margin-right: 10px;
+}
+.settings.clock-styles section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe):last-child {
+  margin-right: 0px;
+}
+.settings.clock-styles section .grow-one {
+  flex-grow: 1;
+}
+.settings.clock-styles section .grow-two {
+  flex-grow: 2;
+}
+.settings.clock-styles section.experience {
+  margin-bottom: 0px;
+  justify-content: center;
+}
+.settings.clock-styles .editor,
+.settings.clock-styles .editor-content {
+  min-height: 150px;
+}
+.settings.clock-styles .flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.settings.clock-styles .flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+.settings.clock-styles .tab[data-tab] {
+  display: none;
+}
+.settings.clock-styles .tab[data-tab].active {
+  display: block;
+}
+.settings.clock-styles .black-white-header {
+  background-color: #191813;
+  color: #EEEFFF;
+  text-align: center;
+  width: 100%;
+}
+.settings.clock-styles .black-white-header:is(div) {
+  padding: 0.25em;
+  font-weight: bold;
+  text-align: center;
+}
+.settings.clock-styles .wide-black-label {
+  background-color: #191813;
+  color: #EEEFFF;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  width: 100%;
+  height: 30px !important;
+  text-transform: capitalize;
+  font-family: "Kirsty", serif;
+}
+.settings.clock-styles .wide-black-label i {
+  font-size: 18px;
+}
+.settings.clock-styles .black-label {
+  background-color: #191813;
+  color: #EEEFFF;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  height: 30px !important;
+  text-transform: capitalize;
+  font-family: "Kirsty", serif;
+}
+.settings.clock-styles .gray-label {
+  background-color: #999;
+  color: #191813;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  height: 30px !important;
+  text-transform: capitalize;
+  font-family: "Kirsty", serif;
+}
+.settings.clock-styles .label-stripe {
+  text-transform: uppercase;
+  background-color: #191813;
+  color: #EEEFFF;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  font-weight: bold;
+}
+.settings.clock-styles .label-stripe .dropdown option {
+  background-color: #191813;
+  color: #EEEFFF;
+}
+.settings.clock-styles .label-stripe-gray {
+  text-transform: uppercase;
+  background-color: #666;
+  color: #EEEFFF;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  font-weight: bold;
+}
+.settings.clock-styles .label-stripe-gray .dropdown option {
+  background-color: #666;
+  color: #EEEFFF;
+}
+.settings.clock-styles .description {
+  font-style: italic;
+}
+.settings.clock-styles .grouped-radio-list {
+  display: flex;
+  gap: 5px;
+}
+.settings.clock-styles .effects-list {
+  margin: 0 0;
+}
+.settings.clock-styles i.nullifier {
+  display: none;
+  transition: filter 0.2s;
+  cursor: pointer;
+}
+.settings.clock-styles i.nullifier:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+  color: red;
+}
+.settings.clock-styles .half {
+  flex: 1;
+}
+.settings.clock-styles .attributes {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  min-width: 180px;
+}
+.settings.clock-styles .attributes .stripe {
+  background-color: #191813;
+  color: #EEEFFF;
+  font-size: 17px;
+  padding-left: 5px;
+}
+.settings.clock-styles .attributes .attribute {
+  margin-bottom: 5px;
+}
+.settings.clock-styles .attributes .attribute .attribute-label,
+.settings.clock-styles .attributes .attribute .attribute-action-label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.settings.clock-styles .attributes .attribute .attribute-action-label {
+  letter-spacing: 1px;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp {
+  position: relative;
+  margin-bottom: 10px;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body {
+  display: flex;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body label {
+  height: 30px;
+  width: 10px;
+  background-image: url("assets/teeth/xptooth-red.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body label:last-of-type {
+  margin-right: 0px;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body label[for$="-0"] {
+  width: auto;
+  height: auto;
+  background-image: none !important;
+  color: #EEEFFF;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body label[for$="-0"] i {
+  margin-top: 4px;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body {
+  /* Hide the browser's default checkbox */
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body input {
+  display: none;
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body input:checked ~ label {
+  background-image: url("assets/teeth/xptooth-white.png");
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body input:checked + label {
+  background-image: url("assets/teeth/xptooth-red.png");
+}
+.settings.clock-styles .attributes .attribute .attributes-exp .stripe-tooth-body {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.settings.clock-styles .attributes .attribute .attributes-container {
+  display: flex;
+}
+.settings.clock-styles .attributes .attribute .attributes-container label {
+  height: 15px;
+  width: 15px;
+  background-color: #191813;
+  vertical-align: middle;
+  border: 2px solid #191813;
+  border-radius: 24px;
+}
+.settings.clock-styles .attributes .attribute .attributes-container label[for$="-0"] {
+  height: 5px;
+  width: 5px;
+  border-radius: 24px;
+  background-image: none !important;
+  background-color: red !important;
+  margin-right: 0px;
+}
+.settings.clock-styles .attributes .attribute .attributes-container label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.settings.clock-styles .attributes .attribute .attributes-container label:hover {
+  filter: brightness(0.7);
+  opacity: 0.7;
+}
+.settings.clock-styles .attributes .attribute .attributes-container {
+  /* Hide the browser's default checkbox */
+}
+.settings.clock-styles .attributes .attribute .attributes-container input {
+  display: none;
+}
+.settings.clock-styles .attributes .attribute .attributes-container input:checked ~ label {
+  background-color: #EEEFFF;
+}
+.settings.clock-styles .attributes .attribute .attributes-container input:checked + label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.settings.clock-styles .attributes .attribute .attributes-container input:checked + label:hover {
+  filter: brightness(0.7);
+  opacity: 0.7;
+}
+.settings.clock-styles .attributes .attribute .attributes-container input:checked + label {
+  background-color: #191813;
+}
+.settings.clock-styles .attributes .attribute .attributes-container {
+  margin: 3px 0px;
+}
+.settings.clock-styles .attributes .attribute .attributes-container * {
+  margin-right: 5px;
+}
+.settings.clock-styles .extra-content {
+  border-top: 2px solid black;
+  margin-top: 1em;
+}
+.settings.clock-styles .extra-content > *:first-child {
+  margin-top: 1em;
+}
+.settings.clock-styles .extra-content input[type=checkbox] {
+  margin-right: 0px;
+}
+.settings.clock-styles .d20-svg {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.settings.clock-styles .d20-svg:hover {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+.settings.clock-styles .collapse {
+  align-items: center;
+  justify-items: center;
+}
+.settings.clock-styles .collapse .fas:before {
+  font-size: 24px;
+}
+.settings.clock-styles .collapsed {
+  display: none;
+}
 .settings.clock-styles p {
   padding-bottom: 1em;
 }
-.settings.clock-styles header.table-header {
-  background: var(--table-header-bg-color);
-  color: var(--table-header-text-color);
-  border: 1px solid var(--table-header-border-color);
-  font-weight: bold;
+.settings.clock-styles .window-content {
+  overflow-y: auto;
 }
-.settings.clock-styles header.table-header a {
-  padding-left: 0.5em;
-}
-.settings.clock-styles .clock-styles-list {
-  padding: 0;
-}
-.settings.clock-styles .clock-styles-list .form-group .form-fields {
-  justify-content: space-between;
-}
-.settings.clock-styles header.table-header, .settings.clock-styles .clock-style {
-  padding: 0.5rem;
-  text-align: center;
+.settings.clock-styles .window-content .theme .theme-row, .settings.clock-styles .window-content .theme .color-row, .settings.clock-styles .window-content .theme .size-row {
+  width: 100%;
+  height: 32px;
+  gap: 10px;
   align-items: center;
 }
-.settings.clock-styles header.table-header label.text, .settings.clock-styles .clock-style label.text {
-  min-width: 120px;
-  max-width: 120px;
-  width: 120px;
+.settings.clock-styles .window-content .theme .theme-row .folder-name, .settings.clock-styles .window-content .theme .color-row .folder-name, .settings.clock-styles .window-content .theme .size-row .folder-name {
+  width: 100%;
 }
-.settings.clock-styles header.table-header label.text.long, .settings.clock-styles .clock-style label.text.long {
-  min-width: 300px;
-  max-width: 300px;
-  width: 300px;
+.settings.clock-styles .window-content .theme .theme-row img, .settings.clock-styles .window-content .theme .color-row img, .settings.clock-styles .window-content .theme .size-row img {
+  background-color: #EEEFFF;
 }
-.settings.clock-styles header.table-header input[type=text], .settings.clock-styles .clock-style input[type=text] {
-  min-width: calc(120px - 1em);
-  max-width: calc(120px - 1em);
-  width: calc(120px - 1em);
+.settings.clock-styles .window-content .theme .data-container {
+  margin-left: 32px;
 }
-.settings.clock-styles header.table-header input[type=text].long, .settings.clock-styles .clock-style input[type=text].long {
-  min-width: calc(300px - 1em);
-  max-width: calc(300px - 1em);
-  width: calc(300px - 1em);
+.settings.clock-styles .window-content .theme .shifted {
+  align-items: center;
+  white-space: nowrap;
 }
-.settings.clock-styles header.table-header a, .settings.clock-styles .clock-style a {
-  min-width: 17.5px;
-  max-width: 17.5px;
-  width: 17.5px;
+.settings.clock-styles .window-content .theme .fas.fa-plus-square, .settings.clock-styles .window-content .theme .fas.fa-minus-square {
+  font-size: 24px;
+}
+.settings.clock-styles .window-content .theme .fas.fa-check {
+  color: #12a012;
+  font-size: 24px;
+}
+.settings.clock-styles .window-content .theme .fas.fa-x {
+  color: red;
+  font-size: 24px;
 }
 
 .application.dialog .window-content {

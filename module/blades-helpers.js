@@ -33,13 +33,11 @@ export class BladesHelpers {
     return output;
   }
 
-  static getClockStyleFolderPath(clockStyle, game) {
-    let path = 'systems/beamsaber/themes/';
-    if (clockStyle === undefined)
-      throw new Error('Clock style does not exist');
+  static getClockSpritePath(clockStyle) {
+    let path = 'systems/songs-for-the-dusk/themes/';
     if (clockStyle.inWorldFolder)
       path = `worlds/${game.world.id}/themes/`;
-    return path + clockStyle.name;
+    return path + `${clockStyle.theme}/${clockStyle.color}/`;
   }
 
   /**
@@ -246,7 +244,7 @@ export class BladesHelpers {
 
     // Get the last enabled element
     let enabledLabels = Object.values(target.parentElement.children).filter(e => e.classList.contains('enabled'));
-    if (enabledLabels[enabledLabels.length-1] == label || (event.type == 'contextmenu')) {
+    if (enabledLabels[enabledLabels.length-1] == label || target.checked || (event.type == 'contextmenu')) {
       // Find the next lowest-value input with the same name
       let name = target.name;
       if (!name) name = target.dataset.name;
@@ -254,8 +252,8 @@ export class BladesHelpers {
       if (!value) value = target.dataset.value;
       value = parseInt(value);
       value = value + (value < 0 ? 1 : -1);
-      let prevEl = target.parentElement.querySelector(`[name='${name}'][value='${value}']`);
-      prevEl.trigger('click');
+      let prevEl = target.parentElement.querySelector(`[name='${name}'][value='${value}'], [name="${name}"][value="${value}"]`);
+      $(prevEl).trigger('click');
     } else {
       //trigger the click on this one
       $(target).trigger('click');
@@ -581,6 +579,106 @@ export class BladesHelpers {
     if (!html) return "";
     let doc = new DOMParser().parseFromString(html, "text/html");
     return doc.body.textContent || "";
+  }
+
+  /* -------------------------------------------- */
+
+  static handleClockImageError(ev) {
+    let element = ev.currentTarget;
+    element.src = 'systems/songs-for-the-dusk/themes/cross.png';
+    element.parentElement.dataset.tooltip = game.i18n.format('SFTD.log.warn.NoClockImage', {
+      theme: element.dataset.theme,
+      color: element.dataset.color,
+      size: element.dataset.size,
+      fill: element.dataset.fill
+    })
+  }
+
+  /* -------------------------------------------- */
+
+  static clockStyles = {};
+
+  static async loadAllClockStyles() {
+    BladesHelpers.clockStyles = {};
+    let clockStylesShifts = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
+
+    const firstClockRegex = new RegExp('(?<size>[0-9]+)clock_0.(?<extension>.*)');
+    const themeContainerFolders = [`worlds/${game.world.id}/themes`, 'systems/songs-for-the-dusk/themes'];
+    for (const themeContainerFolder of themeContainerFolders) {
+      let themeFolders;
+      try {
+        themeFolders = await foundry.applications.apps.FilePicker.browse('data', themeContainerFolder).then(f => f.dirs);
+      } catch {
+        // No themes folder, skip
+        continue;
+      }
+
+      for (const themeFolder of themeFolders) {
+        const theme = themeFolder.split('/').pop();
+        const colorFolders = await foundry.applications.apps.FilePicker.browse('data', themeFolder).then(f => f.dirs);
+        if (!BladesHelpers.clockStyles[theme])
+          BladesHelpers.clockStyles[theme] = {};
+
+        for (const colorFolder of colorFolders) {
+          const color = colorFolder.split('/').pop();
+          const filePaths = await foundry.applications.apps.FilePicker.browse('data', colorFolder).then(f => f.files);
+          if (!BladesHelpers.clockStyles[theme][color])
+            BladesHelpers.clockStyles[theme][color] = {};
+
+          for (const fileData of filePaths.map(f => firstClockRegex.exec(f.split('/').pop())).filter(f => f != null)) {
+            const fileName = fileData.input;
+            const clockData = {
+              theme: theme,
+              color: color,
+              size: fileData.groups.size,
+              extension: fileData.groups.extension,
+              inWorldFolder: themeFolder.startsWith('worlds/'),
+              baseSprite: fileName,
+              shifted: clockStylesShifts?.[theme]?.[color]?.[fileData.groups.size]?.shifted ?? false
+            };
+
+            let clockImages = {'0': {file: fileName}};
+            const clockRegex = new RegExp(`${fileData.groups.size}clock_(?<state>[1-9][0-9]*).${fileData.groups.extension}`);
+            const looseClockRegex = new RegExp(`${fileData.groups.size}clock_(?<state>[1-9][0-9]*).(?<extension>.*)`);
+            for (let clockFileData of filePaths.map(f => clockRegex.exec(f.split('/').pop())).filter(f => f != null))
+              if (clockFileData.index == 0)
+                clockImages[clockFileData.groups.state] = {file: clockFileData.input};
+            for (let clockFileData of filePaths.map(f => looseClockRegex.exec(f.split('/').pop())).filter(f => f != null))
+              if (!clockImages[clockFileData.groups.state])
+                if (clockFileData.index == 0)
+                  clockImages[clockFileData.groups.state] = {file: clockFileData.input, dataReason: 'SFTD.Settings.ClockStyles.WrongExtension'};
+
+            let reasons = [];
+            for (let clockState of Array(Number(fileData.groups.size) + 1).fill().map((_, i) => String(i))) {
+              const clockStateData = clockImages[clockState];
+              if (!clockStateData)
+                reasons.push(game.i18n.format('SFTD.Settings.ClockStyles.MissingClockState', {fill: clockState}));
+              else if (clockStateData.dataReason == 'SFTD.Settings.ClockStyles.WrongExtension')
+                reasons.push(game.i18n.format(clockStateData.dataReason, {fill: clockState, bad: clockStateData.file.split('.', 2).pop(), good: clockData.extension}));
+              else if (clockStateData.dataReason)
+                reasons.push(game.i18n.location(clockStateData.dataReason));
+            }
+            clockData.dataReason = reasons.join('<br/>');
+            BladesHelpers.clockStyles[theme][color][fileData.groups.size] = clockData;
+          }
+          BladesHelpers.clockStyles[theme][color].dataReason = Object.entries(BladesHelpers.clockStyles[theme][color])
+            .filter(s => s[0] != 'dataReason' && s[1].dataReason != '')
+            .map(s => `${(s[1].dataReason ?? '')
+              .split('<br/>')
+              .map(s2 => `${game.i18n.localize('SFTD.Settings.ClockStyles.Size')} ${s[0]}: ${s2}`)
+              .join('<br/>')}`)
+            .join('<br/>');
+        }
+        BladesHelpers.clockStyles[theme].dataReason = Object.entries(BladesHelpers.clockStyles[theme])
+          .filter(c => c[0] != 'dataReason' && c[1].dataReason != '')
+          .map(c => `${(c[1].dataReason ?? '')
+            .split('<br/>')
+            .map(c2 => `${game.i18n.localize('SFTD.Settings.ClockStyles.Color')} ${c[0]}, ${c2}`)
+            .join('<br/>')}`)
+          .join('<br/>');
+      }
+    }
+    BladesHelpers.clockStyles;
   }
 
   /* -------------------------------------------- */

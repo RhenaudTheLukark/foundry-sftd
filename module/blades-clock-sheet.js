@@ -1,4 +1,5 @@
 
+import { BladesHelpers } from "./blades-helpers.js";
 import { BladesSheet } from "./blades-sheet.js";
 
 /**
@@ -26,32 +27,34 @@ export class BladesClockSheet extends BladesSheet {
     sheetData.owner = superData.owner;
     sheetData.editable = superData.editable;
     sheetData.isGM = game.user.isGM;
-	sheetData.sizeDropdown = {
-		"4": "4",
-		"6": "6",
-		"8": "8",
-		"10": "10",
-		"12": "12",
-	};
-	sheetData.colorDropdown = {
-		"black": "SFTD.Colors.Black",
-		"blue": "SFTD.Colors.Blue",
-		"green": "SFTD.Colors.Green",
-		"grey": "SFTD.Colors.Grey",
-		"red": "SFTD.Colors.Red",
-		"white": "SFTD.Colors.White",
-		"yellow": "SFTD.Colors.Yellow"
-	};
 
-    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles");
-    sheetData.styleDropdown = {}
-    for (let [index, style] of Object.entries(clockStyles.contents)) {
-      sheetData.styleDropdown[Number(index)] = style.name;
-    }
+    let themeColor = sheetData.system.theme_color.split('/');
+    let clockStyles = BladesHelpers.clockStyles;
 
-    let clockStyle = clockStyles.contents[sheetData.system.styleId];
-    sheetData.isColored = clockStyle.isColored;
-    sheetData.styleName = clockStyle.name;
+    sheetData.themeColorDropdown = {};
+    for (let [themeName, theme] of Object.entries(clockStyles))
+      if (themeName != 'dataReason')
+        for (let [colorName, color] of Object.entries(theme))
+          if (colorName != 'dataReason')
+            sheetData.themeColorDropdown[`${themeName}/${colorName}`] = `${themeName}/${colorName}`;
+
+    sheetData.sizeDropdown = {};
+    let addedCurrentSize = false;
+    for (let [sizeName, size] of Object.entries(clockStyles[themeColor[0]][themeColor[1]]))
+      if (sizeName != 'dataReason') {
+        if (!addedCurrentSize) {
+          if (sizeName == sheetData.system.size)
+            addedCurrentSize = true;
+          else if (sizeName < sheetData.system.size) {
+            sheetData.sizeDropdown[sheetData.system.size] = sheetData.system.size;
+            addedCurrentSize = true;
+          }
+        }
+        sheetData.sizeDropdown[sizeName] = sizeName;
+      }
+
+    sheetData.system.theme = themeColor[0];
+    sheetData.system.color = themeColor[1];
 
     return sheetData;
   }
@@ -59,21 +62,28 @@ export class BladesClockSheet extends BladesSheet {
   /* -------------------------------------------- */
   /** @override */
   async _updateObject(event, formData) {
-    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles");
-    let clockStyle = clockStyles.contents[Number(formData['system.styleId'])];
-    if (clockStyle === undefined) {
-      formData['system.styleId'] = 0;
+    let clockStyles = BladesHelpers.clockStyles;
+    let themeColor = formData['system.theme_color'].split('/');
+    let clockColor = clockStyles?.[themeColor[0]]?.[themeColor[1]];
+    if (clockColor === undefined) {
+      formData['system.theme_color'] = 'default/black';
       this._updateObject(event, formData);
       return;
     }
 
-    if (!clockStyle.isColored || formData['system.color'] === undefined)
-      formData['system.color'] = "black";
+    if (formData['system.value'] > formData['system.size'])
+      formData['system.value'] = formData['system.size'];
 
-    let clockStylePath = BladesHelpers.getClockStyleFolderPath(clockStyle, game);
-    let imagePath = `${clockStylePath}/${formData['system.color']}/${formData['system.type']}clock_${formData['system.value']}.${clockStyle.imageType}`;
+    let clockData = clockColor[formData['system.size']];
+    let imagePath;
+    if (!clockData)
+      imagePath = 'systems/songs-for-the-dusk/themes/error.png';
+    else
+      imagePath = `${BladesHelpers.getClockSpritePath(clockData)}${formData['system.size']}clock_${formData['system.value']}.${clockData.extension}`;
+
     formData['img'] = imagePath;
     formData['prototypeToken.texture.src'] = imagePath;
+
     let data = [];
     let update = { "texture.src": imagePath };
 

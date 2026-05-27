@@ -210,9 +210,9 @@
     },
     "\uD83D\uDD5B clock": {
       "name": "",
-      "type": 4,
+      "size": 4,
       "value": 0,
-      "styleId": 0,
+      "theme_color": "default/black",
       "owner": ""
     },
     "factions": {

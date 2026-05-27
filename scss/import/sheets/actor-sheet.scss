@@ -128,8 +128,12 @@ ul {
   }
 }
 
-.tabs > a {
-  font-family: "Kirsty", serif;
+.tabs {
+  justify-content: space-around;
+
+  a {
+    font-family: "Kirsty", serif;
+  }
 }
 
 .tab-content {

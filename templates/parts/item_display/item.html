@@ -16,7 +16,7 @@
       <div class="supply uses">
         {{#multiboxes item.system.uses.value}}
         {{#times_from 0 item.system.uses.max}}
-        <input id="{{../actor.type}}-{{../actor._id}}-loadout-uses-{{../id}}-{{this}}" type="radio" name="item.system.uses.value" value="{{this}}">
+        <input id="{{../actor.type}}-{{../actor._id}}-loadout-uses-{{../id}}-{{this}}" type="radio" data-dType="Number" name="item.system.uses.value" value="{{this}}">
         <label class="radio-toggle{{#if (lteq this ../item.system.uses.value)}} enabled{{/if}}"></label>
         {{/times_from}}
         {{/multiboxes}}

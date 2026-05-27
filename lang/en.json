@@ -112,6 +112,7 @@
     "Beliefs": "Beliefs",
     "Projects": "Projects",
     "Specialists": "Specialists",
+    "Relationships": "Relationships",
     "Hold": "Hold",
     "Weak": "Weak",
     "Strong": "Strong",
@@ -385,18 +386,30 @@
       "ClockStyles": {
         "Name": "Clock Styles",
         "Label": "Set Clock Styles...",
-        "Hint": "List of all known clock styles to be used.\nSystem clock styles are stored in your Foundry folder's systems/beamsaber/themes folder.\nWorld clock styles are stored in your Foundry folder's worlds/<YourWorld>/themes folder.",
+        "Hint": "List of all detected clock styles that can be used.\nSystem clock styles are stored in your Foundry folder's systems/songs-for-the-dusk/themes folder.\nWorld clock styles are stored in your Foundry folder's worlds/<YourWorld>/themes folder.",
         "NameField": "Folder Name",
         "InWorldFolderField": "In World Folder?",
         "IsColoredField": "Is Colored?",
         "ImageTypeField": "Image Type",
         "Add": "Add New Clock Style",
         "Delete": "Delete Clock Style",
-        "NoDelete": "Cannot delete the first clock style."
+        "NoDelete": "Cannot delete the first clock style.",
+        "Fine1": "All of the clocks sprites in this ",
+        "Fine2": " are valid and fine to use",
+        "Error1": "Some clocks sprites in this ",
+        "Error2": " are invalid:",
+        "Theme": "theme",
+        "Color": "color",
+        "Size": "size",
+        "IsShifted": "Is Shifted? <i class=\"fas fa-question-circle\" data-tooltip=\"Allows tick hitboxes to better match a clock's graphics. If the clock's first tick is centered at the top of the clock, enable this.\"></i>",
+        "WrongExtension": "Wrong file extension for fill {fill} (found .{bad}, looking for .{good})",
+        "MissingClockState": "Missing clock sprite for fill {fill}",
+        "ReloadClocks": "Reload Clocks",
+        "Close": "Close"
       },
-      "DefaultClockStyle": {
-        "Name": "Default Clock Style",
-        "Hint": "Clock style used by default in sheets."
+      "DefaultClockThemeColor": {
+        "Name": "Default Clock Style & Color",
+        "Hint": "Clock style and color used by default in sheets."
       }
     },
     "log": {
@@ -411,7 +424,8 @@
         "NoAddFromSuppressedContainer": "Items cannot be added to a disabled container.",
         "NoCrewToAddConnection": "The Strider needs a Crew in order to display a list of connections to add!",
         "NothingToAdd": "There is no available object that can be added to this actor.",
-        "TriedRemovingInvestedCache": "You cannot remove a cache that has already been invested."
+        "TriedRemovingInvestedCache": "You cannot remove a cache that has already been invested.",
+        "NoClockImage": "There is no existing clock image for the theme {theme}, color {color}, size {size} and fill {fill}."
       }
     }
   }

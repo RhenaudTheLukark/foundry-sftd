@@ -55,6 +55,7 @@ $hover-brightness: 0.8;
 
 .settings {
   &.clock-styles {
+    @import 'import/general-styles.scss';
     @import 'import/settings/clock-styles.scss';
   }
 }

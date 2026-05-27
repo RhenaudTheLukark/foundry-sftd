@@ -4,8 +4,9 @@
   "description": "Songs For The Dusk game system.",
   "version": "0.0.1",
   "compatibility": {
-    "minimum": 11,
-    "verified": "14.359"
+    "minimum": 13,
+    "verified": "13.351",
+    "maximum": 14
   },
   "background": "systems/songs-for-the-dusk/images/BITD_title.webp",
   "url": "https://github.com/RhenaudTheLukark/foundry-sftd/",

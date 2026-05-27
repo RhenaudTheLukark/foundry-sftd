@@ -1,5 +1,6 @@
 import { ClockStylesData } from "./models/clock-styles.js";
 import { ClockStylesSettings } from "./settings/clock-styles.js"
+import { BladesHelpers } from "./blades-helpers.js";
 
 export const registerSystemSettings = function() {
   /**
@@ -22,21 +23,23 @@ export const registerSystemSettings = function() {
     restricted: true
   });
 
-  game.settings.register('songs-for-the-dusk', 'DefaultClockStyle', {
-    name: game.i18n.localize('SFTD.Settings.DefaultClockStyle.Name'),
-    hint: game.i18n.localize('SFTD.Settings.DefaultClockStyle.Hint'),
+  game.settings.register('songs-for-the-dusk', 'DefaultClockThemeColor', {
+    name: game.i18n.localize('SFTD.Settings.DefaultClockThemeColor.Name'),
+    hint: game.i18n.localize('SFTD.Settings.DefaultClockThemeColor.Hint'),
     scope: 'world',
     config: true,
     requiresReload: true,
     type: String,
     choices: () => {
-      let styles = {};
-      for (let [index, style] of Object.entries(game.settings.get('songs-for-the-dusk', 'ClockStyles').contents)) {
-        styles[Number(index)] = style.name;
-      }
-      return styles;
+      let themes = {};
+      for (let [themeName, theme] of Object.entries(BladesHelpers.clockStyles))
+        if (themeName != 'dataReason')
+          for (let [colorName, color] of Object.entries(theme))
+            if (colorName != 'dataReason')
+              themes[`${themeName}/${colorName}`] = `${themeName}/${colorName}`;
+      return themes;
     },
-    default: 0
+    default: 'default/black'
   });
 
   game.settings.register('songs-for-the-dusk', 'ActionRoll', {
@@ -89,11 +92,7 @@ export const registerSystemSettings = function() {
     name: game.i18n.localize('SFTD.Settings.ClockStyles.Name'),
     hint: game.i18n.localize('SFTD.Settings.ClockStyles.Hint'),
     config: false,
-    default: {
-      contents: [
-        { name: "default", inWorldFolder: false, isColored: true, imageType: "svg" }
-      ]
-    },
+    default: {},
     scope: 'world',
     type: ClockStylesData,
     requiresReload: true

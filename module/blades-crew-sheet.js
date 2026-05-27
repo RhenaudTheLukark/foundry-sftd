@@ -51,7 +51,9 @@ export class BladesCrewSheet extends BladesSheet {
 
     sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
 
-    sheetData.defaultClockStyle = game.settings.get('songs-for-the-dusk', 'DefaultClockStyle');
+    const defaultThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor').split('/');
+    sheetData.defaultClockTheme = defaultThemeColor[0];
+    sheetData.defaultClockColor = defaultThemeColor[1];
 
     return sheetData;
   }
@@ -125,7 +127,7 @@ export class BladesCrewSheet extends BladesSheet {
       if (!value) value = element.dataset.value;
       value = parseInt(value);
       value = value + (value < 0 ? 1 : -1);
-      element = element.parentElement.querySelector(`[name='${name}'][value='${value}']`);
+      element = element.parentElement.querySelector(`[name='${name}'][value='${value}'], [name="${name}"][value="${value}"]`);
     }
     const investedCaches = element.closest('.cache').querySelectorAll('input.invested');
     if (element.id == investedCaches[investedCaches.length - 1].id)

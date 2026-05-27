@@ -25,7 +25,7 @@
         <div class="black-white-header">{{localize 'SFTD.Harmony'}} <i class="fas fa-question-circle" data-tooltip="{{{localize 'SFTD.HarmonyClue'}}}"></i></div>
         <div class="clock-block">
           <div class="clocks clocks-8 small">
-            {{{blades-clock 'system.harmony.value' system.harmony.max system.harmony.value defaultClockStyle 'harmony_clock'}}}
+            {{{blades-clock defaultClockTheme defaultClockColor system.harmony.max 'system.harmony.value' system.harmony.value 'harmony_clock'}}}
           </div>
         </div>
       </div>
@@ -41,13 +41,13 @@
         {{#times_from 0 3}}
         <div class="flex-horizontal cache-line">
           <div class="title-label{{#if (and (lt ../system.cache.value (mult (add this 1) 12)) (gteq ../system.cache.value (mult this 12)))}} current-prosperity{{/if}}">{{localize 'SFTD.Prosperity'}} {{add this 1}}</div>
-          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}"{{#if (gteq ../system.cache.invested (mult this 12))}} class="invested"{{/if}} name="system.cache.value" value="{{#mult this 12}}{{/mult}}" data-dType="Number">
+          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}"{{#if (gteq ../system.cache.invested (mult this 12))}} class="invested"{{/if}} data-dType="Number" name="system.cache.value" value="{{#mult this 12}}{{/mult}}">
           {{#times_from 1 12}}
           {{#if (ne (typeof ../this) 'number')}}
-          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"{{#if (gteq ../system.cache.invested (mult this (add 12 1)))}} class="invested"{{/if}} name="system.cache.value" value="{{#mult this (add 12 1)}}{{/mult}}" data-dType="Number">
+          <input type="radio" id="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"{{#if (gteq ../system.cache.invested (mult this (add 12 1)))}} class="invested"{{/if}} data-dType="Number" name="system.cache.value" value="{{#mult this (add 12 1)}}{{/mult}}">
           <label class="{{#if (eq (mult this (add 12 1)) ../system.cache.value)}}enabled {{/if}}{{#if (gteq ../system.cache.invested (mult this (add 12 1)))}}invested" data-tooltip="{{localize 'SFTD.InvestedCacheInfo'}}{{else}}radio-toggle{{/if}}" for="crew-{{../_id}}-cache-{{#mult this (add 12 1)}}{{/mult}}"></label>
           {{else}}
-          <input type="radio" id="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"{{#if (gteq ../../system.cache.invested (add (mult ../this 12) this))}} class="invested"{{/if}} name="system.cache.value" value="{{#add (mult ../this 12) this}}{{/add}}" data-dType="Number">
+          <input type="radio" id="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"{{#if (gteq ../../system.cache.invested (add (mult ../this 12) this))}} class="invested"{{/if}} data-dType="Number" name="system.cache.value" value="{{#add (mult ../this 12) this}}{{/add}}">
           <label class="{{#if (eq (add (mult ../this 12) this) ../../system.cache.value)}}enabled {{/if}}{{#if (gteq ../../system.cache.invested (add (mult ../this 12) this))}}invested" data-tooltip="{{localize 'SFTD.InvestedCacheInfo'}}{{else}}radio-toggle{{/if}}" for="crew-{{../../_id}}-cache-{{#add (mult ../this 12) this}}{{/add}}"></label>
           {{/if}}
           {{/times_from}}
@@ -63,9 +63,9 @@
         <div id="crew-{{_id}}-pressure" class="big-teeth">
           <div class="black-label">{{localize "SFTD.Pressure"}}</div>
           {{#multiboxes system.pressure}}
-          <input type="radio" id="crew-{{_id}}-pressure-0" name="system.pressure" value="0" dtype="Radio">
+          <input type="radio" id="crew-{{_id}}-pressure-0" data-dType="Number" name="system.pressure" value="0">
           {{#times_from 1 system.max.pressure}}
-          <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" name="system.pressure" value="{{this}}">
+          <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" data-dType="Number" name="system.pressure" value="{{this}}">
           <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
           {{/times_from}}
           {{/multiboxes}}
@@ -76,9 +76,9 @@
           <div id="crew-{{_id}}-hazard" class="small-teeth-wrap">
             <div class="black-label">{{localize "SFTD.Hazard"}}</div>
             <div class="small-teeth">
-              <input type="radio" id="crew-{{_id}}-hazard-counter-0" name="system.hazard" value="0">
+              <input type="radio" id="crew-{{_id}}-hazard-counter-0" data-dType="Number" name="system.hazard" value="0">
               {{#times_from 1 system.max.hazard}}
-              <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" name="system.hazard" value="{{this}}">
+              <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" data-dType="Number" name="system.hazard" value="{{this}}">
               <label class= "radio-toggle" for="crew-{{../_id}}-hazard-counter-{{this}}"></label>
               {{/times_from}}
             </div>
@@ -91,9 +91,9 @@
         <div class="black-white-header">{{localize "SFTD.Shells"}}</div>
         <div class="flex-horizontal shells">
           {{#multiboxes system.shells.value}}
-          <input type="radio" id="crew-{{_id}}-shells-0" name="system.shells.value" value="0" data-dType="Number">
+          <input type="radio" id="crew-{{_id}}-shells-0" data-dType="Number" name="system.shells.value" value="0">
           {{#times_from 1 system.shells.max}}
-          <input type="radio" id="crew-{{../_id}}-shells-{{this}}" name="system.shells.value" value="{{this}}" data-dType="Number">
+          <input type="radio" id="crew-{{../_id}}-shells-{{this}}" data-dType="Number" name="system.shells.value" value="{{this}}">
           <label class="radio-toggle{{#if (eq this ../system.shells.value)}} enabled{{/if}}" for="crew-{{../_id}}-shells-{{this}}"></label>
           {{/times_from}}
           {{/multiboxes}}
@@ -103,30 +103,13 @@
   </section>
 
   <section class="flex-horizontal">
-    <div class="flex-vertical">
-      <div class="flex-horizontal">
-        <div id="crew-{{_id}}-class" class="class-name crew-class flex-vertical" data-tooltip="{{localize "SFTD.CrewTypeBox"}}" data-distinct="true" data-item-type="crew_type">
-          {{#each items as |item id|}}
-          {{#if (eq item.type "crew_type")}}
-          <div class="big-name">{{item.name}}</div>
-          <div class="big-description">{{{item.system.description}}}</div>
-          {{/if}}
-          {{/each}}
-        </div>
-      </div>
-
-      <nav class="tabs flex-horizontal" style="padding-top: 8px">
-        <a class="item" data-tab="community">{{localize "SFTD.Community"}}</a>
-        <a class="item" data-tab="foundations">{{localize "SFTD.Foundations"}}</a>
-        <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
-        <a class="item" data-tab="projects">{{localize "SFTD.Projects"}}</a>
-        <a class="item" data-tab="specialists">{{localize "SFTD.Specialists"}}</a>
-        <a class="item" data-tab="notes">{{localize "SFTD.Notes"}}</a>
-        <a class="item" data-tab="all-items">{{localize "SFTD.AllItems"}}</a>
-        {{#if isGM}}
-        <a class="item" data-tab="effects">{{localize "SFTD.Effects"}}</a>
-        {{/if}}
-      </nav>
+    <div id="crew-{{_id}}-class" class="class-name crew-class flex-vertical" data-tooltip="{{localize "SFTD.CrewTypeBox"}}" data-distinct="true" data-item-type="crew_type">
+      {{#each items as |item id|}}
+      {{#if (eq item.type "crew_type")}}
+      <div class="big-name">{{item.name}}</div>
+      <div class="big-description">{{{item.system.description}}}</div>
+      {{/if}}
+      {{/each}}
     </div>
 
     {{!-- Crew XP --}}
@@ -135,9 +118,9 @@
         <div id="crew-{{_id}}-xp" class="big-teeth">
           <div class="black-label">{{localize "SFTD.CrewXP"}}</div>
           {{#multiboxes system.experience.value}}
-          <input type="radio" id="crew-{{_id}}-experience-0" name="system.experience.value" value="0" dtype="Radio">
+          <input type="radio" id="crew-{{_id}}-experience-0" data-dType="Number" name="system.experience.value" value="0">
           {{#times_from 1 system.experience.max}}
-          <input id="crew-{{../_id}}-experience-{{this}}" type="radio" name="system.experience.value" value="{{this}}">
+          <input id="crew-{{../_id}}-experience-{{this}}" type="radio" data-dType="Number" name="system.experience.value" value="{{this}}">
           <label class= "radio-toggle" for="crew-{{../_id}}-experience-{{this}}"></label>
           {{/times_from}}
           {{/multiboxes}}
@@ -154,7 +137,22 @@
         </div>
       </div>
     </div>
+  </section>
 
+  <section>
+    <nav class="tabs flex-horizontal" style="padding-top: 8px">
+      <a class="item" data-tab="community">{{localize "SFTD.Community"}}</a>
+      <a class="item" data-tab="foundations">{{localize "SFTD.Foundations"}}</a>
+      <a class="item" data-tab="abilities">{{localize "SFTD.Abilities"}}</a>
+      <a class="item" data-tab="projects">{{localize "SFTD.Projects"}}</a>
+      <a class="item" data-tab="specialists">{{localize "SFTD.Specialists"}}</a>
+      <a class="item" data-tab="relationships">{{localize "SFTD.Relationships"}}</a>
+      <a class="item" data-tab="notes">{{localize "SFTD.Notes"}}</a>
+      <a class="item" data-tab="all-items">{{localize "SFTD.AllItems"}}</a>
+      {{#if isGM}}
+      <a class="item" data-tab="effects">{{localize "SFTD.Effects"}}</a>
+      {{/if}}
+    </nav>
   </section>
 
   {{!-- Tabs --}}
@@ -282,7 +280,7 @@
               <section class="flex-horizontal">
                 <div class="clock-block">
                   <div class="project-clock clocks clocks-{{project.clock.max}} small">
-                    {{{blades-clock (concat "system.projects." id ".clock.value") project.clock.max project.clock.value ../defaultClockStyle (concat ../_id "-project-" id)}}}
+                    {{{blades-clock ../defaultClockTheme ../defaultClockColor project.clock.max (concat "system.projects." id ".clock.value") project.clock.value (concat ../_id "-project-" id)}}}
                   </div>
                 </div>
                 <div class="flex-vertical clock-settings">

@@ -86,10 +86,10 @@
   <div id="strider-{{_id}}-stress-scars" class="section big-teeth-section">
     <div id="strider-{{_id}}-stress" class="big-teeth strider-stress">
       {{#multiboxes system.stress.value}}
-      <input type="radio" id="strider-{{_id}}-stress-0" name="system.stress.value" value="0" dtype="Radio">
+      <input type="radio" id="strider-{{_id}}-stress-0" name="system.stress.value" data-dType="Number" value="0">
       <div class="black-label">{{localize 'SFTD.Stress'}}</div>
       {{#times_from 1 system.stress.max}}
-      <input type="radio" id="strider-{{../_id}}-stress-{{this}}" name="system.stress.value" value="{{this}}" dtype="Radio">
+      <input type="radio" id="strider-{{../_id}}-stress-{{this}}" name="system.stress.value" data-dType="Number" value="{{this}}">
       <label class="radio-toggle"></label>
       {{/times_from}}
       {{/multiboxes}}
@@ -99,9 +99,9 @@
         <div class="black-label">{{localize 'SFTD.Scars'}}</div>
         <div id="strider-{{_id}}-scars-teeth" class="small-teeth">
           {{#multiboxes system.scars.value}}
-          <input type="radio" id="strider-{{_id}}-scars-counter-0" name="system.scars.value" value="0">
+          <input type="radio" id="strider-{{_id}}-scars-counter-0" name="system.scars.value" data-dType="Number" value="0" disabled>
           {{#times_from 1 system.scars.max}}
-          <input type="radio" id="strider-{{../_id}}-scars-counter-{{this}}" name="system.scars.value" value="{{this}}" disabled>
+          <input type="radio" id="strider-{{../_id}}-scars-counter-{{this}}" name="system.scars.value" data-dType="Number" value="{{this}}" disabled>
           <label for="strider-{{../_id}}-scars-counter-{{this}}"></label>
           {{/times_from}}
           {{/multiboxes}}
@@ -150,10 +150,10 @@
           <td rowspan="3" id="strider-{{_id}}-armor" class="strider-armor">
             <div class="flex-horizontal">
               {{#multiboxes system.armor.value}}
-              <input type="radio" id="strider-{{_id}}-armor-0" name="system.armor.value" value="0" dtype="Radio">
+              <input type="radio" id="strider-{{_id}}-armor-0" data-dType="Number" name="system.armor.value" value="0">
 
               {{#times_from 1 system.armor.max}}
-              <input type="radio" id="strider-{{../_id}}-armor-{{this}}" name="system.armor.value" value="{{this}}" dtype="Radio">
+              <input type="radio" id="strider-{{../_id}}-armor-{{this}}" data-dType="Number" name="system.armor.value" value="{{this}}">
               <label class="radio-toggle{{#if (lteq this ../system.armor.value)}} enabled{{/if}}"><a><i class="fa{{#if (lteq this ../system.armor.value)}}s{{else}}-regular{{/if}} fa-shield"></i></a></label>
               {{/times_from}}
               {{/multiboxes}}
@@ -232,7 +232,7 @@
           <div class="flex-horizontal">
             <div class="clock-block">
               <div class="clocks clocks-6 medium">
-                {{{blades-clock "system.belief.clock.value" system.belief.clock.max system.belief.clock.value defaultClockStyle "belief_clock"}}}
+                {{{blades-clock defaultClockTheme defaultClockColor system.belief.clock.max "system.belief.clock.value" system.belief.clock.value "belief_clock"}}}
               </div>
             </div>
             <div class="flex-vertical memories">
@@ -250,9 +250,9 @@
           <p><label for="strider-{{_id}}-experience-0">{{localize 'SFTD.Abilities'}}</label><a class="item-add-popup" data-item-type="ability" data-tooltip="{{localize 'SFTD.AddAbility'}}"><i class="fas fa-plus-square"></i></a></p>
           <div id="strider-{{_id}}-experience" class="teeth-experience">
             {{#multiboxes system.experience.value}}
-            <input type="radio" id="strider-{{_id}}-experience-0" name="system.experience.value" value="0" dtype="Radio">
+            <input type="radio" id="strider-{{_id}}-experience-0" data-dType="Number" name="system.experience.value" value="0">
             {{#times_from 1 system.experience.max}}
-            <input type="radio" id="strider-{{../_id}}-experience-{{this}}" name="system.experience.value" value="{{this}}" dtype="Radio">
+            <input type="radio" id="strider-{{../_id}}-experience-{{this}}" data-dType="Number" name="system.experience.value" value="{{this}}">
             <label class="radio-toggle"></label>
             {{/times_from}}
             {{/multiboxes}}

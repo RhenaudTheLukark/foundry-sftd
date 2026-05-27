@@ -22,6 +22,7 @@ import { BladesFactionSheet } from "./blades-faction-sheet.js";
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 import * as migrations from "./migration.js";
 import { getActorSheetClass, getItemSheetClass, registerActorSheet, unregisterActorSheet, registerItemSheet, unregisterItemSheet } from "./compat.js";
+import { migrateWorld } from "./migration.js";
 
 window.BladesHelpers = BladesHelpers;
 
@@ -48,15 +49,17 @@ Hooks.once("init", async function() {
   registerSystemSettings();
 
   if (game.settings.get('songs-for-the-dusk', "PublicClocks")) {
-	Hooks.on("preCreateActor", (actor, createData, options, userId) => {
-		if (actor.type === "\uD83D\uDD5B clock") {
-			actor.updateSource({
-				'ownership.default': CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER
-			});
-		}
-	});
+	  Hooks.on("preCreateActor", (actor, createData, options, userId) => {
+		  if (actor.type === "\uD83D\uDD5B clock") {
+			  actor.updateSource({
+				  'ownership.default': CONST.DOCUMENT_OWNERSHIP_LEVELS.OBSERVER
+			  });
+		  }
+	  });
   }
 
+  // Fetch all clock styles
+  await BladesHelpers.loadAllClockStyles();
 
   // Multiboxes.
   Handlebars.registerHelper('multiboxes', function(selected, options) {
@@ -95,8 +98,8 @@ Hooks.once("init", async function() {
 
   Handlebars.registerHelper('modulo', (a, b) => Number(a) % Number(b));
 
-
   Handlebars.registerHelper('typeof', (a) => typeof a);
+  Handlebars.registerHelper('capitalize', (str) => String(str).charAt(0).toUpperCase() + String(str).substr(1).toLowerCase());
 
   // Enrich the HTML replace /n with <br>
   Handlebars.registerHelper('html', (options) => {
@@ -159,75 +162,52 @@ Hooks.once("init", async function() {
   /**
    * Create appropriate Blades clock
    */
-  // Clocks in color for Clock Actors
-  Handlebars.registerHelper('blades-clock-color', function (parameter_name, type, color, styleId, current_value, uniq_id) {
+  function handleBladesClock(theme, color, size, parameter_name, fill, uniq_id) {
     let html = '';
-    if (current_value === null || current_value === 'null')
-      current_value = 0;
-    if (color === undefined)
+    if (!fill || fill === 'null')
+      fill = 0;
+    if (!color)
       color = "black";
-    if (parseInt(current_value) > parseInt(type))
-      current_value = type;
+    if (parseInt(fill) > parseInt(size))
+      fill = size;
 
-    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
-    let clockStyle = clockStyles[Number(styleId)];
-    let clockStylePath = BladesHelpers.getClockStyleFolderPath(clockStyle, game);
+    let clockStyles = BladesHelpers.clockStyles;
+    let clockData = clockStyles?.[theme]?.[color]?.[size];
+    let clockSpritePath;
+    if (!clockData)
+      clockSpritePath = 'systems/songs-for-the-dusk/themes/error.png';
+    else
+      clockSpritePath = `${BladesHelpers.getClockSpritePath(clockData)}${size}clock_${fill}.${clockData.extension}`;
 
+    html += `<div${clockData?.shifted ? ' class="shifted"' : ''}>`;
     // Label for 0
     html += `<label class="clock-zero-label" for="clock-0-${uniq_id}}"><i class="fab fa-creative-commons-zero nullifier"></i></label>`;
-    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('${clockStylePath}/${color}/${type}clock_${current_value}.${clockStyle.imageType}');">`;
+    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${size} clock-${size}-${fill}">`;
 
-    let zero_checked = (parseInt(current_value) === 0) ? 'checked' : '';
-    html += `<input type="radio" value="0" id="clock-0-${uniq_id}}" data-dType="String" name="${parameter_name}" ${zero_checked}>`;
+    let zero_checked = (parseInt(fill) === 0) ? 'checked' : '';
+    html += `<input type="radio" value="0" id="clock-0-${uniq_id}}" data-dType="Number" name="${parameter_name}" ${zero_checked}>`;
 
-    for (let i = 1; i <= parseInt(type); i++) {
-      let checked = (parseInt(current_value) === i) ? 'checked' : '';
+    for (let i = 1; i <= parseInt(size); i++) {
+      let checked = (parseInt(fill) === i) ? 'checked' : '';
       html += `
-        <input type="radio" value="${i}" id="clock-${i}-${uniq_id}" data-dType="String" name="${parameter_name}" ${checked}>
+        <input type="radio" value="${i}" id="clock-${i}-${uniq_id}" data-dType="Number" name="${parameter_name}" ${checked}>
         <label class="radio-toggle"></label>
       `;
     }
 
-    html += `</div>`;
+    html += `<img src="${clockSpritePath}" data-theme="${theme}" data-color="${color}" data-size="${size}" data-fill="${fill}" onerror="return BladesHelpers.handleClockImageError(event)"/>`;
+    html += `</div></div>`;
     return html;
-  });
+  }
 
-  // Clocks in black for clocks embedded in sheets
-  Handlebars.registerHelper('blades-clock', function (parameter_name, type, current_value, styleId, uniq_id, is_vehicle_proxy, is_vehicle) {
-    let html = '';
-    if (current_value === null || current_value === 'null')
-      current_value = 0;
-    if (parseInt(current_value) > parseInt(type))
-      current_value = type;
-
-    let clockStyles = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
-    let clockStyle = clockStyles[Number(styleId)];
-    let clockStylePath = BladesHelpers.getClockStyleFolderPath(clockStyle, game);
-
-    // Label for 0
-    html += `<label class="clock-zero-label" for="clock-0-${uniq_id}}"><i class="fab fa-creative-commons-zero nullifier"></i></label>`;
-    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${type} clock-${type}-${current_value}" style="background-image:url('${clockStylePath}/black/${type}clock_${current_value}.${clockStyle.imageType}');">`;
-
-    let zero_checked = (parseInt(current_value) === 0) ? 'checked' : '';
-    html += `<input ${is_vehicle_proxy == true ? 'class="vehicle-data" ' : is_vehicle == true ? 'class="pilot-shared-data" ' : ''}type="radio" value="0" id="clock-0-${uniq_id}}" data-dType="String" ${is_vehicle_proxy == true ? 'data-' : ''}name="${parameter_name}" ${zero_checked}>`;
-
-    for (let i = 1; i <= parseInt(type); i++) {
-      let checked = (parseInt(current_value) === i) ? 'checked' : '';
-      html += `
-        <input ${is_vehicle_proxy == true ? 'class="vehicle-data" ' : is_vehicle == true ? 'class="pilot-shared-data" ' : ''}type="radio" value="${i}" id="clock-${i}-${uniq_id}" data-dType="String" ${is_vehicle_proxy == true ? 'data-' : ''}name="${parameter_name}" ${checked}>
-        <label class="radio-toggle"></label>
-      `;
-    }
-
-    html += `</div>`;
-    return html;
-  });
+  // Clocks to add in sheets
+  Handlebars.registerHelper('blades-clock', handleBladesClock);
 
   Handlebars.registerHelper('pc', function( string ) {
     return BladesHelpers.getProperCase( string );
   });
 
-  // check for game settings
+  // Check for game settings
   Handlebars.registerHelper('getSetting', function( string ) {
 	  return (game.settings.get('songs-for-the-dusk', string));
   });
@@ -254,18 +234,14 @@ Hooks.once("ready", async function() {
   foundry.documents.collections.WorldSettings.registerSheet("blades", ClockStylesSettings, {});
   await preloadHandlebarsTemplates();
 
-  /**
   // Determine whether a system migration is required
   const currentVersion = game.settings.get("songs-for-the-dusk", "systemMigrationVersion");
-  const NEEDS_MIGRATION_VERSION = 2.15;
-
-  let needMigration = (currentVersion < NEEDS_MIGRATION_VERSION) || (currentVersion === null);
+  const NEEDS_MIGRATION_VERSION = 1.0;
+  const needsMigration = currentVersion != NEEDS_MIGRATION_VERSION;
 
   // Perform the migration
-  if ( needMigration && game.user.isGM ) {
-    migrations.migrateWorld();
-  }
-  **/
+  if (needsMigration && game.user.isGM)
+    migrateWorld(currentVersion ?? 0, NEEDS_MIGRATION_VERSION);
 });
 
 /*
@@ -288,7 +264,6 @@ Hooks.on('getSceneControlButtons', controls => {
 });
 
 Hooks.on("renderSceneControls", async (app, html) => {
-
 	if (foundry.utils.isNewerVersion(13,game.version)) {
 	  let dice_roller = $('<li class="scene-control" data-tooltip="Dice Roll"><i class="fas fa-dice"></i></li>');
 	  dice_roller.click( async function() {
@@ -296,5 +271,4 @@ Hooks.on("renderSceneControls", async (app, html) => {
 	  });
 	  html.children().first().append( dice_roller );
 	}
-
 });

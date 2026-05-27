@@ -1,13 +1,12 @@
 import { ClockStylesData } from "../models/clock-styles.js";
+import { BladesHelpers } from "../blades-helpers.js";
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
 export class ClockStylesSettings extends HandlebarsApplicationMixin(ApplicationV2) {
   static DEFAULT_OPTIONS = {
     actions: {
-      addStyle: ClockStylesSettings.#onAddStyle,
-      removeStyle: ClockStylesSettings.#onRemoveStyle,
-      reset: ClockStylesSettings.#onReset
+      collapse: ClockStylesSettings.#onCollapse,
     },
     form: {
       handler: ClockStylesSettings.#onSubmit,
@@ -32,21 +31,34 @@ export class ClockStylesSettings extends HandlebarsApplicationMixin(ApplicationV
   }
 
   settings = undefined;
-  defaultStyleIndex = undefined;
-  hasDefaultStyleIndexChanged = false;
 
   async _prepareContext(options) {
     if (this.settings === undefined) {
       this.settings = new ClockStylesData({ contents: foundry.utils.deepClone(game.settings.get("songs-for-the-dusk", "ClockStyles").contents) });
-      this.defaultStyleIndex = Number(game.settings.get("songs-for-the-dusk", "DefaultClockStyle"));
     }
+
+    const clockStyles = foundry.utils.deepClone(BladesHelpers.clockStyles);
+    for (const [themeName, theme] of Object.entries(clockStyles))
+      if (themeName != 'dataReason') {
+        for (const [colorName, color] of Object.entries(theme))
+          if (colorName != 'dataReason') {
+            for (const [sizeName, size] of Object.entries(color))
+              if (sizeName != 'dataReason')
+                size.shifted = this.settings.contents?.[themeName]?.[colorName]?.[sizeName]?.shifted ?? false;
+            color.collapsed = true;
+          }
+        theme.collapsed = true;
+      }
 
     const context = await super._prepareContext(options);
     return foundry.utils.mergeObject(context, {
-      settings: this.settings,
+      settings: clockStyles,
+      systemPath: 'systems/songs-for-the-dusk/themes/',
+      worldPath: `worlds/${game.world.id}/themes/`,
       buttons: [
-        { type: "reset", icon: "fa-solid fa-arrows-rotate", label: "SETTINGS.Reset", action: "reset" },
-        { type: "submit", icon: "fa-solid fa-save", label: "SETTINGS.Save" }
+        { type: "save", icon: "fa-solid fa-floppy-disk", label: "SETTINGS.Save" },
+        { type: "reload", icon: "fa-solid fa-arrows-rotate", label: "SFTD.Settings.ClockStyles.ReloadClocks" },
+        { type: "close", icon: "fa-solid fa-save", label: "SFTD.Settings.ClockStyles.Close" }
       ]
     });
   }
@@ -56,62 +68,33 @@ export class ClockStylesSettings extends HandlebarsApplicationMixin(ApplicationV
    * @param {PointerEvent} event   The originating click event.
    * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
    */
-  static async #onAddStyle(event, target) {
-    let newLine = { name: "style", inWorldFolder: true, isColored: false, imageType: "svg" };
-    this.settings.contents.push(newLine);
-    await this.render(true);
-  }
-
-  /**
-   * @this ClockStylesSettings
-   * @param {PointerEvent} event   The originating click event.
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
-   */
-  static async #onRemoveStyle(event, target) {
-    let id = $(target).closest(".clock-style").index();
-    if (id == this.defaultStyleIndex)
-      this.defaultStyleIndex = -1;
-    else if (id < this.defaultStyleIndex)
-      this.defaultStyleIndex --;
-    this.settings.contents.splice(id, 1);
-    await this.render(true);
-  }
-
-  /**
-   * @this ClockStylesSettings
-   * @param {PointerEvent} event   The originating click event.
-   * @param {HTMLElement} target   The capturing HTML element which defined a [data-action].
-   */
-  static async #onReset(event, target) {
-    game.settings.set("songs-for-the-dusk", "ClockStyles", {
-      contents: [
-        { name: "default", inWorldFolder: false, isColored: true, imageType: "svg" }
-      ]
-    })
-    this.settings = undefined;
-    await foundry.applications.settings.SettingsConfig.reloadConfirm({world: true});
-    await this.close();
+  static async #onCollapse(event, target) {
+    const dataContainer = target.closest('.row-container').querySelector('.data-container');
+    if (dataContainer.classList.contains('collapsed'))
+      dataContainer.classList.remove('collapsed');
+    else
+      dataContainer.classList.add('collapsed');
   }
 
   static async #onSubmit(event, form, formData) {
-    const settings = foundry.utils.expandObject(formData.object);
-    let output = new ClockStylesData({contents: []});
-    for (let style of Object.values(settings.contents)) {
-      output.contents.push({
-        name: style.name,
-        inWorldFolder: style.inWorldFolder,
-        isColored: style.isColored,
-        imageType: style.imageType
-      });
-    }
+    if (event.submitter.attributes.type.value == 'reload') {
+      await BladesHelpers.loadAllClockStyles();
+      await foundry.applications.settings.SettingsConfig.reloadConfirm({world: true});
+    } else if (event.submitter.attributes.type.value == 'save') {
+      const settings = foundry.utils.expandObject(formData.object);
+      let output = new ClockStylesData(settings);
 
-    game.settings.set("songs-for-the-dusk", "ClockStyles", { contents: output.contents });
-    if (this.defaultStyleIndex == -1)
-      game.settings.set("songs-for-the-dusk", "DefaultClockStyle", 0);
-    else
-      game.settings.set("songs-for-the-dusk", "DefaultClockStyle", this.defaultStyleIndex);
-    this.settings = undefined;
-    await foundry.applications.settings.SettingsConfig.reloadConfirm({world: true});
+      game.settings.set("songs-for-the-dusk", "ClockStyles", output);
+      let themeColor = game.settings.get("songs-for-the-dusk", "DefaultClockThemeColor").split('/');
+      if (!output.contents?.[themeColor[0]]?.[themeColor[1]]) {
+        let themeEntry = Object.entries(output.contents).filter(t => t[0] != 'dataReason' && Object.entries(t[1]).filter(c => c[0] != 'dataReason' && Object.entries(c[1]).filter(s => s[0] != 'dataReason').length > 0).length > 0)[0];
+        let colorEntry = Object.entries(themeEntry[1]).filter(c => c[0] != 'dataReason' && Object.entries(c[1]).filter(s => s[0] != 'dataReason').length > 0)[0];
+        game.settings.set("songs-for-the-dusk", "DefaultClockThemeColor", `${themeEntry[0]}/${colorEntry[0]}`);
+      }
+
+      this.settings = undefined;
+      await foundry.applications.settings.SettingsConfig.reloadConfirm({world: true});
+    }
     await this.close();
   }
 

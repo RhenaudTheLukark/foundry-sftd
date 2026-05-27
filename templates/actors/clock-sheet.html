@@ -10,31 +10,23 @@
   {{/if}}
 
   {{#if editable}}
-  <div class="clock-config">
+  <div class="clock-config flex-horizontal">
     <div class="clock-config-group">
       <label><i class="fa fa-chart-pie"></i></label>
-      <select data-type="String" name="system.type">
-        {{selectOptions sizeDropdown selected=system.type}}
+      <select class="size" data-dType="Number" name="system.size">
+        {{selectOptions sizeDropdown selected=system.size}}
       </select>
     </div>
     <div class="clock-config-group">
       <label><i class="fa fa-paintbrush"></i></label>
-      <select data-type="String" name="system.styleId">
-        {{selectOptions styleDropdown selected=system.styleId localize=true}}
+      <select class="theme-color" data-dType="String" name="system.theme_color">
+        {{selectOptions themeColorDropdown selected=system.theme_color localize=true}}
       </select>
     </div>
-    {{#if isColored}}
-    <div class="clock-config-group">
-      <label><i class="fa fa-palette"></i></label>
-      <select data-type="String" name="system.color">
-        {{selectOptions colorDropdown selected=system.color localize=true}}
-      </select>
-    </div>
-    {{/if}}
   </div>
   {{/if}}
 
-  <div class="clocks clocks-{{system.type}}">
-    {{{blades-clock-color "system.value" system.type system.color system.styleId system.value _id}}}
+  <div class="clocks clocks-{{system.size}}">
+    {{{blades-clock system.theme system.color system.size "system.value" system.value _id}}}
   </div>
 </form>
