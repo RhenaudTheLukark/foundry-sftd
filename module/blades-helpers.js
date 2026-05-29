@@ -729,6 +729,8 @@ export class BladesHelpers {
             BladesHelpers.clockStyles[theme][color] = {};
 
           for (const fileData of filePaths.map(f => firstClockRegex.exec(f.split('/').pop())).filter(f => f != null)) {
+            if (BladesHelpers.clockStyles[theme][color][fileData.groups.size])
+              continue;
             const fileName = fileData.input;
             const clockData = {
               theme: theme,
@@ -772,6 +774,7 @@ export class BladesHelpers {
               .join('<br/>')}`)
             .join('<br/>');
         }
+        BladesHelpers.clockStyles[theme] = Object.fromEntries(Object.entries(BladesHelpers.clockStyles[theme]).sort((a, b) => a[0].localeCompare(b[0], 'en-US')));
         BladesHelpers.clockStyles[theme].dataReason = Object.entries(BladesHelpers.clockStyles[theme])
           .filter(c => c[0] != 'dataReason' && c[1].dataReason != '')
           .map(c => `${(c[1].dataReason ?? '')
@@ -780,7 +783,7 @@ export class BladesHelpers {
             .join('<br/>')}`)
           .join('<br/>');
       }
-      BladesHelpers.clockStyles = Object.fromEntries(Object.entries(BladesHelpers.clockStyles).sort((a, b) => a[0] ))
+      BladesHelpers.clockStyles = Object.fromEntries(Object.entries(BladesHelpers.clockStyles).sort((a, b) => a[0].localeCompare(b[0], 'en-US')));
     }
 
     if (Object.keys(BladesHelpers.clockStyles).length == 0 && !game.user.isGM)
