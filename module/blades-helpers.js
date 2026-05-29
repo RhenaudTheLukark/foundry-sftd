@@ -195,6 +195,41 @@ export class BladesHelpers {
    * @param {Actor} objectFull
    * @param {object} updateObject
    */
+  static async tryCreate(objectsData, parentFull) {
+    if (!objectFull)
+      return;
+    if (objectFull.canUserModify(game.user, 'create')) {
+      if (parentFull)
+        await Item.create(objectsData, {parent: parentFull});
+    } else {
+      // Send a specific message to the GM to update some data on their end
+      let speaker = ChatMessage.getSpeaker();
+      let messageData = {
+        speaker: speaker,
+        messageType: 'createRequest',
+        objectData: objectsData,
+        parentUuid: parentFull ? parentFull.uuid : null,
+        objectEmbeddedName: parentFull ? 'Item' : '',
+        content: '',
+        blind: true,
+        whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
+      }
+      let message = await SFTDChatMessage.create(messageData);
+
+      if (game.users.activeGM)
+        // Wait for the message to be handled to continue;
+        await BladesHelpers.until(_ => message.system.handled == true);
+      else
+        // Notify the player that the data will be handled when a GM connects
+        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.TryUpdateNoActiveGM'));
+    }
+  }
+
+  /**
+   *
+   * @param {Actor} objectFull
+   * @param {object} updateObject
+   */
   static async tryUpdate(objectFull, updateObject) {
     if (!objectFull)
       return;
@@ -205,13 +240,14 @@ export class BladesHelpers {
       let speaker = ChatMessage.getSpeaker();
       let messageData = {
         speaker: speaker,
+        messageType: 'updateRequest',
         updateQuery: JSON.stringify(updateObject),
-        updateDocumentUuid: objectFull.uuid,
+        objectUuid: objectFull.uuid,
         content: '',
         blind: true,
         whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
       }
-      let message = await BeamChatMessage.create(messageData);
+      let message = await SFTDChatMessage.create(messageData);
 
       if (game.users.activeGM)
         // Wait for the message to be handled to continue;
@@ -219,6 +255,40 @@ export class BladesHelpers {
       else
         // Notify the player that the data will be handled when a GM connects
         ui.notifications.warn(game.i18n.localize('SFTD.log.warn.TryUpdateNoActiveGM'));
+    }
+  }
+
+  /**
+   *
+   * @param {Actor} objectFull
+   * @param {object} updateObject
+   */
+  static async tryDelete(objectFull, parentFull) {
+    if (!objectFull)
+      return;
+    if (objectFull.canUserModify(game.user, 'delete'))
+      await objectFull.delete();
+    else {
+      // Send a specific message to the GM to delete the object
+      let speaker = ChatMessage.getSpeaker();
+      let messageData = {
+        speaker: speaker,
+        messageType: 'deleteRequest',
+        objectUuid: objectFull.uuid,
+        parentUuid: parentFull ? parentFull.uuid : null,
+        objectEmbeddedName: parentFull ? objectFull.split('.')[0] : null,
+        content: '',
+        blind: true,
+        whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
+      }
+      let message = await SFTDChatMessage.create(messageData);
+
+      if (game.users.activeGM)
+        // Wait for the message to be handled to continue;
+        await BladesHelpers.until(_ => message.system.handled == true);
+      else
+        // Notify the player that the data will be handled when a GM connects
+        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.TryDeleteNoActiveGM'));
     }
   }
 
@@ -583,6 +653,39 @@ export class BladesHelpers {
 
   /* -------------------------------------------- */
 
+  static async sendClockStyleRequest() {
+    // Send a specific message to the GM to update some data on their end
+    let speaker = ChatMessage.getSpeaker();
+    let messageData = {
+      speaker: speaker,
+      messageType: 'clockStylesRequest',
+      userId: game.userId,
+      content: '',
+      blind: true,
+      whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
+    }
+    let message = await SFTDChatMessage.create(messageData);
+
+    if (!game.users.activeGM)
+      // Notify the player that the data will be handled when a GM connects
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.ClockStylesRequestNoActiveGM'));
+  }
+
+  static async sendClockStyleResponseBroadcast() {
+    for (const user of game.users.contents.filter(u => u.id != game.userId)) {
+      let speaker = ChatMessage.getSpeaker();
+      let messageData = {
+        speaker: speaker,
+        messageType: 'clockStylesResponse',
+        clockStyles: BladesHelpers.clockStyles,
+        content: '',
+        blind: true,
+        whisper: [user.id]
+      }
+      let message = await SFTDChatMessage.create(messageData);
+    }
+  }
+
   static handleClockImageError(ev) {
     let element = ev.currentTarget;
     element.src = 'systems/songs-for-the-dusk/themes/cross.png';
@@ -677,8 +780,13 @@ export class BladesHelpers {
             .join('<br/>')}`)
           .join('<br/>');
       }
+      BladesHelpers.clockStyles = Object.fromEntries(Object.entries(BladesHelpers.clockStyles).sort((a, b) => a[0] ))
     }
-    BladesHelpers.clockStyles;
+
+    if (Object.keys(BladesHelpers.clockStyles).length == 0 && !game.user.isGM)
+      await BladesHelpers.sendClockStyleRequest();
+    if (game.user.isGM)
+      await BladesHelpers.sendClockStyleResponseBroadcast();
   }
 
   /* -------------------------------------------- */

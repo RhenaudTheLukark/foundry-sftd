@@ -25,7 +25,7 @@
         <div class="black-white-header">{{localize 'SFTD.Harmony'}} <i class="fas fa-question-circle" data-tooltip="{{{localize 'SFTD.HarmonyClue'}}}"></i></div>
         <div class="clock-block">
           <div class="clocks clocks-8 small">
-            {{{blades-clock defaultClockTheme defaultClockColor system.harmony.max 'system.harmony.value' system.harmony.value 'harmony_clock'}}}
+            {{{blades-clock-object system.harmony 'system.harmony' 'harmony_clock' defaultClockThemeColor}}}
           </div>
         </div>
       </div>
@@ -280,7 +280,7 @@
               <section class="flex-horizontal">
                 <div class="clock-block">
                   <div class="project-clock clocks clocks-{{project.clock.max}} small">
-                    {{{blades-clock ../defaultClockTheme ../defaultClockColor project.clock.max (concat "system.projects." id ".clock.value") project.clock.value (concat ../_id "-project-" id)}}}
+                    {{{blades-clock-object project.clock (concat 'system.projects.' id '.clock') (concat ../_id '-project-' id) ../defaultClockThemeColor}}}
                   </div>
                 </div>
                 <div class="flex-vertical clock-settings">

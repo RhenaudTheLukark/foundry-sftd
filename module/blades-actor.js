@@ -148,7 +148,7 @@ export class BladesActor extends Actor {
       title: `${game.i18n.localize('SFTD.Roll')} ${game.i18n.localize(attribute_label)}`,
       content,
       okLabel: game.i18n.localize('SFTD.Roll'),
-      cancelLabel: game.i18n.localize('Close'),
+      cancelLabel: game.i18n.localize('SFTD.Cancel'),
       defaultButton: "ok",
     });
 
@@ -329,6 +329,6 @@ export class BladesActor extends Actor {
   /* -------------------------------------------- */
 
   async removeItem(item) {
-    await this.deleteEmbeddedDocuments("Item", [item._id]);
+    await BladesHelpers.tryDelete(item, this);
   }
 }

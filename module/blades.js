@@ -58,9 +58,6 @@ Hooks.once("init", async function() {
 	  });
   }
 
-  // Fetch all clock styles
-  await BladesHelpers.loadAllClockStyles();
-
   // Multiboxes.
   Handlebars.registerHelper('multiboxes', function(selected, options) {
     let html = options.fn(this);
@@ -162,7 +159,7 @@ Hooks.once("init", async function() {
   /**
    * Create appropriate Blades clock
    */
-  function handleBladesClock(theme, color, size, parameter_name, fill, uniq_id) {
+  function handleBladesClock(theme, color, size, valuePath, fill, uniqueId, objPath, isDefaultStyle) {
     let html = '';
     if (!fill || fill === 'null')
       fill = 0;
@@ -180,28 +177,47 @@ Hooks.once("init", async function() {
       clockSpritePath = `${BladesHelpers.getClockSpritePath(clockData)}${size}clock_${fill}.${clockData.extension}`;
 
     html += `<div${clockData?.shifted ? ' class="shifted"' : ''}>`;
-    // Label for 0
-    html += `<label class="clock-zero-label" for="clock-0-${uniq_id}}"><i class="fab fa-creative-commons-zero nullifier"></i></label>`;
-    html += `<div id="blades-clock-${uniq_id}" class="blades-clock clock-${size} clock-${size}-${fill}">`;
+    html += `<div id="blades-clock-${uniqueId}" class="blades-clock clock-${size} clock-${size}-${fill}">`;
 
     let zero_checked = (parseInt(fill) === 0) ? 'checked' : '';
-    html += `<input type="radio" value="0" id="clock-0-${uniq_id}}" data-dType="Number" name="${parameter_name}" ${zero_checked}>`;
+    html += `<input type="radio" value="0" id="clock-0-${uniqueId}}" data-dType="Number" name="${valuePath}" ${zero_checked}>`;
 
     for (let i = 1; i <= parseInt(size); i++) {
       let checked = (parseInt(fill) === i) ? 'checked' : '';
       html += `
-        <input type="radio" value="${i}" id="clock-${i}-${uniq_id}" data-dType="Number" name="${parameter_name}" ${checked}>
+        <input type="radio" value="${i}" id="clock-${i}-${uniqueId}" data-dType="Number" name="${valuePath}" ${checked}>
         <label class="radio-toggle"></label>
       `;
     }
 
     html += `<img src="${clockSpritePath}" data-theme="${theme}" data-color="${color}" data-size="${size}" data-fill="${fill}" onerror="return BladesHelpers.handleClockImageError(event)"/>`;
+    if (objPath)
+      html += `<a class="clock-style-picker" data-path="${objPath}.theme_color" data-theme-color="${isDefaultStyle ? 'null' : `${theme}/${color}`}"><i class="fas fa-gear"></i></a>`;
     html += `</div></div>`;
     return html;
   }
 
   // Clocks to add in sheets
-  Handlebars.registerHelper('blades-clock', handleBladesClock);
+  Handlebars.registerHelper('blades-clock', function(theme, color, size, valuePath, fill, uniqueId) {
+    return handleBladesClock(theme, color, size, valuePath, fill, uniqueId);
+  });
+  Handlebars.registerHelper('blades-clock-object', function(obj, objPath, uniqueId, defaultThemeColor) {
+    let theme = obj.theme;
+    let color = obj.color;
+    let isDefaultStyle = false;
+    if (obj.theme_color && obj.theme_color != 'null') {
+      let themeColor = obj.theme_color.split('/');
+      theme = themeColor[0];
+      color = themeColor[1];
+    }
+    if (!theme || !color) {
+      defaultThemeColor = defaultThemeColor.split('/');
+      theme = defaultThemeColor[0];
+      color = defaultThemeColor[1];
+      isDefaultStyle = true;
+    }
+    return handleBladesClock(theme, color, obj.max, `${objPath}.value`, obj.value, uniqueId, objPath, isDefaultStyle);
+  });
 
   Handlebars.registerHelper('pc', function( string ) {
     return BladesHelpers.getProperCase( string );
@@ -233,6 +249,9 @@ Hooks.once("ready", async function() {
   registerItemSheet("blades", BladesItemSheet, {makeDefault: true});
   foundry.documents.collections.WorldSettings.registerSheet("blades", ClockStylesSettings, {});
   await preloadHandlebarsTemplates();
+
+  // Fetch all clock styles
+  await BladesHelpers.loadAllClockStyles();
 
   // Determine whether a system migration is required
   const currentVersion = game.settings.get("songs-for-the-dusk", "systemMigrationVersion");

@@ -262,6 +262,7 @@
     "Gloom": "Gloom",
 
     "Add": "Add",
+    "Cancel": "Cancel",
     "Effects": "Effects",
     "EffectCreate": "Create Effect",
     "EffectToggle": "Toggle Effect",
@@ -352,6 +353,9 @@
     "SearchBar": "Search {obj}...",
     "None": "None",
 
+    "ClockStyle": "Clock Style",
+    "ClockStylePicker": "Clock Style Picker",
+
     "Colors": {
       "Black": "Black",
       "Blue": "Blue",
@@ -420,7 +424,10 @@
       },
       "warn": {
         "NoNPC": "This NPC does not exist in the World or in a Compendium.",
+        "ClockStylesRequestNoActiveGM": "Clock styles could not be retrieved due to having no Gamemaster or Assistant Gamemaster currently connected. They will be received once one of them connects to the server.",
+        "TryCreateNoActiveGM": "Some data could not be created due to having no Gamemaster or Assistant Gamemaster currently connected. It will be created once one of them connects to the server.",
         "TryUpdateNoActiveGM": "Some data could not be updated due to having no Gamemaster or Assistant Gamemaster currently connected. It will be updated once one of them connects to the server.",
+        "TryDeleteNoActiveGM": "Some data could not be deleted due to having no Gamemaster or Assistant Gamemaster currently connected. It will be deleted once one of them connects to the server.",
         "NoAddFromSuppressedContainer": "Items cannot be added to a disabled container.",
         "NoCrewToAddConnection": "The Strider needs a Crew in order to display a list of connections to add!",
         "NothingToAdd": "There is no available object that can be added to this actor.",

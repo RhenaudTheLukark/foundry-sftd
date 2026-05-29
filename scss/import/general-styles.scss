@@ -170,13 +170,6 @@ section {
   margin: 0 0;
 }
 
-i {
-  &.nullifier {
-    display: none;
-    @include changeable($transition-period, $hover-brightness, $hover-opacity, $red);
-  }
-}
-
 .half {
   flex: 1;
 }

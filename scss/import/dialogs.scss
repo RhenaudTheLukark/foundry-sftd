@@ -201,6 +201,14 @@ fieldset.form-group {
   }
 }
 
+&.clock-style-picker {
+  .clock-style {
+    align-items: center;
+    white-space: nowrap;
+    gap: 1em;
+  }
+}
+
 .actor-contents {
   gap: 1em;
   justify-content: center;

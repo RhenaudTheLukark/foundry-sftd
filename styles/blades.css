@@ -235,16 +235,6 @@
 .songs-for-the-dusk .effects-list {
   margin: 0 0;
 }
-.songs-for-the-dusk i.nullifier {
-  display: none;
-  transition: filter 0.2s;
-  cursor: pointer;
-}
-.songs-for-the-dusk i.nullifier:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-  color: red;
-}
 .songs-for-the-dusk .half {
   flex: 1;
 }
@@ -427,7 +417,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -453,12 +442,21 @@
   display: none;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) {
   position: relative;
@@ -468,7 +466,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -494,12 +491,21 @@
   display: none;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted {
   position: relative;
@@ -509,7 +515,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -535,12 +540,21 @@
   display: none;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) {
   position: relative;
@@ -550,7 +564,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -576,12 +589,21 @@
   display: none;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted {
   position: relative;
@@ -591,7 +613,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -617,12 +638,21 @@
   display: none;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) {
   position: relative;
@@ -632,7 +662,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -658,12 +687,21 @@
   display: none;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-1.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted {
   position: relative;
@@ -673,7 +711,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -706,12 +743,21 @@
   transform: rotate(90deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) {
   position: relative;
@@ -721,7 +767,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -754,12 +799,21 @@
   transform: rotate(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted {
   position: relative;
@@ -769,7 +823,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -802,12 +855,21 @@
   transform: rotate(90deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) {
   position: relative;
@@ -817,7 +879,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -850,12 +911,21 @@
   transform: rotate(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted {
   position: relative;
@@ -865,7 +935,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -898,12 +967,21 @@
   transform: rotate(90deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) {
   position: relative;
@@ -913,7 +991,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -946,12 +1023,21 @@
   transform: rotate(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-2.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted {
   position: relative;
@@ -961,7 +1047,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -998,12 +1083,21 @@
   transform: rotate(180deg) skewY(210deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) {
   position: relative;
@@ -1013,7 +1107,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1050,12 +1143,21 @@
   transform: rotate(240deg) skewY(210deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted {
   position: relative;
@@ -1065,7 +1167,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1102,12 +1203,21 @@
   transform: rotate(180deg) skewY(210deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) {
   position: relative;
@@ -1117,7 +1227,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1154,12 +1263,21 @@
   transform: rotate(240deg) skewY(210deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted {
   position: relative;
@@ -1169,7 +1287,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1206,12 +1323,21 @@
   transform: rotate(180deg) skewY(210deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) {
   position: relative;
@@ -1221,7 +1347,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1258,12 +1383,21 @@
   transform: rotate(240deg) skewY(210deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-3.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted {
   position: relative;
@@ -1273,7 +1407,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1313,12 +1446,21 @@
   transform: rotate(225deg) skewY(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) {
   position: relative;
@@ -1328,7 +1470,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1368,12 +1509,21 @@
   transform: rotate(270deg) skewY(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted {
   position: relative;
@@ -1383,7 +1533,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1423,12 +1572,21 @@
   transform: rotate(225deg) skewY(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) {
   position: relative;
@@ -1438,7 +1596,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1478,12 +1635,21 @@
   transform: rotate(270deg) skewY(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted {
   position: relative;
@@ -1493,7 +1659,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1533,12 +1698,21 @@
   transform: rotate(225deg) skewY(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) {
   position: relative;
@@ -1548,7 +1722,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1588,12 +1761,21 @@
   transform: rotate(270deg) skewY(180deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-4.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted {
   position: relative;
@@ -1603,7 +1785,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1646,12 +1827,21 @@
   transform: rotate(252deg) skewY(162deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) {
   position: relative;
@@ -1661,7 +1851,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1704,12 +1893,21 @@
   transform: rotate(288deg) skewY(162deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted {
   position: relative;
@@ -1719,7 +1917,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1762,12 +1959,21 @@
   transform: rotate(252deg) skewY(162deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) {
   position: relative;
@@ -1777,7 +1983,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1820,12 +2025,21 @@
   transform: rotate(288deg) skewY(162deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted {
   position: relative;
@@ -1835,7 +2049,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1878,12 +2091,21 @@
   transform: rotate(252deg) skewY(162deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) {
   position: relative;
@@ -1893,7 +2115,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1936,12 +2157,21 @@
   transform: rotate(288deg) skewY(162deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-5.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted {
   position: relative;
@@ -1951,7 +2181,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -1997,12 +2226,21 @@
   transform: rotate(270deg) skewY(150deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) {
   position: relative;
@@ -2012,7 +2250,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2058,12 +2295,21 @@
   transform: rotate(300deg) skewY(150deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted {
   position: relative;
@@ -2073,7 +2319,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2119,12 +2364,21 @@
   transform: rotate(270deg) skewY(150deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) {
   position: relative;
@@ -2134,7 +2388,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2180,12 +2433,21 @@
   transform: rotate(300deg) skewY(150deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted {
   position: relative;
@@ -2195,7 +2457,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2241,12 +2502,21 @@
   transform: rotate(270deg) skewY(150deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) {
   position: relative;
@@ -2256,7 +2526,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2302,12 +2571,21 @@
   transform: rotate(300deg) skewY(150deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-6.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted {
   position: relative;
@@ -2317,7 +2595,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2366,12 +2643,21 @@
   transform: rotate(282.8571428571deg) skewY(141.4285714286deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) {
   position: relative;
@@ -2381,7 +2667,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2430,12 +2715,21 @@
   transform: rotate(308.5714285714deg) skewY(141.4285714286deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted {
   position: relative;
@@ -2445,7 +2739,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2494,12 +2787,21 @@
   transform: rotate(282.8571428571deg) skewY(141.4285714286deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) {
   position: relative;
@@ -2509,7 +2811,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2558,12 +2859,21 @@
   transform: rotate(308.5714285714deg) skewY(141.4285714286deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted {
   position: relative;
@@ -2573,7 +2883,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2622,12 +2931,21 @@
   transform: rotate(282.8571428571deg) skewY(141.4285714286deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) {
   position: relative;
@@ -2637,7 +2955,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2686,12 +3003,21 @@
   transform: rotate(308.5714285714deg) skewY(141.4285714286deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-7.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted {
   position: relative;
@@ -2701,7 +3027,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2753,12 +3078,21 @@
   transform: rotate(292.5deg) skewY(135deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) {
   position: relative;
@@ -2768,7 +3102,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2820,12 +3153,21 @@
   transform: rotate(315deg) skewY(135deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted {
   position: relative;
@@ -2835,7 +3177,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2887,12 +3228,21 @@
   transform: rotate(292.5deg) skewY(135deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) {
   position: relative;
@@ -2902,7 +3252,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -2954,12 +3303,21 @@
   transform: rotate(315deg) skewY(135deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted {
   position: relative;
@@ -2969,7 +3327,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3021,12 +3378,21 @@
   transform: rotate(292.5deg) skewY(135deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) {
   position: relative;
@@ -3036,7 +3402,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3088,12 +3453,21 @@
   transform: rotate(315deg) skewY(135deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-8.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted {
   position: relative;
@@ -3103,7 +3477,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3158,12 +3531,21 @@
   transform: rotate(300deg) skewY(130deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) {
   position: relative;
@@ -3173,7 +3555,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3228,12 +3609,21 @@
   transform: rotate(320deg) skewY(130deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted {
   position: relative;
@@ -3243,7 +3633,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3298,12 +3687,21 @@
   transform: rotate(300deg) skewY(130deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) {
   position: relative;
@@ -3313,7 +3711,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3368,12 +3765,21 @@
   transform: rotate(320deg) skewY(130deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted {
   position: relative;
@@ -3383,7 +3789,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3438,12 +3843,21 @@
   transform: rotate(300deg) skewY(130deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) {
   position: relative;
@@ -3453,7 +3867,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3508,12 +3921,21 @@
   transform: rotate(320deg) skewY(130deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-9.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted {
   position: relative;
@@ -3523,7 +3945,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3581,12 +4002,21 @@
   transform: rotate(306deg) skewY(126deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) {
   position: relative;
@@ -3596,7 +4026,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3654,12 +4083,21 @@
   transform: rotate(324deg) skewY(126deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted {
   position: relative;
@@ -3669,7 +4107,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3727,12 +4164,21 @@
   transform: rotate(306deg) skewY(126deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) {
   position: relative;
@@ -3742,7 +4188,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3800,12 +4245,21 @@
   transform: rotate(324deg) skewY(126deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted {
   position: relative;
@@ -3815,7 +4269,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3873,12 +4326,21 @@
   transform: rotate(306deg) skewY(126deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) {
   position: relative;
@@ -3888,7 +4350,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -3946,12 +4407,21 @@
   transform: rotate(324deg) skewY(126deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-10.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted {
   position: relative;
@@ -3961,7 +4431,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4022,12 +4491,21 @@
   transform: rotate(310.9090909091deg) skewY(122.7272727273deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) {
   position: relative;
@@ -4037,7 +4515,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4098,12 +4575,21 @@
   transform: rotate(327.2727272727deg) skewY(122.7272727273deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted {
   position: relative;
@@ -4113,7 +4599,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4174,12 +4659,21 @@
   transform: rotate(310.9090909091deg) skewY(122.7272727273deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) {
   position: relative;
@@ -4189,7 +4683,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4250,12 +4743,21 @@
   transform: rotate(327.2727272727deg) skewY(122.7272727273deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted {
   position: relative;
@@ -4265,7 +4767,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4326,12 +4827,21 @@
   transform: rotate(310.9090909091deg) skewY(122.7272727273deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) {
   position: relative;
@@ -4341,7 +4851,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4402,12 +4911,21 @@
   transform: rotate(327.2727272727deg) skewY(122.7272727273deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-11.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted {
   position: relative;
@@ -4417,7 +4935,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4481,12 +4998,21 @@
   transform: rotate(315deg) skewY(120deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) {
   position: relative;
@@ -4496,7 +5022,6 @@
   padding: 0;
   width: 200px;
   height: 200px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4560,12 +5085,21 @@
   transform: rotate(330deg) skewY(120deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12 > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted {
   position: relative;
@@ -4575,7 +5109,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4639,12 +5172,21 @@
   transform: rotate(315deg) skewY(120deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) {
   position: relative;
@@ -4654,7 +5196,6 @@
   padding: 0;
   width: 150px;
   height: 150px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4718,12 +5259,21 @@
   transform: rotate(330deg) skewY(120deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.medium > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted {
   position: relative;
@@ -4733,7 +5283,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4797,12 +5346,21 @@
   transform: rotate(315deg) skewY(120deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > .shifted .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) {
   position: relative;
@@ -4812,7 +5370,6 @@
   padding: 0;
   width: 88px;
   height: 88px;
-  border-radius: 50%;
   list-style: none;
   overflow: hidden;
   background-size: cover;
@@ -4876,12 +5433,21 @@
   transform: rotate(330deg) skewY(120deg);
 }
 .songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock img {
-  float: right;
+  float: left;
   width: 100%;
   height: 100%;
   margin: 0px;
   border: 0px;
   padding: 0px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock .clock-style-picker {
+  display: none;
+  position: absolute;
+  right: 0px;
+  font-size: 16px;
+}
+.songs-for-the-dusk .clock-block .clocks.clocks-12.small > :not(.shifted) .blades-clock:hover .clock-style-picker {
+  display: block;
 }
 .songs-for-the-dusk .blades-clock-name-type > * {
   margin-bottom: 10px;
@@ -6008,16 +6574,6 @@
 .settings.clock-styles .effects-list {
   margin: 0 0;
 }
-.settings.clock-styles i.nullifier {
-  display: none;
-  transition: filter 0.2s;
-  cursor: pointer;
-}
-.settings.clock-styles i.nullifier:hover {
-  filter: brightness(0.8);
-  opacity: 0.9;
-  color: red;
-}
 .settings.clock-styles .half {
   flex: 1;
 }
@@ -6377,6 +6933,11 @@
 .application.dialog.start-mission input[type=checkbox].automated:checked::after, .application.dialog.end-mission input[type=checkbox].automated:checked::after, .application.dialog.end-session input[type=checkbox].automated:checked::after {
   color: #12a012;
 }
+.application.dialog.clock-style-picker .clock-style {
+  align-items: center;
+  white-space: nowrap;
+  gap: 1em;
+}
 .application.dialog .actor-contents {
   gap: 1em;
   justify-content: center;
@@ -6477,7 +7038,7 @@ ol.chat-log li.chat-message.message .message-content .button {
   flex-direction: column;
   padding-top: 0.25em;
 }
-ol.chat-log li.chat-message.message.update-message {
+ol.chat-log li.chat-message.message.special-message {
   display: none;
 }
 

@@ -85,8 +85,15 @@ export class BladesSheet extends BaseActorSheet {
         await BladesHelpers.tryUpdate(pilotFull, {'==name': pilotFull.name});
     });
 
-    // manage active effects
-    html.find(".effect-control").click(ev => BladesActiveEffect.onManageActiveEffect(ev, this.actor));	
+    // Manage active effects
+    html.find(".effect-control").click(ev => BladesActiveEffect.onManageActiveEffect(ev, this.actor));
+
+    html.find('.clock-style-picker').click(async ev => {
+      let element = ev.currentTarget;
+      let path = element.dataset.path;
+      let themeColor = element.dataset.themeColor;
+      await this.clockStylePickerPopup(path, themeColor);
+    })
   }
 
   /* -------------------------------------------- */
@@ -137,18 +144,18 @@ export class BladesSheet extends BaseActorSheet {
     html += `</div>`;
 
     let dialog = new foundry.applications.api.DialogV2({
-      window: { title: `${game.i18n.localize('Add')} ${title}` },
+      window: { title: `${game.i18n.localize('SFTD.Add')} ${title}` },
       content: html,
       buttons: [
         {
           icon: 'fas fa-check',
-          label: game.i18n.localize('Add'),
+          label: game.i18n.localize('SFTD.Add'),
           action: 'add',
           default: true
         },
         {
           icon: 'fas fa-times',
-          label: game.i18n.localize('Cancel'),
+          label: game.i18n.localize('SFTD.Cancel'),
           action: 'cancel'
         }
       ],
@@ -228,18 +235,18 @@ export class BladesSheet extends BaseActorSheet {
     html += `</div>`;
 
     let dialog = new foundry.applications.api.DialogV2({
-      window: { title: `${game.i18n.localize('Add')} ${title}` },
+      window: { title: `${game.i18n.localize('SFTD.Add')} ${title}` },
       content: html,
       buttons: [
         {
           icon: 'fas fa-check',
-          label: game.i18n.localize('Add'),
+          label: game.i18n.localize('SFTD.Add'),
           action: 'add',
           default: true
         },
         {
           icon: 'fas fa-times',
-          label: game.i18n.localize('Cancel'),
+          label: game.i18n.localize('SFTD.Cancel'),
           action: 'cancel'
         }
       ],
@@ -277,7 +284,7 @@ export class BladesSheet extends BaseActorSheet {
     });
 
     if (!valuePath) {
-      let items = await Item.create(itemsToAdd, {parent: this.actor});
+      let items = await BladesHelpers.tryCreate(itemsToAdd, this.actor);
       for (let item of items) {
         if (containerId)
           await BladesHelpers.tryUpdate(item, {system: {'==owner': containerId}});
@@ -289,7 +296,7 @@ export class BladesSheet extends BaseActorSheet {
   }
 
   async addItemAsObjectAndStoreReference(itemToAdd, valuePath) {
-    let itemsFull = await Item.create([itemToAdd], {parent: this.document});
+    let itemsFull = await BladesHelpers.tryCreate([itemToAdd], this.document);
     if (itemsFull[0].system.uses)
       await BladesHelpers.tryUpdate(itemsFull[0], {system: {uses: {'==value': itemsFull[0].system.uses.max}}});
     let updateObject = BladesHelpers.createUpdateObjectFromPath(itemsFull[0]._id, valuePath);
@@ -346,5 +353,48 @@ export class BladesSheet extends BaseActorSheet {
     };
 
     await this.actor.updateEmbeddedDocuments('Item', [update]);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Call a popup for changing a clock's theme and color.
+   */
+  async clockStylePickerPopup(path, themeColor) {
+    let defaultThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
+
+    let clockStylesDropdown = { 'null': `${defaultThemeColor} (default)` };
+    for (let [themeName, theme] of Object.entries(BladesHelpers.clockStyles))
+      if (themeName != 'dataReason')
+        for (let [colorName, color] of Object.entries(theme))
+          if (colorName != 'dataReason')
+            clockStylesDropdown[`${themeName}/${colorName}`] = `${themeName}/${colorName}`;
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('SFTD.ClockStylePicker')}` },
+      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/clock-style-picker.html', { clockStylesDropdown: clockStylesDropdown, themeColor: themeColor }),
+      classes: ['clock-style-picker'],
+      buttons: [
+        {
+          icon: 'fas fa-save',
+          label: game.i18n.localize('SETTINGS.Save'),
+          action: 'save',
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('SFTD.Cancel'),
+          action: 'cancel',
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result != 'save') return;
+
+        let value = dialog.element.querySelector('select').value;
+        let updateObject = {};
+        updateObject[path] = value;
+        await BladesHelpers.tryUpdate(this.actor, updateObject);
+      }
+    });
+    await dialog.render(true);
   }
 }

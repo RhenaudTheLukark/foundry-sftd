@@ -51,9 +51,7 @@ export class BladesCrewSheet extends BladesSheet {
 
     sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
 
-    const defaultThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor').split('/');
-    sheetData.defaultClockTheme = defaultThemeColor[0];
-    sheetData.defaultClockColor = defaultThemeColor[1];
+    sheetData.defaultClockThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
 
     return sheetData;
   }
@@ -164,6 +162,7 @@ export class BladesCrewSheet extends BladesSheet {
           value: 0,
           max: 4,
           min: 0,
+          theme_color: null,
           invested_caches: 0
         },
         description: ''

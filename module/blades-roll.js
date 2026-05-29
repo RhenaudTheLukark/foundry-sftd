@@ -402,7 +402,7 @@ export async function simpleRollPopup() {
     title: `Simple Roll`,
     content,
     okLabel: `Roll`,
-    cancelLabel: game.i18n.localize('Cancel'),
+    cancelLabel: game.i18n.localize('SFTD.Cancel'),
   });
 
   if (!formResult) {

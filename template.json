@@ -153,7 +153,8 @@
         "text": "",
         "clock": {
           "value": 0,
-          "max": 6
+          "max": 6,
+          "theme_color": null
         },
         "memories": {
           "one": "",
@@ -169,7 +170,8 @@
       "base": "",
       "harmony": {
         "value": 2,
-        "max": 8
+        "max": 8,
+        "theme_color": null
       },
       "experience": {
         "value": 0,
