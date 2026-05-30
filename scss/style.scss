@@ -43,6 +43,10 @@ $hover-brightness: 0.8;
       @import 'import/sheets/strider-sheet.scss';
     }
 
+    &.npc {
+      @import 'import/sheets/npc-sheet.scss';
+    }
+
     &.clock {
       @import 'import/sheets/clock-sheet.scss';
     }

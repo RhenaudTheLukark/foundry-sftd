@@ -1,42 +1,50 @@
 <form class="{{cssClass}} actor-sheet" autocomplete="off">
-<section class="npc-sheet flex-horizontal">
-	<img src="{{img}}" data-edit="img" title="{{name}}" height="150" width="150"/>
-  <section class="npc-lines flex-column">
-	<div class="flex-horizontal">
-		<label class="text-line" for="strider-{{_id}}-name" >{{localize 'SFTD.Name'}}:</label>
-		<input type="text" id="strider-{{_id}}-name" name="name" value="{{name}}" placeholder="{{localize 'SFTD.Name'}}">
-	</div>
-	<div class="flex-horizontal">
-		<label class="text-line" for="strider-{{_id}}-short-description">{{localize 'SFTD.Short'}} {{localize 'SFTD.Description'}}:</label>
-		<input type="text" id="strider-{{_id}}-short-description" name="system.description_short" value="{{system.description_short}}">
-
-	</div>
-	<div class="flex-horizontal">
-		<label class="text-line" for="strider-{{_id}}-associated-class">{{localize 'SFTD.Associated'}} {{localize 'SFTD.Class'}}:</label>
-		<input type="text" id="strider-{{_id}}-associated-class" name="system.associated_class" value="{{system.associated_class}}">
-
-	</div>
-	<div class="flex-horizontal">
-		<label class="text-line" for="strider-{{_id}}-description">{{localize 'SFTD.Full'}} {{localize 'SFTD.Description'}}:</label>
-		<textarea rows="2" id="strider-{{_id}}-description" name="system.description">{{system.description}}</textarea>
-
-	</div>
-	<div class="flex-horizontal">
-		<label class="text-line" for="strider-{{_id}}-associated-crew-type">{{localize 'SFTD.Associated'}} {{localize 'SFTD.CrewType'}}:</label>
-		<input type="text" id="strider-{{_id}}-associated-crew-type" name="system.associated_crew_type" value="{{system.associated_crew_type}}">
-
-	</div>
-	<div class="flex-horizontal">
-		<label class="text-line" for="strider-{{_id}}-associated-faction">{{localize 'SFTD.Associated'}} {{localize 'SFTD.Faction'}}:</label>
-		<input type="text" id="strider-{{_id}}-associated-faction" name="system.associated_faction" value="{{system.associated_faction}}" >
-
-	</div>
-	<div class="flex-horizontal">
-		<label class="text-line" for="strider-{{_id}}-notes">{{localize 'SFTD.Notes'}}:</label>
-		<textarea rows="2" id="strider-{{_id}}-notes" name="system.notes">{{system.notes}}</textarea>
-
-	</div>
-	</section>
+  <section class="flex-horizontal">
+    <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" height="200" width="200" />
+    <section class="lines flex-vertical">
+      <div class="name-line flex-horizontal">
+        {{!-- Name --}}
+        <div id="npc-{{_id}}-name-box">
+          <label for="npc-{{_id}}-name" class="title-label">{{localize 'SFTD.Name'}}:</label>
+          <input type="text" id="npc-{{_id}}-name" class="name" name="name" value="{{name}}">
+        </div>
+        {{!-- Gender --}}
+        <div id="npc-{{_id}}-gender-box">
+          <label for="npc-{{_id}}-gender" class="title-label">{{localize 'SFTD.Gender'}}:</label>
+          <input type="text" id="npc-{{_id}}-gender" class="gender" name="system.gender" value="{{system.gender}}">
+        </div>
+        {{!-- Form --}}
+        <div id="npc-{{_id}}-form-box">
+          <label for="npc-{{_id}}-form" class="title-label">{{localize 'SFTD.Form'}}:</label>
+          <input type="text" id="npc-{{_id}}-form" class="alias" name="system.form" value="{{system.form}}">
+        </div>
+      </div>
+      <div class="flex-horizontal">
+        <label class="text-line" for="npc-{{_id}}-motifs">{{localize 'SFTD.Motifs'}}:</label>
+        <input type="text" id="npc-{{_id}}-motifs" name="system.motifs" value="{{system.motifs}}">
+      </div>
+      <div class="flex-horizontal">
+        <label class="text-line" for="npc-{{_id}}-description">{{localize 'SFTD.Description'}}:</label>
+        <textarea id="npc-{{_id}}-description" name="system.description">{{system.description}}</textarea>
+      </div>
+      <div class="flex-horizontal">
+        <a class="text-line actor-add-popup" data-actor-type="crew" data-unique="true" data-value-path="system.crew">{{localize 'SFTD.Associated'}} {{localize 'TYPES.Actor.crew'}}:</a>
+        {{#if (ne system.crew null)}}
+        <div class="item flex-horizontal" data-item-id="{{system.crew.uuid}}">
+          <div class="open-actor flex-horizontal">
+            <img src="{{system.crew.img}}" data-tooltip="{{system.crew.name}}" width="24" height="24"/>
+            <a class="item-name">{{system.crew.name}}</a>
+          </div>
+          <div class="item-controls flex-horizontal">
+            <a class="item-control delete-crew" data-tooltip="{{localize 'SFTD.TitleDeleteCrew'}}"><i class="fas fa-trash"></i></a>
+          </div>
+        </div>
+        {{/if}}
+      </div>
+      <div class="flex-horizontal">
+        <label class="text-line" for="npc-{{_id}}-notes">{{localize 'SFTD.Notes'}}:</label>
+        <textarea id="npc-{{_id}}-notes" name="system.notes">{{system.notes}}</textarea>
+      </div>
+    </section>
   </section>
 </form>
-

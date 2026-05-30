@@ -1,6 +1,6 @@
 
+import { BladesHelpers } from "./blades-helpers.js";
 import { BladesSheet } from "./blades-sheet.js";
-import { enrichHTML } from "./compat.js";
 
 /**
  * @extends {BladesSheet}
@@ -10,7 +10,7 @@ export class BladesNPCSheet extends BladesSheet {
   /** @override */
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
-  	  classes: ["songs-for-the-dusk", "sheet", "actor"],
+  	  classes: ["songs-for-the-dusk", "sheet", "actor", "npc"],
   	  template: "systems/songs-for-the-dusk/templates/npc-sheet.html",
       width: 900,
       height: 'auto',
@@ -21,17 +21,63 @@ export class BladesNPCSheet extends BladesSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async getData(options) {
-    const superData = super.getData( options );
+  getData(options) {
+    const superData = super.getData(options);
     const sheetData = superData.data;
 
-    sheetData.isGM = game.user.isGM;
     sheetData.owner = superData.owner;
     sheetData.editable = superData.editable;
+    sheetData.document = superData.document;
+    sheetData.isGM = game.user.isGM;
 
-    sheetData.system.description = await enrichHTML(sheetData.system.description, {secrets: sheetData.owner, async: true});
+    sheetData.system.crew = BladesHelpers.resolveActor(sheetData.system.crew, { name: "Unknown Crew" });
+
+    //sheetData.system.description = await enrichHTML(sheetData.system.description, {secrets: sheetData.owner, async: true});
 
     return sheetData;
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _onDropItem(event, droppedItem) {
+    await super._onDropItem(event, droppedItem);
+    if (!this.actor.isOwner) {
+      ui.notifications.error(`You do not have sufficient permissions to edit this character. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
+      return false;
+    }
+    await this.handleDrop(event, droppedItem);
+  }
+
+  /** @override */
+  async _onDropActor(event, droppedActor) {
+    await super._onDropActor(event, droppedActor);
+    if (!this.actor.isOwner) {
+      ui.notifications.error(`You do not have sufficient permissions to edit this character. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
+      return false;
+    }
+    await this.handleDrop(event, droppedActor);
+  }
+
+  /** @override */
+  async handleDrop(event, droppedEntity) {
+    let droppedEntityFull = BladesHelpers.resolveActor(droppedEntity.uuid);
+    await this.handleAddedObjects([droppedEntityFull]);
+  }
+
+  async handleAddedObjects(droppedEntitiesFull) {
+    for (let droppedEntityFull of droppedEntitiesFull) {
+      if (!droppedEntityFull || droppedEntityFull.uuid == this.actor.uuid)
+        continue;
+
+      switch (droppedEntityFull.type) {
+        case 'crew':
+          await BladesHelpers.addCrewNPC(droppedEntityFull, this.actor, false);
+          break;
+        default:
+          break;
+      }
+    }
   }
 
   /* -------------------------------------------- */
@@ -43,19 +89,9 @@ export class BladesNPCSheet extends BladesSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    // Update Inventory Item
-    // html.find('.item-body').click(ev => {
-    //   const element = $(ev.currentTarget).parents(".item");
-    //   const item = this.actor.items.get(element.data("itemId"));
-    //   item.sheet.render(true);
-    // });
-
-    // // Delete Inventory Item
-    // html.find('.item-delete').click(ev => {
-    //   const element = $(ev.currentTarget).parents(".item");
-    //   this.actor.deleteEmbeddedDocuments("Item", [element.data("itemId")]);
-    //   element.slideUp(200, () => this.render(false));
-    // });
-
+    // Delete NPC's Crew Type
+    html.find('.delete-crew').click(async ev => {
+      await BladesHelpers.removeCrewNPC(this.actor);
+    });
 	}
 }

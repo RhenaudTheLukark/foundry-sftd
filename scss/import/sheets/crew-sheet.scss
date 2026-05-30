@@ -136,12 +136,13 @@ section:has(~ .tab-content) {
 
   .tab.community {
     & > div:not(:first-child) {
-      margin: 10px 0;
+      margin-top: 10px;
       gap: 1em;
     }
 
     .community-data {
-      gap: 10px;
+      width: 100%;
+      gap: 1em;
 
       .community-name-region {
         gap: 1em;
@@ -149,27 +150,39 @@ section:has(~ .tab-content) {
     }
 
     .community-members {
+      width: 360px;
+      min-width: 360px;
+      max-width: 360px;
+
       .member-data {
         width: 100%;
-        gap: 10px;
+        gap: 1em;
         justify-content: space-between;
 
-        .member-name-class {
-          white-space: nowrap;
-          overflow: hidden;
-          text-overflow: ellipsis;
-
-          .member-name {
-            width: auto;
+        .member-name-form {
+          .member-name, .member-form {
+            width: 150px;
+            max-width: 150px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
           }
         }
 
         .member-class {
           height: 100%;
-          width: fit-content !important;
+          width: fit-content;
           justify-content: space-evenly;
           text-align: center;
           align-self: center;
+
+          .motifs {
+            width: 100px;
+            max-width: 100px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+          }
         }
       }
     }

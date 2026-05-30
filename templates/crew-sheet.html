@@ -165,7 +165,7 @@
       </div>
 
       <div class="community-container flex-horizontal">
-        <div class="community-data grow-two flex-vertical">
+        <div class="community-data flex-vertical">
           <div class="community-name-region flex-horizontal">
             <div class="flex-vertical grow-one">
               <label for="crew-{{_id}}-community-name" class="title-label">{{localize 'SFTD.CommunityName'}}:</label>
@@ -196,7 +196,7 @@
           </div>
         </div>
 
-        <div class="community-members grow-two flex-vertical">
+        <div class="community-members flex-vertical">
           <div class="black-white-header">{{localize 'SFTD.Members'}}</div>
           <div class="tab-list">
             {{#each system.members as |member id|}}
@@ -204,26 +204,38 @@
               <div class="open-actor flex-horizontal">
                 <img src="{{member.data.img}}" data-tooltip="{{member.data.name}}" width="48" height="48"/>
                 <div class="member-data flex-horizontal">
-                  <div class="member-name-class flex-vertical">
-                    <a class="member-name"><b>{{member.data.name}}</b>{{#if (ne member.data.system.gender '')}} ({{member.data.system.gender}}){{/if}}</a>
-                    <label>{{#if (ne member.data.system.form '')}}{{member.data.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' member.data.type)}}</label>
+                  <div class="member-name-form flex-vertical">
+                    <a class="member-name" data-tooltip="{{member.data.name}}{{#if (ne member.data.system.gender '')}} ({{member.data.system.gender}}){{/if}}">
+                      <b>{{member.data.name}}</b>{{#if (ne member.data.system.gender '')}} ({{member.data.system.gender}}){{/if}}
+                    </a>
+                    <label class="member-form" data-tooltip="{{#if (ne member.data.system.form '')}}{{member.data.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' member.data.type)}}">
+                      {{#if (ne member.data.system.form '')}}{{member.data.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' member.data.type)}}
+                    </label>
                   </div>
-                  {{#if (eq member.data.type 'strider')}}
                   <div class="member-class flex-vertical">
-                    <label class="title-label">{{localize "SFTD.Class"}}:</label>
+                    {{#if (eq member.data.type 'strider')}}
+                    <label class="title-label">{{localize 'SFTD.Class'}}:</label>
                     {{#if (ne member.data.system.class null)}}
                     <div class="flex-horizontal">
                       <img src="{{member.class.img}}" data-tooltip="{{member.class.name}}" width="24" height="24"/>
                       <label>{{member.class.name}}</label>
                     </div>
                     {{else}}
-                    <label>{{localize "SFTD.None"}}</label>
+                    <label>{{localize 'SFTD.None'}}</label>
+                    {{/if}}
+                    {{else}}
+                    <label class="title-label">{{localize "SFTD.Motifs"}}:</label>
+                    <label class="motifs"{{#if (ne member.data.system.motifs '')}}data-tooltip="{{member.data.system.motifs}}"{{/if}}>
+                      {{#if (ne member.data.system.motifs '')}}
+                      {{member.data.system.motifs}}
+                      {{else}}
+                      {{localize 'SFTD.None'}}
+                      {{/if}}
+                    </label>
                     {{/if}}
                   </div>
-                  {{else}}
-                  {{/if}}
                   <div class="item-controls flex-horizontal">
-                    <a class="item-control delete-member" data-tooltip="{{localize 'BITD.TitleDeleteMember'}}"><i class="fas fa-trash"></i></a>
+                    <a class="item-control delete-member" data-tooltip="{{localize 'SFTD.TitleDeleteMember'}}"><i class="fas fa-trash"></i></a>
                   </div>
                 </div>
               </div>
@@ -298,10 +310,10 @@
                   </div>
                 </div>
                 <div class="flex-vertical project-text">
-                  <input type="text" name="system.projects.{{id}}.title" value="{{project.title}}" placeholder="{{localize BITD.Title}}">
+                  <input type="text" name="system.projects.{{id}}.title" value="{{project.title}}" placeholder="{{localize SFTD.Title}}">
                   <textarea class="project-description" rows="1" name="system.projects.{{id}}.description">{{project.description}}</textarea>
                 </div>
-                <a class="item-control delete-project" data-tooltip="{{localize 'BITD.TitleDeleteProject'}}"><i class="fas fa-trash"></i></a>
+                <a class="item-control delete-project" data-tooltip="{{localize 'SFTD.TitleDeleteProject'}}"><i class="fas fa-trash"></i></a>
               </section>
             </td>
           </td>

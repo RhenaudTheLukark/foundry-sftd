@@ -5967,34 +5967,46 @@
   margin-top: 0px !important;
 }
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community > div:not(:first-child) {
-  margin: 10px 0;
+  margin-top: 10px;
   gap: 1em;
 }
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-data {
-  gap: 10px;
+  width: 100%;
+  gap: 1em;
 }
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-data .community-name-region {
   gap: 1em;
 }
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members {
+  width: 360px;
+  min-width: 360px;
+  max-width: 360px;
+}
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-data {
   width: 100%;
-  gap: 10px;
+  gap: 1em;
   justify-content: space-between;
 }
-.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-data .member-name-class {
-  white-space: nowrap;
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-data .member-name-form .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-data .member-name-form .member-form {
+  width: 150px;
+  max-width: 150px;
   overflow: hidden;
   text-overflow: ellipsis;
-}
-.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-data .member-name-class .member-name {
-  width: auto;
+  white-space: nowrap;
 }
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-data .member-class {
   height: 100%;
-  width: fit-content !important;
+  width: fit-content;
   justify-content: space-evenly;
   text-align: center;
   align-self: center;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-data .member-class .motifs {
+  width: 100px;
+  max-width: 100px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.projects {
   margin: 0px;
@@ -6362,6 +6374,53 @@
 }
 .songs-for-the-dusk.actor.sheet.strider .extra-rolls .downtime .fas:hover {
   transform: scale(1.25);
+}
+.songs-for-the-dusk.actor.sheet.npc .actor-sheet > section {
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet.npc section > img {
+  margin-left: 20px;
+  align-self: center;
+}
+.songs-for-the-dusk.actor.sheet.npc section {
+  justify-content: start;
+}
+.songs-for-the-dusk.actor.sheet.npc section.lines {
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet.npc section.lines .name-line {
+  margin-left: 150px;
+}
+.songs-for-the-dusk.actor.sheet.npc section.lines .name-line .name, .songs-for-the-dusk.actor.sheet.npc section.lines .name-line .gender, .songs-for-the-dusk.actor.sheet.npc section.lines .name-line .form {
+  width: 90%;
+  margin-bottom: 10px;
+}
+.songs-for-the-dusk.actor.sheet.npc section.lines .text-line {
+  height: 26px;
+  padding: 5px 10px;
+  min-width: 150px;
+  width: 150px;
+  text-align: right;
+  font-family: "Kirsty", serif;
+}
+.songs-for-the-dusk.actor.sheet.npc section.lines input, .songs-for-the-dusk.actor.sheet.npc section.lines textarea {
+  margin-bottom: 5px;
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet.npc .black-white-header {
+  background-color: #191813;
+  color: #EEEFFF;
+  text-align: center;
+  width: 100%;
+}
+.songs-for-the-dusk.actor.sheet.npc .black-white-header:is(div) {
+  padding: 0.25em;
+  font-weight: bold;
+  text-align: center;
+}
+.songs-for-the-dusk.actor.sheet.npc .item .item-name {
+  width: 100%;
+  margin-right: 0;
 }
 .songs-for-the-dusk.actor.sheet.clock {
   min-width: 300px;

@@ -222,11 +222,11 @@
     },
     "npc": {
       "name": "",
-      "description_short": "",
+      "gender": "",
+      "form": "",
+      "motifs": "",
       "description": "",
-      "associated_class": "",
-      "associated_faction": "",
-      "associated_crew_type": "",
+      "crew": null,
       "notes": ""
     }
   },

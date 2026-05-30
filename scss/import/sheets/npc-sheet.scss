@@ -1,0 +1,58 @@
+.actor-sheet > section {
+  align-items: center;
+}
+
+section > img {
+  margin-left: 20px;
+  align-self: center;
+}
+
+section {
+  justify-content: start;
+
+  &.lines {
+    width: 100%;
+
+    .name-line {
+      margin-left: 150px;
+      .name, .gender, .form {
+        width: 90%;
+        margin-bottom: 10px;
+      }
+    }
+
+    .text-line {
+      height: 26px;
+      padding: 5px 10px;
+      min-width: 150px;
+      width: 150px;
+      text-align: right;
+      font-family: "Kirsty", serif;
+    }
+
+    input, textarea {
+      margin-bottom: 5px;
+      width: 100%;
+    }
+  }
+}
+
+.black-white-header {
+  background-color: $almost_black;
+  color: $almost_white;
+  text-align: center;
+  width: 100%;
+
+  &:is(div) {
+    padding: 0.25em;
+    font-weight: bold;
+    text-align: center;
+  }
+}
+
+.item {
+  .item-name {
+    width: 100%;
+    margin-right: 0;
+  }
+}

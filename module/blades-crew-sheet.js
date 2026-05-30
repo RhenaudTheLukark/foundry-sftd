@@ -60,7 +60,7 @@ export class BladesCrewSheet extends BladesSheet {
   async _onDropItem(event, droppedItem) {
     await super._onDropItem(event, droppedItem);
     if (!this.actor.isOwner) {
-      ui.notifications.error(`You do not have sufficient permissions to edit this squad. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
+      ui.notifications.error(`You do not have sufficient permissions to edit this crew. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
       return false;
     }
     await this.handleDrop(event, droppedItem);
@@ -70,7 +70,7 @@ export class BladesCrewSheet extends BladesSheet {
   async _onDropActor(event, droppedActor) {
     await super._onDropActor(event, droppedActor);
     if (!this.actor.isOwner) {
-      ui.notifications.error(`You do not have sufficient permissions to edit this squad. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
+      ui.notifications.error(`You do not have sufficient permissions to edit this crew. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
       return false;
     }
     await this.handleDrop(event, droppedActor);
@@ -96,7 +96,7 @@ export class BladesCrewSheet extends BladesSheet {
           await BladesHelpers.addCrewStrider(this.actor, droppedEntityFull, true);
           break;
         case 'npc':
-          //await BladesHelpers.addSquadNPC(this.actor, droppedEntityFull, true);
+          await BladesHelpers.addCrewNPC(this.actor, droppedEntityFull, true);
           break;
         case 'crew_type':
           await this.addItemAsObjectAndStoreReference(droppedEntityFull, 'system.type');

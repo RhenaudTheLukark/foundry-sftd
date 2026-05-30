@@ -196,33 +196,9 @@ export class BladesHelpers {
    * @param {object} updateObject
    */
   static async tryCreate(objectsData, parentFull) {
-    if (!objectFull)
-      return;
-    if (objectFull.canUserModify(game.user, 'create')) {
-      if (parentFull)
-        await Item.create(objectsData, {parent: parentFull});
-    } else {
-      // Send a specific message to the GM to update some data on their end
-      let speaker = ChatMessage.getSpeaker();
-      let messageData = {
-        speaker: speaker,
-        messageType: 'createRequest',
-        objectData: objectsData,
-        parentUuid: parentFull ? parentFull.uuid : null,
-        objectEmbeddedName: parentFull ? 'Item' : '',
-        content: '',
-        blind: true,
-        whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
-      }
-      let message = await SFTDChatMessage.create(messageData);
-
-      if (game.users.activeGM)
-        // Wait for the message to be handled to continue;
-        await BladesHelpers.until(_ => message.system.handled == true);
-      else
-        // Notify the player that the data will be handled when a GM connects
-        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.TryUpdateNoActiveGM'));
-    }
+    if (objectsData && parentFull && parentFull.canUserModify(game.user, 'create'))
+      return await Item.create(objectsData, {parent: parentFull});
+    return [];
   }
 
   /**
@@ -592,6 +568,39 @@ export class BladesHelpers {
       return a.type == 'strider' ? -1 : 1;
     return a.name.localeCompare(b.name, 'en-US');
   }
+
+  /* -------------------------------------------- */
+
+  // Sets the crew of an NPC and add the NPC to the crew's member list
+  static async addCrewNPC(crewFull, npcFull, fromCrew) {
+    if (npcFull.system.crew === crewFull.uuid) {
+      BladesHelpers.printSameObjectError(fromCrew, 'crew', 'npc');
+      return;
+    }
+
+    if (npcFull.system.crew)
+      await BladesHelpers.removeCrewNPC(npcFull);
+    let crewMembersArray = Object.values(crewFull.system.members);
+    crewMembersArray.push({uuid: npcFull.uuid});
+    crewMembersArray = BladesHelpers.sortObjects(crewMembersArray, BladesHelpers.fetchSimpleData, BladesHelpers._simpleCompareFunc, BladesHelpers.rebuildSimplesFromData);
+    let newCrewMembers = Object.assign({}, crewMembersArray);
+    await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
+    await BladesHelpers.tryUpdate(npcFull, {system: {'==crew': crewFull.uuid}});
+  }
+
+  // Removes an NPC's crew and remove the NPC from its crew's member list
+  static async removeCrewNPC(npcFull) {
+    const crewFull = BladesHelpers.resolveActor(npcFull.system.crew);
+    if (crewFull) {
+      let crewMembersArray = Object.values(crewFull.system.members);
+      crewMembersArray.splice(crewMembersArray.map(e => e.uuid).indexOf(npcFull.uuid), 1);
+      let newCrewMembers = Object.assign({}, crewMembersArray);
+      await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
+    }
+    await BladesHelpers.tryUpdate(npcFull, {system: {'==crew': null}});
+  }
+
+  /* -------------------------------------------- */
 
   /**
    * Groups items by their system.class property.

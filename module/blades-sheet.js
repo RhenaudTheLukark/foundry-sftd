@@ -297,6 +297,8 @@ export class BladesSheet extends BaseActorSheet {
 
   async addItemAsObjectAndStoreReference(itemToAdd, valuePath) {
     let itemsFull = await BladesHelpers.tryCreate([itemToAdd], this.document);
+    if (itemsFull.length == 0)
+      return;
     if (itemsFull[0].system.uses)
       await BladesHelpers.tryUpdate(itemsFull[0], {system: {uses: {'==value': itemsFull[0].system.uses.max}}});
     let updateObject = BladesHelpers.createUpdateObjectFromPath(itemsFull[0]._id, valuePath);
