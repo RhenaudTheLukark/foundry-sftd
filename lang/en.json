@@ -5,7 +5,7 @@
       "npc": "NPC",
       "crew": "Crew",
       "\uD83D\uDD5B clock": "\uD83D\uDD5B Clock",
-      "factions": "Faction Status"
+      "faction": "Faction"
     },
     "Item": {
       "item": "Item",
@@ -15,7 +15,6 @@
       "crew_reputation": "Crew Reputation",
       "crew_upgrade": "Crew Upgrade",
       "crew_ability": "Crew Ability",
-      "faction": "Faction",
       "cohort": "Cohort"
     }
   },
@@ -134,6 +133,7 @@
     "Upgrades": "Upgrades",
     "Cohorts": "Cohorts",
     "Notes": "Notes",
+    "GMNotes": "Gamemaster Notes",
     "AllItems": "All Items",
     "CrewXP": "Crew XP",
     "XP": "XP",
@@ -146,6 +146,7 @@
     "Claimed": "Claimed",
     "Relationship": "Relationship",
     "Memories": "Memories",
+    "Clocks": "Clocks",
 
     "Gang": "Gang",
     "Expert": "Expert",

@@ -1,0 +1,118 @@
+.header-fields {
+  align-items: center;
+
+  .faction-tier {
+    background-color: $gray;
+    height: 33px;
+    display: flex;
+    align-items: center;
+    border-top: 3px solid $almost_black;
+    @include custom_radio_round(18px, gray, $almost_white, $almost_black);
+
+    > * {
+      margin-right: 5px;
+    }
+  }
+}
+
+nav {
+  margin-top: 10px;
+  justify-content: space-evenly;
+}
+
+.tab-content {
+  .tab {
+    min-height: 267px;
+
+    &.members {
+      .open-actor {
+        width: auto;
+
+        .member-data {
+          gap: 1em;
+          justify-content: space-between;
+
+          .member-name-form {
+            .member-name, .member-form {
+              width: 200px;
+              max-width: 200px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
+          }
+        }
+      }
+
+      .member-class {
+        height: 100%;
+        width: fit-content;
+        justify-content: space-evenly;
+        text-align: center;
+        align-self: center;
+
+        .motifs {
+          width: 150px;
+          max-width: 150px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+
+    &.clocks {
+      margin: 0px;
+
+      tr {
+        display: flex;
+      }
+
+      .clock-settings {
+        align-self: center;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .clock-text {
+        width: 100%;
+        gap: 5px;
+
+        .clock-description {
+          height: 100%;
+        }
+      }
+
+      .add-clock {
+        font-weight: bold;
+      }
+    }
+
+    &.relationships {
+      > .tab-list, .relationship-child-list {
+        background: rgba(0, 0, 0, 0.05);
+
+        > * {
+          &:nth-child(odd) {
+            background-color: var(--table-row-color-odd);
+          }
+
+          &:nth-child(even) {
+            background-color: rgba(255, 255, 255, 0.2);
+          }
+        }
+      }
+
+      > .tab-list {
+        .name-tier {
+          width: 100%;
+
+          .item-name {
+            margin-right: 0;
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}

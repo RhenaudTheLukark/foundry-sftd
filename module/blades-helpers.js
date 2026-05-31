@@ -488,7 +488,7 @@ export class BladesHelpers {
   }
 
   /* -------------------------------------------- */
-  static getProperCase(name) {
+  static capitalize(name) {
     return name.charAt(0).toUpperCase() + name.substr(1).toLowerCase();
   }
 
@@ -571,33 +571,33 @@ export class BladesHelpers {
 
   /* -------------------------------------------- */
 
-  // Sets the crew of an NPC and add the NPC to the crew's member list
-  static async addCrewNPC(crewFull, npcFull, fromCrew) {
-    if (npcFull.system.crew === crewFull.uuid) {
-      BladesHelpers.printSameObjectError(fromCrew, 'crew', 'npc');
+  // Sets the crew/faction of an NPC and add the NPC to the crew/faction's member list
+  static async addFactionNPC(factionFull, npcFull, fromFaction) {
+    if (npcFull.system.faction === factionFull.uuid) {
+      BladesHelpers.printSameObjectError(fromFaction, 'faction', 'npc');
       return;
     }
 
-    if (npcFull.system.crew)
-      await BladesHelpers.removeCrewNPC(npcFull);
-    let crewMembersArray = Object.values(crewFull.system.members);
-    crewMembersArray.push({uuid: npcFull.uuid});
-    crewMembersArray = BladesHelpers.sortObjects(crewMembersArray, BladesHelpers.fetchSimpleData, BladesHelpers._simpleCompareFunc, BladesHelpers.rebuildSimplesFromData);
-    let newCrewMembers = Object.assign({}, crewMembersArray);
-    await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
-    await BladesHelpers.tryUpdate(npcFull, {system: {'==crew': crewFull.uuid}});
+    if (npcFull.system.faction)
+      await BladesHelpers.removeFactionNPC(npcFull);
+    let factionMembersArray = Object.values(factionFull.system.members);
+    factionMembersArray.push({uuid: npcFull.uuid});
+    factionMembersArray = BladesHelpers.sortObjects(factionMembersArray, BladesHelpers.fetchSimpleData, BladesHelpers._simpleCompareFunc, BladesHelpers.rebuildSimplesFromData);
+    let newFactionMembers = Object.assign({}, factionMembersArray);
+    await BladesHelpers.tryUpdate(factionFull, {system: {'==members': newFactionMembers}});
+    await BladesHelpers.tryUpdate(npcFull, {system: {'==faction': factionFull.uuid}});
   }
 
-  // Removes an NPC's crew and remove the NPC from its crew's member list
-  static async removeCrewNPC(npcFull) {
-    const crewFull = BladesHelpers.resolveActor(npcFull.system.crew);
-    if (crewFull) {
-      let crewMembersArray = Object.values(crewFull.system.members);
-      crewMembersArray.splice(crewMembersArray.map(e => e.uuid).indexOf(npcFull.uuid), 1);
-      let newCrewMembers = Object.assign({}, crewMembersArray);
-      await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
+  // Removes an NPC's crew/faction and remove the NPC from its crew/faction's member list
+  static async removeFactionNPC(npcFull) {
+    const factionFull = BladesHelpers.resolveActor(npcFull.system.faction);
+    if (factionFull) {
+      let factionMembersArray = Object.values(factionFull.system.members);
+      factionMembersArray.splice(factionMembersArray.map(e => e.uuid).indexOf(npcFull.uuid), 1);
+      let newFactionMembers = Object.assign({}, factionMembersArray);
+      await BladesHelpers.tryUpdate(factionFull, {system: {'==members': newFactionMembers}});
     }
-    await BladesHelpers.tryUpdate(npcFull, {system: {'==crew': null}});
+    await BladesHelpers.tryUpdate(npcFull, {system: {'==faction': null}});
   }
 
   /* -------------------------------------------- */

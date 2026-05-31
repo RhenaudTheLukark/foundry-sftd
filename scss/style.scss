@@ -35,6 +35,10 @@ $hover-brightness: 0.8;
   &.actor.sheet {
     @import 'import/sheets/actor-sheet.scss';
 
+    &.faction {
+      @import 'import/sheets/faction-sheet.scss';
+    }
+
     &.crew {
       @import 'import/sheets/crew-sheet.scss';
     }

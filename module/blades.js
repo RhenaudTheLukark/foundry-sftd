@@ -201,12 +201,12 @@ Hooks.once("init", async function() {
   Handlebars.registerHelper('blades-clock', function(theme, color, size, valuePath, fill, uniqueId) {
     return handleBladesClock(theme, color, size, valuePath, fill, uniqueId);
   });
-  Handlebars.registerHelper('blades-clock-object', function(obj, objPath, uniqueId, defaultThemeColor) {
-    let theme = obj.theme;
-    let color = obj.color;
+  Handlebars.registerHelper('blades-clock-object', function(clockData, clockDataPath, uniqueId, defaultThemeColor) {
+    let theme = clockData.theme;
+    let color = clockData.color;
     let isDefaultStyle = false;
-    if (obj.theme_color && obj.theme_color != 'null') {
-      let themeColor = obj.theme_color.split('/');
+    if (clockData.theme_color && clockData.theme_color != 'null') {
+      let themeColor = clockData.theme_color.split('/');
       theme = themeColor[0];
       color = themeColor[1];
     }
@@ -216,11 +216,28 @@ Hooks.once("init", async function() {
       color = defaultThemeColor[1];
       isDefaultStyle = true;
     }
-    return handleBladesClock(theme, color, obj.max, `${objPath}.value`, obj.value, uniqueId, objPath, isDefaultStyle);
+    return handleBladesClock(theme, color, clockData.max, `${clockDataPath}.value`, clockData.value, uniqueId, clockDataPath, isDefaultStyle);
   });
 
-  Handlebars.registerHelper('pc', function( string ) {
-    return BladesHelpers.getProperCase( string );
+  // Computes clock sizes for a given theme
+  Handlebars.registerHelper('clock-sizes', function(clockData, defaultThemeColor) {
+    let themeColor = clockData.theme_color;
+    if (!themeColor || themeColor == 'null')
+      themeColor = defaultThemeColor;
+    themeColor = themeColor.split('/');
+    let theme = themeColor[0];
+    let color = themeColor[1];
+
+    let themeColorSizes = Object.keys(BladesHelpers.clockStyles?.[theme]?.[color] ?? {}).filter(s => s != 'dataReason').map(s => Number(s));
+    if (!themeColorSizes.includes(clockData.max)) {
+      themeColorSizes.push(clockData.max);
+      themeColorSizes.sort((a, b) => a - b);
+    }
+    return Object.fromEntries(themeColorSizes.map(s => [String(s), String(s)]));
+  });
+
+  Handlebars.registerHelper('capitalize', function( string ) {
+    return BladesHelpers.capitalize(string);
   });
 
   // Check for game settings
@@ -242,7 +259,7 @@ Hooks.once("ready", async function() {
   unregisterActorSheet("core", actorSheetClass);
   registerActorSheet("blades", BladesStriderSheet, { types: ["strider"], makeDefault: true });
   registerActorSheet("blades", BladesCrewSheet, { types: ["crew"], makeDefault: true });
-  registerActorSheet("blades", BladesFactionSheet, { types: ["factions"], makeDefault: true });
+  registerActorSheet("blades", BladesFactionSheet, { types: ["faction"], makeDefault: true });
   registerActorSheet("blades", BladesClockSheet, { types: ["\uD83D\uDD5B clock"], makeDefault: true });
   registerActorSheet("blades", BladesNPCSheet, { types: ["npc"], makeDefault: true });
   unregisterItemSheet("core", itemSheetClass);

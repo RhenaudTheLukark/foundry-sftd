@@ -154,35 +154,38 @@ section:has(~ .tab-content) {
       min-width: 360px;
       max-width: 360px;
 
-      .member-data {
-        width: 100%;
-        gap: 1em;
-        justify-content: space-between;
+      .open-actor {
+        width: auto;
 
-        .member-name-form {
-          .member-name, .member-form {
-            width: 150px;
-            max-width: 150px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
+        .member-data {
+          gap: 1em;
+          justify-content: space-between;
+
+          .member-name-form {
+            .member-name, .member-form {
+              width: 150px;
+              max-width: 150px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
+            }
           }
         }
+      }
 
-        .member-class {
-          height: 100%;
-          width: fit-content;
-          justify-content: space-evenly;
-          text-align: center;
-          align-self: center;
+      .member-class {
+        height: 100%;
+        width: fit-content;
+        justify-content: space-evenly;
+        text-align: center;
+        align-self: center;
 
-          .motifs {
-            width: 100px;
-            max-width: 100px;
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-          }
+        .motifs {
+          width: 100px;
+          max-width: 100px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
       }
     }

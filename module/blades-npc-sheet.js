@@ -11,7 +11,7 @@ export class BladesNPCSheet extends BladesSheet {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
   	  classes: ["songs-for-the-dusk", "sheet", "actor", "npc"],
-  	  template: "systems/songs-for-the-dusk/templates/npc-sheet.html",
+  	  template: "systems/songs-for-the-dusk/templates/actors/npc-sheet.html",
       width: 900,
       height: 'auto',
       tabs: [{navSelector: ".tabs", contentSelector: ".tab-content"}]
@@ -72,7 +72,7 @@ export class BladesNPCSheet extends BladesSheet {
 
       switch (droppedEntityFull.type) {
         case 'crew':
-          await BladesHelpers.addCrewNPC(droppedEntityFull, this.actor, false);
+          await BladesHelpers.addFactionNPC(droppedEntityFull, this.actor, false);
           break;
         default:
           break;
@@ -91,7 +91,7 @@ export class BladesNPCSheet extends BladesSheet {
 
     // Delete NPC's Crew Type
     html.find('.delete-crew').click(async ev => {
-      await BladesHelpers.removeCrewNPC(this.actor);
+      await BladesHelpers.removeFactionNPC(this.actor);
     });
 	}
 }

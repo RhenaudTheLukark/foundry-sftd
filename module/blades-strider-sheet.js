@@ -13,7 +13,7 @@ export class BladesStriderSheet extends BladesSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["songs-for-the-dusk", "sheet", "actor", "strider"],
-      template: "systems/songs-for-the-dusk/templates/strider-sheet.html",
+      template: "systems/songs-for-the-dusk/templates/actors/strider-sheet.html",
       width: 790,
       height: 890,
       tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "community"}]

@@ -1,0 +1,144 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" />
+    <div class="header-fields flex-horizontal">
+      {{!-- Name --}}
+      <h1 class="charname">
+        <input name="name" type="text" value="{{name}}" placeholder="{{localize 'BITD.Faction'}}" />
+      </h1>
+      <div class="faction-tier">
+        <div class="black-label">{{localize 'SFTD.Tier'}}</div>
+        {{#multiboxes system.tier.value}}
+        <input id="faction-{{_id}}-tier-0" type="radio" data-dType="Number" name="system.tier.value" value="0">
+        {{#times_from 1 system.tier.max}}
+        <input id="faction-{{../_id}}-tier-{{this}}" type="radio" data-dType="Number" name="system.tier.value" value="{{this}}">
+        <label class="radio-toggle{{#if (eq this ../system.tier.value)}} enabled{{/if}}"></label>
+        {{/times_from}}
+        {{/multiboxes}}
+      </div>
+    </div>
+  </header>
+
+  <div class="flex-vertical">
+    <label class="title-label">{{localize 'SFTD.Description'}}:</label>
+    <textarea rows="6" name="system.description">{{system.description}}</textarea>
+  </div>
+
+  <div class="tab-content flex-vertical">
+    {{!-- Nav Menu --}}
+    <nav class="tabs flex-horizontal">
+      <a class="item" data-tab="members">{{localize 'SFTD.Members'}}</a>
+      <a class="item" data-tab="assets">{{localize 'SFTD.Assets'}}</a>
+      <a class="item" data-tab="clocks">{{localize 'SFTD.Clocks'}}</a>
+      <a class="item" data-tab="relationships">{{localize 'SFTD.Relationships'}}</a>
+      {{#if isGM}}
+      <a class="item" data-tab="notes">{{localize 'SFTD.Notes'}}</a>
+      {{/if}}
+    </nav>
+
+    {{!-- Members Tab --}}
+    <div class="tab flex-vertical members" data-tab="members">
+      <div class="label-stripe flex-horizontal">
+        <p>{{localize 'SFTD.Members'}}</p>
+        {{#if isGM}}<p><a class="actor-add-popup" data-actor-type="npc" data-value-path="system.members" data-parent-path="system.faction"><i class="fas fa-plus-square"></i></a></p>{{/if}}
+      </div>
+      <div class="tab-list">
+        {{#each system.members as |member id|}}
+        <div class="item flex-horizontal" data-item-id="{{member.data.uuid}}">
+          <div class="open-actor flex-horizontal">
+            <img src="{{member.data.img}}" data-tooltip="{{member.data.name}}" width="48" height="48"/>
+            <div class="member-data flex-horizontal">
+              <div class="member-name-form flex-vertical">
+                <a class="member-name" data-tooltip="{{member.data.name}}{{#if (ne member.data.system.gender '')}} ({{member.data.system.gender}}){{/if}}">
+                  <b>{{member.data.name}}</b>{{#if (ne member.data.system.gender '')}} ({{member.data.system.gender}}){{/if}}
+                </a>
+                <label class="member-form" data-tooltip="{{#if (ne member.data.system.form '')}}{{member.data.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' member.data.type)}}">
+                  {{#if (ne member.data.system.form '')}}{{member.data.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' member.data.type)}}
+                </label>
+              </div>
+            </div>
+          </div>
+          <div class="member-class flex-vertical">
+            <label class="title-label">{{localize "SFTD.Motifs"}}:</label>
+            <label class="motifs"{{#if (ne member.data.system.motifs '')}}data-tooltip="{{member.data.system.motifs}}"{{/if}}>
+              {{#if (ne member.data.system.motifs '')}}
+              {{member.data.system.motifs}}
+              {{else}}
+              {{localize 'SFTD.None'}}
+              {{/if}}
+            </label>
+          </div>
+          <div class="item-controls flex-horizontal">
+            <a class="item-control delete-member" data-tooltip="{{localize 'SFTD.TitleDeleteMember'}}"><i class="fas fa-trash"></i></a>
+          </div>
+        </div>
+        {{/each}}
+      </div>
+    </div>
+
+    {{!-- Clocks Tab --}}
+    <div class="tab flex-vertical clocks" data-tab="clocks">
+      <div class="label-stripe flex-horizontal">
+        <p>{{localize 'SFTD.Clocks'}}</p>
+        <p><a class="add-clock"><i class="fas fa-plus-square"></i></a></p>
+      </div>
+      <table>
+        {{#each system.clocks as |clock id|}}
+        <tr>
+          <td class="flex-vertical grow-two clock item" data-clock-id="{{id}}">
+            <section class="flex-horizontal">
+              <div class="clock-block">
+                <div class="faction-clock clocks clocks-{{clock.max}} small">
+                  {{{blades-clock-object clock (concat "system.clocks." id) (concat ../_id "-clock-" id) ../defaultClockThemeColor}}}
+                </div>
+              </div>
+              <div class="flex-vertical clock-settings">
+                <label><i class="fa fa-chart-pie"></i></label>
+                <select data-type="Number" name="system.clocks.{{id}}.max">
+                  {{selectOptions (clock-sizes clock ../defaultClockThemeColor) selected=clock.max}}
+                </select>
+              </div>
+              <div class="flex-vertical clock-text">
+                <input type="text" name="system.clocks.{{id}}.title" value="{{clock.title}}" placeholder="{{localize BITD.Title}}">
+                <textarea class="clock-description" rows="1" name="system.clocks.{{id}}.description">{{clock.description}}</textarea>
+              </div>
+              <a class="item-control delete-clock" data-tooltip="{{localize 'BITD.TitleDeleteClock'}}"><i class="fas fa-trash"></i></a>
+            </section>
+          </td>
+        </tr>
+        {{/each}}
+      </table>
+    </div>
+
+    {{!-- Assets Tab --}}
+    <div class="tab flex-vertical assets" data-tab="assets">
+      <div class="label-stripe">
+        <p>{{localize 'SFTD.Assets'}}</p>
+      </div>
+      <textarea rows="13" name="system.assets">{{system.assets}}</textarea>
+    </div>
+
+    {{!-- Relationships Tab --}}
+    <div class="tab flex-vertical relationships" data-tab="relationships">
+      <div class="label-stripe flex-horizontal">
+        <p>{{localize 'SFTD.Relationships'}}</p>
+        <p><a><i class="fas fa-info" data-tooltip="{{localize 'SFTD.RelationshipInfo'}}"></i></a></p>
+      </div>
+      <div class="tab-list">
+        <!--
+        {{#each system.direct_relationships as |relationship id|}}
+        {{> "systems/beamsaber/templates/parts/relationship-block.html" relationship=relationship actor=../this _id=../_id}}
+        {{/each}}
+        -->
+      </div>
+    </div>
+
+    {{!-- Notes Tab --}}
+    <div class="tab flex-vertical faction-notes" data-tab="notes">
+      <div class="label-stripe">
+        <p>{{localize 'SFTD.GMNotes'}}</p>
+      </div>
+      <textarea rows="13" name="system.notes">{{system.notes}}</textarea>
+    </div>
+  </div>
+</form>

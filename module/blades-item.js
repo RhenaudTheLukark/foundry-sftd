@@ -27,26 +27,11 @@ export class BladesItem extends Item {
 
   /* override */
   prepareData() {
-
     super.prepareData();
 
     const item_data = this.system;
-
-    if (this.type === "cohort") {
-
+    if (this.type === "cohort")
       this._prepareCohort(item_data);
-
-    }
-
-    if (this.type === "faction") {
-      if( !item_data.goal_1_clock_value ){ this.system.goal_1_clock_value = 0 }
-      if( item_data.goal_1_clock_max === 0 ){ this.system.goal_1_clock_max = 4 }
-      if( !item_data.goal_2_clock_value ){ this.system.goal_2_clock_value = 0 }
-      if( item_data.goal_2_clock_max === 0 ){ this.system.goal_2_clock_max = 4 }
-      this.system.size_list_1 = BladesHelpers.createListOfClockSizes( game.system.bladesClocks.sizes, this.system.goal_1_clock_max, parseInt( this.system.goal_1_clock_max ) );
-      this.system.size_list_2 = BladesHelpers.createListOfClockSizes( game.system.bladesClocks.sizes, this.system.goal_2_clock_max, parseInt( this.system.goal_2_clock_max ) );
-    }
-
   }
 
   /**

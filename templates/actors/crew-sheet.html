@@ -212,32 +212,32 @@
                       {{#if (ne member.data.system.form '')}}{{member.data.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' member.data.type)}}
                     </label>
                   </div>
-                  <div class="member-class flex-vertical">
-                    {{#if (eq member.data.type 'strider')}}
-                    <label class="title-label">{{localize 'SFTD.Class'}}:</label>
-                    {{#if (ne member.data.system.class null)}}
-                    <div class="flex-horizontal">
-                      <img src="{{member.class.img}}" data-tooltip="{{member.class.name}}" width="24" height="24"/>
-                      <label>{{member.class.name}}</label>
-                    </div>
-                    {{else}}
-                    <label>{{localize 'SFTD.None'}}</label>
-                    {{/if}}
-                    {{else}}
-                    <label class="title-label">{{localize "SFTD.Motifs"}}:</label>
-                    <label class="motifs"{{#if (ne member.data.system.motifs '')}}data-tooltip="{{member.data.system.motifs}}"{{/if}}>
-                      {{#if (ne member.data.system.motifs '')}}
-                      {{member.data.system.motifs}}
-                      {{else}}
-                      {{localize 'SFTD.None'}}
-                      {{/if}}
-                    </label>
-                    {{/if}}
-                  </div>
-                  <div class="item-controls flex-horizontal">
-                    <a class="item-control delete-member" data-tooltip="{{localize 'SFTD.TitleDeleteMember'}}"><i class="fas fa-trash"></i></a>
-                  </div>
                 </div>
+              </div>
+              <div class="member-class flex-vertical">
+                {{#if (eq member.data.type 'strider')}}
+                <label class="title-label">{{localize 'SFTD.Class'}}:</label>
+                {{#if (ne member.data.system.class null)}}
+                <div class="flex-horizontal">
+                  <img src="{{member.class.img}}" data-tooltip="{{member.class.name}}" width="24" height="24"/>
+                  <label>{{member.class.name}}</label>
+                </div>
+                {{else}}
+                <label>{{localize 'SFTD.None'}}</label>
+                {{/if}}
+                {{else}}
+                <label class="title-label">{{localize "SFTD.Motifs"}}:</label>
+                <label class="motifs"{{#if (ne member.data.system.motifs '')}}data-tooltip="{{member.data.system.motifs}}"{{/if}}>
+                  {{#if (ne member.data.system.motifs '')}}
+                  {{member.data.system.motifs}}
+                  {{else}}
+                  {{localize 'SFTD.None'}}
+                  {{/if}}
+                </label>
+                {{/if}}
+              </div>
+              <div class="item-controls flex-horizontal">
+                <a class="item-control delete-member" data-tooltip="{{localize 'SFTD.TitleDeleteMember'}}"><i class="fas fa-trash"></i></a>
               </div>
             </div>
             {{/each}}
@@ -299,7 +299,7 @@
                   <div class="flex-horizontal clock-size">
                     <label><i class="fa fa-chart-pie" data-tooltip="{{localize 'SFTD.ClockSize'}}"></i></label>
                     <select data-type="String" name="system.projects.{{id}}.clock.max">
-                      {{selectOptions ../clockSizeDropdown selected=project.clock.max}}
+                      {{selectOptions (clock-sizes project.clock ../defaultClockThemeColor) selected=project.clock.max}}
                     </select>
                   </div>
                   <div class="flex-horizontal invested-caches">

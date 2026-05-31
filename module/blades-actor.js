@@ -18,10 +18,10 @@ export class BladesActor extends Actor {
       case 'strider':
       case 'crew':
       case '\uD83D\uDD5B clock':
-	  case 'npc':
-	  case 'factions':
-        data.prototypeToken.actorLink = true;
-        break;
+      case 'npc':
+      case 'faction':
+          data.prototypeToken.actorLink = true;
+          break;
     }
 
     return super.create(data, options);

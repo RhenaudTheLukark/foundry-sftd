@@ -11,7 +11,7 @@ export class BladesCrewSheet extends BladesSheet {
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
   	  classes: ["songs-for-the-dusk", "sheet", "actor", "crew"],
-  	  template: "systems/songs-for-the-dusk/templates/crew-sheet.html",
+  	  template: "systems/songs-for-the-dusk/templates/actors/crew-sheet.html",
       width: 940,
       height: 940,
       tabs: [{navSelector: ".tabs", contentSelector: ".tab-content", initial: "upgrades"}]
@@ -40,14 +40,6 @@ export class BladesCrewSheet extends BladesSheet {
       if (Number(project.clock.value) < Number(project.clock.max))
         invested += Number(project.invested_caches);
     sheetData.system.cache.invested = invested;
-
-    sheetData.clockSizeDropdown = {
-      '4': '4',
-      '6': '6',
-      '8': '8',
-      '10': '10',
-      '12': '12',
-    };
 
     sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
 
@@ -90,13 +82,14 @@ export class BladesCrewSheet extends BladesSheet {
 
       switch (droppedEntityFull.type) {
         case 'crew':
+        case 'faction':
           //await BladesHelpers.addRelationship(this.actor, droppedEntityFull);
           break;
         case 'strider':
           await BladesHelpers.addCrewStrider(this.actor, droppedEntityFull, true);
           break;
         case 'npc':
-          await BladesHelpers.addCrewNPC(this.actor, droppedEntityFull, true);
+          await BladesHelpers.addFactionNPC(this.actor, droppedEntityFull, true);
           break;
         case 'crew_type':
           await this.addItemAsObjectAndStoreReference(droppedEntityFull, 'system.type');
@@ -179,6 +172,17 @@ export class BladesCrewSheet extends BladesSheet {
       for (let id in projectsEntries)
         projectsEntries[id][0] = String(id);
       await BladesHelpers.tryUpdate(this.actor, {system: {'==projects': Object.fromEntries(projectsEntries)}});
+    });
+
+    html.find('.delete-member').click(async ev => {
+      const element = $(ev.currentTarget).closest('.item');
+      let memberUuid = element.data('itemId');
+      let memberFull = BladesHelpers.resolveActor(memberUuid);
+      if (!memberFull) return;
+      if (memberFull.type == 'strider')
+        await BladesHelpers.removeCrewStrider(memberFull);
+      else if (memberFull.type == 'npc')
+        await BladesHelpers.removeFactionNPC(memberFull);
     });
 
     // Cohort Block Harm handler

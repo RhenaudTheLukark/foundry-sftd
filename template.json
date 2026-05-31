@@ -1,6 +1,6 @@
 {
   "Actor": {
-    "types": ["\uD83D\uDD5B clock", "strider", "npc", "crew", "factions"],
+    "types": ["strider", "crew", "faction", "npc", "\uD83D\uDD5B clock"],
     "strider": {
       "gender": "",
       "form": "",
@@ -166,7 +166,6 @@
       }
     },
     "crew": {
-      "name": "",
       "base": "",
       "harmony": {
         "value": 2,
@@ -210,28 +209,36 @@
         "add_stress": 0
       }
     },
+    "faction": {
+      "tier": {
+        "max": 5,
+        "value": 1
+      },
+      "description": "",
+      "members": {},
+      "clocks": {},
+      "assets": "",
+      "quirks": "",
+      "relationships": {},
+      "notes": ""
+    },
     "\uD83D\uDD5B clock": {
-      "name": "",
       "size": 4,
       "value": 0,
       "theme_color": "default/black",
       "owner": ""
     },
-    "factions": {
-      "name": ""
-    },
     "npc": {
-      "name": "",
       "gender": "",
       "form": "",
       "motifs": "",
       "description": "",
-      "crew": null,
+      "faction": null,
       "notes": ""
     }
   },
   "Item": {
-    "types": ["faction", "item", "class", "ability", "crew_upgrade", "cohort", "crew_type", "crew_reputation", "crew_upgrade", "crew_ability"],
+    "types": ["item", "class", "ability", "crew_upgrade", "cohort", "crew_type", "crew_reputation", "crew_upgrade", "crew_ability"],
     "templates": {
       "default": {
         "description": ""
@@ -277,31 +284,6 @@
         "type": "",
         "target": null,
         "amount": null
-      }
-    },
-    "faction": {
-      "templates": ["default"],
-      "type": "",
-      "tier": 0,
-      "goal_1": "",
-      "goal_1_clock_max": 0,
-      "goal_2": "",
-      "goal_2_clock_max": 0,
-      "turf": "",
-      "assets": "",
-      "quirks": "",
-      "notables": "",
-      "allies": "",
-      "enemies": "",
-      "situation": "",
-      "goal_clock": 0,
-      "notes": "",
-      "status": {
-        "value": [4],
-        "max": 7,
-        "max_default": 7,
-        "name_default": "SFTD.Status",
-        "name": "SFTD.Status"
       }
     },
     "item": {

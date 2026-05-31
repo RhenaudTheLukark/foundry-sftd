@@ -187,7 +187,7 @@ export class BladesSheet extends BaseActorSheet {
 
     let exclusionList = [];
     if (unique === undefined && valuePaths)
-      for (let valuePath of valuePaths.split(',')) {
+      for (let valuePath of valuePaths) {
         exclusionList = BladesHelpers.getNestedProperty(this.actor, valuePath);
         exclusionList = Object.values(exclusionList).map(e => e.uuid);
       }
