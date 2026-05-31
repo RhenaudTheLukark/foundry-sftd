@@ -70,12 +70,40 @@ Hooks.once("init", async function() {
       selected.forEach(selected_value => {
         if (selected_value !== false) {
           let escapedValue = RegExp.escape(Handlebars.escapeExpression(selected_value));
-          let rgx = new RegExp(' value=\"' + escapedValue + '\"');
+          let rgx = new RegExp(' value=[\"\']' + escapedValue + '[\"\']');
           let oldHtml = html;
           html = html.replace(rgx, "$& checked");
           while((oldHtml === html) && (escapedValue >= 0)) {
             escapedValue--;
-            rgx = new RegExp(' value=\"' + escapedValue + '\"');
+            rgx = new RegExp(' value=[\"\']' + escapedValue + '[\"\']');
+            html = html.replace(rgx, "$& checked");
+          }
+        }
+      });
+    }
+    return html;
+  });
+
+  // Negative multiboxes
+  Handlebars.registerHelper('negative-multiboxes', function (selected, options) {
+    let html = options.fn(this);
+    // Fix for single non-array values.
+    if (!Array.isArray(selected))
+      selected = [selected];
+
+    if (typeof selected !== 'undefined') {
+      selected.forEach(selected_value => {
+        if (selected_value !== false) {
+          let escapedValue = RegExp.escape(Handlebars.escapeExpression(selected_value));
+          let rgx = new RegExp('value=[\"\']' + escapedValue + '[\"\']');
+          let oldHtml = html;
+          html = html.replace(rgx, "$& checked");
+          while ((oldHtml === html) && (escapedValue != 0)) {
+            if (escapedValue > 0)
+              escapedValue++;
+            else
+              escapedValue--;
+            rgx = new RegExp('value=[\"\']' + escapedValue + '[\"\']');
             html = html.replace(rgx, "$& checked");
           }
         }
@@ -97,6 +125,8 @@ Hooks.once("init", async function() {
 
   Handlebars.registerHelper('typeof', (a) => typeof a);
   Handlebars.registerHelper('capitalize', (str) => String(str).charAt(0).toUpperCase() + String(str).substr(1).toLowerCase());
+
+  Handlebars.registerHelper('isempty', (a) => a.length == 0);
 
   // Enrich the HTML replace /n with <br>
   Handlebars.registerHelper('html', (options) => {

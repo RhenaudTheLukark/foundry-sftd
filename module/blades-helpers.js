@@ -219,7 +219,7 @@ export class BladesHelpers {
         messageType: 'updateRequest',
         updateQuery: JSON.stringify(updateObject),
         objectUuid: objectFull.uuid,
-        content: '',
+        content: '<div class="special-message"></div>',
         blind: true,
         whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
       }
@@ -253,7 +253,7 @@ export class BladesHelpers {
         objectUuid: objectFull.uuid,
         parentUuid: parentFull ? parentFull.uuid : null,
         objectEmbeddedName: parentFull ? objectFull.split('.')[0] : null,
-        content: '',
+        content: '<div class="special-message"></div>',
         blind: true,
         whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
       }
@@ -298,7 +298,7 @@ export class BladesHelpers {
       if (!value) value = target.dataset.value;
       value = parseInt(value);
       value = value + (value < 0 ? 1 : -1);
-      let prevEl = target.parentElement.querySelector(`[name='${name}'][value='${value}'], [name="${name}"][value="${value}"]`);
+      let prevEl = target.parentElement.querySelector(`[name='${name}'][value='${value}'], [name="${name}"][value="${value}"], [data-name='${name}'][data-value='${value}'], [data-name="${name}"][data-value="${value}"]`);
       $(prevEl).trigger('click');
     } else {
       //trigger the click on this one
@@ -602,6 +602,140 @@ export class BladesHelpers {
 
   /* -------------------------------------------- */
 
+  static async addRelationship(ownerFull, entityFull, recursive = false) {
+    let relationships = ownerFull.system.relationships;
+
+    // Check if not currently in the relationship table
+    if (Object.values(relationships).map(e => e.uuid).indexOf(entityFull.uuid) >= 0) {
+      ui.notifications.info(game.i18n.localize(`BITD.log.info.Same${game.i18n.localize('TYPES.Actor.' + ownerFull.type)}Relationship`));
+      return;
+    }
+
+    // Add new relationship
+    let relationship = {uuid: entityFull.uuid, status: 0, collapsed: false};
+    relationships[Object.entries(relationships).length] = relationship;
+    relationships = Object.assign({}, BladesHelpers.sortObjects(relationships, BladesHelpers.fetchRelationshipsData, BladesHelpers._relationshipCompareFunc, BladesHelpers.rebuildRelationshipListFromData));
+
+    // Update the relationship data
+    await BladesHelpers.tryUpdate(ownerFull, {system: {'==relationships': relationships}});
+    if (!recursive)
+      await BladesHelpers.addRelationship(entityFull, ownerFull, true);
+  }
+
+  static fetchAllRelationships(entityFull) {
+    let output = [];
+    if (entityFull.type == 'crew')
+      for (let relationship of Object.values(entityFull.system.relationships))
+        output.push({ owner: relationship.uuid, status: relationship.status });
+    return output;
+  }
+
+  static fetchRelationshipsData(relationships) {
+    let relationshipList = {};
+    let keyShift = 0;
+    for (let [key, relationship] of Object.entries(relationships)) {
+      let entityFull = foundry.utils.deepClone(BladesHelpers.resolveActor(relationship.uuid));
+      if (!entityFull) {
+        keyShift--;
+        continue;
+      }
+      key = Number(key) + keyShift;
+      relationshipList[key] = {
+        uuid: entityFull.uuid,
+        img: entityFull.img,
+        name: entityFull.name,
+        type: entityFull.type,
+        system: {
+          status: relationship.status,
+          collapsed: relationship.collapsed,
+          relationshipId: key,
+          gender: entityFull.system.gender ?? '',
+          form: entityFull.system.form ?? ''
+        }
+      };
+    }
+    return relationshipList;
+  }
+
+  static fetchFullAndRelativeRelationshipsData(ownerFull, relationships) {
+    let relationshipsFull = BladesHelpers.fetchRelationshipsData(relationships);
+
+    // Fetch list of direct children instead of an empty object
+    let directRelationshipsFull = [];
+    for (let relationshipFull of Object.values(relationshipsFull)) {
+      relationshipFull.system.children = [];
+      let isChild = false;
+      // In case of character/npc: check if crew/faction is a direct children
+      if (relationshipFull.system.faction || relationshipFull.system.crew) {
+        let parentIndex = directRelationshipsFull.map(e => e.uuid).indexOf(relationshipFull.system.faction ?? relationshipFull.system.crew);
+        if (parentIndex >= 0) {
+          directRelationshipsFull[parentIndex].system.children.push(relationshipFull);
+          isChild = true;
+        }
+      }
+
+      if (!isChild)
+        directRelationshipsFull.push(relationshipFull);
+    }
+
+    return [relationshipsFull, directRelationshipsFull];
+  }
+
+  static _relationshipCompareFunc(a, b) {
+    if      (a.type == 'crew'    && b.type != 'crew')    return -1;
+    else if (a.type != 'crew'    && b.type == 'crew')    return 1;
+    else if (a.type == 'faction' && b.type != 'faction') return -1;
+    else if (a.type != 'faction' && b.type == 'faction') return 1;
+    return a.name.localeCompare(b.name, 'en-US');
+  }
+
+  static rebuildRelationshipListFromData(relationshipsFull) {
+    let relationships = {};
+    for (let [key, relationshipFull] of Object.entries(relationshipsFull))
+      relationships[key] = {
+        uuid: relationshipFull.uuid,
+        name: relationshipFull.name,
+        status: relationshipFull.system ? relationshipFull.system.status : relationshipFull.status,
+        collapsed: relationshipFull.system ? relationshipFull.system.collapsed : relationshipFull.collapsed
+      };
+    return relationships;
+  }
+
+  static async handleRelationshipValue(ownerFull, entityFull, path, change, set = false, recursive = false) {
+    let [relationshipId, relationship] = Object.entries(ownerFull.system.relationships).find(s => s[1].uuid == entityFull.uuid);
+    let result = set ? Number(change) : (Number(relationship[path]) + Number(change));
+
+    let resultDiff = result != relationship[path];
+    if (resultDiff) {
+      let updateObject = {system: {}};
+      updateObject.system.relationships = {};
+      updateObject.system.relationships[relationshipId] = {};
+      updateObject.system.relationships[relationshipId][`==${path}`] = result;
+      await BladesHelpers.tryUpdate(ownerFull, updateObject);
+      if (!recursive)
+        await BladesHelpers.handleRelationshipValue(entityFull, ownerFull, path, change, set, true);
+    }
+    return resultDiff;
+  }
+
+  static async removeRelationship(ownerFull, entityFull, recursive = false) {
+    let relationshipFull = Object.values(ownerFull.system.relationships).find(r => r.uuid == entityFull.uuid);
+    if (!relationshipFull)
+      return;
+
+    // Remove the relationship from the table
+    let relationshipsArray = Object.values(ownerFull.system.relationships);
+    relationshipsArray.splice(relationshipsArray.indexOf(relationshipFull), 1);
+    let newRelationships = Object.assign({}, relationshipsArray);
+
+    // Update the data
+    await BladesHelpers.tryUpdate(ownerFull, {system: {'==relationships': newRelationships}});
+    if (!recursive)
+      await BladesHelpers.removeRelationship(entityFull, ownerFull, true);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Groups items by their system.class property.
    * Items without a class are grouped under "General".
@@ -669,7 +803,7 @@ export class BladesHelpers {
       speaker: speaker,
       messageType: 'clockStylesRequest',
       userId: game.userId,
-      content: '',
+      content: '<div class="special-message"></div>',
       blind: true,
       whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
     }
@@ -681,13 +815,13 @@ export class BladesHelpers {
   }
 
   static async sendClockStyleResponseBroadcast() {
-    for (const user of game.users.contents.filter(u => u.id != game.userId)) {
+    for (const user of game.users.contents.filter(u => u.id != game.userId && u.active)) {
       let speaker = ChatMessage.getSpeaker();
       let messageData = {
         speaker: speaker,
         messageType: 'clockStylesResponse',
         clockStyles: BladesHelpers.clockStyles,
-        content: '',
+        content: '<div class="special-message"></div>',
         blind: true,
         whisper: [user.id]
       }

@@ -281,7 +281,7 @@
     "EffectWarning": "Managing Active Effects within an Owned Item is not currently supported by FoundryVTT and will be added in a subsequent update.",
 
     "Name": "Name",
-    "Gender": "Gender",
+    "Pronouns": "Pronouns",
     "Form": "Form",
     "Motifs": "Motifs",
 

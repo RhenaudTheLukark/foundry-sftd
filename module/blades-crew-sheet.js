@@ -31,6 +31,10 @@ export class BladesCrewSheet extends BladesSheet {
     sheetData.system.members = BladesHelpers.fetchSimpleData(sheetData.system.members, [], BladesHelpers._crewMemberCompareFunc);
     sheetData.system.members = sheetData.system.members.map((m) => { return { data: m, class: BladesHelpers.getOwnedItem(m, m.system.class) }; });
 
+    // Fetch relationships data and direct relationships
+    [sheetData.system.relationships, sheetData.system.direct_relationships] = BladesHelpers.fetchFullAndRelativeRelationshipsData(this.actor, sheetData.system.relationships);
+    sheetData.onlyDirectRelationships = Object.keys(sheetData.system.relationships).length == Object.keys(sheetData.system.direct_relationships).length;
+
     // Prepare active effects
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.actor.effects);
 
@@ -83,7 +87,7 @@ export class BladesCrewSheet extends BladesSheet {
       switch (droppedEntityFull.type) {
         case 'crew':
         case 'faction':
-          //await BladesHelpers.addRelationship(this.actor, droppedEntityFull);
+          await BladesHelpers.addRelationship(this.actor, droppedEntityFull);
           break;
         case 'strider':
           await BladesHelpers.addCrewStrider(this.actor, droppedEntityFull, true);
@@ -118,7 +122,7 @@ export class BladesCrewSheet extends BladesSheet {
       if (!value) value = element.dataset.value;
       value = parseInt(value);
       value = value + (value < 0 ? 1 : -1);
-      element = element.parentElement.querySelector(`[name='${name}'][value='${value}'], [name="${name}"][value="${value}"]`);
+      element = element.parentElement.querySelector(`[name='${name}'][value='${value}'], [name="${name}"][value="${value}"], [data-name='${name}'][data-value='${value}'], [data-name="${name}"][data-value="${value}"]`);
     }
     const investedCaches = element.closest('.cache').querySelectorAll('input.invested');
     if (element.id == investedCaches[investedCaches.length - 1].id)

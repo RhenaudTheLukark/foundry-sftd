@@ -5632,24 +5632,6 @@
 .songs-for-the-dusk.actor.sheet .item .item-controls > .item-post {
   margin-left: 10px;
 }
-.songs-for-the-dusk.actor.sheet .trust-block, .songs-for-the-dusk.actor.sheet .beliefs-block, .songs-for-the-dusk.actor.sheet .status-block {
-  text-align: center;
-}
-.songs-for-the-dusk.actor.sheet .trust-block .supply, .songs-for-the-dusk.actor.sheet .beliefs-block .supply, .songs-for-the-dusk.actor.sheet .status-block .supply {
-  width: 90px;
-}
-.songs-for-the-dusk.actor.sheet .trust-block .supply label, .songs-for-the-dusk.actor.sheet .beliefs-block .supply label, .songs-for-the-dusk.actor.sheet .status-block .supply label {
-  margin-right: 0;
-}
-.songs-for-the-dusk.actor.sheet .trust-block input, .songs-for-the-dusk.actor.sheet .beliefs-block input, .songs-for-the-dusk.actor.sheet .status-block input {
-  min-width: 193px;
-}
-.songs-for-the-dusk.actor.sheet .status-block .supply label.negative.enabled {
-  background-color: red;
-}
-.songs-for-the-dusk.actor.sheet .status-block .supply label.enabled {
-  background-color: #008000;
-}
 .songs-for-the-dusk.actor.sheet .tabs {
   justify-content: space-around;
 }
@@ -5661,6 +5643,71 @@
 }
 .songs-for-the-dusk.actor.sheet .tab-content .tab table {
   margin: 0;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .collapse {
+  margin-left: 10px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item {
+  width: 100%;
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item img {
+  width: 48px;
+  height: 48px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .member-data {
+  gap: 1em;
+  justify-content: space-between;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block {
+  text-align: center;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status {
+  width: 90px;
+  display: flex;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status input, .songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label.input {
+  display: none;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status input[id$="-0"] + label, .songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label.input[id$="-0"] + label {
+  display: none;
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label:not(.input) {
+  height: 15px;
+  width: 15px;
+  vertical-align: middle;
+  background-color: #EEEFFF;
+  border: 1px solid #191813;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label:not(.input):hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label:not(.input):last-of-type {
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label:not(.input).enabled {
+  background-color: #DAA520;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label {
+  transition: filter 0.2s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label.negative.enabled {
+  background-color: red !important;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .item .status-block .status label.enabled {
+  background-color: #008000 !important;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .relationship-child-list {
+  margin-left: 10px;
 }
 .songs-for-the-dusk.actor.sheet .tab-content .item .item-name {
   font-weight: bold;
@@ -5684,25 +5731,6 @@
   width: 100%;
 }
 .songs-for-the-dusk.actor.sheet .tab-content .item-add-popup {
-  margin-left: 10px;
-}
-.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .collapse {
-  margin-left: 10px;
-}
-.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .patron {
-  background: rgba(0, 0, 192, 0.2);
-}
-.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .item {
-  width: 100%;
-}
-.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .item img {
-  width: 48px;
-  height: 48px;
-}
-.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .item .item-name {
-  width: 100%;
-}
-.songs-for-the-dusk.actor.sheet .tab-content .relationship-container .relationship-child-list {
   margin-left: 10px;
 }
 .songs-for-the-dusk.actor.sheet .tab-content .all-items .item .item-name {
@@ -7210,6 +7238,9 @@ ol.chat-log li.chat-message.message .message-content .button {
   padding-top: 0.25em;
 }
 ol.chat-log li.chat-message.message.special-message {
+  display: none;
+}
+ol.chat-log li.chat-message.message:has(.special-message) {
   display: none;
 }
 

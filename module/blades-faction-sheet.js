@@ -31,6 +31,10 @@ export class BladesFactionSheet extends BladesSheet {
     sheetData.system.members = BladesHelpers.fetchSimpleData(sheetData.system.members, [], BladesHelpers._crewMemberCompareFunc);
     sheetData.system.members = sheetData.system.members.map((m) => { return { data: m, class: BladesHelpers.getOwnedItem(m, m.system.class) }; });
 
+    // Fetch relationships data and direct relationships
+    [sheetData.system.relationships, sheetData.system.direct_relationships] = BladesHelpers.fetchFullAndRelativeRelationshipsData(this.actor, sheetData.system.relationships);
+    sheetData.onlyDirectRelationships = Object.keys(sheetData.system.relationships).length == Object.keys(sheetData.system.direct_relationships).length;
+
     sheetData.defaultClockThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
 
     return sheetData;
@@ -71,7 +75,7 @@ export class BladesFactionSheet extends BladesSheet {
       switch (droppedEntityFull.type) {
         case 'crew':
         case 'faction':
-          //await BladesHelpers.addRelationship(this.actor, droppedEntityFull);
+          await BladesHelpers.addRelationship(this.actor, droppedEntityFull);
           break;
         case 'npc':
           await BladesHelpers.addFactionNPC(this.actor, droppedEntityFull, true);

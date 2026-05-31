@@ -105,3 +105,7 @@
 &.special-message {
   display: none;
 }
+
+&:has(.special-message) {
+  display: none;
+}

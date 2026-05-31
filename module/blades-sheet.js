@@ -1,6 +1,6 @@
-import { BladesActiveEffect } from "./blades-active-effect.js";
-import { BladesHelpers } from "./blades-helpers.js";
-import { getActorSheetClass } from "./compat.js";
+import { BladesActiveEffect } from './blades-active-effect.js';
+import { BladesHelpers } from './blades-helpers.js';
+import { getActorSheetClass } from './compat.js';
 
 const BaseActorSheet = getActorSheetClass();
 
@@ -68,10 +68,18 @@ export class BladesSheet extends BaseActorSheet {
       element.slideUp(200, async () => await this.actor.removeItem(item));
     });
 
+    // Update Relationship Status
+    html.find('.status-block label.input').click(async ev => {
+      const element = $(ev.currentTarget).closest('.item');
+      let entityFull = BladesHelpers.resolveActor(element.data('itemId'));
+      if (entityFull)
+        await BladesHelpers.handleRelationshipValue(this.actor, entityFull, 'status', $(ev.currentTarget).data('value'), true);
+    });
+
     // Delete Relationship
     html.find('.delete-relationship:not(.disabled-item)').click(async ev => {
-      const element = $(ev.currentTarget).closest(".item");
-      let entityFull = BladesHelpers.resolveActor(element.data("itemId"));
+      const element = $(ev.currentTarget).closest('.item');
+      let entityFull = BladesHelpers.resolveActor(element.data('itemId'));
       if (entityFull)
         BladesHelpers.removeRelationship(this.actor, entityFull);
     });
@@ -86,7 +94,7 @@ export class BladesSheet extends BaseActorSheet {
     });
 
     // Manage active effects
-    html.find(".effect-control").click(ev => BladesActiveEffect.onManageActiveEffect(ev, this.actor));
+    html.find('.effect-control').click(ev => BladesActiveEffect.onManageActiveEffect(ev, this.actor));
 
     html.find('.clock-style-picker').click(async ev => {
       let element = ev.currentTarget;

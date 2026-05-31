@@ -130,33 +130,29 @@
   $accent_color: $gold;
   $circle_border_color: $almost_black;
 
-  label {
+  input, label.input {
+    display: none;
+
+    &[id$="-0"] + label {
+      display: none;
+      margin-right: 0px;
+    }
+  }
+
+  label:not(.input) {
     height: $side;
     width: $side;
-    background-color: $accent_color;
-
     vertical-align: middle;
+    background-color: $default_color;
     border: 1px solid $circle_border_color;
+    @include changeable(0.1s, 0.8, 0.9);
 
-    &[for$="-0"] {
+    &:last-of-type {
       margin-right: 0px;
     }
 
-    @include changeable(0.1s, 0.8, 0.9);
-  }
-
-  /* Hide the browser's default checkbox */
-  input {
-    display: none;
-
-    &:checked {
-      & ~ label {
-        background-color: $default_color;
-      }
-
-      & + label {
-        background-color: $accent_color;
-      }
+    &.enabled {
+      background-color: $accent_color;
     }
   }
 }

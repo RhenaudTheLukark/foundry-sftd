@@ -1,0 +1,15 @@
+<div class="status-block flex-vertical">
+  <b>{{localize 'SFTD.Status'}}</b>
+  <div class="status">
+    {{#negative-multiboxes status}}
+    {{#times_from -3 -1}}
+    <label id="{{../status_id}}-{{this}}" class="input{{#if (lteq this ../status)}} checked{{/if}}" type="radio" data-name="{{../status_path}}" data-value="{{this}}"></label>
+    <label class="radio-toggle negative{{#if (gteq this ../status)}} enabled{{/if}}"></label>
+    {{/times_from}}
+    {{#times_from 0 3}}
+    <label id="{{../status_id}}-{{this}}" class="input{{#if (gteq this ../status)}} checked{{/if}}" type="radio" data-name="{{../status_path}}" data-value="{{this}}"></label>
+    <label class="radio-toggle{{#if (lteq this ../status)}} enabled{{/if}}"></label>
+    {{/times_from}}
+    {{/negative-multiboxes}}
+  </div>
+</div>

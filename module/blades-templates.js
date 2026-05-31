@@ -13,7 +13,8 @@ export const preloadHandlebarsTemplates = async function() {
     // Actor Sheet Partials
     "systems/songs-for-the-dusk/templates/parts/attributes.html",
     "systems/songs-for-the-dusk/templates/parts/cohort-block.html",
-    "systems/songs-for-the-dusk/templates/parts/factions.html",
+    "systems/songs-for-the-dusk/templates/parts/relationship-block.html",
+    "systems/songs-for-the-dusk/templates/parts/status-block.html",
     "systems/songs-for-the-dusk/templates/parts/active-effects.html",
     "systems/songs-for-the-dusk/templates/parts/item_display/ability.html",
     "systems/songs-for-the-dusk/templates/parts/item_display/crew_ability.html",

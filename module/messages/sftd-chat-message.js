@@ -110,7 +110,7 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
       speaker: speaker,
       messageType: 'clockStylesResponse',
       clockStyles: BladesHelpers.clockStyles,
-      content: '',
+      content: '<div class="special-message"></div>',
       blind: true,
       whisper: [this.system.userId]
     }

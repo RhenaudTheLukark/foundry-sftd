@@ -100,34 +100,6 @@ ul {
   }
 }
 
-.trust-block, .beliefs-block, .status-block {
-  text-align: center;
-
-  .supply {
-    width: 90px;
-
-    label {
-      margin-right: 0;
-    }
-  }
-
-  input {
-    min-width: 193px;
-  }
-}
-
-.status-block {
-  .supply {
-    label.negative.enabled {
-      background-color: $red;
-    }
-
-    label.enabled {
-      background-color: $green;
-    }
-  }
-}
-
 .tabs {
   justify-content: space-around;
 
@@ -142,6 +114,57 @@ ul {
 
     table {
       margin: 0;
+    }
+
+    &.relationships {
+      .relationship-container {
+        .collapse {
+          margin-left: 10px;
+        }
+
+        .item {
+          width: 100%;
+          align-items: center;
+
+          img {
+            width: 48px;
+            height: 48px;
+          }
+
+          .member-data {
+            gap: 1em;
+            justify-content: space-between;
+          }
+
+          .status-block {
+            text-align: center;
+
+            .status {
+              $supply_size: 15px;
+              $supply_margin: 3px;
+
+              width: 90px;
+              @include custom_radio_square($supply_size);
+
+              label {
+                @include changeable($transition-period, $hover-brightness, $hover-opacity);
+
+                &.negative.enabled {
+                  background-color: $red !important;
+                }
+
+                &.enabled {
+                  background-color: $green !important;
+                }
+              }
+            }
+          }
+        }
+
+        .relationship-child-list {
+          margin-left: 10px;
+        }
+      }
     }
   }
 
@@ -172,35 +195,9 @@ ul {
   .item-description {
     width: 100%;
   }
+
   .item-add-popup {
     margin-left: 10px;
-  }
-
-  .relationship-container {
-    .collapse {
-      margin-left: 10px;
-    }
-
-    .patron {
-      background: rgba(0, 0, 192, 0.2);
-    }
-
-    .item {
-      width: 100%;
-
-      img {
-        width: 48px;
-        height: 48px;
-      }
-
-      .item-name {
-        width: 100%;
-      }
-    }
-
-    .relationship-child-list {
-      margin-left: 10px;
-    }
   }
 
   .all-items {

@@ -1,0 +1,29 @@
+<div class="relationship-container flex-vertical">
+  <div class="item flex-horizontal" data-item-id="{{relationship.uuid}}">
+    {{#if (not actor.onlyDirectRelationships)}}
+    <div class="collapse flex-horizontal"><a class="collapse-button" {{#if (isempty relationship.system.children)}}style="visibility: hidden"{{/if}}><i class="fas fa-{{#if (eq relationship.system.collapsed true)}}plus{{else}}minus{{/if}}-square"></i></a></div>
+    {{/if}}
+    <div class="open-actor flex-horizontal">
+      <img src="{{relationship.img}}" data-tooltip="{{relationship.name}}" />
+      <div class="member-data flex-horizontal">
+        <div class="member-name-form flex-vertical">
+          <a class="member-name" data-tooltip="{{relationship.name}}{{#if (ne relationship.system.gender '')}} ({{relationship.system.gender}}){{/if}}">
+            <b>{{relationship.name}}</b>{{#if (ne relationship.system.gender '')}} ({{relationship.system.gender}}){{/if}}
+          </a>
+          <label class="member-form" data-tooltip="{{#if (ne relationship.system.form '')}}{{relationship.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' relationship.type)}}">
+            {{#if (ne relationship.system.form '')}}{{relationship.system.form}} {{/if}}{{localize (concat 'TYPES.Actor.' relationship.type)}}
+          </label>
+        </div>
+      </div>
+    </div>
+    {{> "systems/songs-for-the-dusk/templates/parts/status-block.html" status=relationship.system.status status_path=(concat "system.relationships." relationship.system.relationshipId ".status") status_id=(concat actor.type "-" _id "-relationship-" relationship.system.relationshipId "-status" actor=actor type=relationship.type)}}
+    <div class="item-controls flex-horizontal">
+      <a class="item-control delete-relationship" data-tooltip="{{localize 'SFTD.TitleDeleteRelationship'}}"><i class="fas fa-trash"></i></a>
+    </div>
+  </div>
+  <div class="relationship-child-list{{#if (eq relationship.system.collapsed true)}} collapsed{{/if}}">
+    {{#each relationship.system.children as |relationship2 id2|}}
+    {{> "systems/songs-for-the-dusk/templates/parts/relationship-block.html" relationship=relationship2 actor=../actor _id=../_id}}
+    {{/each}}
+  </div>
+</div>

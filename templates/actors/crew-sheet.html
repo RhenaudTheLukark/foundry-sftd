@@ -339,6 +339,19 @@
       </div>
     </div>
 
+    {{!-- Relationships Tab --}}
+    <div class="tab flex-vertical relationships" data-tab="relationships">
+      <div class="label-stripe flex-horizontal">
+        <p>{{localize 'SFTD.Relationships'}}</p>
+        <p><a><i class="fas fa-info" data-tooltip="{{localize 'SFTD.RelationshipInfo'}}"></i></a></p>
+      </div>
+      <div class="tab-list">
+        {{#each system.direct_relationships as |relationship id|}}
+        {{> "systems/songs-for-the-dusk/templates/parts/relationship-block.html" relationship=relationship actor=../this _id=../_id}}
+        {{/each}}
+      </div>
+    </div>
+
     {{!-- Notes --}}
     <div id="crew-{{_id}}-notes" class="notes tab grow-two flex-vertical" data-tab="notes">
       <div class="label-stripe">
