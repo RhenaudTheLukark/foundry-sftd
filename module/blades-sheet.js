@@ -101,7 +101,7 @@ export class BladesSheet extends BaseActorSheet {
       let path = element.dataset.path;
       let themeColor = element.dataset.themeColor;
       await this.clockStylePickerPopup(path, themeColor);
-    })
+    });
   }
 
   /* -------------------------------------------- */

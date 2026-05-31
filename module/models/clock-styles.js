@@ -1,6 +1,4 @@
-const {
-  ArrayField, ObjectField, StringField, BooleanField
-} = foundry.data.fields;
+const { ObjectField } = foundry.data.fields;
 
 export class ClockStylesData extends foundry.abstract.TypeDataModel {
   static defineSchema() {

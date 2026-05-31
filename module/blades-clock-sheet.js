@@ -22,7 +22,7 @@ export class BladesClockSheet extends BladesSheet {
 
   /** @override */
   getData(options) {
-    const superData = super.getData( options );
+    const superData = super.getData(options);
     const sheetData = superData.data;
     sheetData.owner = superData.owner;
     sheetData.editable = superData.editable;

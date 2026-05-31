@@ -209,13 +209,13 @@ Hooks.once("init", async function() {
     html += `<div${clockData?.shifted ? ' class="shifted"' : ''}>`;
     html += `<div id="blades-clock-${uniqueId}" class="blades-clock clock-${size} clock-${size}-${fill}">`;
 
-    let zero_checked = (parseInt(fill) === 0) ? 'checked' : '';
-    html += `<input type="radio" value="0" id="clock-0-${uniqueId}}" data-dType="Number" name="${valuePath}" ${zero_checked}>`;
+    let zeroChecked = (parseInt(fill) === 0) ? ' checked' : '';
+    html += `<input type="radio" value="0" id="clock-0-${uniqueId}}" data-dType="Number" name="${valuePath}"${zeroChecked}>`;
 
     for (let i = 1; i <= parseInt(size); i++) {
-      let checked = (parseInt(fill) === i) ? 'checked' : '';
+      let checked = (parseInt(fill) === i) ? ' checked' : '';
       html += `
-        <input type="radio" value="${i}" id="clock-${i}-${uniqueId}" data-dType="Number" name="${valuePath}" ${checked}>
+        <input type="radio" value="${i}" id="clock-${i}-${uniqueId}" data-dType="Number" name="${valuePath}"${checked}>
         <label class="radio-toggle"></label>
       `;
     }

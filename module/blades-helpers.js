@@ -475,7 +475,6 @@ export class BladesHelpers {
    */
   static isAttributeAttribute(attribute_name) {
     const attributes = game.model.Actor.strider.attributes;
-
     return (attribute_name in attributes);
   }
 
@@ -487,40 +486,8 @@ export class BladesHelpers {
     return rebuildFunc(objsFullSortedArray, extraFields);
   }
 
-  /* -------------------------------------------- */
   static capitalize(name) {
     return name.charAt(0).toUpperCase() + name.substr(1).toLowerCase();
-  }
-
-  /**
-   * Creates options for faction clocks.
-   *
-   * @param {int[]} sizes
-   *  array of possible clock sizes
-   * @param {int} default_size
-   *  default clock size
-   * @param {int} current_size
-   *  current clock size
-   * @returns {string}
-   *  html-formatted option string
-   */
-  static createListOfClockSizes(sizes, default_size, current_size) {
-
-    let text = ``;
-
-    sizes.forEach(size => {
-      text += `<option value="${size}"`;
-      if (!(current_size) && (size === default_size)) {
-        text += ` selected`;
-      } else if (size === current_size) {
-        text += ` selected`;
-      }
-
-      text += `>${size}</option>`;
-    });
-
-    return text;
-
   }
 
   static async getSourcedItemsByType(item_type) {
