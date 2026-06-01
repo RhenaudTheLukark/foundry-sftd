@@ -298,13 +298,13 @@
                 <div class="flex-vertical clock-settings">
                   <div class="flex-horizontal clock-size">
                     <label><i class="fa fa-chart-pie" data-tooltip="{{localize 'SFTD.ClockSize'}}"></i></label>
-                    <select data-type="String" name="system.projects.{{id}}.clock.max">
+                    <select data-dType="Number" name="system.projects.{{id}}.clock.max">
                       {{selectOptions (clock-sizes project.clock ../defaultClockThemeColor) selected=project.clock.max}}
                     </select>
                   </div>
                   <div class="flex-horizontal invested-caches">
                     <label><i class="fa fa-treasure-chest" data-tooltip="{{localize 'SFTD.InvestedCaches'}}"></i></label>
-                    <select data-type="Number" name="system.projects.{{id}}.invested_caches">
+                    <select data-dType="Number" name="system.projects.{{id}}.invested_caches">
                       {{selectOptions ../investedCachesDropdown selected=project.invested_caches}}
                     </select>
                   </div>

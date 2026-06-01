@@ -115,11 +115,6 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
       whisper: [this.system.userId]
     }
     let message = await SFTDChatMessage.create(messageData);
-
-    if (!game.users.activeGM)
-      // Notify the player that the data will be handled when a GM connects
-      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.ClockStylesRequestNoActiveGM'));
-
     return html;
   }
 
