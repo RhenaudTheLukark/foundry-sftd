@@ -3,6 +3,12 @@ import { generateRandomId } from "./compat.js";
 import { openFormDialog } from "./lib/dialog-compat.js";
 
 export class BladesHelpers {
+  static isNumberKey(evt) {
+    var charCode = (evt.which) ? evt.which : evt.keyCode
+    if (charCode > 31 && (charCode < 48 || charCode > 57))
+      return false;
+    return true;
+  }
 
   static createUpdateObjectFromPath(value, path) {
     let reversePath = path.split('.').reverse();
@@ -48,18 +54,17 @@ export class BladesHelpers {
    * @returns {Array}
    *
    */
-  static removeDuplicatedItemType(item_data, actor) {
+  static fetchDuplicatedItemType(item_data, actor) {
     let dupe_list = [];
-    let distinct_types = ["crew_type", "crew_reputation", "class"];
-    let allowed_types = ["item"];
+    let distinct_types = ['crew_type', 'crew_reputation', 'class'];
+    let allowed_types = ['item', 'crew_upgrade', 'crew_ability', 'specialist'];
     let should_be_distinct = distinct_types.includes(item_data.type);
     // If the Item has the exact same name - remove it from list.
     // Remove Duplicate items from the array.
     actor.items.forEach(i => {
       let has_double = (item_data.type === i.type);
-      if (((i.name === item_data.name) || (should_be_distinct && has_double)) && !(allowed_types.includes(item_data.type)) && (item_data._id !== i.id)) {
-        dupe_list.push(i.id);
-      }
+      if (((i.name === item_data.name) || (should_be_distinct && has_double)) && !(allowed_types.includes(item_data.type)) && (item_data._id !== i.id))
+        dupe_list.push(i);
     });
 
     return dupe_list;
@@ -242,7 +247,9 @@ export class BladesHelpers {
   static async tryDelete(objectFull, parentFull) {
     if (!objectFull)
       return;
-    if (objectFull.canUserModify(game.user, 'delete'))
+    if (parentFull && parentFull.canUserModify(game.user, 'delete'))
+      await parentFull.deleteEmbeddedDocuments('Item', [objectFull._id]);
+    else if (!parentFull && objectFull.canUserModify(game.user, 'delete'))
       await objectFull.delete();
     else {
       // Send a specific message to the GM to delete the object
@@ -574,7 +581,7 @@ export class BladesHelpers {
 
     // Check if not currently in the relationship table
     if (Object.values(relationships).map(e => e.uuid).indexOf(entityFull.uuid) >= 0) {
-      ui.notifications.info(game.i18n.localize(`BITD.log.info.Same${game.i18n.localize('TYPES.Actor.' + ownerFull.type)}Relationship`));
+      ui.notifications.info(game.i18n.localize(`SFTD.log.info.Same${game.i18n.localize('TYPES.Actor.' + ownerFull.type)}Relationship`));
       return;
     }
 

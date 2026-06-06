@@ -1,29 +1,53 @@
-<form class="{{cssClass}}" autocomplete="off">
-    <header class="sheet-header">
-        <img src="{{img}}" data-edit="img" title="{{name}}"/>
-        <div class="header-fields">
-            <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'SFTD.Name'}}"/></h1>
-        </div>
-    </header>
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+    <img src='{{img}}' data-edit='img' data-tooltip='{{name}}'/>
+    <div class='header-fields'>
+      <h1 class='charname'><input name='name' type='text' value='{{name}}' placeholder='{{localize 'SFTD.Name'}}'/></h1>
+    </div>
+  </header>
 
-    {{!-- Sheet Body --}}
-    <section class="sheet-body flex-vertical">
-      {{editor system.description target="system.description" button=true editable=editable}}
-      <label class="label-stripe">{{localize "SFTD.Loadout"}}</label>
-      <input id="item-load" type="text" name="system.load" value="{{system.load}}">
-      <label class="label-stripe">{{localize "SFTD.Class"}}</label>
-      <input id="item-class" type="text" name="system.class" value="{{system.class}}">
-      <label class="label-stripe">{{localize "SFTD.Uses"}}</label>
-      <input id="item-uses" type="text" name="system.uses" value="{{system.uses}}">
-      <label class="label-stripe">{{localize "SFTD.NumberAvailable"}}</label>
-      <input id="item-num_available" type="text" name="system.num_available" value="{{system.num_available}}">
-      <label class="label-stripe">{{localize "SFTD.AdditionalInfo"}}</label>
-      <textarea id="item-additional_info" type="text" name="system.additional_info" value="">{{system.additional_info}}</textarea>
-      {{#if isGM}}
-<!--         <div class="label-stripe">{{localize "SFTD.Logic"}}</div> -->
-<!--         <textarea name="system.logic">{{{system.logic}}}</textarea> -->
-        <div class="label-stripe">{{localize "SFTD.Effects"}}</div>
-        <div id="effects">{{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}</div>
+  {{!-- Sheet Body --}}
+  <section class='sheet-body flex-vertical'>
+    {{#if editable}}
+      <prose-mirror name="system.description" button="true" editable="{{editable}}" toggled="false" value="{{system.description}}">
+        {{{system.description}}}
+      </prose-mirror>
+    {{else}}
+      {{{system.description}}}
+    {{/if}}
+    <div class='flex-horizontal'>
+      <div class='three-line'>
+        <label class='label-stripe'>{{localize 'SFTD.Load'}}</label>
+        <input type='number' name='system.load' onkeypress='return BladesHelpers.isNumberKey(event)' value='{{system.load}}'>
+      </div>
+      <div class='three-line'>
+        <label class='label-stripe'>{{localize 'SFTD.Class'}}</label>
+        <input type='text' name='system.class' value='{{system.class}}'>
+      </div>
+      <div class='three-line'>
+        <label class='label-stripe'>{{localize 'SFTD.Uses'}}</label>
+        <input type='number' name='system.uses.max' onkeypress='return BladesHelpers.isNumberKey(event)' value='{{system.uses.max}}'>
+      </div>
+    </div>
+    <div class='flex-horizontal'>
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.IsContainer'}}</label>
+        <input type='checkbox' name='system.is_container' data-dType='Boolean' {{checked system.is_container}}>
+      </div>
+      {{#if system.is_container}}
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.ContainerLoad'}}</label>
+        <input type='number' name='system.container_load' onkeypress='return BladesHelpers.isNumberKey(event)' value='{{system.container_load}}'>
+      </div>
       {{/if}}
-    </section>
+    </div>
+    <label class='label-stripe'>{{localize 'SFTD.AdditionalInfo'}}</label>
+    <textarea type='text' name='system.additional_info' value=''>{{system.additional_info}}</textarea>
+    {{#if isGM}}
+      <!-- <div class='label-stripe'>{{localize 'SFTD.Logic'}}</div> -->
+      <!-- <textarea name='system.logic'>{{{system.logic}}}</textarea> -->
+      <div class='label-stripe'>{{localize 'SFTD.Effects'}}</div>
+      <div id='effects'>{{> 'systems/songs-for-the-dusk/templates/parts/active-effects.html'}}</div>
+    {{/if}}
+  </section>
 </form>

@@ -12,7 +12,7 @@ export const preloadHandlebarsTemplates = async function() {
 
     // Actor Sheet Partials
     "systems/songs-for-the-dusk/templates/parts/attributes.html",
-    "systems/songs-for-the-dusk/templates/parts/cohort-block.html",
+    "systems/songs-for-the-dusk/templates/parts/specialist-block.html",
     "systems/songs-for-the-dusk/templates/parts/relationship-block.html",
     "systems/songs-for-the-dusk/templates/parts/status-block.html",
     "systems/songs-for-the-dusk/templates/parts/active-effects.html",
@@ -20,6 +20,9 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/songs-for-the-dusk/templates/parts/item_display/crew_ability.html",
     "systems/songs-for-the-dusk/templates/parts/item_display/crew_upgrade.html",
     "systems/songs-for-the-dusk/templates/parts/item_display/item.html",
+
+    // SVGs
+    "systems/songs-for-the-dusk/templates/svg/d20.hbs",
   ];
 
   // Load the template parts

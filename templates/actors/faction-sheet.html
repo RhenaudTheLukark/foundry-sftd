@@ -4,7 +4,7 @@
     <div class="header-fields flex-horizontal">
       {{!-- Name --}}
       <h1 class="charname">
-        <input name="name" type="text" value="{{name}}" placeholder="{{localize 'BITD.Faction'}}" />
+        <input name="name" type="text" value="{{name}}" placeholder="{{localize 'SFTD.Faction'}}" />
       </h1>
       <div class="faction-tier">
         <div class="black-label">{{localize 'SFTD.Tier'}}</div>
@@ -99,10 +99,10 @@
                 </select>
               </div>
               <div class="flex-vertical clock-text">
-                <input type="text" name="system.clocks.{{id}}.title" value="{{clock.title}}" placeholder="{{localize BITD.Title}}">
+                <input type="text" name="system.clocks.{{id}}.title" value="{{clock.title}}" placeholder="{{localize SFTD.Title}}">
                 <textarea class="clock-description" rows="1" name="system.clocks.{{id}}.description">{{clock.description}}</textarea>
               </div>
-              <a class="item-control delete-clock" data-tooltip="{{localize 'BITD.TitleDeleteClock'}}"><i class="fas fa-trash"></i></a>
+              <a class="item-control delete-clock" data-tooltip="{{localize 'SFTD.TitleDeleteClock'}}"><i class="fas fa-trash"></i></a>
             </section>
           </td>
         </tr>

@@ -40,7 +40,7 @@
         {{#multiboxes system.cache.value}}
         {{#times_from 0 3}}
         <div class="flex-horizontal cache-line">
-          <div class="title-label{{#if (and (lt ../system.cache.value (mult (add this 1) 12)) (gteq ../system.cache.value (mult this 12)))}} current-prosperity{{/if}}">{{localize 'SFTD.Prosperity'}} {{add this 1}}</div>
+          <div class="title-label{{#if (or (and (eq this 3) (eq ../system.cache.value 48)) (and (lt ../system.cache.value (mult (add this 1) 12)) (gteq ../system.cache.value (mult this 12))))}} current-prosperity{{/if}}">{{localize 'SFTD.Prosperity'}} {{add this 1}}</div>
           <input type="radio" id="crew-{{../_id}}-cache-{{#mult this 12}}{{/mult}}"{{#if (gteq ../system.cache.invested (mult this 12))}} class="invested"{{/if}} data-dType="Number" name="system.cache.value" value="{{#mult this 12}}{{/mult}}">
           {{#times_from 1 12}}
           {{#if (ne (typeof ../this) 'number')}}
@@ -107,7 +107,7 @@
       {{#each items as |item id|}}
       {{#if (eq item.type "crew_type")}}
       <div class="big-name">{{item.name}}</div>
-      <div class="big-description">{{{item.system.description}}}</div>
+      <div class="big-description">{{{item.system.short_description}}}</div>
       {{/if}}
       {{/each}}
     </div>
@@ -328,12 +328,12 @@
     <div id="crew-{{_id}}-specialists" class="crew-specialists tab grow-two flex-vertical" data-tab="specialists">
       <div class="label-stripe flex-horizontal">
         <p>{{localize "SFTD.Specialists"}}</p>
-        <p><a class="add-item" data-item-type="cohort"><i class="fas fa-plus-square"></i></a></p>
+        <p><a class="add-item" data-item-type="specialist"><i class="fas fa-plus-square"></i></a></p>
       </div>
       <div class="specialists flex-horizontal">
         {{#each items as |item id|}}
-        {{#if (eq item.type "cohort")}}
-        {{> "systems/songs-for-the-dusk/templates/parts/cohort-block.html" item=item}}
+        {{#if (eq item.type "specialist")}}
+        {{> "systems/songs-for-the-dusk/templates/parts/specialist-block.html" item=item}}
         {{/if}}
         {{/each}}
       </div>

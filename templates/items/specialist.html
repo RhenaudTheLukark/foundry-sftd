@@ -1,0 +1,90 @@
+<form class="{{cssClass}}" autocomplete="off">
+  <header class="sheet-header">
+    <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" />
+    <div class="header-fields flex-horizontal">
+      <h1 class="charname"><input name="name" type="text" value="{{name}}" placeholder="{{localize 'SFTD.Name'}}" /></h1>
+      <div>
+        <table class="quality-container">
+          <thead>
+            <th colspan="3"><div class="label-stripe flex-horizontal">{{localize 'SFTD.Quality'}}</div></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="quality">{{localize 'SFTD.Quality'}}: {{system.quality}} ({{system.quality_modifier}})</div></td>
+              <td><a class="add-quality"><i class="fas fa-plus-square"></i></a></div></td>
+              <td><a class="remove-quality"><i class="fas fa-minus-square"></i></a></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    </div>
+  </header>
+
+  <section class="flex-vertical">
+    <div class="label-stripe">{{localize 'SFTD.Information'}}</div>
+    <div>{{{localize 'SFTD.SpecialistInformation'}}}</div>
+  </section>
+
+  <section class="flex-vertical">
+    <div class="grow-two" style="display: flex; gap: 10px">
+      <div class="flex-vertical half">
+        <div class="specialties-container flex-vertical">
+          <div class="label-stripe">{{localize 'SFTD.Specialties'}}</div>
+          <textarea rows="3" name="system.specialties">{{system.specialties}}</textarea>
+          <div class="doctor flex-horizontal">
+            <label for="specialist-{{_id}}-doctor">{{localize 'SFTD.Medic'}}</label>
+            <input id="specialist-{{_id}}-doctor" type="checkbox" data-dType="Boolean" name="system.doctor" {{checked system.doctor}}>
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-vertical">
+        {{!-- Edges and Flaws --}}
+          <div class="edges-flaws flex-horizontal">
+            <div class="edgeflaw-container flex-vertical">
+              <div class="label-stripe">{{localize 'SFTD.Edges'}}</div>
+              {{#each system.edge_list as |edge key|}}
+              <div class="edgeflaw edge flex-horizontal">
+                <input id="specialist-{{../_id}}-edge-{{edge}}" type="checkbox" data-dType="Boolean" data-edgeflaw="{{edge}}" {{checked (getEdgeFlaw ../this edge true)}}>
+                <label for="specialist-{{../_id}}-edge-{{edge}}">{{localize (concat 'SFTD.EdgeList.' edge '.Label')}}</label>
+              </div>
+              {{/each}}
+            </div>
+
+            <div class="edgeflaw-container flex-vertical">
+              <div class="label-stripe">{{localize 'SFTD.Flaws'}}</div>
+              {{#each system.flaw_list as |flaw key|}}
+              <div class="edgeflaw flaw flex-horizontal">
+                <input id="specialist-{{../_id}}-flaw-{{flaw}}" type="checkbox" data-dType="Boolean" data-edgeflaw="{{flaw}}" {{checked (getEdgeFlaw ../this flaw false)}}>
+                <label for="specialist-{{../_id}}-flaw-{{flaw}}">{{localize (concat 'SFTD.FlawList.' flaw '.Label')}}</label>
+              </div>
+              {{/each}}
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="specialist-harm flex-vertical">
+    <div class="label-stripe">{{localize 'SFTD.Harm'}}</div>
+    <div class="harm-list flex-horizontal">
+      {{#multiboxes system.harm}}
+      {{#each system.harm_list as |harm harm_key|}}
+      <div class='specialist-block-harm flex-horizontal'>
+        <input id='{{../_id}}-harm-{{harm_key}}' type='radio' name='system.harm' value='{{harm_key}}'>
+        <label for='{{../_id}}-harm-{{harm_key}}'>{{localize harm.label}}</label>
+      </div>
+      {{/each}}
+      {{/multiboxes}}
+      <input class="specialist-armor" type="checkbox" data-dType="Boolean" name="system.armor" value="{{system.armor}}" {{checked system.armor}}>
+      <label class="radio-toggle"><a><i class="fa{{#if system.armor}}s{{else}}-regular{{/if}} fa-shield"></i></a></label>
+    </div>
+  </section>
+
+  <section class="sheet-body flex-vertical">
+    <div class="label-stripe">{{localize 'SFTD.Description'}}</div>
+    <textarea name="system.description">{{system.description}}</textarea>
+  </section>
+</form>

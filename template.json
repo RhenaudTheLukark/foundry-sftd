@@ -239,7 +239,7 @@
     }
   },
   "Item": {
-    "types": ["item", "class", "ability", "crew_upgrade", "cohort", "crew_type", "crew_reputation", "crew_upgrade", "crew_ability"],
+    "types": ["item", "class", "ability", "crew_upgrade", "specialist", "crew_type", "crew_reputation", "crew_upgrade", "crew_ability"],
     "templates": {
       "default": {
         "description": ""
@@ -253,6 +253,13 @@
       },
       "logic": {
         "logic": ""
+      },
+      "container": {
+        "owner": null,
+        "is_container": false,
+        "container_load": 0,
+        "collapsed": false,
+        "container_type": "TYPES.Item.item"
       }
     },
     "activatedEffect": {
@@ -288,34 +295,19 @@
       }
     },
     "item": {
-      "templates": ["default", "logic", "activatedEffect"],
+      "templates": ["default", "logic", "container"],
       "class": "",
       "load": 0,
       "uses": {
         "value": 0,
         "max": 0
       },
-      "additional_info": "",
-      "equipped": false,
-      "num_available": 1
+      "extra_description": "",
+      "additional_info": ""
     },
     "class": {
       "templates": ["default", "logic", "activatedEffect"],
-      "experience_clues": [],
-      "base_actions": {
-        "decipher": 0,
-        "shape": 0,
-        "sunder": 0,
-        "trace": 0,
-        "clash": 0,
-        "handle": 0,
-        "shadow": 0,
-        "wayfare": 0,
-        "bluff": 0,
-        "command": 0,
-        "connect": 0,
-        "tune": 0
-      }
+      "experience_clues": ""
     },
     "ability": {
       "templates": ["ability", "logic", "activatedEffect"],
@@ -324,92 +316,17 @@
         "max": 0
       }
     },
-    "cohort": {
+    "specialist": {
       "templates": ["default"],
-      "cohort": ["Gang"],
-      "scale": 0,
+      "crew": "",
+      "owner": null,
+      "type": "Gang",
       "quality": 0,
-      "cohort_list": {
-        "Gang": {
-          "label": "SFTD.Gang"
-        },
-        "Expert": {
-          "label": "SFTD.Expert"
-        }
-      },
-      "gang_type": ["Adepts"],
-      "gang_type_list": {
-
-        "Adepts": {
-          "label": "SFTD.GangTypeAdepts",
-          "description": "SFTD.GangTypeAdeptsDescription"
-        },
-        "Rooks": {
-          "label": "SFTD.GangTypeRooks",
-          "description": "SFTD.GangTypeRooksDescription"
-        },
-        "Rovers": {
-          "label": "SFTD.GangTypeRovers",
-          "description": "SFTD.GangTypeRoversDescription"
-        },
-        "Skulks": {
-          "label": "SFTD.GangTypeSkulks",
-          "description": "SFTD.GangTypeSkulksDescription"
-        },
-        "Thugs": {
-          "label": "SFTD.GangTypeThugs",
-          "description": "SFTD.GangTypeThugsDescription"
-        }
-      },
-      "expert_type": "",
-      "status": [],
-      "statuses": [],
+      "quality_modifier": 0,
+      "specialties": "",
+      "doctor": false,
       "edges": [],
-      "edges_list": {
-        "Fearsome": {
-          "label": "SFTD.EdgesFearsome",
-          "description": "SFTD.EdgesFearsomeDescription",
-          "selected": false
-        },
-        "Independent": {
-          "label": "SFTD.EdgesIndependent",
-          "description": "SFTD.EdgesIndependentDescription",
-          "selected": false
-        },
-        "Loyal": {
-          "label": "SFTD.EdgesLoyal",
-          "description": "SFTD.EdgesLoyalDescription",
-          "selected": false
-        },
-        "Tenacious": {
-          "label": "SFTD.EdgesTenacious",
-          "description": "SFTD.EdgesTenaciousDescription",
-          "selected": false
-        }
-      },
       "flaws": [],
-      "flaws_list": {
-        "Principled": {
-          "label": "SFTD.FlawsPrincipled",
-          "description": "SFTD.FlawsPrincipledDescription",
-          "selected": false
-        },
-        "Savage": {
-          "label": "SFTD.FlawsSavage",
-          "description": "SFTD.FlawsSavageDescription",
-          "selected": false
-        },
-        "Unreliable": {
-          "label": "SFTD.FlawsUnreliable",
-          "description": "SFTD.FlawsUnreliableDescription",
-          "selected": false
-        },
-        "Wild": {
-          "label": "SFTD.FlawsWild",
-          "description": "SFTD.FlawsWildDescription",
-          "selected": false
-        }
-      },
       "harm": ["No"],
       "harm_list": {
         "No": {
@@ -438,6 +355,19 @@
           "value": 4
         }
       },
+      "modifiers": {},
+      "roll_modifiers": {},
+      "conditional_roll_modifiers": {
+        "acquire_asset_danger": true,
+        "acquire_asset_again": true,
+        "acquire_asset_extra_die": true,
+        "acquire_asset_specialist": true,
+        "acquire_asset_gear": true,
+        "long_term_project_bonus_roll": true,
+        "long_term_project_extra_die": true,
+        "schmooze_bonus_roll": true,
+        "schmooze_extra_die": true
+      },
       "armor": false
     },
     "crew_reputation": {
@@ -452,8 +382,8 @@
     },
     "crew_type": {
       "templates": ["activatedEffect"],
-      "description": "",
-      "experience_clues": ""
+      "short_description": "",
+      "description": ""
     }
   }
 }

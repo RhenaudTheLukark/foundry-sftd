@@ -106,6 +106,26 @@ export class BladesCrewSheet extends BladesSheet {
 
   /* -------------------------------------------- */
 
+  async updateSpecialist(ev) {
+    ev.preventDefault();
+
+    let label = ev.currentTarget;
+    let element = ev.currentTarget;
+    if (label.tagName.toLowerCase() == 'label')
+      element = element.previousElementSibling;
+
+    let value = Number(element.value);
+    if (!value) value = Number(element.dataset.value);
+    if (label.classList.contains('enabled') || (ev.type == 'contextmenu'))
+      value --;
+
+    if (value < this.actor.system.cache.invested)
+      return;
+    let newTier = this.actor.getTier(value);
+    for (let specialist of this.actor.items.filter(i => i.type == 'specialist'))
+      await specialist.updateSpecialistQuality(newTier);
+  }
+
   investedCacheClick(ev) {
     ev.preventDefault();
 
@@ -138,14 +158,20 @@ export class BladesCrewSheet extends BladesSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    // Add a new Cohort
     html.find('label.invested').click(this.investedCacheClick);
     html.find('label.invested').contextmenu(this.investedCacheClick);
+
+    html.find('.cache label').click(async ev => {
+      this.updateSpecialist(ev);
+    });
+    html.find('.cache label').contextmenu(async ev => {
+      this.updateSpecialist(ev);
+    });
 
     // Add Crew Type
     html.find('.crew-class').click(this.onItemAddClick.bind(this));
 
-    // Add a new Cohort
+    // Add a new Item
     html.find('.add-item').click(async ev => {
       await BladesHelpers._addOwnedItem(ev, this.actor);
     });
@@ -189,8 +215,8 @@ export class BladesCrewSheet extends BladesSheet {
         await BladesHelpers.removeFactionNPC(memberFull);
     });
 
-    // Cohort Block Harm handler
-    html.find('.cohort-block-harm input[type="radio"]').change( async ev => {
+    // Specialist Block Harm handler
+    html.find('.specialist-block-harm input[type="radio"]').change( async ev => {
       const element = $(ev.currentTarget).parents(".item");
 
       let item_id = element.data("itemId")

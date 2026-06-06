@@ -7,14 +7,14 @@
   </header>
 
   <section class="flex-vertical">
-    <label class="label-stripe">{{localize "SFTD.Description"}}</label>
-    {{editor system.description target="system.description" button=true editable=editable}}
-    <label class="label-stripe">{{localize "SFTD.ExpClues"}}</label>
-    {{editor system.experience_clues target="system.experience_clues" button=true editable=editable}}
+    <label class="label-stripe">{{localize 'SFTD.ShortDescription'}}</label>
+    <input type="text" name="system.short_description" value="{{system.short_description}}" placeholder="{{localize 'SFTD.ShortDescription'}}">
+    <label class="label-stripe">{{localize 'SFTD.Description'}}</label>
+    {{editor system.description target='system.description' button=true editable=editable}}
 
     {{#if isGM}}
-	<div class="label-stripe">{{localize "SFTD.Effects"}}</div>
-    <div id="effects">{{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}</div>
+	<div class="label-stripe">{{localize 'SFTD.Effects'}}</div>
+    <div id="effects">{{> 'systems/songs-for-the-dusk/templates/parts/active-effects.html'}}</div>
 	{{/if}}
   </section>
 </form>

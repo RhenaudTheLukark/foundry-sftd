@@ -55,7 +55,7 @@
           <div class="item-block flex-horizontal grow-one">
             <div class="item-class-label title-label"><a class="item-add-popup" data-item-type="class" data-unique="true" data-value-path="system.class" data-add-as-item="true">{{localize 'TYPES.Item.class'}}:</a></div>
             {{#if (ne system.class null)}}
-            <div class="item flex-horizontal" data-item-id="{{system.class.uuid}}">
+            <div class="item flex-horizontal" data-item-id="{{system.class._id}}">
               <div class="open-actor flex-horizontal">
                 <img src="{{system.class.img}}" data-tooltip="{{system.class.name}}" width="24" height="24"/>
                 <a class="item-name">{{system.class.name}}</a>

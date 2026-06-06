@@ -10,11 +10,11 @@
     <label class="label-stripe">{{localize "SFTD.Description"}}</label>
     {{editor system.description target="system.description" button=true editable=editable}}
     <label class="label-stripe">{{localize "SFTD.ExpClues"}}</label>
-    <div><i>- {{localize "SFTD.ClassExpClue1"}}</i></div>
     <div>{{localize "SFTD.ClassExpClueDescription"}}</div>
+    <div><i>- {{localize "SFTD.ClassExpClue1"}}</i></div>
     <div><i>- {{localize "SFTD.ClassExpClue2"}}</i></div>
     <div><i>- {{localize "SFTD.ClassExpClue3"}}</i></div>
-    {{editor system.experience_clues target="system.experience_clues" button=true editable=editable}}
+    <i>{{editor system.experience_clues target="system.experience_clues" button=true editable=editable}}</i>
 
     {{#if isGM}}
       <!--

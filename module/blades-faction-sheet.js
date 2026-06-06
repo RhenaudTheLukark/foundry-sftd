@@ -21,7 +21,7 @@ export class BladesFactionSheet extends BladesSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async getData(options) {
+  getData(options) {
     const superData = super.getData(options);
     const sheetData = superData.data;
     sheetData.owner = superData.owner;

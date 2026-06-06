@@ -1,30 +1,165 @@
-// ITEM
-.item {
+.label-stripe {
+  margin-top: 10px;
+}
 
-  justify-content: space-between;
+.header-fields {
+  width: 100%;
+}
 
-  .item-body {
+ul {
+  margin: 0;
+}
 
-    margin-bottom: 10px;
-    * {
-      margin-right: 10px;
+.edges-flaws {
+  gap: 1em;
+
+  .edgeflaw {
+    input {
+      display: none;
     }
 
-    .item-description {
-      font-style: italic;
-      text-align: justify;
+    &.edge {
+      input:checked {
+        & + label {
+          color: $green;
+        }
+      }
     }
-  }
 
-  div {
-    flex-grow: 2;
-  }
-  .item-body,
-  .item-class-label {
-    width: 100px;
+    &.flaw {
+      input:checked {
+        & + label {
+          color: $red;
+        }
+      }
+    }
+
+    label {
+      width: 100%;
+      text-align: center;
+    }
   }
 }
 
-.item-class-label {
-  margin-bottom: 10px;
+.two-line, .three-line {
+  width: 100%;
+  white-space: nowrap;
+  display: flex;
+  flex-direction: column;
+
+  & > input[type=checkbox] {
+    align-self: center;
+  }
+
+  & > select[multiple] {
+    height: 48px;
+    overflow-y: auto;
+  }
+}
+
+.effect {
+  > * {
+    align-items: center;
+  }
+
+  .effect-name {
+    justify-content: flex-start;
+
+    .item-image {
+      margin-right: 10px;
+    }
+
+    .item-name {
+      font-weight: bold;
+    }
+  }
+}
+
+.harm-list {
+  height: 28px;
+
+  .specialist-block-harm {
+    justify-content: space-around;
+    width: 100%;
+
+    input[type=radio] {
+      display: none;
+
+      &:checked + label {
+        color: $almost_white;
+        font-weight: bold;
+        background-color: $almost_black;
+      }
+    }
+
+    label {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex: 1 0 0;
+      border: 2px solid #191813;
+      border-left: none;
+      border-top: none;
+      padding: 0 5px;
+      text-align: center;
+    }
+
+    &:first-of-type label {
+      border-left: 2px solid #191813;
+    }
+  }
+
+  .specialist-armor {
+    display: none;
+  }
+
+  .radio-toggle {
+    display: flex;
+    min-width: 30px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #191813;
+    border-top: none;
+    border-left: none;
+    padding: 0 5px;
+
+    a > i {
+      &.fa-shield {
+        &.fas {
+          color: $gold;
+        }
+        &.fa-regular {
+          color: $almost_black;
+        }
+      }
+      &:before {
+        font-size: 20px;
+      }
+    }
+  }
+}
+
+.quality-container {
+  th {
+    padding: 0px;
+
+    .label-stripe {
+      margin-top: 0px;
+    }
+  }
+
+  td {
+    padding: 0px;
+  }
+
+  .fas:before {
+    font-size: 16px;
+  }
+}
+
+.doctor {
+  gap: 5px;
+  justify-content: center !important;
+  align-items: center;
+  text-align: center;
 }

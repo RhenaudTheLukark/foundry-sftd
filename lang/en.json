@@ -15,7 +15,7 @@
       "crew_reputation": "Crew Reputation",
       "crew_upgrade": "Crew Upgrade",
       "crew_ability": "Crew Ability",
-      "cohort": "Cohort"
+      "specialist": "Specialist"
     }
   },
 
@@ -79,6 +79,7 @@
     "Special": "Special",
     "LessEffect": "Less Effect",
     "Description": "Description",
+    "ShortDescription": "Short Description",
     "Loadout": "Loadout",
     "Load": "Load",
     "CrewType": "Crew Type",
@@ -90,16 +91,13 @@
     "AbilityPrice": "Ability Price",
     "AbilityClass": "Ability Class",
     "Information": "Information",
-    "CohortType": "Cohort Type",
-    "GangType": "Gang Type",
-    "ExpertType": "Expert Type",
     "ScaleAndQuality": "Scale and Quality",
     "ChooseOneOrTwoEdges": "Choose one or two edges and an equal number of flaws",
     "Edges": "Edges",
     "Flaws": "Flaws",
     "Scale": "Scale",
     "Quality": "Quality",
-    "AddAdditionalTypeOfGangText": "You can add an additional type to a gang or expert by spending two crew upgrades.<br>When a cohort performs actions for which its types apply, it uses its full quality rating. Otherwise, its quality is zero. A given cohort can have up to two types. Some crew upgrades will add the “Elite” feature to a gang, which gives them +1d when they roll for a given Type.",
+    "SpecialistInformation": "When a Specialist performs actions for which their specialties apply, they use their full Quality rating, otherwise their Quality is zero.",
     "ClassExpClue1": "Every time you roll a desperate action, mark xp in that action's attribute.",
     "ClassExpClue2": "You expressed your beliefs, drives, heritage, or background.",
     "ClassExpClue3": "You struggled with issues from your vice or scars during the session.",
@@ -131,7 +129,6 @@
     "Hazard": "Hazard",
     "Abilities": "Abilities",
     "Upgrades": "Upgrades",
-    "Cohorts": "Cohorts",
     "Notes": "Notes",
     "GMNotes": "Gamemaster Notes",
     "AllItems": "All Items",
@@ -148,47 +145,54 @@
     "Memories": "Memories",
     "Clocks": "Clocks",
 
-    "Gang": "Gang",
-    "Expert": "Expert",
-    "GangTypeAdepts": "Adepts",
-    "GangTypeAdeptsDescription": "Scholars, tinkerers, occultists, and chemists.",
-    "GangTypeRooks": "Rooks",
-    "GangTypeRooksDescription": "Con artists, spies, and socialites.",
-    "GangTypeRovers": "Rovers",
-    "GangTypeRoversDescription": "Sailors, carriage drivers, and deathlands scavengers.",
-    "GangTypeSkulks": "Skulks",
-    "GangTypeSkulksDescription": "Scouts, infiltrators, and thieves.",
-    "GangTypeThugs": "Thugs",
-    "GangTypeThugsDescription": "Killers, brawlers, and roustabouts.",
+    "EdgeList": {
+      "Independent": {
+        "Label": "Independent",
+        "Description": "The specialist can be trusted to make good decisions and act on their own initiative in the absence of direct instruction."
+      },
+      "Unrelenting": {
+        "Label": "Unrelenting",
+        "Description": "The specialist won't be deterred from a task."
+      },
+      "Loyal": {
+        "Label": "Loyal",
+        "Description": "The specialist can't be bribed or turned against you."
+      },
+      "Sociable": {
+        "Label": "Sociable",
+        "Description": "The specialist is generally well-liked and well-regarded."
+      }
+    },
 
-    "EdgesFearsome": "Fearsome",
-    "EdgesFearsomeDescription": "The cohort is terrifying in aspect and reputation.",
-    "EdgesIndependent": "Independent",
-    "EdgesIndependentDescription": "The cohort can be trusted to make good decisions and act on their own initiative in the absence of direct orders.",
-    "EdgesLoyal": "Loyal",
-    "EdgesLoyalDescription": "The cohort can't be bribed or turned against you.",
-    "EdgesTenacious": "Tenacious",
-    "EdgesTenaciousDescription": "The cohort won't be deterred from a task.",
-
-    "FlawsPrincipled": "Principled",
-    "FlawsPrincipledDescription": "The cohort has an ethic or values that it won't betray.",
-    "FlawsSavage": "Savage",
-    "FlawsSavageDescription": "The cohort is excessively violent and cruel.",
-    "FlawsUnreliable": "Unreliable",
-    "FlawsUnreliableDescription": "The cohort isn't always available, due to other obligations, stupefaction from their vices, etc.",
-    "FlawsWild": "Wild",
-    "FlawsWildDescription": "The cohort is drunken, debauched, and loud-mouthed.",
+    "FlawList": {
+      "Unreliable": {
+        "Label": "Unreliable",
+        "Description": "The specialist isn't always available due to other obligations."
+      },
+      "Ill-liked": {
+        "Label": "Ill-liked",
+        "Description": "The specialist is unpopular and disliked for some reason."
+      },
+      "Principled": {
+        "Label": "Principled",
+        "Description": "The specialist has a core ethic or values that they won't betray."
+      },
+      "Reckless": {
+        "Label": "Reckless",
+        "Description": "The specialist is unpredictable and given to rash action."
+      }
+    },
 
     "HarmNoHarm": "No Harm",
-    "HarmNoHarmDescription": "The cohort is healthy.",
+    "HarmNoHarmDescription": "The specialist is healthy.",
     "HarmWeakened": "Weakened",
-    "HarmWeakenedDescription": "The cohort has reduced effect.",
+    "HarmWeakenedDescription": "The specialist has reduced effect.",
     "HarmImpaired": "Impaired",
-    "HarmImpairedDescription": "The cohort operates with reduced quality (-1d).",
+    "HarmImpairedDescription": "The specialist operates with reduced quality (-1d).",
     "HarmBroken": "Broken",
-    "HarmBrokenDescription": "The cohort can't do anything until they recover.",
+    "HarmBrokenDescription": "The specialist can't do anything until they recover.",
     "HarmDead": "Dead",
-    "HarmDeadDescription": "The cohort is destroyed. You can spend coin equal to your Tier +2 to restore it, plus two downtime activities to recruit new gang members, or hire a new expert.",
+    "HarmDeadDescription": "The specialist is destroyed. You can spend coin equal to your Tier +2 to restore it, plus two downtime activities to recruit new gang members, or hire a new expert.",
 
     "Roll": "Roll",
     "RollFailure": "Failure",
@@ -257,6 +261,8 @@
     "Uses": "No. of Uses",
     "NumberAvailable": "Number Available",
     "AdditionalInfo": "Additional Information",
+    "IsContainer": "Is Container?",
+    "ContainerLoad": "Container Load",
 
     "Position": "Position",
     "Effect": "Effect",

@@ -134,6 +134,12 @@ Hooks.once("init", async function() {
     return new Handlebars.SafeString(text);
   });
 
+  // Enrich the HTML replace /n with commas
+  Handlebars.registerHelper('html-list', (options) => {
+    let text = options.hash['text'].replace(/\n/g, ', ');
+    return new Handlebars.SafeString(text);
+  });
+
   // "N Times" loop for handlebars.
   //  Block is executed N times starting from start.
   //
@@ -273,6 +279,11 @@ Hooks.once("init", async function() {
   // Check for game settings
   Handlebars.registerHelper('getSetting', function( string ) {
 	  return (game.settings.get('songs-for-the-dusk', string));
+  });
+
+  Handlebars.registerHelper('getEdgeFlaw', function (object, edgeflaw, isEdge) {
+    const array = isEdge ? object.system.edges : object.system.flaws;
+    return array.includes(edgeflaw);
   });
 });
 

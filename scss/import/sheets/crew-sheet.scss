@@ -252,31 +252,27 @@ section:has(~ .tab-content) {
   }
 }
 
-// Cohorts styling
-.edgeflaw {
-  input {
-    display: none;
-
-    &:checked {
-
-      & + label {
-        color: $red;
-      }
-    }
-  }
-}
-
-.gang-expert-type-selector {
-  .gang-type-boxes {
-    flex-wrap: wrap;
-  }
-}
-
-.cohorts {
+// Specialists styling
+.specialists {
   flex-wrap: wrap;
 
-  .cohort-block-wrapper {
-    width: 400px;
+  .specialist-block-wrapper {
+    width: 50%;
+
+    .item-body {
+      justify-content: unset;
+      align-items: unset;
+      width: auto;
+    }
+
+    .d20-svg {
+      height: 16px;
+      width: 16px;
+    }
+
+    img {
+      margin-right: 0px;
+    }
   }
 
   .label-stripe {
@@ -287,13 +283,9 @@ section:has(~ .tab-content) {
     padding-bottom: 2px;
   }
 
-  .item-control {
-    flex-grow: 0;
-  }
-
-  .cohort-body {
+  .specialist-body {
     img {
-      border: 2px solid $almost_black;
+      border: 2px solid #191813;
       width: 1.75rem;
       height: 1.75rem;
       border-top: none;
@@ -304,10 +296,11 @@ section:has(~ .tab-content) {
     }
   }
 
-  .cohort-block-harm {
+  .specialist-block-harm {
     justify-content: space-around;
+    width: 100%;
 
-    input[type="radio"] {
+    input[type=radio] {
       display: none;
 
       &:checked + label {
@@ -321,14 +314,46 @@ section:has(~ .tab-content) {
       display: flex;
       align-items: center;
       justify-content: center;
-
       flex: 1 0 0;
-      border: 2px solid $almost_black;
+      border: 2px solid #191813;
       border-top: none;
       border-left: none;
       padding: 0 5px;
       text-align: center;
     }
+  }
+
+  .specialist-armor {
+    display: none;
+  }
+
+  .radio-toggle {
+    display: flex;
+    min-width: 30px;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #191813;
+    border-top: none;
+    border-left: none;
+    padding: 0 5px;
+
+    a > i {
+      &.fa-shield {
+        &.fas {
+          color: $gold;
+        }
+        &.fa-regular {
+          color: $almost_black;
+        }
+      }
+      &:before {
+        font-size: 20px;
+      }
+    }
+  }
+
+  .specialist-specialties, .specialist-description {
+    margin: 0 10px;
   }
 }
 

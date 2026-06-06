@@ -1,0 +1,46 @@
+<div class='item specialist-block-wrapper grow-two' data-item-id='{{_id}}'>
+  <div class='specialist-block'>
+    <div class='label-stripe' style='justify-content: space-between'>
+      <div class='item-body'>
+        {{name}}
+        <i class='fas fa-fw fa-edit'></i>
+      </div>
+      <div>Q:{{item.system.quality}}</div>
+      <div class='flex-horizontal' style='gap: 5px'>
+        <div class='add-specialist-roll' data-tooltip='SFTD.SpecialistRoll'>
+          {{> 'systems/songs-for-the-dusk/templates/svg/d20.hbs'}}
+        </div>
+        {{#if (eq item.system.owner null)}}
+        <a class='item-control delete-item' data-tooltip='{{localize 'SFTD.TitleDeleteItem'}}'><i class='fas fa-trash'></i></a>
+        {{/if}}
+        <a class='item-control item-post' data-tooltip='{{localize 'SFTD.TitlePostItem'}}'><i class='fas fa-comment'></i></a>
+      </div>
+    </div>
+    <div class='specialist-body'>
+      <div class='flex-horizontal'>
+        <img src='{{img}}' />
+        <div class='specialist-block-harm flex-horizontal'>
+          {{#each item.system.harm_list as |harm harm_key|}}
+          {{#multiboxes ../item.system.harm}}
+          <input id='harm-{{harm_key}}-{{../_id}}' type='radio' name='harm.{{../_id}}' data-item='{{../_id}}' value='{{harm_key}}'>
+          <label for='harm-{{harm_key}}-{{../_id}}'>{{localize harm.label}}</label>
+          {{/multiboxes}}
+          {{/each}}
+        </div>
+        <input class="specialist-armor" type="checkbox"{{#if item.system.armor}} checked{{/if}}>
+        <label class="radio-toggle"><a><i class="fa{{#if item.system.armor}}s{{else}}-regular{{/if}} fa-shield"></i></a></label>
+      </div>
+
+      <div class='specialist-specialties'>{{localize 'SFTD.Specialties'}}: {{html-list text=system.specialties}}</div>
+      <div class='flex-vertical'>
+        {{#each item.system.edges as |edge key|}}
+        <div class='specialist-description'>{{localize (concat 'SFTD.EdgeList.' edge '.Description')}} <b>({{localize (concat 'SFTD.EdgeList.' edge '.Label')}})</b></div>
+        {{/each}}
+        {{#each item.system.flaws as |flaw key|}}
+        <div class='specialist-description'>{{localize (concat 'SFTD.FlawList.' flaw '.Description')}} <b>({{localize (concat 'SFTD.FlawList.' flaw '.Label')}})</b></div>
+        {{/each}}
+      </div>
+      <div class='specialist-description description'>{{html text=system.description}}</div>
+    </div>
+  </div>
+</div>

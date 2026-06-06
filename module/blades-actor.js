@@ -296,14 +296,10 @@ export class BladesActor extends Actor {
   /* -------------------------------------------- */
   getComputedAttributes() {
     let attributes = this.system.attributes;
-    for (const a in attributes) {
-      for (const s in attributes[a].actions) {
-    		// Include Active Effect alterations to action minimums
-        if (attributes[a].actions[s].value <= attributes[a].actions[s].min) {
+    for (const a in attributes)
+      for (const s in attributes[a].actions)
+        if (attributes[a].actions[s].value <= attributes[a].actions[s].min)
           attributes[a].actions[s].value = attributes[a].actions[s].min;
-        }
-      }
-    }
     return attributes;
   }
 
@@ -321,9 +317,9 @@ export class BladesActor extends Actor {
 
   /* -------------------------------------------- */
 
-  getTier() {
+  getTier(forcedValue) {
     if (this.type != 'crew') return 0;
-    return Math.floor(this.cache.value / 12);
+    return 1 + Math.min(Math.floor((forcedValue ?? this.system.cache.value) / 12), 3);
   }
 
   /* -------------------------------------------- */
