@@ -1,0 +1,38 @@
+{
+  "name": "(B) Aletheia",
+  "type": "ability",
+  "_id": "GQkgL9P1XKVttymA",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You always know when someone is being dishonest with you. This ability works in all situations, but it&rsquo;s not all-powerful; it can&rsquo;t sense false information that the speaker believes is true, and it can&rsquo;t distinguish between outright lies and truths told with deceptive intent.</p>",
+    "class": "Beacon",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780857223586,
+    "modifiedTime": 1780857279870,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!GQkgL9P1XKVttymA"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "(Scr) Tesseraction",
+  "type": "ability",
+  "_id": "MR2s3RAyjPLEsDUa",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Choose a piece of tech that you&rsquo;ve synthesized before. You can unweave the fabric of reality for this machine and tie it loosely to your own. The tech is perfectly concealed within the weave of your own existence and has <strong>0 load</strong>. Spend <strong>1 stress</strong> to deploy its effects.<br><em>Switching the tech is a 4-step long-term project clock. You know all equipment </em><em>on your tech belt.</em></p>",
+    "class": "Scrapper",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780859118528,
+    "modifiedTime": 1780859151331,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!MR2s3RAyjPLEsDUa"
+}

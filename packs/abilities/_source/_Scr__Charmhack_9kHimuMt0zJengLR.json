@@ -1,0 +1,38 @@
+{
+  "name": "(Scr) Charmhack",
+  "type": "ability",
+  "_id": "9kHimuMt0zJengLR",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You may <strong>push yourself </strong>to do one of the following:</p>\n<ul>\n<li>Instantly repair or sabotage technology in the immediate area,</li>\n<li>Mystically assemble new technology from available materials, scrap, and old tech.</li>\n</ul>\n<p><em>When you push yourself to activate this ability, you still get one of the normal</em><br><em>benefits of pushing yourself (+1d, +1 impact, etc.)</em></p>",
+    "class": "Scrapper",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780859020088,
+    "modifiedTime": 1780859054427,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!9kHimuMt0zJengLR"
+}

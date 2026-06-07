@@ -1,0 +1,38 @@
+{
+  "name": "(C) Polymath",
+  "type": "ability",
+  "_id": "6gScN8rgBxefOrv8",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Take <strong>2 stress</strong> to roll your best action rating while performing a different action. Say how you adapt your skill to this use. If you suffer consequences as a result of the roll, each of them costs <strong>+1 stress</strong> to <strong>resist</strong>.</p>",
+    "class": "Charter",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780857954482,
+    "modifiedTime": 1780857974252,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!6gScN8rgBxefOrv8"
+}

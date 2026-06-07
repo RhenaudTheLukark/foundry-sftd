@@ -1,0 +1,38 @@
+{
+  "name": "(Sch) Charmsight",
+  "type": "ability",
+  "_id": "bfaWUPozIqQ7kbXh",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You may <strong>push yourself</strong> to do one of the following:</p>\n<ul>\n<li>Temporarily enhance your senses to pierce solid matter,</li>\n<li>View the past of a transcendent artifact or location.</li>\n</ul>\n<p><em>When you push yourself to use this ability, you still gain the benefits of pushing yourself (+1d, +1 impact, etc.) if you&rsquo;re making a roll.</em></p>",
+    "class": "Scholar",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780858552276,
+    "modifiedTime": 1780858593011,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!bfaWUPozIqQ7kbXh"
+}

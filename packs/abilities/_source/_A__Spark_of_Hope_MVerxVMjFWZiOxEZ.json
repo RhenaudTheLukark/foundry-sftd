@@ -1,0 +1,38 @@
+{
+  "name": "(A) Spark of Hope",
+  "type": "ability",
+  "_id": "MVerxVMjFWZiOxEZ",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Your resilience is inspiring. Take <strong>+1d</strong> to <strong>Command </strong>or <strong>Connect </strong>with anyone who&rsquo;s witnessed you resist harm or protect someone.</p>",
+    "class": "Aegis",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780856454226,
+    "modifiedTime": 1780856473097,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!MVerxVMjFWZiOxEZ"
+}

@@ -1,0 +1,38 @@
+{
+  "name": "(K) Charmveil",
+  "type": "ability",
+  "_id": "LAdBxqrqB6OJHqp9",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Take <strong>2 stress</strong> to wrap yourself in a cloak of charmed shadow, masking you from sight, scent, and hearing for a few minutes. Take <strong>1 stress</strong> for each extra feature:</p>\n<ul>\n<li>The cloak lasts a few hours,</li>\n<li>The cloak covers a small group,</li>\n<li>While cloaked, you&rsquo;re magically aware of anyone nearby.</li>\n</ul>",
+    "class": "Kestrel",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780858237813,
+    "modifiedTime": 1780858274577,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!LAdBxqrqB6OJHqp9"
+}

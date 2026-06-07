@@ -1,0 +1,38 @@
+{
+  "name": "(K) Relentless",
+  "type": "ability",
+  "_id": "euDBt4rNSkehWvAg",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Penalties from <strong>harm </strong>are one level less severe (though level 4 harm is still fatal).<br><em>With this ability, level 3 harm doesn&rsquo;t incapacitate you; instead you take -1d to your rolls (as if it were level 2 harm). Level 2 harm affects you as if it were level 1 (reduced impact). Level 1 harm doesn&rsquo;t affect you. Record the harm at its original level&mdash;for healing purposes, the original harm level applies.</em></p>",
+    "class": "Kestrel",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780858318009,
+    "modifiedTime": 1780858339757,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!euDBt4rNSkehWvAg"
+}

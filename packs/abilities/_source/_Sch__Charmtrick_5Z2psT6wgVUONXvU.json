@@ -1,0 +1,38 @@
+{
+  "name": "(Sch) Charmtrick",
+  "type": "ability",
+  "_id": "5Z2psT6wgVUONXvU",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Take a charm ability from another playbook. When you use the ability, take <strong>+1 stress</strong> and say how you reverse-engineered it and how it looks different for its rediscovery.<br><em>You can&rsquo;t use this ability to reverse-engineer the Witch&rsquo;s &ldquo;Charmwork&rdquo;; the restriction on starting abilities still applies.</em></p>",
+    "class": "Scholar",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780858604255,
+    "modifiedTime": 1780858633719,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!5Z2psT6wgVUONXvU"
+}

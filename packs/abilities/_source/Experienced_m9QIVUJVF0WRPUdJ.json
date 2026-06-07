@@ -1,0 +1,38 @@
+{
+  "name": "Experienced",
+  "type": "ability",
+  "_id": "m9QIVUJVF0WRPUdJ",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Choose a special ability from another source. You can&rsquo;t choose a charm or starting ability from another playbook. You may take this ability a maximum of three times.</p>",
+    "class": "Aegis",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780856601066,
+    "modifiedTime": 1780856612346,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!m9QIVUJVF0WRPUdJ"
+}

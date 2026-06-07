@@ -1,0 +1,38 @@
+{
+  "name": "(W) Charmwork",
+  "type": "ability",
+  "_id": "aaDP7q4O11hEBrD1",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You can spend <strong>harmony </strong>instead of paying any stress cost.<br><em>This ability allows you to spend harmony in place of any single stress cost, </em><em>including those imposed by resisting a consequence or pushing yourself. Abilities </em><em>with a variable cost, such as <strong>The Moon Upright</strong>, are considered to apply a single </em><em>cost, so spending harmony allows you access to all bonus features for 0 stress.</em></p>",
+    "class": "Witch",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780859204977,
+    "modifiedTime": 1780859348210,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!aaDP7q4O11hEBrD1"
+}

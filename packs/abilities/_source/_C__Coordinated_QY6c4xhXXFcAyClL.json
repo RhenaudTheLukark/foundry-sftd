@@ -1,0 +1,38 @@
+{
+  "name": "(C) Coordinated",
+  "type": "ability",
+  "_id": "QY6c4xhXXFcAyClL",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>When you lead a <strong>group action</strong>, you have <strong>+1</strong> or <strong>-1 scale</strong>, your choice. The leader of a group action doesn&rsquo;t take stress on your behalf if you participate and fail the roll (even if it&rsquo;s you).</p>",
+    "class": "Charter",
+    "price": "1",
+    "purchased": false,
+    "class_default": false,
+    "logic": "",
+    "uses": {
+      "value": 0,
+      "max": 0
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780857593437,
+    "modifiedTime": 1780857613667,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!QY6c4xhXXFcAyClL"
+}
