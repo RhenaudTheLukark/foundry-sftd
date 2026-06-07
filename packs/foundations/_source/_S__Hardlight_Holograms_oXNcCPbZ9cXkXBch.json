@@ -1,0 +1,32 @@
+{
+  "name": "(S) Hardlight Holograms",
+  "type": "foundation",
+  "_id": "oXNcCPbZ9cXkXBch",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>These devices (1 load each) are capable of projecting semisolid holograms. Trying to move or seriously disturb a hologram disrupts the illusion, but they&rsquo;ll stand up to visual inspection and casual touch.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 0,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780870001393,
+    "modifiedTime": 1780870017608,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!oXNcCPbZ9cXkXBch"
+}

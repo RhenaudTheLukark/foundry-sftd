@@ -1,0 +1,77 @@
+{
+  "name": "Warehouses",
+  "type": "foundation",
+  "_id": "0778AQYAuBE7m939",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Your base has a large warehouse to contain your <strong>shells</strong> and the resources associated with them, increasing your community storage capacity from 6 to 12.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 1,
+    "is_complex": false
+  },
+  "effects": [
+    {
+      "name": "Warehouses Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.0778AQYAuBE7m939",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "90v5vzhocwXhl4Nt",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.shells.max",
+          "mode": 1,
+          "value": "2",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1780867738066,
+        "modifiedTime": 1780867755433,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!0778AQYAuBE7m939.90v5vzhocwXhl4Nt"
+    }
+  ],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780867723892,
+    "modifiedTime": 1780867736896,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!0778AQYAuBE7m939"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Workshop",
+  "type": "foundation",
+  "_id": "HlQmJviFdAtLwFYu",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>3D printers, welding and soldering torches, a forge, high-end computers, arcane texts, ancient runes, and plenty of raw material. Take <strong>+1d</strong> to <strong>synthesis </strong>projects.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 4,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780867912595,
+    "modifiedTime": 1780867931665,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!HlQmJviFdAtLwFYu"
+}

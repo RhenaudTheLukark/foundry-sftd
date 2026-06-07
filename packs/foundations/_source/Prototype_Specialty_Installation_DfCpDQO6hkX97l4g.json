@@ -1,0 +1,32 @@
+{
+  "name": "Prototype Specialty Installation",
+  "type": "foundation",
+  "_id": "DfCpDQO6hkX97l4g",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Gain access to another specialty foundation from any crew, not just your own.</p>",
+    "prosperity_level": 3,
+    "cache_cost": 6,
+    "is_complex": true
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780868205799,
+    "modifiedTime": 1780868218264,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!DfCpDQO6hkX97l4g"
+}

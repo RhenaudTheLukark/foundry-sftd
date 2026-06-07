@@ -1,0 +1,32 @@
+{
+  "name": "Battery Terachargers",
+  "type": "foundation",
+  "_id": "R9V45sNVnh1EJH1G",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Solar, water, wind, fusion&mdash;regardless of the source, these chargers guarantee long-lasting power for the gear and missions that need it. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>patient </strong>mission approaches.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 3,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780866631092,
+    "modifiedTime": 1780866654098,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!R9V45sNVnh1EJH1G"
+}

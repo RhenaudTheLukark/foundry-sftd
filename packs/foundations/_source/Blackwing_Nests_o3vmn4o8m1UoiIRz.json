@@ -1,0 +1,32 @@
+{
+  "name": "Blackwing Nests",
+  "type": "foundation",
+  "_id": "o3vmn4o8m1UoiIRz",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>The spirits called blackwings love to go unnoticed; cultivate their loyalty, and you can learn from their prowess. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>subtle </strong>mission approaches.</p>",
+    "prosperity_level": 2,
+    "cache_cost": 3,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780867973503,
+    "modifiedTime": 1780867990649,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!o3vmn4o8m1UoiIRz"
+}

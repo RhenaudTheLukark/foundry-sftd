@@ -1,0 +1,32 @@
+{
+  "name": "Training Facility: Playbook",
+  "type": "foundation",
+  "_id": "Whgi6pw2hperH4CT",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Installations and tools for improving your unique skills. Once you have constructed a training facility, you gain <strong>2 xp</strong> for training <strong>Playbook </strong>during&nbsp;<strong>downtime </strong>instead of the usual <strong>1</strong>.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 2,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780869444373,
+    "modifiedTime": 1780869468504,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!Whgi6pw2hperH4CT"
+}

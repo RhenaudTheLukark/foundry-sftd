@@ -1,0 +1,32 @@
+{
+  "name": "Transcendent Pools",
+  "type": "foundation",
+  "_id": "hIBWlrx8k1SnyTDl",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Water has always conducted transcendent energies exceptionally well; these pools anchor such forces and buoy the life force of arcane beings. Take<strong> +1d</strong> to <strong>Connect </strong>with transcendent forces on-site.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 3,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780867549029,
+    "modifiedTime": 1780867566148,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!hIBWlrx8k1SnyTDl"
+}

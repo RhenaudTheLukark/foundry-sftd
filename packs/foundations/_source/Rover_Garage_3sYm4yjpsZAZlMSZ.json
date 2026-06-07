@@ -1,0 +1,32 @@
+{
+  "name": "Rover Garage",
+  "type": "foundation",
+  "_id": "3sYm4yjpsZAZlMSZ",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>A heavy, 6-wheeled, all-terrain rover and a garage to store it. The rover&rsquo;s equipped with cargo compartments and big enough to comfortably fit a large group&rsquo;s worth of people (about 20). You can hitch a trailer or truckbed to the rover.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 3,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780867327391,
+    "modifiedTime": 1780867343089,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!3sYm4yjpsZAZlMSZ"
+}

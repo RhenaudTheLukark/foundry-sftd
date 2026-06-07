@@ -1,0 +1,32 @@
+{
+  "name": "(M) Drone Constructors",
+  "type": "foundation",
+  "_id": "Un7eg3grKvhjxj8S",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>This swarm of constructor drones can help you lift heavy objects and weld them in place. They&rsquo;re no replacement for the expertise of a person, but they&rsquo;re good for building out the skeletons of more complex constructions.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 0,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780869748093,
+    "modifiedTime": 1780869759566,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!Un7eg3grKvhjxj8S"
+}

@@ -373,6 +373,7 @@
     },
     "foundation": {
       "templates": ["default", "activatedEffect"],
+      "prosperity_level": 1,
       "cache_cost": 0,
       "is_complex": false
     },

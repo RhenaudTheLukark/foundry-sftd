@@ -1,0 +1,32 @@
+{
+  "name": "Resonant Antennae",
+  "type": "foundation",
+  "_id": "bkFmn1NwNuokLq2u",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>These vanes are attuned to the strange forces that are woven through our&nbsp;world. Take <strong>+1d</strong> to&nbsp;<strong>Tune </strong>rolls on-site.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 2,
+    "is_complex": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780867395667,
+    "modifiedTime": 1780867413697,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!bkFmn1NwNuokLq2u"
+}

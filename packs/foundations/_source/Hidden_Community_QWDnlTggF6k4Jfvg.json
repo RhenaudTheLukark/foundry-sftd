@@ -1,0 +1,32 @@
+{
+  "name": "Hidden Community",
+  "type": "foundation",
+  "_id": "QWDnlTggF6k4Jfvg",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Your community is hidden and difficult to find for those not already in the know. If the location of your community is ever discovered, you&rsquo;ll need to complete a 6-step long-term project to conceal it again.</p>",
+    "prosperity_level": 1,
+    "cache_cost": 3,
+    "is_complex": true
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780867193427,
+    "modifiedTime": 1780867209706,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!QWDnlTggF6k4Jfvg"
+}

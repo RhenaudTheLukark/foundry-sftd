@@ -11,11 +11,15 @@
     <label class='label-stripe'>{{localize 'SFTD.Description'}}</label>
     {{editor system.description target='system.description' button=true editable=editable}}
     <div class='flex-horizontal'>
-      <div class='two-line'>
+      <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.CacheCost'}}</label>
         <input type='number' name='system.cache_cost' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value={{system.cache_cost}}>
       </div>
-      <div class='two-line'>
+      <div class='three-line'>
+        <label class='label-stripe'>{{localize 'SFTD.ProsperityLevel'}}</label>
+        <input type='number' name='system.prosperity_level' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value={{system.prosperity_level}}>
+      </div>
+      <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.IsComplex'}}</label>
         <input type='checkbox' name='system.is_complex' data-dType='Boolean' {{checked system.is_complex}}>
       </div>
