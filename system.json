@@ -57,14 +57,6 @@
       "type": "Item"
     },
     {
-      "name": "crew_reputation",
-      "label": "Crew Reputation",
-      "system": "songs-for-the-dusk",
-      "path": "packs/crew_reputation",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_07.webp",
-      "type": "Item"
-    },
-    {
       "name": "crew_type",
       "label": "Crew Types",
       "system": "songs-for-the-dusk",
@@ -138,7 +130,7 @@
     {
       "name": "Crew Options",
       "sorting": "m",
-      "packs": ["crew_type", "crew_ability", "foundation", "crew_reputation"]
+      "packs": ["crew_type", "crew_ability", "foundation"]
 	  },
     {
       "name": "Factions & NPCs",

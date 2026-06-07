@@ -239,7 +239,7 @@
     }
   },
   "Item": {
-    "types": ["class", "item", "ability", "crew_type", "crew_reputation", "crew_ability", "foundation", "specialist"],
+    "types": ["class", "item", "ability", "crew_type", "crew_ability", "foundation", "specialist"],
     "templates": {
       "default": {
         "description": ""
@@ -370,9 +370,6 @@
         "schmooze_extra_die": true
       },
       "armor": false
-    },
-    "crew_reputation": {
-      "templates": ["default"]
     },
     "foundation": {
       "templates": ["default", "activatedEffect"],

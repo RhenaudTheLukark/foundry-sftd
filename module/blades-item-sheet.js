@@ -26,7 +26,7 @@ export class BladesItemSheet extends BaseItemSheet {
   /** @override */
   get template() {
     const path = 'systems/songs-for-the-dusk/templates/items';
-    let simple_item_types = ['crew_reputation'];
+    let simple_item_types = [];
     let template_name = `${this.item.type}`;
 
     if (simple_item_types.indexOf(this.item.type) >= 0)
