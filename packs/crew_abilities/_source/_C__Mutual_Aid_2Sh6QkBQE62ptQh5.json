@@ -1,0 +1,33 @@
+{
+  "name": "(C) Mutual Aid",
+  "type": "crew_ability",
+  "_id": "2Sh6QkBQE62ptQh5",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You can use a <strong>downtime </strong>activity to establish or build up a positive relationship with another faction. Spend <strong>shells</strong> equal to the faction&rsquo;s <strong>Tier </strong>to increase your status by +1 with them.</p>",
+    "class": "Couriers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780773630677,
+    "modifiedTime": 1780773660285,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!2Sh6QkBQE62ptQh5"
+}

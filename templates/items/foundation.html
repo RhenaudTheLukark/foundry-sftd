@@ -1,0 +1,28 @@
+<form class='{{cssClass}}' autocomplete='off'>
+  <header class='sheet-header'>
+      <img src='{{img}}' data-edit='img' title='{{name}}'/>
+      <div class='header-fields'>
+          <h1 class='charname'><input name='name' type='text' value='{{name}}' placeholder='{{localize 'SFTD.Name'}}'/></h1>
+      </div>
+  </header>
+
+  {{!-- Sheet Body --}}
+  <section class='sheet-body flex-vertical'>
+    <label class='label-stripe'>{{localize 'SFTD.Description'}}</label>
+    {{editor system.description target='system.description' button=true editable=editable}}
+    <div class='flex-horizontal'>
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.CacheCost'}}</label>
+        <input type='number' name='system.cache_cost' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value={{system.cache_cost}}>
+      </div>
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.IsComplex'}}</label>
+        <input type='checkbox' name='system.is_complex' data-dType='Boolean' {{checked system.is_complex}}>
+      </div>
+    </div>
+    {{#if isGM}}
+      <div class='label-stripe'>{{localize 'SFTD.Effects'}}</div>
+      <div id='effects'>{{> 'systems/songs-for-the-dusk/templates/parts/active-effects.html'}}</div>
+    {{/if}}
+  </section>
+</form>

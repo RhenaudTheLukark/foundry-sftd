@@ -1,0 +1,33 @@
+{
+  "name": "(C) All Hands",
+  "type": "crew_ability",
+  "_id": "hgHrHrvBRc8vRkAS",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>During <strong>downtime</strong>, one of your <strong>specialists </strong>may perform a downtime activity for the crew to <strong>reduce pressure </strong>or work on a <strong>long-term project</strong>.</p>",
+    "class": "Couriers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780772567706,
+    "modifiedTime": 1780772593599,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!hgHrHrvBRc8vRkAS"
+}

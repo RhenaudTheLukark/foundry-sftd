@@ -1,0 +1,60 @@
+{
+  "_id": "oaEylfQehXTi6Tc2",
+  "name": "Ink Rakes",
+  "type": "faction",
+  "system": {
+    "description": "The journalists, muckrakers, and newspaper publishers of Doskvol.",
+    "type": "Labor & Trade",
+    "tier": "2",
+    "goal_1": "",
+    "goal_1_clock_max": 0,
+    "goal_2": "",
+    "goal_2_clock_max": 0,
+    "turf": "",
+    "assets": "",
+    "quirks": "",
+    "notables": "",
+    "allies": "",
+    "enemies": "",
+    "situation": "",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 1,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.4_19.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!oaEylfQehXTi6Tc2"
+}

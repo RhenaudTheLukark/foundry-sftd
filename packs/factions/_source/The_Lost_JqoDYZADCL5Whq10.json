@@ -1,0 +1,60 @@
+{
+  "_id": "JqoDYZADCL5Whq10",
+  "name": "The Lost",
+  "type": "faction",
+  "system": {
+    "description": "A group of street-toughs and ex-soldiers dedicated to protecting the downtrodden and the hopeless.",
+    "type": "Underworld",
+    "tier": "1",
+    "goal_1": "Destroy cruel workhouses (repeating)",
+    "goal_1_clock_max": 4,
+    "goal_2": "",
+    "goal_2_clock_max": 0,
+    "turf": "Converted rail car (HQ). The poverty-stricken streets of Coalridge and Dunslough.",
+    "assets": "A very experienced gang of formerly vicious thugs, killers, and Imperial soldiers.",
+    "quirks": "The Lost have all done horrible things in their former lives and they believe they must atone for these “sins.” Each member keeps a pile of stones under their bed—one for each sin they balance with a just deed.",
+    "notables": "Cortland (leader, idealist, candid, cavalier).",
+    "allies": "Workhouse Laborers, Citizens of Coalridge and Dunslough, The Crows.",
+    "enemies": "Workhouse Foremen, Bluecoats, The Billhooks.",
+    "situation": "The Lost are currently focusing their efforts in Coalridge, running a campaign of sabotage, terror, and savage beatings against the most notoriously cruel workhouse foremen. The already-brewing union organizing efforts in that district are emboldened by the Lost’s attacks, and the local Bluecoat patrols are starting to complain to their commanders for support of extra Watch guards from other districts. Meanwhile, the Coalridge foremen are making it known that they’ll pay top dollar to anyone who will take the Lost out of the picture.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 1,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.7_26.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!JqoDYZADCL5Whq10"
+}

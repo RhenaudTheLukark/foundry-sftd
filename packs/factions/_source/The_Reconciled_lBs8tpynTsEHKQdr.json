@@ -1,0 +1,60 @@
+{
+  "_id": "lBs8tpynTsEHKQdr",
+  "name": "The Reconciled",
+  "type": "faction",
+  "system": {
+    "description": "An association of ancient spirits who have not gone feral with the passage of time.",
+    "type": "The Fringe",
+    "tier": "3",
+    "goal_1": "Infiltrate the City Council",
+    "goal_1_clock_max": 8,
+    "goal_2": "Infiltrate the Church of Ecstasy",
+    "goal_2_clock_max": 8,
+    "turf": "None",
+    "assets": "Several secret and hidden spirit wells across the city and in the deathlands, which give the Reconciled the arcane energy they need to survive.",
+    "quirks": "The spirits of the Reconciled do not lose their minds or become obsessed with vengeance as other spirits do. They can possess a victim indefinitely without any adverse effects.",
+    "notables": "The Reconciled have possessed several important citizens in Doskvol. Their exact membership is not known.",
+    "allies": "City Council, Gondoliers.",
+    "enemies": "The Church of Ecstasy, Spirit Wardens, Sparkwrights.",
+    "situation": "The Reconciled are very ancient and wise; they see themselves as the rightful and just rulers that Duskwall needs. A few of the City Council members have become initiates in the Path of Echoes and will soon be vulnerable to possession by the Reconciled. These councilors are also high-ranking members of the Church of the Ecstasy of the Flesh, which will give the Reconciled an opportunity for infiltration into that organization as well.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.6_18.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!lBs8tpynTsEHKQdr"
+}

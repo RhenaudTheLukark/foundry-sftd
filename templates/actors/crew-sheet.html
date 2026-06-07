@@ -250,12 +250,12 @@
     <div id="crew-{{_id}}-foundations" class="foundations tab grow-two flex-vertical" data-tab="foundations">
       <div class="label-stripe flex-horizontal">
         <p>{{localize 'SFTD.Foundations'}}</p>
-        <p><a class="item-add-popup" data-item-type="crew_upgrade"><i class="fas fa-plus-square"></i></a></p>
+        <p><a class="item-add-popup" data-item-type="foundation"><i class="fas fa-plus-square"></i></a></p>
       </div>
       <div class="tab-list">
         {{#each items as |item id|}}
-        {{#if (eq item.type "crew_upgrade")}}
-        {{> "systems/songs-for-the-dusk/templates/parts/item_display/crew_upgrade.html" item=item id=id actor=../this}}
+        {{#if (eq item.type "foundation")}}
+        {{> "systems/songs-for-the-dusk/templates/parts/item_display/foundation.html" item=item id=id actor=../this}}
         {{/if}}
         {{/each}}
       </div>

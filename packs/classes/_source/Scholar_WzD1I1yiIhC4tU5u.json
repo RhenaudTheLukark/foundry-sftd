@@ -1,0 +1,82 @@
+{
+  "name": "Scholar",
+  "type": "class",
+  "_id": "WzD1I1yiIhC4tU5u",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>The world is woven of a thousand stories. Find their threads and follow them.&nbsp;Your job is to get out into the world and understand it: its people, its logic, its hidden truths. No one gets into this job without an intense passion for it; play that up, and be excited about the world you live in!</p>",
+    "logic": "",
+    "experience_clues": "<p>- You address a challenge with historical knowledge or take a risk to discover something new.</p>"
+  },
+  "effects": [
+    {
+      "name": "Scholar Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.class.Item.WzD1I1yiIhC4tU5u",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "f7SVBuzQYMnS7uSa",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.analysis.actions.decipher.min",
+          "mode": 2,
+          "value": "2",
+          "priority": 30
+        },
+        {
+          "key": "system.attributes.kinesis.actions.handle.min",
+          "mode": 2,
+          "value": "1",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1780614881201,
+        "modifiedTime": 1780614924426,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!WzD1I1yiIhC4tU5u.f7SVBuzQYMnS7uSa"
+    }
+  ],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780614847006,
+    "modifiedTime": 1780614878542,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!WzD1I1yiIhC4tU5u"
+}

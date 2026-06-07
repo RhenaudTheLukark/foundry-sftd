@@ -1,0 +1,33 @@
+{
+  "name": "(C) Experts Talk Logistics",
+  "type": "crew_ability",
+  "_id": "Veby2yJrsqIP0mz5",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You run supplies and people between factions, and those factions are usually willing to dig a little deeper to make sure it gets done. Whenever you get paid, take <strong>+1 shell</strong>.</p>",
+    "class": "Couriers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780773594967,
+    "modifiedTime": 1780773611219,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!Veby2yJrsqIP0mz5"
+}

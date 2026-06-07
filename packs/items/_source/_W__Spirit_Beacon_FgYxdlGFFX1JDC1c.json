@@ -1,0 +1,43 @@
+{
+  "name": "(W) Spirit Beacon",
+  "type": "item",
+  "_id": "FgYxdlGFFX1JDC1c",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>[2 load] A collapsible pylon which can broadcast and receive transcendent signals. Can be used to attract the attention of spirits, but these devices are rare—if you send an outbound signal, there’s no way to disguise its origin.</p>",
+    "logic": "",
+    "owner": null,
+    "is_container": false,
+    "container_load": 0,
+    "collapsed": false,
+    "container_type": "TYPES.Item.item",
+    "class": "Witch",
+    "load": 2,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "extra_description": "",
+    "additional_info": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780768663186,
+    "modifiedTime": 1780768686148,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!FgYxdlGFFX1JDC1c"
+}

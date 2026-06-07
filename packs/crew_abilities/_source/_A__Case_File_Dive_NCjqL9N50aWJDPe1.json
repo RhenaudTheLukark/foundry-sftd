@@ -1,0 +1,33 @@
+{
+  "name": "(A) Case File Dive",
+  "type": "crew_ability",
+  "_id": "NCjqL9N50aWJDPe1",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Your crew gains an extra <strong>downtime </strong>activity to work on <strong>long-term projects</strong> (including <strong>synthesis </strong>projects) related to investigating and solving mysteries.</p>",
+    "class": "Augurs",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780771958301,
+    "modifiedTime": 1780771979738,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!NCjqL9N50aWJDPe1"
+}

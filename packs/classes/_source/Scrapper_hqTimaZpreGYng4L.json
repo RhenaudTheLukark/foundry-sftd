@@ -1,0 +1,82 @@
+{
+  "name": "Scrapper",
+  "type": "class",
+  "_id": "hqTimaZpreGYng4L",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>When you can&rsquo;t change the world, build something that can.&nbsp;Remember, &ldquo;technology&rdquo; doesn&rsquo;t always mean electronics. One of the first tools was a stick, one of the first technologies fire, and one of the first machines a lever. You can find machines everywhere if you know how to look.</p>",
+    "logic": "",
+    "experience_clues": "<p>- You address a challenge with technical know-how or devise unexpected uses for the tools at hand.</p>"
+  },
+  "effects": [
+    {
+      "name": "Scrapper Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.class.Item.hqTimaZpreGYng4L",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "W8dNqn8iJwM8H7em",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.analysis.actions.shape.min",
+          "mode": 2,
+          "value": "2",
+          "priority": 30
+        },
+        {
+          "key": "system.attributes.analysis.actions.decipher.min",
+          "mode": 2,
+          "value": "1",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1780615060226,
+        "modifiedTime": 1780615104032,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!hqTimaZpreGYng4L.W8dNqn8iJwM8H7em"
+    }
+  ],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780615028849,
+    "modifiedTime": 1780615059458,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!hqTimaZpreGYng4L"
+}

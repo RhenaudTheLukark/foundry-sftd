@@ -1,0 +1,60 @@
+{
+  "_id": "5b7ZjcLaFzfzOohy",
+  "name": "The Fog Hounds",
+  "type": "faction",
+  "system": {
+    "description": "A crew of rough smugglers looking for a patron.",
+    "type": "Underworld",
+    "tier": "1",
+    "goal_1": "Eliminate rival smugglers",
+    "goal_1_clock_max": 8,
+    "goal_2": "Obtain a regular patron",
+    "goal_2_clock_max": 6,
+    "turf": "Underground canal dock (HQ). North and East city canal routes. Northern Void Sea routes. Old North Port supply caches.",
+    "assets": "Medium steamship, Fog Hound. A crew of hard-bitten, tough, expert sailors—all former Void Sea transport haulers (put out of work by the new cargo rail lines), well-worn from years of harrowing work. A wide array of Imperial transport and cargo documents, some forged, some legit.",
+    "quirks": "As veterans of many cruises on the Void Sea, Vale and her crew can be insular and clannish, and have a low initial opinion of anyone who hasn’t proven themselves in a similar way. Once won, however, their loyalty is rock solid and fierce.",
+    "notables": "Margette Vale (leader, quiet, cold, fearless). Bear (second, fierce, moody, brash). Goldie (navigator, calculating, patient, confident).",
+    "allies": "Dockers, The Lampblacks.",
+    "enemies": "Bluecoats (canal patrol), The Vultures (rival smuggling outfit, Tier I).",
+    "situation": "Vale and her crew have mastered the Northern smuggling routes in and out of Duskwall. They’re currently attempting to absorb or eliminate the few remaining rivals on their territory and then establish reliable, regular work with a patron who needs a steady stream of contraband.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 1,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.6_59.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!5b7ZjcLaFzfzOohy"
+}

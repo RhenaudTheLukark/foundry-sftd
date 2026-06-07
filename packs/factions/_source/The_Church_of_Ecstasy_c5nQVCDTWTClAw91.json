@@ -1,0 +1,60 @@
+{
+  "_id": "c5nQVCDTWTClAw91",
+  "name": "The Church of Ecstasy",
+  "type": "faction",
+  "system": {
+    "description": "The “state religion” honors the life of the body and abhors the corrupted spirit world. Essentially a secret society.",
+    "type": "The Fringe",
+    "tier": "4",
+    "goal_1": "Unlock the secret of ascension",
+    "goal_1_clock_max": 12,
+    "goal_2": "Eliminate the Reconciled",
+    "goal_2_clock_max": 12,
+    "turf": "The Sanctorium grand cathedral in Brightstone. Many other smaller temples across the city.",
+    "assets": "A large treasury of tithes from citizens. Extensive arcane and occult libraries, workspaces, and artifacts. Many cohorts of acolytes and hollows who enforce the will of the Church’s leadership.",
+    "quirks": "Zealous believers volunteer to be hollowed to “become purified.” This was once common among the ancient cult of the Empty Vessel, which preceded the Church.",
+    "notables": "Elder Rowan (leader, devout, resolute, visionary). Preceptor Dunvil (arcane researcher, unorthodox, obsessive, enigmatic).",
+    "allies": "City Council, Leviathan Hunters, Spirit Wardens.",
+    "enemies": "The Path of Echoes, The Reconciled.",
+    "situation": "The purest beings (according to secret teachings of the Church), are those entirely without spirits: the demons. Demons are immortal, but never fade into madness or lustful hungers as rogue human spirits and vampires do. They are perfect; and the most devout of the Church seek to become as they are, to unlock the secret of ascension. Many dark experiments and rituals with hulls, hollows, vampires—and the rare demon—are conducted in the labyrinthine dungeons below the Church’s chief cathedral in Brightstone.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.1_40.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!c5nQVCDTWTClAw91"
+}

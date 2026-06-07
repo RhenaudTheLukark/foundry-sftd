@@ -18,7 +18,7 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/songs-for-the-dusk/templates/parts/active-effects.html",
     "systems/songs-for-the-dusk/templates/parts/item_display/ability.html",
     "systems/songs-for-the-dusk/templates/parts/item_display/crew_ability.html",
-    "systems/songs-for-the-dusk/templates/parts/item_display/crew_upgrade.html",
+    "systems/songs-for-the-dusk/templates/parts/item_display/foundation.html",
     "systems/songs-for-the-dusk/templates/parts/item_display/item.html",
 
     // SVGs

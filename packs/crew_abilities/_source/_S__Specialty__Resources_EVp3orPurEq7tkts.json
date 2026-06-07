@@ -1,0 +1,33 @@
+{
+  "name": "(S) Specialty: Resources",
+  "type": "crew_ability",
+  "_id": "EVp3orPurEq7tkts",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Food, water, mass-produced tech, bulky machinery; if it&rsquo;s locked in a warehouse, you can get it out.<br><em>Starting foundation: Hardlight Holograms</em></p>",
+    "class": "Silvers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780801215906,
+    "modifiedTime": 1780802112884,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!EVp3orPurEq7tkts"
+}

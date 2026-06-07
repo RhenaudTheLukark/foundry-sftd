@@ -1,0 +1,60 @@
+{
+  "_id": "8r4sPp0fQOgcP5DL",
+  "name": "Deathlands Scavengers",
+  "type": "faction",
+  "system": {
+    "description": "Convicts from Ironhook and desperate freelancers who roam the wasteland beyond the lightning barriers.",
+    "type": "The Fringe",
+    "tier": "2",
+    "goal_1": "Obtain pardons (repeating)",
+    "goal_1_clock_max": 8,
+    "goal_2": "",
+    "goal_2_clock_max": 0,
+    "turf": "A few precious hold-fasts in the deathlands, secured by ancient rites against spirits. Hunting grounds to feed on the few strange animals that survived the cataclysm.",
+    "assets": "Generators, lightning hooks, gas-masks, air tanks, and other essentials of deathlands survival. A secret ancient book of ritual sorcery.",
+    "quirks": "Possession is a common hazard, and scavengers either learn to deal with it, or go mad and vanish into the darkness of the wastes. Those still in Lady Thorn’s company have adapted well and suffer only minimal ill effects from possession.",
+    "notables": "Lady Thorn (leader, haunted, brave, caring). Richter (hunter, patient, quiet, deadly).",
+    "allies": "Forgotten Gods, Gondoliers, Spirit Wardens.",
+    "enemies": "Ironhook Prison.",
+    "situation": "Condemned prisoners are sometimes given “mercy” and sent into the deathlands rather than being executed at Ironhook. A few survive, thanks to Lady Thorn and her deathlands scavengers, who take them in and train them in the ways of deathlands hunting and survival. The scavengers hunt for lost artifacts and treasures in the wastes, to sell or trade in the city, sometimes for enough to buy a pardon and return to life within the barriers once again.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 1,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.2_23.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!8r4sPp0fQOgcP5DL"
+}

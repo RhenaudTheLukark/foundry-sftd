@@ -1,0 +1,60 @@
+{
+  "_id": "cEXO0FtdeEWPrZXj",
+  "name": "City Council",
+  "type": "faction",
+  "system": {
+    "description": "The elite nobility who run the city government, its treasury, magistrates, and public works.",
+    "type": "Institutions",
+    "tier": "5",
+    "goal_1": "Strangford is removed from council",
+    "goal_1_clock_max": 6,
+    "goal_2": "Strangford eliminates threats",
+    "goal_2_clock_max": 8,
+    "turf": "The city council chambers are in Charterhall, along with the attendant government offices and impregnable city treasury vaults. The council also holds ownership of all public spaces in the city, including streets, docks, and waterways.",
+    "assets": "A massive treasury of coin and valuable goods. Many officials, barristers, clerks, and officials. The public coaches operated by the Cabbies.",
+    "quirks": "The members of the Council are all high-ranking adepts in the Church of the Ecstasy of the Flesh. Some of them are also secretly initiates in the Path of Echoes.",
+    "notables": "The scions of the six most powerful noble families in Doskvol, currently: Bowmore, Clelland, Dunvil, Penderyn, Rowan, and Strangford.",
+    "allies": "Bluecoats, The Church of Ecstasy, The Circle of Flame, Lord Scurlock, The Brigade, Cabbies, Sparkwrights, The Foundation.",
+    "enemies": "Imperial Military, Inspectors, Ministry of Preservation, The Reconciled.",
+    "situation": "Three of the councilors (Bowmore, Clelland, Rowan) have aligned against Strangford and are maneuvering to remove the house from the council. Dunvil and Penderyn have not taken sides so far. Can the conspirators arrange for the necessary scandal, framed crime, or assassinations to remove Strangford? Or can Strangford House stand against them and eliminate the threats?",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.2_14.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!cEXO0FtdeEWPrZXj"
+}

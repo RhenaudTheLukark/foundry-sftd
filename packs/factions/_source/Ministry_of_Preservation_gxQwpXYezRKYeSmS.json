@@ -1,0 +1,60 @@
+{
+  "_id": "gxQwpXYezRKYeSmS",
+  "name": "Ministry of Preservation",
+  "type": "faction",
+  "system": {
+    "description": "Oversees transportation between cities and the disbursement of food and other vital resources.",
+    "type": "Institutions",
+    "tier": "5",
+    "goal_1": "Seize control of Leviathan Hunters",
+    "goal_1_clock_max": 12,
+    "goal_2": "",
+    "goal_2_clock_max": 0,
+    "turf": "The electro-rail train lines of the Imperium. Radiant energy farms, eeleries, and other food-growing enterprises throughout the city.",
+    "assets": "A fleet of cargo ships and their armed escorts. A significant treasury from taxation and transportation licensing. The Rail Jacks who work the train lines. A private mercenary company that answers only to the ministry itself.",
+    "quirks": "",
+    "notables": "Lord Dalmore (executive officer in Doskvol, commanding, intelligent). Lady Slane (chief of operations, insightful, subtle, effective). Captain Lannock (mercenary commander, shrewd, ruthless).",
+    "allies": "The Billhooks, Imperial Military, Rail Jacks, Sparkwrights.",
+    "enemies": "Leviathan Hunters",
+    "situation": "The Ministry leadership believes that the leviathan hunters are too vital to the public well-being to be controlled by the bickering noble houses, vulnerable to their petty rivalries and vendettas. Agents within the ministry have been tasked with a variety of espionage, sabotage, and political actions to ultimately seize control of the hunters and bring them into Ministry control.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icons8_78.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!gxQwpXYezRKYeSmS"
+}

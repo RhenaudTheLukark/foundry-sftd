@@ -1,0 +1,33 @@
+{
+  "name": "(M) Sum of its Parts",
+  "type": "crew_ability",
+  "_id": "hLhbkfQpopt0DLCP",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>When you <strong>spend</strong> <strong>harmony </strong>on a roll to assemble or modify technology, treat the tech you work on as <strong>1 quality</strong> higher until your next downtime.</p>",
+    "class": "Magpies",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780774675907,
+    "modifiedTime": 1780774873602,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!hLhbkfQpopt0DLCP"
+}

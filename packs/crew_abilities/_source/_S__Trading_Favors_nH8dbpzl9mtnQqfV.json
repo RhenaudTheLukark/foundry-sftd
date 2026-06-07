@@ -1,0 +1,33 @@
+{
+  "name": "(S) Trading Favors",
+  "type": "crew_ability",
+  "_id": "nH8dbpzl9mtnQqfV",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Sometimes friends are all the supplies you need. You can reduce a positive faction <strong>status </strong>by 1 to construct a <strong>foundation </strong>for half of its usual <strong>cache </strong>cost, rounded down. (You still need to finish the clock before you have access to the foundation.) Factions can only discount foundations with a <strong>Prosperity </strong>requirement lower than their <strong>Tier</strong>.</p>",
+    "class": "Silvers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780807991693,
+    "modifiedTime": 1780808036086,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!nH8dbpzl9mtnQqfV"
+}

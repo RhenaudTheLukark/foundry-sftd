@@ -1,0 +1,33 @@
+{
+  "name": "(R) Reassuring",
+  "type": "crew_ability",
+  "_id": "qwhG4oegqT4i9SHF",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You know how to project a calming attitude. Take <strong>+1d</strong> to lead NPCs through danger or to treat their wounds. When you speak to NPCs you&rsquo;re protecting in a dangerous situation, you get <strong>+1 impact</strong>.</p>",
+    "class": "Rangers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780797161836,
+    "modifiedTime": 1780799878875,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!qwhG4oegqT4i9SHF"
+}

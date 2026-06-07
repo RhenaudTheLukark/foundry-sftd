@@ -1,0 +1,33 @@
+{
+  "name": "(A) Elementary",
+  "type": "crew_ability",
+  "_id": "cjnaswYCOc51Wxhy",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Each Strider may add +1 action rating to&nbsp;<strong>Decipher</strong>, <strong>Wayfare</strong>, or <strong>Tune</strong>.<br><em>Each player can choose the action they prefer; you don&rsquo;t all have to pick the </em><em>same one. If you pick this ability during character creation, it supersedes the </em><em>starting limit for action ratings.</em></p>",
+    "class": "Augurs",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780771877810,
+    "modifiedTime": 1780771933569,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!cjnaswYCOc51Wxhy"
+}

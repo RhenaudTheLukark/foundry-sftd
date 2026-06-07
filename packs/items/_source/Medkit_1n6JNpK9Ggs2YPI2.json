@@ -1,0 +1,43 @@
+{
+  "name": "Medkit",
+  "type": "item",
+  "_id": "1n6JNpK9Ggs2YPI2",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>[1 load] Sterile gauze, disinfectant, sutures, stabilizing foam, antibiotics, and other simple medical gear. </p>",
+    "logic": "",
+    "owner": null,
+    "is_container": false,
+    "container_load": 0,
+    "collapsed": false,
+    "container_type": "TYPES.Item.item",
+    "class": "",
+    "load": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "extra_description": "",
+    "additional_info": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780725626115,
+    "modifiedTime": 1780725641982,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!1n6JNpK9Ggs2YPI2"
+}

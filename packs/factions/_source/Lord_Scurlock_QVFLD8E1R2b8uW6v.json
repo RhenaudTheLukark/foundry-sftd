@@ -1,0 +1,60 @@
+{
+  "_id": "QVFLD8E1R2b8uW6v",
+  "name": "Lord Scurlock",
+  "type": "faction",
+  "system": {
+    "description": "An ancient noble, said to be immortal, like the Emperor. Possibly a vampire or sorcerer. Obsessed with the occult.",
+    "type": "Underworld",
+    "tier": "3",
+    "goal_1": "Fulfill debt to Setarra",
+    "goal_1_clock_max": 12,
+    "goal_2": "Obtain arcane secrets (repeating)",
+    "goal_2_clock_max": 6,
+    "turf": "A secret lair outside the city. A dilapidated manor house in Six Towers and the catacombs beneath. An array of business holdings and cult shrines across the city, collected for some united purpose known only to Scurlock.",
+    "assets": "An impressive collection of occult and arcane curios, books, and ephemera. An ancient demonic temple.",
+    "quirks": "Scurlock is immune to spirits. Ghosts can’t see, hear, or harm him. He makes no sound when he moves and is sometimes difficult to look at directly.",
+    "notables": "Lord Scurlock (enigmatic, cold, arcane, old-fashioned) is an individual, but is so powerful that he’s considered a faction. His personal scale is Tier III—in conflicts he counts as a large gang (20 people).",
+    "allies": "City Council, Bluecoats, Inspectors, The Forgotten Gods.",
+    "enemies": "Spirit Wardens, The Immortal Emperor.",
+    "situation": "Lord Scurlock is bound by ancient magic to the demon Setarra. Who is the master and who is the servant? Their roles have changed many times over the centuries. Now, Lord Scurlock must fulfill a debt. Setarra has found a nest of sea demons in the harbor, encased in stone, chained by magic from the cataclysm. She seeks to free them to see their wrath loosed on the world of men. Scurlock will aid her in this or suffer a dark doom.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.2_80.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!QVFLD8E1R2b8uW6v"
+}

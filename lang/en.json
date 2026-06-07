@@ -13,7 +13,7 @@
       "ability": "Ability",
       "crew_type": "Crew Type",
       "crew_reputation": "Crew Reputation",
-      "crew_upgrade": "Crew Upgrade",
+      "foundation": "Foundation",
       "crew_ability": "Crew Ability",
       "specialist": "Specialist"
     }
@@ -161,6 +161,18 @@
       "Sociable": {
         "Label": "Sociable",
         "Description": "The specialist is generally well-liked and well-regarded."
+      },
+      "Nimble": {
+        "Label": "Nimble", 
+        "Description": "The vehicle handles easily. Consider this an assist (take +1d if a PC rolls) for tricky maneuvers."
+      },
+      "Auto-Repair": {
+        "Label": "Auto-Repair",
+        "Description": "The vehicle self-repairs. Remove all of its harm during downtime."
+      },
+      "Rugged": {
+        "Label": "Rugged",
+        "Description": "The vehicle keeps operating even when it's paralyzed."
       }
     },
 
@@ -180,6 +192,18 @@
       "Reckless": {
         "Label": "Reckless",
         "Description": "The specialist is unpredictable and given to rash action."
+      },
+      "Guzzler": {
+        "Label": "Guzzler",
+        "Description": "The vehicle requires <b>1 shell</b>'s worth of fuel per downtime to keep in operation."
+      },
+      "Finicky": {
+        "Label": "Finicky",
+        "Description": "The vehicle has quirks that only one person understands. Without them, the vehicle has -1 quality."
+      },
+      "Flashy": {
+        "Label": "Flashy",
+        "Description": "The vehicle is ostentatious and very memorable. Take +1 pressure when you use it on a mission."
       }
     },
 
@@ -263,6 +287,8 @@
     "AdditionalInfo": "Additional Information",
     "IsContainer": "Is Container?",
     "ContainerLoad": "Container Load",
+    "CacheCost": "Cache Cost",
+    "IsComplex": "Is Complex?",
 
     "Position": "Position",
     "Effect": "Effect",

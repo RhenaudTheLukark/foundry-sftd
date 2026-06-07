@@ -1,0 +1,60 @@
+{
+  "_id": "7KOAEBtL5V0MO9iN",
+  "name": "Ulf Ironborn",
+  "type": "faction",
+  "system": {
+    "description": "A brutal Skovlander, newly arrived in the Dusk, fighting everyone for turf.",
+    "type": "Underworld",
+    "tier": "1",
+    "goal_1": "Carve out gang territory",
+    "goal_1_clock_max": 6,
+    "goal_2": "Rise in Tier",
+    "goal_2_clock_max": 4,
+    "turf": "Rooms, workshop, and stable at The Old Forge tavern (HQ). A gambling den.",
+    "assets": "A small but powerfully savage gang of thugs.",
+    "quirks": "As a refugee of the Unity War, Ulf does not trust the local Akorosi, or anyone who proclaims a strong allegiance to the Imperial government. Those of Skovlander blood find it easy to win his trust, however.",
+    "notables": "Ulf Ironborn (leader, ruthless, savage, bold). Havid (second, ruthless, volatile, shrewd).",
+    "allies": "The Grinders",
+    "enemies": "Citizens of Coalridge, The Billhooks",
+    "situation": "Ulf is newly arrived in Doskvol, seeking his fortune on the streets. His gang has had recent success with savage smash & grab operations, leading into a potential “protection” racket. As more Skovlander war refugees swell the city population, the bigotry of some locals is starting to surface, with “NO SKOVS” signs appearing at public houses and shops. Ulf ’s blind rage will be sparked off when he encounters this, surely leading his gang into war with any “true Duskers” brave enough to stand up to him.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icons8_89.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!7KOAEBtL5V0MO9iN"
+}

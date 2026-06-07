@@ -1,0 +1,60 @@
+{
+  "_id": "h9zCERXsqRrnY8uG",
+  "name": "Imperial Military",
+  "type": "faction",
+  "system": {
+    "description": "The armed forces of the Imperium stationed in Doskvol. Garrisons are posted at Gaddoc Rail Station, aboard the naval destroyer Paragon, and at the Lord Governor’s stronghold (about 250 troops in total).",
+    "type": "Institutions",
+    "tier": "6",
+    "goal_1": "",
+    "goal_1_clock_max": 0,
+    "goal_2": "",
+    "goal_2_clock_max": 0,
+    "turf": "",
+    "assets": "",
+    "quirks": "",
+    "notables": "",
+    "allies": "",
+    "enemies": "",
+    "situation": "",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.2_24.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!h9zCERXsqRrnY8uG"
+}

@@ -157,9 +157,14 @@ ul {
   }
 }
 
-.doctor {
-  gap: 5px;
-  justify-content: center !important;
-  align-items: center;
-  text-align: center;
+.special-types {
+  gap: 1em;
+  justify-content: space-evenly;
+
+  .doctor, .vehicle {
+    gap: 5px;
+    justify-content: center !important;
+    align-items: center;
+    text-align: center;
+  }
 }

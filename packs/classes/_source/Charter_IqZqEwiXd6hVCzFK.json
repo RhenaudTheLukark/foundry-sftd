@@ -1,0 +1,82 @@
+{
+  "name": "Charter",
+  "type": "class",
+  "_id": "IqZqEwiXd6hVCzFK",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Lay the path through the chaos. When the chaos swallows the path, lay another.&nbsp;Your<br>abilities are all designed to help you accomplish this without getting bogged down in too much advance planning. Even when you&rsquo;re caught off guard, you&rsquo;ll never be out of options.</p>",
+    "logic": "",
+    "experience_clues": "<p>- You address a challenge with foresight or help your crew adapt to unexpected circumstances.</p>"
+  },
+  "effects": [
+    {
+      "name": "Charter Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.class.Item.IqZqEwiXd6hVCzFK",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "7cGzf6T6Pnvhh4Dt",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.attributes.analysis.actions.decipher.min",
+          "mode": 2,
+          "value": "2",
+          "priority": 30
+        },
+        {
+          "key": "system.attributes.semiosis.actions.command.min",
+          "mode": 2,
+          "value": "1",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1780614652399,
+        "modifiedTime": 1780614700798,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!IqZqEwiXd6hVCzFK.7cGzf6T6Pnvhh4Dt"
+    }
+  ],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780614607805,
+    "modifiedTime": 1780614649799,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!IqZqEwiXd6hVCzFK"
+}

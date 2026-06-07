@@ -1,0 +1,33 @@
+{
+  "name": "Experienced",
+  "type": "crew_ability",
+  "_id": "afDpUZi2iDrjahek",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Choose a special ability from another source. You may take this ability a maximum of three times.</p>",
+    "class": "",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780772320920,
+    "modifiedTime": 1780772330255,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!afDpUZi2iDrjahek"
+}

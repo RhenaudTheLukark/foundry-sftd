@@ -1,0 +1,33 @@
+{
+  "name": "(A) Mind Bridge",
+  "type": "crew_ability",
+  "_id": "9qaBRk1EzCe0CjVH",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Your crew is telepathically linked. You can engage the link at will to send speech or sensory impressions to each other. If you take emotional or psychic harm while the link is active, everyone linked to you takes a reduced version of that harm. <strong>Taking a scar </strong>while the link is active inflicts the level 2 harm &ldquo;Reeling&rdquo; on anyone linked to you.</p>",
+    "class": "Augurs",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780772078304,
+    "modifiedTime": 1780772110225,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!9qaBRk1EzCe0CjVH"
+}

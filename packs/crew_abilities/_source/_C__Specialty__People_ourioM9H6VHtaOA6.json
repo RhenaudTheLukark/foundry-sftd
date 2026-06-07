@@ -1,0 +1,33 @@
+{
+  "name": "(C) Specialty: People",
+  "type": "crew_ability",
+  "_id": "ourioM9H6VHtaOA6",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Refugees &amp; evacuees, diplomats and important figures, medics and first responders, and anybody else who needs to get somewhere quickly and safely.<br><em>Starting foundation: Convoy Vehicles</em></p>",
+    "class": "Couriers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780772488351,
+    "modifiedTime": 1780772505919,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!ourioM9H6VHtaOA6"
+}

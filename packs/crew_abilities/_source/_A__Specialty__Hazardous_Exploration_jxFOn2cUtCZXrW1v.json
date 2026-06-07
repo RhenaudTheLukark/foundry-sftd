@@ -1,0 +1,33 @@
+{
+  "name": "(A) Specialty: Hazardous Exploration",
+  "type": "crew_ability",
+  "_id": "jxFOn2cUtCZXrW1v",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Underwater ruins, caves thick with carbon monoxide, old reactors shrouded in lethal radiation&mdash;when the environment would stop others, they call you.<br><em>Starting foundation: Exosuit Bay.</em></p>",
+    "class": "Augurs",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780771648118,
+    "modifiedTime": 1780771689375,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!jxFOn2cUtCZXrW1v"
+}

@@ -1,0 +1,28 @@
+{
+  "name": "Cruel",
+  "type": "crew_reputation",
+  "system": {
+    "description": ""
+  },
+  "folder": null,
+  "sort": 300001,
+  "flags": {},
+  "_id": "TBDvFVgXDLeLkPmB",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0
+  },
+  "img": "icons/svg/item-bag.svg",
+  "_key": "!items!TBDvFVgXDLeLkPmB"
+}

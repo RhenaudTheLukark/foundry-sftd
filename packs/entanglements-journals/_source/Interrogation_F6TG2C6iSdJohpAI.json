@@ -1,0 +1,66 @@
+{
+  "name": "Interrogation",
+  "folder": null,
+  "sort": 0,
+  "flags": {
+    "core": {}
+  },
+  "_id": "F6TG2C6iSdJohpAI",
+  "pages": [
+    {
+      "name": "Interrogation",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>The Bluecoats round up one of the PCs to question them about the crew’s crimes. How did they manage to capture you? Either pay them off with 3 coin, or they beat you up (<strong>level 2 harm</strong>) and you tell them what they want to know (<strong>+3 heat</strong>). You can resist each of those consequences separately.</p>\n<p><em>Some players really hate it when their character gets captured! Just tell them </em><em>that this is completely normal for a scoundrel of the underworld. You spend time </em><em>in and out of jail, getting questioned and harassed by the law. It’s not the end </em><em>of the world. But now that you’re here in the interrogation room, what kind of  </em><em>person are you? Do you talk? Do you stand up to them? Do you make a deal?</em></p>"
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": null,
+        "systemVersion": null,
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "ZsrXixflgGSw2rpO",
+      "system": {},
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 0,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!F6TG2C6iSdJohpAI.ZsrXixflgGSw2rpO"
+    }
+  ],
+  "categories": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": "JournalEntry.WtDjTgpX82BdQPJB",
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "thWDvNEhl7M3mC2d": 3
+  },
+  "_key": "!journal!F6TG2C6iSdJohpAI"
+}

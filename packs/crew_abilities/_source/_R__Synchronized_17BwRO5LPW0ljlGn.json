@@ -1,0 +1,33 @@
+{
+  "name": "(R) Synchronized",
+  "type": "crew_ability",
+  "_id": "17BwRO5LPW0ljlGn",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>When you perform a <strong>group action</strong>, you may count multiple 6s from different rolls as a <strong>critical success</strong>. A critical achieved this way also generates <strong>harmony</strong>.</p>",
+    "class": "Rangers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780799890766,
+    "modifiedTime": 1780799919376,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!17BwRO5LPW0ljlGn"
+}

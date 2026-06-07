@@ -1,0 +1,43 @@
+{
+  "name": "(Scr) Tech Belt",
+  "type": "item",
+  "_id": "w9fVpsWYWmgPDvat",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>[1 load] A belt worn on the hip or chest that holds various gadgets and canisters filled with useful compounds. Choose an effect from the list below for each use.</p><ul><li><p><strong>Alkahest</strong>: Neutralizes the effects of other chemicals or agents.</p></li><li><p><strong>Cloak</strong> <strong>Dust</strong>: Bends light around coated objects, making them harder to see. Lasts for about twenty minutes.</p></li><li><p><strong>Firechoke</strong> <strong>Foam</strong>: A rapidly expanding foam which suffocates flame and is difficult to wade through.</p></li><li><p><strong>Fuse</strong> <strong>Resin</strong>: Permanently fuses two surfaces until parted with a neutralizing agent—or extreme, damaging force.</p></li><li><p><strong>Howl</strong> <strong>Blossoms</strong>: Preserved blooms which produce a raucous howling when disturbed.</p></li><li><p><strong>Meltbrick</strong>: A brick of moldable clay that hardens or softens when a current is run through it. Comes with wireless electric tabs that you can link to your slate.</p></li><li><p><strong>Slipwater</strong>: Reduces the friction between two surfaces to nearly zero.</p></li><li><p><strong>Somnic</strong> <strong>Smoke</strong>: Causes immense, incapacitating drowsiness.</p></li><li><p><strong>Quickbriar</strong>: Splash water on one of these buds to watch it grow rapidly and explosively, coating an object in thorny vines.</p></li><li><p><strong>Zap</strong> <strong>Token</strong>: Stick one to an unprotected electronic to short it out. Dangerous, but sometimes useful.</p></li></ul>",
+    "logic": "",
+    "owner": null,
+    "is_container": false,
+    "container_load": 0,
+    "collapsed": false,
+    "container_type": "TYPES.Item.item",
+    "class": "Scrapper",
+    "load": 1,
+    "uses": {
+      "value": 0,
+      "max": 3
+    },
+    "extra_description": "",
+    "additional_info": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780768142429,
+    "modifiedTime": 1780768320964,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!w9fVpsWYWmgPDvat"
+}

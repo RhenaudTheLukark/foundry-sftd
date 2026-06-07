@@ -1,0 +1,33 @@
+{
+  "name": "(M) Custom OS",
+  "type": "crew_ability",
+  "_id": "tfp50OBqnK4GOEEZ",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Your electronics and equipment are custom-built and utilize a unique operating system. Your technology can&rsquo;t be hacked and, at your option, can only be used by your crew.</p>",
+    "class": "Magpies",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780774412724,
+    "modifiedTime": 1780774427898,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!tfp50OBqnK4GOEEZ"
+}

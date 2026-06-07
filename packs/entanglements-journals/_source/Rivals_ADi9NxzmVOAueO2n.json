@@ -1,0 +1,66 @@
+{
+  "name": "Rivals",
+  "folder": null,
+  "sort": 0,
+  "flags": {
+    "core": {}
+  },
+  "_id": "ADi9NxzmVOAueO2n",
+  "pages": [
+    {
+      "name": "Rivals",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>A neutral faction throws their weight around. They threaten you, a friend, a contact, or one of your vice purveyors. Forfeit (<strong>1 rep</strong> or <strong>1 coin</strong>) per Tier of the rival, or stand up to them and lose <strong>1 status</strong> with them.</p>"
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": null,
+        "systemVersion": null,
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "oCcF4GkmPdfC0tK3",
+      "system": {},
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 0,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!ADi9NxzmVOAueO2n.oCcF4GkmPdfC0tK3"
+    }
+  ],
+  "categories": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": "JournalEntry.HLCamOpbBCJNRYLG",
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "thWDvNEhl7M3mC2d": 3
+  },
+  "_key": "!journal!ADi9NxzmVOAueO2n"
+}

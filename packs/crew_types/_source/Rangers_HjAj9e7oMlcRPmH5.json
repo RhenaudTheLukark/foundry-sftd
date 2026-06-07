@@ -1,0 +1,198 @@
+{
+  "name": "Rangers",
+  "type": "crew_type",
+  "_id": "HjAj9e7oMlcRPmH5",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "short_description": "Agile scouts and defenders",
+    "description": "<p>Quiet strides, honed senses, and a solemn vow: as sharp as need be, and no more. Rangers are guardians, saboteurs, tacticians, and scouts. Play Rangers if you want to focus on combat, danger, action, and&mdash;most importantly of all&mdash;people.</p>",
+    "experience_clues": "",
+    "turfs": {
+      "1": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "2": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "3": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "4": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "5": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "6": {
+        "name": "",
+        "value": "",
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "7": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "8": {
+        "name": "SFTD.Lair",
+        "value": true,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "9": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "10": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "11": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "12": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "13": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "14": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "15": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      }
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 200000,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1778675785427,
+    "modifiedTime": 1780616057888,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!HjAj9e7oMlcRPmH5"
+}

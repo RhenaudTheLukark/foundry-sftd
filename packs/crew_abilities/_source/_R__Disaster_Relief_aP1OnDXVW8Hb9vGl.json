@@ -1,0 +1,33 @@
+{
+  "name": "(R) Disaster Relief",
+  "type": "crew_ability",
+  "_id": "aP1OnDXVW8Hb9vGl",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Take <strong>+1d</strong> to <strong>long-term project</strong> rolls to provide aid or relief to groups, factions, or locations you&rsquo;ve helped in the past.<br><em>This can be in the form of supplies, medical help, self-defense training, etc. As </em><em>long as you&rsquo;ve helped them before, you get the bonus to making sure they can </em><em>maintain some of that work on their own.</em></p>",
+    "class": "Rangers",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780774903053,
+    "modifiedTime": 1780775403834,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!aP1OnDXVW8Hb9vGl"
+}

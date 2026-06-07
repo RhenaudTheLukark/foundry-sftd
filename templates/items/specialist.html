@@ -32,9 +32,15 @@
         <div class="specialties-container flex-vertical">
           <div class="label-stripe">{{localize 'SFTD.Specialties'}}</div>
           <textarea rows="3" name="system.specialties">{{system.specialties}}</textarea>
-          <div class="doctor flex-horizontal">
-            <label for="specialist-{{_id}}-doctor">{{localize 'SFTD.Medic'}}</label>
-            <input id="specialist-{{_id}}-doctor" type="checkbox" data-dType="Boolean" name="system.doctor" {{checked system.doctor}}>
+          <div class="flex-horizontal special-types">
+            <div class="doctor flex-horizontal">
+              <label for="specialist-{{_id}}-doctor">{{localize 'SFTD.Medic'}}</label>
+              <input id="specialist-{{_id}}-doctor" type="checkbox" data-dType="Boolean" name="system.doctor" {{checked system.doctor}}>
+            </div>
+            <div class="vehicle flex-horizontal">
+              <label for="specialist-{{_id}}-vehicle">{{localize 'SFTD.Vehicle'}}</label>
+              <input id="specialist-{{_id}}-vehicle" type="checkbox" data-dType="Boolean" name="system.vehicle" {{checked system.vehicle}}>
+            </div>
           </div>
         </div>
       </div>

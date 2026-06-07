@@ -1,0 +1,66 @@
+{
+  "name": "Unquiet Dead",
+  "folder": null,
+  "sort": 0,
+  "flags": {
+    "core": {}
+  },
+  "_id": "dR9zBnrjy4AyA9Ru",
+  "pages": [
+    {
+      "name": "Unquiet Dead",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>A rogue spirit is drawn to you—perhaps it’s a past victim? Acquire the services of a Whisper or Rail Jack to attempt to destroy or banish it, or deal with it yourself.</p>\n<p><em>They can hire an NPC by using the acquire asset downtime activity (see page </em><em>153). Roll the NPC’s quality level as a fortune roll to see how well they deal </em><em>with the spirit.</em></p>"
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": null,
+        "systemVersion": null,
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "bzplqr8uE8U53Jkc",
+      "system": {},
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 0,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!dR9zBnrjy4AyA9Ru.bzplqr8uE8U53Jkc"
+    }
+  ],
+  "categories": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": "JournalEntry.K1wg10vMiU0bOSsb",
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "thWDvNEhl7M3mC2d": 3
+  },
+  "_key": "!journal!dR9zBnrjy4AyA9Ru"
+}

@@ -1,0 +1,60 @@
+{
+  "_id": "mPhvymlLwB1kxxsL",
+  "name": "The Dimmer Sisters",
+  "type": "faction",
+  "system": {
+    "description": "House-bound recluses with an occult reputation.",
+    "type": "Underworld",
+    "tier": "2",
+    "goal_1": "Dominate the spirit trade",
+    "goal_1_clock_max": 6,
+    "goal_2": "Obtain arcane secrets (repeating)",
+    "goal_2_clock_max": 4,
+    "turf": "Fine old manor house and grounds (HQ), as well as the ancient temple ruin and subterranean canal beneath. Apothecaries and witches in their service.",
+    "assets": "A private electroplasmic generator, lightning barriers, and spirit containment vessels. Many spirits bound to service.",
+    "quirks": "The precise number of sisters is unknown. Some say they are an ancient family of possessing spirits. Others say they are vampires. Everyone knows that if you go into their house, you never come out again.",
+    "notables": "There is no single leader of the Sisters; their true names are not known. Roslyn (servant, patient, loyal, arcane) deals with contacts outside the house. Irelen (sparkcraft tinkerer, loyal, enigmatic, obsessive).",
+    "allies": "The Forgotten Gods, The Foundation.",
+    "enemies": "Spirit Wardens, The Reconciled.",
+    "situation": "The Sisters have been slowly and secretly consolidating the trade of captured spirits and spirit essences in Doskvol for several decades. Only a few remaining rivals stand between them and domination of the market. Do they have an ulterior motive for acquiring so many spirits and essences, or is this purely a matter of wealth and power?",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 1,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.6_11.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!mPhvymlLwB1kxxsL"
+}

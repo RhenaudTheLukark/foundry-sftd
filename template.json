@@ -239,7 +239,7 @@
     }
   },
   "Item": {
-    "types": ["item", "class", "ability", "crew_upgrade", "specialist", "crew_type", "crew_reputation", "crew_upgrade", "crew_ability"],
+    "types": ["class", "item", "ability", "crew_type", "crew_reputation", "crew_ability", "foundation", "specialist"],
     "templates": {
       "default": {
         "description": ""
@@ -325,6 +325,7 @@
       "quality_modifier": 0,
       "specialties": "",
       "doctor": false,
+      "vehicle": false,
       "edges": [],
       "flaws": [],
       "harm": ["No"],
@@ -373,9 +374,10 @@
     "crew_reputation": {
       "templates": ["default"]
     },
-    "crew_upgrade": {
-      "templates": ["ability", "logic", "activatedEffect"],
-      "crew_type": ""
+    "foundation": {
+      "templates": ["default", "activatedEffect"],
+      "cache_cost": 0,
+      "is_complex": false
     },
     "crew_ability": {
       "templates": ["ability", "activatedEffect"]

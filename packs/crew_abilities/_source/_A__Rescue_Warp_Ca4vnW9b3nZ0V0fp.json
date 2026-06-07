@@ -1,0 +1,33 @@
+{
+  "name": "(A) Rescue Warp",
+  "type": "crew_ability",
+  "_id": "Ca4vnW9b3nZ0V0fp",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>Any of you can spend <strong>3 stress</strong> to do one of the following:</p>\n<ul>\n<li>Instantly warp to the side of one of your crewmates,</li>\n<li>Instantly warp one of your crewmates to your side.</li>\n</ul>",
+    "class": "Augurs",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780772190986,
+    "modifiedTime": 1780772235976,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!Ca4vnW9b3nZ0V0fp"
+}

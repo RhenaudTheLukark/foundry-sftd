@@ -1,0 +1,60 @@
+{
+  "_id": "K2wssu3bKTDo6AZ8",
+  "name": "The Unseen",
+  "type": "faction",
+  "system": {
+    "description": "An insidious criminal enterprise with secret membership. Thought to pull the strings of the entire underworld.",
+    "type": "Underworld",
+    "tier": "4",
+    "goal_1": "Infiltrate the Spirit Wardens",
+    "goal_1_clock_max": 8,
+    "goal_2": "Expand into other cities",
+    "goal_2_clock_max": 8,
+    "turf": "A multitude of vice dens and extortion rackets across the city—virtually none realize that they pay up to the Unseen. Several opulent townhouses used as safe houses.",
+    "assets": "A legion of thugs, thieves, and killers on-call to their secret masters.",
+    "quirks": "The perfect secrecy of the Unseen is the result of arcane rituals. Core members can recognize each other with attuned second sight. Any non-member who learns the identity of a member falls victim to a ritual that removes that memory from their mind after a few moments.",
+    "notables": "The Tower (leader). The Star (captain). Grull (mid-level thug with big ambitions, undercover as a coach driver).",
+    "allies": "The Bluecoats, Ironhook Prison, The Forgotten Gods, Cyphers.",
+    "enemies": "Ink Rakes, The Hive, Spirit Wardens.",
+    "situation": "The Unseen crave the power and authority of the Spirit Wardens, whose own secret membership has so far resisted infiltration. The Tower and The Star plot to place their own spies and operatives among the Wardens and seize it from within.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.3_91.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!K2wssu3bKTDo6AZ8"
+}

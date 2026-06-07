@@ -1,0 +1,43 @@
+{
+  "name": "(Sch) Field Notes",
+  "type": "item",
+  "_id": "e2viAIo9TLt4silT",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>[1 load] Stacks of research materials, including field observations, firsthand accounts, and well-kept records on a variety of historical topics. Mark off a use to take +1d to a collect info roll when investigating historical events or ancient technology. </p>",
+    "logic": "",
+    "owner": null,
+    "is_container": false,
+    "container_load": 0,
+    "collapsed": false,
+    "container_type": "TYPES.Item.item",
+    "class": "Scholar",
+    "load": 1,
+    "uses": {
+      "value": 0,
+      "max": 3
+    },
+    "extra_description": "",
+    "additional_info": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780767310758,
+    "modifiedTime": 1780767383438,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!e2viAIo9TLt4silT"
+}

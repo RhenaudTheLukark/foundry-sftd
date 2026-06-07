@@ -1,0 +1,60 @@
+{
+  "_id": "SaiG4M5tok0NHaHJ",
+  "name": "The Weeping Lady",
+  "type": "faction",
+  "system": {
+    "description": "A charity and pseudo-religion, honoring the first Lord Governor of Doskvol, Lady Devera, said to be a champion of the poor.",
+    "type": "The Fringe",
+    "tier": "2",
+    "goal_1": "",
+    "goal_1_clock_max": 0,
+    "goal_2": "",
+    "goal_2_clock_max": 0,
+    "turf": "",
+    "assets": "",
+    "quirks": "",
+    "notables": "",
+    "allies": "",
+    "enemies": "",
+    "situation": "",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 2,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icons8_19.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!SaiG4M5tok0NHaHJ"
+}

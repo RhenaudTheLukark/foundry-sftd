@@ -1,0 +1,198 @@
+{
+  "name": "Augurs",
+  "type": "crew_type",
+  "_id": "0oPRqT9E8wpswrVp",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "short_description": "Passionate scientists and investigators",
+    "description": "<p>Every mystery a blessing; every theory an exaltation. Augurs are investigators, mapmakers, explorers, and scientists. Play Augurs if you want to deal with ancient machinery, transcendent phenomena, and the truly weird.</p>",
+    "experience_clues": "",
+    "turfs": {
+      "1": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "2": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "3": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "4": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "5": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "6": {
+        "name": "",
+        "value": "",
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "7": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "8": {
+        "name": "SFTD.Lair",
+        "value": true,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "9": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "10": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "11": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "12": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "13": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "14": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      },
+      "15": {
+        "name": "",
+        "value": false,
+        "description": "",
+        "connects": {
+          "left": false,
+          "top": false,
+          "right": false,
+          "bottom": false
+        }
+      }
+    }
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 100000,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1778675715113,
+    "modifiedTime": 1780616057888,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!0oPRqT9E8wpswrVp"
+}

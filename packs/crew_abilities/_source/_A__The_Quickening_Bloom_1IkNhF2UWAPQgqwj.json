@@ -1,0 +1,33 @@
+{
+  "name": "(A) The Quickening Bloom",
+  "type": "crew_ability",
+  "_id": "1IkNhF2UWAPQgqwj",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>You can <strong>spend harmony </strong>to take either <strong>improved position</strong> or <strong>+1 impact</strong> to a roll instead of the usual +1d. You can still only spend harmony once per roll.</p>",
+    "class": "Augurs",
+    "price": "1",
+    "purchased": false,
+    "class_default": false
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780772148584,
+    "modifiedTime": 1780772175097,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!1IkNhF2UWAPQgqwj"
+}

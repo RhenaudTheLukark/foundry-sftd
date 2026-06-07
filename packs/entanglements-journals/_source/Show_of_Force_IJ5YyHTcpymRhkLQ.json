@@ -1,0 +1,66 @@
+{
+  "_id": "IJ5YyHTcpymRhkLQ",
+  "name": "Show of Force",
+  "folder": null,
+  "sort": 0,
+  "flags": {
+    "core": {}
+  },
+  "pages": [
+    {
+      "name": "Show of Force",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>A faction with whom you have a negative status makes a play against your holdings. Give them <strong>1 claim</strong> or go to war (drop to -3 status). If you have no claims, lose<strong> 1 hold </strong>instead.</p>"
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": null,
+        "systemVersion": null,
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "nqcAynlHBCmKswjC",
+      "system": {},
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 0,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!IJ5YyHTcpymRhkLQ.nqcAynlHBCmKswjC"
+    }
+  ],
+  "categories": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": "JournalEntry.nagSQyGbXzCv9bCw",
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "thWDvNEhl7M3mC2d": 3
+  },
+  "_key": "!journal!IJ5YyHTcpymRhkLQ"
+}

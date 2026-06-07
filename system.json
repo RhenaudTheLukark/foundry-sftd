@@ -6,7 +6,7 @@
   "compatibility": {
     "minimum": 13,
     "verified": "13.351",
-    "maximum": 14
+    "maximum": 13
   },
   "background": "systems/songs-for-the-dusk/images/BITD_title.webp",
   "url": "https://github.com/RhenaudTheLukark/foundry-sftd/",
@@ -36,7 +36,7 @@
       "name": "class",
       "label": "Classes",
       "system": "songs-for-the-dusk",
-      "path": "./packs/classes.db",
+      "path": "packs/classes",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_00.webp",
       "type": "Item"
     },
@@ -44,7 +44,7 @@
       "name": "item",
       "label": "Items",
       "system": "songs-for-the-dusk",
-      "path": "./packs/items.db",
+      "path": "packs/items",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_05.webp",
       "type": "Item"
     },
@@ -52,7 +52,7 @@
       "name": "ability",
       "label": "Abilities",
       "system": "songs-for-the-dusk",
-      "path": "./packs/abilities.db",
+      "path": "packs/abilities",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_06.webp",
       "type": "Item"
     },
@@ -60,7 +60,7 @@
       "name": "crew_reputation",
       "label": "Crew Reputation",
       "system": "songs-for-the-dusk",
-      "path": "./packs/crew_reputation.db",
+      "path": "packs/crew_reputation",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_07.webp",
       "type": "Item"
     },
@@ -68,15 +68,15 @@
       "name": "crew_type",
       "label": "Crew Types",
       "system": "songs-for-the-dusk",
-      "path": "./packs/crew_types.db",
+      "path": "packs/crew_types",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_08.webp",
       "type": "Item"
     },
     {
-      "name": "crew_upgrade",
-      "label": "Crew Upgrades",
+      "name": "foundation",
+      "label": "Foundations",
       "system": "songs-for-the-dusk",
-      "path": "./packs/crew_upgrades.db",
+      "path": "packs/foundations",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_09.webp",
       "type": "Item"
     },
@@ -84,7 +84,7 @@
       "name": "crew_ability",
       "label": "Crew Abilities",
       "system": "songs-for-the-dusk",
-      "path": "./packs/crew_abilities.db",
+      "path": "packs/crew_abilities",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_10.webp",
       "type": "Item"
     },
@@ -92,7 +92,7 @@
       "name": "faction",
       "label": "Factions",
       "system": "songs-for-the-dusk",
-      "path": "./packs/factions.db",
+      "path": "packs/factions",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_12.webp",
       "type": "Item"
     },
@@ -100,7 +100,7 @@
       "name": "npc",
       "label": "NPCs",
       "system": "songs-for-the-dusk",
-      "path": "./packs/npcs.db",
+      "path": "packs/npcs",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_13.webp",
       "type": "Actor"
     },
@@ -108,7 +108,7 @@
       "name": "entanglements",
       "label": "Entanglements",
       "system": "songs-for-the-dusk",
-      "path": "./packs/entanglements.db",
+      "path": "packs/entanglements",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_14.webp",
       "type": "RollTable"
     },
@@ -116,7 +116,7 @@
       "name": "entanglements-journals",
       "label": "Entanglements Journals",
       "system": "songs-for-the-dusk",
-      "path": "./packs/entanglements-journals.db",
+      "path": "packs/entanglements-journals",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_15.webp",
       "type": "JournalEntry"
     },
@@ -124,7 +124,7 @@
       "name": "entanglements-macro",
       "label": "Entanglements Macro",
       "system": "songs-for-the-dusk",
-      "path": "./packs/entanglements-macro.db",
+      "path": "packs/entanglements-macro",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_16.webp",
       "type": "Macro"
     }
@@ -138,7 +138,7 @@
     {
       "name": "Crew Options",
       "sorting": "m",
-      "packs": ["crew_type", "crew_ability", "crew_upgrade", "crew_reputation"]
+      "packs": ["crew_type", "crew_ability", "foundation", "crew_reputation"]
 	  },
     {
       "name": "Factions & NPCs",

@@ -6747,7 +6747,11 @@
 .songs-for-the-dusk.item.sheet .quality-container .fas:before {
   font-size: 16px;
 }
-.songs-for-the-dusk.item.sheet .doctor {
+.songs-for-the-dusk.item.sheet .special-types {
+  gap: 1em;
+  justify-content: space-evenly;
+}
+.songs-for-the-dusk.item.sheet .special-types .doctor, .songs-for-the-dusk.item.sheet .special-types .vehicle {
   gap: 5px;
   justify-content: center !important;
   align-items: center;

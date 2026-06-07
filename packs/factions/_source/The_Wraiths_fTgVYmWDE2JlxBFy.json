@@ -1,0 +1,60 @@
+{
+  "_id": "fTgVYmWDE2JlxBFy",
+  "name": "The Wraiths",
+  "type": "faction",
+  "system": {
+    "description": "A mysterious crew of masked thieves and spies.",
+    "type": "Underworld",
+    "tier": "2",
+    "goal_1": "Recruit expert thieves",
+    "goal_1_clock_max": 8,
+    "goal_2": "Secure an arcane ally",
+    "goal_2_clock_max": 6,
+    "turf": "Silkshore and Nightmarket are their primary hunting grounds. They specialize in the theft of luxury items and intelligence gathering for clients to use as blackmail.",
+    "assets": "A scattered collection of secret rooftop shelters. A secret lair in a tower in Silkshore. All manner of thieves’ gear for burglary.",
+    "quirks": "Each member wears a mask and conceals their true identity with an alias. They communicate with a private sign language.",
+    "notables": "Slate (leader, sophisticated, daring, secretive). Loop (appraisal expert, obsessive, moody, secretive).",
+    "allies": "Cabbies.",
+    "enemies": "Bluecoats, Inspectors, The Hive.",
+    "situation": "The Wraiths recently completed a heist at a luxury brothel in Nightmarket and happened to grab the private map book of a leviathan hunter in the process. The map book shows the secret hunting grounds of augured leviathan sites that will be used by the ship Storm Palace during the next season. Such a map is useless to the Wraiths, but is worth a small fortune to another leviathan hunter. The Wraiths are currently reaching out to contacts in the underworld to quietly arrange a sale.",
+    "goal_clock": 0,
+    "notes": "",
+    "hold": {
+      "value": 1,
+      "max": 2,
+      "max_default": 2,
+      "name_default": "BITD.Hold",
+      "name": "BITD.Hold"
+    },
+    "status": {
+      "value": [
+        4
+      ],
+      "max": 7,
+      "max_default": 7,
+      "name_default": "BITD.Status",
+      "name": "BITD.Status"
+    }
+  },
+  "flags": {},
+  "img": "systems/blades-in-the-dark/styles/assets/icons/Icon.7_75.png",
+  "effects": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "5izWgADOTEOz6xAL": 3
+  },
+  "folder": null,
+  "sort": 0,
+  "_key": "!items!fTgVYmWDE2JlxBFy"
+}

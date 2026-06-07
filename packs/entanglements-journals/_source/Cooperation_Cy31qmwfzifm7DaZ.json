@@ -1,0 +1,66 @@
+{
+  "name": "Cooperation",
+  "folder": null,
+  "sort": 0,
+  "flags": {
+    "core": {}
+  },
+  "_id": "Cy31qmwfzifm7DaZ",
+  "pages": [
+    {
+      "name": "Cooperation",
+      "type": "text",
+      "title": {
+        "show": false,
+        "level": 1
+      },
+      "text": {
+        "format": 1,
+        "content": "<p>A +3 status faction asks you for a favor. Agree to do it, or forfeit <strong>1 rep </strong>per Tier of the friendly faction, or<strong> </strong>lose<strong> 1 status</strong> with them. If you don’t have a +3 faction status, you avoid entanglements right now.</p>"
+      },
+      "_stats": {
+        "coreVersion": "13.351",
+        "systemId": null,
+        "systemVersion": null,
+        "createdTime": null,
+        "modifiedTime": null,
+        "lastModifiedBy": null,
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null
+      },
+      "_id": "6BbwfO5zu9ZwvXoo",
+      "system": {},
+      "image": {},
+      "video": {
+        "controls": true,
+        "volume": 0.5
+      },
+      "src": null,
+      "category": null,
+      "sort": 0,
+      "ownership": {
+        "default": -1
+      },
+      "flags": {},
+      "_key": "!journal.pages!Cy31qmwfzifm7DaZ.6BbwfO5zu9ZwvXoo"
+    }
+  ],
+  "categories": [],
+  "_stats": {
+    "coreVersion": "13.351",
+    "systemId": null,
+    "systemVersion": null,
+    "createdTime": null,
+    "modifiedTime": null,
+    "lastModifiedBy": null,
+    "compendiumSource": "JournalEntry.xoz34R22ATadDztX",
+    "duplicateSource": null,
+    "exportSource": null
+  },
+  "ownership": {
+    "default": 0,
+    "thWDvNEhl7M3mC2d": 3
+  },
+  "_key": "!journal!Cy31qmwfzifm7DaZ"
+}

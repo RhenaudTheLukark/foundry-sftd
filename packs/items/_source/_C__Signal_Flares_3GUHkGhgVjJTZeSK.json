@@ -1,0 +1,43 @@
+{
+  "name": "(C) Signal Flares",
+  "type": "item",
+  "_id": "3GUHkGhgVjJTZeSK",
+  "img": "icons/svg/item-bag.svg",
+  "system": {
+    "description": "<p>[1 load] Several bright flares in a variety of colors. Feel free to pass them out to your team; one or two won’t take up any load.</p>",
+    "logic": "",
+    "owner": null,
+    "is_container": false,
+    "container_load": 0,
+    "collapsed": false,
+    "container_type": "TYPES.Item.item",
+    "class": "Charter",
+    "load": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "extra_description": "",
+    "additional_info": ""
+  },
+  "effects": [],
+  "folder": null,
+  "sort": 0,
+  "ownership": {
+    "default": 0,
+    "NKBqJZbUpn1DnvhY": 3
+  },
+  "flags": {},
+  "_stats": {
+    "compendiumSource": null,
+    "duplicateSource": null,
+    "exportSource": null,
+    "coreVersion": "13.351",
+    "systemId": "songs-for-the-dusk",
+    "systemVersion": "0.0.1",
+    "createdTime": 1780766275528,
+    "modifiedTime": 1780766300361,
+    "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+  },
+  "_key": "!items!3GUHkGhgVjJTZeSK"
+}
