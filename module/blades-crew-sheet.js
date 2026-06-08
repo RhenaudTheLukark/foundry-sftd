@@ -39,11 +39,7 @@ export class BladesCrewSheet extends BladesSheet {
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.actor.effects);
 
     // Compute invested caches
-    let invested = 0;
-    for (let project of Object.values(sheetData.system.projects))
-      if (Number(project.clock.value) < Number(project.clock.max))
-        invested += Number(project.invested_caches);
-    sheetData.system.cache.invested = invested;
+    sheetData.system.cache.invested = this.getInvestedCaches();
 
     sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
 
@@ -151,12 +147,148 @@ export class BladesCrewSheet extends BladesSheet {
       ui.notifications.warn(game.i18n.localize('SFTD.log.warn.TriedRemovingInvestedCache'));
   }
 
+  /* -------------------------------------------- */
+
+  getInvestedCaches() {
+    let invested = 0;
+    for (let foundation of Object.values(this.actor.items.filter(i => i.type == 'foundation')))
+      invested += foundation.system.cache_cost;
+    for (let project of Object.values(this.actor.system.projects))
+      if (Number(project.clock.value) < Number(project.clock.max))
+        invested += Number(project.invested_caches);
+    return invested;
+  }
+
+  /* -------------------------------------------- */
+
+  async onFoundationAddClick(event) {
+    event.preventDefault();
+    let displayFoundation = function(item, availableCaches, dialogId) {
+      const isTooExpensive = availableCaches < item.system.cache_cost;
+      let html = `<input id="${dialogId}-select-item-${item._id}" name="select_items" type="checkbox" data-cache-cost="${item.system.cache_cost}" value="${item._id}"${isTooExpensive ? ' disabled' : ''}>`;
+      html += `<label class="entry${isTooExpensive ? ' too-expensive' : ''}" for="${dialogId}-select-item-${item._id}" data-cache-cost="${item.system.cache_cost}">`;
+      html += `${game.i18n.localize(item.name)} (${item.system.cache_cost})<i class="fas fa-question-circle" data-tooltip="${game.i18n.localize(item.system.description)}"></i>`;
+      html += `</label>`;
+      return html;
+    }
+    let displayProsperity = function(level, items, availableCaches, dialogId) {
+      const prosperityTitle = level != 0 ? `${game.i18n.localize('SFTD.ProsperityLevel')} ${level}` : game.i18n.localize('SFTD.StartingFoundations');
+      let html = '<div class="prosperity-container flex-vertical">';
+      html += `<label class="prosperity-title">${prosperityTitle}</label>`;
+      for (const item of Object.values(items.filter(i => i.system.prosperity_level == level)))
+        html += displayFoundation(item, availableCaches, dialogId);
+      html += '</div>';
+      return html;
+    }
+
+    let element = event.currentTarget;
+    let availableCaches = this.actor.system.cache.value - this.getInvestedCaches();
+
+    let items = await BladesHelpers.getAllObjectDocumentsByType('foundation', [], game);
+    if (items.length == 0) {
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NothingToAdd'));
+      return;
+    }
+    let prosperityOccurrences = items.map(i => i.system.prosperity_level).reduce((acc, curr) => {
+      acc[curr] = (acc[curr] || 0) + 1;
+      return acc;
+    }, {});
+
+    let dialogId = foundry.applications.api.ApplicationV2._appId + 1;
+    let html = `<label class="available-caches" data-caches="${availableCaches}">${game.i18n.localize('SFTD.AvailableCaches')}: ${availableCaches}<span></span></label>`;
+    html += `<input id="${dialogId}-search-bar" type="text" data-cache-cost="${availableCaches}" value="" placeholder="${game.i18n.format('SFTD.SearchBar', { obj: game.i18n.localize(`TYPES.Item.foundation`) })}" autofocus>`;
+    html += `<div class="objects-to-add flex-vertical">`;
+    for (const prosperityLevel of Object.keys(prosperityOccurrences)) {
+      if (prosperityLevel == 0) continue;
+      html += displayProsperity(prosperityLevel, items, availableCaches, dialogId);
+    }
+    html += displayProsperity(0, items, availableCaches, dialogId);
+    html += `</div>`;
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('SFTD.Add')} ${game.i18n.localize(`TYPES.Item.foundation`)}` },
+      content: html,
+      classes: ['add-foundation-popup'],
+      buttons: [
+        {
+          icon: 'fas fa-clipboard',
+          label: game.i18n.localize('SFTD.AddAsProject'),
+          action: 'addAsProject',
+          default: true
+        },
+        {
+          icon: 'fas fa-check',
+          label: game.i18n.localize('SFTD.Add'),
+          action: 'add'
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('SFTD.Cancel'),
+          action: 'cancel'
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result == 'cancel')
+          return;
+        const itemsToAddElements = $(dialog.element).find('.objects-to-add');
+        if (result == 'add')
+          await this.addItemsToSheet('foundation', itemsToAddElements);
+        if (result == 'addAsProject') {
+          let items = await BladesHelpers.getAllObjectDocumentsByType('foundation', [], game);
+          let itemsToAdd = [];
+          itemsToAddElements.find('input:checked').each(function() {
+            let item = items.find(e => e._id === $(this).val());
+            if (item)
+              itemsToAdd.push(items.find(e => e._id === $(this).val()));
+          });
+          for (let itemToAdd of itemsToAdd)
+            await BladesHelpers.addProject(dialog.actor, itemToAdd);
+        }
+      }
+    });
+
+    dialog.actor = this.actor;
+    dialog._onFirstRender = this.dialogOnFirstRender;
+    await dialog.render(true);
+
+    for (const element of dialog.element.querySelector('.objects-to-add').querySelectorAll('input')) {
+      element.addEventListener('click', async (ev) => {
+        const element = ev.currentTarget;
+        const objectsToAddElement = element.closest('.objects-to-add');
+        const objectsAdded = objectsToAddElement.querySelectorAll('input:checked'); 
+        let availableCaches = Number(objectsToAddElement.parentElement.querySelector('.available-caches').dataset.caches);
+        const originalAvailableCaches = availableCaches;
+        for (const objectAdded of objectsAdded)
+          availableCaches -= Number(objectAdded.dataset.cacheCost);
+
+        let needCacheDisplay = originalAvailableCaches != availableCaches;
+        let availableCachesSpanElement = objectsToAddElement.parentElement.querySelector('.available-caches span');
+        availableCachesSpanElement.innerHTML = needCacheDisplay ? ` => ${availableCaches}` : '';
+
+        for (const input of objectsToAddElement.querySelectorAll('input')) {
+          const label = input.nextElementSibling;
+          const tooExpensive = Number(label.dataset.cacheCost) > availableCaches && !input.checked;
+          const oldTooExpensive = label.classList.contains('too-expensive');
+          input.disabled = tooExpensive;
+          if (tooExpensive && !oldTooExpensive)
+            label.classList.add('too-expensive');
+          if (!tooExpensive && oldTooExpensive)
+            label.classList.remove('too-expensive');
+        }
+      });
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
 	activateListeners(html) {
     super.activateListeners(html);
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
+
+    html.find('.foundation-add-popup').click(this.onFoundationAddClick.bind(this));
 
     html.find('label.invested').click(this.investedCacheClick);
     html.find('label.invested').contextmenu(this.investedCacheClick);
@@ -178,19 +310,7 @@ export class BladesCrewSheet extends BladesSheet {
 
     // Add Project
     html.find('.add-project').click(async _ => {
-      let projects = this.actor.system.projects;
-      projects[Object.keys(projects).length] = {
-        title: '',
-        clock: {
-          value: 0,
-          max: 4,
-          min: 0,
-          theme_color: null,
-          invested_caches: 0
-        },
-        description: ''
-      }
-      await BladesHelpers.tryUpdate(this.actor, {system: {'==projects': projects}});
+      await BladesHelpers.addProject(this.actor);
     });
 
     // Delete Project

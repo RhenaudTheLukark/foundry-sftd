@@ -710,6 +710,24 @@ export class BladesHelpers {
 
   /* -------------------------------------------- */
 
+  static async addProject(actorFull, linkedFoundation) {
+    let projects = actorFull.system.projects;
+    projects[Object.keys(projects).length] = {
+      title: linkedFoundation ? linkedFoundation.name : '',
+      clock: {
+        value: 0,
+        max: linkedFoundation ? (linkedFoundation.system.is_complex ? 6 : 4) : 4,
+        min: 0,
+        theme_color: null
+      },
+      description: linkedFoundation ? game.i18n.format('SFTD.AddFoundationProject', { foundation: linkedFoundation.name}) : '',
+      invested_caches: linkedFoundation ? linkedFoundation.system.cache_cost : 0,
+      foundation: linkedFoundation ? linkedFoundation._id : undefined
+    }
+    await BladesHelpers.tryUpdate(actorFull, {system: {'==projects': projects}});
+  }
+  /* -------------------------------------------- */
+
   /**
    * Groups items by their system.class property.
    * Items without a class are grouped under "General".

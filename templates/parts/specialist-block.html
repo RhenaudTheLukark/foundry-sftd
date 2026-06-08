@@ -34,10 +34,10 @@
       <div class='specialist-specialties'>{{localize 'SFTD.Specialties'}}: {{html-list text=system.specialties}}</div>
       <div class='flex-vertical'>
         {{#each item.system.edges as |edge key|}}
-        <div class='specialist-description'>{{localize (concat 'SFTD.EdgeList.' edge '.Description')}} <b>({{localize (concat 'SFTD.EdgeList.' edge '.Label')}})</b></div>
+        <div class='specialist-description'>{{{localize (concat 'SFTD.EdgeList.' edge '.Description')}}} <b>({{localize (concat 'SFTD.EdgeList.' edge '.Label')}})</b></div>
         {{/each}}
         {{#each item.system.flaws as |flaw key|}}
-        <div class='specialist-description'>{{localize (concat 'SFTD.FlawList.' flaw '.Description')}} <b>({{localize (concat 'SFTD.FlawList.' flaw '.Label')}})</b></div>
+        <div class='specialist-description'>{{{localize (concat 'SFTD.FlawList.' flaw '.Description')}}} <b>({{localize (concat 'SFTD.FlawList.' flaw '.Label')}})</b></div>
         {{/each}}
       </div>
       <div class='specialist-description description'>{{html text=system.description}}</div>

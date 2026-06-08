@@ -109,8 +109,8 @@ export class BladesItemSheet extends BaseItemSheet {
     if (sheetData.type == 'specialist') {
       sheetData.system.edge_list = ['Independent', 'Unrelenting', 'Loyal', 'Sociable'];
       sheetData.system.flaw_list = ['Unreliable', 'Ill-liked', 'Principled', 'Reckless'];
-      sheetData.system.vehicle_edge_list = ['Independent', 'Unrelenting', 'Loyal', 'Sociable'];
-      sheetData.system.vehicle_flaw_list = ['Unreliable', 'Ill-liked', 'Principled', 'Reckless'];
+      sheetData.system.vehicle_edge_list = ['Nimble', 'Auto-Repair', 'Rugged'];
+      sheetData.system.vehicle_flaw_list = ['Guzzler', 'Finicky', 'Flashy'];
     }
 
     return sheetData;

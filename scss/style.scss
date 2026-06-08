@@ -69,6 +69,7 @@ $hover-brightness: 0.8;
 }
 
 .application.dialog {
+  @import 'import/general-styles.scss';
   @import 'import/dialogs.scss';
 }
 

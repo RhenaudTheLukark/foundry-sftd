@@ -271,9 +271,14 @@ export class BladesSheet extends BaseActorSheet {
   dialogOnFirstRender(context, options) {
     let searchBar = this.element.querySelector('input[type=text]');
     searchBar.addEventListener('input', (event) => {
-      let labels = this.element.querySelector('.objects-to-add').getElementsByClassName('entry');
-      for (let label of labels)
-        label.style.display = label.innerText.toLowerCase().includes(event.target.value.toLowerCase()) ? 'block' : 'none';
+      for (let label of this.element.querySelector('.objects-to-add').querySelectorAll('.entry')) {
+        let visible = label.innerText.toLowerCase().includes(event.target.value.toLowerCase());
+        let alreadyHidden = label.classList.contains('hidden');
+        if (alreadyHidden && visible)
+          label.classList.remove('hidden');
+        else if (!alreadyHidden && !visible)
+          label.classList.add('hidden');
+      }
     });
 
     let scroll = this.element.querySelector('.window-content');

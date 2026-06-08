@@ -7109,6 +7109,320 @@
   font-size: 24px;
 }
 
+.application.dialog .rollable-text {
+  transition: color 0.2s;
+}
+.application.dialog .rollable-text:hover {
+  cursor: pointer;
+  color: red;
+}
+.application.dialog textarea {
+  font-family: "Crimson Text", serif;
+}
+.application.dialog nav {
+  margin-bottom: 10px;
+}
+.application.dialog td {
+  padding: 5px !important;
+}
+.application.dialog header {
+  margin-bottom: 10px;
+}
+.application.dialog {
+  /* ul {
+    list-style: none;
+  } */
+}
+.application.dialog section {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.application.dialog section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe) {
+  margin-right: 10px;
+}
+.application.dialog section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe):last-child {
+  margin-right: 0px;
+}
+.application.dialog section .grow-one {
+  flex-grow: 1;
+}
+.application.dialog section .grow-two {
+  flex-grow: 2;
+}
+.application.dialog section.experience {
+  margin-bottom: 0px;
+  justify-content: center;
+}
+.application.dialog .editor,
+.application.dialog .editor-content {
+  min-height: 150px;
+}
+.application.dialog .flex-horizontal {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+.application.dialog .flex-vertical {
+  display: flex;
+  flex-direction: column;
+}
+.application.dialog .tab[data-tab] {
+  display: none;
+}
+.application.dialog .tab[data-tab].active {
+  display: block;
+}
+.application.dialog .black-white-header {
+  background-color: #191813;
+  color: #EEEFFF;
+  text-align: center;
+  width: 100%;
+}
+.application.dialog .black-white-header:is(div) {
+  padding: 0.25em;
+  font-weight: bold;
+  text-align: center;
+}
+.application.dialog .wide-black-label {
+  background-color: #191813;
+  color: #EEEFFF;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  width: 100%;
+  height: 30px !important;
+  text-transform: capitalize;
+  font-family: "Kirsty", serif;
+}
+.application.dialog .wide-black-label i {
+  font-size: 18px;
+}
+.application.dialog .black-label {
+  background-color: #191813;
+  color: #EEEFFF;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  height: 30px !important;
+  text-transform: capitalize;
+  font-family: "Kirsty", serif;
+}
+.application.dialog .gray-label {
+  background-color: #999;
+  color: #191813;
+  font-size: 21px;
+  text-align: center;
+  padding: 0px 5px;
+  height: 30px !important;
+  text-transform: capitalize;
+  font-family: "Kirsty", serif;
+}
+.application.dialog .label-stripe {
+  text-transform: uppercase;
+  background-color: #191813;
+  color: #EEEFFF;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  font-weight: bold;
+}
+.application.dialog .label-stripe .dropdown option {
+  background-color: #191813;
+  color: #EEEFFF;
+}
+.application.dialog .label-stripe-gray {
+  text-transform: uppercase;
+  background-color: #666;
+  color: #EEEFFF;
+  position: relative;
+  padding-left: 10px;
+  padding-right: 10px;
+  display: flex;
+  font-weight: bold;
+}
+.application.dialog .label-stripe-gray .dropdown option {
+  background-color: #666;
+  color: #EEEFFF;
+}
+.application.dialog .description {
+  font-style: italic;
+}
+.application.dialog .grouped-radio-list {
+  display: flex;
+  gap: 5px;
+}
+.application.dialog .effects-list {
+  margin: 0 0;
+}
+.application.dialog .half {
+  flex: 1;
+}
+.application.dialog .attributes {
+  display: flex;
+  flex-direction: column;
+  width: 180px;
+  min-width: 180px;
+}
+.application.dialog .attributes .stripe {
+  background-color: #191813;
+  color: #EEEFFF;
+  font-size: 17px;
+  padding-left: 5px;
+}
+.application.dialog .attributes .attribute {
+  margin-bottom: 5px;
+}
+.application.dialog .attributes .attribute .attribute-label,
+.application.dialog .attributes .attribute .attribute-action-label {
+  font-weight: bold;
+  text-transform: uppercase;
+}
+.application.dialog .attributes .attribute .attribute-action-label {
+  letter-spacing: 1px;
+}
+.application.dialog .attributes .attribute .attributes-exp {
+  position: relative;
+  margin-bottom: 10px;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body {
+  display: flex;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body label {
+  height: 30px;
+  width: 10px;
+  background-image: url("assets/teeth/xptooth-red.png");
+  background-repeat: no-repeat;
+  background-size: contain;
+  margin-right: 5px;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body label:last-of-type {
+  margin-right: 0px;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body label[for$="-0"] {
+  width: auto;
+  height: auto;
+  background-image: none !important;
+  color: #EEEFFF;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body label[for$="-0"] i {
+  margin-top: 4px;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body {
+  /* Hide the browser's default checkbox */
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body input {
+  display: none;
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body input:checked ~ label {
+  background-image: url("assets/teeth/xptooth-white.png");
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body input:checked + label {
+  background-image: url("assets/teeth/xptooth-red.png");
+}
+.application.dialog .attributes .attribute .attributes-exp .stripe-tooth-body {
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.application.dialog .attributes .attribute .attributes-container {
+  display: flex;
+}
+.application.dialog .attributes .attribute .attributes-container label {
+  height: 15px;
+  width: 15px;
+  background-color: #191813;
+  vertical-align: middle;
+  border: 2px solid #191813;
+  border-radius: 24px;
+}
+.application.dialog .attributes .attribute .attributes-container label[for$="-0"] {
+  height: 5px;
+  width: 5px;
+  border-radius: 24px;
+  background-image: none !important;
+  background-color: red !important;
+  margin-right: 0px;
+}
+.application.dialog .attributes .attribute .attributes-container label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.application.dialog .attributes .attribute .attributes-container label:hover {
+  filter: brightness(0.7);
+  opacity: 0.7;
+}
+.application.dialog .attributes .attribute .attributes-container {
+  /* Hide the browser's default checkbox */
+}
+.application.dialog .attributes .attribute .attributes-container input {
+  display: none;
+}
+.application.dialog .attributes .attribute .attributes-container input:checked ~ label {
+  background-color: #EEEFFF;
+}
+.application.dialog .attributes .attribute .attributes-container input:checked + label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.application.dialog .attributes .attribute .attributes-container input:checked + label:hover {
+  filter: brightness(0.7);
+  opacity: 0.7;
+}
+.application.dialog .attributes .attribute .attributes-container input:checked + label {
+  background-color: #191813;
+}
+.application.dialog .attributes .attribute .attributes-container {
+  margin: 3px 0px;
+}
+.application.dialog .attributes .attribute .attributes-container * {
+  margin-right: 5px;
+}
+.application.dialog .extra-content {
+  border-top: 2px solid black;
+  margin-top: 1em;
+}
+.application.dialog .extra-content > *:first-child {
+  margin-top: 1em;
+}
+.application.dialog .extra-content input[type=checkbox] {
+  margin-right: 0px;
+}
+.application.dialog .d20-svg {
+  height: 24px;
+  width: 24px;
+  position: relative;
+}
+.application.dialog .d20-svg:hover {
+  animation: rotation 2s infinite linear;
+}
+@keyframes rotation {
+  from {
+    -webkit-transform: rotate(0deg);
+  }
+  to {
+    -webkit-transform: rotate(359deg);
+  }
+}
+.application.dialog .collapse {
+  align-items: center;
+  justify-items: center;
+}
+.application.dialog .collapse .fas:before {
+  font-size: 24px;
+}
+.application.dialog .collapsed {
+  display: none;
+}
 .application.dialog .window-content {
   overflow: hidden auto;
 }
@@ -7126,7 +7440,36 @@
 .application.dialog .objects-to-add input[type=checkbox]:checked + label {
   font-weight: bold;
 }
-.application.dialog .objects-to-add .tooltip .tooltiptext {
+.application.dialog.add-foundation-popup .available-caches {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+}
+.application.dialog.add-foundation-popup .objects-to-add {
+  gap: 1em;
+}
+.application.dialog.add-foundation-popup .objects-to-add .prosperity-container .prosperity-title {
+  font-size: 16px;
+  font-weight: bold;
+  font-style: italic;
+  color: #8080ff;
+}
+.application.dialog.add-foundation-popup .objects-to-add .prosperity-container :not(.prosperity-title) {
+  padding-left: 5px;
+}
+.application.dialog.add-foundation-popup .objects-to-add .prosperity-container .entry {
+  display: block;
+}
+.application.dialog.add-foundation-popup .objects-to-add .prosperity-container .entry.too-expensive {
+  color: #666;
+}
+.application.dialog.add-foundation-popup .objects-to-add .prosperity-container .entry.hidden {
+  display: none;
+}
+.application.dialog.add-foundation-popup .objects-to-add .prosperity-container:not(:has(.entry:not(.hidden))) {
+  display: none !important;
+}
+.application.dialog.add-foundation-popup .objects-to-add .tooltip .tooltiptext {
   visibility: hidden;
   width: 200px;
   background-color: #191813;
@@ -7137,7 +7480,7 @@
   position: absolute;
   z-index: 9999;
 }
-.application.dialog .objects-to-add .tooltip:hover .tooltiptext {
+.application.dialog.add-foundation-popup .objects-to-add .tooltip:hover .tooltiptext {
   visibility: visible;
 }
 .application.dialog h2 {

@@ -17,25 +17,66 @@
       font-weight: bold;
     }
   }
+}
 
- //Tooltip.
-  .tooltip {
-    .tooltiptext {
-      visibility: hidden;
-      width: 200px;
-      background-color: $almost_black;
-      color: $almost_white;
-      text-align: center;
-      padding: 5px;
-      border-radius: 6px;
+&.add-foundation-popup {
+  .available-caches {
+    width: 100%;
+    text-align: center;
+    font-size: 20px;
+  }
 
-      // Position
-      position: absolute;
-      z-index: 9999;
+  .objects-to-add {
+    gap: 1em;
+
+    .prosperity-container {
+      .prosperity-title {
+        font-size: 16px;
+        font-weight: bold;
+        font-style: italic;
+        color: $clearblue;
+      }
+
+      :not(.prosperity-title) {
+        padding-left: 5px;
+      }
+
+      .entry {
+        display: block;
+
+        &.too-expensive {
+          color: $darkgray;
+        }
+
+        &.hidden {
+          display: none;
+        }
+      }
+
+      &:not(:has(.entry:not(.hidden))) {
+        display: none !important;
+      }
     }
 
-    &:hover .tooltiptext {
-      visibility: visible;
+    //Tooltip.
+    .tooltip {
+      .tooltiptext {
+        visibility: hidden;
+        width: 200px;
+        background-color: $almost_black;
+        color: $almost_white;
+        text-align: center;
+        padding: 5px;
+        border-radius: 6px;
+
+        // Position
+        position: absolute;
+        z-index: 9999;
+      }
+
+      &:hover .tooltiptext {
+        visibility: visible;
+      }
     }
   }
 }

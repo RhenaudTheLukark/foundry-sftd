@@ -144,6 +144,9 @@
     "Memories": "Memories",
     "Clocks": "Clocks",
 
+    "AvailableCaches": "Available Caches",
+    "StartingFoundations": "Starting Foundations",
+
     "EdgeList": {
       "Independent": {
         "Label": "Independent",
@@ -198,11 +201,11 @@
       },
       "Finicky": {
         "Label": "Finicky",
-        "Description": "The vehicle has quirks that only one person understands. Without them, the vehicle has -1 quality."
+        "Description": "The vehicle has quirks that only one person understands. Without them, the vehicle has <b>-1 Quality</b>."
       },
       "Flashy": {
         "Label": "Flashy",
-        "Description": "The vehicle is ostentatious and very memorable. Take +1 pressure when you use it on a mission."
+        "Description": "The vehicle is ostentatious and very memorable. Take <b>+1 pressure</b> when you use it on a mission."
       }
     },
 
@@ -304,6 +307,8 @@
     "Gloom": "Gloom",
 
     "Add": "Add",
+    "AddAsProject": "Add As Project(s)",
+    "AddFoundationProject": "Adds the Foundation '{foundation}' once the project is complete.",
     "Cancel": "Cancel",
     "Effects": "Effects",
     "EffectCreate": "Create Effect",

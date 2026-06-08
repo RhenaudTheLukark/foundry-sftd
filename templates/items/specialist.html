@@ -50,22 +50,40 @@
           <div class="edges-flaws flex-horizontal">
             <div class="edgeflaw-container flex-vertical">
               <div class="label-stripe">{{localize 'SFTD.Edges'}}</div>
+              {{#if system.vehicle}}
+              {{#each system.vehicle_edge_list as |edge key|}}
+              <div class="edgeflaw edge flex-horizontal">
+                <input id="specialist-{{../_id}}-edge-{{edge}}" type="checkbox" data-dType="Boolean" data-edgeflaw="{{edge}}" {{checked (getEdgeFlaw ../this edge true)}}>
+                <label for="specialist-{{../_id}}-edge-{{edge}}">{{localize (concat 'SFTD.EdgeList.' edge '.Label')}}</label>
+              </div>
+              {{/each}}
+              {{else}}
               {{#each system.edge_list as |edge key|}}
               <div class="edgeflaw edge flex-horizontal">
                 <input id="specialist-{{../_id}}-edge-{{edge}}" type="checkbox" data-dType="Boolean" data-edgeflaw="{{edge}}" {{checked (getEdgeFlaw ../this edge true)}}>
                 <label for="specialist-{{../_id}}-edge-{{edge}}">{{localize (concat 'SFTD.EdgeList.' edge '.Label')}}</label>
               </div>
               {{/each}}
+              {{/if}}
             </div>
 
             <div class="edgeflaw-container flex-vertical">
               <div class="label-stripe">{{localize 'SFTD.Flaws'}}</div>
+              {{#if system.vehicle}}
+              {{#each system.vehicle_flaw_list as |flaw key|}}
+              <div class="edgeflaw flaw flex-horizontal">
+                <input id="specialist-{{../_id}}-flaw-{{flaw}}" type="checkbox" data-dType="Boolean" data-edgeflaw="{{flaw}}" {{checked (getEdgeFlaw ../this flaw false)}}>
+                <label for="specialist-{{../_id}}-flaw-{{flaw}}">{{localize (concat 'SFTD.FlawList.' flaw '.Label')}}</label>
+              </div>
+              {{/each}}
+              {{else}}
               {{#each system.flaw_list as |flaw key|}}
               <div class="edgeflaw flaw flex-horizontal">
                 <input id="specialist-{{../_id}}-flaw-{{flaw}}" type="checkbox" data-dType="Boolean" data-edgeflaw="{{flaw}}" {{checked (getEdgeFlaw ../this flaw false)}}>
                 <label for="specialist-{{../_id}}-flaw-{{flaw}}">{{localize (concat 'SFTD.FlawList.' flaw '.Label')}}</label>
               </div>
               {{/each}}
+              {{/if}}
             </div>
           </div>
         </div>
