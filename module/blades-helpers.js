@@ -259,7 +259,7 @@ export class BladesHelpers {
         messageType: 'deleteRequest',
         objectUuid: objectFull.uuid,
         parentUuid: parentFull ? parentFull.uuid : null,
-        objectEmbeddedName: parentFull ? objectFull.split('.')[0] : null,
+        objectEmbeddedName: parentFull ? 'Item' : null,
         content: '<div class="special-message"></div>',
         blind: true,
         whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)
