@@ -3,6 +3,5 @@
 **/LOG*
 **/LOCK
 **/*.log
-**/*.ldb
 **/CURRENT
 **/MANIFEST-*
