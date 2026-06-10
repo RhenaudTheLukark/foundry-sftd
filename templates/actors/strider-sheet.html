@@ -22,6 +22,11 @@
           <label for="strider-{{_id}}-form" class="title-label">{{localize 'SFTD.Form'}}:</label>
           <input type="text" id="strider-{{_id}}-form" class="alias" name="system.form" value="{{system.form}}">
         </div>
+        {{!-- Melody --}}
+        <div id="strider-{{_id}}-melody-box" class="flex-vertical melody-container">
+          <label for="strider-{{_id}}-melody" class="title-label">{{localize 'SFTD.Melody'}}:</label>
+          <a class="melody-toggle"><i class="fas fa-music-note{{#if system.melody}}{{else}}-slash{{/if}}"></i></a>
+        </div>
       </div>
 
       {{!-- Traits --}}

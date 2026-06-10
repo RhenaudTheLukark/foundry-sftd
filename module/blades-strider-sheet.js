@@ -157,6 +157,10 @@ export class BladesStriderSheet extends BladesSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
+    html.find('.melody-toggle').click(async ev => {
+      await BladesHelpers.tryUpdate(this.actor, {'system.melody': !this.actor.system.melody});
+    });
+
     // Delete Strider's Class
     html.find('.delete-class').click(async ev => {
       let element = $(ev.currentTarget).closest('.item');

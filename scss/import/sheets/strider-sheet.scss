@@ -19,6 +19,30 @@
     height: auto;
   }
 
+  .melody-container {
+    gap: 0.25em;
+
+    .melody-toggle {
+      align-self: center;
+      text-align: center;
+
+      i {
+        width: fit-content;
+        text-align: center;
+        font-size: 30px;
+
+        &.fas {
+          &.fa-music-note {
+            color: $cache_invested;
+          }
+          &.fa-music-note-slash {
+            color: $almost_black;
+          }
+        }
+      }
+    }
+  }
+
   .name, .gender, .form {
     width: 90%;
     margin-bottom: 10px;

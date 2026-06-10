@@ -6313,6 +6313,24 @@
   width: auto;
   height: auto;
 }
+.songs-for-the-dusk.actor.sheet.strider .name-alias .melody-container {
+  gap: 0.25em;
+}
+.songs-for-the-dusk.actor.sheet.strider .name-alias .melody-container .melody-toggle {
+  align-self: center;
+  text-align: center;
+}
+.songs-for-the-dusk.actor.sheet.strider .name-alias .melody-container .melody-toggle i {
+  width: fit-content;
+  text-align: center;
+  font-size: 30px;
+}
+.songs-for-the-dusk.actor.sheet.strider .name-alias .melody-container .melody-toggle i.fas.fa-music-note {
+  color: #7a546c;
+}
+.songs-for-the-dusk.actor.sheet.strider .name-alias .melody-container .melody-toggle i.fas.fa-music-note-slash {
+  color: #191813;
+}
 .songs-for-the-dusk.actor.sheet.strider .name-alias .name, .songs-for-the-dusk.actor.sheet.strider .name-alias .gender, .songs-for-the-dusk.actor.sheet.strider .name-alias .form {
   width: 90%;
   margin-bottom: 10px;
