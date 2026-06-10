@@ -201,8 +201,10 @@ export class BladesHelpers {
    * @param {object} updateObject
    */
   static async tryCreate(objectsData, parentFull) {
-    if (objectsData && parentFull && parentFull.canUserModify(game.user, 'create'))
+    if (objectsData && parentFull && parentFull.isOwner)
       return await Item.create(objectsData, {parent: parentFull});
+    else if (parentFull)
+      ui.notifications.warn(game.i18n.localize('BITD.log.warn.MustBeOwnerToCreateItem'));
     return [];
   }
 
