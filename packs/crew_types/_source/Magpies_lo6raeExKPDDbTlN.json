@@ -2,178 +2,10 @@
   "name": "Magpies",
   "type": "crew_type",
   "_id": "lo6raeExKPDDbTlN",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/crew/Magpies.svg",
   "system": {
     "short_description": "Clever techs and scavengers",
-    "description": "<p>Find the edge of possibility and step across. Magpies are engineers, technicians, junkers, scavengers, and inventors. Play Magpies if you want to deal with machinery, repair broken tech, test new inventions and&mdash;quite literally&mdash;take part in building the future.</p>",
-    "experience_clues": "",
-    "turfs": {
-      "1": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "2": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "3": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "4": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "5": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "6": {
-        "name": "",
-        "value": "",
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "7": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "8": {
-        "name": "SFTD.Lair",
-        "value": true,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "9": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "10": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "11": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "12": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "13": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "14": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "15": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      }
-    }
+    "description": "<p>Find the edge of possibility and step across. Magpies are engineers, technicians, junkers, scavengers, and inventors. Play Magpies if you want to deal with machinery, repair broken tech, test new inventions and&mdash;quite literally&mdash;take part in building the future.</p>"
   },
   "effects": [],
   "folder": null,
@@ -191,7 +23,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1778675766553,
-    "modifiedTime": 1780616057888,
+    "modifiedTime": 1781126591991,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!lo6raeExKPDDbTlN"

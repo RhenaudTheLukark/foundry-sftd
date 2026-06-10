@@ -2,178 +2,10 @@
   "name": "Silvers",
   "type": "crew_type",
   "_id": "hDvg1MnMiIzd46oX",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/crew/Silvers.svg",
   "system": {
     "short_description": "Infiltrators and smugglers",
-    "description": "<p>Some will lie to you that inequality is inevitable. Lie back that you believe them. Silvers are smugglers, thieves, and spies specializing in taking from the powerful and redistributing to the margins. Play Silvers if you want to steal from the wealthy, lie to the entitled, and expose the misdeeds of the powerful.</p>",
-    "experience_clues": "",
-    "turfs": {
-      "1": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "2": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "3": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "4": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "5": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "6": {
-        "name": "",
-        "value": "",
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "7": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "8": {
-        "name": "SFTD.Lair",
-        "value": true,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "9": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "10": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "11": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "12": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "13": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "14": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      },
-      "15": {
-        "name": "",
-        "value": false,
-        "description": "",
-        "connects": {
-          "left": false,
-          "top": false,
-          "right": false,
-          "bottom": false
-        }
-      }
-    }
+    "description": "<p>Some will lie to you that inequality is inevitable. Lie back that you believe them. Silvers are smugglers, thieves, and spies specializing in taking from the powerful and redistributing to the margins. Play Silvers if you want to steal from the wealthy, lie to the entitled, and expose the misdeeds of the powerful.</p>"
   },
   "effects": [],
   "folder": null,
@@ -191,7 +23,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1778675806012,
-    "modifiedTime": 1780616057888,
+    "modifiedTime": 1781126597449,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!hDvg1MnMiIzd46oX"
