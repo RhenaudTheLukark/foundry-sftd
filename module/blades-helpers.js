@@ -244,7 +244,7 @@ export class BladesHelpers {
    * @param {Actor} objectFull
    * @param {object} updateObject
    */
-  static async tryDelete(objectFull, parentFull) {
+  static async tryDelete(objectFull, parentFull, needWait = true) {
     if (!objectFull)
       return;
     if (parentFull && parentFull.canUserModify(game.user, 'delete'))
@@ -260,6 +260,7 @@ export class BladesHelpers {
         objectUuid: objectFull.uuid,
         parentUuid: parentFull ? parentFull.uuid : null,
         objectEmbeddedName: parentFull ? 'Item' : null,
+        needWait: needWait,
         content: '<div class="special-message"></div>',
         blind: true,
         whisper: game.users.activeGM ? [game.users.activeGM.id] : game.users.filter(u => u.isGM).map(u => u.id)

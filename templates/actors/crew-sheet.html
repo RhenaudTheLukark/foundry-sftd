@@ -62,23 +62,23 @@
       <div id="crew-{{_id}}-pressure-hazard" class="flex-horizontal big-teeth-section pressure-hazard">
         <div id="crew-{{_id}}-pressure" class="big-teeth">
           <div class="black-label">{{localize "SFTD.Pressure"}}</div>
-          {{#multiboxes system.pressure}}
-          <input type="radio" id="crew-{{_id}}-pressure-0" data-dType="Number" name="system.pressure" value="0">
-          {{#times_from 1 system.max.pressure}}
-          <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" data-dType="Number" name="system.pressure" value="{{this}}">
+          {{#multiboxes system.pressure.value}}
+          <input type="radio" id="crew-{{_id}}-pressure-0" data-dType="Number" name="system.pressure.value" value="0">
+          {{#times_from 1 system.pressure.max}}
+          <input id="crew-{{../_id}}-pressure-{{this}}" type="radio" data-dType="Number" name="system.pressure.value" value="{{this}}">
           <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
           {{/times_from}}
           {{/multiboxes}}
 
         </div>
         <div id="crew-{{_id}}-hazard-container" class="small-teeth-container hazard crew-hazard-container">
-          {{#multiboxes system.hazard}}
+          {{#multiboxes system.hazard.value}}
           <div id="crew-{{_id}}-hazard" class="small-teeth-wrap">
             <div class="black-label">{{localize "SFTD.Hazard"}}</div>
             <div class="small-teeth">
-              <input type="radio" id="crew-{{_id}}-hazard-counter-0" data-dType="Number" name="system.hazard" value="0">
-              {{#times_from 1 system.max.hazard}}
-              <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" data-dType="Number" name="system.hazard" value="{{this}}">
+              <input type="radio" id="crew-{{_id}}-hazard-counter-0" data-dType="Number" name="system.hazard.value" value="0">
+              {{#times_from 1 system.hazard.max}}
+              <input id="crew-{{../_id}}-hazard-counter-{{this}}" type="radio" data-dType="Number" name="system.hazard.value" value="{{this}}">
               <label class= "radio-toggle" for="crew-{{../_id}}-hazard-counter-{{this}}"></label>
               {{/times_from}}
             </div>

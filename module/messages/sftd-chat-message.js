@@ -19,7 +19,8 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
       'system.objectUuid': data.objectUuid,
       'system.objectData': data.objectData,
       'system.groupActionCrew': data.groupActionCrew,
-      'system.updateQuery': data.updateQuery
+      'system.updateQuery': data.updateQuery,
+      'system.needWait': data.needWait
     });
   }
 
@@ -69,13 +70,13 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
       await this.update({system: {handled: true}});
 
     const id = this._id;
-    await BladesHelpers.tryDelete(this);
+    BladesHelpers.tryDelete(this, undefined, false);
     return result;
   }
 
   async handleCreateRequestMessage(html) {
     // Perform the create operation, then delete the message
-    let parent = BladesHelpers.resolveActor(this.system.parentUuid);
+    const parent = BladesHelpers.resolveActor(this.system.parentUuid);
     if (parent && this.system.objectEmbeddedName == 'Item')
       await Item.create(this.system.objectData, {parent: parent});
     return html;
@@ -83,8 +84,8 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
 
   async handleUpdateRequestMessage(html) {
     // Perform the update operation, then delete the message
-    let updateObject = JSON.parse(this.system.updateQuery);
-    let document = BladesHelpers.resolveActor(this.system.objectUuid);
+    const updateObject = JSON.parse(this.system.updateQuery);
+    const document = BladesHelpers.resolveActor(this.system.objectUuid);
     if (document)
       await document.update(updateObject);
     return html;
@@ -92,21 +93,28 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
 
   async handleDeleteRequestMessage(html) {
     // Perform the delete operation, then delete the message
-    let parent = BladesHelpers.resolveActor(this.system.parentUuid);
-    let document = BladesHelpers.resolveActor(this.system.objectUuid);
+    const parent = BladesHelpers.resolveActor(this.system.parentUuid);
+    const document = BladesHelpers.resolveActor(this.system.objectUuid);
     if (document) {
-      if (parent && this.system.objectEmbeddedName)
-        await parent.deleteEmbeddedDocuments(this.system.objectEmbeddedName, document._id);
-      else if (!parent && !this.system.objectEmbeddedName)
-        await document.delete();
+      if (this.system.needWait) {
+        if (parent && this.system.objectEmbeddedName)
+          await parent.deleteEmbeddedDocuments(this.system.objectEmbeddedName, [document.id]);
+        else if (!parent && !this.system.objectEmbeddedName)
+          await document.delete();
+      } else {
+        if (parent && this.system.objectEmbeddedName)
+          parent.deleteEmbeddedDocuments(this.system.objectEmbeddedName, [document.id]);
+        else if (!parent && !this.system.objectEmbeddedName)
+          document.delete();
+      }
     }
     return html;
   }
 
   async handleClockStylesRequestMessage(html) {
     // Respond then delete the message
-    let speaker = ChatMessage.getSpeaker();
-    let messageData = {
+    const speaker = ChatMessage.getSpeaker();
+    const messageData = {
       speaker: speaker,
       messageType: 'clockStylesResponse',
       clockStyles: BladesHelpers.clockStyles,
@@ -114,7 +122,7 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
       blind: true,
       whisper: [this.system.userId]
     }
-    let message = await SFTDChatMessage.create(messageData);
+    const message = await SFTDChatMessage.create(messageData);
     return html;
   }
 
