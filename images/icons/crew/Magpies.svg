@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="2835px" height="2835px" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:round;stroke-linejoin:round;stroke-miterlimit:1.5;">
+    <g id="Page-1" serif:id="Page 1" transform="matrix(4.166667,0,0,4.166667,0,0)">
+        <rect x="0" y="0" width="680.315" height="680.315" style="fill:none;"/>
+        <clipPath id="_clip1">
+            <rect x="0" y="0" width="680.315" height="680.315"/>
+        </clipPath>
+        <g clip-path="url(#_clip1)">
+            <g id="Layer-2" serif:id="Layer 2">
+                <g transform="matrix(0.24,0,0,0.24,0,0)">
+                    <rect x="0" y="0" width="2834.646" height="2834.646" style="fill:rgb(235,235,235);stroke:black;stroke-width:166.67px;"/>
+                </g>
+                <g transform="matrix(0.24,0,0,0.24,0,0)">
+                    <rect x="0" y="0" width="2834.646" height="2834.646" style="fill:rgb(235,235,235);fill-opacity:0;stroke:rgb(235,235,255);stroke-width:125px;"/>
+                </g>
+                <g transform="matrix(0.24,0,0,0.24,0,0)">
+                    <rect x="0" y="0" width="2834.646" height="2834.646" style="fill:rgb(235,235,235);fill-opacity:0;stroke:rgb(235,235,255);stroke-width:125px;"/>
+                </g>
+                <g transform="matrix(0.24,0,0,0.24,0,0)">
+                    <rect x="0" y="0" width="2834.646" height="2834.646" style="fill:rgb(235,235,235);fill-opacity:0;stroke:rgb(235,235,235);stroke-width:125px;"/>
+                </g>
+                <g transform="matrix(0.24,0,0,0.24,0,0)">
+                    <rect x="0" y="0" width="2834.646" height="2834.646" style="fill:rgb(235,235,235);fill-opacity:0;stroke:black;stroke-width:83.33px;"/>
+                </g>
+            </g>
+            <g id="Layer-1" serif:id="Layer 1" transform="matrix(1,0,0,1,-22.8102,-19.01285)">
+                <g transform="matrix(1,0,0,1,468.8298,410.6171)">
+                    <path d="M0,-234.383L174.638,-234.383L59.745,0L41.362,-33.702L125.617,-208.34L-10.723,-209.872L0,-234.383Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(1,0,0,1,327.8936,343.2155)">
+                    <path d="M0,150.125L-211.404,150.125L-168.511,-3.058L-179.234,-27.577L-245.426,177.702L22.979,177.702L0,150.125Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(0.609705,0.792628,0.792628,-0.609705,353.120195,409.115676)">
+                    <path d="M60.531,-49.398L85.657,-49.398L110.033,115.458L70.524,116.858L60.531,-49.398Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(-0.858199,0.513317,0.513317,0.858199,437.354989,595.981747)">
+                    <path d="M-161.91,-87.018L29.089,-87.018L26.668,-46.3L-167.747,-46.042L-161.91,-87.018Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(-0.849344,0.52784,0.52784,0.849344,450.492628,620.009421)">
+                    <path d="M-150.428,-52.044L9.194,-52.044L-25.48,-17.869L-125.362,-11.709L-150.428,-52.044Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(-0.879031,0.476765,0.476765,0.879031,498.420805,630.712076)">
+                    <path d="M-75.007,-28.457L2.108,-28.457L-18.028,-5.337L-63.687,-7.585L-75.007,-28.457Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(1,0,0,1,550.7872,665.4254)">
+                    <path d="M0,-56.17L-29.362,-39.319L20.17,0L0,-56.17Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+                <g transform="matrix(1,0,0,1,434.1064,159.1283)">
+                    <path d="M0,198.893L-24.511,214.723L-189.447,-27.83L-134.298,-65.618L-110.809,-32.426L-133.787,17.106L-94.723,80.425L-76.085,79.914L0,198.893ZM-192.511,47.744L-240,-14.554L-297.702,22.212L-308.936,3.829L-184.851,-80.426L-170.553,-64.596L-221.617,-28.341L-175.149,35.999L-192.511,47.744ZM-61.021,-25.65C-43.922,-25.65 -31.261,-11.674 -30.521,4.85C-29.784,21.322 -45.067,35.35 -61.021,35.35C-78.12,35.35 -90.781,21.375 -91.521,4.85C-92.259,-11.621 -76.975,-25.65 -61.021,-25.65M-176.681,160.936C-154.256,160.936 -137.652,179.263 -136.681,200.936C-135.713,222.537 -155.758,240.936 -176.681,240.936C-199.106,240.936 -215.71,222.608 -216.681,200.936C-217.648,179.334 -197.604,160.936 -176.681,160.936M48.894,128.936L1.021,44.68L17.106,-7.405L-22.723,-64.852L-83.234,-67.15L-111.574,-106.213L-158.298,-75.575L-178.213,-102.384L-334.468,-2.809L-304.596,45.446L-321.447,59.233L-255.574,164.936L-243.319,251.489L-175.149,291.319L-135.319,267.574L-101.617,238.723L-114.383,153.446L-189.447,117.702L-239.745,149.361L-288.511,74.553L-239.745,39.574L-214.979,74.553L-248.17,99.446L-234.894,121.193L-189.447,95.233L-99.574,134.297L-76.596,251.489L-124.399,282.862L-124.451,282.789L-108.511,305.106L31.66,212.425L-2.809,160.34L48.894,128.936Z" style="fill:rgb(3,4,4);fill-rule:nonzero;"/>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
