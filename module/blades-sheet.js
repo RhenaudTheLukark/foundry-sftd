@@ -111,7 +111,7 @@ export class BladesSheet extends BaseActorSheet {
     const itemTypes = $(event.currentTarget).data('itemType').split(',');
     const valuePath = $(event.currentTarget).data('valuePath');
     const unique = $(event.currentTarget).data('unique');
-    const addAsItem = $(event.currentTarget).data('addAsItem');
+    const addAsItem = $(event.currentTarget).data('addAsItem') ?? true;
     const containerId = $(event.currentTarget).data('containerId');
     let inputType = 'checkbox';
 
@@ -293,7 +293,7 @@ export class BladesSheet extends BaseActorSheet {
     el.find('input:checked').each(function() {
       let item = items.find(e => e._id === $(this).val());
       if (item)
-        itemsToAdd.push(items.find(e => e._id === $(this).val()));
+        itemsToAdd.push(item);
     });
 
     if (!valuePath) {
@@ -304,17 +304,20 @@ export class BladesSheet extends BaseActorSheet {
         if (item?.system?.uses?.value != undefined)
           await BladesHelpers.tryUpdate(item, {system: {uses: {'==value': item.system.uses.max}}});
       }
-    }
+    } else if (addAsItem)
+      this.addItemAsObjectAndStoreReference(itemsToAdd[0], valuePath);
+    else
+      this.addItemAsReference(itemsToAdd[0], valuePath);
     await this.handleAddedObjects(itemsToAdd);
   }
 
   async addItemAsObjectAndStoreReference(itemToAdd, valuePath) {
-    let itemsFull = await BladesHelpers.tryCreate([itemToAdd], this.document);
-    if (itemsFull.length == 0)
+    let itemFull = await BladesHelpers.tryCreate([itemToAdd], this.document)[0];
+    if (!itemFull)
       return;
-    if (itemsFull[0].system.uses)
-      await BladesHelpers.tryUpdate(itemsFull[0], {system: {uses: {'==value': itemsFull[0].system.uses.max}}});
-    let updateObject = BladesHelpers.createUpdateObjectFromPath(itemsFull[0]._id, valuePath);
+    if (itemFull.system.uses)
+      await BladesHelpers.tryUpdate(itemFull, {system: {uses: {'==value': itemFull.system.uses.max}}});
+    let updateObject = BladesHelpers.createUpdateObjectFromPath(itemFull._id, valuePath);
     // Fetch object and delete it if it exists
     let objectToDelete = this.actor;
     for (let pathPart of valuePath.split('.')) {
@@ -324,6 +327,14 @@ export class BladesSheet extends BaseActorSheet {
     }
     if (typeof objectToDelete != 'undefined' && this.actor.items.find(i => i._id == objectToDelete))
       await this.actor.removeItem(await BladesHelpers.getOwnedItem(this.actor, objectToDelete));
+    await BladesHelpers.tryUpdate(this.actor, updateObject);
+  }
+
+  async addItemAsReference(itemToAdd, valuePath) {
+    if (!itemToAdd)
+      return;
+    itemToAdd = { name: itemToAdd.name, id: itemToAdd.id, img: itemToAdd.img, system: foundry.utils.deepClone(itemToAdd.system) };
+    let updateObject = BladesHelpers.createUpdateObjectFromPath(itemToAdd, valuePath);
     await BladesHelpers.tryUpdate(this.actor, updateObject);
   }
 

@@ -113,6 +113,34 @@ table.drive-table {
     }
   }
 
+  .tab.loadout {
+    .signature-gear-container {
+      width: fit-content;
+      align-items: center;
+      justify-self: center;
+      margin: 0.5em 0;
+
+      .item-block {
+        align-items: center;
+        margin-bottom: 0px;
+
+        .item-add-popup {
+          margin-left: 0px;
+          margin-right: 10px;
+        }
+
+        .item {
+          width: fit-content;
+
+          .item-name {
+            width: fit-content;
+            margin-right: 0px;
+          }
+        }
+      }
+    }
+  }
+
   .tab.abilities, .tab.loadout, .tab.all-items {
     > .tab-list, .item-container-list {
       background: rgba(0, 0, 0, 0.05);

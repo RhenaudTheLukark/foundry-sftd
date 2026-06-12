@@ -113,7 +113,7 @@
     </div>
 
     {{!-- Crew XP --}}
-    <div class="flex-vertical">
+    <div class="flex-vertical crew-xp-block">
       <div class="big-teeth-section">
         <div id="crew-{{_id}}-xp" class="big-teeth">
           <div class="black-label">{{localize "SFTD.CrewXP"}}</div>
@@ -126,14 +126,20 @@
           {{/multiboxes}}
         </div>
       </div>
-      <div class="experience-clues-container" style="padding-top: 6px;">
-        <div class="experience-clues-description">{{localize "SFTD.CrewExpClue1"}}</div>
-        <div class="experience-clues">
-          {{#each items as |item id|}}
-          {{#if (eq item.type "crew_type")}}
-          {{html text=item.system.experience_clues}}
+      <div class="signature-gear-container" style="padding-top: 6px;">
+        <div class="item-block flex-vertical">
+          <div class="item-class-label title-label"><a class="item-add-popup" data-item-type="item" data-unique="true" data-value-path="system.signature_gear" data-add-as-item="false">{{localize 'SFTD.SignatureGear'}}:</a></div>
+          {{#if system.signature_gear}}
+          <div class="item flex-horizontal" data-item-id="{{system.signature_gear.id}}">
+            <div class="open-actor flex-horizontal">
+              <img src="{{system.signature_gear.img}}" data-tooltip="{{system.signature_gear.name}}" width="24" height="24"/>
+              <label class="item-name">{{system.signature_gear.name}}</label>
+            </div>
+            <a class="item-control delete-signature-gear" data-tooltip="{{localize 'SFTD.TitleDeleteSignatureGear'}}"><i class="fas fa-trash"></i></a>
+          </div>
+          {{else}}
+            {{localize 'SFTD.None'}}
           {{/if}}
-          {{/each}}
         </div>
       </div>
     </div>

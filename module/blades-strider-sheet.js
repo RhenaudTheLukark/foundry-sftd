@@ -40,9 +40,15 @@ export class BladesStriderSheet extends BladesSheet {
     // Calculate Load
     let loadout = 0;
     sheetData.items.forEach(i => {
-      loadout += (i.type === "item") ? parseInt(i.system.load) : 0
+      let itemLoad = 0;
+      if (i.type === "item") {
+        itemLoad = parseInt(i.system.load);
+        if (sheetData.system.signature_gear?.id == i.system.original_id) itemLoad --;
+        if (sheetData.system.crew?.system.signature_gear?.id == i.system.original_id) itemLoad --;
+      }
+      loadout += Math.max(itemLoad, 0);
     });
-    loadout = Math.max(Math.min(loadout, 11), 0);
+    loadout = Math.min(loadout, 11);
     sheetData.system.loadout = loadout;
 
     // Encumbrance Levels
@@ -176,6 +182,11 @@ export class BladesStriderSheet extends BladesSheet {
     // Remove Crew from Strider sheet
     html.find('.delete-crew').click(async ev => {
       await BladesHelpers.removeCrewStrider(this.actor);
+    });
+
+    // Delete Signature Gear
+    html.find('.delete-signature-gear').click(async ev => {
+      await BladesHelpers.tryUpdate(this.actor, {'system.signature_gear': null});
     });
 
     // Delete Connection

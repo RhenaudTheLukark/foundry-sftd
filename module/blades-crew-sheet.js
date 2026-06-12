@@ -232,7 +232,7 @@ export class BladesCrewSheet extends BladesSheet {
           return;
         const itemsToAddElements = $(dialog.element).find('.objects-to-add');
         if (result == 'add')
-          await this.addItemsToSheet('foundation', itemsToAddElements);
+          await this.addItemsToSheet('foundation', itemsToAddElements, null, true, null);
         if (result == 'addAsProject') {
           let items = await BladesHelpers.getAllObjectDocumentsByType('foundation', [], game);
           let itemsToAdd = [];
@@ -302,6 +302,11 @@ export class BladesCrewSheet extends BladesSheet {
 
     // Add Crew Type
     html.find('.crew-class').click(this.onItemAddClick.bind(this));
+
+    // Delete Signature Gear
+    html.find('.delete-signature-gear').click(async ev => {
+      await BladesHelpers.tryUpdate(this.actor, {'system.signature_gear': null});
+    });
 
     // Add a new Item
     html.find('.add-item').click(async ev => {

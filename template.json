@@ -30,6 +30,7 @@
         "max": 8,
         "clues": ["SFTD.ClassExpClue1", "SFTD.ClassExpClue2", "SFTD.ClassExpClue3"]
       },
+      "signature_gear": null,
       "loadout": 0,
       "load_level": "",
       "selected_load_level": "",
@@ -209,7 +210,8 @@
       "strider": {
         "add_scars": 0,
         "add_stress": 0
-      }
+      },
+      "signature_gear": null
     },
     "faction": {
       "tier": {

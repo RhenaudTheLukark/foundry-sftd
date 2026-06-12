@@ -34,6 +34,7 @@
     "TitleDeleteMember": "Delete Member",
     "TitleDeleteReputation": "Delete Reputation",
     "TitleDeleteClass": "Delete Class",
+    "TitleDeleteSignatureGear": "Delete Signature Gear",
     "ToggleStanding": "Toggle standing for {name}, currently {standing}",
     "TitlePostItem": "Post item",
     "Vice": "Vice",
@@ -143,6 +144,8 @@
     "Relationship": "Relationship",
     "Memories": "Memories",
     "Clocks": "Clocks",
+    "Signature": "Signature",
+    "SignatureGear": "Signature Gear",
 
     "AvailableCaches": "Available Caches",
     "StartingFoundations": "Starting Foundations",

@@ -114,16 +114,24 @@
   }
 }
 
-.experience-clues-container {
-  width: 340px;
-  font-size: 12px;
+.crew-xp-block {
+  justify-content: space-between;
 
-  .experience-clues-description {
-    font-weight: bold;
-  }
+  .signature-gear-container {
+    width: 340px;
 
-  .experience-clues {
-    font-style: italic;
+    .item-block {
+      align-items: center;
+
+      .item {
+        width: fit-content;
+
+        .item-name {
+          width: fit-content;
+          margin-right: 0px;
+        }
+      }
+    }
   }
 }
 

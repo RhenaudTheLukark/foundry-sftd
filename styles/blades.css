@@ -6091,15 +6091,21 @@
   font-family: "Crimson Text", serif;
   color: #191813;
 }
-.songs-for-the-dusk.actor.sheet.crew .experience-clues-container {
+.songs-for-the-dusk.actor.sheet.crew .crew-xp-block {
+  justify-content: space-between;
+}
+.songs-for-the-dusk.actor.sheet.crew .crew-xp-block .signature-gear-container {
   width: 340px;
-  font-size: 12px;
 }
-.songs-for-the-dusk.actor.sheet.crew .experience-clues-container .experience-clues-description {
-  font-weight: bold;
+.songs-for-the-dusk.actor.sheet.crew .crew-xp-block .signature-gear-container .item-block {
+  align-items: center;
 }
-.songs-for-the-dusk.actor.sheet.crew .experience-clues-container .experience-clues {
-  font-style: italic;
+.songs-for-the-dusk.actor.sheet.crew .crew-xp-block .signature-gear-container .item-block .item {
+  width: fit-content;
+}
+.songs-for-the-dusk.actor.sheet.crew .crew-xp-block .signature-gear-container .item-block .item .item-name {
+  width: fit-content;
+  margin-right: 0px;
 }
 .songs-for-the-dusk.actor.sheet.crew section:has(~ .tab-content) {
   margin-bottom: 0px !important;
@@ -6410,6 +6416,27 @@
 .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .belief-clock-zone .memories {
   justify-content: space-around;
   height: 150px;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .signature-gear-container {
+  width: fit-content;
+  align-items: center;
+  justify-self: center;
+  margin: 0.5em 0;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .signature-gear-container .item-block {
+  align-items: center;
+  margin-bottom: 0px;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .signature-gear-container .item-block .item-add-popup {
+  margin-left: 0px;
+  margin-right: 10px;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .signature-gear-container .item-block .item {
+  width: fit-content;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .signature-gear-container .item-block .item .item-name {
+  width: fit-content;
+  margin-right: 0px;
 }
 .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities > .tab-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.abilities .item-container-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout > .tab-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.loadout .item-container-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items > .tab-list, .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.all-items .item-container-list {
   background: rgba(0, 0, 0, 0.05);
