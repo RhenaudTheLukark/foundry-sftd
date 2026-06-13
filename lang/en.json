@@ -461,6 +461,16 @@
         "Hint": "Clock style and color used by default in sheets."
       }
     },
+    "Keybinds": {
+      "IncrementClock": {
+        "Name": "Increment Clock",
+        "Hint": "Adds 1 tick to all selected clocks if they're not full.\nClocks are maxed if Shift is also pressed."
+      },
+      "DecrementClock": {
+        "Name": "Decrement Clock",
+        "Hint": "Rermoves 1 tick from all selected clocks if they're not empty.\nClocks are emptied if Shift is also pressed."
+      }
+    },
     "log": {
       "info": {
         "SameObjectFromOwner": "The dropped {obj} already belongs to this {owner}.",

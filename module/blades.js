@@ -6,6 +6,7 @@
 
 // Import Modules
 import { registerSystemSettings } from "./settings.js";
+import { registerSystemKeybinds } from "./keybinds.js";
 import { preloadHandlebarsTemplates } from "./blades-templates.js";
 import { bladesRoll, simpleRollPopup } from "./blades-roll.js";
 import { BladesHelpers } from "./blades-helpers.js";
@@ -47,6 +48,7 @@ Hooks.once("init", async function() {
 
   // Register System Settings
   registerSystemSettings();
+  registerSystemKeybinds();
 
   if (game.settings.get('songs-for-the-dusk', "PublicClocks")) {
 	  Hooks.on("preCreateActor", (actor, createData, options, userId) => {

@@ -43,15 +43,17 @@ export class BladesClockSheet extends BladesSheet {
     for (let [sizeName, size] of Object.entries(clockStyles[themeColor[0]][themeColor[1]]))
       if (sizeName != 'dataReason') {
         if (!addedCurrentSize) {
-          if (sizeName == sheetData.system.size)
+          if (Number(sizeName) == sheetData.system.size)
             addedCurrentSize = true;
-          else if (sizeName < sheetData.system.size) {
+          else if (Number(sizeName) > sheetData.system.size) {
             sheetData.sizeDropdown[sheetData.system.size] = sheetData.system.size;
             addedCurrentSize = true;
           }
         }
         sheetData.sizeDropdown[sizeName] = sizeName;
       }
+    if (!addedCurrentSize)
+      sheetData.sizeDropdown[sheetData.system.size] = sheetData.system.size;
 
     sheetData.system.theme = themeColor[0];
     sheetData.system.color = themeColor[1];
@@ -62,8 +64,12 @@ export class BladesClockSheet extends BladesSheet {
   /* -------------------------------------------- */
   /** @override */
   async _updateObject(event, formData) {
+    let value = formData['system.value'] ?? this.actor.system.value;
+    let size = formData['system.size'] ?? this.actor.system.size;
+    let theme_color = formData['system.theme_color'] ?? this.actor.system.theme_color;
+
     let clockStyles = BladesHelpers.clockStyles;
-    let themeColor = formData['system.theme_color'].split('/');
+    let themeColor = theme_color.split('/');
     let clockColor = clockStyles?.[themeColor[0]]?.[themeColor[1]];
     if (clockColor === undefined) {
       formData['system.theme_color'] = 'default/black';
@@ -71,30 +77,43 @@ export class BladesClockSheet extends BladesSheet {
       return;
     }
 
-    if (formData['system.value'] > formData['system.size'])
-      formData['system.value'] = formData['system.size'];
+    if (value > size) {
+      formData['system.value'] = size;
+      value = size;
+    }
+    
+    formData = await this.updateTokens(formData);
 
-    let clockData = clockColor[formData['system.size']];
+    // Update the Actor
+    return this.actor.update(formData);
+  }
+
+  async updateTokens(updateData) {
+    let value = updateData['system.value'] ?? this.actor.system.value;
+    let size = updateData['system.size'] ?? this.actor.system.size;
+    let theme_color = updateData['system.theme_color'] ?? this.actor.system.theme_color;
+
+    let clockStyles = BladesHelpers.clockStyles;
+    let themeColor = theme_color.split('/');
+    let clockColor = clockStyles?.[themeColor[0]]?.[themeColor[1]];
+    let clockData = clockColor[size];
     let imagePath;
     if (!clockData)
-      imagePath = 'systems/songs-for-the-dusk/themes/error.png';
+      imagePath = 'systems/beamsaber/themes/cross.png';
     else
-      imagePath = `${BladesHelpers.getClockSpritePath(clockData)}${formData['system.size']}clock_${formData['system.value']}.${clockData.extension}`;
+      imagePath = `${BladesHelpers.getClockSpritePath(clockData)}${size}clock_${value}.${clockData.extension}`;
 
-    formData['img'] = imagePath;
-    formData['prototypeToken.texture.src'] = imagePath;
+    updateData['img'] = imagePath;
+    updateData['prototypeToken.texture.src'] = imagePath;
 
     let data = [];
     let update = { "texture.src": imagePath };
 
     let tokens = this.actor.getActiveTokens();
-    tokens.forEach(function(token) {
-      data.push(foundry.utils.mergeObject({ _id: token.id }, update));
-    });
-    if(game.scenes.current)
-      await TokenDocument.updateDocuments(data, { parent: game.scenes.current })
+    tokens.forEach((token) => data.push(foundry.utils.mergeObject({ _id: token.id }, update)));
+    if (game.scenes.current)
+      await TokenDocument.updateDocuments(data, { parent: game.scenes.current });
 
-    // Update the Actor
-    return this.actor.update(formData);
+    return updateData;
   }
 }
