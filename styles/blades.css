@@ -121,7 +121,7 @@
   justify-content: space-between;
 }
 .songs-for-the-dusk section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe) {
-  margin-right: 10px;
+  margin-right: 1em;
 }
 .songs-for-the-dusk section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe):last-child {
   margin-right: 0px;
@@ -5453,6 +5453,18 @@
   padding: 20px;
   gap: 5px;
 }
+.songs-for-the-dusk.actor.sheet .img-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet .img-container > img {
+  width: 100%;
+  height: 100%;
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
 .songs-for-the-dusk.actor.sheet ul {
   margin: 0;
 }
@@ -5920,6 +5932,12 @@
 .songs-for-the-dusk.actor.sheet.crew .actor-sheet > section:last-of-type {
   margin-bottom: 0px;
 }
+.songs-for-the-dusk.actor.sheet.crew .img-container {
+  width: 120px;
+  height: 120px;
+  min-width: 120px;
+  min-height: 120px;
+}
 .songs-for-the-dusk.actor.sheet.crew .top-area {
   width: 100%;
   gap: 1em;
@@ -6307,13 +6325,11 @@
    * Some things *might* be missing, but at a glance, everything looks to be in order.
    */
 }
-.songs-for-the-dusk.actor.sheet.strider .name-alias img.portrait {
-  max-width: 200px;
-  max-height: 200px;
-  width: auto;
-  height: auto;
-  margin-right: 40px;
-  margin-bottom: 20px;
+.songs-for-the-dusk.actor.sheet.strider .name-alias .img-container {
+  width: 200px;
+  height: 200px;
+  min-width: 200px;
+  min-height: 200px;
 }
 .songs-for-the-dusk.actor.sheet.strider .name-alias .item-name {
   width: auto;
@@ -6592,9 +6608,12 @@
 .songs-for-the-dusk.actor.sheet.npc .actor-sheet > section {
   align-items: center;
 }
-.songs-for-the-dusk.actor.sheet.npc section > img {
-  margin-left: 20px;
-  align-self: center;
+.songs-for-the-dusk.actor.sheet.npc section .img-container {
+  margin-left: 1em;
+  width: 200px;
+  height: 200px;
+  min-width: 200px;
+  min-height: 200px;
 }
 .songs-for-the-dusk.actor.sheet.npc section {
   justify-content: start;
@@ -6833,7 +6852,7 @@
   justify-content: space-between;
 }
 .settings.clock-styles section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe) {
-  margin-right: 10px;
+  margin-right: 1em;
 }
 .settings.clock-styles section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe):last-child {
   margin-right: 0px;
@@ -7184,7 +7203,7 @@
   justify-content: space-between;
 }
 .application.dialog section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe) {
-  margin-right: 10px;
+  margin-right: 1em;
 }
 .application.dialog section:not(.window-content):not(.flex-vertical) > *:not(.label-stripe):last-child {
   margin-right: 0px;

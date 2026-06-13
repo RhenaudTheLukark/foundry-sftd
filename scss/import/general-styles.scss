@@ -33,7 +33,7 @@ section {
   justify-content: space-between;
 
   &:not(.window-content):not(.flex-vertical) > *:not(.label-stripe) {
-    margin-right: 10px;
+    margin-right: 1em;
 
     &:last-child {
       margin-right: 0px;

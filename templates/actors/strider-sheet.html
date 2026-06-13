@@ -3,7 +3,9 @@
   <section id="strider-{{_id}}-name-alias" class="flex-horizontal name-alias">
 
     {{!-- Portrait --}}
-    <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" class="portrait{{#if system.dead}} dead{{/if}}" />
+    <div class="img-container">
+      <img src="{{img}}" data-edit="img" data-tooltip="{{name}}" class="portrait{{#if system.dead}} dead{{/if}}" />
+    </div>
 
     <div class="grow-two">
       <div class="flex-horizontal">
