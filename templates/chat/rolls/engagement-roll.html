@@ -1,0 +1,43 @@
+<div class="dice-tooltip blades-die-tooltip">
+  <div class="chat-label label-stripe-chat">{{localize 'SFTD.EngagementRoll'}}</div>
+  {{#if zeromode}}<div class="chat-label-small label-stripe-chat-small">0d</div>{{/if}}
+
+  {{#if (eq roll_status "critical-success")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollCriticalSuccess'}}</div>
+  <div class="description"><p>{{{localize 'SFTD.RollEngagementCritical'}}}</p></div>
+  {{else if (eq roll_status "success")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollSuccess'}}</div>
+  <div class="description"><p>{{{localize 'SFTD.RollEngagementSuccess'}}}</p></div>
+  {{else if (eq roll_status "partial-success")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollPartialSuccess'}}</div>
+  <div class="description"><p>{{{localize 'SFTD.RollEngagementPartialSuccess'}}}</p></div>
+  {{else if (eq roll_status "failure")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollFailure'}}</div>
+  <div class="description"><p>{{{localize 'SFTD.RollEngagementFailure'}}}</p></div>
+  {{/if}}
+
+  {{#if extraFields.modifier_text}}
+  <div class="description">
+    <p>{{{extraFields.modifier_text}}}</p>
+  </div>
+  {{/if}}
+
+  {{#if note}}
+  <em>{{note}}</em>
+  {{/if}}
+
+  <ol class="dice-rolls">
+    {{#each this.rolls}}
+    {{#if this.result}}
+    <li class="roll die d6 {{../this.color}}"{{#if (eq this.result 6)}}style="color: green;"{{else if (eq this.result 3)}}style="color: red;"{{else if (eq this.result 2)}}style="color: red;"{{else if (eq this.result 1)}}style="color: red;"{{/if}}>{{{this.result}}}</li>
+    {{else}}
+    <li class="roll die d6">{{{this.roll}}}</li>
+    {{/if}}
+    {{/each}}
+    {{#if @root.method}}
+    {{#unless (eq @root.method.type "mersenne")}}
+    <li class="roll method" data-tooltip="{{localize @root.method.label}}">{{{ @root.method.icon }}}</li>
+    {{/unless}}
+    {{/if}}
+  </ol>
+</div>

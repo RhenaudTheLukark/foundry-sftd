@@ -99,7 +99,7 @@ export class BladesClockSheet extends BladesSheet {
     let clockData = clockColor[size];
     let imagePath;
     if (!clockData)
-      imagePath = 'systems/beamsaber/themes/cross.png';
+      imagePath = 'systems/songs-for-the-dusk/themes/cross.png';
     else
       imagePath = `${BladesHelpers.getClockSpritePath(clockData)}${size}clock_${value}.${clockData.extension}`;
 

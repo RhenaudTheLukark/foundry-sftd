@@ -76,25 +76,37 @@
   justify-content: space-evenly;
 
   .pressure-hazard {
-    .small-teeth {
-      height: 30px;
-      label {
-        height: 100%;
-        width: 17px;
+    .hazard {
+      min-width: 80px;
+
+      .small-teeth {
+        height: 30px;
+        justify-content: space-between;
+
+        label {
+          height: 100%;
+          width: 17px;
+        }
       }
     }
   }
 
-  .shells-container {
-    width: fit-content;
-    align-self: center;
-    justify-content: center;
-    gap: 0.5em;
+  .shells-hazard-reduction {
+    justify-content: space-between;
 
-    .shells {
-      @include custom_radio_diamond(20px, $almost_white, $clearblue, $almost_black);
-
+    .shells-container {
+      width: fit-content;
+      align-self: center;
       justify-content: center;
+      gap: 0.5em;
+
+      .shells {
+        @include custom_radio_diamond(20px, $almost_white, $clearblue, $almost_black);
+
+        max-width: 162px;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
     }
   }
 }

@@ -85,9 +85,23 @@ h2 {
   margin-bottom: 0;
 }
 
+div.form-group {
+  > label {
+    text-wrap: nowrap;
+  }
+}
+
 fieldset.form-group {
   &:has(.radio-group, .modifier) {
     flex-direction: column;
+  }
+
+  .radio-group > label {
+    gap: 3px;
+    
+    input {
+      margin-right: 0px;
+    }
   }
 
   .radio-group, .modifier, &:not(:has(.radio-group, .modifier)) {
@@ -95,7 +109,7 @@ fieldset.form-group {
     width: 100%;
     justify-content: space-between;
     align-items: center;
-    gap: 1em;
+    gap: 2em;
 
     & > label {
       display: inline-flex;

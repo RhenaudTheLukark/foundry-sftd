@@ -351,3 +351,26 @@ Hooks.on("renderSceneControls", async (app, html) => {
 	  html.children().first().append( dice_roller );
 	}
 });
+
+Hooks.on("renderChatMessageHTML", async (message, html, context) => {
+  if (!message.isContentVisible) return;
+  // Group Action Begin Message
+  if (message.content.includes("roll-group-action")) {
+    for (const button of html.querySelectorAll('.roll-group-action')) {
+      button.addEventListener('click', async (_) => {
+        let speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
+        let crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
+        if (!speakerFull)
+          ui.notifications.warn(game.i18n.localize('SFTD.log.warn.GroupActionRollNoActor'));
+        else if (speakerFull.type != 'strider')
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.GroupActionRollNotAStrider', { obj: game.i18n.localize(`TYPES.Actor.${speakerFull.type}`) }));
+        else if (speakerFull.system.crew != crewFull?.uuid)
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.GroupActionRollStriderNotInCrew', { char: speakerFull.name, crew: crewFull.name }));
+        else
+          speakerFull.rollAttributePopup(crewFull.system.group_action.action, crewFull.system.group_action);
+      });
+    }
+    for (const button of html.querySelectorAll('.reveal-group-action-result'))
+      button.addEventListener('click', async (_) => BladesHelpers.resolveActor(message.system.groupActionCrew)?.revealGroupActionResult());
+  }
+});

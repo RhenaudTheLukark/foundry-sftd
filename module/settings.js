@@ -97,4 +97,18 @@ export const registerSystemSettings = function() {
     type: ClockStylesData,
     requiresReload: true
   });
+
+  game.settings.register('songs-for-the-dusk', 'DowntimeRules', {
+    name: game.i18n.localize('SFTD.Settings.DowntimeRules.Name'),
+    hint: game.i18n.localize('SFTD.Settings.DowntimeRules.Hint'),
+    scope: 'world',
+    config: true,
+    type: String,
+    requiresReload: true,
+    default: 'lax',
+    choices: {
+      strict: game.i18n.localize('SFTD.Settings.DowntimeRules.Strict'),
+      lax: game.i18n.localize('SFTD.Settings.DowntimeRules.Lax')
+    },
+  });
 };

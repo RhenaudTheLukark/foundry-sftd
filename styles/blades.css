@@ -5473,6 +5473,48 @@
   align-self: center;
   align-items: center;
 }
+.songs-for-the-dusk.actor.sheet .supply-container .supply {
+  display: flex;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply input, .songs-for-the-dusk.actor.sheet .supply-container .supply label.input {
+  display: none;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply input[id$="-0"] + label, .songs-for-the-dusk.actor.sheet .supply-container .supply label.input[id$="-0"] + label {
+  display: none;
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply label:not(.input) {
+  height: 15px;
+  width: 15px;
+  vertical-align: middle;
+  background-color: #EEEFFF;
+  border: 1px solid #191813;
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply label:not(.input):hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply label:not(.input):last-of-type {
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply label:not(.input).enabled {
+  background-color: #DAA520;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply:not(.uses) {
+  flex-wrap: wrap;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply label {
+  margin-right: 3px;
+  margin-bottom: 3px;
+  transition: filter 0.2s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet .supply-container .supply label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
 .songs-for-the-dusk.actor.sheet .title-label {
   font-family: "Kirsty", serif;
 }
@@ -6025,35 +6067,42 @@
 .songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells {
   justify-content: space-evenly;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .pressure-hazard .small-teeth {
-  height: 30px;
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .pressure-hazard .hazard {
+  min-width: 80px;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .pressure-hazard .small-teeth label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .pressure-hazard .hazard .small-teeth {
+  height: 30px;
+  justify-content: space-between;
+}
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .pressure-hazard .hazard .small-teeth label {
   height: 100%;
   width: 17px;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction {
+  justify-content: space-between;
+}
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container {
   width: fit-content;
   align-self: center;
   justify-content: center;
   gap: 0.5em;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells {
   display: flex;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells *:has(~ * > input:checked) label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells *:has(~ * > input:checked) label {
   background-color: #8080ff;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells * input {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells * input {
   display: none;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells * input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells * input:checked ~ label {
   background-color: #EEEFFF;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells * input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells * input:checked + label {
   background-color: #8080ff;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells label {
   height: 20px;
   width: 20px;
   background-color: #EEEFFF;
@@ -6061,33 +6110,35 @@
   vertical-align: middle;
   border: 1px solid #191813;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells label[for$="-0"] {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells label[for$="-0"] {
   margin-right: 0px;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells label:has(~ input:checked) {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells label:has(~ input:checked) {
   background-color: #8080ff;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells label {
   transition: filter 0.1s;
   cursor: pointer;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells label:hover {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells label:hover {
   filter: brightness(0.8);
   opacity: 0.9;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells {
   /* Hide the browser's default checkbox */
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells input {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells input {
   display: none;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells input:checked ~ label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells input:checked ~ label {
   background-color: #EEEFFF;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells input:checked + label {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells input:checked + label {
   background-color: #8080ff;
 }
-.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-container .shells {
+.songs-for-the-dusk.actor.sheet.crew .pressure-hazard-shells .shells-hazard-reduction .shells-container .shells {
+  max-width: 162px;
+  flex-wrap: wrap;
   justify-content: center;
 }
 .songs-for-the-dusk.actor.sheet.crew .class-name {
@@ -7550,15 +7601,24 @@
 .application.dialog h2 {
   margin-bottom: 0;
 }
+.application.dialog div.form-group > label {
+  text-wrap: nowrap;
+}
 .application.dialog fieldset.form-group:has(.radio-group, .modifier) {
   flex-direction: column;
+}
+.application.dialog fieldset.form-group .radio-group > label {
+  gap: 3px;
+}
+.application.dialog fieldset.form-group .radio-group > label input {
+  margin-right: 0px;
 }
 .application.dialog fieldset.form-group .radio-group, .application.dialog fieldset.form-group .modifier, .application.dialog fieldset.form-group:not(:has(.radio-group, .modifier)) {
   display: inline-flex;
   width: 100%;
   justify-content: space-between;
   align-items: center;
-  gap: 1em;
+  gap: 2em;
 }
 .application.dialog fieldset.form-group .radio-group > label, .application.dialog fieldset.form-group .modifier > label, .application.dialog fieldset.form-group:not(:has(.radio-group, .modifier)) > label {
   display: inline-flex;

@@ -71,7 +71,6 @@
           <label class= "radio-toggle" for="crew-{{../_id}}-pressure-{{this}}"></label>
           {{/times_from}}
           {{/multiboxes}}
-
         </div>
         <div id="crew-{{_id}}-hazard-container" class="small-teeth-container hazard crew-hazard-container">
           {{#multiboxes system.hazard.value}}
@@ -89,23 +88,33 @@
         </div>
       </div>
 
-      <div class="flex-vertical shells-container">
-        <div class="black-white-header">{{localize "SFTD.Shells"}}</div>
-        <div class="flex-horizontal shells">
-          {{#multiboxes system.shells.value}}
-          <input type="radio" id="crew-{{_id}}-shells-0" data-dType="Number" name="system.shells.value" value="0">
-          {{#times_from 1 system.shells.max}}
-          <input type="radio" id="crew-{{../_id}}-shells-{{this}}" data-dType="Number" name="system.shells.value" value="{{this}}">
-          <label class="radio-toggle{{#if (eq this ../system.shells.value)}} enabled{{/if}}" for="crew-{{../_id}}-shells-{{this}}"></label>
-          {{/times_from}}
-          {{/multiboxes}}
+      <div class="flex-horizontal shells-hazard-reduction">
+        <div class="flex-vertical shells-container">
+          <div class="black-white-header">{{localize "SFTD.Shells"}}</div>
+          <div class="flex-horizontal shells">
+            {{#multiboxes system.shells.value}}
+            <input type="radio" id="crew-{{_id}}-shells-0" data-dType="Number" name="system.shells.value" value="0">
+            {{#times_from 1 system.shells.max}}
+            <input type="radio" id="crew-{{../_id}}-shells-{{this}}" data-dType="Number" name="system.shells.value" value="{{this}}">
+            <label class="radio-toggle{{#if (eq this ../system.shells.value)}} enabled{{/if}}" for="crew-{{../_id}}-shells-{{this}}"></label>
+            {{/times_from}}
+            {{/multiboxes}}
+          </div>
+        </div>
+
+        <div class="flex-vertical hazard-reduction-container">
+          <div class="clock-block">
+            <div class="clocks clocks-8 small" data-tooltip="{{localize 'SFTD.HazardReductionClock'}}">
+              {{{blades-clock-object system.hazard.reduction 'system.hazard.reduction' 'hazard_reduction_clock' defaultClockThemeColor}}}
+            </div>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
   <section class="flex-horizontal">
-    <div id="crew-{{_id}}-class" class="class-name crew-class flex-vertical" data-tooltip="{{localize "SFTD.CrewTypeBox"}}" data-distinct="true" data-item-type="crew_type">
+    <div id="crew-{{_id}}-class" class="class-name crew-class flex-vertical" data-tooltip="{{localize 'SFTD.CrewTypeBox'}}" data-distinct="true" data-item-type="crew_type">
       {{#each items as |item id|}}
       {{#if (eq item.type "crew_type")}}
       <div class="big-name">{{item.name}}</div>

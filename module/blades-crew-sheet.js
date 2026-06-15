@@ -22,7 +22,7 @@ export class BladesCrewSheet extends BladesSheet {
 
   /** @override */
   getData(options) {
-    const superData = super.getData( options );
+    const superData = super.getData(options);
     const sheetData = superData.data;
     sheetData.owner = superData.owner;
     sheetData.editable = superData.editable;
@@ -157,6 +157,101 @@ export class BladesCrewSheet extends BladesSheet {
       if (Number(project.clock.value) < Number(project.clock.max))
         invested += Number(project.invested_caches);
     return invested;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * Call a popup for creating a group action.
+   */
+  async createGroupActionPopup() {
+    let attributes = '';
+    for (let attribute of BladesHelpers.getAllActions())
+      attributes += `<option value="${attribute}">${game.i18n.localize(BladesHelpers.getAttributeLabel(attribute))}</option>`
+    let members = '';
+    for (let member of Object.values(this.actor.system.members)) {
+      let memberFull = BladesHelpers.resolveActor(member.uuid);
+      if (memberFull && memberFull.type == 'strider')
+        members += `<option value="${member.uuid}">${memberFull.name}</option>`
+    }
+
+    let contents = `
+      <h2>${game.i18n.localize('SFTD.CreateGroupAction')}</h2>
+      <form>
+        <div class="form-group">
+          <label>${game.i18n.localize('SFTD.Action')}:</label>
+          <select id="attribute" name="attribute">
+            ${attributes}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize('SFTD.Position')}:</label>
+          <select id="pos" name="pos">
+            <option value="controlled">${game.i18n.localize('SFTD.PositionControlled')}</option>
+            <option value="risky" selected>${game.i18n.localize('SFTD.PositionRisky')}</option>
+            <option value="desperate">${game.i18n.localize('SFTD.PositionDesperate')}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize('SFTD.Impact')}:</label>
+          <select id="impact" name="impact">
+            <option value="weak">${game.i18n.localize('SFTD.ImpactWeak')}</option>
+            <option value="normal" selected>${game.i18n.localize('SFTD.ImpactNormal')}</option>
+            <option value="strong">${game.i18n.localize('SFTD.ImpactStrong')}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize('SFTD.Leader')}:</label>
+          <select id="leader" name="leader">
+            ${members}
+          </select>
+        </div>
+        <div class="form-group">
+          <label>${game.i18n.localize('SFTD.Notes')}:</label>
+          <input id="note" name="note" type="text" value="">
+        </div>
+      </form>`;
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('SFTD.CreateGroupAction')}` },
+      content: contents,
+      buttons: [
+        {
+          icon: 'fas fa-people-group',
+          label: game.i18n.localize('SFTD.CreateGroupAction'),
+          action: 'create-group-action',
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Cancel'),
+          action: 'cancel',
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result != 'create-group-action') return;
+
+        let html = $(dialog.element);
+        let attribute = html.find('[name="attribute"]')[0].value;
+        let position = html.find('[name="pos"]')[0].value;
+        let effect = html.find('[name="effect"]')[0].value;
+        let leaderFull = BladesHelpers.resolveActor(html.find('[name="leader"]')[0].value);
+        let note = html.find('[name="note"]')[0].value;
+        let speaker = {
+          actor: this.actor._id,
+          alias: this.actor.name,
+          scene: null,
+          token: this.actor.prototypeToken._id
+        };
+        await this.actor.createGroupAction(attribute, position, true, effect, true, leaderFull, note);
+        let messageData = {
+          speaker: speaker,
+          groupActionSquad: this.actor.uuid,
+          content: await foundry.applications.handlebars.renderTemplate('systems/beamsaber/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, effect: this.actor.system.group_action.effect, leader: leaderFull, note: note, isGM: game.user.isGM })
+        }
+        BeamChatMessage.create(messageData);
+      }
+    });
+    dialog.render(true);
   }
 
   /* -------------------------------------------- */
@@ -352,5 +447,21 @@ export class BladesCrewSheet extends BladesSheet {
         "system.harm": [harm_id]}]);
       this.render(false);
     });
+
+    html.find('.add-group-action').click(async ev => {
+      await this.createGroupActionPopup();
+    })
+
+    html.find('.start-mission').click(async ev => {
+      await this.startMissionPopup();
+    })
+
+    html.find('.end-mission').click(async ev => {
+      await this.endMissionPopup();
+    })
+
+    html.find('.end-session').click(async ev => {
+      await this.endSessionPopup();
+    })
   }
 }

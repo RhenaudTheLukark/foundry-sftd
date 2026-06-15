@@ -186,7 +186,7 @@
           <td>
             <input type="text" id="strider-{{_id}}-harm-1-2" name="system.harm.light.two" value="{{system.harm.light.two}}" placeholder=" ">
           </td>
-          <td>{{localize 'SFTD.LessEffect'}}</td>
+          <td>{{localize 'SFTD.LessImpact'}}</td>
         </tr>
       </tbody>
     </table>
@@ -279,7 +279,7 @@
       <div id="strider-{{_id}}-loadout" class="tab flex-vertical loadout" data-tab="loadout">
         <div class="label-stripe flex-horizontal">
           <p>{{localize 'SFTD.Loadout'}} <a class="item-add-popup" data-item-type="item" data-tooltip="{{localize 'SFTD.AddItem'}}"><i class="fas fa-plus-square"></i></a></p>
-          <p>{{system.loadout}}/{{localize system.load_level}} </p>
+          <p>{{system.load}}/{{localize system.load_level}} </p>
           <div class="dropdown">
             <select name="system.selected_load_level">
               {{selectOptions system.load_levels selected=system.selected_load_level localize=true}}
@@ -345,7 +345,13 @@
 
     </div>
     {{!-- Attributes --}}
-    {{> "systems/songs-for-the-dusk/templates/parts/attributes.html" actor=actor}}
+    <div class="flex-vertical">
+      {{> "systems/songs-for-the-dusk/templates/parts/attributes.html" actor=actor}}
+      <div class="flex-horizontal extra-rolls">
+        <a class="other-rolls" data-tooltip="{{localize 'SFTD.OtherRoll'}}">{{> 'systems/songs-for-the-dusk/templates/svg/d20.hbs'}}</a>
+        <a class="downtime" data-tooltip="{{localize 'SFTD.DowntimeActivity'}}"><i class="fas fa-bed"></i></a>
+      </div>
+    </div>
   </section>
 
 </form>

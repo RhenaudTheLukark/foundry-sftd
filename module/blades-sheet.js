@@ -305,14 +305,13 @@ export class BladesSheet extends BaseActorSheet {
           await BladesHelpers.tryUpdate(item, {system: {uses: {'==value': item.system.uses.max}}});
       }
     } else if (addAsItem)
-      this.addItemAsObjectAndStoreReference(itemsToAdd[0], valuePath);
+      await this.handleAddedObjects(itemsToAdd);
     else
       this.addItemAsReference(itemsToAdd[0], valuePath);
-    await this.handleAddedObjects(itemsToAdd);
   }
 
   async addItemAsObjectAndStoreReference(itemToAdd, valuePath) {
-    let itemFull = await BladesHelpers.tryCreate([itemToAdd], this.document)[0];
+    let itemFull = (await BladesHelpers.tryCreate([itemToAdd], this.document))[0];
     if (!itemFull)
       return;
     if (itemFull.system.uses)

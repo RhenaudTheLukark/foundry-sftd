@@ -1,0 +1,25 @@
+<div class="chat-label label-stripe-chat">{{localize 'SFTD.GroupActionRoll'}}</div>
+<div class="chat-label-small label-stripe-chat-small">
+  {{localize attribute_label}} | {{localize (concat 'SFTD.Position' (capitalize position))}} | {{localize (concat 'SFTD.Impact' (capitalize impact))}}
+</div>
+
+<div class="leader-block">
+  <label><b>{{localize 'SFTD.Leader'}}</b></label>
+  <div class="flex-horizontal">
+    <img src="{{leader.img}}" data-tooltip="{{leader.name}}" width="48" height="48"/>
+    <div class="leader-name">{{leader.name}}</div>
+  </div>
+</div>
+
+<div class="button">
+  <button class="roll-group-action">{{localize 'SFTD.RollGroupAction'}}</button>
+</div>
+{{#if isGM}}
+<div class="button">
+  <button class="reveal-group-action-result">{{localize 'SFTD.RevealGroupActionResult'}}</button>
+</div>
+{{/if}}
+
+{{#if note}}
+  <p><em>{{note}}</em></p>
+{{/if}}

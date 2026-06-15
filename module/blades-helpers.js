@@ -10,6 +10,15 @@ export class BladesHelpers {
     return true;
   }
 
+  static isDowntime(attributeOrRollName) {
+    return ['acquireAsset', 'collect', 'cutLoose', 'longTermProject', 'manufacture', 'recover', 'schmooze', 'train', 'moveBase'].includes(attributeOrRollName);
+  }
+  
+
+  static addToRollTypeError(missingRollTypes, key, str) {
+    missingRollTypes[key] = (missingRollTypes[key] ? (missingRollTypes[key] + ', ') : '') + game.i18n.localize(str);
+  }
+
   static createUpdateObjectFromPath(value, path) {
     let reversePath = path.split('.').reverse();
     let updateObject = {};
@@ -208,7 +217,7 @@ export class BladesHelpers {
       return items;
     }
     else if (parentFull)
-      ui.notifications.warn(game.i18n.localize('BITD.log.warn.MustBeOwnerToCreateItem'));
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.MustBeOwnerToCreateItem'));
     return [];
   }
 
@@ -419,64 +428,61 @@ export class BladesHelpers {
   /**
    * Returns the label for attribute.
    *
-   * @param {string} attribute_name
+   * @param {string} attributeName
    * @returns {string}
    */
-  static getAttributeLabel(attribute_name) {
-    let attribute_labels = {};
-    const attributes = game.model.Actor.strider.attributes;
-
-    for (const att_name in attributes) {
-      attribute_labels[att_name] = attributes[att_name].label;
-      for (const action_name in attributes[att_name].actions) {
-        attribute_labels[action_name] = attributes[att_name].actions[action_name].label;
-      }
-
+  static getAttributeLabel(attributeName) {
+    let attributeLabels = {};
+    const attributes = foundry.utils.deepClone(game.model.Actor.strider.attributes);
+    for (const attName in attributes) {
+      attributeLabels[attName] = attributes[attName].label;
+      for (const actionName in attributes[attName].actions)
+        attributeLabels[actionName] = attributes[attName].actions[actionName].label;
     }
 
-    return attribute_labels[attribute_name];
+    return attributeLabels[attributeName];
   }
 
   /**
    * Returns the label for roll type.
    *
-   * @param {string} roll_name
+   * @param {string} rollName
    * @returns {string}
    */
-  static getRollLabel(roll_name) {
-    let attribute_labels = {};
-    const attributes = game.model.Actor.strider.attributes;
-
-    for (const att_name in attributes) {
-      if (att_name == roll_name) {
-        return attributes[att_name].label;
-      }
-      for (const action_name in attributes[att_name].actions) {
-        if (action_name == roll_name) {
-          return attributes[att_name].actions[action_name].label;
-        }
-      }
+  static getRollLabel(rollName) {
+    const attributes = foundry.utils.deepClone(game.model.Actor.strider.attributes);
+    for (const attName in attributes) {
+      if (attName == rollName)
+        return attributes[attName].label;
+      for (const actionName in attributes[attName].actions)
+        if (actionName == rollName)
+          return attributes[attName].actions[actionName].label;
     }
 
-    return roll_name;
+    return rollName;
+  }
+
+  static getAllActions() {
+    let result = [];
+    const attributes = foundry.utils.deepClone(game.model.Actor.strider.attributes);
+    for (const attName in attributes)
+      for (const actionName in attributes[attName].actions)
+        result.push(actionName);
+    return result;
   }
 
   /**
    * Returns true if the attribute is an action
    *
-   * @param {string} attribute_name
+   * @param {string} attributeName
    * @returns {Boolean}
    */
-  static isAttributeAction(attribute_name) {
-    const attributes = game.model.Actor.strider.attributes;
-
-    for (const att_name in attributes) {
-      for (const action_name in attributes[att_name].actions) {
-        if (action_name == attribute_name) {
+  static isAttributeAction(attributeName) {
+    const attributes = foundry.utils.deepClone(game.model.Actor.strider.attributes);
+    for (const attName in attributes)
+      for (const actionName in attributes[attName].actions)
+        if (actionName == attributeName)
           return true;
-        }
-      }
-    }
 
     return false;
   }
@@ -484,12 +490,26 @@ export class BladesHelpers {
   /**
    * Returns true if the attribute is an attribute
    *
-   * @param {string} attribute_name
+   * @param {string} attributeName
    * @returns {Boolean}
    */
-  static isAttributeAttribute(attribute_name) {
-    const attributes = game.model.Actor.strider.attributes;
-    return (attribute_name in attributes);
+  static isAttributeAttribute(attributeName) {
+    return (attributeName in game.model.Actor.strider.attributes);
+  }
+
+  /**
+   * Returns the attribute linked to a given action
+   * @param {string} checkedActionName
+   * @returns {string}
+   */
+  static getAttributeFromAction(checkedActionName) {
+    const attributes = foundry.utils.deepClone(game.model.Actor.strider.attributes);
+    for (const attName in attributes)
+      for (const actionName in attributes[attName].actions)
+        if (actionName == checkedActionName)
+          return attName;
+
+    return undefined;
   }
 
   /* -------------------------------------------- */
@@ -646,7 +666,7 @@ export class BladesHelpers {
     for (let relationshipFull of Object.values(relationshipsFull)) {
       relationshipFull.system.children = [];
       let isChild = false;
-      // In case of character/npc: check if crew/faction is a direct children
+      // In case of strider/npc: check if crew/faction is a direct children
       if (relationshipFull.system.faction || relationshipFull.system.crew) {
         let parentIndex = directRelationshipsFull.map(e => e.uuid).indexOf(relationshipFull.system.faction ?? relationshipFull.system.crew);
         if (parentIndex >= 0) {

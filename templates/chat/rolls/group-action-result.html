@@ -1,0 +1,50 @@
+<div class="dice-tooltip blades-die-tooltip">
+  <div class="chat-label label-stripe-chat">{{localize 'SFTD.GroupActionRoll'}}</div>
+  <div class="chat-label-small label-stripe-chat-small">{{localize action}} | {{localize (concat 'SFTD.Position' (capitalize position))}} | {{localize (concat 'SFTD.Impact' (capitalize impact))}}</div>
+
+  {{#if (eq roll_status "critical-success")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollCriticalSuccess'}}</div>
+  <div class="description">
+    <p>{{{localize 'SFTD.RollDoWithIncreasedImpact'}}}</p>
+  </div>
+  {{else if (eq roll_status "success")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollSuccess'}}</div>
+  <div class="description">
+    <p>{{{localize 'SFTD.RollDo'}}}</p>
+  </div>
+  {{else if (eq roll_status "partial-success")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollPartialSuccess'}}</div>
+  <div class="description">
+    <p>
+      {{#if (eq position "controlled")}}
+      {{{localize 'SFTD.RollPartialSuccessPositionControlled'}}}
+      {{else if (eq position "risky")}}
+      {{{localize 'SFTD.RollPartialSuccessPositionRisky'}}}
+      {{else}}
+      {{{localize 'SFTD.RollPartialSuccessPosition'}}}
+      {{/if}}
+    </p>
+  </div>
+  {{else if (eq roll_status "failure")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollFailure'}}</div>
+  <div class="description">
+    <p>
+      {{#if (eq position "controlled")}}
+      {{{localize 'SFTD.RollFailurePositionControlled'}}}
+      {{else if (eq position "risky")}}
+      {{{localize 'SFTD.RollFailurePositionRisky'}}}
+      {{else}}
+      {{{localize 'SFTD.RollFailurePositionDesperate'}}}
+      {{/if}}
+    </p>
+  </div>
+  {{/if}}
+
+  <div class="description">
+    {{{localize 'SFTD.LeaderTextStress' leader=leader_name stress=stress}}}
+  </div>
+
+  {{#if note}}
+    <p><em>{{note}}</em></p>
+  {{/if}}
+</div>

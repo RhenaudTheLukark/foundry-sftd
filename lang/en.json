@@ -77,7 +77,7 @@
     "Normal": "Normal",
     "Heavy": "Heavy",
     "Special": "Special",
-    "LessEffect": "Less Effect",
+    "LessImpact": "Less Impact",
     "Description": "Description",
     "ShortDescription": "Short Description",
     "Loadout": "Loadout",
@@ -127,6 +127,7 @@
     "Vault": "Vault",
     "Pressure": "Pressure",
     "Hazard": "Hazard",
+    "HazardReductionClock": "Hazard Reduction Clock",
     "Abilities": "Abilities",
     "Upgrades": "Upgrades",
     "Notes": "Notes",
@@ -215,7 +216,7 @@
     "HarmNoHarm": "No Harm",
     "HarmNoHarmDescription": "The specialist is healthy.",
     "HarmWeakened": "Weakened",
-    "HarmWeakenedDescription": "The specialist has reduced effect.",
+    "HarmWeakenedDescription": "The specialist has reduced impact.",
     "HarmImpaired": "Impaired",
     "HarmImpairedDescription": "The specialist operates with reduced quality (-1d).",
     "HarmBroken": "Broken",
@@ -230,11 +231,11 @@
     "RollPartialSuccess": "Partial Success",
     "RollSomeDice": "Roll Some Dice!",
     "RollNumberOfDice": "Number of Dice",
-    "RollDoWithIncreasedEffect": "You do it with <strong>increased effect</strong>.",
+    "RollDoWithIncreasedImpact": "You do it with <strong>increased effect</strong>.",
     "RollDo": "You do it.",
-    "RollPartialSuccessPositionControlled": "You hesitate. Withdraw and try a different approach, or else do it with a minor consequence: a <strong>minor complication</strong> occurs, you have <strong>reduced effect</strong>, you suffer <strong>lesser harm</strong>, you end up in a <strong>risky</strong> position.",
-    "RollPartialSuccessPositionRisky": "You do it, but there's a consequence: you suffer <strong>harm</strong>, a <strong>complication</strong> occurs, you have <strong>reduced effect</strong>, you end up in a <strong>desperate</strong> position.",
-    "RollPartialSuccessPosition": "You do it, but there's a consequence: you suffer <strong>severe harm</strong>, a <strong>serious complication</strong> occurs, you have <strong>reduced effect</strong>.",
+    "RollPartialSuccessPositionControlled": "You hesitate. Withdraw and try a different approach, or else do it with a minor consequence: a <strong>minor complication</strong> occurs, you have <strong>reduced impact</strong>, you suffer <strong>lesser harm</strong>, you end up in a <strong>risky</strong> position.",
+    "RollPartialSuccessPositionRisky": "You do it, but there's a consequence: you suffer <strong>harm</strong>, a <strong>complication</strong> occurs, you have <strong>reduced impact</strong>, you end up in a <strong>desperate</strong> position.",
+    "RollPartialSuccessPosition": "You do it, but there's a consequence: you suffer <strong>severe harm</strong>, a <strong>serious complication</strong> occurs, you have <strong>reduced impact</strong>.",
     "RollFailurePositionControlled": "You falter. Press on by seizing a <strong>risky</strong> opportunity, or withdraw and try a different approach.",
     "RollFailurePositionRisky": "Things go badly. You suffer <strong>harm</strong>, a <strong>complication</strong> occurs, you end up in a <strong>desperate</strong> position, you <strong>lose this opportunity</strong>.",
     "RollFailurePositionDesperate": "It's the worst outcome. You suffer <strong>severe harm</strong>, a <strong>serious complication occurs</strong>, you <strong>lose this opportunity for action</strong>.",
@@ -248,9 +249,9 @@
     "PositionControlled": "Controlled",
     "PositionRisky": "Risky",
     "PositionDesperate": "Desperate",
-    "EffectLimited": "Limited",
-    "EffectStandard": "Standard",
-    "EffectGreat": "Great",
+    "ImpactWeak": "Weak",
+    "ImpactNormal": "Normal",
+    "ImpactStrong": "Strong",
 
     "ActionsAnalysis": "Analysis",
     "ActionsAnalysisInfo": "Analysis is the act of detailed observation. It reflects your mental focus.",
@@ -288,6 +289,7 @@
     "AddAbility": "Add Ability",
     "AddItem": "Add Item",
     "Uses": "No. of Uses",
+    "UsesShort": "Uses",
     "NumberAvailable": "Number Available",
     "AdditionalInfo": "Additional Information",
     "IsContainer": "Is Container?",
@@ -297,7 +299,9 @@
     "IsComplex": "Is Complex?",
 
     "Position": "Position",
-    "Effect": "Effect",
+    "ForcePosition": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's position to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",
+    "Impact": "Impact",
+    "ForceImpact": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's impact to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",
     "Modifier": "Modifier",
 
     "Encumbered": "encumbered",
@@ -355,45 +359,306 @@
     "SalesTerritory": "Sales Territory",
     "CargoTypes": "Cargo Types",
 
-    "ActionRoll": "Action",
-    "ThreatRoll": "Threat",
-    "PushYourself": "Push Yourself",
-    "IndulgeVice": "Indulge Vice",
-    "GatherInformation": "Gather Information",
-    "Fortune": "Fortune",
-    "Engagement": "Engagement",
-    "AcquireAsset": "Acquire Asset",
     "AcquireAssetExtra": "To raise the result beyond critical, you may spend <strong>2 coin</strong> per +1 Tier bonus.",
     "CrewTier": "Crew Tier",
-    "ExtraThreats": "Extra Threats",
-    "Threats": "Threats",
 
-    "RollVice": "You indulge your vice.<br/>Clear <strong>{clear_stress} stress</strong>.",
-    "RollViceFailure": "You <strong>overindulge</strong>. Clear <strong>{clear_stress} stress</strong> and choose <strong>one</strong> of the following consequences:",
-    "RollViceFailureAttactTrouble": "<strong>Attract Trouble.</strong> Select or roll an additional <strong>entanglement.</strong>",
-    "RollViceFailureBrag": "<strong>Brag</strong> about your exploits. <strong>+2 Pressure</strong>",
-    "RollViceFailureLost": "<strong>Lost.</strong> Your strider vanishes for a few weeks. Play a different strider until this one returns from their bender. When your strider returns, they've also healed any harm they had.",
-    "RollViceFailureTapped": "<strong>Tapped.</strong> Your current purveyor cuts you off. Find a new source for your vice.",
+    "RollTypes": "Roll Types",
+    "SimpleRoll": "Simple Roll",
+    "AttributeRollTitle": "Roll {attribute} Resistance",
+    "ActionRollTitle": "Roll {attribute}",
+    "ActionRoll": "Action",
+    "GroupActionRoll": "Group Action",
+    "ResistanceRoll": "Resistance",
+    "AftermathRollFull": "Aftermath <i class=\"fas fa-question-circle\" data-tooltip=\"The amount of dice for this roll is automatically computed by the system. If the amount of dice selected is not 0, it'll add those dice to the amount that have been computed.\"></i>",
+    "AftermathRoll": "Aftermath",
+    "CollectInformationRoll": "Collect Information",
+    "EngagementRoll": "Engagement",
+    "FortuneRoll": "Fortune",
+    "UpkeepRollFull": "Upkeep <i class=\"fas fa-question-circle\" data-tooltip=\"The amount of dice for this roll is automatically computed by the system. If the amount of dice selected is not 0, it'll add those dice to the amount that have been computed.\"></i>",
+    "UpkeepRoll": "Upkeep",
+    "AcquireAssetRoll": "Acquire Asset",
+    "ManufactureRoll": "Manufacture",
+    "CollectRoll": "Collect",
+    "CutLooseRoll": "Cut Loose",
+    "LongTermProjectRoll": "Long-Term Project",
+    "RecoverRoll": "Recover",
+    "SchmoozeRoll": "Schmooze",
+    "TrainRoll": "Train",
+    "MoveBaseRoll": "Move Base",
+    "CohortRoll": "Cohort Roll",
+    "Table": "Table",
+    "SuccessTier": "Success Tier",
+    "CollectDragDropInfo": "Drag & drop a known Region here to set it as the Region to collect from.",
+    "SchmoozeDragDropInfo": "Drag & drop a known Faction here to set it as the Faction to improve relationship with.",
+    "UpkeepDragDropInfo": "Drag & drop a known Faction here to set it as the Faction to gain supplies from.",
+    "TargetFactionDragDropInfo": "Drag & drop a Faction here to set it as the Faction who was the target for that mission.",
+    "EmployerFactionDragDropInfo": "Drag & drop a Faction here to set it as the Faction who issued that mission to the crew.",
+    "Vigilance": "Vigilance",
+    "You": "You",
+    "Fixer": "Fixer",
+    "Medic": "Medic",
+    "Vehicle": "Vehicle",
+    "Project": "Project",
+    "All": "All",
+    "NoDoctor": "Not a Doctor",
+    "Dice": "Dice",
+    "Helper": "Helper",
+    "Other": "Other",
+    "RegionProsperity": "Region Prosperity",
+    "Arguments": "Arguments",
 
-    "RollFortuneCritical": "The result is <strong>exceptional</strong>. You have <strong>great</strong> or <strong>extreme effect</strong>.",
-    "RollFortuneSuccess": "The result is <strong>good</strong>. You have <strong>standard</strong> or <strong>full effect</strong>.",
-    "RollFortunePartialSuccess": "The result is <strong>mixed</strong>. You have <strong>limited</strong> or <strong>partial effect</strong>.",
-    "RollFortuneFailure": "The result is <strong>bad</strong>. You have <strong>poor</strong> or <strong>little effect</strong>.",
+    "OtherRoll": "Misc. Roll",
+    "OtherRollFull": "Miscellaneous Roll",
+    "DowntimeActivity": "Downtime Activity (None of these work)",
+    "DowntimeRollLeft": "{num} Left",
+    "DowntimeCohortRoll": "1 per Downtime",
+    "DowntimeCohortRollDone": "Already done",
 
-    "RollGatherInformationSuccess": "<strong>Great</strong>: You get exceptional details. The information is complete and follow-up questions may expand into related areas or reveal more than you hoped for.",
-    "RollGatherInformationPartialSuccess": "<strong>Standard</strong>: You get good details. Clarifying and follow-up questions are possible.",
-    "RollGatherInformationFailure": "<strong>Limited</strong>: You get incomplete or partial information. More information gathering will be needed to get all the answers.",
+    "Group": "Group",
+    "Action": "Action",
+    "Leader": "Leader",
+    "Attribute": "Attribute",
+    "RollGroupAction": "Roll Group Action",
+    "RevealGroupActionResult": "Reveal Group Action Result",
+
+    "CreateGroupAction": "Create Group Action",
+    "LeaderTextStress": "The leader of this group action, {leader}, suffered <strong>{stress} Stress </strong> due to failed actions.",
+    "LeaderTextQuirk": "The leader of this group action, {leader}, expends <strong>{quirks} Quirk(s) </strong> due to failed actions.",
+
+    "RollCollectInformationSuccess": "<strong>Strong</strong>: You find even more than you were looking for. The information might reveal secrets or opportunities you hadn't known about. Definitely ask a follow-up question or two, the MC will give you a good answer.",
+    "RollCollectInformationPartialSuccess": "<strong>Normal</strong>: You've got solid details. You might be able to ask a follow-up question or two to clarify.",
+    "RollCollectInformationFailure": "<strong>Weak</strong>: You get the bare basics, but not much else. You're probably missing key details.",
 
     "RollEngagementCritical": "Exceptional result. You've already <strong>overcome the first obstacle</strong> and you're in a <strong>controlled</strong> position for what's next.",
     "RollEngagementSuccess": "Good result. You're in a <strong>controlled</strong> position when the action starts.",
     "RollEngagementPartialSuccess": "Mixed result. You're in a <strong>risky</strong> position when the action starts.",
     "RollEngagementFailure": "Bad result. You're in a <strong>desperate</strong> position when the action starts.",
 
-    "RollAcquireAssetResult": "You gain an asset of <strong>Tier {tier_quality}</strong> quality.",
+    "RollFortuneCritical": "The result is <strong>exceptional</strong>. You have <strong>strong</strong> or <strong>extreme impact</strong>.",
+    "RollFortuneSuccess": "The result is <strong>good</strong>. You have <strong>standard</strong> or <strong>full impact</strong>.",
+    "RollFortunePartialSuccess": "The result is <strong>mixed</strong>. You have <strong>weak</strong> or <strong>partial impact</strong>.",
+    "RollFortuneFailure": "The result is <strong>bad</strong>. You have <strong>poor</strong> or <strong>little impact</strong>.",
+
+    "RollUpkeepResult": "You have gained <strong>{shells} Shell(s)</strong>.",
+
+    "RollAftermath": {
+      "0": {
+        "1": {
+          "Title": "Windfall",
+          "Description": "Someone discovers a cache of ancient materials and tech. The first time you roll this aftermath for a community, you can choose any <b>Prosperity 4</b> foundation: it counts as <b>Prosperity 1</b> for you. On subsequent windfalls, your community gets <b>2 shells</b>."
+        },
+        "2": {
+          "Title": "Lucky Break",
+          "Description": "One of you stumbles across an opportunity for a well-paying mission. Take +1d when you roll for upkeep at the end of your next job."
+        },
+        "3": {
+          "Title": "Quintessent Life",
+          "Description": "A magical creature or strange spirit begins to cause havoc in your community. Acquire the services of a charmant to banish or calm it or figure out how to do the same yourselves."
+        },
+        "4": {
+          "Title": "Weather Damage",
+          "Description": "Harsh weather or a minor natural danger strikes your community. <b>Lose a foundation</b> until you pay half its cost in <b>shells</b> to repair it (round up). Paying these costs doesn't use up a downtime activity."
+        },
+        "5": {
+          "Title": "Community Conflict",
+          "Description": "A fight breaks out in your community. Head it off, shut it down, or spend <b>shells</b> equal to your Prosperity to repair the damage. If you can't defuse the tension successfully, take <b>+2 pressure</b>."
+        },
+        "6": {
+          "Title": "Escalation",
+          "Description": "Roll with <b>-1d</b> on the next highest <b>hazard</b> list."
+        }
+      },
+      "1": {
+        "1": {
+          "Title": "Discovery",
+          "Description": "Someone makes a discovery (a piece of buried Radiant tech, a new use for a magical plant, etc.) that proves tremendously useful. Divide <b>3 ticks</b> between any number of <b>Foundation</b> or <b>Long-Term Project</b> clocks, and say how the discovery helped those projects advance."
+        },
+        "2": {
+          "Title": "Quintessent Life",
+          "Description": "A magical creature or strange spirit begins to cause havoc in your community. Acquire the services of a charmant to banish or calm it or figure out how to do the same yourselves."
+        },
+        "3": {
+          "Title": "A Stranger Walks Into Town",
+          "Description": "A stranger walks into town with what seems like an incredible mission offer, but there's something they're holding back. If you run the mission, it pays <b>+2 shells</b>, but you take <b>2 pressure</b> immediately, and the MC will give the mission an additional secret complication."
+        },
+        "4": {
+          "Title": "Community Conflict",
+          "Description": "A fight breaks out in your community. Head it off, shut it down, or spend <b>shells</b> equal to your Prosperity to repair the damage. If you can't defuse the tension successfully, take <b>+2 pressure</b>."
+        },
+        "5": {
+          "Title": "Spacetime Scream",
+          "Description": "Strange visions scream out across the fabric of reality, piercing into the minds of your crew. Resist with <b>Semiosis</b> or take <b>Level 1 Harm</b> as the visions tear through you. (You still see the visions even if you resist, they just don't cause you pain.)"
+        },
+        "6": {
+          "Title": "Escalation",
+          "Description": "Roll with <b>-1d</b> on the next highest <b>hazard</b> list."
+        }
+      },
+      "2": {
+        "1": {
+          "Title": "A Stranger Walks Into Town",
+          "Description": "A stranger walks into town with what seems like an incredible mission offer, but there's something they're holding back. If you run the mission, it pays <b>+2 shells</b>, but you take <b>2 pressure</b> immediately, and the MC will give the mission an additional secret complication."
+        },
+        "2": {
+          "Title": "Radiant Eruption",
+          "Description": "A piece of long-dormant technology buried nearby suddenly comes alive, with strange effects on your community and the nearby landscape. The effects are chaotic and disruptive, but if you can figure out how to safely disable or control the haywire tech, you might be able to reverse-engineer some of it."
+        },
+        "3": {
+          "Title": "Spacetime Scream",
+          "Description": "Strange visions scream out across the fabric of reality, piercing into the minds of your crew. Resist with <b>Semiosis</b> or take <b>Level 1 Harm</b> as the visions tear through you. (You still see the visions even if you resist, they just don't cause you pain.)"
+        },
+        "4": {
+          "Title": "Malfunctions",
+          "Description": "Some important piece of machinery in your community breaks down. Each strider will be asked to use up <b>1 downtime activity</b> on repairs, take <b>1 pressure</b> per Strider who ignores this task. <b>Untick all Project and Foundation clocks by 1</b> to account for technical setbacks or pay <b>shells</b> equal to your Prosperity to preserve them."
+        },
+        "5": {
+          "Title": "Trouble-Seekers",
+          "Description": "A rival faction is looking for trouble and sends a detachment to your community with a ridiculous set of demands. Figure out how to meet them, bribe the detachment to get them off your back (<b>shells</b> equal to the Faction's <b>Tier</b>), or refuse them and take <b>2 pressure</b> and <b>-1 status</b> with the faction. If you have no negative statuses with any factions, you avoid aftermaths for now."
+        },
+        "6": {
+          "Title": "Escalation",
+          "Description": "Roll with <b>-1d</b> on the next highest <b>hazard</b> list."
+        }
+      },
+      "3": {
+        "1": {
+          "Title": "Dangerous Mission",
+          "Description": "Someone has come to your crew with an exceptionally dangerous opportunity. If you take the offer, you take -1d to the engagement roll for this mission and the MC will introduce a hidden complication, but you get +3 shells at upkeep."
+        },
+        "2": {
+          "Title": "High-Profile Op",
+          "Description": "An allied faction or community urgently needs your help. They're willing to pay well, but it's a high-profile job. If you take the mission, you get <b>+2 shells</b> at payout, but every time you take pressure on the job, take <b>+1 pressure</b>. If you don't take the mission, <b>lose 1 status</b> with your ally. If you have no positive statuses with any factions, you avoid aftermaths for now."
+        },
+        "3": {
+          "Title": "Zealous Rival",
+          "Description": "A rival or enemy makes a hard move against one of your crew or someone they're close to. Let them hurt you or yours, allow them to extract a promise from you, or stop them some other way. If they successfully cause chaos in your community, <b>+3 pressure</b>."
+        },
+        "4": {
+          "Title": "Disaster",
+          "Description": "A disaster (natural or engineered) endangers your community. <b>Lose three Foundations (MC's choice)</b> until you repair them. Each foundation requires <b>twice its cost in shells</b> to be repaired. Paying these costs (or averting the disaster another way) doesn't consume a downtime activity."
+        },
+        "5": {
+          "Title": "Crisis",
+          "Description": "A nearby disaster has put innocent people in danger, and your expertise is needed ASAP. If you take the mission, you get <b>-2d</b> to the <b>Engagement roll</b>. If you don't, then the suffering of those people is on your conscience and your reputation: take <b>4 pressure</b> and everyone in the crew takes the <b>Level 1 Harm: Guilty</b> (which can be resisted as normal)."
+        },
+        "6": {
+          "Title": "Invasion",
+          "Description": "It's the worst outcome. One or a group of your enemies marshals an army and invades with minimal warning. Your next mission <b>must</b> be dealing with that invasion. You don't get downtime activities until the next mission ends. Any invading faction(s) that don't already have a vendetta against you gain one. Reset to Hazard 3 with 0 pressure after this occurs."
+        }
+      }
+    },
+    "RollAftermathCantHateUs": "Your crew really can't be hated by outsiders. Roll a second aftermath and pick the one you prefer among the two.",
+
+    "RollAcquireAssetResultSuccess": "You gain an asset of <strong>Tier {tier_quality}</strong> quality.",
+    "RollAcquireAssetResultFailure": "It was unfortunately not enough. You could not gain an asset of <strong>Tier {success_tier}</strong> quality or above. If you want to acquire it anyway, since your current asset is of <strong>Tier {tier_quality}</strong> quality, you need to spend <strong>{materiel} Materiel</strong> in total.",
     "RollAcquireAssetCritical": "Exceptional result.",
     "RollAcquireAssetSuccess": "Good result.",
     "RollAcquireAssetPartialSuccess": "Mixed result.",
     "RollAcquireAssetFailure": "Bad result.",
+    "RollAcquireAssetExtra": "To raise the result of this roll, you may spend 1 Materiel per Tier level, or raise it beyond critical success by spending 2 Materiel per additional level added.",
+
+    "RollCutLoose": "You cut loose with {pilot}.<br/>You cleared <strong>{clear_stress} Stress</strong>.",
+    "RollCutLooseSavedByCarouse": "Your carousing lowered your Stress recovery, but prevented you from overindulging.",
+    "RollCutLooseCarouseStress": "Your carousing lowered your Stress recovery.",
+    "RollCutLooseSavedByConviction": "You gathered a significant data set, and didn't overindulge thanks to your focus on experimentation.",
+    "RollCutLooseConviction": "Your focus on experimentation helped you gather a significant data set.",
+    "RollCutLooseFunctioningVice": "Your functioning vice allows you to manually adjust the amount of stress recovered by up to +2 or -2.",
+    "RollCutLooseFunctioningViceOther": "It also cleared <strong>1 Stress</strong> from {pilot}.",
+    "RollCutLooseSavedByFunctioningVice": "Your functioning vice prevented you from overindulging by {num}, since it allows you to manually adjust the amount of stress recovered by up to +2 or -2.",
+    "RollCutLooseDoubleFailure": "You cut loose with {pilot} and <strong>both of you overindulge</strong>. You cleared <strong>{clear_stress} Stress</strong> and choose <strong>one</strong> of the following consequences which apply to both Pilots:",
+    "RollCutLooseFailure": "You cut loose with {pilot} and <strong>overindulge</strong>. You cleared <strong>{clear_stress} Stress</strong> and choose <strong>one</strong> of the following consequences:",
+    "RollCutLooseFailureAttactTrouble": "<strong>Attract Trouble.</strong> Roll an additional <strong>entanglement</strong> using the table and dice from the end of the previous mission.",
+    "RollCutLooseFailureBrag": "<strong>Brag</strong> about your exploits. <strong>Lose 2 Trust</strong> with your Patron Faction.",
+    "RollCutLooseFailureLost": "<strong>AWOL.</strong> Your Pilot vanishes for a few weeks. Play a different Pilot until this one returns from their 'vacation'. When your Pilot returns, they've also healed all their Harm.",
+    "RollCutLooseFailureTapped": "<strong>Impropriety.</strong> Make an ass out of yourself in front of the Pilot that joined you-reset your Connection Clock with them to 0. If your Connection is already 0, take the <strong>Level 1 Harm: Alone</strong>.",
+    "RollCutLooseExtraResult": "You may spend 1 Materiel to increase the result by 1.",
+    "RollCutLooseConnection": "Your bond with {pilot} grew.",
+    "RollCutLooseConnectionCarousePilot": "Your bond with {pilot} grew a lot thanks to your carousing.",
+    "RollCutLooseConnectionCarouseOther": "{pilot}'s bond with you grew thanks to your carousing.",
+    "RollCutLooseConnectionMaxxed": "Your Connection Clock is full. Ask {pilot} for a truth about one belief you have about them. Your Connection Clock with them has been reset to 1 Tick as you see them in a new light. You both take <strong>1 XP</strong>, which can go into either the Pilot's attribute or playbook XP track.",
+    "RollCutLooseConnectionCarouseOtherMaxxed": "{pilot}'s Connection Clock is full. {pilot} asks for a truth about one belief they have about you. Their Connection Clock with you has been reset to 1 Tick as they see you in a new light. You both take <strong>1 XP</strong>, which can go into either the Pilot's attribute or playbook XP track.",
+    "RollCutLooseBonusNotice": "For the cost of 1 Personnel, you may take an extra Cut Loose activity if you so wish.",
+    "RollCutLooseOtherPilot": "Roll Cut Loose for the other Pilot",
+    "RollCutLooseCarouseStressButton": "Carouse: Prevent Overindulgence",
+    "RollCutLooseCarousePilotConnectionButton": "Carouse: Increase Your Connection",
+    "RollCutLooseCarouseOtherConnectionButton": "Carouse: Increase Other's Connection",
+
+    "RollLongTermProject": "You spent some time working on the Long-Term Project {ltp}. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollLongTermProjectIronsInTheFire": "You spent some time working on Long-Term Projects {ltps}. <strong>{tick}</strong> tick(s) were distributed as evenly as possible across their Progress Clocks.",
+    "RollLongTermProjectIronsInTheFireRemainder": "<strong>{tick}</strong> tick(s) could not be automatically distributed. Pick which Long-Term Project(s) they should be assigned to, with a max of one tick per project.",
+    "RollLongTermProjectIronsInTheFireOverTicks": "<strong>{tick}</strong> tick(s) could not be distributed because all projects were completed.",
+    "RollLongTermProjectFull": "The project {ltp} has been <strong>completed</strong>.",
+    "RollLongTermProjectFullMultiple": "The project(s) {ltps} have been <strong>completed</strong>.",
+    "RollLongTermProjectAllFull": "All projects have been <strong>completed</strong>.",
+    "RollLongTermProjectExtraResult": "You may spend 1 Personnel to increase the roll's result by 1.",
+    "RollLongTermProjectBonusNotice": "For the cost of 1 Personnel, you may take an extra Long-Term Project activity if you so wish.",
+
+    "RollManufactureResultSuccess": "You manufacture an item of <strong>Tier {tier_quality}</strong> quality.",
+    "RollManufactureResultFailure": "It was unfortunately not enough. You could not manufacture an item of <strong>Tier {success_tier}</strong> quality or above. If you want to manufacture it anyway, since your current item is of <strong>Tier {tier_quality}</strong> quality, you need to spend <strong>{materiel} Materiel</strong> in total.",
+    "RollManufactureExtra": "To raise the result of this roll, you may spend 1 Materiel per Tier level, even beyond critical success.",
+
+    "RollRecover": "{recoverActorName} spent some time treating your wounds.",
+    "RollRecoverNaturalRecoveryStress": "You suffered <strong>1 Stress</strong> since you are letting your wounds recover naturally.",
+    "RollRecoverSelfHealStress": "You suffered <strong>2 Stress</strong> since you are healing yourself as a doctor.",
+    "RollRecoverLevelOneHarm": "All Level 1 Harm was cleared.",
+    "RollRecoverResult": "Your Healing Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollRecoverResultFull": "Since your Healing Clock is full, all Harm has been reduced by one level.",
+    "RollRecoverResultFullTwo": "Since your Healing Clock filled twice, all Harm has been reduced by two levels.",
+    "RollRecoverExtraResult": "You may spend 1 Personnel to increase the roll's result by 1.",
+    "RollRecoverBonusNotice": "For the cost of 1 Personnel, you may take an extra Recover activity if you so wish.",
+
+    "RollSchmooze": "You improved your crew {crew}'s relationship with the faction {faction} by <strong>{trust} Trust</strong>.",
+    "RollSchmoozeBonusNotice": "For the cost of 1 Personnel, you may take an extra Schmooze activity if you so wish.",
+
+    "TrainText": "You spend some time training {trainTypeDesc}. Your {trainTypeText} XP was increased by <strong>{num}</strong>.",
+    "TrainTextGeneral": "yourself",
+    "TrainTextPilot": "your {trainType}",
+    "TrainTextVehicle": "your vehicle's {trainType}",
+    "TrainLevelUpPlaybook": "Your XP track has been filled. Take a <strong>new Playbook special ability</strong>.",
+    "TrainLevelUpAttribute": "Your XP track has been filled. <strong>Add an Action Point</strong> under the {trainType} attribute.",
+    "TrainBonusNotice": "For the cost of 1 Personnel, you may take an extra Train activity if you so wish.",
+
+    "RollMoveBase": "You spent some time relocating your mobile FOB to a new location.",
+
+    "BadRollPopup": "Some roll types are unavailable:",
+    "BadRoll": {
+      "NoActor": "No selected actor",
+      "NoTraining": "No available training type",
+      "NoHarm": "No active Harm",
+      "NoConnection": "No existing Connection",
+      "NoStress": "No stress",
+      "NoVehicle": "No owned vehicle",
+      "NoDamage": "No active Vehicle Damage",
+      "NoCrew": "Not in a Crew",
+      "NoMateriel": "The Crew owns no Materiel",
+      "NoExhaustedQuirk": "No exhausted Quirk",
+      "NoOngoingLTP": "No currently ongoing Long-Term Project",
+      "NoMobileBase": "Your FOB is not mobile"
+    },
+
+    "CollectionAgency": "Collection Agency",
+    "CollectionAgencyContents": "Your collection agency has collected <strong>{value} Materiel</strong> for you.",
+    "SideBusiness": "Side Business",
+    "SideBusinessContents": "Your side business has collected <strong>{value} Personnel</strong> for you.",
+    "StayLate": "Stay Late",
+    "StayLateInfo": "You may provide a crewmate an extra Downtime Activity at the cost of taking the Level 1 Harm: Tired.<br/>Choose the crewmate who will benefit from an extra Downtime Activity below.",
+    "StayLateDescription": "{target} can take an extra <strong>Downtime Activity</strong>. {actor} takes the <strong>Level 1 Harm: Tired</strong>, which may be resisted as normal.",
+
+    "ToggleableModifiers": "Toggleable Modifiers",
+    "LotusBargain": "Lotus Bargain",
+    "LotusBargainEffect": "You took a Lotus Bargain. Its consequences are unavoidable, nor can they be reduced or negated with a resistance roll or armor.",
+    "PushYourself": "Push Yourself",
+    "PushYourselfEffect": "You pushed yourself. You suffered <strong>2 Stress</strong> if it was a Pilot action, or expend <strong>1 Quirk</strong> if it was a Vehicle action.",
+    "Assist": "Assist",
+    "AssistEffect": "{pilot} assisted you. They took <strong>{num} Stress</strong>. You have chosen the following <strong>{num}</strong> benefit(s):<ul>{effects}</ul>",
+    "DowntimeAssistEffect": "{pilot} assisted you, granting you <strong>+1d</strong>.",
+    "DowntimeAssistOtherEffect": "An ally or your direct superior assisted you. It is likely to provide access to resources otherwise unavailable.",
+    "Setup": "Setup",
+    "SetupEffect": "Another Pilot or a Cohort set you up for success. Your {effect} has improved.",
+    "ExtraDieEffect": "Take +1d",
+    "ImprovedImpactEffect": "Improve your Impact",
+    "ImprovedPositionEffect": "Improve your Position",
+    "IgnoreHarmDamageEffect": "Ignore your Level 3 Harm/Damage",
 
     "Short": "Short",
     "Full": "Full",
@@ -459,6 +724,12 @@
       "DefaultClockThemeColor": {
         "Name": "Default Clock Style & Color",
         "Hint": "Clock style and color used by default in sheets."
+      },
+      "DowntimeRules": {
+        "Name": "Downtime Rules",
+        "Hint": "Whether not having any more Downtime Activities available prevents rolls which use them or not.\nStrict: Rolls are prevented.\nLax: They are not.",
+        "Strict": "Strict",
+        "Lax": "Lax"
       }
     },
     "Keybinds": {
@@ -478,7 +749,10 @@
         "SameCrew": "The dropped Crew is the current crew of this strider."
       },
       "warn": {
-        "NoNPC": "This NPC does not exist in the World or in a Compendium.",
+        "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",
+        "GroupActionRollNoActor": "You currently have no strider assigned! Select a Token first or get a strider assigned by your GM.",
+        "GroupActionRollNotAStrider": "Your currently selected actor is not a Strider, it is a {obj}.",
+        "GroupActionRollStriderNotInCrew": "Your currently selected Strider \"{char}\" does not belong to the Crew \"{crew}\".",
         "ClockStylesRequestNoActiveGM": "Clock styles could not be retrieved due to having no Gamemaster or Assistant Gamemaster currently connected. They will be received once one of them connects to the server.",
         "TryCreateNoActiveGM": "Some data could not be created due to having no Gamemaster or Assistant Gamemaster currently connected. It will be created once one of them connects to the server.",
         "TryUpdateNoActiveGM": "Some data could not be updated due to having no Gamemaster or Assistant Gamemaster currently connected. It will be updated once one of them connects to the server.",

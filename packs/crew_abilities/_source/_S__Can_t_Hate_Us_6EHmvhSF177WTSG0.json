@@ -10,7 +10,52 @@
     "purchased": false,
     "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Can't Hate Us Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.crew_ability.Item.6EHmvhSF177WTSG0",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "iz9n6rm9ekeSMfdA",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.cant_hate_us",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1781478261236,
+        "modifiedTime": 1781478276344,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!6EHmvhSF177WTSG0.iz9n6rm9ekeSMfdA"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

@@ -31,7 +31,7 @@
         "clues": ["SFTD.ClassExpClue1", "SFTD.ClassExpClue2", "SFTD.ClassExpClue3"]
       },
       "signature_gear": null,
-      "loadout": 0,
+      "load": 0,
       "load_level": "",
       "selected_load_level": "",
       "base_max_load": 0,
@@ -165,6 +165,34 @@
           "four": "",
           "five": ""
         }
+      },
+      "modifiers": {
+        "crew": {},
+        "specialist": {}
+      },
+      "roll_modifiers": {
+        "crew": {},
+        "specialist": {}
+      },
+      "conditional_roll_modifiers": {
+        "crew": {},
+        "specialist": {},
+        "lotus_bargain": true
+      },
+      "downtime_count": {
+        "base": 3,
+        "value": 3
+      },
+      "downtime_activities": {
+        "train_types": {}
+      },
+      "xp_gain": {
+        "playbook": 1,
+        "insight": 1,
+        "prowess": 1,
+        "resolve": 1,
+        "expertise": 1,
+        "acuity": 1
       }
     },
     "crew": {
@@ -194,7 +222,12 @@
       },
       "hazard": {
         "value": 0,
-        "max": 4
+        "max": 3,
+        "reduction": {
+          "value": 0,
+          "max": 8,
+          "theme_color": null
+        }
       },
       "community": {
         "name": "",
@@ -207,9 +240,17 @@
       "members": {},
       "projects": {},
       "relationships": {},
-      "strider": {
-        "add_scars": 0,
-        "add_stress": 0
+      "modifiers": {
+        "strider": {},
+        "specialist": {}
+      },
+      "roll_modifiers": {
+        "strider": {},
+        "specialist": {}
+      },
+      "conditional_roll_modifiers": {
+        "strider": {},
+        "specialist": {}
       },
       "signature_gear": null
     },
@@ -362,15 +403,7 @@
       "modifiers": {},
       "roll_modifiers": {},
       "conditional_roll_modifiers": {
-        "acquire_asset_danger": true,
-        "acquire_asset_again": true,
-        "acquire_asset_extra_die": true,
-        "acquire_asset_specialist": true,
-        "acquire_asset_gear": true,
-        "long_term_project_bonus_roll": true,
-        "long_term_project_extra_die": true,
-        "schmooze_bonus_roll": true,
-        "schmooze_extra_die": true
+        "lotus_bargain": true
       },
       "armor": false
     },
