@@ -95,30 +95,6 @@
       "path": "packs/npcs",
       "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_13.webp",
       "type": "Actor"
-    },
-	  {
-      "name": "entanglements",
-      "label": "Entanglements",
-      "system": "songs-for-the-dusk",
-      "path": "packs/entanglements",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_14.webp",
-      "type": "RollTable"
-    },
-	  {
-      "name": "entanglements-journals",
-      "label": "Entanglements Journals",
-      "system": "songs-for-the-dusk",
-      "path": "packs/entanglements-journals",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_15.webp",
-      "type": "JournalEntry"
-    },
-	  {
-      "name": "entanglements-macro",
-      "label": "Entanglements Macro",
-      "system": "songs-for-the-dusk",
-      "path": "packs/entanglements-macro",
-      "banner": "systems/songs-for-the-dusk/images/compendium-banners/Doskvol_16.webp",
-      "type": "Macro"
     }
   ],
   "packFolders": [
@@ -136,11 +112,6 @@
       "name": "Factions & NPCs",
       "sorting": "m",
       "packs": ["faction", "npc"]
-	  },
-    {
-      "name": "Entanglements",
-      "sorting": "m",
-      "packs": ["entanglements-macro", "entanglements", "entanglements-journals"]
 	  }
   ]
 }
