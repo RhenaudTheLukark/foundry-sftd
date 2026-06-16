@@ -113,9 +113,9 @@ table.drive-table {
 
   .tab.loadout {
     .signature-gear-container {
-      width: fit-content;
+      width: 100%;
       align-items: center;
-      justify-self: center;
+      justify-content: center;
       margin: 0.5em 0;
 
       .item-block {
