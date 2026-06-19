@@ -177,7 +177,12 @@
       "conditional_roll_modifiers": {
         "crew": {},
         "specialist": {},
-        "lotus_bargain": true
+        "lotus_bargain": true,
+        "harmony": true,
+        "assist": true,
+        "setting_up": true,
+        "setup": true,
+        "protect": true
       },
       "downtime_count": {
         "base": 3,

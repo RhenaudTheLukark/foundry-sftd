@@ -5,11 +5,65 @@ import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 export const bladesRollModifierList = {
   lotus_bargain: {
-    name: 'SFTD.LotusBargain',
+    name: 'SFTD.LotusBargainTitle',
     notRollTypes: ['moveBase'],
     dice: 1,
     rollText: 'SFTD.LotusBargainEffect'
   },
+  harmony: {
+    name: 'SFTD.Harmony',
+    notRollTypes: ['moveBase'],
+    dice: 1,
+    harmony: -1,
+    rollText: 'SFTD.HarmonyEffect'
+  },
+  assist: {
+    name: 'SFTD.Assist',
+    rollTypes: ['actionRoll', 'resistance', 'fortune', 'collectInfo', 'engagement'],
+    fields: {
+      'SFTD.Crewmate': []
+    },
+    resolveFunc: (fields, extraData) => {
+      let assistFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
+      let otherStress = {};
+      otherStress[assistFull.uuid] = 1;
+      return {
+        dice: 1,
+        otherStress: otherStress,
+        rollText: 'SFTD.AssistEffect',
+        rollTextArgs: { pilot: assistFull ? assistFull.name : 'Unknown Pilot' },
+        allowHarmonyGain: true
+      };
+    },
+    assist: true
+  },
+  setting_up: {
+    name: 'SFTD.SettingUp',
+    rollTypes: ['actionRoll', 'groupAction'],
+    allowHarmonyGain: true,
+    rollText: 'SFTD.SettingUpEffect'
+  },
+  setup: {
+    name: 'SFTD.Setup',
+    rollTypes: ['actionRoll', 'groupAction'],
+    fields: {
+      'SFTD.Effect': ['SFTD.Position', 'SFTD.Impact']
+    },
+    resolveFunc: (fields) => {
+      let isImpact = fields['SFTD.Effect'] == 'SFTD.Impact';
+      return {
+        impact: isImpact ? 1 : 0,
+        position: isImpact ? 0 : 1,
+        allowHarmonyGain: true,
+        rollText: 'SFTD.SetupEffect',
+        rollTextArgs: { effect: game.i18n.localize(fields['SFTD.Effect']) } };
+    }
+  },
+  protect: {
+    name: 'SFTD.ProtectTitle',
+    rollType: 'resistance',
+    allowHarmonyGain: true
+  }
 }
 
 export const positionIndex = ['desperate', 'risky', 'controlled'];
@@ -42,6 +96,9 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   let rollTypeKey = Object.entries(rollTypeLabels).find(r => r[1] == attributeOrRollName);
   let downtimeCountChanges = rollTypeKey ? (BladesHelpers.isDowntime(rollTypeKey[0]) ? -1 : 0) : 0;
 
+  let allowHarmonyGain = false;
+  let harmonyChanges = 0;
+
   // Add modifiers effects to the roll/actor
   for (let modifier of extraFields.modifiers) {
     if (modifier.dice) diceAmount += modifier.dice;
@@ -63,6 +120,8 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     if (modifier.downtime) downtimeCountChanges += modifier.downtime;
     if (modifier.convictionCutLoose) extraFields.conviction = true;
     if (modifier.workHardPlayHard) extraFields.workHardPlayHard = true;
+    if (modifier.harmony) harmonyChanges += modifier.harmony;
+    if (modifier.allowHarmonyGain) allowHarmonyGain = true;
   }
 
   // Irons in the Fire: Cancel extra die if only one project is selected
@@ -72,9 +131,6 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     extraFields.ltpIds = undefined;
   }
 
-  extraFields.shells = shellChanges;
-  if (extraFields.shells != 0)
-    rollData.shells = shellChanges;
 
   // Stress Changes
   if (rollData.stressChanges)
@@ -107,10 +163,21 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   }
 
   // Shell Changes
+  extraFields.shells = shellChanges;
+  if (extraFields.shells != 0)
+    rollData.shells = shellChanges;
   let crewUpdateObject = {system: {}};
   if (shellChanges) {
     crewUpdateObject.system.shells = {'==value': Math.min(Math.max(Number(crewFull.system.shells.value) + shellChanges, 0), Number(crewFull.system.shells.max))};
     rollData.realShells = crewUpdateObject.system.shells - Number(crewFull.system.shells.value);
+  }
+  // Harmony Changes
+  extraFields.harmony = harmonyChanges;
+  if (extraFields.harmony != 0)
+    rollData.harmony = harmonyChanges;
+  if (harmonyChanges) {
+    crewUpdateObject.system.harmony = {'==value': Math.min(Math.max(Number(crewFull.system.harmony.value) + harmonyChanges, 0), Number(crewFull.system.harmony.max))};
+    rollData.realHarmony = crewUpdateObject.system.harmony - Number(crewFull.system.harmony.value);
   }
   if (Object.keys(crewUpdateObject.system).length)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
@@ -146,6 +213,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   if (extraFields.position && !extraFields.forcedPosition) extraFields.position = positionIndex[Math.min(Math.max(numberedPosition, 0), 2)];
   if (extraFields.impact && !extraFields.forcedImpact) extraFields.impact = impactIndex[Math.min(Math.max(numberedImpact, 0), 2)];
 
+  extraFields.allowHarmonyGain = allowHarmonyGain || numberedPosition == 0;
   extraFields.rollData = rollData;
 
   if (!extraFields.noRoll) {
@@ -196,6 +264,13 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   let [rollStatus, resultDie, extraResult] = getBladesRollStatus(rolls, zeromode, extraFields.modifiers);
   if (extraFields.forcedResult)
     rollStatus = extraFields.forcedResult;
+
+  let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+  if (crewFull && extraFields.allowHarmonyGain && rollResultIndex.indexOf(rollStatus) >= 2) {
+    let newHarmony = Math.max(Math.min(crewFull.system.harmony.value + 1, crewFull.system.harmony.max), 0);
+    await BladesHelpers.tryUpdate(crewFull, {'system.harmony.value': newHarmony});
+    extraFields.modifier_text = `${extraFields.modifier_text ?? ''}<p>${game.i18n.localize('SFTD.HarmonyGained')}</p>`;
+  }
 
   if (!extraFields.rollData)
     extraFields.rollData = {};
@@ -602,6 +677,8 @@ export async function cancelRollResult(rollData, actorFull) {
   let crewUpdateObject = {};
   if (rollData.realShells)
     crewUpdateObject['system.shells.value'] = Math.min(Math.max(Number(crewFull.system.shells.value) - rollData.realShells, 0), Number(crewFull.system.shells.max));
+  if (rollData.realHarmony)
+    crewUpdateObject['system.harmony.value'] = Math.min(Math.max(Number(crewFull.system.harmony.value) - rollData.realHarmony, 0), Number(crewFull.system.harmony.max));
   if (Object.keys(crewUpdateObject).length > 0)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
 
@@ -1309,14 +1386,17 @@ export async function resolveRollModifierArray(modifiers, actor) {
           if (result.assist) {
             // Assist: List all Connections from other Pilots with at least 1 tick
             if (actor.type != 'strider') continue;
-            result.fields['SFTD.Connection'] = {};
+            let crewFull = BladesHelpers.resolveActor(actor.system.crew);
+            if (!crewFull) continue;
+            if (Object.values(crewFull.system.members).length == 1) continue;
+            result.fields['SFTD.Crewmate'] = {};
             for (let strider of Object.values(crewFull.system.members)) {
               if (strider.uuid == actor.uuid) continue;
               let striderFull = BladesHelpers.resolveActor(strider.uuid);
               if (striderFull.type != 'strider') continue;
-              result.fields['SFTD.Connection'][strider.uuid] = striderFull.name;
+              result.fields['SFTD.Crewmate'][strider.uuid] = striderFull.name;
             }
-            if (!Object.values(result.fields['SFTD.Connection']).length) continue;
+            if (!Object.values(result.fields['SFTD.Crewmate']).length) continue;
           } else if (result.telepathy) {
             // Telepathy: List all crewmates who own the Ability
             await actor.updateCrewWideAbilityOwnership(actor);
