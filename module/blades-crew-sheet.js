@@ -258,20 +258,21 @@ export class BladesCrewSheet extends BladesSheet {
 
   async onFoundationAddClick(event) {
     event.preventDefault();
-    let displayFoundation = function(item, availableCaches, dialogId) {
-      const isTooExpensive = availableCaches < item.system.cache_cost;
-      let html = `<input id="${dialogId}-select-item-${item._id}" name="select_items" type="checkbox" data-cache-cost="${item.system.cache_cost}" value="${item._id}"${isTooExpensive ? ' disabled' : ''}>`;
-      html += `<label class="entry${isTooExpensive ? ' too-expensive' : ''}" for="${dialogId}-select-item-${item._id}" data-cache-cost="${item.system.cache_cost}">`;
-      html += `${game.i18n.localize(item.name)} (${item.system.cache_cost})<i class="fas fa-question-circle" data-tooltip="${game.i18n.localize(item.system.description)}"></i>`;
+    let displayFoundation = function(item, availableCaches, dialogId, isFree) {
+      const cacheCost = (isFree ? 0 : item.system.cache_cost);
+      const isTooExpensive = availableCaches < cacheCost;
+      let html = `<input id="${dialogId}-select-item-${item._id}" name="select_items" type="checkbox" data-cache-cost="${cacheCost}" value="${item._id}"${isTooExpensive ? ' disabled' : ''}>`;
+      html += `<label class="entry${isTooExpensive ? ' too-expensive' : ''}" for="${dialogId}-select-item-${item._id}" data-cache-cost="${cacheCost}">`;
+      html += `${game.i18n.localize(item.name)} (${cacheCost})<i class="fas fa-question-circle" data-tooltip="${game.i18n.localize(item.system.description)}"></i>`;
       html += `</label>`;
       return html;
     }
-    let displayProsperity = function(level, items, availableCaches, dialogId) {
+    let displayProsperity = function(level, items, availableCaches, dialogId, isFree) {
       const prosperityTitle = level != 0 ? `${game.i18n.localize('SFTD.ProsperityLevel')} ${level}` : game.i18n.localize('SFTD.StartingFoundations');
-      let html = '<div class="prosperity-container flex-vertical">';
+      let html = `<div class="prosperity-container flex-vertical" data-prosperity="${level}">`;
       html += `<label class="prosperity-title">${prosperityTitle}</label>`;
       for (const item of Object.values(items.filter(i => i.system.prosperity_level == level)))
-        html += displayFoundation(item, availableCaches, dialogId);
+        html += displayFoundation(item, availableCaches, dialogId, isFree);
       html += '</div>';
       return html;
     }
@@ -292,12 +293,13 @@ export class BladesCrewSheet extends BladesSheet {
     let dialogId = foundry.applications.api.ApplicationV2._appId + 1;
     let html = `<label class="available-caches" data-caches="${availableCaches}">${game.i18n.localize('SFTD.AvailableCaches')}: ${availableCaches}<span></span></label>`;
     html += `<input id="${dialogId}-search-bar" type="text" data-cache-cost="${availableCaches}" value="" placeholder="${game.i18n.format('SFTD.SearchBar', { obj: game.i18n.localize(`TYPES.Item.foundation`) })}" autofocus>`;
+    html += `<div class="free-toggle flex-horizontal"><label>${game.i18n.localize('SFTD.IsFree')}</label><input type="checkbox"></div>`;
     html += `<div class="objects-to-add flex-vertical">`;
     for (const prosperityLevel of Object.keys(prosperityOccurrences)) {
       if (prosperityLevel == 0) continue;
-      html += displayProsperity(prosperityLevel, items, availableCaches, dialogId);
+      html += displayProsperity(prosperityLevel, items, availableCaches, dialogId, false);
     }
-    html += displayProsperity(0, items, availableCaches, dialogId);
+    html += displayProsperity(0, items, availableCaches, dialogId, false);
     html += `</div>`;
 
     let dialog = new foundry.applications.api.DialogV2({
@@ -327,7 +329,7 @@ export class BladesCrewSheet extends BladesSheet {
           return;
         const itemsToAddElements = $(dialog.element).find('.objects-to-add');
         if (result == 'add')
-          await this.addItemsToSheet('foundation', itemsToAddElements, null, true, null);
+          await this.addItemsToSheet('foundation', itemsToAddElements, null, true, null, dialog.isFoundationFree ? {system: {cache_cost: 0}} : null);
         if (result == 'addAsProject') {
           let items = await BladesHelpers.getAllObjectDocumentsByType('foundation', [], game);
           let itemsToAdd = [];
@@ -337,41 +339,61 @@ export class BladesCrewSheet extends BladesSheet {
               itemsToAdd.push(items.find(e => e._id === $(this).val()));
           });
           for (let itemToAdd of itemsToAdd)
-            await BladesHelpers.addProject(dialog.actor, itemToAdd);
+            await BladesHelpers.addProject(dialog.actor, itemToAdd, dialog.isFoundationFree);
         }
       }
     });
 
     dialog.actor = this.actor;
     dialog._onFirstRender = this.dialogOnFirstRender;
+    dialog.isFoundationFree = false;
+    dialog.displayFoundation = displayFoundation;
+    dialog.displayProsperity = displayProsperity;
     await dialog.render(true);
 
-    for (const element of dialog.element.querySelector('.objects-to-add').querySelectorAll('input')) {
+    function addObjectToAddEvents(dialog) {
+      for (const element of dialog.element.querySelector('.objects-to-add').querySelectorAll('input')) {
+        element.addEventListener('click', async (ev) => {
+          const element = ev.currentTarget;
+          const objectsToAddElement = element.closest('.objects-to-add');
+          const objectsAdded = objectsToAddElement.querySelectorAll('input:checked'); 
+          let availableCaches = Number(objectsToAddElement.parentElement.querySelector('.available-caches').dataset.caches);
+          const originalAvailableCaches = availableCaches;
+          for (const objectAdded of objectsAdded)
+            availableCaches -= Number(objectAdded.dataset.cacheCost);
+
+          let needCacheDisplay = originalAvailableCaches != availableCaches;
+          let availableCachesSpanElement = objectsToAddElement.parentElement.querySelector('.available-caches span');
+          availableCachesSpanElement.innerHTML = needCacheDisplay ? ` => ${availableCaches}` : '';
+
+          for (const input of objectsToAddElement.querySelectorAll('input')) {
+            const label = input.nextElementSibling;
+            const tooExpensive = Number(label.dataset.cacheCost) > availableCaches && !input.checked;
+            const oldTooExpensive = label.classList.contains('too-expensive');
+            input.disabled = tooExpensive;
+            if (tooExpensive && !oldTooExpensive)
+              label.classList.add('too-expensive');
+            if (!tooExpensive && oldTooExpensive)
+              label.classList.remove('too-expensive');
+          }
+        });
+      }
+    }
+
+    for (const element of dialog.element.querySelectorAll('.free-toggle input')) {
       element.addEventListener('click', async (ev) => {
         const element = ev.currentTarget;
-        const objectsToAddElement = element.closest('.objects-to-add');
-        const objectsAdded = objectsToAddElement.querySelectorAll('input:checked'); 
-        let availableCaches = Number(objectsToAddElement.parentElement.querySelector('.available-caches').dataset.caches);
-        const originalAvailableCaches = availableCaches;
-        for (const objectAdded of objectsAdded)
-          availableCaches -= Number(objectAdded.dataset.cacheCost);
-
-        let needCacheDisplay = originalAvailableCaches != availableCaches;
-        let availableCachesSpanElement = objectsToAddElement.parentElement.querySelector('.available-caches span');
-        availableCachesSpanElement.innerHTML = needCacheDisplay ? ` => ${availableCaches}` : '';
-
-        for (const input of objectsToAddElement.querySelectorAll('input')) {
-          const label = input.nextElementSibling;
-          const tooExpensive = Number(label.dataset.cacheCost) > availableCaches && !input.checked;
-          const oldTooExpensive = label.classList.contains('too-expensive');
-          input.disabled = tooExpensive;
-          if (tooExpensive && !oldTooExpensive)
-            label.classList.add('too-expensive');
-          if (!tooExpensive && oldTooExpensive)
-            label.classList.remove('too-expensive');
-        }
+        dialog.isFoundationFree = element.checked;
+        const dialogContentElement = element.closest('.dialog-content');
+        for (const prosperityContainerElement of dialogContentElement.querySelectorAll('.prosperity-container'))
+          prosperityContainerElement.outerHTML = displayProsperity(Number(prosperityContainerElement.dataset.prosperity), items, availableCaches, dialogId, element.checked);
+        addObjectToAddEvents(dialog);
+        let availableCachesSpanElement = dialogContentElement.querySelector('.available-caches span');
+        availableCachesSpanElement.innerHTML = '';
       });
     }
+
+    addObjectToAddEvents(dialog);
   }
 
   /* -------------------------------------------- */

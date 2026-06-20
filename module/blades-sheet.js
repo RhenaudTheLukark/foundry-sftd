@@ -287,7 +287,7 @@ export class BladesSheet extends BaseActorSheet {
 
   /* -------------------------------------------- */
 
-  async addItemsToSheet(itemType, el, valuePath, addAsItem, containerId) {
+  async addItemsToSheet(itemType, el, valuePath, addAsItem, containerId, extraModifiers) {
     let items = await BladesHelpers.getAllObjectDocumentsByType(itemType, [], game);
     let itemsToAdd = [];
     el.find('input:checked').each(function() {
@@ -303,6 +303,8 @@ export class BladesSheet extends BaseActorSheet {
           await BladesHelpers.tryUpdate(item, {system: {'==owner': containerId}});
         if (item?.system?.uses?.value != undefined)
           await BladesHelpers.tryUpdate(item, {system: {uses: {'==value': item.system.uses.max}}});
+        if (extraModifiers)
+          await BladesHelpers.tryUpdate(item, extraModifiers);
       }
     } else if (addAsItem)
       await this.handleAddedObjects(itemsToAdd);
