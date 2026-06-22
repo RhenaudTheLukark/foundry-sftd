@@ -257,6 +257,8 @@
         "strider": {},
         "specialist": {}
       },
+      "group_action": null,
+      "phase": "downtime",
       "signature_gear": null
     },
     "faction": {

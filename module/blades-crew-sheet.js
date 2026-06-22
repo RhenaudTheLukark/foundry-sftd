@@ -1,6 +1,7 @@
 import { BladesSheet } from "./blades-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
+import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 /**
  * @extends {BladesSheet}
@@ -233,7 +234,7 @@ export class BladesCrewSheet extends BladesSheet {
         let html = $(dialog.element);
         let attribute = html.find('[name="attribute"]')[0].value;
         let position = html.find('[name="pos"]')[0].value;
-        let effect = html.find('[name="effect"]')[0].value;
+        let impact = html.find('[name="impact"]')[0].value;
         let leaderFull = BladesHelpers.resolveActor(html.find('[name="leader"]')[0].value);
         let note = html.find('[name="note"]')[0].value;
         let speaker = {
@@ -242,13 +243,13 @@ export class BladesCrewSheet extends BladesSheet {
           scene: null,
           token: this.actor.prototypeToken._id
         };
-        await this.actor.createGroupAction(attribute, position, true, effect, true, leaderFull, note);
+        await this.actor.createGroupAction(attribute, position, true, impact, true, leaderFull, note);
         let messageData = {
           speaker: speaker,
-          groupActionSquad: this.actor.uuid,
-          content: await foundry.applications.handlebars.renderTemplate('systems/beamsaber/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, effect: this.actor.system.group_action.effect, leader: leaderFull, note: note, isGM: game.user.isGM })
+          groupActionCrew: this.actor.uuid,
+          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, impact: this.actor.system.group_action.impact, leader: leaderFull, note: note, isGM: game.user.isGM })
         }
-        BeamChatMessage.create(messageData);
+        SFTDChatMessage.create(messageData);
       }
     });
     dialog.render(true);

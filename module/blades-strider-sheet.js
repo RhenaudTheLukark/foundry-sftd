@@ -238,12 +238,12 @@ export class BladesStriderSheet extends BladesSheet {
           if (input.length > 0) {
             let rollType = input[0].id.split('-')[0];
             let extraFields = { roll_type: rollType, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: this.actor };
-            let squadFull = BladesHelpers.resolveActor(this.actor.system.crew);
+            let crewFull = BladesHelpers.resolveActor(this.actor.system.crew);
             switch (rollType) {
               case 'acquireAsset':
                 let acquireAssetSuccessTier = html.find('[name="acquireAssetSuccessTier"]')[0].value;
-                let acquireAssetDiceAmount = Number(squadFull.system.tier.value) + extraDice;
-                extraFields.tier = Number(squadFull.system.tier.value);
+                let acquireAssetDiceAmount = Number(crewFull.system.tier.value) + extraDice;
+                extraFields.tier = Number(crewFull.system.tier.value);
                 extraFields.successTier = acquireAssetSuccessTier;
                 await bladesRoll(acquireAssetDiceAmount, 'SFTD.AcquireAssetRoll', note, extraFields);
                 break;
@@ -294,7 +294,7 @@ export class BladesStriderSheet extends BladesSheet {
                 let manufactureSuccessTier = html.find('[name="manufactureSuccessTier"]')[0].value;
                 let manufactureAction = html.find('[name="manufactureAction"]')[0].value;
                 let manufactureDiceAmount = this.actor.getRollData().diceAmount[manufactureAction] + extraDice;
-                extraFields.tier = Number(squadFull.system.tier.value);
+                extraFields.tier = Number(crewFull.system.tier.value);
                 extraFields.successTier = manufactureSuccessTier;
                 await bladesRoll(manufactureDiceAmount, 'SFTD.ManufactureRoll', note, extraFields);
                 break;
@@ -484,8 +484,8 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'recover', 'SFTD.BadRoll.NoHarm');
     if (Number(this.actor.system.stress.value) <= 0)
       BladesHelpers.addToRollTypeError(missingRollTypes, 'cutLoose', 'SFTD.BadRoll.NoStress');
-    let squadFull = BladesHelpers.resolveActor(this.actor.system.crew);
-    if (!squadFull) {
+    let crewFull = BladesHelpers.resolveActor(this.actor.system.crew);
+    if (!crewFull) {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'acquireAsset', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'collect', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoCrew');
@@ -493,9 +493,9 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'schmooze', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'moveBase', 'SFTD.BadRoll.NoCrew');
     } else {
-      if (!Object.values(squadFull.system.projects).filter(p => Number(p.clock.value) < Number(p.clock.max)).length)
+      if (!Object.values(crewFull.system.projects).filter(p => Number(p.clock.value) < Number(p.clock.max)).length)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoOngoingLTP');
-      if (!squadFull.system.mobile_base)
+      if (!crewFull.system.mobile_base)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'moveBase', 'SFTD.BadRoll.NoMobileBase');
     }
     return [

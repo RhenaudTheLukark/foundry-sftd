@@ -5995,6 +5995,12 @@
   width: 100%;
   gap: 1em;
 }
+.songs-for-the-dusk.actor.sheet.crew .top-area .control-buttons {
+  justify-content: center;
+  gap: 0.5em;
+  font-size: 20px;
+  text-align: center;
+}
 .songs-for-the-dusk.actor.sheet.crew .top-area .harmony {
   justify-content: space-between;
 }

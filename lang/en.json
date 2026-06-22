@@ -170,7 +170,7 @@
         "Description": "The specialist is generally well-liked and well-regarded."
       },
       "Nimble": {
-        "Label": "Nimble", 
+        "Label": "Nimble",
         "Description": "The vehicle handles easily. Consider this an assist (take +1d if a PC rolls) for tricky maneuvers."
       },
       "Auto-Repair": {
@@ -680,15 +680,9 @@
     "ClockStyle": "Clock Style",
     "ClockStylePicker": "Clock Style Picker",
 
-    "Colors": {
-      "Black": "Black",
-      "Blue": "Blue",
-      "Green": "Green",
-      "Grey": "Grey",
-      "Red": "Red",
-      "White": "White",
-      "Yellow": "Yellow"
-    },
+    "StartMission": "Start Mission (Not Yet Implemented)",
+    "EndMission": "End Mission (Not Yet Implemented)",
+    "EndSessionCheatSheet": "End Session Cheat Sheet (Not Yet Implemented)",
 
     "Settings": {
       "Action": {

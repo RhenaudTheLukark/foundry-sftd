@@ -1,6 +1,6 @@
 import { bladesRoll, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing, pruneInvalidConditionalRollModifiers,
-  keepValidModifiersFromOther, computeGroupActionResultAndSendMessage
+  keepValidModifiersFromOther, computeGroupActionResultAndSendMessage, impactIndex
 } from "./blades-roll.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { openFormDialog } from "./lib/dialog-compat.js";

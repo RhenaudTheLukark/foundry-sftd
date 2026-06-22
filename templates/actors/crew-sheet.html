@@ -23,6 +23,20 @@
         </div>
       </div>
 
+      {{#if isGM}}
+      <div class="flex-vertical control-buttons">
+        <div class="add-group-action" data-tooltip="{{localize 'SFTD.GroupActionRoll'}}">
+          {{> 'systems/songs-for-the-dusk/templates/svg/d20.hbs'}}
+        </div>
+        {{#if (eq system.phase 'downtime')}}
+        <a class="start-mission" data-tooltip="{{localize 'SFTD.StartMission'}}"><i class="fas fa-person-walking"></i></a>
+        {{else}}
+        <a class="end-mission" data-tooltip="{{localize 'SFTD.EndMission'}}"><i class="fas fa-bed"></i></a>
+        {{/if}}
+        <a class="end-session" data-tooltip="{{localize 'SFTD.EndSessionCheatSheet'}}"><i class="fas fa-clock"></i></a>
+      </div>
+      {{/if}}
+
       <div class="flex-vertical harmony">
         <div class="black-white-header">{{localize 'SFTD.Harmony'}} <i class="fas fa-question-circle" data-tooltip="{{{localize 'SFTD.HarmonyClue'}}}"></i></div>
         <div class="clock-block">
