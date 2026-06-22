@@ -139,7 +139,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   for (let [stressActorUuid, stressChange] of Object.entries(stressChanges)) {
     let stressChangeItem = {value: stressChange, realValue: stressChange};
     let stressActorFull = BladesHelpers.resolveActor(stressActorUuid);
-    if (stressChange != 0 && stressActorFull?.system.stress?.value) {
+    if (stressChange != 0 && stressActorFull?.system.stress?.value != undefined) {
       let resultStress = Math.max(Math.min(Number(stressActorFull.system.stress.value) + stressChange, stressActorFull.system.stress.max), 0);
       stressChangeItem.realValue = resultStress - Number(stressActorFull.system.stress.value);
       if (resultStress != stressActorFull.system.stress.value)
