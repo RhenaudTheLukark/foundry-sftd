@@ -72,9 +72,10 @@
   }
 }
 
-.leader-block {
+.leader-block, .specialist-block {
   display: flex;
   text-align: center;
+  align-items: center;
   width: 100%;
   flex-direction: column;
   padding-bottom: 10px;
@@ -88,15 +89,28 @@
       border: black 1px solid;
     }
 
-    .leader-name {
+    .name {
       align-self: center;
     }
+  }
+}
+
+.specialist-block {
+  padding-top: 10px;
+
+  & > select {
+    width: fit-content;
+  }
+
+  & > div:not(:empty):not(.button) {
+    padding: 10px 0;
   }
 }
 
 .message-content {
   .button {
     display: flex;
+    width: 100%;
     flex-direction: column;
     padding-top: 0.25em;
   }

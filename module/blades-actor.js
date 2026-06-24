@@ -69,11 +69,11 @@ export class BladesActor extends Actor {
     allConditionalModifiers = pruneInvalidConditionalRollModifiers(this, allConditionalModifiers);
 
     let isAction = BladesHelpers.isAttributeAction(attributeName);
-    let title = game.i18n.format(`SFTD.${isAction ? 'Action' : 'Attribute'}RollTitle`, { attribute: game.i18n.localize(attributeLabel) });
+    let title = game.i18n.format(`SFTD.${isAction ? 'Action' : 'Attribute'}RollTitle`, { attribute: game.i18n.localize(groupActionData ? 'SFTD.GroupActionRoll' : attributeLabel) });
     let rollTypes = groupActionData ? ['groupAction'] : isAction ? ['actionRoll'] : ['resistance'];
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: title },
-      content: buildRollPopup(title, this, rollTypes),
+      content: buildRollPopup(title, this, rollTypes, {}, true, {}, {action: attributeName}),
       buttons: [
         {
           icon: "fas fa-check",
@@ -103,9 +103,9 @@ export class BladesActor extends Actor {
           let rollType = input[0].id.split('-')[0];
           let extraFields = { roll_type: rollType, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: this };
           switch (rollType) {
-            case 'actionRoll':
             case 'groupAction':
-              let attribute = BladesHelpers.getAttributeFromAction(attributeName);
+              attributeName = html.find('[name="groupActionAction"]')[0].value;
+            case 'actionRoll':
               extraFields.dire = this.system.stress.value == this.system.stress.max;
               extraFields.last_stand = this.system.modifiers.last_stand;
               extraFields.group_action = groupActionData;

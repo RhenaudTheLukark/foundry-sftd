@@ -7826,26 +7826,37 @@ ol.chat-log li.chat-message.message .blades-die-tooltip .die.partial-success {
 ol.chat-log li.chat-message.message .blades-die-tooltip .die.failure {
   color: red;
 }
-ol.chat-log li.chat-message.message .leader-block {
+ol.chat-log li.chat-message.message .leader-block, ol.chat-log li.chat-message.message .specialist-block {
   display: flex;
   text-align: center;
+  align-items: center;
   width: 100%;
   flex-direction: column;
   padding-bottom: 10px;
 }
-ol.chat-log li.chat-message.message .leader-block > div {
+ol.chat-log li.chat-message.message .leader-block > div, ol.chat-log li.chat-message.message .specialist-block > div {
   display: flex;
   align-self: center;
   gap: 10px;
 }
-ol.chat-log li.chat-message.message .leader-block > div > img {
+ol.chat-log li.chat-message.message .leader-block > div > img, ol.chat-log li.chat-message.message .specialist-block > div > img {
   border: black 1px solid;
 }
-ol.chat-log li.chat-message.message .leader-block > div .leader-name {
+ol.chat-log li.chat-message.message .leader-block > div .name, ol.chat-log li.chat-message.message .specialist-block > div .name {
   align-self: center;
+}
+ol.chat-log li.chat-message.message .specialist-block {
+  padding-top: 10px;
+}
+ol.chat-log li.chat-message.message .specialist-block > select {
+  width: fit-content;
+}
+ol.chat-log li.chat-message.message .specialist-block > div:not(:empty):not(.button) {
+  padding: 10px 0;
 }
 ol.chat-log li.chat-message.message .message-content .button {
   display: flex;
+  width: 100%;
   flex-direction: column;
   padding-top: 0.25em;
 }

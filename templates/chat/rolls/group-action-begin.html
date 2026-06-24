@@ -7,18 +7,33 @@
   <label><b>{{localize 'SFTD.Leader'}}</b></label>
   <div class="flex-horizontal">
     <img src="{{leader.img}}" data-tooltip="{{leader.name}}" width="48" height="48"/>
-    <div class="leader-name">{{leader.name}}</div>
+    <div class="name">{{leader.name}}</div>
   </div>
 </div>
 
 <div class="button">
   <button class="roll-group-action">{{localize 'SFTD.RollGroupAction'}}</button>
 </div>
-{{#if isGM}}
-<div class="button">
+
+<div class="specialist-block gm-only">
+  <label><b>{{localize 'TYPES.Item.specialist'}}</b></label>
+  <select>
+    <option value="None" selected>{{localize 'SFTD.None'}}</option>
+    {{#each crew.items as |item id|}}
+    {{#if (eq item.type "specialist")}}
+    <option value="{{id}}">{{item.name}}</option>
+    {{/if}}
+    {{/each}}
+  </select>
+  <div class="flex-horizontal"></div>
+  <div class="button gm-only">
+    <button class="roll-group-action-specialist" disabled>{{localize 'SFTD.RollGroupActionSpecialist'}}</button>
+  </div>
+</div>
+
+<div class="button gm-only">
   <button class="reveal-group-action-result">{{localize 'SFTD.RevealGroupActionResult'}}</button>
 </div>
-{{/if}}
 
 {{#if note}}
   <p><em>{{note}}</em></p>

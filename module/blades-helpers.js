@@ -341,7 +341,15 @@ export class BladesHelpers {
       name: randomID(),
       type: itemType
     };
-    return await actor.createEmbeddedDocuments('Item', [data]);
+    let result = await actor.createEmbeddedDocuments('Item', [data]);
+    for (let item of result)
+      await BladesHelpers.postCreateItem(item, actor);
+    return result;
+  }
+
+  static async postCreateItem(item, actor) {
+    if (item.type == 'specialist')
+      await BladesHelpers.tryUpdate(item, {system: {'==crew': actor.uuid}});
   }
 
   /**

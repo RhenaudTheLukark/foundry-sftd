@@ -1,36 +1,20 @@
 <div class="dice-tooltip blades-die-tooltip">
-  <div class="chat-label label-stripe-chat">{{localize 'SFTD.SpecialistRoll'}}</div>
+  <div class="chat-label label-stripe-chat">{{localize 'SFTD.GroupSpecialistRoll'}}</div>
   {{#if (or (not extraFields.within_expertise) zeromode)}}
   <div class="chat-label-small label-stripe-chat-small">{{#if (not extraFields.within_expertise)}}{{localize 'BITD.NoExpertise'}}{{/if}}{{#if zeromode}}{{#if (not extraFields.within_expertise)}} | {{/if}}0d{{/if}}</div>
   {{/if}}
 
-  {{#if (eq roll_status "critical-success")}}
-  <div class="die {{roll_status}}">{{localize 'SFTD.RollCriticalSuccess'}}</div>
-  <div class="description">
-    <p>{{{localize 'SFTD.RollDoWithIncreasedImpactSpecialist'}}}</p>
+  <div class="die {{roll_status}}">
+    {{#if (eq roll_status "critical-success")}}
+      {{localize 'SFTD.RollCriticalSuccess'}}
+    {{else if (eq roll_status "success")}}
+      {{localize 'SFTD.RollSuccess'}}
+    {{else if (eq roll_status "partial-success")}}
+      {{localize 'SFTD.RollPartialSuccess'}}
+    {{else if (eq roll_status "failure")}}
+      {{localize 'SFTD.RollFailure'}}
+    {{/if}}
   </div>
-  {{/if}}
-
-  {{#if (eq roll_status "success")}}
-  <div class="die {{roll_status}}">{{localize 'SFTD.RollSuccess'}}</div>
-  <div class="description">
-    <p>{{{localize 'SFTD.RollDoSpecialist'}}}</p>
-  </div>
-  {{/if}}
-
-  {{#if (eq roll_status "partial-success")}}
-  <div class="die {{roll_status}}">{{localize 'SFTD.RollPartialSuccess'}}</div>
-  <div class="description">
-    <p>{{{localize 'SFTD.RollPartialSuccessSpecialist'}}}</p>
-  </div>
-  {{/if}}
-
-  {{#if (eq roll_status "failure")}}
-  <div class="die {{roll_status}}">{{localize 'SFTD.RollFailure'}}</div>
-  <div class="description">
-    <p>{{{localize 'SFTD.RollFailureSpecialist'}}}</p>
-  </div>
-  {{/if}}
 
   {{#if extraFields.modifier_text}}
   <div class="description">

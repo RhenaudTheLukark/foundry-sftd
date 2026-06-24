@@ -1,6 +1,9 @@
 import { BladesSheet } from "./blades-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
+import { bladesRoll, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
+  checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
+  pruneInvalidConditionalRollModifiers, keepValidModifiersFromOther } from './blades-roll.js';
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 /**
@@ -247,7 +250,7 @@ export class BladesCrewSheet extends BladesSheet {
         let messageData = {
           speaker: speaker,
           groupActionCrew: this.actor.uuid,
-          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, impact: this.actor.system.group_action.impact, leader: leaderFull, note: note, isGM: game.user.isGM })
+          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, impact: this.actor.system.group_action.impact, leader: leaderFull, crew: this.actor, note: note })
         }
         SFTDChatMessage.create(messageData);
       }
@@ -399,6 +402,114 @@ export class BladesCrewSheet extends BladesSheet {
 
   /* -------------------------------------------- */
 
+  /**
+   * Call a popup for creating a specialist roll.
+   */
+  async createSpecialistRollPopup(specialistFull, groupActionData) {
+    // Fetch roll modifiers
+    let [_, allPermanentModifiers, allConditionalModifiers] = this.actor.getModifiers(specialistFull);
+    allPermanentModifiers = await resolveRollModifierArray(allPermanentModifiers, specialistFull);
+    allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, specialistFull);
+    allConditionalModifiers = pruneInvalidConditionalRollModifiers(specialistFull, allConditionalModifiers);
+
+    let rollTypes = groupActionData ? ['groupSpecialist'] : ['specialist'];
+    let missingRollTypes = {};
+    if (this.actor.system.all_hands && !groupActionData) {
+      rollTypes = rollTypes.concat(['reducePressure', 'longTermProject']);
+      if (!Object.values(this.actor.system.projects).filter(p => Number(p.clock.value) < Number(p.clock.max)).length) {
+        missingRollTypes[game.i18n.localize('SFTD.LongTermProjectRoll')] = game.i18n.localize('SFTD.BadRoll.NoOngoingLTP');
+        rollTypes.splice(rollTypes.indexOf('longTermProject'), 1);
+      }
+    }
+
+    let title = game.i18n.localize(`SFTD.${groupActionData ? 'Group' : ''}SpecialistRoll`);
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: title },
+      content: buildRollPopup(title, specialistFull, rollTypes, missingRollTypes),
+      buttons: [
+        {
+          icon: 'fas fa-check',
+          label: `${game.i18n.localize('SFTD.Roll')}`,
+          action: 'roll',
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Cancel'),
+          action: 'cancel',
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result != 'roll') return;
+
+        let html = $(dialog.element);
+        let extraDice = parseInt(html.find('[name="mod"]')[0].value);
+        let withinExpertise = html.find('[name="expertise"]')[0].checked;
+        let note = html.find('[name="note"]')[0].value;
+
+        // Fetch actor roll modifiers & enabled conditional roll modifiers
+        let enabledConditionalModifiers = resolveConditionalModifiers(dialog, specialistFull);
+        enabledConditionalModifiers = keepValidModifiersFromOther(enabledConditionalModifiers);
+
+        let input = html.find('input[type=radio]:checked');
+        if (input.length > 0) {
+          let rollType = input[0].id.split('-')[0];
+          let diceAmount = specialistFull.system.quality + extraDice;
+          let extraFields = { roll_type: rollType, within_expertise: withinExpertise, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: specialistFull };
+          switch (rollType) {
+            case 'specialist':
+              await bladesRoll(specialistFull.system.quality + extraDice, 'SFTD.SpecialistRoll', note, extraFields);
+              break;
+            case 'groupSpecialist':
+              extraFields.group_action = groupActionData;
+              await bladesRoll(specialistFull.system.quality + extraDice, 'SFTD.GroupSpecialistRoll', note, extraFields);
+              break;
+            case 'reducePressure':
+              await bladesRoll(diceAmount, 'SFTD.ReducePressureRoll', note, extraFields);
+              break;
+            case 'longTermProject':
+              let ltpSelect = dialog.element.querySelector('[name="ltpId"]');
+              if (ltpSelect.multiple) {
+                extraFields.ltpIds = [];
+                for (let selectedOption of ltpSelect.selectedOptions)
+                  extraFields.ltpIds.push(selectedOption.value);
+              } else
+                extraFields.ltpId = ltpSelect.value;
+              await bladesRoll(diceAmount, 'SFTD.LongTermProjectRoll', note, extraFields);
+              break;
+            default:
+              break;
+          }
+          if (rollType != 'specialist'&& rollType != 'groupSpecialist')
+            await BladesHelpers.tryUpdate(this.actor, {system: {'==specialist_downtime_done': true}});
+          await postRollProcessing(this.actor, extraFields);
+        }
+      }
+    });
+    dialog.allPermanentModifiers = allPermanentModifiers;
+    dialog.allConditionalModifiers = allConditionalModifiers;
+    dialog.attributeName = '';
+    dialog.rollTypes = rollTypes;
+    dialog._onFirstRender = dialogOnFirstRender;
+    dialog._onRender = dialogOnRender;
+    dialog.refreshModifiers = refreshModifiers;
+    dialog.actor = this.actor;
+    await dialog.render(true);
+
+    for (let element of dialog.element.querySelectorAll('input[type=radio]')) {
+      element.addEventListener('click', (ev) => {
+        let element = ev.currentTarget;
+        let rollType = element.id.split('-')[0];
+        let rollButton = element.closest('.window-content').querySelector('button[data-action="roll"]');
+        let rollButtonText = `${game.i18n.localize('BITD.Roll')} (${game.i18n.localize(`BITD.DowntimeCohortRoll${dialog.actor.system.cohort_downtime_done ? 'Done' : ''}`)})`;
+        if (rollType == 'specialist' || rollType == 'groupSpecialist')
+          rollButtonText = `${game.i18n.localize('BITD.Roll')}`;
+        rollButton.querySelector('span').innerHTML = rollButtonText;
+      });
+    }
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
 	activateListeners(html) {
     super.activateListeners(html);
@@ -470,6 +581,13 @@ export class BladesCrewSheet extends BladesSheet {
         "system.harm": [harm_id]}]);
       this.render(false);
     });
+
+    html.find('.specialist-block-wrapper .add-specialist-roll').click(async ev => {
+      const element = $(ev.currentTarget).closest('.item');
+      let specialistId = element.data('itemId');
+      let specialistFull = this.actor.items.filter(i => i._id == specialistId)[0];
+      await this.createSpecialistRollPopup(specialistFull);
+    })
 
     html.find('.add-group-action').click(async ev => {
       await this.createGroupActionPopup();

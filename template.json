@@ -234,6 +234,7 @@
           "theme_color": null
         }
       },
+      "signature_gear": null,
       "community": {
         "name": "",
         "region": "",
@@ -259,7 +260,7 @@
       },
       "group_action": null,
       "phase": "downtime",
-      "signature_gear": null
+      "specialist_downtime_done": false
     },
     "faction": {
       "tier": {

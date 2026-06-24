@@ -370,7 +370,32 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
           speakerFull.rollAttributePopup(crewFull.system.group_action.action, crewFull.system.group_action);
       });
     }
+    for (const select of html.querySelectorAll('.specialist-block > select'))
+      select.addEventListener('change', async (ev) => {
+        let element = ev.currentTarget;
+        let divElement = element.nextElementSibling;
+        let buttonElement = divElement.nextElementSibling.querySelector('button');
+        let specialistId = element.value;
+        let crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
+        let specialistFull = crewFull.items.contents[specialistId];
+        let noSpecialist = specialistId == 'None';
+        divElement.innerHTML = noSpecialist ? '' : `<img src="${specialistFull.img}" data-tooltip="${specialistFull.name}" width="48" height="48"/><div class="name">${specialistFull.name}</div>`;
+        buttonElement.disabled = noSpecialist;
+      });
+    for (const button of html.querySelectorAll('.roll-group-action-specialist')) {
+      button.addEventListener('click', async (ev) => {
+        let element = ev.currentTarget;
+        let specialistId = element.closest('.specialist-block').querySelector('select').value;
+        let crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
+        let specialistFull = crewFull.items.contents[specialistId];
+        await crewFull.sheet.createSpecialistRollPopup(specialistFull, crewFull.system.group_action);
+      });
+    }
     for (const button of html.querySelectorAll('.reveal-group-action-result'))
       button.addEventListener('click', async (_) => BladesHelpers.resolveActor(message.system.groupActionCrew)?.revealGroupActionResult());
+  }
+  for (const element of html.querySelectorAll('.gm-only')) {
+    if (!game.user.isGM)
+      element.style.display = "none";
   }
 });

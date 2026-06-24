@@ -77,7 +77,7 @@ export const impactIndex = ['weak', 'normal', 'strong'];
  * @param {Object} extraFields
  */
 export async function bladesRoll(diceAmount, attributeOrRollName = '', note = '', extraFields = {}) {
-  if (attributeOrRollName == 'SFTD.SpecialistRoll' && !extraFields.within_expertise) diceAmount = 0;
+  if (attributeOrRollName.includes('SpecialistRoll') && !extraFields.within_expertise) diceAmount = 0;
 
   let numberedPosition = positionIndex.indexOf(extraFields.position);
   let numberedImpact = impactIndex.indexOf(extraFields.impact);
@@ -254,7 +254,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       actor: extraFields.actor._id,
       alias: extraFields.actor.name,
       scene: null,
-      token: extraFields.actor.prototypeToken._id
+      token: extraFields.actor.prototypeToken?._id
     };
 
   let attributeLabel = BladesHelpers.getRollLabel(attributeOrRollName);
@@ -292,11 +292,16 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
 
   let result;
   // TODO: Extend rollData to all roll types
-  // Check for Cohort roll
-  if (attributeOrRollName == 'SFTD.CohortRoll')
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/cohort-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, note: note, extraFields: extraFields });
+  // Check for Specialist rolls
+  if (attributeOrRollName == 'SFTD.SpecialistRoll') {
+    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, note: note, extraFields: extraFields });
+  // Check for Group Specialist rolls
+  } else if (attributeOrRollName == 'SFTD.GroupSpecialistRoll') {
+    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
+    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    crewFull?.updateGroupActionRoll(extraFields.actor.id, rollStatus);
   // Check for Group Action roll
-  else if (extraFields.group_action) {
+  } else if (extraFields.group_action) {
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
     // Dire Action
     if (extraFields.dire && rollStatus == 'critical-success')
@@ -636,7 +641,7 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
       actor: extraFields.actor._id,
       alias: extraFields.actor.name,
       scene: null,
-      token: extraFields.actor.prototypeToken._id
+      token: extraFields.actor.prototypeToken?._id
     };
 
   let attribute_label = BladesHelpers.getRollLabel(attributeOrRollName);
@@ -864,7 +869,8 @@ const rollTypeLabels = {
   collectionAgency: 'SFTD.CollectionAgency',
   sideBusiness: 'SFTD.SideBusiness',
 
-  cohort: 'SFTD.CohortRoll'
+  specialist: 'SFTD.SpecialistRoll',
+  groupSpecialist: 'SFTD.GroupSpecialistRoll'
 }
 
 const rollTypeArgs = {
@@ -897,6 +903,11 @@ const rollTypeArgs = {
         <input type="checkbox" id="forcedImpact" name="forcedImpact">
       </span>
     </div>`,
+  groupAction: (_, args) => `
+    <span>
+      <label>${game.i18n.localize('SFTD.Action')}:</label>
+      <select id="groupActionAction" name="groupActionAction">${args.actions}</select>
+    </span>`,
   aftermath: (_, args) => `
     <span>
       <label>${game.i18n.localize('SFTD.Hazard')}:</label>
@@ -983,14 +994,19 @@ const rollTypeArgs = {
       <label>${game.i18n.localize('SFTD.Type')}:</label>
       <select id="trainType" name="trainType">${args.trainTypes}</select>
     </span>`,
-  cohort: (_) => `
+  specialist: (_) => `
+    <span>
+      <label>${game.i18n.localize('SFTD.WithinExpertise')}:</label>
+      <input type="checkbox" id="expertise" name="expertise" checked>
+    </span>`,
+  groupSpecialist: (_) => `
     <span>
       <label>${game.i18n.localize('SFTD.WithinExpertise')}:</label>
       <input type="checkbox" id="expertise" name="expertise" checked>
     </span>`
 }
 
-export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = {}, strict = true, forcedFields = {}) {
+export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = {}, strict = true, forcedFields = {}, extraData = {}) {
   let currentStress = 0;
   let currentTier = 0;
   let shells = 0;
@@ -1013,7 +1029,13 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
 
   let rollTypesHTML = '', rollTypesArgs = '';
   for (let rollType of rollTypes) {
-    if (rollType == 'cutLoose') {
+    if (rollType == 'groupAction') {
+      let actionsText = `<option value="${extraData.action}">${game.i18n.localize(BladesHelpers.getAttributeLabel(extraData.action))}</option>`;
+      if (extraData.action != 'command')
+        actionsText += `<option value="command">${game.i18n.localize(BladesHelpers.getAttributeLabel('command'))}</option>`;
+
+      thirdArg = {...thirdArg, actions: actionsText};
+    } else if (rollType == 'cutLoose') {
       let connectionsText = '';
       let crewFull = BladesHelpers.resolveActor(actor.system.crew);
       if (crewFull) {
@@ -1024,6 +1046,7 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
             connectionsText += `<option value="${memberFull.uuid}">${memberFull.name}</option>`;
         }
       }
+
       thirdArg = {...thirdArg, currentStress: currentStress, connectionsText: connectionsText};
     } else if (['fix', 'recover'].includes(rollType)) {
       let healActors = `<option value="${actor.uuid}" selected>${actor.name}${(rollType == 'recover' && !actor.system.doctor) ? ` (${game.i18n.localize('SFTD.NoDoctor')})` : ''}</option>`;
@@ -1035,10 +1058,11 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
           if (memberFull?.type == 'strider' && (rollType == 'fix' || (rollType == 'recover' && memberFull.system.doctor)))
             healActors += `<option value="${memberFull.uuid}">${memberFull.name}</option>`;
         }
-        for (let cohortFull of crewFull.items.contents.filter(i => i.type == 'cohort'))
-          if (rollType == 'fix' || (rollType == 'recover' && cohortFull.system.type == 'Expert' && cohortFull.system.doctor))
-            healActors += `<option value="${cohortFull.uuid}">${cohortFull.name}</option>`;
+        for (let specialistFull of crewFull.items.contents.filter(i => i.type == 'specialist'))
+          if (rollType == 'fix' || (rollType == 'recover' && specialistFull.system.type == 'Expert' && specialistFull.system.doctor))
+            healActors += `<option value="${specialistFull.uuid}">${specialistFull.name}</option>`;
       }
+
       thirdArg = {...thirdArg, healActors: healActors};
     } else if (['longTermProject', 'schmooze'].includes(rollType) && actor?.type == 'strider') {
       let actionList = Object.keys(actor.getRollData().diceAmount).filter(a => BladesHelpers.isAttributeAction(a));
@@ -1053,6 +1077,7 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       for (let usedTrainType of Object.keys(actor.system.downtime_activities.train_types))
         trainTypes.splice(trainTypes.indexOf(usedTrainType), 1);
       trainTypesText = trainTypes.map((t, i) => `<option value="${t}"${i == 0 ? ' selected' : ''}>${game.i18n.localize(`SFTD.Actions${BladesHelpers.capitalize(t)}`)}</option>`).join('');
+
       thirdArg = {...thirdArg, trainTypes: trainTypesText};
     }
     if (rollType == 'longTermProject') {
@@ -1421,7 +1446,7 @@ export async function resolveRollModifierArray(modifiers, actor) {
               result.fields['SFTD.Crewmate'][strideruid] = striderFull.name;
             }
           } else if (result.downtime_assist) {
-            // Downtime Assist: List all Pilot Crew Members, Pilot Connections and Cohorts
+            // Downtime Assist: List all Pilot Crew Members, Pilot Connections and Specialists
             if (actor.type != 'strider') continue;
             result.fields['SFTD.Helper'] = {};
             let crewFull = BladesHelpers.resolveActor(actor.system.crew);
@@ -1439,8 +1464,8 @@ export async function resolveRollModifierArray(modifiers, actor) {
               result.fields['SFTD.Helper'][striderFull.uuid] = striderFull.name;
             }
             if (crewFull)
-              for (let cohort of crewFull.items.filter(i => i.type == 'cohort'))
-                result.fields['SFTD.Helper'][cohort.uuid] = cohort.name;
+              for (let specialist of crewFull.items.filter(i => i.type == 'specialist'))
+                result.fields['SFTD.Helper'][specialist.uuid] = specialist.name;
             result.fields['SFTD.Helper'][''] = 'SFTD.Other';
           } else if (result.needsRealWorkshop) {
             let crewFull = actor.type == 'crew' ? actor : BladesHelpers.resolveActor(actor.system.crew);
@@ -1465,8 +1490,6 @@ export function pruneInvalidConditionalRollModifiers(actorFull, modifiers) {
       if (!ownerFull) continue;
       if (!ownerFull.items.find(i => i.system.terminator)) continue;
     }
-    if (modifier.cohortGangType)
-      if (actorFull.system.type != 'Gang' || actorFull.system.gang_type == undefined || !actorFull.system.gang_type.includes(modifier.cohortGangType)) continue;
     if (modifier.factionTrust) {
       let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
       if (!crewFull?.system.faction) continue;
@@ -1638,8 +1661,8 @@ export function checkDowntimeRules(dialog) {
       } else
         return false;
     } else if (dialog.actor.type == 'crew') {
-      // Cohort Rolls
-      if (dialog.actor.system.cohort_downtime_done)
+      // Specialist Rolls
+      if (dialog.actor.system.specialist_downtime_done)
         return false;
     }
   }
@@ -1676,14 +1699,12 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
     return acc;
   }, {});
 
-  // Synchronised: Count separate 6s (success) for a critical success
-  if (crew.system.modifiers.synchronised && result == 'success' && resultOccurrences['success'] >= 2)
+  // Synchronized: Count separate 6s (success) for a critical success
+  if (crew.system.synchronized && result == 'success' && resultOccurrences['success'] >= 2)
     result = 'critical-success';
 
   let leaderFull = BladesHelpers.resolveActor(groupActionData.leader);
   let stress = resultOccurrences['failure'] ?? 0;
-  let quirks = groupActionData.rolls[leaderFull.id] == 'failure' ? 1 : 0;
-  quirks += stress > quirks ? 1 : 0;
 
   // Expertise: If leader's selected action, max stress at 1
   for (let expertise of leaderFull.items.filter(i => i.system.expertise == true))
@@ -1698,7 +1719,7 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
 
   let messageData = {
     speaker: ChatMessage.getSpeaker(),
-    content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader_name: leaderFull.name, stress: stress, quirks: quirks, note: groupActionData.note })
+    content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader_name: leaderFull.name, stress: stress, note: groupActionData.note })
   };
   ChatMessage.create(messageData);
 }
