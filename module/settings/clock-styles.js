@@ -1,5 +1,5 @@
-import { ClockStylesData } from "../models/clock-styles.js";
-import { BladesHelpers } from "../blades-helpers.js";
+import { ClockStylesData } from '../models/clock-styles.js';
+import { BladesHelpers } from '../blades-helpers.js';
 
 const { HandlebarsApplicationMixin, ApplicationV2 } = foundry.applications.api;
 
@@ -12,29 +12,29 @@ export class ClockStylesSettings extends HandlebarsApplicationMixin(ApplicationV
       handler: ClockStylesSettings.#onSubmit,
       closeOnSubmit: true,
     },
-    classes: ["settings", "clock-styles"],
+    classes: ['settings', 'clock-styles'],
     position: {
       width: 700,
       height: 'auto'
     },
-    tag: "form",
+    tag: 'form',
     window: {
-      icon: "fa-solid fa-bars",
-      title: "SFTD.Settings.ClockStyles.Name",
-      contentClasses: ["standard-form"]
+      icon: 'fa-solid fa-bars',
+      title: 'SFTD.Settings.ClockStyles.Name',
+      contentClasses: ['standard-form']
     }
   }
 
   static PARTS = {
-    main: { template: "systems/songs-for-the-dusk/templates/settings/clock-styles.html" },
-    footer: { template: "templates/generic/form-footer.hbs" }
+    main: { template: 'systems/songs-for-the-dusk/templates/settings/clock-styles.html' },
+    footer: { template: 'templates/generic/form-footer.hbs' }
   }
 
   settings = undefined;
 
   async _prepareContext(options) {
     if (this.settings === undefined) {
-      this.settings = new ClockStylesData({ contents: foundry.utils.deepClone(game.settings.get("songs-for-the-dusk", "ClockStyles").contents) });
+      this.settings = new ClockStylesData({ contents: foundry.utils.deepClone(game.settings.get('songs-for-the-dusk', 'ClockStyles').contents) });
     }
 
     const clockStyles = foundry.utils.deepClone(BladesHelpers.clockStyles);
@@ -56,9 +56,9 @@ export class ClockStylesSettings extends HandlebarsApplicationMixin(ApplicationV
       systemPath: 'systems/songs-for-the-dusk/themes/',
       worldPath: `worlds/${game.world.id}/themes/`,
       buttons: [
-        { type: "save", icon: "fa-solid fa-floppy-disk", label: "SETTINGS.Save" },
-        { type: "reload", icon: "fa-solid fa-arrows-rotate", label: "SFTD.Settings.ClockStyles.ReloadClocks" },
-        { type: "close", icon: "fa-solid fa-save", label: "SFTD.Settings.ClockStyles.Close" }
+        { type: 'save', icon: 'fa-solid fa-floppy-disk', label: 'SETTINGS.Save' },
+        { type: 'reload', icon: 'fa-solid fa-arrows-rotate', label: 'SFTD.Settings.ClockStyles.ReloadClocks' },
+        { type: 'close', icon: 'fa-solid fa-save', label: 'SFTD.Settings.ClockStyles.Close' }
       ]
     });
   }
@@ -70,10 +70,16 @@ export class ClockStylesSettings extends HandlebarsApplicationMixin(ApplicationV
    */
   static async #onCollapse(event, target) {
     const dataContainer = target.closest('.row-container').querySelector('.data-container');
-    if (dataContainer.classList.contains('collapsed'))
+    const symbolElement = target.querySelector('i');
+    if (dataContainer.classList.contains('collapsed')) {
       dataContainer.classList.remove('collapsed');
-    else
+      symbolElement.classList.remove('fa-plus-square');
+      symbolElement.classList.add('fa-minus-square');
+    } else {
       dataContainer.classList.add('collapsed');
+      symbolElement.classList.remove('fa-minus-square');
+      symbolElement.classList.add('fa-plus-square');
+    }
   }
 
   static async #onSubmit(event, form, formData) {
@@ -84,12 +90,12 @@ export class ClockStylesSettings extends HandlebarsApplicationMixin(ApplicationV
       const settings = foundry.utils.expandObject(formData.object);
       let output = new ClockStylesData(settings);
 
-      game.settings.set("songs-for-the-dusk", "ClockStyles", output);
-      let themeColor = game.settings.get("songs-for-the-dusk", "DefaultClockThemeColor").split('/');
+      game.settings.set('songs-for-the-dusk', 'ClockStyles', output);
+      let themeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor').split('/');
       if (!output.contents?.[themeColor[0]]?.[themeColor[1]]) {
         let themeEntry = Object.entries(output.contents).filter(t => t[0] != 'dataReason' && Object.entries(t[1]).filter(c => c[0] != 'dataReason' && Object.entries(c[1]).filter(s => s[0] != 'dataReason').length > 0).length > 0)[0];
         let colorEntry = Object.entries(themeEntry[1]).filter(c => c[0] != 'dataReason' && Object.entries(c[1]).filter(s => s[0] != 'dataReason').length > 0)[0];
-        game.settings.set("songs-for-the-dusk", "DefaultClockThemeColor", `${themeEntry[0]}/${colorEntry[0]}`);
+        game.settings.set('songs-for-the-dusk', 'DefaultClockThemeColor', `${themeEntry[0]}/${colorEntry[0]}`);
       }
 
       this.settings = undefined;

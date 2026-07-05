@@ -80,7 +80,22 @@ export const registerSystemSettings = function() {
     name: game.i18n.localize('SFTD.Settings.ClockStyles.Name'),
     hint: game.i18n.localize('SFTD.Settings.ClockStyles.Hint'),
     config: false,
-    default: {},
+    default: new ClockStylesData({
+      contents: {
+        flower: {
+          pink: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          }
+        }
+      }
+    }),
     scope: 'world',
     type: ClockStylesData,
     requiresReload: true

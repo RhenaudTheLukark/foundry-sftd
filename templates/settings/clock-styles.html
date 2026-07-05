@@ -16,7 +16,7 @@
           {{/if}}
         </div>
       </div>
-      <div class="data-container{{#if (eq theme.collapsed true)}} collapsed{{/if}} flex-vertical" data-theme="{{themeName}}">
+      <div class="data-container{{#if theme.collapsed}} collapsed{{/if}} flex-vertical" data-theme="{{themeName}}">
         {{#each theme as |color colorName|}}
         {{#if (and (ne colorName 'dataReason') (ne colorName 'collapsed'))}}
         <div class="color-container row-container">
@@ -31,7 +31,7 @@
               {{/if}}
             </div>
           </div>
-          <div class="data-container{{#if (eq color.collapsed true)}} collapsed{{/if}} flex-vertical" data-theme="{{themeName}}" data-color="{{colorName}}">
+          <div class="data-container{{#if color.collapsed}} collapsed{{/if}} flex-vertical" data-theme="{{themeName}}" data-color="{{colorName}}">
             {{#each color as |size sizeName|}}
             {{#if (and (ne sizeName 'dataReason') (ne sizeName 'collapsed'))}}
             <div class="size-container row-container">

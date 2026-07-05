@@ -1,3 +1,5 @@
+import { ClockStylesData } from "./models/clock-styles.js";
+
 /**
  * Perform a system migration for the entire World, applying migrations for Actors, Items, and Compendium packs
  * @return {Promise}      A Promise which resolves once the migration is completed
@@ -20,6 +22,7 @@ export const migrateWorld = async function(oldVersion, newVersion) {
   }
 
   // Migrate Settings
+  _migrateSettings();
 
   // Set the migration as complete
   game.settings.set("songs-for-the-dusk", "systemMigrationVersion", newVersion);
@@ -47,13 +50,29 @@ function _migrateActor(actor, version) {
 
 /**
  * Migrate the system's settings
- * @param {Actor} setting The setting to Update
- * @return {Object}       The value to replace it with
+ * @param {Number} version  Old version of the migration
  */
-function _migrateSetting(setting, version) {
-  let result = setting;
-
-  return result;
+function _migrateSettings(version) {
+  if (version < 1.1) {
+    // Update Clock Styles
+    let clockStyles = game.settings.get('songs-for-the-dusk', 'ClockStyles').contents;
+    let defaultClockStyles = {
+      flower: {
+        pink: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        }
+      }
+    };
+    clockStyles = foundry.utils.mergeObject(clockStyles, defaultClockStyles);
+    game.settings.set('beamsaber', 'ClockStyles', new ClockStylesData(clockStyles));
+  }
 }
 
 /* -------------------------------------------- */

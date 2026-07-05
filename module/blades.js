@@ -315,17 +315,18 @@ Hooks.once("ready", async function() {
   foundry.documents.collections.WorldSettings.registerSheet("blades", ClockStylesSettings, {});
   await preloadHandlebarsTemplates();
 
-  // Fetch all clock styles
-  await BladesHelpers.loadAllClockStyles();
 
   // Determine whether a system migration is required
   const currentVersion = game.settings.get("songs-for-the-dusk", "systemMigrationVersion");
-  const NEEDS_MIGRATION_VERSION = 1.0;
+  const NEEDS_MIGRATION_VERSION = 1.1;
   const needsMigration = currentVersion != NEEDS_MIGRATION_VERSION;
 
   // Perform the migration
   if (needsMigration && game.user.isGM)
-    migrateWorld(currentVersion ?? 0, NEEDS_MIGRATION_VERSION);
+    await migrateWorld(currentVersion ?? 0, NEEDS_MIGRATION_VERSION);
+
+  // Fetch all clock styles
+  await BladesHelpers.loadAllClockStyles();
 });
 
 /*

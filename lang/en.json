@@ -716,7 +716,7 @@
       },
       "ClockStyles": {
         "Name": "Clock Styles",
-        "Label": "Set Clock Styles...",
+        "Label": "Configure Clock Styles...",
         "Hint": "List of all detected clock styles that can be used.\nSystem clock styles are stored in your Foundry folder's systems/songs-for-the-dusk/themes folder.\nWorld clock styles are stored in your Foundry folder's worlds/<YourWorld>/themes folder.",
         "Fine1": "All of the clocks sprites in this ",
         "Fine2": " are valid and fine to use",
