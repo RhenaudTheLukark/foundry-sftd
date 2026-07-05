@@ -740,6 +740,14 @@
         "Hint": "Whether not having any more Downtime Activities available prevents rolls which use them or not.\nStrict: Rolls are prevented.\nLax: They are not.",
         "Strict": "Strict",
         "Lax": "Lax"
+      },
+      "ActorDragAndDrop": {
+        "Name": "Actor Drag & Drop",
+        "Hint": "Indicates who is allowed to drag & drop actors. Note that this behavior is used for some rolls and features.\nEveryone: Every user is allowed to drag and drop actors.\nTrusted Players & GMs: Normal players are forbidden.\nAll Gamemasters: All players are forbidden.\nGamemaster: Only the main Gamemaster is allowed.",
+        "Everyone": "Everyone",
+        "TrustedAndGMs": "Trusted Players & GMs",
+        "GMs": "All Gamemasters",
+        "GMOnly": "Gamemaster"
       }
     },
     "Keybinds": {

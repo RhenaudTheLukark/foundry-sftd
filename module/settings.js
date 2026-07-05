@@ -42,31 +42,19 @@ export const registerSystemSettings = function() {
     default: 'default/black'
   });
 
-  game.settings.register('songs-for-the-dusk', 'ActionRoll', {
-    name: game.i18n.localize('SFTD.Settings.Action.Name'),
-    hint: game.i18n.localize('SFTD.Settings.Action.Hint'),
-    config: true,
-    default: true,
-    scope: 'world',
-    type: new foundry.data.fields.BooleanField(),
-    requiresReload: true
-  });
-
-  game.settings.register('songs-for-the-dusk', 'ThreatRoll', {
-    name: game.i18n.localize('SFTD.Settings.Threat.Name'),
-    hint: game.i18n.localize('SFTD.Settings.Threat.Hint'),
+  game.settings.register('songs-for-the-dusk', 'ActorDragAndDrop', {
+    name: game.i18n.localize('BITD.Settings.ActorDragAndDrop.Name'),
+    hint: game.i18n.localize('BITD.Settings.ActorDragAndDrop.Hint'),
     config: true,
     scope: 'world',
-    type: new foundry.data.fields.BooleanField(),
-    requiresReload: true
-  });
-
-  game.settings.register('songs-for-the-dusk', 'PushYourself', {
-    name: game.i18n.localize('SFTD.Settings.Push.Name'),
-    hint: game.i18n.localize('SFTD.Settings.Push.Hint'),
-    config: true,
-    scope: 'world',
-    type: new foundry.data.fields.BooleanField(),
+    type: String,
+    default: 'all',
+    choices: {
+      all: game.i18n.localize('BITD.Settings.ActorDragAndDrop.Everyone'),
+      trusted: game.i18n.localize('BITD.Settings.ActorDragAndDrop.TrustedAndGMs'),
+      gms: game.i18n.localize('BITD.Settings.ActorDragAndDrop.GMs'),
+      gm_only: game.i18n.localize('BITD.Settings.ActorDragAndDrop.GMOnly')
+    },
     requiresReload: true
   });
 
