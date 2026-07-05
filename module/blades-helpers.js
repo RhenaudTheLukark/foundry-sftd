@@ -1,6 +1,6 @@
-import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
-import { generateRandomId } from "./compat.js";
-import { openFormDialog } from "./lib/dialog-compat.js";
+import { SFTDChatMessage } from './messages/sftd-chat-message.js';
+import { generateRandomId } from './compat.js';
+import { openFormDialog } from './lib/dialog-compat.js';
 
 export class BladesHelpers {
   static isNumberKey(evt) {
@@ -13,7 +13,6 @@ export class BladesHelpers {
   static isDowntime(attributeOrRollName) {
     return ['acquireAsset', 'collect', 'cutLoose', 'longTermProject', 'manufacture', 'recover', 'schmooze', 'train', 'moveBase'].includes(attributeOrRollName);
   }
-  
 
   static addToRollTypeError(missingRollTypes, key, str) {
     missingRollTypes[key] = (missingRollTypes[key] ? (missingRollTypes[key] + ', ') : '') + game.i18n.localize(str);
@@ -387,7 +386,7 @@ export class BladesHelpers {
     let world_items = [];
     let compendium_items = [];
 
-    if (item_type === "npc" || item_type === "crew") {
+    if (item_type === 'npc' || item_type === 'crew') {
       world_items = game.actors.filter(e => e.type === item_type).map(e => {
         return e
       });
@@ -397,7 +396,7 @@ export class BladesHelpers {
       });
     }
 
-    if (item_type != "crew") {
+    if (item_type != 'crew') {
       let packs = game.packs.filter(e => e.metadata.name === item_type);
       let compendium_contents = await Promise.all(packs.map(pack => pack.getDocuments()));
       for(const compendium_content of compendium_contents) {
@@ -765,7 +764,7 @@ export class BladesHelpers {
 
   /**
    * Groups items by their system.class property.
-   * Items without a class are grouped under "General".
+   * Items without a class are grouped under 'General'.
    *
    * @param {Array} item_list - Array of item objects
    * @returns {Object} Object with class names as keys and arrays of items as values
@@ -775,8 +774,8 @@ export class BladesHelpers {
     let generics = [];
 
     for (const item of item_list) {
-      let itemclass = foundry.utils.getProperty(item, "system.class");
-      if (!itemclass || itemclass === "") {
+      let itemclass = foundry.utils.getProperty(item, 'system.class');
+      if (!itemclass || itemclass === '') {
         generics.push(item);
       } else {
         if (!(itemclass in grouped_items) || !Array.isArray(grouped_items[itemclass])) {
@@ -792,7 +791,7 @@ export class BladesHelpers {
       sorted[key] = grouped_items[key];
     });
     if (generics.length > 0) {
-      sorted["General"] = generics;
+      sorted['General'] = generics;
     }
 
     return sorted;
@@ -800,13 +799,13 @@ export class BladesHelpers {
 
   /**
    * Removes the class prefix from an item name.
-   * e.g., "(Cutter) Not to be Trifled With" -> "Not to be Trifled With"
+   * e.g., '(Cutter) Not to be Trifled With' -> 'Not to be Trifled With'
    *
    * @param {string} name - The item name
    * @returns {string} The name without the class prefix
    */
   static trimClassFromName(name) {
-    return name.replace(/^\([^)]*\)\s*/, "");
+    return name.replace(/^\([^)]*\)\s*/, '');
   }
 
   /**
@@ -816,9 +815,9 @@ export class BladesHelpers {
    * @returns {string} Plain text without HTML tags
    */
   static stripHtml(html) {
-    if (!html) return "";
-    let doc = new DOMParser().parseFromString(html, "text/html");
-    return doc.body.textContent || "";
+    if (!html) return '';
+    let doc = new DOMParser().parseFromString(html, 'text/html');
+    return doc.body.textContent || '';
   }
 
   /* -------------------------------------------- */
@@ -873,7 +872,7 @@ export class BladesHelpers {
 
   static async loadAllClockStyles() {
     BladesHelpers.clockStyles = {};
-    let clockStylesShifts = game.settings.get("songs-for-the-dusk", "ClockStyles").contents;
+    let clockStylesShifts = game.settings.get('songs-for-the-dusk', 'ClockStyles').contents;
 
     const firstClockRegex = new RegExp('(?<size>[0-9]+)clock_0.(?<extension>.*)');
     const themeContainerFolders = [`worlds/${game.world.id}/themes`, 'systems/songs-for-the-dusk/themes'];
