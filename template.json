@@ -25,6 +25,10 @@
           "four": ""
         }
       },
+      "shells": {
+        "value": 0,
+        "max": 4
+      },
       "experience": {
         "value": 0,
         "max": 8,

@@ -6473,6 +6473,83 @@
 .songs-for-the-dusk.actor.sheet.strider table.drive-table th:nth-child(2), .songs-for-the-dusk.actor.sheet.strider table.drive-table th:nth-child(3), .songs-for-the-dusk.actor.sheet.strider table.drive-table td:nth-child(2), .songs-for-the-dusk.actor.sheet.strider table.drive-table td:nth-child(3) {
   width: 98px;
 }
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container {
+  width: fit-content;
+  align-self: center;
+  justify-content: center;
+  gap: 0.5em;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container p > label {
+  display: block;
+  height: 12px;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells {
+  display: flex;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells *:has(~ * > input:checked) label {
+  background-color: #8080ff;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells * input {
+  display: none;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells * input:checked ~ label {
+  background-color: #EEEFFF;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells * input:checked + label {
+  background-color: #8080ff;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells label {
+  height: 16px;
+  width: 16px;
+  background-color: #EEEFFF;
+  transform: rotate(45deg); /* square turned into a diamond */
+  vertical-align: middle;
+  border: 1px solid #191813;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells label[for$="-0"] {
+  margin-right: 0px;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells label:has(~ input:checked) {
+  background-color: #8080ff;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells label {
+  transition: filter 0.1s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells {
+  /* Hide the browser's default checkbox */
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells input {
+  display: none;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells input:checked ~ label {
+  background-color: #EEEFFF;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells input:checked + label {
+  background-color: #8080ff;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells {
+  max-width: 108px;
+  justify-content: center;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells > div {
+  flex-wrap: nowrap;
+  justify-content: left;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells input ~ label {
+  margin-left: 5px;
+  margin-top: 5px;
+  transition: filter 0.2s;
+  cursor: pointer;
+}
+.songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .shells-container .shells input ~ label:hover {
+  filter: brightness(0.8);
+  opacity: 0.9;
+}
 .songs-for-the-dusk.actor.sheet.strider .tab-content .tab.community .belief {
   margin: 10px 0;
 }

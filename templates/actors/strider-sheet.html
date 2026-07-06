@@ -223,7 +223,19 @@
       {{!-- Community Section --}}
       <div id="strider-{{_id}}-community" class="tab flex-vertical community" data-tab="community">
         <div class="label-stripe flex-horizontal">
-          <p><label>{{localize 'SFTD.Community'}}</p>
+          <p><label>{{localize 'SFTD.Community'}}</label></p>
+          <div class="flex-horizontal shells-container">
+            <p><label>{{localize "SFTD.Shells"}}</label></p>
+            <div class="flex-horizontal shells">
+              {{#multiboxes system.shells.value}}
+              <input type="radio" id="strider-{{_id}}-shells-0" data-dType="Number" name="system.shells.value" value="0">
+              {{#times_from 1 system.shells.max}}
+              <input type="radio" id="strider-{{../_id}}-shells-{{this}}" data-dType="Number" name="system.shells.value" value="{{this}}">
+              <label class="radio-toggle{{#if (eq this ../system.shells.value)}} enabled{{/if}}" for="strider-{{../_id}}-shells-{{this}}"></label>
+              {{/times_from}}
+              {{/multiboxes}}
+            </div>
+          </div>
         </div>
 
         <div id="strider-{{_id}}-belief-box" class="flex-vertical belief">

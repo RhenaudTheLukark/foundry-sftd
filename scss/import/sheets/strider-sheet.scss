@@ -86,6 +86,37 @@ table.drive-table {
 
 .tab-content {
   .tab.community {
+    .shells-container {
+      width: fit-content;
+      align-self: center;
+      justify-content: center;
+      gap: 0.5em;
+
+      p > label {
+        display: block;
+        height: 12px;
+      }
+
+      .shells {
+        @include custom_radio_diamond(16px, $almost_white, $clearblue, $almost_black);
+
+        max-width: 108px;
+        justify-content: center;
+
+        & > div {
+          flex-wrap: nowrap;
+          justify-content: left;
+        }
+
+        input ~ label {
+          margin-left: 5px;
+          margin-top: 5px;
+
+          @include changeable($transition-period, $hover-brightness, $hover-opacity);
+        }
+      }
+    }
+
     .belief {
       margin: 10px 0;
     }
