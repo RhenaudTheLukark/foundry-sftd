@@ -323,7 +323,7 @@ Hooks.once("ready", async function() {
 
   // Perform the migration
   if (needsMigration && game.user.isGM)
-    await migrateWorld(currentVersion ?? 0, NEEDS_MIGRATION_VERSION);
+    await migrateWorld(currentVersion, NEEDS_MIGRATION_VERSION);
 
   // Fetch all clock styles
   await BladesHelpers.loadAllClockStyles();

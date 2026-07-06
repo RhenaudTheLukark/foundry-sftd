@@ -43,17 +43,17 @@ export const registerSystemSettings = function() {
   });
 
   game.settings.register('songs-for-the-dusk', 'ActorDragAndDrop', {
-    name: game.i18n.localize('BITD.Settings.ActorDragAndDrop.Name'),
-    hint: game.i18n.localize('BITD.Settings.ActorDragAndDrop.Hint'),
+    name: game.i18n.localize('SFTD.Settings.ActorDragAndDrop.Name'),
+    hint: game.i18n.localize('SFTD.Settings.ActorDragAndDrop.Hint'),
     config: true,
     scope: 'world',
     type: String,
     default: 'all',
     choices: {
-      all: game.i18n.localize('BITD.Settings.ActorDragAndDrop.Everyone'),
-      trusted: game.i18n.localize('BITD.Settings.ActorDragAndDrop.TrustedAndGMs'),
-      gms: game.i18n.localize('BITD.Settings.ActorDragAndDrop.GMs'),
-      gm_only: game.i18n.localize('BITD.Settings.ActorDragAndDrop.GMOnly')
+      all: game.i18n.localize('SFTD.Settings.ActorDragAndDrop.Everyone'),
+      trusted: game.i18n.localize('SFTD.Settings.ActorDragAndDrop.TrustedAndGMs'),
+      gms: game.i18n.localize('SFTD.Settings.ActorDragAndDrop.GMs'),
+      gm_only: game.i18n.localize('SFTD.Settings.ActorDragAndDrop.GMOnly')
     },
     requiresReload: true
   });
@@ -82,8 +82,88 @@ export const registerSystemSettings = function() {
     config: false,
     default: new ClockStylesData({
       contents: {
-        flower: {
+        sftd: {
+          black: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
+          blue: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
+          green: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
+          grey: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
+          orange: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
           pink: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
+          red: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
+          white: {
+            2: {shifted: true},
+            3: {shifted: true},
+            4: {shifted: true},
+            5: {shifted: true},
+            6: {shifted: true},
+            8: {shifted: true},
+            10: {shifted: true},
+            12: {shifted: true}
+          },
+          yellow: {
             2: {shifted: true},
             3: {shifted: true},
             4: {shifted: true},

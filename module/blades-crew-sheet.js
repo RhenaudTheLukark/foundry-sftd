@@ -500,9 +500,9 @@ export class BladesCrewSheet extends BladesSheet {
         let element = ev.currentTarget;
         let rollType = element.id.split('-')[0];
         let rollButton = element.closest('.window-content').querySelector('button[data-action="roll"]');
-        let rollButtonText = `${game.i18n.localize('BITD.Roll')} (${game.i18n.localize(`BITD.DowntimeCohortRoll${dialog.actor.system.cohort_downtime_done ? 'Done' : ''}`)})`;
+        let rollButtonText = `${game.i18n.localize('SFTD.Roll')} (${game.i18n.localize(`SFTD.DowntimeCohortRoll${dialog.actor.system.cohort_downtime_done ? 'Done' : ''}`)})`;
         if (rollType == 'specialist' || rollType == 'groupSpecialist')
-          rollButtonText = `${game.i18n.localize('BITD.Roll')}`;
+          rollButtonText = `${game.i18n.localize('SFTD.Roll')}`;
         rollButton.querySelector('span').innerHTML = rollButtonText;
       });
     }

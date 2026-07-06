@@ -1,7 +1,7 @@
 <div class="dice-tooltip blades-die-tooltip">
   <div class="chat-label label-stripe-chat">{{localize 'SFTD.SpecialistRoll'}}</div>
   {{#if (or (not extraFields.within_expertise) zeromode)}}
-  <div class="chat-label-small label-stripe-chat-small">{{#if (not extraFields.within_expertise)}}{{localize 'BITD.NoExpertise'}}{{/if}}{{#if zeromode}}{{#if (not extraFields.within_expertise)}} | {{/if}}0d{{/if}}</div>
+  <div class="chat-label-small label-stripe-chat-small">{{#if (not extraFields.within_expertise)}}{{localize 'SFTD.NoExpertise'}}{{/if}}{{#if zeromode}}{{#if (not extraFields.within_expertise)}} | {{/if}}0d{{/if}}</div>
   {{/if}}
 
   {{#if (eq roll_status "critical-success")}}

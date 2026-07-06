@@ -22,7 +22,7 @@ export const migrateWorld = async function(oldVersion, newVersion) {
   }
 
   // Migrate Settings
-  _migrateSettings();
+  _migrateSettings(oldVersion);
 
   // Set the migration as complete
   game.settings.set("songs-for-the-dusk", "systemMigrationVersion", newVersion);
@@ -57,8 +57,88 @@ function _migrateSettings(version) {
     // Update Clock Styles
     let clockStyles = game.settings.get('songs-for-the-dusk', 'ClockStyles').contents;
     let defaultClockStyles = {
-      flower: {
+      sftd: {
+        black: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
+        blue: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
+        green: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
+        grey: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
+        orange: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
         pink: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
+        red: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
+        white: {
+          2: {shifted: true},
+          3: {shifted: true},
+          4: {shifted: true},
+          5: {shifted: true},
+          6: {shifted: true},
+          8: {shifted: true},
+          10: {shifted: true},
+          12: {shifted: true}
+        },
+        yellow: {
           2: {shifted: true},
           3: {shifted: true},
           4: {shifted: true},
@@ -71,7 +151,7 @@ function _migrateSettings(version) {
       }
     };
     clockStyles = foundry.utils.mergeObject(clockStyles, defaultClockStyles);
-    game.settings.set('beamsaber', 'ClockStyles', new ClockStylesData(clockStyles));
+    game.settings.set('beamsaber', 'ClockStyles', new ClockStylesData({ contents: clockStyles }));
   }
 }
 
