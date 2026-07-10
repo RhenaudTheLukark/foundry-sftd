@@ -7735,6 +7735,10 @@
   align-items: center;
   gap: 1em;
 }
+.application.dialog .form-group-inline.related {
+  margin-top: -1em;
+  margin-left: 1.5em;
+}
 .application.dialog .form-group-inline > label {
   display: inline-flex;
   align-items: center;
@@ -7817,8 +7821,9 @@
 }
 .application.dialog.start-mission .form-group-inline > div select, .application.dialog.end-mission .form-group-inline > div select, .application.dialog.end-session .form-group-inline > div select {
   width: auto;
+  min-height: 0px;
 }
-.application.dialog.start-mission input[type=checkbox].automated:checked::after, .application.dialog.end-mission input[type=checkbox].automated:checked::after, .application.dialog.end-session input[type=checkbox].automated:checked::after {
+.application.dialog.start-mission input[type=checkbox].automated:checked::after, .application.dialog.start-mission input[type=radio].automated:checked::after, .application.dialog.end-mission input[type=checkbox].automated:checked::after, .application.dialog.end-mission input[type=radio].automated:checked::after, .application.dialog.end-session input[type=checkbox].automated:checked::after, .application.dialog.end-session input[type=radio].automated:checked::after {
   color: #12a012;
 }
 .application.dialog.clock-style-picker .clock-style {

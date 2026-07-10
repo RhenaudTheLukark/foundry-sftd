@@ -37,13 +37,21 @@ export const migrateWorld = async function(oldVersion, newVersion) {
 
 /**
  * Migrate the actor attributes
- * @param {Actor} actor   The actor to Update
+ * @param {Actor} actorFull   The actor to Update
  * @return {Object}       The updateData to apply
  */
-function _migrateActor(actor, version) {
+function _migrateActor(actorFull, version) {
   let updateData = {};
 
-  return updateData ?? {};
+  if (version < 1.2) {
+    if (actorFull.type == 'strider') {
+      updateData['system.downtime_count.base'] = 2;
+      if (actorFull.system.downtime_count.value > 2)
+        updateData['system.downtime_count.value'] = 2;
+    }
+  }
+
+  return updateData;
 }
 
 /* -------------------------------------------- */
@@ -53,7 +61,7 @@ function _migrateActor(actor, version) {
  * @param {Number} version  Old version of the migration
  */
 function _migrateSettings(version) {
-  if (version < 1.1) {
+  if (version < 1.2) {
     // Update Clock Styles
     let clockStyles = game.settings.get('songs-for-the-dusk', 'ClockStyles').contents;
     let defaultClockStyles = {

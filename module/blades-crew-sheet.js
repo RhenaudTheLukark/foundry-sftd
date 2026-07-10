@@ -403,6 +403,179 @@ export class BladesCrewSheet extends BladesSheet {
   /* -------------------------------------------- */
 
   /**
+   * Call a popup for starting a mission.
+   */
+  async startMissionPopup() {
+    let extraData = {};
+    extraData.tier = this.actor.getTier();
+
+    let scarredPilotsWithNoCutLoose = [];
+    for (let member of Object.values(this.actor.system.members)) {
+      let memberFull = BladesHelpers.resolveActor(member.uuid);
+      if (!memberFull || memberFull.type != 'strider') continue;
+      let scars = Number(memberFull.system.scars.value);
+      if (scars > 0 && !memberFull.system.downtime_activities.cutLoose)
+        scarredPilotsWithNoCutLoose.push(memberFull);
+    }
+    extraData.scarredPilots = scarredPilotsWithNoCutLoose.map(p => `<option value="${p.uuid}" selected>${p.name}</option>`);
+    extraData.scarredPilotsCount = scarredPilotsWithNoCutLoose.length;
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('SFTD.StartMission')}` },
+      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/start-mission.html', {extraData: extraData}),
+      classes: ['start-mission'],
+      buttons: [
+        {
+          icon: 'fas fa-person-walking',
+          label: game.i18n.localize('SFTD.StartMission'),
+          action: 'start-mission',
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Cancel'),
+          action: 'cancel',
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result != 'start-mission') return;
+
+        let messageContents = '';
+
+        if (dialog.element.querySelector('[name="cutLooseScar"]').checked && dialog.element.querySelector('[name="cutLooseScarPilots"]')) {
+          let selectedOptions = dialog.element.querySelector('[name="cutLooseScarPilots"]').selectedOptions;
+          let cutLooseScarMessage = '';
+          for (let selectedOption of selectedOptions) {
+            let memberFull = BladesHelpers.resolveActor(selectedOption.value);
+            let scars = Number(memberFull.system.scars.value);
+            let resultStress = Math.max(Math.min(Number(memberFull.system.stress.value) + scars, memberFull.system.stress.max), 0);
+            await BladesHelpers.tryUpdate(memberFull, {'system.stress.value': resultStress});
+            cutLooseScarMessage += ` ${game.i18n.format('SFTD.StartMissionNoCutLooseScarStriderEffect', {pilot: memberFull.name, num: scars})}`;
+          }
+          if (cutLooseScarMessage)
+            messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionNoCutLooseScarEffect')}${cutLooseScarMessage}</p></div>`;
+        }
+
+        // Reset Downtime Activities & Melody for all Striders
+        let melodyUsed = false;
+        for (let member of Object.values(this.actor.system.members)) {
+          let memberFull = BladesHelpers.resolveActor(member.uuid);
+          if (!memberFull || memberFull.type != 'strider') continue;
+          melodyUsed ||= !memberFull.system.melody;
+          await BladesHelpers.tryUpdate(memberFull, {'system.==downtime_activities': {train_types: {}}, 'system.melody': true});
+        }
+        if (melodyUsed)
+          messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionRecoverMelody')}</p></div>`;
+
+        // Set Phase to Mission
+        await BladesHelpers.tryUpdate(this.actor, {'system.phase': 'mission'});
+
+        let speaker = {
+          actor: this.actor._id,
+          alias: this.actor.name,
+          scene: null,
+          token: this.actor.prototypeToken._id
+        };
+        let messageData = {
+          speaker: speaker,
+          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents })
+        }
+        SFTDChatMessage.create(messageData);
+      }
+    });
+    await dialog.render(true);
+  }
+
+  /**
+   * Call a popup for finishing a mission.
+   */
+  async endMissionPopup() {
+    let extraData = {};
+    extraData.vendettas = BladesHelpers.fetchAllRelationships(this.actor).filter(r => r.status == -3).map(r => BladesHelpers.resolveActor(r.owner)).filter(r => r != null).map(r => r.name).join(', ');
+    if (extraData.vendettas == '')
+      extraData.vendettas = 'SFTD.None';
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('SFTD.EndMission')}` },
+      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/end-mission.html', { rep_tiers: Array(6).fill().map((_, i) => `<option value="${i}"${i == 0 ? ' selected' : ''}>${i}</option>`).join(''), extraData: extraData}),
+      classes: ['end-mission'],
+      buttons: [
+        {
+          icon: 'fas fa-bed',
+          label: game.i18n.localize('SFTD.EndMission'),
+          action: 'end-mission',
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Cancel'),
+          action: 'cancel',
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result != 'end-mission') return;
+
+        let messageContents = '';
+
+        // Reset Pilot Downtime Activities
+        for (let member of Object.values(this.actor.system.members)) {
+          let memberFull = BladesHelpers.resolveActor(member.uuid);
+          if (memberFull && memberFull.type == 'strider')
+            BladesHelpers.tryUpdate(memberFull, {'system.downtime_count.value': memberFull.system.downtime_count.base});
+        }
+
+        // Set Phase to Downtime & Reset Cohort Downtime Activity for All Hands
+        BladesHelpers.tryUpdate(this.actor, {'system.phase': 'downtime', 'system.cohort_downtime_done': false});
+
+        let speaker = {
+          actor: this.actor._id,
+          alias: this.actor.name,
+          scene: null,
+          token: this.actor.prototypeToken._id
+        };
+        let messageData = {
+          speaker: speaker,
+          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/end-mission.html', { contents: messageContents })
+        }
+        SFTDChatMessage.create(messageData);
+      }
+    });
+    await dialog.render(true);
+
+    for (let element of dialog.element.querySelectorAll('.collapse-category legend'))
+      element.addEventListener('click', (ev) => {
+        let element = ev.currentTarget;
+        let fieldSetElement = element.parentElement;
+        fieldSetElement.classList.add('collapsed-category');
+      });
+    for (let element of dialog.element.querySelectorAll('div:has(+ .collapse-category)'))
+      element.addEventListener('click', (ev) => {
+        let element = ev.currentTarget;
+        let fieldSetElement = element.nextElementSibling;
+        fieldSetElement.classList.remove('collapsed-category');
+      });
+  }
+
+  /**
+   * Call a popup for finishing a session.
+   */
+  async endSessionPopup() {
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('SFTD.EndSessionCheatSheet')}` },
+      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/end-session.html', {}),
+      classes: ['end-session'],
+      buttons: [
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Close'),
+          action: 'close',
+        }
+      ],
+    });
+    await dialog.render(true);
+  }
+
+  /* -------------------------------------------- */
+
+  /**
    * Call a popup for creating a specialist roll.
    */
   async createSpecialistRollPopup(specialistFull, groupActionData) {

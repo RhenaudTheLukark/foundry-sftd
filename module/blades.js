@@ -318,7 +318,7 @@ Hooks.once("ready", async function() {
 
   // Determine whether a system migration is required
   const currentVersion = game.settings.get("songs-for-the-dusk", "systemMigrationVersion");
-  const NEEDS_MIGRATION_VERSION = 1.1;
+  const NEEDS_MIGRATION_VERSION = 1.2;
   const needsMigration = currentVersion != NEEDS_MIGRATION_VERSION;
 
   // Perform the migration

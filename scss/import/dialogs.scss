@@ -106,7 +106,7 @@ fieldset.form-group {
 
   .radio-group > label {
     gap: 3px;
-    
+
     input {
       margin-right: 0px;
     }
@@ -149,6 +149,11 @@ fieldset.form-group {
   justify-content: left;
   align-items: center;
   gap: 1em;
+
+  &.related {
+    margin-top: -1em;
+    margin-left: 1.5em;
+  }
 
   & > label {
     display: inline-flex;
@@ -255,11 +260,12 @@ fieldset.form-group {
 
       select {
         width: auto;
+        min-height: 0px;
       }
     }
   }
 
-  input[type=checkbox].automated:checked::after {
+  input[type=checkbox].automated:checked::after, input[type=radio].automated:checked::after {
     color: $light_green;
   }
 }

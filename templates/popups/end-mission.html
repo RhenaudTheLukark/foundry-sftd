@@ -1,0 +1,61 @@
+<h2>{{localize 'SFTD.EndMission'}}</h2>
+<p>{{{localize 'SFTD.EndMissionDescription'}}}</p>
+
+<div class="form-group-inline">
+  <input type="checkbox" name="thread" checked>
+  <label>{{{localize 'SFTD.EndMissionThread'}}}</label>
+</div>
+<div class="form-group-inline">
+  <input type="checkbox" name="upkeep" checked>
+  <label>{{{localize 'SFTD.EndMissionUpkeepRoll'}}}</label>
+</div>
+
+<div class="category-collapse">{{localize 'SFTD.EndMissionPressureGain'}} ({{localize 'SFTD.EndMissionClickHereToExpand'}})</div>
+<fieldset class="collapse-category collapsed-category">
+  <legend>{{localize 'SFTD.EndMissionPressureGain'}} ({{localize 'SFTD.EndMissionClickHereToCollapse'}})</legend>
+  <div class="category-collapse">{{localize 'SFTD.EndMissionPressureCollateralDamage'}} ({{localize 'SFTD.EndMissionClickHereToExpand'}})</div>
+  <fieldset class="collapse-category collapsed-category">
+    <legend>{{localize 'SFTD.EndMissionPressureCollateralDamage'}} ({{localize 'SFTD.EndMissionClickHereToCollapse'}})</legend>
+    <div class="form-group-inline">
+      <input type="radio" class="automated" name="supplyRoll" value="none" checked>
+      <label>{{{localize 'SFTD.EndMissionPressureCollateralDamageNone'}}}</label>
+    </div>
+    <div class="form-group-inline">
+      <input type="radio" class="automated" name="supplyRoll" value="minor">
+      <label>{{{localize 'SFTD.EndMissionPressureCollateralDamageMinor'}}}</label>
+    </div>
+    <div class="form-group-inline">
+      <input type="radio" class="automated" name="supplyRoll" value="major">
+      <label>{{{localize 'SFTD.EndMissionPressureCollateralDamageMajor'}}}</label>
+    </div>
+    <div class="form-group-inline">
+      <input type="radio" class="automated" name="supplyRoll" value="devastating">
+      <label>{{{localize 'SFTD.EndMissionPressureCollateralDamageDevastating'}}}</label>
+    </div>
+  </fieldset>
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureHighTargetProfile" checked>
+    <label>{{{localize 'SFTD.EndMissionPressureHighProfileTarget'}}}</label>
+  </div>
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureHostileTerritory" checked>
+    <label>{{{localize 'SFTD.EndMissionPressureHostileTerritory'}}}</label>
+  </div>
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureVendetta"{{#if (ne extraData.vendettas 'SFTD.None')}} checked{{/if}}>
+    <label>{{{localize 'SFTD.EndMissionPressureVendetta' vendettas=(localize extraData.vendettas)}}}</label>
+  </div>
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureSevereInjury" checked>
+    <label>{{{localize 'SFTD.EndMissionPressureSevereInjury'}}}</label>
+  </div>
+  <div class="form-group-inline related">
+    <input type="checkbox" class="automated" name="pressureSevereInjuryYourFault" checked>
+    <label>{{{localize 'SFTD.EndMissionPressureSevereInjuryYourFault'}}}</label>
+  </div>
+</fieldset>
+
+<div class="form-group-inline">
+  <input type="checkbox" name="aftermath" checked>
+  <label>{{{localize 'SFTD.EndMissionAftermath'}}}</label>
+</div>

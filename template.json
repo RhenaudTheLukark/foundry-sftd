@@ -189,8 +189,8 @@
         "protect": true
       },
       "downtime_count": {
-        "base": 3,
-        "value": 3
+        "base": 2,
+        "value": 2
       },
       "downtime_activities": {
         "train_types": {}

@@ -1,0 +1,30 @@
+<h2>{{localize 'SFTD.StartMission'}}</h2>
+<p>{{{localize 'SFTD.StartMissionDescription'}}}</p>
+
+<div class="form-group-inline">
+  <input type="checkbox" checked>
+  <div>
+    <label>{{{localize 'SFTD.StartMissionPrepareMission'}}}</label>
+  </div>
+</div>
+<div class="form-group-inline">
+  <input type="checkbox" class="automated" name="cutLooseScar"{{#if (gt extraData.scarredPilotsCount 0)}} checked{{/if}}>
+    <div>
+      <label>{{{localize 'SFTD.StartMissionNoCutLooseScar'}}}</label>
+      <div class="flex-horizontal actor-contents">
+        <label>{{localize 'TYPES.Actor.strider'}}:</label>
+        {{#if (gt extraData.scarredPilotsCount 0)}}
+        <select name="cutLooseScarPilots" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.scarredPilotsCount}}" multiple>
+          {{{extraData.scarredPilots}}}
+        </select>
+        {{else}}
+        {{localize 'SFTD.None'}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="form-group-inline">
+  <input type="checkbox" checked>
+  <label>{{{localize 'SFTD.StartMissionEngagement'}}}</label>
+</div>

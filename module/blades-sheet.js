@@ -85,12 +85,8 @@ export class BladesSheet extends BaseActorSheet {
     });
 
     html.find('.death-toggle').click(async ev => {
-      const targetId = $(ev.currentTarget).data('targetId') ?? this.actor.uuid;
-      const targetFull = BladesHelpers.resolveActor(targetId);
-      await BladesHelpers.tryUpdate(targetFull, {system: {'==dead': !targetFull.system.dead}});
-      const pilotFull = BladesHelpers.resolveActor(targetFull.system.pilot);
-      if (pilotFull)
-        await BladesHelpers.tryUpdate(pilotFull, {'==name': pilotFull.name});
+      const actorFull = BladesHelpers.resolveActor(this.actor.uuid);
+      await BladesHelpers.tryUpdate(actorFull, {'system.dead': !actorFull.system.dead});
     });
 
     // Manage active effects
