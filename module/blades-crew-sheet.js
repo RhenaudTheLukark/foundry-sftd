@@ -409,16 +409,16 @@ export class BladesCrewSheet extends BladesSheet {
     let extraData = {};
     extraData.tier = this.actor.getTier();
 
-    let scarredPilotsWithNoCutLoose = [];
+    let scarredStridersWithNoCutLoose = [];
     for (let member of Object.values(this.actor.system.members)) {
       let memberFull = BladesHelpers.resolveActor(member.uuid);
       if (!memberFull || memberFull.type != 'strider') continue;
       let scars = Number(memberFull.system.scars.value);
       if (scars > 0 && !memberFull.system.downtime_activities.cutLoose)
-        scarredPilotsWithNoCutLoose.push(memberFull);
+        scarredStridersWithNoCutLoose.push(memberFull);
     }
-    extraData.scarredPilots = scarredPilotsWithNoCutLoose.map(p => `<option value="${p.uuid}" selected>${p.name}</option>`);
-    extraData.scarredPilotsCount = scarredPilotsWithNoCutLoose.length;
+    extraData.scarredStriders = scarredStridersWithNoCutLoose.map(p => `<option value="${p.uuid}" selected>${p.name}</option>`);
+    extraData.scarredStridersCount = scarredStridersWithNoCutLoose.length;
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.StartMission')}` },
@@ -441,15 +441,15 @@ export class BladesCrewSheet extends BladesSheet {
 
         let messageContents = '';
 
-        if (dialog.element.querySelector('[name="cutLooseScar"]').checked && dialog.element.querySelector('[name="cutLooseScarPilots"]')) {
-          let selectedOptions = dialog.element.querySelector('[name="cutLooseScarPilots"]').selectedOptions;
+        if (dialog.element.querySelector('[name="cutLooseScar"]').checked && dialog.element.querySelector('[name="cutLooseScarStriders"]')) {
+          let selectedOptions = dialog.element.querySelector('[name="cutLooseScarStriders"]').selectedOptions;
           let cutLooseScarMessage = '';
           for (let selectedOption of selectedOptions) {
             let memberFull = BladesHelpers.resolveActor(selectedOption.value);
             let scars = Number(memberFull.system.scars.value);
             let resultStress = Math.max(Math.min(Number(memberFull.system.stress.value) + scars, memberFull.system.stress.max), 0);
             await BladesHelpers.tryUpdate(memberFull, {'system.stress.value': resultStress});
-            cutLooseScarMessage += ` ${game.i18n.format('SFTD.StartMissionNoCutLooseScarStriderEffect', {pilot: memberFull.name, num: scars})}`;
+            cutLooseScarMessage += ` ${game.i18n.format('SFTD.StartMissionNoCutLooseScarStriderEffect', {strider: memberFull.name, num: scars})}`;
           }
           if (cutLooseScarMessage)
             messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionNoCutLooseScarEffect')}${cutLooseScarMessage}</p></div>`;
@@ -515,7 +515,7 @@ export class BladesCrewSheet extends BladesSheet {
 
         let messageContents = '';
 
-        // Reset Pilot Downtime Activities
+        // Reset Strider Downtime Activities
         for (let member of Object.values(this.actor.system.members)) {
           let memberFull = BladesHelpers.resolveActor(member.uuid);
           if (memberFull && memberFull.type == 'strider')

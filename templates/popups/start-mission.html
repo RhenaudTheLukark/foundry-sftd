@@ -8,14 +8,14 @@
   </div>
 </div>
 <div class="form-group-inline">
-  <input type="checkbox" class="automated" name="cutLooseScar"{{#if (gt extraData.scarredPilotsCount 0)}} checked{{/if}}>
+  <input type="checkbox" class="automated" name="cutLooseScar"{{#if (gt extraData.scarredStridersCount 0)}} checked{{/if}}>
     <div>
       <label>{{{localize 'SFTD.StartMissionNoCutLooseScar'}}}</label>
       <div class="flex-horizontal actor-contents">
         <label>{{localize 'TYPES.Actor.strider'}}:</label>
-        {{#if (gt extraData.scarredPilotsCount 0)}}
-        <select name="cutLooseScarPilots" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.scarredPilotsCount}}" multiple>
-          {{{extraData.scarredPilots}}}
+        {{#if (gt extraData.scarredStridersCount 0)}}
+        <select name="cutLooseScarStriders" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.scarredStridersCount}}" multiple>
+          {{{extraData.scarredStriders}}}
         </select>
         {{else}}
         {{localize 'SFTD.None'}}

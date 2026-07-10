@@ -31,7 +31,7 @@ export const bladesRollModifierList = {
         dice: 1,
         otherStress: otherStress,
         rollText: 'SFTD.AssistEffect',
-        rollTextArgs: { pilot: assistFull ? assistFull.name : 'Unknown Pilot' },
+        rollTextArgs: { strider: assistFull ? assistFull.name : 'Unknown Strider' },
         allowHarmonyGain: true
       };
     },
@@ -39,30 +39,54 @@ export const bladesRollModifierList = {
   },
   setting_up: {
     name: 'SFTD.SettingUp',
-    rollTypes: ['actionRoll', 'groupAction'],
-    allowHarmonyGain: true,
-    rollText: 'SFTD.SettingUpEffect'
+    rollType: 'actionRoll',
+    fields: {
+      'SFTD.Crewmate': []
+    },
+    resolveFunc: (fields) => {
+      let setupReceiverFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
+      return {
+        allowHarmonyGain: true,
+        rollText: 'SFTD.SettingUpEffect',
+        rollTextArgs: { strider: setupReceiverFull ? setupReceiverFull.name : 'Unknown Strider' }
+      };
+    },
+    setting_up: true
   },
   setup: {
     name: 'SFTD.Setup',
-    rollTypes: ['actionRoll', 'groupAction'],
+    rollType: 'actionRoll',
     fields: {
+      'SFTD.Crewmate': [],
       'SFTD.Effect': ['SFTD.Position', 'SFTD.Impact']
     },
     resolveFunc: (fields) => {
+      let setupGiverFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
       let isImpact = fields['SFTD.Effect'] == 'SFTD.Impact';
       return {
         impact: isImpact ? 1 : 0,
         position: isImpact ? 0 : 1,
         allowHarmonyGain: true,
         rollText: 'SFTD.SetupEffect',
-        rollTextArgs: { effect: game.i18n.localize(fields['SFTD.Effect']) } };
-    }
+        rollTextArgs: {  strider: setupGiverFull ? setupGiverFull.name : 'Unknown Strider', effect: game.i18n.localize(fields['SFTD.Effect']) } };
+    },
+    setup: true
   },
   protect: {
     name: 'SFTD.ProtectTitle',
     rollType: 'resistance',
-    allowHarmonyGain: true
+    fields: {
+      'SFTD.Crewmate': []
+    },
+    resolveFunc: (fields, extraData) => {
+      let protecteeFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
+      return {
+        allowHarmonyGain: true,
+        rollText: 'SFTD.ProtectEffect',
+        rollTextArgs: { strider: protecteeFull ? protecteeFull.name : 'Unknown Strider' }
+      };
+    },
+    protect: true
   }
 }
 
@@ -419,7 +443,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       remainingStress = 0;
       clearStress = extraFields.stress;
     }
-    // Functioning Vice: reduce other pilot's stress by 1
+    // Functioning Vice: reduce other Strider's stress by 1
     if (extraFields.actor.system.functioningVice) {
       if (connectionFull.type == 'strider') {
         if (Number(connectionFull.system.stress.value) > 0)
@@ -432,16 +456,16 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       }
     }
     extraFields.rollData.connections = {};
-    // Increase the Pilot's connection clock by 1/2, reset the clock if maxxed
+    // Increase the Strider's connection clock by 1/2, reset the clock if maxxed
     let connectionId = Object.entries(extraFields.actor.system.connections).find(c => c[1].uuid == connectionFull.uuid)[0];
     let connection = extraFields.actor.system.connections[connectionId];
-    let newClockValue = Number(connection.clock.value) + (extraFields.rollData.carousePilotRelationship ? 2 : 1);
+    let newClockValue = Number(connection.clock.value) + (extraFields.rollData.carouseStriderRelationship ? 2 : 1);
     let clockMaxxed = newClockValue >= connection.clock.max;
     newClockValue = newClockValue - (clockMaxxed ? 3 : 0);
     let updateObject = {};
     updateObject[`system.connections.${connectionId}.clock.value`] = newClockValue;
     extraFields.rollData.connections[`${extraFields.actor._id}/${connectionFull._id}`] = newClockValue - Number(connection.clock.value);
-    // Carouse: Increase relationship from the connection to the Pilot if the option is picked
+    // Carouse: Increase relationship from the connection to the Strider if the option is picked
     let otherClockMaxxed = false;
     if (extraFields.rollData.carouseOtherRelationship) {
       let connectionId = Object.entries(connectionFull.system.connections).find(c => c[1].uuid == extraFields.actor.uuid)[0];
@@ -463,7 +487,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       extraFields.rollData.stressChanges[extraFields.actor._id] = {value: realClearStress, realValue: shiftValue};
     await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
 
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, saved_by_conviction: savedByConviction, saved_by_functioning_vice: savedByFunctioningVice, saved_by_carouse: savedByCarouse, attribute_label: attributeLabel, pilot: connectionFull ? connectionFull.name : 'Unknown Pilot', clear_stress: clearStress, connection_maxxed: clockMaxxed, other_connection_maxxed: otherClockMaxxed, note: note, extraFields: extraFields });
+    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, saved_by_conviction: savedByConviction, saved_by_functioning_vice: savedByFunctioningVice, saved_by_carouse: savedByCarouse, attribute_label: attributeLabel, strider: connectionFull ? connectionFull.name : 'Unknown Strider', clear_stress: clearStress, connection_maxxed: clockMaxxed, other_connection_maxxed: otherClockMaxxed, note: note, extraFields: extraFields });
   }
   // Check for Long-Term Project roll
   else if (attributeOrRollName == 'SFTD.LongTermProjectRoll') {
@@ -661,7 +685,7 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
     newXPValue = newXPValue % maxXPValue;
     await BladesHelpers.tryUpdate(extraFields.actor, BladesHelpers.createUpdateObjectFromPath(newXPValue, xpPath));
     let trainTypeText = game.i18n.localize(`SFTD.Actions${BladesHelpers.capitalize(extraFields.trainType)}`);
-    let trainTypeDescriptionKey = extraFields.trainType == 'playbook' ? 'SFTD.TrainTextGeneral' : 'SFTD.TrainTextPilot';
+    let trainTypeDescriptionKey = extraFields.trainType == 'playbook' ? 'SFTD.TrainTextGeneral' : 'SFTD.TrainTextStrider';
     let trainTypeDescription = game.i18n.format(trainTypeDescriptionKey, {trainType: trainTypeText});
 
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/train-get.html', { train_type_desc: trainTypeDescription, train_type_text: trainTypeText, num: xpGain, level_up: levelUp, note: note, extraFields: extraFields });
@@ -1408,8 +1432,8 @@ export async function resolveRollModifierArray(modifiers, actor) {
         if (Object.keys(bladesRollModifierList).includes(key)) {
           let result = foundry.utils.deepClone(bladesRollModifierList[key]);
           result.key = key;
-          if (result.assist) {
-            // Assist: List all Connections from other Pilots with at least 1 tick
+          if (result.assist || result.setup || result.setting_up || result.protect) {
+            // Assist & Co.: List all other Striders in the Crew
             if (actor.type != 'strider') continue;
             let crewFull = BladesHelpers.resolveActor(actor.system.crew);
             if (!crewFull) continue;
@@ -1446,7 +1470,7 @@ export async function resolveRollModifierArray(modifiers, actor) {
               result.fields['SFTD.Crewmate'][strideruid] = striderFull.name;
             }
           } else if (result.downtime_assist) {
-            // Downtime Assist: List all Pilot Crew Members, Pilot Connections and Specialists
+            // Downtime Assist: List all Strider Crew Members, Strider Connections and Specialists
             if (actor.type != 'strider') continue;
             result.fields['SFTD.Helper'] = {};
             let crewFull = BladesHelpers.resolveActor(actor.system.crew);
