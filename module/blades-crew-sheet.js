@@ -466,8 +466,8 @@ export class BladesCrewSheet extends BladesSheet {
         if (melodyUsed)
           messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionRecoverMelody')}</p></div>`;
 
-        // Set Phase to Mission
-        await BladesHelpers.tryUpdate(this.actor, {'system.phase': 'mission'});
+        // Set Phase to Mission & Reset Harmony to 2
+        await BladesHelpers.tryUpdate(this.actor, {'system.phase': 'mission', 'system.harmony.value': 2});
 
         let speaker = {
           actor: this.actor._id,
