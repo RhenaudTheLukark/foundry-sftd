@@ -299,15 +299,8 @@ export class BladesStriderSheet extends BladesSheet {
                 await bladesRoll(manufactureDiceAmount, 'SFTD.ManufactureRoll', note, extraFields);
                 break;
               case 'recover':
-                let recoverActorUuid = html.find('[name="recoverActor"]')[0].value;
-                extraFields.recoverActor = BladesHelpers.resolveActor(recoverActorUuid);
-                let recoverDice = extraDice;
-                if (extraFields.recoverActor.type == 'character') {
-                  if (extraFields.recoverActor.system.doctor)
-                    recoverDice += extraFields.recoverActor.getRollData().diceAmount['engineer'];
-                } else
-                  recoverDice += extraFields.recoverActor.system.quality;
-                await bladesRoll(recoverDice, 'SFTD.RecoverRoll', note, extraFields);
+                extraFields.noRoll = true;
+                await bladesRoll(0, 'SFTD.RecoverRoll', note, extraFields);
                 break;
               case 'salvage':
                 let salvageVehicleUuid = html.find('#salvageVehicle > .actor-contents').data('actorId');

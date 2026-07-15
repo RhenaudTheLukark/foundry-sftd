@@ -1,0 +1,27 @@
+<div class="dice-tooltip blades-die-tooltip">
+  <div class="chat-label label-stripe-chat">{{localize 'SFTD.TrainRoll'}}</div>
+
+  <div class="description">
+    <p>{{{localize 'SFTD.TrainText' trainTypeDesc=train_type_desc trainTypeText=train_type_text num=num}}}</p>
+  </div>
+
+  {{#if level_up}}
+  <div class="description">
+    {{#if (eq extraFields.trainType 'playbook')}}
+    <p>{{{localize 'SFTD.TrainLevelUpPlaybook'}}}</p>
+    {{else}}
+    <p>{{{localize 'SFTD.TrainLevelUpAttribute' trainType=train_type_text}}}</p>
+    {{/if}}
+  </div>
+  {{/if}}
+
+  {{#if extraFields.modifier_text}}
+  <div class="description">
+    <p>{{{extraFields.modifier_text}}}</p>
+  </div>
+  {{/if}}
+
+  {{#if note}}
+    <em>{{note}}</em>
+  {{/if}}
+</div>

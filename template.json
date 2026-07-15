@@ -197,11 +197,9 @@
       },
       "xp_gain": {
         "playbook": 1,
-        "insight": 1,
-        "prowess": 1,
-        "resolve": 1,
-        "expertise": 1,
-        "acuity": 1
+        "analysis": 1,
+        "kinesis": 1,
+        "semiosis": 1
       }
     },
     "crew": {

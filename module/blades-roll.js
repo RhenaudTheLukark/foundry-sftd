@@ -575,43 +575,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/manufacture-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
   }
-  // Check for Recover roll
-  else if (attributeOrRollName == 'SFTD.RecoverRoll') {
-    let tick = getBladesRollDowntime(rolls, extraResult, zeromode);
-    let levelOneHarm = extraFields.actor.system.harm.light.one != '' || extraFields.actor.system.harm.light.two != '';
-    let min = Number(extraFields.actor.system.healing_clock.min);
-    let value = Number(extraFields.actor.system.healing_clock.value) - min;
-    let max = Number(extraFields.actor.system.healing_clock.max) - min;
-    let clockFills = Math.floor((value + tick) / max);
-    let newValue = (value + tick) % max;
-    let updateObject = {system: {healing_clock: {'==value': min + newValue}}};
-
-    // Update harm
-    let harmLevels = ['', 'light', 'medium', 'heavy', 'deadly'];
-    updateObject.system.harm = {light: {'==one': '', '==two': ''}};
-    if (clockFills > 0)
-      for (let [harmId, harmLevel] of Object.entries(harmLevels)) {
-        if (harmId == 0) continue;
-        let sourceHarmId = Number(harmId) + clockFills;
-        let sourceHarmLevel = sourceHarmId >= harmLevels.length ? '' : harmLevels[sourceHarmId];
-        updateObject.system.harm[harmLevel] = {'==one': sourceHarmLevel != '' ? extraFields.actor.system.harm[sourceHarmLevel].one : ''};
-        if (harmId <= 2)
-          updateObject.system.harm[harmLevel]['==two'] = (sourceHarmLevel != '' && sourceHarmId <= 2) ? extraFields.actor.system.harm[sourceHarmLevel].two : '';
-      }
-    await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
-
-    // Add stress if natural recovery or self-heal
-    let naturalRecovery = extraFields.recoverActor.uuid == extraFields.actor.uuid && !extraFields.actor.system.doctor;
-    let selfHeal = !naturalRecovery && extraFields.recoverActor.uuid == extraFields.actor.uuid;
-    if (naturalRecovery || selfHeal) {
-      let resultStress = Math.max(Math.min(Number(extraFields.actor.system.stress.value) + (naturalRecovery ? 1 : 2), extraFields.actor.system.stress.max), 0);
-      if (resultStress != extraFields.actor.system.stress.value)
-        await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': resultStress}}});
-    }
-    let recoverActorName = naturalRecovery || selfHeal ? game.i18n.localize('SFTD.You') : extraFields.recoverActor.name;
-
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/recover-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, recoverActorName: recoverActorName, naturalRecovery: naturalRecovery, selfHeal: selfHeal, levelOneHarm: levelOneHarm, tick: tick, clockFills: clockFills, note: note, extraFields: extraFields });
-  }
   // Check for Schmooze roll
   else if (attributeOrRollName == 'SFTD.SchmoozeRoll') {
     let trustGain = getBladesRollDowntime(rolls, extraResult, zeromode);
@@ -674,10 +637,29 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
   extraFields.modifier_text = (extraFields.modifier_text ?? '') + computeModifierMessages(extraFields.modifiers);
 
   let result;
+  // Check for Recover
+  if (attributeOrRollName == 'SFTD.RecoverRoll') {
+    let levelOneHarm = extraFields.actor.system.harm.light.one != '' || extraFields.actor.system.harm.light.two != '';
+
+    // Reduce all Harm by one level
+    let updateObject = {};
+    let harmLevels = ['', 'light', 'medium', 'heavy', 'deadly'];
+    for (let [harmId, harmLevel] of Object.entries(harmLevels)) {
+      if (harmId == 0) continue;
+      let sourceHarmId = Number(harmId) + 1;
+      let sourceHarmLevel = sourceHarmId >= harmLevels.length ? '' : harmLevels[sourceHarmId];
+      updateObject[`system.harm.${harmLevel}.one`] = sourceHarmLevel != '' ? extraFields.actor.system.harm[sourceHarmLevel].one : '';
+      if (harmId <= 2)
+        updateObject[`system.harm.${harmLevel}.two`] = (sourceHarmLevel != '' && sourceHarmId <= 2) ? extraFields.actor.system.harm[sourceHarmLevel].two : '';
+    }
+    await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
+
+    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/recover-get.html', { levelOneHarm: levelOneHarm, note: note, extraFields: extraFields });
+  }
   // Check for Train
-  if (attributeOrRollName == 'SFTD.TrainRoll') {
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew); // TODO: Clean this up a bit, surely there's a way to not have to manually pull from the crew?
-    let xpGain = extraFields.actor.system.xp_gain[extraFields.trainType] + (crewFull?.system.modifiers.strider?.xp_gain ? (crewFull.system.modifiers.strider.xp_gain[extraFields.trainType] ?? 0) : 0);
+  else if (attributeOrRollName == 'SFTD.TrainRoll') {
+    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    let xpGain = extraFields.actor.system.xp_gain[extraFields.trainType] + (crewFull?.system.modifiers.strider?.xp_gain?.[extraFields.trainType] ?? 0);
     let xpPath = extraFields.trainType == 'playbook' ? 'system.experience.value' : `system.attributes.${extraFields.trainType}.exp`;
     let newXPValue = Number(extraFields.trainType == 'playbook' ? extraFields.actor.system.experience.value : extraFields.actor.system.attributes[extraFields.trainType].exp) + xpGain;
     let maxXPValue = Number(extraFields.trainType == 'playbook' ? extraFields.actor.system.experience.max : extraFields.actor.system.attributes[extraFields.trainType].exp_max);
@@ -986,11 +968,6 @@ const rollTypeArgs = {
         <option value="engineer" selected>${game.i18n.localize('SFTD.ActionsEngineer')}</option>
         <option value="interface">${game.i18n.localize('SFTD.ActionsInterface')}</option>
       </select>
-    </span>`,
-  recover: (strict, args) => `
-    <span>
-      <label>${game.i18n.localize('SFTD.Medic')}:</label>
-      <select id="recoverActor" name="recoverActor">${args.healActors}</select>
     </span>`,
   schmooze: (strict, args) => `
     <span>

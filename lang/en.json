@@ -261,6 +261,8 @@
     "ImpactNormal": "Normal",
     "ImpactStrong": "Strong",
 
+    "ActionsPlaybook": "Playbook",
+
     "ActionsAnalysis": "Analysis",
     "ActionsAnalysisInfo": "Analysis is the act of detailed observation. It reflects your mental focus.",
     "ActionsDecipher": "Decipher",
@@ -607,15 +609,9 @@
     "RollManufactureResultFailure": "It was unfortunately not enough. You could not manufacture an item of <strong>Tier {success_tier}</strong> quality or above. If you want to manufacture it anyway, since your current item is of <strong>Tier {tier_quality}</strong> quality, you need to spend <strong>{materiel} Materiel</strong> in total.",
     "RollManufactureExtra": "To raise the result of this roll, you may spend 1 Materiel per Tier level, even beyond critical success.",
 
-    "RollRecover": "{recoverActorName} spent some time treating your wounds.",
-    "RollRecoverNaturalRecoveryStress": "You suffered <strong>1 Stress</strong> since you are letting your wounds recover naturally.",
-    "RollRecoverSelfHealStress": "You suffered <strong>2 Stress</strong> since you are healing yourself as a doctor.",
-    "RollRecoverLevelOneHarm": "All Level 1 Harm was cleared.",
-    "RollRecoverResult": "Your Healing Clock was filled by <strong>{tick}</strong> tick(s).",
-    "RollRecoverResultFull": "Since your Healing Clock is full, all Harm has been reduced by one level.",
-    "RollRecoverResultFullTwo": "Since your Healing Clock filled twice, all Harm has been reduced by two levels.",
-    "RollRecoverExtraResult": "You may spend 1 Personnel to increase the roll's result by 1.",
-    "RollRecoverBonusNotice": "For the cost of 1 Personnel, you may take an extra Recover activity if you so wish.",
+    "RollRecover": "You spent some time resting to treat your wounds.",
+    "RollRecoverLevelOneHarm": "All Level 1 Harm has been cleared.",
+    "RollRecoverResultFull": "All Harm has been reduced by one level.",
 
     "RollSchmooze": "You improved your crew {crew}'s relationship with the faction {faction} by <strong>{trust} Trust</strong>.",
     "RollSchmoozeBonusNotice": "For the cost of 1 Personnel, you may take an extra Schmooze activity if you so wish.",
@@ -623,12 +619,12 @@
     "TrainText": "You spend some time training {trainTypeDesc}. Your {trainTypeText} XP was increased by <strong>{num}</strong>.",
     "TrainTextGeneral": "yourself",
     "TrainTextStrider": "your {trainType}",
-    "TrainTextVehicle": "your vehicle's {trainType}",
     "TrainLevelUpPlaybook": "Your XP track has been filled. Take a <strong>new Playbook special ability</strong>.",
     "TrainLevelUpAttribute": "Your XP track has been filled. <strong>Add an Action Point</strong> under the {trainType} attribute.",
-    "TrainBonusNotice": "For the cost of 1 Personnel, you may take an extra Train activity if you so wish.",
 
     "RollMoveBase": "You spent some time relocating your mobile FOB to a new location.",
+
+    "DowntimeExtraResult": "You may spend up to {num} Shells to improve the result level, at the cost of 1 Shell per result level.",
 
     "BadRollPopup": "Some roll types are unavailable:",
     "BadRoll": {
@@ -690,6 +686,8 @@
 
     "ClockStyle": "Clock Style",
     "ClockStylePicker": "Clock Style Picker",
+
+    "Type": "Type",
 
     "StartMission": "Start Mission",
     "StartMissionDescription": "This popup allows you to automate some parts of the mission starting process.<br/>Any ticked checkbox will let the system automate that part of the process to the best of its ability.<br/>This also serves as a cheat sheet: only green options have automation linked to them.",
