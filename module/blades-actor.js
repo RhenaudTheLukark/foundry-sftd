@@ -259,7 +259,7 @@ export class BladesActor extends Actor {
     // Leader: Increase impact by 1 level
     let leaderHasLeaderAbility = leaderFull.items.filter(i => i.system.leader).length > 0;
     let numberedImpact = impactIndex.indexOf(impact) + (leaderHasLeaderAbility ? 1 : 0);
-    impact = impactIndex[Math.min(Math.max(numberedImpact, 0), 2)];
+    impact = impactIndex[Math.min(Math.max(numberedImpact, 0), 4)];
 
     this.system.group_action = { action: action, position: position, forcedPosition: forcedPosition, impact: impact, forcedImpact: forcedImpact, leader: leaderFull.uuid, leader_action: diceAmount, note: note, rolls: {} };
     await BladesHelpers.tryUpdate(this, {system: {'==group_action': this.system.group_action}});

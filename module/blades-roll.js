@@ -6,13 +6,31 @@ import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 export const bladesRollModifierList = {
   lotus_bargain: {
     name: 'SFTD.LotusBargainTitle',
-    notRollTypes: ['moveBase'],
+    notRollTypes: ['recover', 'train'],
     dice: 1,
     rollText: 'SFTD.LotusBargainEffect'
   },
+  push_yourself: {
+    name: 'SFTD.PushYourself',
+    rollTypes: ['actionRoll', 'groupAction', 'fortune'],
+    fields: {
+      'SFTD.Effect': ['SFTD.ExtraDie', 'SFTD.ImprovedImpact', 'SFTD.IgnoreHarm']
+    },
+    resolveFunc: (fields, extraData) => {
+      return {
+        stress: 2,
+        dice: fields['SFTD.Effect'] == 'SFTD.ExtraDie' ? 1 : 0,
+        impact: fields['SFTD.Effect'] == 'SFTD.ImprovedImpact' ? 1 : 0,
+        rollText: `SFTD.PushYourselfEffect`,
+        rollTextArgs: { effect: game.i18n.localize(`${fields['SFTD.Effect']}Effect`) },
+        pushYourself: true
+      };
+    },
+    push_yourself: true
+  },
   harmony: {
     name: 'SFTD.Harmony',
-    notRollTypes: ['moveBase'],
+    notRollTypes: ['recover', 'train'],
     dice: 1,
     harmony: -1,
     rollText: 'SFTD.HarmonyEffect'
@@ -40,18 +58,8 @@ export const bladesRollModifierList = {
   setting_up: {
     name: 'SFTD.SettingUp',
     rollType: 'actionRoll',
-    fields: {
-      'SFTD.Crewmate': []
-    },
-    resolveFunc: (fields) => {
-      let setupReceiverFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
-      return {
-        allowHarmonyGain: true,
-        rollText: 'SFTD.SettingUpEffect',
-        rollTextArgs: { strider: setupReceiverFull ? setupReceiverFull.name : 'Unknown Strider' }
-      };
-    },
-    setting_up: true
+    allowHarmonyGain: true,
+    rollText: 'SFTD.SettingUpEffect'
   },
   setup: {
     name: 'SFTD.Setup',
@@ -91,7 +99,7 @@ export const bladesRollModifierList = {
 }
 
 export const positionIndex = ['desperate', 'risky', 'controlled'];
-export const impactIndex = ['weak', 'normal', 'strong'];
+export const impactIndex = ['zero', 'weak', 'normal', 'strong', 'extreme'];
 
 /**
  * Roll Dice.
@@ -235,7 +243,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
 
   // Only apply modified position and impact if they haven't been forced
   if (extraFields.position && !extraFields.forcedPosition) extraFields.position = positionIndex[Math.min(Math.max(numberedPosition, 0), 2)];
-  if (extraFields.impact && !extraFields.forcedImpact) extraFields.impact = impactIndex[Math.min(Math.max(numberedImpact, 0), 2)];
+  if (extraFields.impact && !extraFields.forcedImpact) extraFields.impact = impactIndex[Math.min(Math.max(numberedImpact, 0), 4)];
 
   extraFields.allowHarmonyGain = allowHarmonyGain || numberedPosition == 0;
   extraFields.rollData = rollData;
@@ -351,11 +359,17 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
 
     let impactLocalize = '';
     switch (extraFields.impact) {
+      case 'zero':
+        impactLocalize = 'SFTD.ImpactZero'
+        break;
       case 'weak':
         impactLocalize = 'SFTD.ImpactWeak'
         break;
       case 'strong':
         impactLocalize = 'SFTD.ImpactStrong'
+        break;
+      case 'extreme':
+        impactLocalize = 'SFTD.ImpactExtreme'
         break;
       case 'normal':
       default:
@@ -1409,7 +1423,7 @@ export async function resolveRollModifierArray(modifiers, actor) {
         if (Object.keys(bladesRollModifierList).includes(key)) {
           let result = foundry.utils.deepClone(bladesRollModifierList[key]);
           result.key = key;
-          if (result.assist || result.setup || result.setting_up || result.protect) {
+          if (result.assist || result.setup || result.protect) {
             // Assist & Co.: List all other Striders in the Crew
             if (actor.type != 'strider') continue;
             let crewFull = BladesHelpers.resolveActor(actor.system.crew);

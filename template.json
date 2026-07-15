@@ -182,6 +182,7 @@
         "crew": {},
         "specialist": {},
         "lotus_bargain": true,
+        "push_yourself": true,
         "harmony": true,
         "assist": true,
         "setting_up": true,
