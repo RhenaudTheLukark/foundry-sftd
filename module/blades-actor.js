@@ -248,7 +248,7 @@ export class BladesActor extends Actor {
     sheetData.system = BladesHelpers.mergeAddObjects(sheetData.system, ['crew'], sheetData.system.modifiers);
 
     // Sanitize some data (make sure it's kept within its normal bounds)
-    sheetData.system.load = Math.max(Math.min(sheetData.system.load, 11), 0);
+    sheetData.system.load = Math.clamp(sheetData.system.load, 0, 11);
   }
 
   /* -------------------------------------------- */

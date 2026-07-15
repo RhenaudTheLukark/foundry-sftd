@@ -51,6 +51,7 @@ export class BladesStriderSheet extends BladesSheet {
       }
       load += Math.max(itemLoad, 0);
     });
+    sheetData.system.load = load;
 
     sheetData.system.description = await enrichHTML(sheetData.system.description, {
       secrets: sheetData.owner,
