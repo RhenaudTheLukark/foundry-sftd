@@ -31,6 +31,49 @@ export class BladesActor extends Actor {
   }
 
   /** @override */
+  static async _preDeleteOperation(documents, operation, user) {
+    let removeSingle = async function(obj, removeFunc, removeFuncArg) {
+      if (obj) {
+        if (obj.uuid)
+          obj = obj.uuid;
+        let objFull = BladesHelpers.resolveActor(obj);
+        if (objFull)
+          await removeFunc(removeFuncArg ?? objFull);
+      }
+    };
+    let removeArray = async function(array, removeFunc) {
+      for (let obj of array)
+        await removeSingle(obj, removeFunc);
+    };
+
+    for (let document of documents) {
+      // Data cleanup
+      switch (document.type) {
+        case 'strider':
+          await removeSingle(document.system.crew, BladesHelpers.removeCrewStrider, document);
+          break;
+        case 'crew':
+        case 'faction':
+          await removeArray(Object.values(document.system.members), async (removeFuncArg) => {
+            if (removeFuncArg.type == 'strider') await BladesHelpers.removeCrewStrider(removeFuncArg);
+            if (removeFuncArg.type == 'npc') await BladesHelpers.removeFactionNPC(removeFuncArg);
+          });
+          for (let relationship of BladesHelpers.fetchAllRelationships(document)) {
+            let entityFull = BladesHelpers.resolveActor(relationship.owner);
+            if (entityFull)
+              await BladesHelpers.removeRelationship(entityFull, document);
+          }
+          break;
+        case 'npc':
+          await removeSingle(document.system.faction, BladesHelpers.removeFactionNPC, document);
+          break;
+      }
+    }
+
+    super._onDeleteOperation(documents, operation, user);
+  }
+
+  /** @override */
   getRollData() {
     const rollData = super.getRollData();
     rollData.diceAmount = this.getAttributeDiceToThrow();
