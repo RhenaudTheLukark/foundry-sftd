@@ -54,8 +54,11 @@ export class BladesSheet extends BaseActorSheet {
       const element = $(ev.currentTarget).closest('.item');
       //acqId is the UUID of the Actor
       let acqId = element.data('itemId');
-      // if the Actor is not in the world the if loop will trigger
       let actor = BladesHelpers.resolveActor(acqId);
+      if (!actor) {
+        let acqUuid = element.data('itemUuid');
+        actor = BladesHelpers.resolveActor(acqUuid);
+      }
       actor?.sheet.render(true);
     });
 

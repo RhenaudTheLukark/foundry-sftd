@@ -156,7 +156,7 @@
           <div class="item-class-label title-label"><a class="item-add-popup" data-item-type="item" data-unique="true" data-value-path="system.signature_gear" data-add-as-item="false">{{localize 'SFTD.SignatureGear'}}:</a></div>
           {{#if system.signature_gear}}
           <div class="item flex-horizontal" data-item-id="{{system.signature_gear.id}}">
-            <div class="open-actor flex-horizontal">
+            <div class="flex-horizontal">
               <img src="{{system.signature_gear.img}}" data-tooltip="{{system.signature_gear.name}}" width="24" height="24"/>
               <label class="item-name">{{system.signature_gear.name}}</label>
             </div>
@@ -407,7 +407,7 @@
         <p><label>{{localize "SFTD.AllItems"}}</label></p>
       </div>
       {{#each items as |item id|}}
-      <div class="item flex-horizontal" data-item-id="{{item._id}}">
+      <div class="item flex-horizontal" data-item-id="{{item._id}}" data-item-uuid="{{item.uuid}}">
         <div class="item-body item-sheet-open flex-horizontal">
           <img src="{{item.img}}" data-tooltip="{{item.name}}" width="24" height="24"/>
           <div class="item-name">{{item.name}}</div>

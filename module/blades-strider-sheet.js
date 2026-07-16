@@ -1,6 +1,6 @@
-import {BladesSheet} from "./blades-sheet.js";
-import {BladesActiveEffect} from "./blades-active-effect.js";
-import {BladesHelpers} from "./blades-helpers.js";
+import { BladesSheet } from "./blades-sheet.js";
+import { BladesActiveEffect } from "./blades-active-effect.js";
+import { BladesHelpers } from "./blades-helpers.js";
 import { enrichHTML } from "./compat.js";
 import { bladesRoll, simpleRollPopup, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
