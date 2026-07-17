@@ -393,7 +393,7 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'manufacture', 'SFTD.BadRoll.NoCrew');
     } else {
-      if (!Object.values(crewFull.system.projects).filter(p => Number(p.clock.value) < Number(p.clock.max)).length)
+      if (!Object.values(crewFull.system.projects).filter(p => p.clock.value < p.clock.max && !p.foundation).length)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoOngoingLTP');
       if (!crewFull.system.mobile_base)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'moveBase', 'SFTD.BadRoll.NoMobileBase');
