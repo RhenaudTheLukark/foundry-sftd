@@ -5,7 +5,7 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>The Radiant-Origin Signal Evaluation network was established to track Radiant technology. If it gives off a signal (as most Radiant tech does), a R.O.S.E. can triangulate its position&mdash;and as a bonus, each compass reports distance and direction from all other compasses nearby.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
     "is_complex": false
   },
@@ -25,7 +25,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869583441,
-    "modifiedTime": 1780869592967,
+    "modifiedTime": 1780876312041,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!CoVuTg1pquGuNaHT"

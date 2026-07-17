@@ -5,7 +5,7 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>This swarm of constructor drones can help you lift heavy objects and weld them in place. They&rsquo;re no replacement for the expertise of a person, but they&rsquo;re good for building out the skeletons of more complex constructions.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
     "is_complex": false
   },
@@ -25,7 +25,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869748093,
-    "modifiedTime": 1780869759566,
+    "modifiedTime": 1780876321792,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!Un7eg3grKvhjxj8S"

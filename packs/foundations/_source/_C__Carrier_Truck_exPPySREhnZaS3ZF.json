@@ -5,7 +5,7 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>This heavy hovertruck comes equipped with similarly-hovering pallets to help you transport crates of supplies and materials.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
     "is_complex": false
   },
@@ -25,7 +25,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869674461,
-    "modifiedTime": 1780869681482,
+    "modifiedTime": 1780876315526,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!exPPySREhnZaS3ZF"

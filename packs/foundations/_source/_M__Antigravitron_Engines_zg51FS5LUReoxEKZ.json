@@ -5,9 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>These devices (2 load each) produce immensely powerful antigravity waves for a few seconds, allowing you to safely collapse buildings and control the fall of large debris.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
-    "is_complex": false
+    "is_complex": false,
+    "is_upgrade": false,
+    "npc": "None"
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869777527,
-    "modifiedTime": 1780869787734,
+    "modifiedTime": 1784266273930,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!zg51FS5LUReoxEKZ"

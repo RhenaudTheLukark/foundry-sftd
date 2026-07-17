@@ -5,9 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>You have a fleet of rugged vehicles equipped with beds, food storage and refrigeration, water purifiers, etc. to help large groups of people cross long distances.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
-    "is_complex": false
+    "is_complex": false,
+    "is_upgrade": false,
+    "npc": "null"
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869716133,
-    "modifiedTime": 1780869728507,
+    "modifiedTime": 1784272439706,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!vGMwxho0Tuup6SX2"

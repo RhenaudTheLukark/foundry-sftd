@@ -5,7 +5,7 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>A set of all-terrain levitating thruster bikes for your crew. Each bike seats one (two in a pinch, but it&rsquo;s not comfortable) and can be transmaterialized into and out of a rover or dropjet. The engines run quiet and can go days without refueling.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
     "is_complex": false
   },
@@ -25,7 +25,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869863465,
-    "modifiedTime": 1780869952701,
+    "modifiedTime": 1780876326694,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!K451GiW8XljzDSM0"

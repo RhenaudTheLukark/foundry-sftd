@@ -5,7 +5,7 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>These devices (1 load each) are capable of projecting semisolid holograms. Trying to move or seriously disturb a hologram disrupts the illusion, but they&rsquo;ll stand up to visual inspection and casual touch.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
     "is_complex": false
   },
@@ -25,7 +25,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780870001393,
-    "modifiedTime": 1780870017608,
+    "modifiedTime": 1780876329791,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!oXNcCPbZ9cXkXBch"

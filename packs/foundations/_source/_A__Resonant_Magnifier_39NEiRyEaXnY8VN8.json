@@ -5,9 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>A rare and finicky device, the resonant magnifier can briefly enhance natural transcendent phenomena for a few seconds, allowing you to exaggerate their effects for study. It works poorly on transcendent powers wielded by thinking minds.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
-    "is_complex": false
+    "is_complex": false,
+    "is_upgrade": false,
+    "npc": "None"
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869554039,
-    "modifiedTime": 1780869561267,
+    "modifiedTime": 1784266270765,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!39NEiRyEaXnY8VN8"

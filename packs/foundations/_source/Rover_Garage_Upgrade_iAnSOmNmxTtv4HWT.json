@@ -7,7 +7,8 @@
     "description": "<p>Equips the rover with armor and a dome-shield that can remain active as long as the rover is still.</p>",
     "prosperity_level": 3,
     "cache_cost": 3,
-    "is_complex": true
+    "is_complex": true,
+    "is_upgrade": true
   },
   "effects": [],
   "folder": null,
@@ -25,7 +26,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867360401,
-    "modifiedTime": 1780867376227,
+    "modifiedTime": 1784259235887,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!iAnSOmNmxTtv4HWT"

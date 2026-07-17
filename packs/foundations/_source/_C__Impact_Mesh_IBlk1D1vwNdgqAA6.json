@@ -5,7 +5,7 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>Latticed webs of shock-absorbing material that you can apply to objects or line containers with. Objects cradled in impact mesh have armor against kinetic impacts.</p>",
-    "prosperity_level": 1,
+    "prosperity_level": 0,
     "cache_cost": 0,
     "is_complex": false
   },
@@ -25,7 +25,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869693755,
-    "modifiedTime": 1780869702920,
+    "modifiedTime": 1780876318742,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!IBlk1D1vwNdgqAA6"
