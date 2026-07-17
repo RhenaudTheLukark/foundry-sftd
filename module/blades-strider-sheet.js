@@ -258,15 +258,9 @@ export class BladesStriderSheet extends BladesSheet {
                 await bladesRoll(constructFoundationDice, 'SFTD.ConstructFoundationRoll', note, extraFields);
                 break;
               case 'longTermProject':
-                let ltpAction = html.find('[name="ltpAction"]')[0].value;
+                let ltpAction = dialog.element.querySelector('#ltpAction').value;
                 let ltpDice = this.actor.getRollData().diceAmount[ltpAction] + extraDice;
-                let ltpSelect = dialog.element.querySelector('[name="ltpId"]');
-                if (ltpSelect.multiple) {
-                  extraFields.ltpIds = [];
-                  for (let selectedOption of ltpSelect.selectedOptions)
-                    extraFields.ltpIds.push(selectedOption.value);
-                } else
-                  extraFields.ltpId = ltpSelect.value;
+                extraFields.ltpId = dialog.element.querySelector('#ltpId').value;
                 await bladesRoll(ltpDice, 'SFTD.LongTermProjectRoll', note, extraFields);
                 break;
               case 'recover':
@@ -329,15 +323,16 @@ export class BladesStriderSheet extends BladesSheet {
         if (dropData.uuid) {
           let dropFull = BladesHelpers.resolveActor(dropData.uuid);
           if (dropFull.type == 'foundation') {
-            let compendiumItemFull = await game.packs.contents.find(p => p.metadata.id == dropFull.pack).getDocument(dropFull._id);
-            dialog.constructFoundationNewFoundation = compendiumItemFull;
+            if (dropFull.pack)
+              dropFull = await game.packs.contents.find(p => p.metadata.id == dropFull.pack).getDocument(dropFull._id);
+            dialog.constructFoundationNewFoundation = dropFull;
             // Drop a Foundation for the Construct Foundation roll
             $(this).find('#cfNewFoundation')[0].innerHTML = `
               <div class="actor-contents flex-horizontal" data-actor-id="${dropData.uuid}">
-                <a class="item-name">${compendiumItemFull.name}</a>
+                <a class="item-name">${dropFull.name}</a>
                 <a class="delete-actor"><i class="fas fa-times"></i></a>
               </div>`;
-            $(this).find('#cfNewFoundationCost')[0].innerHTML = Array(9).fill().map((_, i) => `<option value="${i}"${i == compendiumItemFull.system.cache_cost ? ' selected' : ''}>${i}</option>`).join('')
+            $(this).find('#cfNewFoundationCost')[0].innerHTML = Array(9).fill().map((_, i) => `<option value="${i}"${i == dropFull.system.cache_cost ? ' selected' : ''}>${i}</option>`).join('')
             $(this).find('#cfNewFoundation .delete-actor')[0].onclick = function (ev) {
               dialog.constructFoundationNewFoundation = null;
               let rollType = $(this).closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
@@ -366,18 +361,22 @@ export class BladesStriderSheet extends BladesSheet {
       }
       dialog.element.querySelector('#cfNewFoundationCost').addEventListener('change', (ev) => {
         let element = ev.currentTarget;
-        element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
+        let rollType = element.closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
+        if (rollType == 'constructFoundation')
+          element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
       });
       dialog.element.querySelector('#cfFoundation').addEventListener('change', (ev) => {
         let element = ev.currentTarget;
-        element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
+        let rollType = element.closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
+        if (rollType == 'constructFoundation')
+          element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
       });
     });
   }
 
   // Remove unavailable roll types
   getDowntimeRollTypesToRemove() {
-    let rollTypes = ['constructFoundation', 'recover', 'train'];
+    let rollTypes = ['constructFoundation', 'longTermProject', 'recover', 'train'];
     let missingRollTypes = {};
 
     let trainTypes = ['playbook'];

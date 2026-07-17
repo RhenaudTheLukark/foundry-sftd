@@ -6268,6 +6268,19 @@
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .tab-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .item-container-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .tab-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .item-container-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .tab-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .item-container-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .tab-list > *:nth-child(even), .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .item-container-list > *:nth-child(even) {
   background-color: rgba(255, 255, 255, 0.2);
 }
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .tab-list .npc, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .item-container-list .npc, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .tab-list .npc, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .item-container-list .npc, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .tab-list .npc, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .item-container-list .npc, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .tab-list .npc, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .item-container-list .npc {
+  text-align: center;
+  align-self: center;
+  align-items: center;
+  flex-shrink: 0;
+}
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .tab-list .npc .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .item-container-list .npc .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .tab-list .npc .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .item-container-list .npc .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .tab-list .npc .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .item-container-list .npc .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .tab-list .npc .member-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.all-items .item-container-list .npc .member-name {
+  width: auto;
+  max-width: 150px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.foundations .item-name, .songs-for-the-dusk.actor.sheet.crew .tab-content .tab.abilities .item-name {
   width: 100px;
 }

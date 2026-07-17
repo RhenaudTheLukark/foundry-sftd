@@ -1,5 +1,5 @@
 <div class="dice-tooltip blades-die-tooltip">
-  <div class="chat-label label-stripe-chat">{{localize 'SFTD.ConstructFoundationRoll'}}</div>
+  <div class="chat-label label-stripe-chat">{{localize 'SFTD.LongTermProjectRoll'}}</div>
   {{#if (or zeromode (eq extraFields.actor.type 'specialist'))}}
   <div class="chat-label-small label-stripe-chat-small">
     {{#if (eq extraFields.actor.type 'specialist')}}{{extraFields.actor.name}}{{/if}}
@@ -24,16 +24,9 @@
 
   <div class="description">
     <p>
-      {{#if extraFields.isNewFoundation}}
-        {{{localize 'SFTD.RollConstructFoundationStart' foundation=extraFields.foundation tick=tick}}}
-      {{else}}
-        {{{localize 'SFTD.RollConstructFoundation' foundation=extraFields.foundation tick=tick}}}
-      {{/if}}
+      {{{localize 'SFTD.RollLongTermProject' ltp=extraFields.project tick=tick}}}
       {{#if extraFields.clockFilled}}
-        {{{localize 'SFTD.RollConstructFoundationFull' foundation=extraFields.foundation}}}
-        {{#if (not extraFields.isFoundationUpgrade)}}
-          {{{localize 'SFTD.RollConstructFoundationFullAssignNPC'}}}
-        {{/if}}
+        {{{localize 'SFTD.RollLongTermProjectFull' ltp=extraFields.project}}}
       {{else if (gt extraFields.improvementLevels 0)}}
         {{{localize 'SFTD.DowntimeExtraResult' num=extraFields.improvementLevels}}}
       {{/if}}

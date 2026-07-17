@@ -3,6 +3,17 @@
     <div class="item-name"><p>{{item.name}}</p></div>
     <div class="item-description">{{{item.system.description}}}</div>
   </div>
+  <div class="npc item-embed flex-vertical" data-item-id="{{npc.uuid}}">
+    <label><b>{{localize 'SFTD.Owner'}}</b></label>
+    {{#if npc}}
+    <div class="open-actor flex-horizontal">
+      <img src="{{npc.img}}" data-tooltip="{{npc.name}}" width="24" height="24"/>
+      <a class="member-name" data-tooltip="{{npc.name}}">{{npc.name}}</a>
+    </div>
+    {{else}}
+    <label>{{localize 'SFTD.None'}}</label>
+    {{/if}}
+  </div>
   <div class="item-controls flex-horizontal">
     <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
     <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>

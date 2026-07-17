@@ -756,7 +756,8 @@ export class BladesHelpers {
       },
       description: linkedFoundation ? game.i18n.format('SFTD.AddFoundationProject', { foundation: linkedFoundation.name}) : '',
       invested_caches: linkedFoundation ? (makeFoundationFree ? 0 : linkedFoundation.system.cache_cost) : 0,
-      foundation: linkedFoundation ? linkedFoundation._id : undefined
+      foundation: linkedFoundation ? linkedFoundation._id : undefined,
+      is_foundation_upgrade: linkedFoundation ? linkedFoundation.system.is_upgrade : false
     }
     await BladesHelpers.tryUpdate(actorFull, {system: {'==projects': projects}});
   }

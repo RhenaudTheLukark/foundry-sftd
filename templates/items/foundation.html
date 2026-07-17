@@ -20,8 +20,23 @@
         <input type='number' name='system.prosperity_level' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value={{system.prosperity_level}}>
       </div>
       <div class='three-line'>
+        <label class='label-stripe'>{{localize 'SFTD.AssignedNPC'}}</label>
+        <select name='system.npc'>
+          <option value="null"{{#if (or (eq system.npc 'null') (not system.npc))}} selected{{/if}}>{{localize 'SFTD.None'}}</option>
+          {{#each npcs as |npc id|}}
+          <option value="{{npc.uuid}}"{{#if (eq ../system.npc npc.uuid)}} selected{{/if}}>{{npc.name}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+    <div class='flex-horizontal'>
+      <div class='two-line'>
         <label class='label-stripe'>{{localize 'SFTD.IsComplex'}}</label>
         <input type='checkbox' name='system.is_complex' data-dType='Boolean' {{checked system.is_complex}}>
+      </div>
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.IsUpgrade'}}</label>
+        <input type='checkbox' name='system.is_upgrade' data-dType='Boolean' {{checked system.is_upgrade}}>
       </div>
     </div>
     {{#if isGM}}

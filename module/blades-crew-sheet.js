@@ -39,6 +39,9 @@ export class BladesCrewSheet extends BladesSheet {
     [sheetData.system.relationships, sheetData.system.direct_relationships] = BladesHelpers.fetchFullAndRelativeRelationshipsData(this.actor, sheetData.system.relationships);
     sheetData.onlyDirectRelationships = Object.keys(sheetData.system.relationships).length == Object.keys(sheetData.system.direct_relationships).length;
 
+    // Get foundation NPCs & Data
+    sheetData.foundations = Object.fromEntries(Object.entries(sheetData.items).filter(i => i[1].type == 'foundation').map(f => [f[0], {item: f[1], npc: BladesHelpers.resolveActor(f[1].system.npc)}]));
+
     // Prepare active effects
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.actor.effects);
 

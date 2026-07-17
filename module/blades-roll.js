@@ -426,15 +426,16 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     if (clockFilled)
       tick = project.clock.max - project.clock.value;
     crewUpdateObject.system.projects[extraFields.cfId] = {clock: {'==value': newTick}};
-    extraFields.foundation = project.title;
-    extraFields.clockFilled = clockFilled;
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
     if (clockFilled) {
-      // TODO: Actually add the damn Foundation
+      // TODO: Actually add the Foundation
     }
 
     let improvementLevels = ['critical-success', 'success', 'partial-success', 'failure'];
     extraFields.improvementLevels = improvementLevels.indexOf(rollStatus);
+    extraFields.foundation = project.title;
+    extraFields.isFoundationUpgrade = project.is_foundation_upgrade;
+    extraFields.clockFilled = clockFilled;
 
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/construct-foundation-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
   }
@@ -509,60 +510,19 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let tick = getBladesRollDowntime(rolls, extraResult, zeromode);
     let baseTick = tick;
     let tickRemainder;
-    // Irons in the Fire: Spread all ticks across all projects as evenly as possible
-    if (extraFields.ltpIds) {
-      let unfinishedProjectsData = Object.entries(crewFull.system.projects).filter(p => extraFields.ltpIds.includes(p[0])).map(p => { return {id: p[0], diff: Number(p[1].clock.max) - Number(p[1].clock.value)}; });
-      let projectsString = unfinishedProjectsData.map(p => crewFull.system.projects[p.id].title).join(', ');
-      if (game.i18n.lang == 'en') projectsString = projectsString.replace(/,([^,]*)$/, ' and$1');
-      extraFields.projects = projectsString;
-      let maxxedProjects = [];
-      let eachTick;
-      // Check which projects are done, remove them from the unfinishedProjectsData table if done, then recompute ticks
-      while (true) {
-        eachTick = Math.floor(tick / unfinishedProjectsData.length);
-        tickRemainder = tick % unfinishedProjectsData.length;
-        let newlyMaxxedProjects = [];
-        for (let [projectDataId, projectData] of Object.entries(unfinishedProjectsData))
-          if (eachTick >= projectData.diff) {
-            newlyMaxxedProjects.push(projectDataId);
-            maxxedProjects.push(projectData.id);
-            tick -= projectData.diff;
-          }
-        if (newlyMaxxedProjects.length > 0) {
-          for (let projectToRemove of newlyMaxxedProjects.reverse())
-            unfinishedProjectsData.splice(projectToRemove, 1);
-          if (unfinishedProjectsData.length == 0) {
-            tickRemainder = 0;
-            break;
-          }
-        } else
-          break;
-      }
-      let overTicks = 0;
-      if (unfinishedProjectsData.length == 0)
-        overTicks = tick;
-      tick = baseTick;
-      for (let maxxedProject of maxxedProjects)
-        crewUpdateObject.system.projects[maxxedProject] = {clock: {'==value': crewFull.system.projects[maxxedProject].clock.max}};
-      for (let projectData of unfinishedProjectsData)
-        crewUpdateObject.system.projects[projectData.id] = {clock: {'==value': Number(crewFull.system.projects[projectData.id].clock.value) + eachTick}};
-      extraFields.allProjectsDone = unfinishedProjectsData.length == 0;
-      let projectsDoneString = maxxedProjects.map(pId => crewFull.system.projects[pId].title).join(', ');
-      if (game.i18n.lang == 'en') projectsDoneString = projectsDoneString.replace(/,([^,]*)$/, ' and$1');
-      extraFields.projectsDone = projectsDoneString;
-      extraFields.tickRemainder = tickRemainder;
-      extraFields.overTicks = overTicks;
-    } else {
-      let project = crewFull.system.projects[extraFields.ltpId];
-      let newTick = Math.min(Number(project.clock.value) + tick, Number(project.clock.max));
-      let clockFilled = newTick >= Number(project.clock.max);
-      if (clockFilled)
-        tick = Number(project.clock.max) - Number(project.clock.value);
-      crewUpdateObject.system.projects[extraFields.ltpId] = {clock: {'==value': newTick}};
-      extraFields.project = project.title;
-      extraFields.clockFilled = clockFilled;
-    }
+
+    let project = crewFull.system.projects[extraFields.ltpId];
+    let newTick = Math.min(Number(project.clock.value) + tick, Number(project.clock.max));
+    let clockFilled = newTick >= Number(project.clock.max);
+    if (clockFilled)
+      tick = Number(project.clock.max) - Number(project.clock.value);
+    crewUpdateObject.system.projects[extraFields.ltpId] = {clock: {'==value': newTick}};
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
+
+    let improvementLevels = ['critical-success', 'success', 'partial-success', 'failure'];
+    extraFields.improvementLevels = improvementLevels.indexOf(rollStatus);
+    extraFields.project = project.title;
+    extraFields.clockFilled = clockFilled;
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/long-term-project-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
   }
   // Check for Manufacture roll

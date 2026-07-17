@@ -284,10 +284,8 @@
         <p><a class="foundation-add-popup"><i class="fas fa-plus-square"></i></a></p>
       </div>
       <div class="tab-list">
-        {{#each items as |item id|}}
-        {{#if (eq item.type "foundation")}}
-        {{> "systems/songs-for-the-dusk/templates/parts/item_display/foundation.html" item=item id=id actor=../this}}
-        {{/if}}
+        {{#each foundations as |foundation id|}}
+        {{> "systems/songs-for-the-dusk/templates/parts/item_display/foundation.html" item=foundation.item npc=foundation.npc id=id actor=../this}}
         {{/each}}
       </div>
     </div>

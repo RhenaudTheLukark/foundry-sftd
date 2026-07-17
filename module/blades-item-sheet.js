@@ -111,7 +111,8 @@ export class BladesItemSheet extends BaseItemSheet {
       sheetData.system.flaw_list = ['Unreliable', 'Ill-liked', 'Principled', 'Reckless'];
       sheetData.system.vehicle_edge_list = ['Nimble', 'Auto-Repair', 'Rugged'];
       sheetData.system.vehicle_flaw_list = ['Guzzler', 'Finicky', 'Flashy'];
-    }
+    } else if (sheetData.type == 'foundation' && superData.item.actor)
+      sheetData.npcs = Object.values(superData.item.actor.system?.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'npc');
 
     return sheetData;
   }

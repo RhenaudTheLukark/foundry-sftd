@@ -312,7 +312,9 @@
     "ContainerLoad": "Container Load",
     "CacheCost": "Cache Cost",
     "ProsperityLevel": "Prosperity Level",
+    "AssignedNPC": "Assigned NPC",
     "IsComplex": "Is Complex?",
+    "IsUpgrade": "Is Upgrade?",
 
     "Position": "Position",
     "ForcePosition": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's position to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",
@@ -568,14 +570,20 @@
     "RollConstructFoundationStart": "You started construction of the Foundation '{foundation}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
     "RollConstructFoundation": "You continued the construction of the Foundation '{foundation}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
     "RollConstructFoundationFull": "The Foundation '{foundation}' has been <strong>completed</strong>. <strong>You must add it manually for now.</strong>",
+    "RollConstructFoundationFullAssignNPC": "Don't forget to create/assign an NPC to this Foundation.",
 
-    "RollAcquireAssetResultSuccess": "You gain an asset of <strong>Tier {tier_quality}</strong> quality.",
-    "RollAcquireAssetResultFailure": "It was unfortunately not enough. You could not gain an asset of <strong>Tier {success_tier}</strong> quality or above. If you want to acquire it anyway, since your current asset is of <strong>Tier {tier_quality}</strong> quality, you need to spend <strong>{materiel} Materiel</strong> in total.",
-    "RollAcquireAssetCritical": "Exceptional result.",
-    "RollAcquireAssetSuccess": "Good result.",
-    "RollAcquireAssetPartialSuccess": "Mixed result.",
-    "RollAcquireAssetFailure": "Bad result.",
-    "RollAcquireAssetExtra": "To raise the result of this roll, you may spend 1 Materiel per Tier level, or raise it beyond critical success by spending 2 Materiel per additional level added.",
+    "RollLongTermProject": "You spent some time working on the Long-Term Project '{ltp}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollLongTermProjectFull": "The project '{ltp}' has been <strong>completed</strong>.",
+
+    "RollRecover": "You spent some time resting to treat your wounds.",
+    "RollRecoverLevelOneHarm": "All Level 1 Harm has been cleared.",
+    "RollRecoverResultFull": "All Harm has been reduced by one level.",
+
+    "TrainText": "You spend some time training {trainTypeDesc}. Your {trainTypeText} XP was increased by <strong>{num}</strong>.",
+    "TrainTextGeneral": "yourself",
+    "TrainTextStrider": "your {trainType}",
+    "TrainLevelUpPlaybook": "Your XP track has been filled. Take a <strong>new Playbook special ability</strong>.",
+    "TrainLevelUpAttribute": "Your XP track has been filled. <strong>Add an Action Point</strong> under the {trainType} attribute.",
 
     "RollCutLoose": "You cut loose with {strider}.<br/>You cleared <strong>{clear_stress} Stress</strong>.",
     "RollCutLooseSavedByCarouse": "Your carousing lowered your Stress recovery, but prevented you from overindulging.",
@@ -603,32 +611,9 @@
     "RollCutLooseCarouseStriderConnectionButton": "Carouse: Increase Your Connection",
     "RollCutLooseCarouseOtherConnectionButton": "Carouse: Increase Other's Connection",
 
-    "RollLongTermProject": "You spent some time working on the Long-Term Project {ltp}. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
-    "RollLongTermProjectIronsInTheFire": "You spent some time working on Long-Term Projects {ltps}. <strong>{tick}</strong> tick(s) were distributed as evenly as possible across their Progress Clocks.",
-    "RollLongTermProjectIronsInTheFireRemainder": "<strong>{tick}</strong> tick(s) could not be automatically distributed. Pick which Long-Term Project(s) they should be assigned to, with a max of one tick per project.",
-    "RollLongTermProjectIronsInTheFireOverTicks": "<strong>{tick}</strong> tick(s) could not be distributed because all projects were completed.",
-    "RollLongTermProjectFull": "The project {ltp} has been <strong>completed</strong>.",
-    "RollLongTermProjectFullMultiple": "The project(s) {ltps} have been <strong>completed</strong>.",
-    "RollLongTermProjectAllFull": "All projects have been <strong>completed</strong>.",
-    "RollLongTermProjectExtraResult": "You may spend 1 Personnel to increase the roll's result by 1.",
-    "RollLongTermProjectBonusNotice": "For the cost of 1 Personnel, you may take an extra Long-Term Project activity if you so wish.",
-
     "RollManufactureResultSuccess": "You manufacture an item of <strong>Tier {tier_quality}</strong> quality.",
     "RollManufactureResultFailure": "It was unfortunately not enough. You could not manufacture an item of <strong>Tier {success_tier}</strong> quality or above. If you want to manufacture it anyway, since your current item is of <strong>Tier {tier_quality}</strong> quality, you need to spend <strong>{materiel} Materiel</strong> in total.",
     "RollManufactureExtra": "To raise the result of this roll, you may spend 1 Materiel per Tier level, even beyond critical success.",
-
-    "RollRecover": "You spent some time resting to treat your wounds.",
-    "RollRecoverLevelOneHarm": "All Level 1 Harm has been cleared.",
-    "RollRecoverResultFull": "All Harm has been reduced by one level.",
-
-    "RollSchmooze": "You improved your crew {crew}'s relationship with the faction {faction} by <strong>{trust} Trust</strong>.",
-    "RollSchmoozeBonusNotice": "For the cost of 1 Personnel, you may take an extra Schmooze activity if you so wish.",
-
-    "TrainText": "You spend some time training {trainTypeDesc}. Your {trainTypeText} XP was increased by <strong>{num}</strong>.",
-    "TrainTextGeneral": "yourself",
-    "TrainTextStrider": "your {trainType}",
-    "TrainLevelUpPlaybook": "Your XP track has been filled. Take a <strong>new Playbook special ability</strong>.",
-    "TrainLevelUpAttribute": "Your XP track has been filled. <strong>Add an Action Point</strong> under the {trainType} attribute.",
 
     "RollMoveBase": "You spent some time relocating your mobile FOB to a new location.",
 
@@ -700,6 +685,7 @@
     "ClockStylePicker": "Clock Style Picker",
 
     "Type": "Type",
+    "Owner": "Owner",
 
     "StartMission": "Start Mission",
     "StartMissionDescription": "This popup allows you to automate some parts of the mission starting process.<br/>Any ticked checkbox will let the system automate that part of the process to the best of its ability.<br/>This also serves as a cheat sheet: only green options have automation linked to them.",

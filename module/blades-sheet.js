@@ -51,7 +51,7 @@ export class BladesSheet extends BaseActorSheet {
 
     // Open Actor
     html.find('.open-actor').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
+      const element = $(ev.currentTarget).closest('.item, .item-embed');
       //acqId is the UUID of the Actor
       let acqId = element.data('itemId');
       let actor = BladesHelpers.resolveActor(acqId);
