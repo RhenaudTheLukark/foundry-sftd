@@ -241,43 +241,21 @@ export class BladesStriderSheet extends BladesSheet {
             let extraFields = { roll_type: rollType, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: this.actor };
             let crewFull = BladesHelpers.resolveActor(this.actor.system.crew);
             switch (rollType) {
-              case 'acquireAsset':
-                let acquireAssetSuccessTier = html.find('[name="acquireAssetSuccessTier"]')[0].value;
-                let acquireAssetDiceAmount = Number(crewFull.system.tier.value) + extraDice;
-                extraFields.tier = Number(crewFull.system.tier.value);
-                extraFields.successTier = acquireAssetSuccessTier;
-                await bladesRoll(acquireAssetDiceAmount, 'SFTD.AcquireAssetRoll', note, extraFields);
-                break;
-              case 'collect':
-                let collectRegionUuid = html.find('#collectRegion > .actor-contents').data('actorId');
-                let collectRegionVigilance = html.find('[name="collectVigilance"]')[0].value;
-                let collectRegionFull = BladesHelpers.resolveActor(collectRegionUuid);
-                extraFields.region = collectRegionFull;
-                let collectDiceAmount = collectRegionFull.system.wealth - Number(collectRegionVigilance);
-                await bladesRoll(collectDiceAmount, 'SFTD.CollectRoll', note, extraFields);
-                break;
-              case 'cutLoose':
-                let connectionUuid = html.find('[name="connection"]')[0].value;
-                let stress = Number(this.actor.system.stress.value);
-                extraFields.connection = BladesHelpers.resolveActor(connectionUuid);
-                extraFields.stress = parseInt(stress);
-                let connection = Object.values(this.actor.system.connections).find(c => c.uuid == connectionUuid);
-                let cutLooseDiceAmount = Number(connection.clock.value) + extraDice;
-                await bladesRoll(cutLooseDiceAmount, 'SFTD.CutLooseRoll', note, extraFields);
-                break;
-              case 'enhance':
-                extraFields.noRoll = true;
-                await bladesRoll(0, 'SFTD.EnhanceRoll', note, extraFields);
-                break;
-              case 'fix':
-                let fixActorUuid = html.find('[name="fixActor"]')[0].value;
-                extraFields.fixActor = BladesHelpers.resolveActor(fixActorUuid);
-                let fixDice = extraDice;
-                if (extraFields.fixActor.type == 'character')
-                  fixDice += extraFields.fixActor.getRollData().diceAmount['engineer'];
-                else
-                  fixDice += extraFields.fixActor.system.quality;
-                await bladesRoll(fixDice, 'SFTD.FixRoll', note, extraFields);
+              case 'constructFoundation':
+                let constructFoundationAction = dialog.element.querySelector('#cfAction').value;
+                let constructFoundationNewFoundation = dialog.constructFoundationNewFoundation;
+                let constructFoundationNewFoundationCost = dialog.element.querySelector('#cfNewFoundationCost')?.value;
+                let constructFoundationFoundation = Number(dialog.element.querySelector('#cfFoundation').value);
+                let constructFoundationDice = this.actor.getRollData().diceAmount[dialog.element.querySelector('#cfAction').value] ?? 0 + extraDice;
+                if (constructFoundationNewFoundation) {
+                  let newFoundation = foundry.utils.deepClone(constructFoundationNewFoundation);
+                  newFoundation.system.cache_cost = Number(constructFoundationNewFoundationCost);
+                  await BladesHelpers.addProject(crewFull, newFoundation);
+                  constructFoundationFoundation = Object.values(crewFull.system.projects).length - 1;
+                }
+                extraFields.cfId = constructFoundationFoundation;
+                extraFields.isNewFoundation = constructFoundationNewFoundation != null;
+                await bladesRoll(constructFoundationDice, 'SFTD.ConstructFoundationRoll', note, extraFields);
                 break;
               case 'longTermProject':
                 let ltpAction = html.find('[name="ltpAction"]')[0].value;
@@ -291,32 +269,9 @@ export class BladesStriderSheet extends BladesSheet {
                   extraFields.ltpId = ltpSelect.value;
                 await bladesRoll(ltpDice, 'SFTD.LongTermProjectRoll', note, extraFields);
                 break;
-              case 'manufacture':
-                let manufactureSuccessTier = html.find('[name="manufactureSuccessTier"]')[0].value;
-                let manufactureAction = html.find('[name="manufactureAction"]')[0].value;
-                let manufactureDiceAmount = this.actor.getRollData().diceAmount[manufactureAction] + extraDice;
-                extraFields.tier = Number(crewFull.system.tier.value);
-                extraFields.successTier = manufactureSuccessTier;
-                await bladesRoll(manufactureDiceAmount, 'SFTD.ManufactureRoll', note, extraFields);
-                break;
               case 'recover':
                 extraFields.noRoll = true;
                 await bladesRoll(0, 'SFTD.RecoverRoll', note, extraFields);
-                break;
-              case 'salvage':
-                let salvageVehicleUuid = html.find('#salvageVehicle > .actor-contents').data('actorId');
-                let salvageVehicleFull = BladesHelpers.resolveActor(salvageVehicleUuid);
-                extraFields.salvageVehicle = salvageVehicleFull;
-                let salvageDiceAmount = this.actor.getRollData().diceAmount['engineer'] + extraDice;
-                await bladesRoll(salvageDiceAmount, 'SFTD.SalvageRoll', note, extraFields);
-                break;
-              case 'schmooze':
-                let schmoozeFactionUuid = html.find('#schmoozeFaction > .actor-contents').data('actorId');
-                let schmoozeFactionFull = BladesHelpers.resolveActor(schmoozeFactionUuid);
-                extraFields.schmoozeFaction = schmoozeFactionFull;
-                let schmoozeAction = html.find('[name="schmoozeAction"]')[0].value;
-                let schmoozeDiceAmount = this.actor.getRollData().diceAmount[schmoozeAction] + extraDice;
-                await bladesRoll(schmoozeDiceAmount, 'SFTD.SchmoozeRoll', note, extraFields);
                 break;
               case 'train':
                 extraFields.noRoll = true;
@@ -347,87 +302,53 @@ export class BladesStriderSheet extends BladesSheet {
         let input = this.element.querySelector('input[type=radio]:checked');
         if (input) {
           let rollType = input.id.split('-')[0];
-          if (rollType == 'cutLoose')
-            allowedToRoll = this.element.querySelector('#collectRegion > .actor-contents').dataset.actorId != null;
-          else if (rollType == 'salvage')
-            allowedToRoll = this.element.querySelector('#salvageVehicle > .actor-contents').dataset.actorId != null;
-          else if (rollType == 'schmooze')
-            allowedToRoll = this.element.querySelector('#schmoozeFaction > .actor-contents').dataset.actorId != null;
+          if (rollType == 'constructFoundation')
+            allowedToRoll = dialog.isConstructFoundationValid(dialog);
         }
 
         allowedToRoll &&= checkDowntimeRules(this);
         this.element.querySelector('[data-action="roll"]').disabled = !allowedToRoll;
       };
+      dialog.constructFoundationNewFoundation = null;
       dialog.refreshModifiers = refreshModifiers;
       dialog.actor = this.actor;
+      dialog.isConstructFoundationValid = function(dialog) {
+        let element = dialog.element;
+        let hasNewFoundation = element.querySelector('#cfNewFoundation > .actor-contents') != null;
+        let crewFull = BladesHelpers.resolveActor(dialog.actor.system.crew);
+        let newFoundationTooCostly = Number(element.querySelector('#cfNewFoundationCost').value ?? 0) > (crewFull.system.cache.value - crewFull.sheet.getInvestedCaches());
+        let hasSelectedValidFoundation = element.querySelector('#cfFoundation').value != 'None';
+        return !(newFoundationTooCostly || !(hasNewFoundation ^ hasSelectedValidFoundation));
+      }
       await dialog.render(true);
 
       let htmlElement = $(dialog.element);
-      htmlElement[0].ondrop = function(ev) {
+      htmlElement[0].ondrop = async function(ev) {
         ev.preventDefault();
         const dropData = foundry.applications.ux.TextEditor.implementation.getDragEventData(ev);
         if (dropData.uuid) {
           let dropFull = BladesHelpers.resolveActor(dropData.uuid);
-          if (dropFull.type == 'region') {
-            // Drop a Region for the Collect roll
-            let rollType = $(this).find('input[type=radio]:checked')[0].id.split('-')[0];
-            if (rollType == 'collect')
-              $(this).find('[data-action="roll"]')[0].disabled = !checkDowntimeRules(dialog);
-            $(this).find('#collectRegion')[0].innerHTML = `
+          if (dropFull.type == 'foundation') {
+            let compendiumItemFull = await game.packs.contents.find(p => p.metadata.id == dropFull.pack).getDocument(dropFull._id);
+            dialog.constructFoundationNewFoundation = compendiumItemFull;
+            // Drop a Foundation for the Construct Foundation roll
+            $(this).find('#cfNewFoundation')[0].innerHTML = `
               <div class="actor-contents flex-horizontal" data-actor-id="${dropData.uuid}">
-                <img src="${dropFull.img}" data-tooltip="${dropFull.name}" width="32" height="32"/>
-                <a class="item-name">${dropFull.name}</a>
+                <a class="item-name">${compendiumItemFull.name}</a>
                 <a class="delete-actor"><i class="fas fa-times"></i></a>
               </div>`;
-            $(this).find('#collectVigilance').val(Math.min(dropFull.system.collect_vigilance, 10));
-            $(this).find('#collectRegion .delete-actor')[0].onclick = function (ev) {
+            $(this).find('#cfNewFoundationCost')[0].innerHTML = Array(9).fill().map((_, i) => `<option value="${i}"${i == compendiumItemFull.system.cache_cost ? ' selected' : ''}>${i}</option>`).join('')
+            $(this).find('#cfNewFoundation .delete-actor')[0].onclick = function (ev) {
+              dialog.constructFoundationNewFoundation = null;
               let rollType = $(this).closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
-              if (rollType == 'collect')
-                $(this).closest('.window-content').find('button[data-action="roll"]')[0].disabled = true;
-              $(this).closest('#collectRegion')[0].innerHTML = game.i18n.localize('SFTD.None');
-            }
-          } else if (dropFull.type == 'vehicle') {
-            // Drop a Vehicle for the Salvage roll
-            if (dropFull.system.damage.deadly.one.includes(game.i18n.localize('SFTD.Salvaged'))) {
-              ui.notifications.warn(game.i18n.format('SFTD.log.warn.SalvageVehicleAlreadySalvaged', {vehicle: dropFull.name}));
-              return;
+              $(this).closest('.radio-group').find('#cfNewFoundationCost')[0].innerHTML = '';
+              $(this).closest('#cfNewFoundation')[0].innerHTML = game.i18n.localize('SFTD.None');
+              if (rollType == 'constructFoundation')
+                $(this).closest('.window-content').find('button[data-action="roll"]')[0].disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
             }
             let rollType = $(this).find('input[type=radio]:checked')[0].id.split('-')[0];
-            if (rollType == 'salvage') {
-              let scroungersFreeActive = $(this).find('[data-modifier="scroungers_free"] input[type=checkbox]')[0].checked;
-              $(this).find('[data-action="roll"]')[0].disabled = scroungersFreeActive || !checkDowntimeRules(dialog);
-            }
-            $(this).find('#salvageVehicle')[0].innerHTML = `
-              <div class="actor-contents flex-horizontal" data-actor-id="${dropData.uuid}">
-                <img src="${dropFull.img}" data-tooltip="${dropFull.name}" width="32" height="32"/>
-                <a class="item-name">${dropFull.name}</a>
-                <a class="delete-actor"><i class="fas fa-times"></i></a>
-              </div>`;
-            $(this).find('#salvageVehicle .delete-actor')[0].onclick = function (ev) {
-              let rollType = $(this).closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
-              if (rollType == 'salvage') {
-                let scroungersFreeActive = $(this).closest('.window-content').find('[data-modifier="scroungers_free"] input[type=checkbox]')[0].checked;
-                $(this).closest('.window-content').find('button[data-action="roll"]')[0].disabled = !scroungersFreeActive || !checkDowntimeRules(dialog);
-              }
-              $(this).closest('#salvageVehicle')[0].innerHTML = game.i18n.localize('SFTD.None');
-            }
-          } else if (dropFull.type == 'faction') {
-            // Drop a Faction for the Schmooze roll
-            let rollType = $(this).find('input[type=radio]:checked')[0].id.split('-')[0];
-            if (rollType == 'schmooze')
-              $(this).find('[data-action="roll"]')[0].disabled = !checkDowntimeRules(dialog);
-            $(this).find('#schmoozeFaction')[0].innerHTML = `
-              <div class="actor-contents flex-horizontal" data-actor-id="${dropData.uuid}">
-                <img src="${dropFull.img}" data-tooltip="${dropFull.name}" width="32" height="32"/>
-                <a class="item-name">${dropFull.name}</a>
-                <a class="delete-actor"><i class="fas fa-times"></i></a>
-              </div>`;
-            $(this).find('#schmoozeFaction .delete-actor')[0].onclick = function (ev) {
-              let rollType = $(this).closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
-              if (rollType == 'schmooze')
-                $(this).closest('.window-content').find('button[data-action="roll"]')[0].disabled = true;
-              $(this).closest('#schmoozeFaction')[0].innerHTML = game.i18n.localize('SFTD.None');
-            }
+            if (rollType == 'constructFoundation')
+              $(this).find('[data-action="roll"]')[0].disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
           }
         }
       };
@@ -436,40 +357,30 @@ export class BladesStriderSheet extends BladesSheet {
           let rollType = this.id.split('-')[0];
           let rollButton = $(this).closest('.window-content').find('button[data-action="roll"]')[0];
           let allowedToRoll = true;
-          if (rollType == 'collect')
-            allowedToRoll = $(this).closest('.radio-group').find('#collectRegion > .actor-contents').length != 0;
-          else if (rollType == 'salvage')
-            allowedToRoll = $(this).closest('.radio-group').find('#salvageVehicle > .actor-contents').length != 0;
-          else if (rollType == 'schmooze')
-            allowedToRoll = $(this).closest('.radio-group').find('#schmoozeFaction > .actor-contents').length != 0;
+          if (rollType == 'constructFoundation')
+            allowedToRoll = dialog.isConstructFoundationValid(dialog);
 
           allowedToRoll &&= checkDowntimeRules(dialog);
           rollButton.disabled = !allowedToRoll;
-
-          for (let element of $(this).closest('.window-content').find('[data-modifier="scroungers_free"] input[type=checkbox]')) {
-            element.onclick = function (ev) {
-              let checked = ev.currentTarget.checked;
-              let rollButton = $(this).closest('.window-content').find('button[data-action="roll"]')[0];
-              let allowedToRoll = $(this).closest('.window-content').find('#salvageVehicle > .actor-contents').length != 0 ^ checked;
-              allowedToRoll &&= checkDowntimeRules(dialog);
-              rollButton.disabled = !allowedToRoll;
-            };
-          }
         };
       }
+      dialog.element.querySelector('#cfNewFoundationCost').addEventListener('change', (ev) => {
+        let element = ev.currentTarget;
+        element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
+      });
+      dialog.element.querySelector('#cfFoundation').addEventListener('change', (ev) => {
+        let element = ev.currentTarget;
+        element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
+      });
     });
   }
 
   // Remove unavailable roll types
   getDowntimeRollTypesToRemove() {
-    let rollTypes = ['acquireAsset', 'cutLoose', 'longTermProject', 'manufacture', 'recover', 'schmooze', 'train', 'moveBase'];
+    let rollTypes = ['constructFoundation', 'recover', 'train'];
     let missingRollTypes = {};
 
     let trainTypes = ['playbook'];
-    for (let [trainTypeName, trainType] of Object.entries(this.actor.system.attributes))
-      // No vehicle: Don't include vehicle attributes
-      if (BladesHelpers.resolveActor(this.actor.system.vehicle) || !trainType.is_vehicle)
-        trainTypes.push(trainTypeName);
     for (let usedTrainType of Object.keys(this.actor.system.downtime_activities.train_types))
       trainTypes.splice(trainTypes.indexOf(usedTrainType), 1);
     if (trainTypes.length == 0)
@@ -480,12 +391,8 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'cutLoose', 'SFTD.BadRoll.NoStress');
     let crewFull = BladesHelpers.resolveActor(this.actor.system.crew);
     if (!crewFull) {
-      BladesHelpers.addToRollTypeError(missingRollTypes, 'acquireAsset', 'SFTD.BadRoll.NoCrew');
-      BladesHelpers.addToRollTypeError(missingRollTypes, 'collect', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'manufacture', 'SFTD.BadRoll.NoCrew');
-      BladesHelpers.addToRollTypeError(missingRollTypes, 'schmooze', 'SFTD.BadRoll.NoCrew');
-      BladesHelpers.addToRollTypeError(missingRollTypes, 'moveBase', 'SFTD.BadRoll.NoCrew');
     } else {
       if (!Object.values(crewFull.system.projects).filter(p => Number(p.clock.value) < Number(p.clock.max)).length)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoOngoingLTP');

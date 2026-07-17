@@ -7724,6 +7724,9 @@
   gap: 0.5em;
   white-space: nowrap;
 }
+.application.dialog fieldset.form-group .radio-group > span:has(> select:empty) {
+  display: none;
+}
 .application.dialog .standard-form .form-group > label,
 .application.dialog .standard-form .form-group > span.label {
   flex: 0.5;

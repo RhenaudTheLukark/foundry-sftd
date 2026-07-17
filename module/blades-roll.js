@@ -297,7 +297,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   if (extraFields.forcedResult)
     rollStatus = extraFields.forcedResult;
 
-  let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+  let crewFull = BladesHelpers.resolveActor(extraFields.actor?.system.crew);
   if (crewFull && extraFields.allowHarmonyGain && rollResultIndex.indexOf(rollStatus) >= 2) {
     let newHarmony = Math.max(Math.min(crewFull.system.harmony.value + 1, crewFull.system.harmony.max), 0);
     await BladesHelpers.tryUpdate(crewFull, {'system.harmony.value': newHarmony});
@@ -388,11 +388,10 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     if (resultStress != extraFields.actor.system.stress.value)
       await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': resultStress}}});
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/resistance-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, stress: stress, note: note, extraFields: extraFields });
-  } 
-  
+  }
   // Check for Aftermath roll
   else if (attributeOrRollName == 'SFTD.AftermathRoll') {
-    let crewFull = extraFields.actor.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    let crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
     extraFields.cantHateUs = crewFull?.system.cant_hate_us;
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/aftermath-roll.html', { rolls: rolls, zeromode: zeromode, method: method, resultDie: resultDie, note: note, extraFields: extraFields });
   }
@@ -405,39 +404,39 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   // Check for Upkeep roll
   else if (attributeOrRollName == 'SFTD.UpkeepRoll') {
     let shells = getBladesRollCollect(rolls, extraResult, zeromode);
-    let crewFull = extraFields.actor.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    let newShells = Math.min(crewFull.system.shells.value + shells, crewFull.system.shells.max);
-    await BladesHelpers.tryUpdate(crewFull, {'system.shells.value': newShells});
+    let crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
+    if (crewFull) {
+      let newShells = Math.min(crewFull.system.shells.value + shells, crewFull.system.shells.max);
+      await BladesHelpers.tryUpdate(crewFull, {'system.shells.value': newShells});
+    }
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/upkeep-roll.html', { rolls: rolls, zeromode: zeromode, method: method, num: shells, note: note, extraFields: extraFields });
   }
 
   // Check for Acquire Asset roll
-  else if (attributeOrRollName == 'SFTD.AcquireAssetRoll') {
-    let successTier = Number(extraFields.successTier);
-    let tierQuality = Number(extraFields.tier);
-    let origTierQuality = tierQuality;
-    switch (rollStatus) {
-      case 'critical-success':
-        tierQuality = tierQuality + 2;
-        break;
-      case 'success':
-        tierQuality = tierQuality + 1;
-        break;
-      case 'failure':
-        if (tierQuality > 0)
-          tierQuality = tierQuality - 1;
-        break;
-      default:
-        break;
+  else if (attributeOrRollName == 'SFTD.ConstructFoundationRoll') {
+    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    let crewUpdateObject = {system: {projects: {}}};
+    let tick = getBladesRollDowntime(rolls, extraResult, zeromode);
+    let baseTick = tick;
+    let tickRemainder;
+
+    let project = crewFull.system.projects[extraFields.cfId];
+    let newTick = Math.min(project.clock.value + tick, project.clock.max);
+    let clockFilled = newTick >= project.clock.max;
+    if (clockFilled)
+      tick = project.clock.max - project.clock.value;
+    crewUpdateObject.system.projects[extraFields.cfId] = {clock: {'==value': newTick}};
+    extraFields.foundation = project.title;
+    extraFields.clockFilled = clockFilled;
+    await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
+    if (clockFilled) {
+      // TODO: Actually add the damn Foundation
     }
-    let shellsNeededForSuccess = 0;
-    let qualityDiff = tierQuality - successTier;
-    if (qualityDiff < 0) {
-      let critSuccessTierDiff = successTier - (origTierQuality + 2);
-      shellsNeededForSuccess = -qualityDiff + Math.max(critSuccessTierDiff, 0);
-    }
-    let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/acquire-asset-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
+
+    let improvementLevels = ['critical-success', 'success', 'partial-success', 'failure'];
+    extraFields.improvementLevels = improvementLevels.indexOf(rollStatus);
+
+    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/construct-foundation-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
   }
   // Check for Cut Loose roll
   else if (attributeOrRollName == 'SFTD.CutLooseRoll') {
@@ -869,10 +868,14 @@ const rollTypeLabels = {
   resistance: 'SFTD.ResistanceRoll',
 
   aftermath: 'SFTD.AftermathRollFull',
-  collectInfo: 'SFTD.CollectInformationRoll',
+  collectInfo: 'SFTD.CollectInformationRollFull',
   engagement: 'SFTD.EngagementRoll',
   fortune: 'SFTD.FortuneRoll',
   upkeep: 'SFTD.UpkeepRollFull',
+
+  constructFoundation: 'SFTD.ConstructFoundationRoll',
+  recover: 'SFTD.RecoverRoll',
+  train: 'SFTD.TrainRoll',
 
   acquireAsset: 'SFTD.AcquireAssetRoll',
   enhance: 'SFTD.EnhanceRoll',
@@ -881,9 +884,7 @@ const rollTypeLabels = {
   salvage: 'SFTD.SalvageRoll',
   cutLoose: 'SFTD.CutLooseRoll',
   longTermProject: 'SFTD.LongTermProjectRoll',
-  recover: 'SFTD.RecoverRoll',
   schmooze: 'SFTD.SchmoozeRoll',
-  train: 'SFTD.TrainRoll',
   moveBase: 'SFTD.MoveBaseRoll',
 
   collectionAgency: 'SFTD.CollectionAgency',
@@ -934,6 +935,28 @@ const rollTypeArgs = {
       <select id="hazard" name="hazard">
         ${Array(4).fill().map((_, i) => `<option value="${i}"${args.hazard == i ? ' selected' : ''}>${i}</option>`).join('')}
       </select>
+    </span>`,
+  collectInfo: (_, args) => `
+    ${args.actor?.type == 'strider' ? `<span>
+      <label>${game.i18n.localize('SFTD.Action')}:</label>
+      <select id="ciAction" name="ciAction">${args.actions}</select>
+    </span>` : ''}`,
+  constructFoundation: (_, args) => `
+    <span>
+      <label>${game.i18n.localize('SFTD.Action')}:</label>
+      <select id="cfAction" name="cfAction">${args.actions}</select>
+    </span>
+    <span>
+      <label>${game.i18n.localize('SFTD.NewFoundation')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.ConstructFoundationDragDropInfo')}"></i></a>:</label>
+      <div id="cfNewFoundation">${game.i18n.localize('SFTD.None')}</div>
+    </span>
+    <span>
+      <label>${game.i18n.localize('SFTD.Cost')}:</label>
+      <select id="cfNewFoundationCost" name="cfNewFoundationCost"></select>
+    </span>
+    <span>
+      <label>${game.i18n.localize('SFTD.Foundation')}:</label>
+      <select id="cfFoundation" name="cfFoundation">${args.projects}</select>
     </span>`,
   acquireAsset: (_, args) => `
     <span>
@@ -1079,9 +1102,9 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       }
 
       thirdArg = {...thirdArg, healActors: healActors};
-    } else if (['longTermProject', 'schmooze'].includes(rollType) && actor?.type == 'strider') {
+    } else if (['collectInfo', 'constructFoundation', 'longTermProject'].includes(rollType) && actor?.type == 'strider') {
       let actionList = Object.keys(actor.getRollData().diceAmount).filter(a => BladesHelpers.isAttributeAction(a));
-      let actions = actionList.map((value, index) => `<option value="${value}"${index == 0 ? ' selected' : ''}>${game.i18n.localize(BladesHelpers.getAttributeLabel(value))}</option>`).join('');
+      let actions = actionList.map((value, index) => `<option value="${value}"${((rollType != 'constructFoundation' && index == 0) || (rollType == 'constructFoundation' && value == 'shape')) ? ' selected' : ''}>${game.i18n.localize(BladesHelpers.getAttributeLabel(value))}</option>`).join('');
 
       thirdArg = {...thirdArg, actions: actions};
     } else if (rollType == 'train') {
@@ -1095,9 +1118,15 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
 
       thirdArg = {...thirdArg, trainTypes: trainTypesText};
     }
-    if (rollType == 'longTermProject') {
+    if (rollType == 'constructFoundation') {
       let crewFull = BladesHelpers.resolveActor(actor.system.crew);
-      let projectList = Object.entries(crewFull.system.projects).filter(p => Number(p[1].clock.value) < Number(p[1].clock.max));
+      let projectList = Object.entries(crewFull.system.projects).filter(p => Number(p[1].clock.value) < Number(p[1].clock.max) && p[1].foundation);
+      let projectsString = `<option value="None" selected>${game.i18n.localize('SFTD.None')}</option>` + projectList.map(p => `<option value="${p[0]}">${p[1].title}</option>`).join('');
+
+      thirdArg = {...thirdArg, projects: projectsString};
+    } else if (rollType == 'longTermProject') {
+      let crewFull = BladesHelpers.resolveActor(actor.system.crew);
+      let projectList = Object.entries(crewFull.system.projects).filter(p => Number(p[1].clock.value) < Number(p[1].clock.max) && !p[1].foundation);
       let projectsString = projectList.map(p => `<option value="${p[0]}"${p[0] == 0 ? ' selected' : ''}>${p[1].title}</option>`).join('');
       projectsString = `${(rollType == 'longTermProject' && crewFull.system.irons_in_the_fire) ? ` data-tooltip="SFTD.MultipleSelectUsage" size="${Math.min(projectList.length, 4)}" multiple` : ''}>${projectsString}`;
 
@@ -1218,7 +1247,8 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
             await bladesRoll(aftermathDice + diceQty, 'SFTD.AftermathRoll', note, extraFields);
             break;
           case 'collectInfo':
-            await bladesRoll(diceQty, 'SFTD.CollectInformationRoll', note, extraFields);
+            let collectInfoDiceAmount = targetActor?.getRollData().diceAmount[dialog.element.querySelector('[name="ciAction"]').value] ?? 0;
+            await bladesRoll(collectInfoDiceAmount + diceQty, 'SFTD.CollectInformationRoll', note, extraFields);
             break;
           case 'engagement':
             await bladesRoll(diceQty, 'SFTD.EngagementRoll', note, extraFields);
@@ -1280,8 +1310,6 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
       }
     }
   });
-  
-  await dialog.render(true);
 
   let htmlElement = dialog.element;
   let checkMiscRollCanRoll = function(ev) {

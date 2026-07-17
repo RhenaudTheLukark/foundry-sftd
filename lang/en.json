@@ -113,7 +113,9 @@
     "Shells": "Shells",
     "CrewReputation": "Crew Reputation",
     "DeityDescription": "Deity Description",
+    "Foundation": "Foundation",
     "Foundations": "Foundations",
+    "NewFoundation": "New Foundation",
     "Community": "Community",
     "Beliefs": "Beliefs",
     "Projects": "Projects",
@@ -323,10 +325,6 @@
     "Discreet": "Discreet",
     "Conspicuous": "Conspicuous",
 
-    "Drain": "Drain",
-    "Wear": "Wear",
-    "Gloom": "Gloom",
-
     "Add": "Add",
     "AddAsProject": "Add As Project(s)",
     "AddFoundationProject": "Adds the Foundation '{foundation}' once the project is complete.",
@@ -385,11 +383,13 @@
     "ResistanceRoll": "Resistance",
     "AftermathRollFull": "Aftermath <i class=\"fas fa-question-circle\" data-tooltip=\"The amount of dice for this roll is automatically computed by the system. If the amount of dice selected is not 0, it'll add those dice to the amount that has been computed.\"></i>",
     "AftermathRoll": "Aftermath",
+    "CollectInformationRollFull": "Collect Information <i class=\"fas fa-question-circle\" data-tooltip=\"The amount of dice for this roll is automatically computed by the system. If the amount of dice selected is not 0, it'll add those dice to the amount that has been computed.\"></i>",
     "CollectInformationRoll": "Collect Information",
     "EngagementRoll": "Engagement",
     "FortuneRoll": "Fortune",
     "UpkeepRollFull": "Upkeep <i class=\"fas fa-question-circle\" data-tooltip=\"The amount of dice for this roll is automatically computed by the system. If the amount of dice selected is not 0, it'll add those dice to the amount that has been computed.\"></i>",
     "UpkeepRoll": "Upkeep",
+    "ConstructFoundationRoll": "Construct Foundation",
     "AcquireAssetRoll": "Acquire Asset",
     "ManufactureRoll": "Manufacture",
     "CollectRoll": "Collect",
@@ -424,7 +424,7 @@
 
     "OtherRoll": "Misc. Roll",
     "OtherRollFull": "Miscellaneous Roll",
-    "DowntimeActivity": "Downtime Activity (None of these work)",
+    "DowntimeActivity": "Downtime Activity",
     "DowntimeRollLeft": "{num} Left",
     "DowntimeSpecialistRoll": "1 per Downtime",
     "DowntimeSpecialistRollDone": "Already done",
@@ -564,6 +564,10 @@
       }
     },
     "RollAftermathCantHateUs": "Your crew really can't be hated by outsiders. Roll a second aftermath and pick the one you prefer among the two.",
+
+    "RollConstructFoundationStart": "You started construction of the Foundation '{foundation}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollConstructFoundation": "You continued the construction of the Foundation '{foundation}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollConstructFoundationFull": "The Foundation '{foundation}' has been <strong>completed</strong>. <strong>You must add it manually for now.</strong>",
 
     "RollAcquireAssetResultSuccess": "You gain an asset of <strong>Tier {tier_quality}</strong> quality.",
     "RollAcquireAssetResultFailure": "It was unfortunately not enough. You could not gain an asset of <strong>Tier {success_tier}</strong> quality or above. If you want to acquire it anyway, since your current asset is of <strong>Tier {tier_quality}</strong> quality, you need to spend <strong>{materiel} Materiel</strong> in total.",

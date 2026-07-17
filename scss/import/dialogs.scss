@@ -136,6 +136,10 @@ fieldset.form-group {
       white-space: nowrap;
     }
   }
+
+  .radio-group > span:has(> select:empty) {
+    display: none;
+  }
 }
 
 .standard-form .form-group > label,
