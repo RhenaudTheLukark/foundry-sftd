@@ -3,7 +3,8 @@ import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { bladesRoll, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
-  pruneInvalidConditionalRollModifiers, keepValidModifiersFromOther } from './blades-roll.js';
+  pruneInvalidConditionalRollModifiers, keepValidModifiersFromRollType, keepValidModifiersFromOther
+} from './blades-roll.js';
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 /**
@@ -493,7 +494,9 @@ export class BladesCrewSheet extends BladesSheet {
    */
   async endMissionPopup() {
     let extraData = {};
-    extraData.vendettas = BladesHelpers.fetchAllRelationships(this.actor).filter(r => r.status == -3).map(r => BladesHelpers.resolveActor(r.owner)).filter(r => r != null).map(r => r.name).join(', ');
+    let vendettas = BladesHelpers.fetchAllRelationships(this.actor).filter(r => r.status == -3).map(r => BladesHelpers.resolveActor(r.owner)).filter(r => r != null);
+    extraData.vendettas = vendettas.map(r => r.name).join(', ');
+    extraData.vendettaCount = vendettas.length;
     if (extraData.vendettas == '')
       extraData.vendettas = 'SFTD.None';
 
@@ -518,15 +521,52 @@ export class BladesCrewSheet extends BladesSheet {
 
         let messageContents = '';
 
+        // Pressure Changes
+        let pressureChange = 0;
+        let pressureCollateralDamage = dialog.element.querySelector('[name="pressureCollateralDamage"]:checked').value;
+        if (pressureCollateralDamage == 'none') pressureChange += 0;
+        else if (pressureCollateralDamage == 'minor') pressureChange += 2;
+        else if (pressureCollateralDamage == 'major') pressureChange += 4;
+        else if (pressureCollateralDamage == 'devastating') pressureChange += 6;
+        if (dialog.element.querySelector('[name="pressureHighTargetProfile"]').checked) pressureChange += 1;
+        if (dialog.element.querySelector('[name="pressureHostileTerritory"]').checked) pressureChange += 1;
+        if (dialog.element.querySelector('[name="pressureVendetta"]').checked) pressureChange += extraData.vendettaCount;
+        if (dialog.element.querySelector('[name="pressureSevereInjury"]').checked) {
+          pressureChange += 1;
+          if (dialog.element.querySelector('[name="pressureSevereInjuryYourFault"]').checked) pressureChange += 1;
+        }
+
+        if (pressureChange != 0) {
+          let hazardChange = await this.handlePressure(pressureChange);
+          let pressureRecap = `<div class="description"><p>
+            ${game.i18n.format('SFTD.EndMissionPressureRecap', {num: pressureChange})}
+            ${hazardChange ? game.i18n.format('SFTD.EndMissionPressureRecapHazardIncrease') : ''}
+          </p></div>`
+          messageContents += pressureRecap;
+        }
+
+        // Roll Aftermath if the option is enabled
+        if (dialog.element.querySelector('[name="aftermath"]').checked) {
+          let [_, permanentModifiers, __] = this.actor.getModifiers();
+          permanentModifiers = await resolveRollModifierArray(permanentModifiers, this.actor);
+          permanentModifiers = keepValidModifiersFromRollType(permanentModifiers, 'aftermath', null, null);
+          let extraFieldsRoll = { roll_type: 'aftermath', modifiers: permanentModifiers, actor: this.actor };
+          extraFieldsRoll.hazard = this.actor.system.hazard.value;
+          extraFieldsRoll.pressure = this.actor.system.pressure.value;
+          let aftermathDice = Math.min(Math.ceil(extraFieldsRoll.pressure / 3), 3);
+          await bladesRoll(aftermathDice, 'SFTD.AftermathRoll', '', extraFieldsRoll);
+          await postRollProcessing(this.actor, extraFieldsRoll);
+        }
+
         // Reset Strider Downtime Activities
         for (let member of Object.values(this.actor.system.members)) {
           let memberFull = BladesHelpers.resolveActor(member.uuid);
           if (memberFull && memberFull.type == 'strider')
-            BladesHelpers.tryUpdate(memberFull, {'system.downtime_count.value': memberFull.system.downtime_count.base});
+            BladesHelpers.tryUpdate(memberFull, {'system.downtime_count.==value': memberFull.system.downtime_count.base});
         }
 
         // Set Phase to Downtime & Reset Cohort Downtime Activity for All Hands
-        BladesHelpers.tryUpdate(this.actor, {'system.phase': 'downtime', 'system.cohort_downtime_done': false});
+        BladesHelpers.tryUpdate(this.actor, {'system.==phase': 'downtime', 'system.==cohort_downtime_done': false});
 
         let speaker = {
           actor: this.actor._id,
@@ -682,6 +722,38 @@ export class BladesCrewSheet extends BladesSheet {
         rollButton.querySelector('span').innerHTML = rollButtonText;
       });
     }
+  }
+
+  /* -------------------------------------------- */
+
+  async handlePressure(pressureChange, set = false) {
+    let resultPressure = set ? pressureChange : this.actor.system.pressure.value + pressureChange;
+    let pressureDelta = resultPressure - this.actor.system.pressure.value;
+    let resultHazard = this.actor.system.hazard.value;
+    while (true) {
+      if (resultPressure >= 9) {
+        if (resultHazard < 3) {
+          resultHazard ++;
+          resultPressure -= 9;
+          continue;
+        } else
+          resultPressure = 9;
+      } else if (resultPressure <= 0)
+        resultPressure = 0;
+      break;
+    }
+
+    let hazardDelta = resultHazard - this.actor.system.hazard.value;
+    let hazardHasChanged = hazardDelta != 0;
+    let pressureHasChanged = pressureDelta != 0;
+    let resultString = '';
+    if (pressureHasChanged || hazardHasChanged) {
+      let updateObject = {};
+      updateObject[`system.pressure.==value`] = resultPressure;
+      updateObject[`system.hazard.==value`] = resultHazard;
+      await BladesHelpers.tryUpdate(this.actor, updateObject);
+    }
+    return hazardDelta;
   }
 
   /* -------------------------------------------- */

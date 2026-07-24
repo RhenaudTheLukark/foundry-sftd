@@ -116,6 +116,7 @@
           </div>
         </div>
 
+        {{#if (gt system.hazard.value 0)}}
         <div class="flex-vertical hazard-reduction-container">
           <div class="clock-block">
             <div class="clocks clocks-8 small" data-tooltip="{{localize 'SFTD.HazardReductionClock'}}">
@@ -123,6 +124,7 @@
             </div>
           </div>
         </div>
+        {{/if}}
       </div>
     </div>
   </section>

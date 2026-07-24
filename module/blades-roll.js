@@ -121,9 +121,6 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
 
   let crewFull = BladesHelpers.resolveActor(extraFields.actor?.system.crew);
   let factionFull = BladesHelpers.resolveActor(crewFull?.system.faction);
-  let trustChanges = {};
-  if (factionFull)
-    trustChanges[factionFull?.uuid] = 0;
   let shellChanges = extraFields.shells ?? 0;
   let rollTypeKey = Object.entries(rollTypeLabels).find(r => r[1] == attributeOrRollName);
   let downtimeCountChanges = rollTypeKey ? (BladesHelpers.isDowntime(rollTypeKey[0]) ? -1 : 0) : 0;
@@ -140,10 +137,6 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     if (modifier.otherStress)
       for (let [uuid, value] of Object.entries(modifier.otherStress))
         stressChanges[uuid] = (stressChanges[uuid] ?? 0) + Number(value);
-    if (modifier.patronTrust) trustChanges[factionFull?.uuid] += modifier.patronTrust;
-    if (modifier.otherTrust)
-      for (let [uuid, value] of Object.entries(modifier.otherTrust))
-        trustChanges[uuid] = (trustChanges[uuid] ?? 0) + Number(value);
     if (modifier.shells) shellChanges += modifier.shells;
     if (modifier.bonusRoll) {
       downtimeCountChanges = 0;
@@ -155,14 +148,6 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     if (modifier.harmony) harmonyChanges += modifier.harmony;
     if (modifier.allowHarmonyGain) allowHarmonyGain = true;
   }
-
-  // Irons in the Fire: Cancel extra die if only one project is selected
-  if (extraFields.ltpIds?.length == 1) {
-    diceAmount --;
-    extraFields.ltpId = extraFields.ltpIds[0];
-    extraFields.ltpIds = undefined;
-  }
-
 
   // Stress Changes
   if (rollData.stressChanges)
@@ -178,20 +163,6 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
         await BladesHelpers.tryUpdate(stressActorFull, {system: {stress: {'==value': resultStress}}});
       rollData.stressChanges[stressActorFull._id] = stressChangeItem;
     }
-  }
-
-  // Trust Changes
-  if (rollData.trustChanges)
-    rollData.oldTrustChanges = rollData.trustChanges;
-  rollData.trustChanges = {};
-  for (let [trustActorUuid, trustChange] of Object.entries(trustChanges)) {
-    if (trustChange == 0) continue;
-    let trustActorFull = BladesHelpers.resolveActor(trustActorUuid);
-    if (!trustActorFull) continue;
-    let [trustText, trustValue] = await BladesHelpers.handleTrust(trustActorFull, crewFull, trustChange);
-    if (trustText)
-      extraFields.modifier_text = `<p>${trustText}</p>`;
-    rollData.trustChanges[trustActorFull._id] = {value: trustChange, realValue: trustValue};
   }
 
   // Shell Changes
@@ -548,17 +519,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/manufacture-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
   }
-  // Check for Schmooze roll
-  else if (attributeOrRollName == 'SFTD.SchmoozeRoll') {
-    let trustGain = getBladesRollDowntime(rolls, extraResult, zeromode);
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    let trustText = (await BladesHelpers.handleTrust(extraFields.schmoozeFaction, crewFull, trustGain))[0];
-    let statusChangeString = '';
-    if (trustText)
-      statusChangeString = ` ${trustText.includes('<br/>') ? trustText.match('(?<=\<br\/\>)(.*)', 1)[0] : ''}`;
-
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/schmooze-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, crew: crewFull, trust_gain: trustGain, status_change_string: statusChangeString, note: note, extraFields: extraFields });
-  }
   // Check for Fortune Roll
   else if (attributeOrRollName == 'SFTD.FortuneRoll')
     result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/fortune-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: 'SFTD.FortuneRoll', note: note, extraFields: extraFields });
@@ -669,10 +629,6 @@ export async function cancelRollResult(rollData, actorFull) {
   for (let [stressChangeId, stressChange] of Object.entries(rollData.stressChanges)) {
     let stressActorFull = BladesHelpers.resolveActor(`Actor.${stressChangeId}`);
     await BladesHelpers.tryUpdate(stressActorFull, {'system.stress.value': Math.min(Math.max(Number(stressActorFull.system.stress.value) - stressChange.realValue, 0), stressActorFull.system.stress.max)});
-  }
-  for (let [trustChangeId, trustChange] of Object.entries(rollData.trustChanges)) {
-    let trustActorFull = BladesHelpers.resolveActor(`Actor.${trustChangeId}`);
-    await BladesHelpers.handleTrust(trustActorFull, crewFull, -trustChange.realValue);
   }
 
   let actorUpdateObject = {};

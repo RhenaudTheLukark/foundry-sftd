@@ -714,8 +714,10 @@
     "EndMissionPressureVendetta": "Add Pressure for each Faction that holds a vendetta against you.<br/>Current Faction(s) in vendetta with you: {vendettas}",
     "EndMissionPressureSevereInjury": "Were people severely injured or killed on the mission?",
     "EndMissionPressureSevereInjuryYourFault": "Was anyone in your crew responsible for such?",
-    "EndMissionAftermath": "You must roll an Aftermath, as nothing happens in isolation.<br/>(Roll it from the Misc. Rolls menu on the Strider sheet AFTER this process is completed so Pressure and Hazard are up to date).",
+    "EndMissionAftermath": "You must roll an Aftermath, as nothing happens in isolation.",
     "EndMissionDowntimeStart": "The Mission has ended, Striders may now partake in Downtime Activities.",
+    "EndMissionPressureRecap": "You garnered <strong>{num} Pressure</strong> because of your previous mission.",
+    "EndMissionPressureRecapHazardIncrease": "Your Hazard level has increased. Change your community ideals in response. You can either alter an existing ideal, get rid of an ideal, or add a new one.",
 
     "EndSessionCheatSheet": "End Session Cheat Sheet",
     "EndSessionDescription": "This sheet has no automation linked to it. It is merely just a cheat sheet for handling the end of a session.<br/>Feel free to untick tasks you've already done as you go through them with your players!",
