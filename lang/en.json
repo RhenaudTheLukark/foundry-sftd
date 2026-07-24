@@ -697,7 +697,7 @@
     "StartMissionRecoverMelody": "All Striders have recovered their melody.",
     "StartMissionStart": "The Mission starts now. Good luck!",
 
-    "EndMission": "End Mission (WIP)",
+    "EndMission": "End Mission",
     "EndMissionClickHereToExpand": "Click Here to Expand",
     "EndMissionClickHereToCollapse": "Click Here to Collapse",
     "EndMissionDescription": "This popup allows you to automate some parts of the mission ending process.<br/>Any ticked checkbox will let the system automate that part of the process to the best of its ability.<br/>This also serves as a cheat sheet: only green options have automation linked to them.<br/>For anything related to Pressure Gain, enabling a bullet point means its effect is applied. Only enable the ones that apply to the mission!<br/>NOTE! NONE OF THE AUTOMATION OPTIONS BELOW ARE READY YET",
