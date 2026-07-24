@@ -379,7 +379,7 @@ export class BladesStriderSheet extends BladesSheet {
     let rollTypes = ['constructFoundation', 'longTermProject', 'recover', 'train'];
     let missingRollTypes = {};
 
-    let trainTypes = ['playbook'];
+    let trainTypes = ['playbook', 'analysis', 'kinesis', 'semiosis'];
     for (let usedTrainType of Object.keys(this.actor.system.downtime_activities.train_types))
       trainTypes.splice(trainTypes.indexOf(usedTrainType), 1);
     if (trainTypes.length == 0)
