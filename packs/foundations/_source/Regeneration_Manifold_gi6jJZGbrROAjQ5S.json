@@ -7,7 +7,9 @@
     "description": "<p>This strange pocket of twisted space accelerates healing; once per <strong>downtime</strong>, you can use a <strong>recover </strong>action to clear a strider of <strong>all harm</strong>.</p>",
     "prosperity_level": 4,
     "cache_cost": 6,
-    "is_complex": true
+    "npc": "null",
+    "is_complex": true,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780868356316,
-    "modifiedTime": 1780868380925,
+    "modifiedTime": 1784946572835,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!gi6jJZGbrROAjQ5S"

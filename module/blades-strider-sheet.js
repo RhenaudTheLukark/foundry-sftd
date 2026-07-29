@@ -5,6 +5,7 @@ import { enrichHTML } from "./compat.js";
 import { bladesRoll, simpleRollPopup, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
   pruneInvalidConditionalRollModifiers, keepValidModifiersFromOther } from './blades-roll.js';
+import { bladesPopupData, BladesPopup } from "./blades-popups.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -371,6 +372,16 @@ export class BladesStriderSheet extends BladesSheet {
         if (rollType == 'constructFoundation')
           element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
       });
+    });
+
+    html.find('.generic-popup').click(async ev => {
+      const element = $(ev.currentTarget).closest('.item');
+      let item = this.actor.items.get(element.data('itemId'));
+      let popupData = bladesPopupData[item.system.popup];
+      if (!popupData)
+        ui.notifications.error(game.i18n.format('SFTD.log.error.BadPopupID', {id: item.system.popup}), { permanent: true });
+      else
+        await BladesPopup.instantiatePopup(this.actor, popupData);
     });
   }
 

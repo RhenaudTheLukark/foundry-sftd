@@ -13,9 +13,55 @@
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "popup": "alloyed_mettle"
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Alloyed Mettle Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.ability.Item.NyRbDmeAEqzIbMTV",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "WHhw8okYeqDf9avj",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.alloyed_mettle",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1785303057611,
+        "modifiedTime": 1785303081192,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!NyRbDmeAEqzIbMTV.WHhw8okYeqDf9avj"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
@@ -31,7 +77,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780856311537,
-    "modifiedTime": 1780856330795,
+    "modifiedTime": 1785292954186,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!NyRbDmeAEqzIbMTV"

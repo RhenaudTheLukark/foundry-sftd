@@ -10,7 +10,52 @@
     "purchased": false,
     "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Synchronized Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.crew_ability.Item.17BwRO5LPW0ljlGn",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "2HlVEk6oqcb7GybT",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.synchronized",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1782285387967,
+        "modifiedTime": 1782285435849,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!17BwRO5LPW0ljlGn.2HlVEk6oqcb7GybT"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

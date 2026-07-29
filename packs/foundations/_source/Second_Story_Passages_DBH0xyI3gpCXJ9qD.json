@@ -7,7 +7,9 @@
     "description": "<p>This network of secondary routes in and around your community gives you <strong>+1d</strong> to <strong>Wayfare </strong>and <strong>Shadow </strong>rolls on-site.</p>",
     "prosperity_level": 1,
     "cache_cost": 2,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867427123,
-    "modifiedTime": 1780867444880,
+    "modifiedTime": 1784946674693,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!DBH0xyI3gpCXJ9qD"

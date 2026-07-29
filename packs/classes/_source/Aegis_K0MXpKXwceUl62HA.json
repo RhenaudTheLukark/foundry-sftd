@@ -2,7 +2,7 @@
   "name": "Aegis",
   "type": "class",
   "_id": "K0MXpKXwceUl62HA",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/strider/Aegis.svg",
   "system": {
     "description": "<p>Know the peace in the conflict, and the conflict in the peace. Be on the lookout for trouble, stop what fights you can, and win the fights you can&rsquo;t. Let every danger crash against you, and trust that you will not be broken.</p>",
     "logic": "",
@@ -75,7 +75,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780613672463,
-    "modifiedTime": 1780613778330,
+    "modifiedTime": 1781107552298,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!K0MXpKXwceUl62HA"

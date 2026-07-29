@@ -369,7 +369,8 @@
       "uses": {
         "value": 0,
         "max": 0
-      }
+      },
+      "popup": ""
     },
     "specialist": {
       "templates": ["default"],
@@ -427,7 +428,12 @@
       "is_upgrade": false
     },
     "crew_ability": {
-      "templates": ["ability", "activatedEffect"]
+      "templates": ["ability", "activatedEffect"],
+      "uses": {
+        "value": 0,
+        "max": 0
+      },
+      "popup": ""
     },
     "crew_type": {
       "templates": ["activatedEffect"],

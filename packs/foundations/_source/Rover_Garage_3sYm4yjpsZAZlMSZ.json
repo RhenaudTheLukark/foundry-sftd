@@ -7,7 +7,9 @@
     "description": "<p>A heavy, 6-wheeled, all-terrain rover and a garage to store it. The rover&rsquo;s equipped with cargo compartments and big enough to comfortably fit a large group&rsquo;s worth of people (about 20). You can hitch a trailer or truckbed to the rover.</p>",
     "prosperity_level": 1,
     "cache_cost": 3,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867327391,
-    "modifiedTime": 1780867343089,
+    "modifiedTime": 1784946647958,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!3sYm4yjpsZAZlMSZ"

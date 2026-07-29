@@ -6,6 +6,7 @@ import { bladesRoll, buildRollPopup, resolveRollModifierArray, resolveConditiona
   pruneInvalidConditionalRollModifiers, keepValidModifiersFromRollType, keepValidModifiersFromOther
 } from './blades-roll.js';
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
+import { renderHandlebarsTemplate as renderTemplate } from "./compat.js";
 
 /**
  * @extends {BladesSheet}
@@ -254,7 +255,7 @@ export class BladesCrewSheet extends BladesSheet {
         let messageData = {
           speaker: speaker,
           groupActionCrew: this.actor.uuid,
-          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, impact: this.actor.system.group_action.impact, leader: leaderFull, crew: this.actor, note: note })
+          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, impact: this.actor.system.group_action.impact, leader: leaderFull, crew: this.actor, note: note })
         }
         SFTDChatMessage.create(messageData);
       }
@@ -426,7 +427,7 @@ export class BladesCrewSheet extends BladesSheet {
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.StartMission')}` },
-      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/start-mission.html', {extraData: extraData}),
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/start-mission.html', {extraData: extraData}),
       classes: ['start-mission'],
       buttons: [
         {
@@ -481,7 +482,7 @@ export class BladesCrewSheet extends BladesSheet {
         };
         let messageData = {
           speaker: speaker,
-          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents })
+          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents })
         }
         SFTDChatMessage.create(messageData);
       }
@@ -502,7 +503,7 @@ export class BladesCrewSheet extends BladesSheet {
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.EndMission')}` },
-      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/end-mission.html', { rep_tiers: Array(6).fill().map((_, i) => `<option value="${i}"${i == 0 ? ' selected' : ''}>${i}</option>`).join(''), extraData: extraData}),
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/end-mission.html', { rep_tiers: Array(6).fill().map((_, i) => `<option value="${i}"${i == 0 ? ' selected' : ''}>${i}</option>`).join(''), extraData: extraData}),
       classes: ['end-mission'],
       buttons: [
         {
@@ -576,7 +577,7 @@ export class BladesCrewSheet extends BladesSheet {
         };
         let messageData = {
           speaker: speaker,
-          content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/end-mission.html', { contents: messageContents })
+          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/end-mission.html', { contents: messageContents })
         }
         SFTDChatMessage.create(messageData);
       }
@@ -603,7 +604,7 @@ export class BladesCrewSheet extends BladesSheet {
   async endSessionPopup() {
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.EndSessionCheatSheet')}` },
-      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/end-session.html', {}),
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/end-session.html', {}),
       classes: ['end-session'],
       buttons: [
         {

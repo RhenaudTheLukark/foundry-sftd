@@ -7,7 +7,9 @@
     "description": "<p>Your community is hidden and difficult to find for those not already in the know. If the location of your community is ever discovered, you&rsquo;ll need to complete a 6-step long-term project to conceal it again.</p>",
     "prosperity_level": 1,
     "cache_cost": 3,
-    "is_complex": true
+    "npc": "null",
+    "is_complex": true,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867193427,
-    "modifiedTime": 1780867209706,
+    "modifiedTime": 1784946338600,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!QWDnlTggF6k4Jfvg"

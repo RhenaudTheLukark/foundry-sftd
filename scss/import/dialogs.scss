@@ -187,6 +187,15 @@ fieldset.form-group {
   justify-content: space-between;
 }
 
+.grow-one {
+  flex-grow: 1;
+}
+
+.flex-equal {
+  flex: 1 1 0;
+  width: 0;
+}
+
 .toggleable-modifiers {
   overflow: hidden auto;
   max-height: 200px;
@@ -205,23 +214,64 @@ fieldset.form-group {
   }
 }
 
-&.stay-late {
-  table.form-group {
-    width: auto;
+&.generic-popup {
+  .popup-container {
+    gap: 0.5em;
 
-    tr {
-      display: table;
-      table-layout: fixed;
-      background-color: var(--table-row-color-odd);
+    &:empty {
+      display: none;
+    }
 
-      td {
-        display: table-cell;
-        width: 2%;
-        padding: 1em;
-
-        &.selected {
-          background-color: rgba(255, 255, 255, 0.2);
+    &.form {
+      .field {
+        &.shrink {
+          justify-content: center;
+          align-items: center;
+          gap: 0.5em;
         }
+
+        & > label {
+          height: fit-content;
+        }
+
+        .crewmate-group {
+          width: auto;
+
+          tr {
+            display: table;
+            table-layout: fixed;
+            background-color: var(--table-row-color-odd);
+
+            td {
+              display: table-cell;
+              width: 2%;
+              padding: 1em;
+
+              &.selected {
+                background-color: rgba(255, 255, 255, 0.2);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  &.alloyed-mettle {
+    .stress-transfer {
+      justify-content: space-around;
+      text-align: center;
+
+      .actor-stress, .selector, .other-stress {
+        font-size: 20px;
+
+        .stress.maxxed {
+          color: $red;
+        }
+      }
+
+      .selector {
+        justify-content: center;
       }
     }
   }

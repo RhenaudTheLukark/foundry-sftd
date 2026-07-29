@@ -7,7 +7,9 @@
     "description": "<p>A strange blend of shrine and machine, this artifact makes it easier to channel transcendent forces. Take <strong>-1</strong> to the <strong>stress cost </strong>for charm abilities and other mystical powers. This ability applies to all crewmates everywhere; you don&rsquo;t need to be on-site to use it.</p>",
     "prosperity_level": 3,
     "cache_cost": 4,
-    "is_complex": true
+    "npc": "null",
+    "is_complex": true,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780868145759,
-    "modifiedTime": 1780868185510,
+    "modifiedTime": 1784946872476,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!U8FYSXkrfIVwRRfr"

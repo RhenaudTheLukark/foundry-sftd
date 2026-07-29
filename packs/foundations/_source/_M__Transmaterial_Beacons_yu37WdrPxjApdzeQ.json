@@ -7,7 +7,9 @@
     "description": "<p>Activate a pair of these beacons and you can teleport person-sized or smaller objects between them. Beacons are 1 load each and require line of sight to conduct a transmat.</p>",
     "prosperity_level": 0,
     "cache_cost": 0,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869798682,
-    "modifiedTime": 1780876323528,
+    "modifiedTime": 1784944840231,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!yu37WdrPxjApdzeQ"

@@ -7,7 +7,9 @@
     "description": "<p>An archive of historical records and scientific data that survived the cataclysm which ended the Radiant Era. Take <strong>+1d</strong> to <strong>Decipher </strong>and&nbsp;<strong>Shape </strong>rolls on-site&nbsp;when the archive could help your research or construction projects.</p>",
     "prosperity_level": 1,
     "cache_cost": 4,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867285469,
-    "modifiedTime": 1780867311533,
+    "modifiedTime": 1784946515882,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!pOCheKSvuERdMGQs"

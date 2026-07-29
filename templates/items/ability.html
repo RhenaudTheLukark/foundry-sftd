@@ -11,15 +11,31 @@
       {{editor system.description target="system.description" button=true editable=editable}}
     </section>
     <div class="flex-vertical">
-      <label class="label-stripe">{{localize "SFTD.AbilityPrice"}}</label>
-      <input id="ability-price" type="text" name="system.price" value="{{system.price}}" placeholder="{{localize 'SFTD.AbilityPrice'}}">
-      <label class="label-stripe">{{localize "SFTD.AbilityClass"}}</label>
-      <input id="ability-class" type="text" name="system.class" value="{{system.class}}" placeholder="{{localize 'SFTD.AbilityClass'}}">
-      {{#if isGM}}
-       <!-- <div class="label-stripe">{{localize "SFTD.Logic"}}</div>
-        <textarea name="system.logic">{{{system.logic}}}</textarea> -->
-        <div class="label-stripe">{{localize "SFTD.Effects"}}</div>
-        <div id="effects">{{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}</div>
-      {{/if}}
+    <div class='flex-horizontal'>
+      <div class='two-line'>
+        <label class="label-stripe">{{localize "SFTD.AbilityPrice"}}</label>
+        <input id="ability-price" type="text" name="system.price" value="{{system.price}}" placeholder="{{localize 'SFTD.AbilityPrice'}}">
+      </div>
+      <div class='two-line'>
+        <label class="label-stripe">{{localize "SFTD.AbilityClass"}}</label>
+        <input id="ability-class" type="text" name="system.class" value="{{system.class}}" placeholder="{{localize 'SFTD.AbilityClass'}}">
+      </div>
     </div>
+    <div class='flex-horizontal'>
+      <div class='two-line'>
+        <label class="label-stripe">{{localize "SFTD.Uses"}}</label>
+        <input id="ability-uses" type="text" name="system.uses.max" value="{{system.uses.max}}" placeholder="{{localize 'SFTD.Uses'}}">
+      </div>
+      <div class='two-line'>
+        <label class="label-stripe">{{localize "SFTD.PopupID"}}</label>
+        <input id="ability-popup" type="text" name="system.popup" value="{{system.popup}}" placeholder="{{localize 'SFTD.PopupID'}}">
+      </div>
+    </div>
+    {{#if isGM}}
+      <!-- <div class="label-stripe">{{localize "SFTD.Logic"}}</div>
+      <textarea name="system.logic">{{{system.logic}}}</textarea> -->
+      <div class="label-stripe">{{localize "SFTD.Effects"}}</div>
+      <div id="effects">{{> "systems/songs-for-the-dusk/templates/parts/active-effects.html"}}</div>
+    {{/if}}
+  </div>
 </form>

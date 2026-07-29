@@ -7,7 +7,9 @@
     "description": "<p>These drones maintain, repair, and deploy your gear automatically between missions&mdash;just grab it and go. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>rapid </strong>mission approaches.</p>",
     "prosperity_level": 2,
     "cache_cost": 3,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780868002998,
-    "modifiedTime": 1780868020727,
+    "modifiedTime": 1784946530857,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!NMdFg8ZzALyY6oJX"

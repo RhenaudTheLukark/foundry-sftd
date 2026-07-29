@@ -7,7 +7,9 @@
     "description": "<p>The spirits called blackwings love to go unnoticed; cultivate their loyalty, and you can learn from their prowess. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>subtle </strong>mission approaches.</p>",
     "prosperity_level": 2,
     "cache_cost": 3,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867973503,
-    "modifiedTime": 1780867990649,
+    "modifiedTime": 1784945531052,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!o3vmn4o8m1UoiIRz"

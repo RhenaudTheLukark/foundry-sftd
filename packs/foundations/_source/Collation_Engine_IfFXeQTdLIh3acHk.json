@@ -7,7 +7,9 @@
     "description": "<p>Tracks your findings, stores your field data, and draws connections a human or neohuman might never think to make. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>curious </strong>mission approaches.</p>",
     "prosperity_level": 1,
     "cache_cost": 3,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780866895354,
-    "modifiedTime": 1780867504294,
+    "modifiedTime": 1784946288846,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!IfFXeQTdLIh3acHk"

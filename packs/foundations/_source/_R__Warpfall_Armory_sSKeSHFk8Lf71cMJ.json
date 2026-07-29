@@ -7,7 +7,9 @@
     "description": "<p>A teleporting armory pod which can ferry equipment to and from the crew. Use it to reset up to <strong>2 load slots</strong> once per mission.</p>",
     "prosperity_level": 0,
     "cache_cost": 0,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869833018,
-    "modifiedTime": 1780876328321,
+    "modifiedTime": 1784945050154,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!sSKeSHFk8Lf71cMJ"

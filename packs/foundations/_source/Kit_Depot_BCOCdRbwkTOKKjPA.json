@@ -7,7 +7,9 @@
     "description": "<p>A stock of specialized materials to improve kits. It improves the <strong>Quality </strong>rating of all the Striders&rsquo; kit items, stacking with fine items and crew&nbsp;<strong>Prosperity</strong>.</p>",
     "prosperity_level": 1,
     "cache_cost": 3,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869253544,
-    "modifiedTime": 1780869279293,
+    "modifiedTime": 1784946352123,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!BCOCdRbwkTOKKjPA"

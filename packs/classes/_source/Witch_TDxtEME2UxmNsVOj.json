@@ -2,7 +2,7 @@
   "name": "Witch",
   "type": "class",
   "_id": "TDxtEME2UxmNsVOj",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/strider/Witch.svg",
   "system": {
     "description": "<p>Open your soul to the song of reality. Let your heart beat in time with the notes<br>of a new physics.&nbsp;Your power is immense, but don&rsquo;t mistake it for what it&rsquo;s not; the storms you call mean much less than the wounds you heal.</p>",
     "logic": "",
@@ -75,7 +75,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780615127841,
-    "modifiedTime": 1780615156898,
+    "modifiedTime": 1781108733102,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!TDxtEME2UxmNsVOj"

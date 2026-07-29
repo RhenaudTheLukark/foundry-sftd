@@ -7,7 +7,9 @@
     "description": "<p>This forge of nanomachines and energy strands temporarily amplifies any technology or transcendent force it&rsquo;s exposed to, operating with a zeal that&rsquo;s not malicious but still a bit worrying. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>brazen </strong>mission approaches.</p>",
     "prosperity_level": 2,
     "cache_cost": 3,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867945016,
-    "modifiedTime": 1780867962123,
+    "modifiedTime": 1784945293493,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!e94pFZ0jtkSCo6UL"

@@ -2,7 +2,7 @@
   "name": "Kestrel",
   "type": "class",
   "_id": "84n198SZgPe5uirj",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/strider/Kestrel.svg",
   "system": {
     "description": "<p>All our cities and machines are no more unique than anthills and beaver dams. We are always in nature, and we must always adapt.&nbsp;You&rsquo;re the master of your environment, no matter what it might be. Be quick to act, keep an eye out for danger, and find the way forward. Your crew&rsquo;s counting on you.</p>",
     "logic": "",
@@ -75,7 +75,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780614733001,
-    "modifiedTime": 1780614776317,
+    "modifiedTime": 1781108038219,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!84n198SZgPe5uirj"

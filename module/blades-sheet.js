@@ -1,6 +1,6 @@
 import { BladesActiveEffect } from './blades-active-effect.js';
 import { BladesHelpers } from './blades-helpers.js';
-import { getActorSheetClass } from './compat.js';
+import { getActorSheetClass, renderHandlebarsTemplate as renderTemplate } from './compat.js';
 
 const BaseActorSheet = getActorSheetClass();
 
@@ -398,7 +398,7 @@ export class BladesSheet extends BaseActorSheet {
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.ClockStylePicker')}` },
-      content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/popups/clock-style-picker.html', { clockStylesDropdown: clockStylesDropdown, themeColor: themeColor }),
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/clock-style-picker.html', { clockStylesDropdown: clockStylesDropdown, themeColor: themeColor }),
       classes: ['clock-style-picker'],
       buttons: [
         {

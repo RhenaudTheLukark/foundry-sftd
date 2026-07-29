@@ -7,7 +7,9 @@
     "description": "<p>A comfortable library and a set of technical sims to hone your perception. Once you have constructed a training facility, you gain <strong>2 xp</strong> for training <strong>Analysis</strong> during&nbsp;<strong>downtime </strong>instead of the usual <strong>1</strong>.</p>",
     "prosperity_level": 1,
     "cache_cost": 2,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869296410,
-    "modifiedTime": 1780869387265,
+    "modifiedTime": 1784946809421,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!pwYQ5HigNaVPB665"

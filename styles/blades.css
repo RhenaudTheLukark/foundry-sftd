@@ -5766,6 +5766,14 @@
 .songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .relationship-child-list {
   margin-left: 10px;
 }
+.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .generic-popup, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .generic-popup, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .generic-popup {
+  text-align: center;
+  align-self: center;
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .generic-popup input {
+  margin: 0px;
+}
 .songs-for-the-dusk.actor.sheet .tab-content .item .item-name {
   font-weight: bold;
 }
@@ -7777,6 +7785,13 @@
   flex-direction: row;
   justify-content: space-between;
 }
+.application.dialog .grow-one {
+  flex-grow: 1;
+}
+.application.dialog .flex-equal {
+  flex: 1 1 0;
+  width: 0;
+}
 .application.dialog .toggleable-modifiers {
   overflow: hidden auto;
   max-height: 200px;
@@ -7790,21 +7805,48 @@
 .application.dialog.upgrade-connection .form-group:empty {
   display: none;
 }
-.application.dialog.stay-late table.form-group {
+.application.dialog.generic-popup .popup-container {
+  gap: 0.5em;
+}
+.application.dialog.generic-popup .popup-container:empty {
+  display: none;
+}
+.application.dialog.generic-popup .popup-container.form .field.shrink {
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+}
+.application.dialog.generic-popup .popup-container.form .field > label {
+  height: fit-content;
+}
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group {
   width: auto;
 }
-.application.dialog.stay-late table.form-group tr {
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr {
   display: table;
   table-layout: fixed;
   background-color: var(--table-row-color-odd);
 }
-.application.dialog.stay-late table.form-group tr td {
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr td {
   display: table-cell;
   width: 2%;
   padding: 1em;
 }
-.application.dialog.stay-late table.form-group tr td.selected {
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr td.selected {
   background-color: rgba(255, 255, 255, 0.2);
+}
+.application.dialog.generic-popup.alloyed-mettle .stress-transfer {
+  justify-content: space-around;
+  text-align: center;
+}
+.application.dialog.generic-popup.alloyed-mettle .stress-transfer .actor-stress, .application.dialog.generic-popup.alloyed-mettle .stress-transfer .selector, .application.dialog.generic-popup.alloyed-mettle .stress-transfer .other-stress {
+  font-size: 20px;
+}
+.application.dialog.generic-popup.alloyed-mettle .stress-transfer .actor-stress .stress.maxxed, .application.dialog.generic-popup.alloyed-mettle .stress-transfer .selector .stress.maxxed, .application.dialog.generic-popup.alloyed-mettle .stress-transfer .other-stress .stress.maxxed {
+  color: red;
+}
+.application.dialog.generic-popup.alloyed-mettle .stress-transfer .selector {
+  justify-content: center;
 }
 .application.dialog.start-mission ul, .application.dialog.end-mission ul, .application.dialog.end-session ul {
   margin-top: 0.25em;

@@ -95,6 +95,11 @@ export const bladesRollModifierList = {
       };
     },
     protect: true
+  },
+  alloyed_mettle: {
+    name: 'SFTD.StriderAbility.AlloyedMettle.Title',
+    rollTypes: 'actionRoll',
+    impact: 1
   }
 }
 
@@ -297,15 +302,15 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   // TODO: Extend rollData to all roll types
   // Check for Specialist rolls
   if (attributeOrRollName == 'SFTD.SpecialistRoll') {
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, note: note, extraFields: extraFields });
   // Check for Group Specialist rolls
   } else if (attributeOrRollName == 'SFTD.GroupSpecialistRoll') {
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     crewFull?.updateGroupActionRoll(extraFields.actor.id, rollStatus);
   // Check for Group Action roll
   } else if (extraFields.group_action) {
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
     // Dire Action
     if (extraFields.dire && rollStatus == 'critical-success')
       await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': Math.max(Number(extraFields.actor.system.stress.value) - 1, 0)}}});
@@ -350,7 +355,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     if (extraFields.dire && rollStatus == 'critical-success')
       await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': Math.max(Number(extraFields.actor.system.stress.value) - 1, 0)}}});
 
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, position_localize: positionLocalize, impact_localize: impactLocalize, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, position_localize: positionLocalize, impact_localize: impactLocalize, note: note, extraFields: extraFields });
   }
   // Check for Resistance roll
   else if (attributeOrRollName == 'SFTD.ResistanceRoll') {
@@ -358,20 +363,20 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let resultStress = Math.max(Math.min(Number(extraFields.actor.system.stress.value) + stress, Number(extraFields.actor.system.stress.max)), 0);
     if (resultStress != extraFields.actor.system.stress.value)
       await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': resultStress}}});
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/resistance-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, stress: stress, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/resistance-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, stress: stress, note: note, extraFields: extraFields });
   }
   // Check for Aftermath roll
   else if (attributeOrRollName == 'SFTD.AftermathRoll') {
     let crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
     extraFields.cantHateUs = crewFull?.system.cant_hate_us;
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/aftermath-roll.html', { rolls: rolls, zeromode: zeromode, method: method, resultDie: resultDie, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/aftermath-roll.html', { rolls: rolls, zeromode: zeromode, method: method, resultDie: resultDie, note: note, extraFields: extraFields });
   }
   // Check for Collect Information roll
   else if (attributeOrRollName == 'SFTD.CollectInformationRoll')
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/collect-info-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/collect-info-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
   // Check for Engagement roll
   else if (attributeOrRollName == 'SFTD.EngagementRoll')
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/engagement-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/engagement-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
   // Check for Upkeep roll
   else if (attributeOrRollName == 'SFTD.UpkeepRoll') {
     let shells = getBladesRollCollect(rolls, extraResult, zeromode);
@@ -380,7 +385,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       let newShells = Math.min(crewFull.system.shells.value + shells, crewFull.system.shells.max);
       await BladesHelpers.tryUpdate(crewFull, {'system.shells.value': newShells});
     }
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/upkeep-roll.html', { rolls: rolls, zeromode: zeromode, method: method, num: shells, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/upkeep-roll.html', { rolls: rolls, zeromode: zeromode, method: method, num: shells, note: note, extraFields: extraFields });
   }
 
   // Check for Acquire Asset roll
@@ -408,7 +413,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     extraFields.isFoundationUpgrade = project.is_foundation_upgrade;
     extraFields.clockFilled = clockFilled;
 
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/construct-foundation-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/construct-foundation-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
   }
   // Check for Cut Loose roll
   else if (attributeOrRollName == 'SFTD.CutLooseRoll') {
@@ -472,7 +477,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       extraFields.rollData.stressChanges[extraFields.actor._id] = {value: realClearStress, realValue: shiftValue};
     await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
 
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, saved_by_conviction: savedByConviction, saved_by_functioning_vice: savedByFunctioningVice, saved_by_carouse: savedByCarouse, attribute_label: attributeLabel, strider: connectionFull ? connectionFull.name : 'Unknown Strider', clear_stress: clearStress, connection_maxxed: clockMaxxed, other_connection_maxxed: otherClockMaxxed, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, saved_by_conviction: savedByConviction, saved_by_functioning_vice: savedByFunctioningVice, saved_by_carouse: savedByCarouse, attribute_label: attributeLabel, strider: connectionFull ? connectionFull.name : 'Unknown Strider', clear_stress: clearStress, connection_maxxed: clockMaxxed, other_connection_maxxed: otherClockMaxxed, note: note, extraFields: extraFields });
   }
   // Check for Long-Term Project roll
   else if (attributeOrRollName == 'SFTD.LongTermProjectRoll') {
@@ -494,7 +499,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     extraFields.improvementLevels = improvementLevels.indexOf(rollStatus);
     extraFields.project = project.title;
     extraFields.clockFilled = clockFilled;
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/long-term-project-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/long-term-project-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
   }
   // Check for Manufacture roll
   else if (attributeOrRollName == 'SFTD.ManufactureRoll') {
@@ -517,11 +522,11 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     }
     let shellsNeededForSuccess = Math.max(successTier - tierQuality, 0);
     let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/manufacture-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/manufacture-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
   }
   // Check for Fortune Roll
   else if (attributeOrRollName == 'SFTD.FortuneRoll')
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/fortune-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: 'SFTD.FortuneRoll', note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/fortune-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: 'SFTD.FortuneRoll', note: note, extraFields: extraFields });
   // Generic roll if not specified
   else {
     // Collection Agency & Side Business: Update Shells
@@ -534,7 +539,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       let updateObject = {'system.shells.value': Math.min(Math.max(Number(extraFields.actor.system.shells.value) + value, 0), Number(extraFields.actor.system.shells.max))};
       await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
     }
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/generic-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/generic-message.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, note: note, extraFields: extraFields });
   }
 
   let messageData = {
@@ -587,7 +592,7 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
     }
     await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
 
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/recover-get.html', { levelOneHarm: levelOneHarm, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/recover-get.html', { levelOneHarm: levelOneHarm, note: note, extraFields: extraFields });
   }
   // Check for Train
   else if (attributeOrRollName == 'SFTD.TrainRoll') {
@@ -603,11 +608,11 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
     let trainTypeDescriptionKey = extraFields.trainType == 'playbook' ? 'SFTD.TrainTextGeneral' : 'SFTD.TrainTextStrider';
     let trainTypeDescription = game.i18n.format(trainTypeDescriptionKey, {trainType: trainTypeText});
 
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/train-get.html', { train_type_desc: trainTypeDescription, train_type_text: trainTypeText, num: xpGain, level_up: levelUp, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/train-get.html', { train_type_desc: trainTypeDescription, train_type_text: trainTypeText, num: xpGain, level_up: levelUp, note: note, extraFields: extraFields });
   }
   // Check for Move Base
   else if (attributeOrRollName == 'SFTD.MoveBaseRoll')
-    result = await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/move-base-get.html', { note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/move-base-get.html', { note: note, extraFields: extraFields });
 
   let messageData = {
     speaker: speaker,
@@ -1678,7 +1683,7 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
 
   let messageData = {
     speaker: ChatMessage.getSpeaker(),
-    content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader_name: leaderFull.name, stress: stress, note: groupActionData.note })
+    content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader_name: leaderFull.name, stress: stress, note: groupActionData.note })
   };
   ChatMessage.create(messageData);
 }

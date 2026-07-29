@@ -2,7 +2,7 @@
   "name": "Beacon",
   "type": "class",
   "_id": "uZ72CYNVax9v3AcG",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/strider/Beacon.svg",
   "system": {
     "description": "<p>As the sun, draw every eye. As the wind, beckon every ear. As music, strike a chord in every heart. Get people talking and get to know them. Negotiate when you can and bluff when you can&rsquo;t&mdash;but never underestimate the power of a few, clever words.</p>",
     "logic": "",
@@ -75,7 +75,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780614403864,
-    "modifiedTime": 1780614448186,
+    "modifiedTime": 1781108710152,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!uZ72CYNVax9v3AcG"

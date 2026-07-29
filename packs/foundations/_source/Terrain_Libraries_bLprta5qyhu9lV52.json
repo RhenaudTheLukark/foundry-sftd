@@ -7,7 +7,9 @@
     "description": "<p>Sonar-pulse maps, ancient geographies, environmental data, historical trivia, and more. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>studied </strong>mission approaches.</p>",
     "prosperity_level": 1,
     "cache_cost": 3,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780867471635,
-    "modifiedTime": 1780867571335,
+    "modifiedTime": 1784946738148,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!bLprta5qyhu9lV52"

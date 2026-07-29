@@ -7,7 +7,9 @@
     "description": "<p>Adaptive suits designed to withstand hazardous environments, and the tools to customize them for whatever dangerous place your next job might take you.</p>",
     "prosperity_level": 0,
     "cache_cost": 0,
-    "is_complex": false
+    "npc": "null",
+    "is_complex": false,
+    "is_upgrade": false
   },
   "effects": [],
   "folder": null,
@@ -25,7 +27,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780869528676,
-    "modifiedTime": 1780876307964,
+    "modifiedTime": 1784944772818,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!CLLNqMLRTm0PNihF"

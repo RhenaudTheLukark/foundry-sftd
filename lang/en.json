@@ -90,6 +90,8 @@
     "ExpClues": "Exp Clues",
     "AbilityPrice": "Ability Price",
     "AbilityClass": "Ability Class",
+    "PopupID": "Use Ability Popup ID",
+    "UseAbility": "Use Ability",
     "Information": "Information",
     "ScaleAndQuality": "Scale and Quality",
     "ChooseOneOrTwoEdges": "Choose one or two edges and an equal number of flaws",
@@ -304,6 +306,7 @@
 
     "AddAbility": "Add Ability",
     "AddItem": "Add Item",
+    "Use": "Use",
     "Uses": "No. of Uses",
     "UsesShort": "Uses",
     "NumberAvailable": "Number Available",
@@ -592,7 +595,7 @@
     "RollCutLooseConviction": "Your focus on experimentation helped you gather a significant data set.",
     "RollCutLooseFunctioningVice": "Your functioning vice allows you to manually adjust the amount of stress recovered by up to +2 or -2.",
     "RollCutLooseFunctioningViceOther": "It also cleared <strong>1 Stress</strong> from {strider}.",
-    "RollCutLooseSavedByFunctioningVice": "Your functioning vice prevented you from overindulging by {num}, since it allows you to manually adjust the amount of stress recovered by up to +2 or -2.",
+    "RollCutLooseSavedByFunctioningVice": "Your functioning vice prevented you from overindulging by {num}, since it allows you to manually adjust the amount of Stress recovered by up to +2 or -2.",
     "RollCutLooseDoubleFailure": "You cut loose with {strider} and <strong>both of you overindulge</strong>. You cleared <strong>{clear_stress} Stress</strong> and choose <strong>one</strong> of the following consequences which apply to both Striders:",
     "RollCutLooseFailure": "You cut loose with {strider} and <strong>overindulge</strong>. You cleared <strong>{clear_stress} Stress</strong> and choose <strong>one</strong> of the following consequences:",
     "RollCutLooseFailureAttactTrouble": "<strong>Attract Trouble.</strong> Roll an additional <strong>Aftermath</strong> using the table and dice from the end of the previous mission.",
@@ -729,6 +732,21 @@
 
     "MultipleSelectUsage": "Ctrl + Click to select several choices",
 
+    "StriderAbility": {
+      "AlloyedMettle": {
+        "Title": "Alloyed Mettle: Reassuring or Comforting Someone Who Honestly Confessed a Fear or Vulnerable Emotion to You?",
+        "Popup": {
+          "Title": "Alloyed Mettle",
+          "Description": "When you or another strider confess a fear or vulnerable emotion to each other,<br/>either of you can take 1 Stress to clear 1 Stress from the other.",
+          "ReverseArgName": "Reverse?"
+        },
+        "Message": {
+          "Title": "Alloyed Mettle",
+          "Description": "{stressGiver} confessed a fear or vulnerable emotion to {stressTaker}. {stressGiver} cleared <strong>1 Stress</strong>, and {stressTaker} suffered <strong>1 Stress</strong>."
+        }
+      }
+    },
+
     "Settings": {
       "Action": {
         "Name": "Action Rolls",
@@ -803,6 +821,8 @@
         "SameCrew": "The dropped Crew is the current crew of this strider."
       },
       "warn": {
+        "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability's Use effect!",
+        "GenericPopupNoValidCrewmate": "{name}: You must be in a Crew with other Striders and one of you must have Stress to use this ability's Use effect!",
         "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",
         "GroupActionRollNoActor": "You currently have no strider assigned! Select a Token first or get a strider assigned by your GM.",
         "GroupActionRollNotAStrider": "Your currently selected actor is not a Strider, it is a {obj}.",
@@ -816,6 +836,9 @@
         "NothingToAdd": "There is no available object that can be added to this actor.",
         "TriedRemovingInvestedCache": "You cannot remove a cache that has already been invested.",
         "NoClockImage": "There is no existing clock image for the theme {theme}, color {color}, size {size} and fill {fill}."
+      },
+      "error": {
+        "BadPopupID": "There is no Use Ability Popup with ID \"{id}\"."
       }
     }
   }

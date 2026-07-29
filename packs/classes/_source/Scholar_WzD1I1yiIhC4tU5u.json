@@ -2,7 +2,7 @@
   "name": "Scholar",
   "type": "class",
   "_id": "WzD1I1yiIhC4tU5u",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/strider/Scholar.svg",
   "system": {
     "description": "<p>The world is woven of a thousand stories. Find their threads and follow them.&nbsp;Your job is to get out into the world and understand it: its people, its logic, its hidden truths. No one gets into this job without an intense passion for it; play that up, and be excited about the world you live in!</p>",
     "logic": "",
@@ -75,7 +75,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780614847006,
-    "modifiedTime": 1780614878542,
+    "modifiedTime": 1781108719317,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!WzD1I1yiIhC4tU5u"

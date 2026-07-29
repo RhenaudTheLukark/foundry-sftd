@@ -11,9 +11,9 @@
     </select>
   </div>
   {{/if}}
-  {{#if item.system.stay_late}}
-  <div class="stay-late flex-vertical">
-    <button>{{localize 'SFTD.Use'}}</button>
+  {{#if item.system.popup}}
+  <div class="generic-popup flex-vertical">
+    <button data-popup-id="{{item.system.popup}}">{{localize 'SFTD.Use'}}</button>
   </div>
   {{/if}}
   {{#if (gteq item.system.uses.max 1)}}

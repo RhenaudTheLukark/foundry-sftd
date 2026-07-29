@@ -2,7 +2,7 @@
   "name": "Scrapper",
   "type": "class",
   "_id": "hqTimaZpreGYng4L",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/strider/Scrapper.svg",
   "system": {
     "description": "<p>When you can&rsquo;t change the world, build something that can.&nbsp;Remember, &ldquo;technology&rdquo; doesn&rsquo;t always mean electronics. One of the first tools was a stick, one of the first technologies fire, and one of the first machines a lever. You can find machines everywhere if you know how to look.</p>",
     "logic": "",
@@ -75,7 +75,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780615028849,
-    "modifiedTime": 1780615059458,
+    "modifiedTime": 1781108729546,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!hqTimaZpreGYng4L"

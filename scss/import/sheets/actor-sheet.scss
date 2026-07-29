@@ -198,6 +198,18 @@ $supply_margin: 3px;
         }
       }
     }
+
+    &.abilities, &.foundations, &.loadout {
+      .generic-popup {
+        text-align: center;
+        align-self: center;
+        align-items: center;
+
+        input {
+          margin: 0px;
+        }
+      }
+    }
   }
 
   .item {

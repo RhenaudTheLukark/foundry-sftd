@@ -2,7 +2,7 @@
   "name": "Charter",
   "type": "class",
   "_id": "IqZqEwiXd6hVCzFK",
-  "img": "icons/svg/item-bag.svg",
+  "img": "systems/songs-for-the-dusk/images/icons/strider/Charter.svg",
   "system": {
     "description": "<p>Lay the path through the chaos. When the chaos swallows the path, lay another.&nbsp;Your<br>abilities are all designed to help you accomplish this without getting bogged down in too much advance planning. Even when you&rsquo;re caught off guard, you&rsquo;ll never be out of options.</p>",
     "logic": "",
@@ -75,7 +75,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780614607805,
-    "modifiedTime": 1780614649799,
+    "modifiedTime": 1781108716168,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!IqZqEwiXd6hVCzFK"
