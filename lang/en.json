@@ -446,9 +446,18 @@
     "LeaderTextStress": "The leader of this group action, {leader}, suffered <strong>{stress} Stress </strong> due to failed actions.",
     "LeaderTextQuirk": "The leader of this group action, {leader}, expends <strong>{quirks} Quirk(s) </strong> due to failed actions.",
 
-    "RollCollectInformationSuccess": "<strong>Strong</strong>: You find even more than you were looking for. The information might reveal secrets or opportunities you hadn't known about. Definitely ask a follow-up question or two, the MC will give you a good answer.",
-    "RollCollectInformationPartialSuccess": "<strong>Normal</strong>: You've got solid details. You might be able to ask a follow-up question or two to clarify.",
-    "RollCollectInformationFailure": "<strong>Weak</strong>: You get the bare basics, but not much else. You're probably missing key details.",
+    "RollCollectInformationCritical": "You do it with <strong>increased impact</strong>.",
+    "RollCollectInformationSuccess": "You do it.",
+    "RollCollectInformationPartialSuccessPositionControlled": "You hesitate. Withdraw and try a different approach, or else do it with a minor consequence: a <strong>minor complication</strong> occurs, you have <strong>reduced impact</strong>, you suffer <strong>lesser harm</strong>, you end up in a <strong>risky</strong> position.",
+    "RollCollectInformationPartialSuccessPositionRisky": "You do it, but there's a consequence: you suffer <strong>harm</strong>, a <strong>complication</strong> occurs, you have <strong>reduced impact</strong>, you end up in a <strong>desperate</strong> position.",
+    "RollCollectInformationPartialSuccessPosition": "You do it, but there's a consequence: you suffer <strong>severe harm</strong>, a <strong>serious complication</strong> occurs, you have <strong>reduced impact</strong>.",
+    "RollCollectInformationFailurePositionControlled": "You falter. Press on by seizing a <strong>risky</strong> opportunity, or withdraw and try a different approach.",
+    "RollCollectInformationFailurePositionRisky": "Things go badly. You suffer <strong>harm</strong>, a <strong>complication</strong> occurs, you end up in a <strong>desperate</strong> position, you <strong>lose this opportunity</strong>.",
+    "RollCollectInformationFailurePositionDesperate": "It's the worst outcome. You suffer <strong>severe harm</strong>, a <strong>serious complication occurs</strong>, you <strong>lose this opportunity for collecting information</strong>.",
+    "RollCollectInformationStrong": "<strong>Strong</strong>: You find even more than you were looking for. The information might reveal secrets or opportunities you hadn't known about. Definitely ask a follow-up question or two, the MC will give you a good answer.",
+    "RollCollectInformationNormal": "<strong>Normal</strong>: You've got solid details. You might be able to ask a follow-up question or two to clarify.",
+    "RollCollectInformationWeak": "<strong>Weak</strong>: You get the bare basics, but not much else. You're probably missing key details.",
+    "RollCollectInformationNone": "No information could be collected.",
 
     "RollEngagementCritical": "Exceptional result. You've already <strong>overcome the first obstacle</strong> and you're in a <strong>controlled</strong> position for what's next.",
     "RollEngagementSuccess": "Good result. You're in a <strong>controlled</strong> position when the action starts.",
@@ -744,6 +753,9 @@
           "Title": "Alloyed Mettle",
           "Description": "{stressGiver} confessed a fear or vulnerable emotion to {stressTaker}. {stressGiver} cleared <strong>1 Stress</strong>, and {stressTaker} suffered <strong>1 Stress</strong>."
         }
+      },
+      "InterceptingFist": {
+        "CollectInfoTitle": "Intercepting Fist: Collecting Info on Possible Threats to Your Team or NPCs in the Current Situation?"
       }
     },
 

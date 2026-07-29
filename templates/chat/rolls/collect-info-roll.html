@@ -1,17 +1,60 @@
 <div class="dice-tooltip blades-die-tooltip">
   <div class="chat-label label-stripe-chat">{{localize 'SFTD.CollectInformationRoll'}}</div>
-  {{#if zeromode}}<div class="chat-label-small label-stripe-chat-small">0d</div>{{/if}}
-
-  {{#if (or (eq roll_status "success") (eq roll_status "critical-success"))}}
-  <div class="die {{roll_status}}">{{localize 'SFTD.RollSuccess'}}</div>
-  <div class="description"><p>{{{localize 'SFTD.RollCollectInformationSuccess'}}}</p></div>
-  {{else if (eq roll_status "partial-success")}}
-  <div class="die {{roll_status}}">{{localize 'SFTD.RollPartialSuccess'}}</div>
-  <div class="description"><p>{{{localize 'SFTD.RollCollectInformationPartialSuccess'}}}</p></div>
-  {{else if (eq roll_status "failure")}}
-  <div class="die {{roll_status}}">{{localize 'SFTD.RollFailure'}}</div>
-  <div class="description"><p>{{{localize 'SFTD.RollCollectInformationFailure'}}}</p></div>
+  {{#if extraFields.position}}
+    <div class="chat-label-small label-stripe-chat-small">
+      {{{localize extraFields.attributeName}}} | {{{localize position_localize}}} | {{{localize impact_localize}}} {{#if zeromode}}| 0d {{/if}}
+    </div>
   {{/if}}
+
+  <div class="die {{roll_status}}">
+    {{#if (eq roll_status "critical-success")}}
+      {{localize 'SFTD.RollCriticalSuccess'}}
+    {{else if (eq roll_status "success")}}
+      {{localize 'SFTD.RollSuccess'}}
+    {{else if (eq roll_status "partial-success")}}
+      {{localize 'SFTD.RollPartialSuccess'}}
+    {{else if (eq roll_status "failure")}}
+      {{localize 'SFTD.RollFailure'}}
+    {{/if}}
+  </div>
+
+  <div class="description">
+    <p>
+      {{#if (eq roll_status "critical-success")}}
+        {{{localize 'SFTD.RollCollectInformationCritical'}}}
+      {{else if (eq roll_status "success")}}
+        {{{localize 'SFTD.RollCollectInformationSuccess'}}}
+      {{else if (eq roll_status "partial-success")}}
+        {{#if (eq extraFields.position "controlled")}}
+          {{{localize 'SFTD.RollCollectInformationPartialSuccessPositionControlled'}}}
+        {{else if (eq extraFields.position "risky")}}
+          {{{localize 'SFTD.RollCollectInformationPartialSuccessPositionRisky'}}}
+        {{else}}
+          {{{localize 'SFTD.RollCollectInformationPartialSuccessPosition'}}}
+        {{/if}}
+      {{else if (eq roll_status "failure")}}
+        {{#if (eq extraFields.position "controlled")}}
+          {{{localize 'SFTD.RollCollectInformationFailurePositionControlled'}}}
+        {{else if (eq extraFields.position "risky")}}
+          {{{localize 'SFTD.RollCollectInformationFailurePositionRisky'}}}
+        {{else}}
+          {{{localize 'SFTD.RollCollectInformationFailurePositionDesperate'}}}
+        {{/if}}
+      {{/if}}
+      {{#if (ne roll_status "failure")}}
+        <br/>
+        {{#if (or (eq extraFields.impact "extreme") (eq extraFields.impact "strong"))}}
+          {{{localize 'SFTD.RollCollectInformationStrong'}}}
+        {{else if (eq extraFields.impact "normal")}}
+          {{{localize 'SFTD.RollCollectInformationNormal'}}}
+        {{else if (or (eq extraFields.impact "weak") (eq extraFields.impact "zero"))}}
+          {{{localize 'SFTD.RollCollectInformationWeak'}}}
+        {{/if}}
+      {{else}}
+        {{{localize 'SFTD.RollCollectInformationNone'}}}
+      {{/if}}
+    </p>
+  </div>
 
   {{#if extraFields.modifier_text}}
   <div class="description">

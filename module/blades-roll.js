@@ -91,7 +91,8 @@ export const bladesRollModifierList = {
       return {
         allowHarmonyGain: true,
         rollText: 'SFTD.ProtectEffect',
-        rollTextArgs: { strider: protecteeFull ? protecteeFull.name : 'Unknown Strider' }
+        rollTextArgs: { strider: protecteeFull ? protecteeFull.name : 'Unknown Strider' },
+        protect: true
       };
     },
     protect: true
@@ -100,7 +101,18 @@ export const bladesRollModifierList = {
     name: 'SFTD.StriderAbility.AlloyedMettle.Title',
     rollTypes: 'actionRoll',
     impact: 1
-  }
+  },
+  intercepting_fist_collect_info: {
+    name: 'SFTD.StriderAbility.InterceptingFist.CollectInfoTitle',
+    rollType: 'collectInfo',
+    impact: 1
+  },
+  intercepting_fist_resistance: {
+    hidden: true,
+    rollType: 'resistance',
+    needProtect: true,
+    dice: 1
+  },
 }
 
 export const positionIndex = ['desperate', 'risky', 'controlled'];
@@ -372,8 +384,36 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/aftermath-roll.html', { rolls: rolls, zeromode: zeromode, method: method, resultDie: resultDie, note: note, extraFields: extraFields });
   }
   // Check for Collect Information roll
-  else if (attributeOrRollName == 'SFTD.CollectInformationRoll')
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/collect-info-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
+  else if (attributeOrRollName == 'SFTD.CollectInformationRoll') {
+    let positionLocalize = '';
+    switch (extraFields.position) {
+      case 'controlled':
+        positionLocalize = 'SFTD.PositionControlled'
+        break;
+      case 'desperate':
+        positionLocalize = 'SFTD.PositionDesperate'
+        break;
+      case 'risky':
+      default:
+        positionLocalize = 'SFTD.PositionRisky'
+    }
+
+    let impactLocalize = '';
+    switch (extraFields.impact) {
+      case 'zero':
+      case 'weak':
+        impactLocalize = 'SFTD.ImpactWeak'
+        break;
+      case 'strong':
+      case 'extreme':
+        impactLocalize = 'SFTD.ImpactStrong'
+        break;
+      case 'normal':
+      default:
+        impactLocalize = 'SFTD.ImpactNormal'
+    }
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/collect-info-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, position_localize: positionLocalize, impact_localize: impactLocalize, note: note, extraFields: extraFields });
+  }
   // Check for Engagement roll
   else if (attributeOrRollName == 'SFTD.EngagementRoll')
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/engagement-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
@@ -861,7 +901,35 @@ const rollTypeArgs = {
     ${args.actor?.type == 'strider' ? `<span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
       <select id="ciAction" name="ciAction">${args.actions}</select>
-    </span>` : ''}`,
+    </span>` : ''}
+    <div>
+      <span>
+        <label>${game.i18n.localize('SFTD.Position')}:</label>
+        <select id="pos" name="pos">
+          <option value="controlled">${game.i18n.localize('SFTD.PositionControlled')}</option>
+          <option value="risky" selected>${game.i18n.localize('SFTD.PositionRisky')}</option>
+          <option value="desperate">${game.i18n.localize('SFTD.PositionDesperate')}</option>
+        </select>
+      </span>
+      <span>
+        <label>${game.i18n.localize('SFTD.ForcePosition')}:</label>
+        <input type="checkbox" id="forcedPos" name="forcedPos">
+      </span>
+    </div>
+    <div>
+      <span>
+        <label>${game.i18n.localize('SFTD.Impact')}:</label>
+        <select id="impact" name="impact">
+          <option value="weak">${game.i18n.localize('SFTD.ImpactWeak')}</option>
+          <option value="normal" selected>${game.i18n.localize('SFTD.ImpactNormal')}</option>
+          <option value="strong">${game.i18n.localize('SFTD.ImpactStrong')}</option>
+        </select>
+      </span>
+      <span>
+        <label>${game.i18n.localize('SFTD.ForceImpact')}:</label>
+        <input type="checkbox" id="forcedImpact" name="forcedImpact">
+      </span>
+    </div>`,
   constructFoundation: (_, args) => `
     <span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
@@ -1168,7 +1236,13 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
             await bladesRoll(aftermathDice + diceQty, 'SFTD.AftermathRoll', note, extraFields);
             break;
           case 'collectInfo':
-            let collectInfoDiceAmount = targetActor?.getRollData().diceAmount[dialog.element.querySelector('[name="ciAction"]').value] ?? 0;
+            let attributeName = dialog.element.querySelector('[name="ciAction"]').value;
+            let collectInfoDiceAmount = targetActor?.getRollData().diceAmount[attributeName] ?? 0;
+            let position = dialog.element.querySelector('[name="pos"]').value;
+            let forcedPosition = dialog.element.querySelector('[name="forcedPos"]').checked;
+            let impact = dialog.element.querySelector('[name="impact"]').value;
+            let forcedImpact = dialog.element.querySelector('[name="forcedImpact"]').checked;
+            extraFields = { attributeName: BladesHelpers.getAttributeLabel(attributeName), position: position, forcedPosition: forcedPosition, impact: impact, forcedImpact: forcedImpact, ...extraFields };
             await bladesRoll(collectInfoDiceAmount + diceQty, 'SFTD.CollectInformationRoll', note, extraFields);
             break;
           case 'engagement':
@@ -1348,9 +1422,12 @@ export function keepValidModifiersFromStatus(modifiers, rollStatus) {
 export function keepValidModifiersFromOther(modifiers) {
   let output = [];
   let pushingYourself = false;
+  let protecting = false;
   for (let modifier of modifiers) {
     if (modifier.pushYourself) pushingYourself = true;
     if (modifier.needPushYourself && !pushingYourself) continue;
+    if (modifier.protect) protecting = true;
+    if (modifier.needProtect && !protecting) continue;
     output.push(modifier);
   }
   return output;
