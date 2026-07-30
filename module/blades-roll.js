@@ -148,6 +148,16 @@ export const bladesRollModifierList = {
     rollTypes: ['actionRoll', 'groupAction'],
     impact: 1,
     exclude: true
+  },
+  storm_warning: {
+    name: 'SFTD.StriderAbility.StormWarning.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  backchatter_network: {
+    name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',
+    rollType: 'collectInfo',
+    dice: 1
   }
 }
 
@@ -490,11 +500,13 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   else if (attributeOrRollName == 'SFTD.UpkeepRoll') {
     let shells = getBladesRollCollect(rolls, extraResult, zeromode);
     let crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
+    let overShells = 0;
     if (crewFull) {
       let newShells = Math.min(crewFull.system.shells.value + shells, crewFull.system.shells.max);
+      overShells = crewFull.system.shells.value + shells - newShells;
       await BladesHelpers.tryUpdate(crewFull, {'system.shells.value': newShells});
     }
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/upkeep-roll.html', { rolls: rolls, zeromode: zeromode, method: method, num: shells, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/upkeep-roll.html', { rolls: rolls, zeromode: zeromode, method: method, num: shells, overShells: overShells, note: note, extraFields: extraFields });
   }
 
   // Check for Acquire Asset roll

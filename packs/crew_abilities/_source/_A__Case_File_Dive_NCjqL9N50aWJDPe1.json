@@ -8,7 +8,12 @@
     "class": "Augurs",
     "price": "1",
     "purchased": false,
-    "class_default": false
+    "class_default": false,
+    "uses": {
+      "value": 0,
+      "max": "0"
+    },
+    "popup": ""
   },
   "effects": [],
   "folder": null,
@@ -26,7 +31,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780771958301,
-    "modifiedTime": 1780771979738,
+    "modifiedTime": 1785304984104,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!NCjqL9N50aWJDPe1"

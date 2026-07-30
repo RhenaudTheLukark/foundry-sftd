@@ -471,6 +471,7 @@
     "RollFortuneFailure": "The result is <strong>bad</strong>. You have <strong>poor</strong> or <strong>little impact</strong>.",
 
     "RollUpkeepResult": "You have gained <strong>{shells} Shell(s)</strong>.",
+    "RollUpkeepOverpaid": "<strong>{shells}</strong> of those Shells did not fit in your Crew's Shell storage. Distribute them among Striders as you see fit.",
 
     "RollAftermath": {
       "0": {
@@ -718,7 +719,7 @@
     "EndMission": "End Mission",
     "EndMissionClickHereToExpand": "Click Here to Expand",
     "EndMissionClickHereToCollapse": "Click Here to Collapse",
-    "EndMissionDescription": "This popup allows you to automate some parts of the mission ending process.<br/>Any ticked checkbox will let the system automate that part of the process to the best of its ability.<br/>This also serves as a cheat sheet: only green options have automation linked to them.<br/>For anything related to Pressure Gain, enabling a bullet point means its effect is applied. Only enable the ones that apply to the mission!<br/>NOTE! NONE OF THE AUTOMATION OPTIONS BELOW ARE READY YET",
+    "EndMissionDescription": "This popup allows you to automate some parts of the mission ending process.<br/>Any ticked checkbox will let the system automate that part of the process to the best of its ability.<br/>This also serves as a cheat sheet: only green options have automation linked to them.<br/>For anything related to Pressure Gain, enabling a bullet point means its effect is applied. Only enable the ones that apply to the mission!",
     "EndMissionThread": "Choose a thread. A thread is a question you can use to decide what themes or aspects of the community<br/>you want to explore during this downtime. You don't have to make sure everything you do during downtime<br/>relates to the thread, and you don't need to have a definitive answer by the end of the downtime session.<br/>Just keep your thread in mind while you play through your downtime,<br/>and integrate the topic when it seems appropriate or interesting.",
     "EndMissionUpkeepRoll": "If the mission was successful, take an Upkeep Roll from the employer Faction.<br/>(Must be rolled through the Misc. Rolls menu on the Strider sheet).",
     "EndMissionPressureGain": "Pressure Gain",
@@ -733,9 +734,11 @@
     "EndMissionPressureSevereInjury": "Were people severely injured or killed on the mission?",
     "EndMissionPressureSevereInjuryYourFault": "Was anyone in your crew responsible for such?",
     "EndMissionAftermath": "You must roll an Aftermath, as nothing happens in isolation.",
+    "EndMissionExpertsTalkLogisticsTitle": "Experts Talk Logistics: +1 Shell",
     "EndMissionDowntimeStart": "The Mission has ended, Striders may now partake in Downtime Activities.",
     "EndMissionPressureRecap": "You garnered <strong>{num} Pressure</strong> because of your previous mission.",
     "EndMissionPressureRecapHazardIncrease": "Your Hazard level has increased. Change your community ideals in response. You can either alter an existing ideal, get rid of an ideal, or add a new one.",
+    "EndMissionExpertsTalkLogistics": "Thanks to your expertise, you have gained <strong>1 Shell</strong>.",
 
     "EndSessionCheatSheet": "End Session Cheat Sheet",
     "EndSessionDescription": "This sheet has no automation linked to it. It is merely just a cheat sheet for handling the end of a session.<br/>Feel free to untick tasks you've already done as you go through them with your players!",
@@ -769,6 +772,16 @@
           "Title": "Long Thought",
           "Description": "{self} arranged to help overcome an obstacle in advance. They spent <strong>1 Harmony</strong>."
         }
+      },
+      "StormWarning": {
+        "Title": "Storm Warning: Outracing, Outmaneuver or Combatting Opponents in Hostile Weather?"
+      }
+    },
+    "StriderLoadout": {},
+    "CrewAbility": {},
+    "CrewFoundation": {
+      "BackchatterNetwork": {
+        "Title": "Backchatter Network: Collecting Info For a Mission?"
       }
     },
 

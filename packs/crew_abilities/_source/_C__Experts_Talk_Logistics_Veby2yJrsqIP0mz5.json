@@ -6,11 +6,61 @@
   "system": {
     "description": "<p>You run supplies and people between factions, and those factions are usually willing to dig a little deeper to make sure it gets done. Whenever you get paid, take <strong>+1 shell</strong>.</p>",
     "class": "Couriers",
-    "price": "1",
+    "price": 1,
     "purchased": false,
-    "class_default": false
+    "class_default": false,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "popup": ""
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Experts Talk Logistics Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.crew_ability.Item.Veby2yJrsqIP0mz5",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "l4CpmTCKbHabRmsl",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.experts_talk_logistics",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1785438019028,
+        "modifiedTime": 1785438039326,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!Veby2yJrsqIP0mz5.l4CpmTCKbHabRmsl"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
@@ -26,7 +76,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780773594967,
-    "modifiedTime": 1780773611219,
+    "modifiedTime": 1785438040734,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!Veby2yJrsqIP0mz5"

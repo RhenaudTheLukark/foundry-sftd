@@ -3,7 +3,12 @@
   {{#if zeromode}}<div class="chat-label-small label-stripe-chat-small">0d</div>{{/if}}
 
   <div class="description">
-    <p>{{{localize 'SFTD.RollUpkeepResult' shells=num}}}</p>
+    <p>
+      {{{localize 'SFTD.RollUpkeepResult' shells=num}}}
+      {{#if (gt overShells 0)}}
+        {{{localize 'SFTD.RollUpkeepOverpaid' shells=overShells}}}
+      {{/if}}
+    </p>
   </div>
 
   {{#if extraFields.modifier_text}}

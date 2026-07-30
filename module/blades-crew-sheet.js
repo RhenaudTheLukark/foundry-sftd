@@ -500,6 +500,7 @@ export class BladesCrewSheet extends BladesSheet {
     extraData.vendettaCount = vendettas.length;
     if (extraData.vendettas == '')
       extraData.vendettas = 'SFTD.None';
+    extraData.expertsTalkLogistics = this.actor.system.experts_talk_logistics;
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.EndMission')}` },
@@ -557,6 +558,16 @@ export class BladesCrewSheet extends BladesSheet {
           let aftermathDice = Math.min(Math.ceil(extraFieldsRoll.pressure / 3), 3);
           await bladesRoll(aftermathDice, 'SFTD.AftermathRoll', '', extraFieldsRoll);
           await postRollProcessing(this.actor, extraFieldsRoll);
+        }
+
+        // Experts Talk Logistics: Add 1 Shell
+        if (dialog.element.querySelector('[name="expertsTalkLogistics"]')?.checked) {
+          let message = `<div class="description"><p>${game.i18n.localize('SFTD.EndMissionExpertsTalkLogistics')}`;
+          if (this.actor.system.shells.value < this.actor.system.shells.max)
+            await BladesActiveEffect.tryUpdate(this.actor, {'system.shells.==value': this.actor.system.shells.value + 1});
+          else
+            message += ` ${game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: 1})}`;
+          messageContents += message + '</p></div>';
         }
 
         // Reset Strider Downtime Activities
