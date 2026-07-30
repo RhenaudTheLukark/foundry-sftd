@@ -18,7 +18,7 @@
     <div class='flex-horizontal'>
       <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.Load'}}</label>
-        <input type='number' name='system.load' onkeypress='return BladesHelpers.isNumberKey(event)' value='{{system.load}}'>
+        <input type='number' name='system.load' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.load}}'>
       </div>
       <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.Class'}}</label>
@@ -26,7 +26,7 @@
       </div>
       <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.Uses'}}</label>
-        <input type='number' name='system.uses.max' onkeypress='return BladesHelpers.isNumberKey(event)' value='{{system.uses.max}}'>
+        <input type='number' name='system.uses.max' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.uses.max}}'>
       </div>
     </div>
     <div class='flex-horizontal'>
@@ -37,7 +37,7 @@
       {{#if system.is_container}}
       <div class='two-line'>
         <label class='label-stripe'>{{localize 'SFTD.ContainerLoad'}}</label>
-        <input type='number' name='system.container_load' onkeypress='return BladesHelpers.isNumberKey(event)' value='{{system.container_load}}'>
+        <input type='number' name='system.container_load' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.container_load}}'>
       </div>
       {{/if}}
     </div>

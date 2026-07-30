@@ -373,6 +373,9 @@
   border-top: 2px solid black;
   margin-top: 1em;
 }
+.songs-for-the-dusk .extra-content:empty {
+  display: none;
+}
 .songs-for-the-dusk .extra-content > *:first-child {
   margin-top: 1em;
 }
@@ -7259,6 +7262,9 @@
   border-top: 2px solid black;
   margin-top: 1em;
 }
+.settings.clock-styles .extra-content:empty {
+  display: none;
+}
 .settings.clock-styles .extra-content > *:first-child {
   margin-top: 1em;
 }
@@ -7609,6 +7615,9 @@
 .application.dialog .extra-content {
   border-top: 2px solid black;
   margin-top: 1em;
+}
+.application.dialog .extra-content:empty {
+  display: none;
 }
 .application.dialog .extra-content > *:first-child {
   margin-top: 1em;

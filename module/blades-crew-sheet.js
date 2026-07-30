@@ -460,13 +460,13 @@ export class BladesCrewSheet extends BladesSheet {
             messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionNoCutLooseScarEffect')}${cutLooseScarMessage}</p></div>`;
         }
 
-        // Reset Downtime Activities & Melody for all Striders
+        // Reset Downtime Activities, Melody & Not A Problem uses for all Striders
         let melodyUsed = false;
         for (let member of Object.values(this.actor.system.members)) {
           let memberFull = BladesHelpers.resolveActor(member.uuid);
           if (!memberFull || memberFull.type != 'strider') continue;
           melodyUsed ||= !memberFull.system.melody;
-          await BladesHelpers.tryUpdate(memberFull, {'system.==downtime_activities': {train_types: {}}, 'system.melody': true});
+          await BladesHelpers.tryUpdate(memberFull, {'system.==downtime_activities': {train_types: {}}, 'system.==melody': true, 'system.not_a_problem_uses.==value': memberFull.system.not_a_problem_uses.max});
         }
         if (melodyUsed)
           messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionRecoverMelody')}</p></div>`;

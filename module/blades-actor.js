@@ -188,21 +188,25 @@ export class BladesActor extends Actor {
       dialogOnRender(context, options, this);
 
       // Connection update & Trigger it
-      let connectionSelector = this.element.querySelector('.modifier[data-modifier="assist"] select[field="SFTD.Connection"]');
-      if (connectionSelector) {
-        connectionSelector.addEventListener('change', (event) => {
-          let modifierElement = $(connectionSelector).closest(".modifier");
-          let connectionSelectElementVal = $(modifierElement).find('span:first-of-type select').val();
-          if (!connectionSelectElementVal)
+      let crewmateSelector = this.element.querySelector('.modifier[data-modifier="assist"] select[field="SFTD.Crewmate"]');
+      if (crewmateSelector) {
+        crewmateSelector.addEventListener('change', (event) => {
+          let modifierElement = $(crewmateSelector).closest(".modifier");
+          let crewmateSelectElementVal = $(modifierElement).find('span:first-of-type select').val();
+          if (!crewmateSelectElementVal)
             return;
-          let connectionValue = BladesHelpers.fetchConnectionsToActor(this.actor.uuid).find(c => c.uuid == connectionSelectElementVal).clock.value;
-          let effectsLabelElement = $(modifierElement).find('span:last-of-type label')[0];
-          if (effectsLabelElement)
-            effectsLabelElement.innerText = `${game.i18n.localize('SFTD.Effects')} (${game.i18n.format('SFTD.ChooseX', {num: connectionValue})})`;
+
+          let crewmateFull = BladesHelpers.resolveActor(crewmateSelectElementVal);
+          let notAProblemElement = crewmateSelector.closest('.modifier[data-modifier="assist"]').querySelector('input[name="SFTD.NotAProblem"]');
+          let notAProblemFieldGroup = notAProblemElement.parentElement;
+          let activeNotAProblem = crewmateFull.system.not_a_problem && crewmateFull.system.not_a_problem_uses.value > 0;
+          if (!activeNotAProblem)
+            notAProblemElement.checked = false;
+          notAProblemFieldGroup.style.display = activeNotAProblem ? null : 'none';
         });
 
         var event = new Event('change');
-        connectionSelector.dispatchEvent(event);
+        crewmateSelector.dispatchEvent(event);
       }
     };
     dialog.refreshModifiers = refreshModifiers;

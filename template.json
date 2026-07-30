@@ -189,6 +189,10 @@
         "setup": true,
         "protect": true
       },
+      "not_a_problem_uses": {
+        "value": 2,
+        "max": 2
+      },
       "downtime_count": {
         "base": 2,
         "value": 2

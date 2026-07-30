@@ -10,11 +10,11 @@
   {{/if}}
   {{#if (gteq item.system.uses.max 1)}}
   <div class="supply-container flex-vertical">
-    <label id="{{actor.type}}-{{actor._id}}-ability-uses-{{id}}"><b>{{localize 'SFTD.UsesShort'}}</b></label>
+    <label id="{{actor.type}}-{{actor._id}}-crew-ability-uses-{{id}}"><b>{{localize 'SFTD.UsesShort'}}</b></label>
     <div class="supply uses">
       {{#multiboxes item.system.uses.value}}
       {{#times_from 0 item.system.uses.max}}
-      <input id="{{../actor.type}}-{{../actor._id}}-ability-uses-{{../id}}-{{this}}" type="radio" data-dType="Number" name="item.system.uses.value" value="{{this}}">
+      <input id="{{../actor.type}}-{{../actor._id}}-crew-ability-uses-{{../id}}-{{this}}" type="radio" data-dType="Number" name="item.system.uses.value" value="{{this}}">
       <label class="radio-toggle{{#if (lteq this ../item.system.uses.value)}} enabled{{/if}}"></label>
       {{/times_from}}
       {{/multiboxes}}

@@ -231,6 +231,10 @@ section {
   border-top: 2px solid black;
   margin-top: 1em;
 
+  &:empty {
+    display: none;
+  }
+
   & > *:first-child {
     margin-top: 1em;
   }

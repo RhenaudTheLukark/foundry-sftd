@@ -359,6 +359,19 @@
     {{!-- Attributes --}}
     <div class="flex-vertical">
       {{> "systems/songs-for-the-dusk/templates/parts/attributes.html" actor=actor}}
+      <div class="extra-content">{{#if system.not_a_problem}}
+        <div class="supply-container flex-horizontal not-a-problem">
+          <label id="character-{{_id}}-not-a-problem-uses"><b>{{localize 'SFTD.NotAProblem'}}</b></label>
+          <div class="supply not-a-problem-uses">
+            {{#multiboxes system.not_a_problem_uses.value}}
+            {{#times_from 0 system.not_a_problem_uses.max}}
+            <input id="character-{{../_id}}-not-a-problem-uses-{{this}}" type="radio" name="system.not_a_problem_uses.value" value="{{this}}">
+            <label class="radio-toggle{{#if (lteq this ../system.not_a_problem_uses.value)}} enabled{{/if}}"></label>
+            {{/times_from}}
+            {{/multiboxes}}
+          </div>
+        </div>
+        {{/if}}</div>
       <div class="flex-horizontal extra-rolls">
         <a class="other-rolls" data-tooltip="{{localize 'SFTD.OtherRoll'}}">{{> 'systems/songs-for-the-dusk/templates/svg/d20.hbs'}}</a>
         <a class="downtime" data-tooltip="{{localize 'SFTD.DowntimeActivity'}}"><i class="fas fa-bed"></i></a>

@@ -39,16 +39,22 @@ export const bladesRollModifierList = {
     name: 'SFTD.Assist',
     rollTypes: ['actionRoll', 'resistance', 'fortune', 'collectInfo', 'engagement'],
     fields: {
-      'SFTD.Crewmate': []
+      'SFTD.Crewmate': [],
+      'SFTD.NotAProblem': false
     },
     resolveFunc: (fields, extraData) => {
       let assistFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
       let otherStress = {};
-      otherStress[assistFull.uuid] = 1;
+      let otherValue = {};
+      if (!fields['SFTD.NotAProblem'])
+        otherStress[assistFull.uuid] = 1;
+      else
+        otherValue[assistFull.uuid] = {'system.not_a_problem_uses.value': -1};
       return {
         dice: 1,
         otherStress: otherStress,
-        rollText: 'SFTD.AssistEffect',
+        otherValue: otherValue,
+        rollText: `SFTD.Assist${fields['SFTD.NotAProblem'] ? 'NotAProblem' : ''}Effect`,
         rollTextArgs: { strider: assistFull ? assistFull.name : 'Unknown Strider' },
         allowHarmonyGain: true
       };
@@ -140,6 +146,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   let factionFull = BladesHelpers.resolveActor(crewFull?.system.faction);
   let shellChanges = extraFields.shells ?? 0;
   let rollTypeKey = Object.entries(rollTypeLabels).find(r => r[1] == attributeOrRollName);
+  let otherChanges = {};
   let downtimeCountChanges = rollTypeKey ? (BladesHelpers.isDowntime(rollTypeKey[0]) ? -1 : 0) : 0;
 
   let allowHarmonyGain = false;
@@ -159,6 +166,9 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
       downtimeCountChanges = 0;
       extraFields.bonusRoll = true;
     }
+    if (modifier.otherValue)
+      for (let [uuid, value] of Object.entries(modifier.otherValue))
+        otherChanges[uuid] = otherChanges[uuid] ? BladesHelpers.mergeAddObjects(otherChanges[uuid], [], value) : value;
     if (modifier.downtime) downtimeCountChanges += modifier.downtime;
     if (modifier.convictionCutLoose) extraFields.conviction = true;
     if (modifier.workHardPlayHard) extraFields.workHardPlayHard = true;
@@ -201,6 +211,35 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   }
   if (Object.keys(crewUpdateObject.system).length)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
+
+  // Other Changes
+  if (rollData.otherChanges)
+    rollData.oldOtherChanges = rollData.otherChanges;
+  rollData.otherChanges = {};
+  for (let [otherActorUuid, otherChangeObj] of Object.entries(otherChanges)) {
+    if (Object.values(otherChangeObj).length == 0) continue;
+    let otherActorFull = BladesHelpers.resolveActor(otherActorUuid);
+    if (otherActorFull) {
+      let otherChangeItem = {value: {}, realValue: {}};
+      let updateObject = {};
+      for (let [otherPath, otherChange] of Object.entries(otherChangeObj)) {
+        let otherValue = otherActorFull;
+        for (let pathPart of otherPath.split('.')) {
+          if (!otherValue)
+            break;
+          otherValue = otherValue[pathPart];
+        }
+        let resultOther = Math.max(Number(otherValue) + otherChange, 0);
+        let updatePath = otherPath.split('.');
+        updatePath[updatePath.length - 1] = '==' + updatePath[updatePath.length - 1];
+        updatePath = updatePath.join('.');
+        updateObject[updatePath] = resultOther;
+        otherChangeItem.realValue[otherPath] = resultOther - Number(otherValue);
+      }
+      await BladesHelpers.tryUpdate(otherActorFull, updateObject);
+      rollData.otherChanges[otherActorFull._id] = otherChangeItem;
+    }
+  }
 
   // Update the main actor in case of no further data update
   if (extraFields.actor) {
@@ -674,6 +713,26 @@ export async function cancelRollResult(rollData, actorFull) {
   for (let [stressChangeId, stressChange] of Object.entries(rollData.stressChanges)) {
     let stressActorFull = BladesHelpers.resolveActor(`Actor.${stressChangeId}`);
     await BladesHelpers.tryUpdate(stressActorFull, {'system.stress.value': Math.min(Math.max(Number(stressActorFull.system.stress.value) - stressChange.realValue, 0), stressActorFull.system.stress.max)});
+  }
+  for (let [otherChangeId, otherChangeObj] of Object.entries(rollData.otherChanges)) {
+    let otherActorFull = BladesHelpers.resolveActor(`Actor.${otherChangeId}`);
+    if (otherActorFull) {
+      let updateObject = {};
+      for (let [otherPath, otherChange] of Object.entries(otherChangeObj.realValue)) {
+        let otherValue = otherActorFull;
+        for (let pathPart of otherPath.split('.')) {
+          if (!otherValue)
+            break;
+          otherValue = otherValue[pathPart];
+        }
+        let resultOther = Math.max(Number(otherValue) - otherChange, 0);
+        let updatePath = otherPath.split('.');
+        updatePath[updatePath.length - 1] = '==' + updatePath[updatePath.length - 1];
+        updatePath = updatePath.join('.');
+        updateObject[updatePath] = resultOther;
+      }
+      await BladesHelpers.tryUpdate(otherActorFull, updateObject);
+    }
   }
 
   let actorUpdateObject = {};
@@ -1270,13 +1329,7 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
   dialog.attributeName = '';
   dialog.rollTypes = rollTypes;
   dialog._onFirstRender = dialogOnFirstRender;
-  dialog._onRender = function(context, options) {
-    dialogOnRender(context, options, this);
-
-    let allowedToRoll = true;
-    allowedToRoll &&= checkDowntimeRules(this);
-    this.element.querySelector('[data-action="roll"]').disabled = !allowedToRoll;
-  };
+  dialog._onRender = dialogOnRender;
   dialog.refreshModifiers = refreshModifiers;
   dialog.actor = targetActor;
   await dialog.render(true);
@@ -1318,8 +1371,38 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
       allowedToRoll = windowElement.querySelector('#upkeepFaction > .actor-contents') != null || windowElement.querySelector('#upkeepRegionProsperity').value != 'None';
     rollButton.disabled = !allowedToRoll;
   }
-  for (let element of htmlElement.querySelectorAll('input[type=radio]'))
-    element.addEventListener('click', checkMiscRollCanRoll);
+
+  for (let element of htmlElement.querySelectorAll('input[type=radio]')) {
+    element.addEventListener('click', async (ev) => {
+      // Connection update & Trigger it
+      let crewmateSelector = ev.currentTarget.closest('.window-content').querySelector('.modifier[data-modifier="assist"] select[field="SFTD.Crewmate"]');
+      if (crewmateSelector) {
+        crewmateSelector.addEventListener('change', (event) => {
+          let modifierElement = $(crewmateSelector).closest(".modifier");
+          let crewmateSelectElementVal = $(modifierElement).find('span:first-of-type select').val();
+          if (!crewmateSelectElementVal)
+            return;
+
+          let crewmateFull = BladesHelpers.resolveActor(crewmateSelectElementVal);
+          let notAProblemElement = crewmateSelector.closest('.modifier[data-modifier="assist"]').querySelector('input[name="SFTD.NotAProblem"]');
+          let notAProblemFieldGroup = notAProblemElement.parentElement;
+          let activeNotAProblem = crewmateFull.system.not_a_problem && crewmateFull.system.not_a_problem_uses.value > 0;
+          if (!activeNotAProblem)
+            notAProblemElement.checked = false;
+          notAProblemFieldGroup.style.display = activeNotAProblem ? null : 'none';
+        });
+
+        var event = new Event('change');
+        crewmateSelector.dispatchEvent(event);
+      }
+
+      await checkMiscRollCanRoll(ev);
+    });
+  }
+
+  var event = new Event('click');
+  dialog.element.querySelectorAll('input[type=radio]')[0].dispatchEvent(event);
+
   for (let element of htmlElement.querySelectorAll('#upkeepRegionProsperity'))
     element.addEventListener('change', checkMiscRollCanRoll);
 }
@@ -1565,21 +1648,31 @@ export function buildConditionalModifiersHTML(modifiers, actorFull) {
     output += `<div class="modifier" data-modifier="${modifier.key}" data-modifier-id=${id}><label><input type="checkbox"> ${title}</label>`;
     if (modifier.fields) {
       for (let [fieldName, fieldDataArray] of Object.entries(modifier.fields)) {
-        let multiple = fieldName == 'SFTD.Effects';
-        output += `<span><label>${game.i18n.localize(fieldName)}</label><select field="${fieldName}"${multiple ? ' data-tooltip="SFTD.MultipleSelectUsage" multiple': ''}>`
-        let first = true;
-        if (fieldDataArray instanceof Array) {
+        if (fieldDataArray == undefined)
+          continue;
+        output += `<span><label>${game.i18n.localize(fieldName)}</label>`
+        if (fieldDataArray == true || fieldDataArray == false)
+          output += `<input type="checkbox" name="${fieldName}" ${fieldDataArray ? ' checked' : ''}>`;
+        else if (fieldDataArray instanceof Array) {
+          let first = true;
+          let multiple = fieldName == 'BITD.Effects';
+          output += `<select field="${fieldName}"${multiple ? ' data-tooltip="BITD.MultipleSelectUsage" multiple': ''}>`
           for (let fieldData of fieldDataArray) {
             output += `<option value="${fieldData}" ${first ? 'selected' : ''}>${game.i18n.localize(fieldData)}</option>`;
             first = false;
           }
+          output += '</select>';
         } else {
+          let first = true;
+          let multiple = fieldName == 'BITD.Effects';
+          output += `<select field="${fieldName}"${multiple ? ' data-tooltip="BITD.MultipleSelectUsage" multiple': ''}>`
           for (let [fieldDataInternal, fieldData] of Object.entries(fieldDataArray)) {
             output += `<option value="${fieldDataInternal}" ${first ? 'selected' : ''}>${game.i18n.localize(fieldData)}</option>`;
             first = false;
           }
+          output += '</select>';
         }
-        output += '</select></span>'
+        output += '</span>';
       }
     }
     output += '</div>';
@@ -1627,10 +1720,16 @@ export function resolveConditionalModifiers(dialog, actorFull, attributeName) {
     let conditionalModifier = foundry.utils.deepClone(dialog.conditionalModifiers[parseInt(checkedModifier.dataset.modifierId)]);
 
     if (conditionalModifier.resolveFunc !== undefined) {
-      let fieldElements = checkedModifier.querySelectorAll('span > select');
+      let selectElements = checkedModifier.querySelectorAll('span > select');
       let fields = {};
-      for (let field of fieldElements)
+      for (let field of selectElements)
         fields[field.attributes.field.value] = $(field).val();
+      let checkboxElements = checkedModifier.querySelectorAll('span > input[type=checkbox]');
+      for (let checkbox of checkboxElements)
+        fields[checkbox.attributes.name.value] = checkbox.checked;
+      let divElements = checkedModifier.querySelectorAll('& > div');
+      for (let div of divElements)
+        fields[div.dataset.field] = Array.from(div.querySelectorAll('div')).map(d => d.dataset.value);
 
       let extraData = {actorFull: actorFull};
       if (actorFull.system.crew) {

@@ -15,7 +15,7 @@
       <div class='flex-horizontal'>
         <div class='two-line'>
           <label class="label-stripe">{{localize "SFTD.AbilityPrice"}}</label>
-          <input id="crew-ability-price" type="text" name="system.price" value="{{system.price}}" placeholder="{{localize 'SFTD.AbilityPrice'}}">
+          <input id="crew-ability-price" type="text" name="system.price" onkeypress="return BladesHelpers.isNumberKey(event)" data-dType="Number" value="{{system.price}}" placeholder="{{localize 'SFTD.AbilityPrice'}}">
         </div>
         <div class='two-line'>
           <label class="label-stripe">{{localize "SFTD.AbilityClass"}}</label>
@@ -25,7 +25,7 @@
       <div class='flex-horizontal'>
         <div class='two-line'>
           <label class="label-stripe">{{localize "SFTD.Uses"}}</label>
-          <input id="crew-ability-uses" type="text" name="system.uses.max" value="{{system.uses.max}}" placeholder="{{localize 'SFTD.Uses'}}">
+          <input id="crew-ability-uses" type="text" name="system.uses.max" onkeypress="return BladesHelpers.isNumberKey(event)" data-dType="Number" value="{{system.uses.max}}" placeholder="{{localize 'SFTD.Uses'}}">
         </div>
         <div class='two-line'>
           <label class="label-stripe">{{localize "SFTD.PopupID"}}</label>

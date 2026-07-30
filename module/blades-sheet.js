@@ -49,6 +49,14 @@ export class BladesSheet extends BaseActorSheet {
       item?.sheet.render(true);
     });
 
+    // Update Item Uses
+    html.find('.uses > input').change(async ev => {
+      const element = ev.currentTarget.closest('.item');
+      let currentItemId = element.dataset.itemId;
+      let item = this.actor.items.get(currentItemId);
+      await BladesHelpers.tryUpdate(item, {'system.uses.==value': ev.currentTarget.value});
+    });
+
     // Open Actor
     html.find('.open-actor').click(async ev => {
       const element = $(ev.currentTarget).closest('.item, .item-embed');
