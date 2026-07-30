@@ -107,8 +107,8 @@ export class BladesActor extends Actor {
 
     // Fetch roll modifiers
     let [_, allPermanentModifiers, allConditionalModifiers] = this.getModifiers();
-    allPermanentModifiers = await resolveRollModifierArray(allPermanentModifiers, this);
-    allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, this);
+    allPermanentModifiers = await resolveRollModifierArray(allPermanentModifiers, this, false, attributeName);
+    allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, this, true, attributeName);
     allConditionalModifiers = pruneInvalidConditionalRollModifiers(this, allConditionalModifiers);
 
     let isAction = BladesHelpers.isAttributeAction(attributeName);
@@ -261,6 +261,36 @@ export class BladesActor extends Actor {
     return attributes;
   }
 
+  // Store the ID of each user who owns the crew-wide abilities if they're needed
+  async updateCrewWideAbilityOwnership() {
+    const modifiersCollection = ['roll_modifiers', 'conditional_roll_modifiers'];
+
+    let crewFull = this.type == 'crew' ? this : BladesHelpers.resolveActor(this.system.crew);
+    if (!crewFull) return;
+
+    let characterLists = {};
+    for (let modifier of Object.keys(BladesHelpers.crewWideModifiers))
+      characterLists[modifier] = [];
+
+    // Fetch character modifiers applying to the whole crew
+    for (let characterUuid of Object.values(crewFull.system.members).map(e => e.uuid)) {
+      let characterFull = BladesHelpers.resolveActor(characterUuid);
+      if (!characterFull || characterFull.type != 'character') continue;
+      for (let modifierPath of modifiersCollection) {
+        let characterCrewWideModifiers = Object.fromEntries(Object.entries(characterFull.system[modifierPath]).filter(([k, v]) => Object.keys(BladesHelpers.crewWideModifiers).includes(k) && v));
+        for (let modifier of Object.keys(characterCrewWideModifiers))
+          if (!characterLists[modifier].includes(characterFull.uuid))
+            characterLists[modifier].push(characterFull.uuid);
+      }
+    }
+
+    // Store the uuid of all members of the team who owns crew-wide abilities
+    let updateObject = {};
+    for (let [modifier, owners] of Object.entries(characterLists))
+      updateObject[`system.==${modifier}_owners`] = owners;
+    await BladesHelpers.tryUpdate(crewFull, updateObject);
+  }
+
   getModifiers(actor) {
     if (!actor) actor = this;
     let modifiersCollection = { modifiers: actor.system.modifiers, roll_modifiers: actor.system.roll_modifiers, conditional_roll_modifiers: actor.system.conditional_roll_modifiers };
@@ -335,6 +365,8 @@ export class BladesActor extends Actor {
   /* -------------------------------------------- */
 
   async removeItem(item) {
+    const itemCopy = foundry.utils.deepClone(item);
     await BladesHelpers.tryDelete(item, this);
+    await BladesHelpers.postDeleteItem(itemCopy, this);
   }
 }

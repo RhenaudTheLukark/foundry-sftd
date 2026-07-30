@@ -152,7 +152,7 @@
           <td colspan="2">
             <input type="text" id="strider-{{_id}}-harm-3-1" name="system.harm.heavy.one" value="{{system.harm.heavy.one}}" placeholder=" ">
           </td>
-          <td>{{localize 'SFTD.NeedHelp'}}<a class="death-toggle"><i class="fa-regular fa-skull"></i></a></span></td>
+          <td>{{#if system.relentless}}-1D{{else}}{{localize 'SFTD.NeedHelp'}}{{/if}}<a class="death-toggle"><i class="fa-regular fa-skull"></i></a></span></td>
           {{#if (gt system.armor.max 0)}}
           <td rowspan="3" id="strider-{{_id}}-armor" class="strider-armor">
             <div class="flex-horizontal">
@@ -176,7 +176,7 @@
           <td>
             <input type="text" id="strider-{{_id}}-harm-2-2" name="system.harm.medium.two" value="{{system.harm.medium.two}}" placeholder=" ">
           </td>
-          <td>-1D</td>
+          <td>{{#if system.relentless}}{{localize 'SFTD.LessImpact'}}{{else}}-1D{{/if}}</td>
         </tr>
         <tr>
           <td>1</td>
@@ -186,7 +186,7 @@
           <td>
             <input type="text" id="strider-{{_id}}-harm-1-2" name="system.harm.light.two" value="{{system.harm.light.two}}" placeholder=" ">
           </td>
-          <td>{{localize 'SFTD.LessImpact'}}</td>
+          <td>{{#if system.relentless}}{{localize 'SFTD.NoEffect'}}{{else}}{{localize 'SFTD.LessImpact'}}{{/if}}</td>
         </tr>
       </tbody>
     </table>

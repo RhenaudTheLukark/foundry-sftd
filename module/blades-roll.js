@@ -4,6 +4,30 @@ import { BladesHelpers } from "./blades-helpers.js";
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 export const bladesRollModifierList = {
+  level_one_harm: {
+    name: 'SFTD.LevelOneHarm',
+    nameArgs: {},
+    rollTypes: ['actionRoll', 'groupAction'],
+    effect: -1
+  },
+  level_two_harm: {
+    name: 'SFTD.LevelTwoHarm',
+    nameArgs: {},
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: -1
+  },
+  level_two_harm_relentless: {
+    name: 'SFTD.LevelTwoHarm',
+    nameArgs: {},
+    rollTypes: ['actionRoll', 'groupAction'],
+    effect: -1
+  },
+  level_three_harm_relentless: {
+    name: 'SFTD.LevelThreeHarm',
+    nameArgs: {},
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: -1
+  },
   lotus_bargain: {
     name: 'SFTD.LotusBargainTitle',
     notRollTypes: ['recover', 'train'],
@@ -105,7 +129,7 @@ export const bladesRollModifierList = {
   },
   alloyed_mettle: {
     name: 'SFTD.StriderAbility.AlloyedMettle.Title',
-    rollTypes: 'actionRoll',
+    rollType: 'actionRoll',
     impact: 1
   },
   intercepting_fist_collect_info: {
@@ -119,6 +143,12 @@ export const bladesRollModifierList = {
     needProtect: true,
     dice: 1
   },
+  long_thought: {
+    name: 'SFTD.StriderAbility.LongThought.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1,
+    exclude: true
+  }
 }
 
 export const positionIndex = ['desperate', 'risky', 'controlled'];
@@ -272,7 +302,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   if (extraFields.position && !extraFields.forcedPosition) extraFields.position = positionIndex[Math.min(Math.max(numberedPosition, 0), 2)];
   if (extraFields.impact && !extraFields.forcedImpact) extraFields.impact = impactIndex[Math.min(Math.max(numberedImpact, 0), 4)];
 
-  extraFields.allowHarmonyGain = allowHarmonyGain || numberedPosition == 0;
+  extraFields.allowHarmonyGain = allowHarmonyGain || numberedPosition == 0 || (extraFields.actor?.system.seventh_sense && numberedPosition == 1);
   extraFields.rollData = rollData;
 
   if (!extraFields.noRoll) {
@@ -1252,7 +1282,7 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
   if (targetActor) {
     [_, allPermanentModifiers, allConditionalModifiers] = targetActor.getModifiers();
     allPermanentModifiers = await resolveRollModifierArray(allPermanentModifiers, targetActor);
-    allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, targetActor);
+    allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, targetActor, true);
     allConditionalModifiers = pruneInvalidConditionalRollModifiers(targetActor, allConditionalModifiers);
   }
 
@@ -1524,81 +1554,92 @@ function computeModifierMessages(modifiers) {
   return output;
 }
 
-export async function resolveRollModifierArray(modifiers, actor) {
+export async function resolveRollModifierArray(modifiers, actorFull, conditional = false, attributeName = null) {
   let output = [];
+
+  if (conditional) {
+    let harmContainer = actorFull?.system.harm;
+    if (harmContainer && BladesHelpers.isAttributeAction(attributeName)) {
+      let relentless = actorFull?.system.relentless;
+      let levelOneHarms = Object.values(relentless ? harmContainer.medium : harmContainer.light).filter(h => h != '');
+      let levelTwoHarms = Object.values(relentless ? harmContainer.heavy : harmContainer.medium).filter(h => h != '');
+      let harms = [ ...levelOneHarms.map(h => [1, h]),  ...levelTwoHarms.map(h => [2, h]) ];
+      let idToNumber = {
+        1: 'one',
+        2: 'two',
+        3: 'three'
+      }
+      for (let harm of harms) {
+        let key = relentless ? `level_${idToNumber[harm[0] + 1]}_harm_relentless` : `level_${idToNumber[harm[0]]}_harm`;
+        let result = foundry.utils.deepClone(bladesRollModifierList[key]);
+        result.key = key;
+        result.nameArgs.harm = harm[1];
+        output.push(result);
+      }
+    }
+  }
+
   if (modifiers)
     for (let [key, value] of Object.entries(modifiers)) {
       if (value === true)
         if (Object.keys(bladesRollModifierList).includes(key)) {
           let result = foundry.utils.deepClone(bladesRollModifierList[key]);
+          if (result.exclude)
+            continue;
           result.key = key;
           if (result.assist || result.setup || result.protect) {
             // Assist & Co.: List all other Striders in the Crew
-            if (actor.type != 'strider') continue;
-            let crewFull = BladesHelpers.resolveActor(actor.system.crew);
+            if (actorFull.type != 'strider') continue;
+            let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
             if (!crewFull) continue;
             if (Object.values(crewFull.system.members).length == 1) continue;
             result.fields['SFTD.Crewmate'] = {};
             for (let strider of Object.values(crewFull.system.members)) {
-              if (strider.uuid == actor.uuid) continue;
+              if (strider.uuid == actorFull.uuid) continue;
               let striderFull = BladesHelpers.resolveActor(strider.uuid);
               if (striderFull.type != 'strider') continue;
               result.fields['SFTD.Crewmate'][strider.uuid] = striderFull.name;
             }
             if (!Object.values(result.fields['SFTD.Crewmate']).length) continue;
-          } else if (result.telepathy) {
-            // Telepathy: List all crewmates who own the Ability
-            await actor.updateCrewWideAbilityOwnership(actor);
-            if (!actor.system.telepathy_owners) continue;
-            if (!actor.system.telepathy_owners.length) continue;
-            result.fields['SFTD.User'] = [];
-            for (let owner of actor.system.telepathy_owners) {
-              let ownerFull = BladesHelpers.resolveActor(owner);
-              result.fields['SFTD.User'].push(ownerFull.name);
-            }
-          } else if (result.crowdsource) {
-            // Crowdsource: List all crewmates except yourself
-            if (!actor.system.crew) continue;
-            let crewFull = BladesHelpers.resolveActor(actor.system.crew);
-            if (!crewFull) continue;
-            if (Object.values(crewFull.system.members).length == 1) continue;
-            result.fields['SFTD.Crewmate'] = {};
-            for (let strider of Object.values(crewFull.system.members)) {
-              if (strider.uuid == actor.uuid) continue;
-              let striderFull = BladesHelpers.resolveActor(strider.uuid);
-              if (striderFull.type != 'strider') continue;
-              result.fields['SFTD.Crewmate'][strideruid] = striderFull.name;
-            }
           } else if (result.downtime_assist) {
             // Downtime Assist: List all Strider Crew Members, Strider Connections and Specialists
-            if (actor.type != 'strider') continue;
+            if (actorFull.type != 'strider') continue;
             result.fields['SFTD.Helper'] = {};
-            let crewFull = BladesHelpers.resolveActor(actor.system.crew);
+            let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
             if (crewFull) {
               for (let member of Object.values(crewFull.system.members)) {
-                if (member.uuid == actor.uuid) continue;
+                if (member.uuid == actorFull.uuid) continue;
                 let striderFull = BladesHelpers.resolveActor(member.uuid);
                 if (striderFull.type != 'strider') continue;
                 result.fields['SFTD.Helper'][striderFull.uuid] = striderll.name;
               }
             }
-            for (let connection of Object.values(actor.system.connections)) {
-              let striderFull = BladesHelpers.resolveActor(connection.uuid);
-              if (striderFull?.type != 'strider') continue;
-              result.fields['SFTD.Helper'][striderFull.uuid] = striderFull.name;
-            }
             if (crewFull)
               for (let specialist of crewFull.items.filter(i => i.type == 'specialist'))
                 result.fields['SFTD.Helper'][specialist.uuid] = specialist.name;
             result.fields['SFTD.Helper'][''] = 'SFTD.Other';
-          } else if (result.needsRealWorkshop) {
-            let crewFull = actor.type == 'crew' ? actor : BladesHelpers.resolveActor(actor.system.crew);
-            if (!crewFull?.system.real_workshop) continue;
           }
           output.push(result);
         } else
           console.error(`Unknown modifier '${key}'`);
     }
+
+  // Crew-wide modifiers
+  let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+  if (crewFull) {
+    for (let [modifierId, modifierData] of Object.entries(BladesHelpers.crewWideModifiers).filter(m => m[1].conditional == conditional)) {
+      let modifierOwners = foundry.utils.deepClone(crewFull.system[`${modifierId}_owners`]);
+      if (!modifierData.includeOwner) {
+        let ownerId = modifierOwners.indexOf(actorFull.uuid);
+        if (ownerId >= 0)
+          modifierOwners.splice(ownerId, 1);
+      }
+
+      let result = foundry.utils.deepClone(bladesRollModifierList[modifierId]);
+      result.key = modifierId;
+      output.push(result);
+    }
+  }
   return output;
 }
 

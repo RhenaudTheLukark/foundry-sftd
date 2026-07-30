@@ -11,6 +11,18 @@ export class BladesPopup {
       return;
     let postContent = popupData.post_content ? popupData.post_content({}) : '';
 
+    if (form == '') {
+      let fields = {self: actorFull.uuid};
+      if (popupData.validation)
+        if (!popupData.validation(fields))
+          return;
+      if (popupData.effect)
+        await popupData.effect(fields);
+      if (popupData.message)
+        await BladesPopup.sendMessage(popupData.message, fields);
+      return;
+    }
+
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize(popupData.title)}` },
       content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/generic-popup.html', { title: popupData.title, description: popupData.description, pre_content: preContent, form: form, post_content: postContent }),
@@ -57,13 +69,13 @@ export class BladesPopup {
         case 'crewmate':
           let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
           if (!crewFull) {
-            ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew'), {name: game.i18n.localize(popupName)});
+            ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupName)}));
             return null;
           }
           let hasStress = actorFull.system.stress.value > 0;
           let otherMembers = Object.values(crewFull.system.members).filter(m => m.uuid != actorFull.uuid).map(m => BladesHelpers.resolveActor(m.uuid)).filter(m => m != null && m.type == 'strider' && (hasStress || m.system.stress.value > 0));
           if (!otherMembers.length) {
-            ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoValidCrewmate'), {name: game.i18n.localize(popupName)});
+            ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoValidCrewmate', {name: game.i18n.localize(popupName)}));
             return null;
           }
           fieldContainer += `
@@ -127,7 +139,7 @@ export class BladesPopup {
   }
 
   static updateFormValues(dialog) {
-    let fields = BladesPopup.fetchFormValues(dialog);
+    const fields = BladesPopup.fetchFormValues(dialog);
     dialog.element.querySelector('.pre-content').innerHTML = dialog.popupData.pre_content ? dialog.popupData.pre_content(fields) : '';
     dialog.element.querySelector('.post-content').innerHTML = dialog.popupData.post_content ? dialog.popupData.post_content(fields) : '';
     dialog.element.querySelector('button[data-action="use"]').disabled = dialog.popupData.validation ? !dialog.popupData.validation(fields) : false;
@@ -136,12 +148,12 @@ export class BladesPopup {
   /* ----------------------------------------- */
 
   static async sendMessage(messageData, fields) {
-    const selfFull = BladesHelpers.resolveActor(fields.self);
     const extraFields = {
       title: game.i18n.localize(messageData.title ?? 'SFTD.UseAbility'),
-      contents: messageData.contents ? messageData.contents(messageData, fields) : BladesPopup.defaultMessageContents(messageData)
+      contents: messageData.contents ? messageData.contents(messageData, fields) : BladesPopup.defaultMessageContents(messageData, fields)
     };
 
+    const selfFull = BladesHelpers.resolveActor(fields.self);
     const speaker = {
       actor: selfFull._id,
       alias: selfFull.name,
@@ -155,8 +167,9 @@ export class BladesPopup {
     await SFTDChatMessage.create(newMessageData);
   }
 
-  static defaultMessageContents(messageData) {
-    return game.i18n.localize(messageData.description ?? '');
+  static defaultMessageContents(messageData, fields) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    return game.i18n.format(messageData.description ?? '', {self: selfFull.name});
   }
 
   /* ----------------------------------------- */
@@ -164,12 +177,12 @@ export class BladesPopup {
   static alloyedMettlePostContent(fields) {
     if (!fields.crewmate)
       return '';
-    let selfFull = BladesHelpers.resolveActor(fields.self);
-    let selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
-    let selfRed = selfNewStress >= selfFull.system.stress.max;
-    let crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
-    let crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
-    let crewmateRed = crewmateNewStress >= crewmateFull.system.stress.max;
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
+    const selfRed = selfNewStress >= selfFull.system.stress.max;
+    const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
+    const crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
+    const crewmateRed = crewmateNewStress >= crewmateFull.system.stress.max;
     return `
       <div class="stress-transfer flex-horizontal">
         <div class="actor-stress flex-vertical flex-equal">
@@ -189,27 +202,47 @@ export class BladesPopup {
   static alloyedMettleValidation(fields) {
     if (!fields.crewmate)
       return false;
-    let selfFull = BladesHelpers.resolveActor(fields.self);
-    let selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
-    let crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
-    let crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
+    const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
+    const crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
     return selfNewStress >= 0 && selfNewStress <= selfFull.system.stress.max && crewmateNewStress >= 0 && crewmateNewStress <= crewmateFull.system.stress.max;
   }
 
   static async alloyedMettleEffect(fields) {
-    let selfFull = BladesHelpers.resolveActor(fields.self);
-    let crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + (fields.reverse ? -1 : 1)});
     await BladesHelpers.tryUpdate(crewmateFull, {'system.stress.==value': crewmateFull.system.stress.value + (fields.reverse ? 1 : -1)});
   }
 
   static alloyedMettleMessageContents(messageData, fields) {
-    let selfFull = BladesHelpers.resolveActor(fields.self);
-    let crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     return game.i18n.format('SFTD.StriderAbility.AlloyedMettle.Message.Description', {
       stressGiver: fields.reverse ? selfFull.name : crewmateFull.name,
       stressTaker: fields.reverse ? crewmateFull.name : selfFull.name
     });
+  }
+
+  /* ----------------------------------------- */
+
+  static longThoughtValidation(fields) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
+    if (!crewFull) {
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize('SFTD.StriderAbility.LongThought.Message.Title')}));
+      return false;
+    }
+    if (crewFull.system.harmony.value <= 0)
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.LongThoughtNoHarmony'));
+    return crewFull.system.harmony.value > 0;
+  }
+
+  static async longThoughtEffect(fields) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
+    await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1});
   }
 }
 
@@ -234,6 +267,14 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.StriderAbility.AlloyedMettle.Message.Title',
       contents: BladesPopup.alloyedMettleMessageContents
+    }
+  },
+  long_thought: {
+    validation: BladesPopup.longThoughtValidation,
+    effect: BladesPopup.longThoughtEffect,
+    message: {
+      title: 'SFTD.StriderAbility.LongThought.Message.Title',
+      description: 'SFTD.StriderAbility.LongThought.Message.Description',
     }
   }
 }

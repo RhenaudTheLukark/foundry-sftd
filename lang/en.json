@@ -78,6 +78,7 @@
     "Heavy": "Heavy",
     "Special": "Special",
     "LessImpact": "Less Impact",
+    "NoEffect": "No Effect",
     "Description": "Description",
     "ShortDescription": "Short Description",
     "Loadout": "Loadout",
@@ -656,6 +657,9 @@
     "StayLateDescription": "{target} can take an extra <strong>Downtime Activity</strong>. {actor} takes the <strong>Level 1 Harm: Tired</strong>, which may be resisted as normal.",
 
     "ToggleableModifiers": "Toggleable Modifiers",
+    "LevelOneHarm": "<span style=\"color:#ffc0c0\">Level One Harm: {harm} <i class=\"fas fa-question-circle\" data-tooltip=\"Only enable this if this Harm impairs your ability to perform this action.\"></i></span>",
+    "LevelTwoHarm": "<span style=\"color:#ffc0c0\">Level Two Harm: {harm} <i class=\"fas fa-question-circle\" data-tooltip=\"Only enable this if this Harm impairs your ability to perform this action.\"></i></span>",
+    "LevelThreeHarm": "<span style=\"color:#ffc0c0\">Level Three Harm: {harm} <i class=\"fas fa-question-circle\" data-tooltip=\"Only enable this if this Harm impairs your ability to perform this action.\"></i></span>",
     "LotusBargainTitle": "Lotus Bargain",
     "LotusBargainEffect": "You took a Lotus Bargain. Its consequences are unavoidable, nor can they be reduced or negated with a resistance roll or armor.",
     "Cost": "Cost",
@@ -758,6 +762,13 @@
       },
       "InterceptingFist": {
         "CollectInfoTitle": "Intercepting Fist: Collecting Info on Possible Threats to Your Team or NPCs in the Current Situation?"
+      },
+      "LongThought": {
+        "Title": "Long Thought: Making Use of a Solution Prepared in Advance Using This Ability?",
+        "Message": {
+          "Title": "Long Thought",
+          "Description": "{self} arranged to help overcome an obstacle in advance. They spent <strong>1 Harmony</strong>."
+        }
       }
     },
 
@@ -835,6 +846,7 @@
         "SameCrew": "The dropped Crew is the current crew of this strider."
       },
       "warn": {
+        "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
         "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability's Use effect!",
         "GenericPopupNoValidCrewmate": "{name}: You must be in a Crew with other Striders and one of you must have Stress to use this ability's Use effect!",
         "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",

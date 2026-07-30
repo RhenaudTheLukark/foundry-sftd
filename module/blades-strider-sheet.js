@@ -5,7 +5,7 @@ import { enrichHTML } from "./compat.js";
 import { bladesRoll, simpleRollPopup, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
   pruneInvalidConditionalRollModifiers, keepValidModifiersFromOther } from './blades-roll.js';
-import { bladesPopupData, BladesPopup } from "./blades-popups.js";
+import { bladesPopupData, BladesPopup } from "./blades-popup.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -204,7 +204,7 @@ export class BladesStriderSheet extends BladesSheet {
       // Fetch roll modifiers
       let [_, allPermanentModifiers, allConditionalModifiers] = this.actor.getModifiers();
       allPermanentModifiers = await resolveRollModifierArray(allPermanentModifiers, this.actor);
-      allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, this.actor);
+      allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, this.actor, true);
       allConditionalModifiers = pruneInvalidConditionalRollModifiers(this.actor, allConditionalModifiers);
 
       let title = game.i18n.localize('SFTD.DowntimeActivity');

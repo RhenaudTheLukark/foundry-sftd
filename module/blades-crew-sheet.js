@@ -626,7 +626,7 @@ export class BladesCrewSheet extends BladesSheet {
     // Fetch roll modifiers
     let [_, allPermanentModifiers, allConditionalModifiers] = this.actor.getModifiers(specialistFull);
     allPermanentModifiers = await resolveRollModifierArray(allPermanentModifiers, specialistFull);
-    allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, specialistFull);
+    allConditionalModifiers = await resolveRollModifierArray(allConditionalModifiers, specialistFull, true);
     allConditionalModifiers = pruneInvalidConditionalRollModifiers(specialistFull, allConditionalModifiers);
 
     let rollTypes = groupActionData ? ['groupSpecialist'] : ['specialist'];

@@ -346,9 +346,28 @@ export class BladesHelpers {
     return result;
   }
 
-  static async postCreateItem(item, actor) {
-    if (item.type == 'specialist')
-      await BladesHelpers.tryUpdate(item, {system: {'==crew': actor.uuid}});
+  static crewWideModifiers = {
+    long_thought: {
+      conditional: true,
+      includeOwner: true
+    }
+  };
+
+  static async postCreateItem(itemFull, actorFull) {
+    if (itemFull.type == 'specialist')
+      await BladesHelpers.tryUpdate(itemFull, {'system.==crew': actorFull.uuid});
+
+    // Crew-wide modifiers: Update the crew's values
+    if (actorFull?.type == 'character')
+      if (itemFull.effects.filter(e => e.changes.filter(c => c.value == "true" && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
+        await actorFull.updateCrewWideAbilityOwnership();
+  }
+
+  static async postDeleteItem(itemCopy, actorFull, realDelete = true) {
+    // Crew-wide modifiers: Update the crew's values
+    if (actorFull?.type == 'character')
+      if (itemCopy.effects.filter(e => e.changes.filter(c => c.value == "true" && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
+        await actorFull.updateCrewWideAbilityOwnership();
   }
 
   /**
@@ -557,6 +576,7 @@ export class BladesHelpers {
     let newCrewMembers = Object.assign({}, crewMembersArray);
     await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
     await BladesHelpers.tryUpdate(striderFull, {system: {'==crew': crewFull.uuid}});
+    await crewFull.updateCrewWideAbilityOwnership();
   }
 
   // Removes a strider's crew and remove the strider from its crew's member list
@@ -567,6 +587,7 @@ export class BladesHelpers {
       crewMembersArray.splice(crewMembersArray.map(e => e.uuid).indexOf(striderFull.uuid), 1);
       let newCrewMembers = Object.assign({}, crewMembersArray);
       await BladesHelpers.tryUpdate(crewFull, {system: {'==members': newCrewMembers}});
+      await crewFull.updateCrewWideAbilityOwnership();
     }
     await BladesHelpers.tryUpdate(striderFull, {system: {'==crew': null}});
   }
