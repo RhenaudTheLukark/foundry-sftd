@@ -13,9 +13,55 @@
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "popup": ""
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Threads of Fate Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.ability.Item.3vbZUqOk2Bo4I1MG",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "cvZKRMCN99u0UacK",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.threads_of_fate",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1785955233664,
+        "modifiedTime": 1785955259898,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!3vbZUqOk2Bo4I1MG.cvZKRMCN99u0UacK"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

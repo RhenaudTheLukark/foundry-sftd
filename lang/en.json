@@ -766,6 +766,52 @@
       "InterceptingFist": {
         "CollectInfoTitle": "Intercepting Fist: Collecting Info on Possible Threats to Your Team or NPCs in the Current Situation?"
       },
+      "Charmtongue": {
+        "Popup": {
+          "Title": "Charmtongue",
+          "Description": "You speak to the world around you, reshaping it according to your desires.<br/>Spend 2 Stress to use this ability, plus 1 Stress for each extra feature below.",
+          "StableArgName": "The effect is stable",
+          "NoRadiationArgName": "The effect doesn't radiate transcendent energies",
+          "NoChangeArgName": "You aren't changed in turn"
+        },
+        "Message": {
+          "Title": "Charmtongue",
+          "Description": "You speak to the world around you, reshaping it according to your desires. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "Stable": "The effect is stable. ",
+          "NoRadiation": "The effect doesn't radiate transcendent energies. ",
+          "NoChange": "You aren't changed in turn. "
+        }
+      },
+      "FriendlyFace": {
+        "ActionTitle": "Friendly Face: Navigating Bureaucracy?",
+        "CollectInfoTitle": "Friendly Face: Collecting Info about the Social and Political Dynamics of a Location or Culture?"
+      },
+      "StandUpTalkDown": {
+        "Title": "Stand Up, Talk Down: Speaking?",
+        "Description": "You used Harmony while speaking. Hostilities and danger also pause while you speak."
+      },
+      "StrictlySpeaking": {
+        "Title": "Strictly Speaking: Nothing You Say is an Outright Lie?"
+      },
+      "TheMoonUpright": {
+        "Popup": {
+          "Title": "The Moon Upright",
+          "Description": "You can weave a glamour to disguise a person or object.<br/>Spend 2 Stress to use this ability, plus 1 Stress for each extra feature below.",
+          "WideEffectArgName": "You can glamour a small group of people or large object",
+          "NoFocusArgName": "The illusion persists without you focusing on it",
+          "VagueMemoriesArgName": "People who interact with your glamour have only vague memories of it"
+        },
+        "Message": {
+          "Title": "The Moon Upright",
+          "Description": "You weave a glamour to disguise a person or object. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "WideEffect": "You can glamour a small group of people or large object. ",
+          "NoFocus": "The illusion persists without you focusing on it. ",
+          "VagueMemories": "People who interact with your glamour have only vague memories of it. "
+        }
+      },
+      "ThreadsOfFate": {
+        "Title": "Threads of Fate: Versus a Target With Whom You Have an Intimate Relationship? <i class=\"fas fa-question-circle\" data-tooltip=\"This ability isn't just for social interactions; any action can get the bonus. What counts as “intimate” is up to you and your group to define, but it's not confined to romantic intimacy.\"></i>"
+      },
       "LongThought": {
         "Title": "Long Thought: Making Use of a Solution Prepared in Advance Using This Ability?",
         "Message": {

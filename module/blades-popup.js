@@ -14,12 +14,12 @@ export class BladesPopup {
     if (form == '') {
       let fields = {self: actorFull.uuid};
       if (popupData.validation)
-        if (!popupData.validation(fields))
+        if (!popupData.validation(fields, popupData))
           return;
       if (popupData.effect)
-        await popupData.effect(fields);
+        await popupData.effect(fields, popupData);
       if (popupData.message)
-        await BladesPopup.sendMessage(popupData.message, fields);
+        await BladesPopup.sendMessage(fields, popupData);
       return;
     }
 
@@ -45,9 +45,9 @@ export class BladesPopup {
 
         let fields = BladesPopup.fetchFormValues(dialog);
         if (dialog.popupData.effect)
-          await dialog.popupData.effect(fields);
+          await dialog.popupData.effect(fields, dialog.popupData);
         if (dialog.popupData.message)
-          await BladesPopup.sendMessage(dialog.popupData.message, fields);
+          await BladesPopup.sendMessage(fields, dialog.popupData);
       }
     });
     dialog.popupData = popupData;
@@ -142,15 +142,16 @@ export class BladesPopup {
     const fields = BladesPopup.fetchFormValues(dialog);
     dialog.element.querySelector('.pre-content').innerHTML = dialog.popupData.pre_content ? dialog.popupData.pre_content(fields) : '';
     dialog.element.querySelector('.post-content').innerHTML = dialog.popupData.post_content ? dialog.popupData.post_content(fields) : '';
-    dialog.element.querySelector('button[data-action="use"]').disabled = dialog.popupData.validation ? !dialog.popupData.validation(fields) : false;
+    dialog.element.querySelector('button[data-action="use"]').disabled = dialog.popupData.validation ? !dialog.popupData.validation(fields, dialog.popupData ?? {}) : false;
   }
 
   /* ----------------------------------------- */
 
-  static async sendMessage(messageData, fields) {
+  static async sendMessage(fields, popupData) {
+    const messageData = popupData.message;
     const extraFields = {
       title: game.i18n.localize(messageData.title ?? 'SFTD.UseAbility'),
-      contents: messageData.contents ? messageData.contents(messageData, fields) : BladesPopup.defaultMessageContents(messageData, fields)
+      contents: messageData.contents ? messageData.contents(fields, popupData) : BladesPopup.defaultMessageContents(fields, popupData)
     };
 
     const selfFull = BladesHelpers.resolveActor(fields.self);
@@ -167,9 +168,39 @@ export class BladesPopup {
     await SFTDChatMessage.create(newMessageData);
   }
 
-  static defaultMessageContents(messageData, fields) {
+  static defaultMessageContents(fields, popupData) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    return game.i18n.format(messageData.description ?? '', {self: selfFull.name});
+    return game.i18n.format(popupData.message?.description ?? '', {self: selfFull.name});
+  }
+
+  static defaultGetStress(fields, baseStress, fieldsData) {
+    let stressGain = baseStress;
+    for (let [fieldName, fieldData] of Object.entries(fieldsData).filter(f => fields[f[0]] && f[1].stress != undefined))
+      stressGain += fieldData.stress;
+    return stressGain;
+  }
+
+  /* ----------------------------------------- */
+
+  static simpleStressAbilityValidation(fields, popupData) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const selfNewStress = selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress, popupData.fields);
+    return selfNewStress <= selfFull.system.stress.max;
+  }
+
+
+  static async simpleStressAbilityEffect(fields, popupData) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress, popupData.fields)});
+  }
+
+  static simpleStressAbilityMessageContents(fields, popupData) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    let stress = BladesPopup.defaultGetStress(fields, popupData.stress, popupData.fields);
+    let effects = '';
+    for (let [fieldName, fieldData] of Object.entries(popupData.fields).filter(f => fields[f[0]] && f[1].message_text != undefined))
+      effects += game.i18n.localize(fieldData.message_text);
+    return game.i18n.format(popupData.message.description, { effects: effects, stress: stress });
   }
 
   /* ----------------------------------------- */
@@ -216,7 +247,7 @@ export class BladesPopup {
     await BladesHelpers.tryUpdate(crewmateFull, {'system.stress.==value': crewmateFull.system.stress.value + (fields.reverse ? 1 : -1)});
   }
 
-  static alloyedMettleMessageContents(messageData, fields) {
+  static alloyedMettleMessageContents(fields, popupData) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     return game.i18n.format('SFTD.StriderAbility.AlloyedMettle.Message.Description', {
@@ -267,6 +298,74 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.StriderAbility.AlloyedMettle.Message.Title',
       contents: BladesPopup.alloyedMettleMessageContents
+    }
+  },
+  charmtongue: {
+    title: 'SFTD.StriderAbility.Charmtongue.Popup.Title',
+    description: 'SFTD.StriderAbility.Charmtongue.Popup.Description',
+    classes: ['charmtongue'],
+    pre_content: null,
+    fields: {
+      stable: {
+        name: 'SFTD.StriderAbility.Charmtongue.Popup.StableArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmtongue.Message.Stable'
+      },
+      no_radiation: {
+        name: 'SFTD.StriderAbility.Charmtongue.Popup.NoRadiationArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmtongue.Message.NoRadiation'
+      },
+      no_change: {
+        name: 'SFTD.StriderAbility.Charmtongue.Popup.NoChangeArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmtongue.Message.NoChange'
+      }
+    },
+    stress: 2,
+    validation: BladesPopup.simpleStressAbilityValidation,
+    effect: BladesPopup.simpleStressAbilityEffect,
+    message: {
+      title: 'SFTD.StriderAbility.Charmtongue.Message.Title',
+      description: 'SFTD.StriderAbility.Charmtongue.Message.Description',
+      contents: BladesPopup.simpleStressAbilityMessageContents
+    }
+  },
+  the_moon_upright: {
+    title: 'SFTD.StriderAbility.TheMoonUpright.Popup.Title',
+    description: 'SFTD.StriderAbility.TheMoonUpright.Popup.Description',
+    classes: ['the_moon_upright'],
+    pre_content: null,
+    fields: {
+      wide_effect: {
+        name: 'SFTD.StriderAbility.TheMoonUpright.Popup.WideEffectArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.TheMoonUpright.Message.WideEffect'
+      },
+      no_focus: {
+        name: 'SFTD.StriderAbility.TheMoonUpright.Popup.NoFocusArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.TheMoonUpright.Message.NoFocus'
+      },
+      vague_memories: {
+        name: 'SFTD.StriderAbility.TheMoonUpright.Popup.VagueMemoriesArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.TheMoonUpright.Message.VagueMemories'
+      }
+    },
+    stress: 2,
+    validation: BladesPopup.simpleStressAbilityValidation,
+    effect: BladesPopup.simpleStressAbilityEffect,
+    message: {
+      title: 'SFTD.StriderAbility.TheMoonUpright.Message.Title',
+      description: 'SFTD.StriderAbility.TheMoonUpright.Message.Description',
+      contents: BladesPopup.simpleStressAbilityMessageContents
     }
   },
   long_thought: {

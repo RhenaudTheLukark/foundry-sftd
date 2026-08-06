@@ -57,7 +57,8 @@ export const bladesRollModifierList = {
     notRollTypes: ['recover', 'train'],
     dice: 1,
     harmony: -1,
-    rollText: 'SFTD.HarmonyEffect'
+    rollText: 'SFTD.HarmonyEffect',
+    isHarmony: true
   },
   assist: {
     name: 'SFTD.Assist',
@@ -141,6 +142,43 @@ export const bladesRollModifierList = {
     hidden: true,
     rollType: 'resistance',
     needProtect: true,
+    dice: 1
+  },
+  friendly_face_action: {
+    name: 'SFTD.StriderAbility.FriendlyFace.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  friendly_face_collect_info: {
+    name: 'SFTD.StriderAbility.FriendlyFace.CollectInfoTitle',
+    rollType: 'collectInfo',
+    dice: 1
+  },
+  friendly_face_reduce_pressure: {
+    rollType: 'reducePressure',
+    dice: 1
+  },
+  night_market: {
+    name: 'SFTD.StriderAbility.NightMarket.Title',
+    rollType: 'reducePressure',
+    itemNeeded: 'night_market',
+    bonusRoll: true
+  },
+  stand_up_talk_down: {
+    name: 'SFTD.StriderAbility.StandUpTalkDown.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    needHarmony: true,
+    rollText: 'SFTD.StriderAbility.StandUpTalkDown.Description'
+  },
+  strictly_speaking: {
+    name: 'SFTD.StriderAbility.StrictlySpeaking.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    attributeName: 'bluff',
+    dice: 1
+  },
+  threads_of_fate: {
+    name: 'SFTD.StriderAbility.ThreadsOfFate.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
     dice: 1
   },
   long_thought: {
@@ -1548,11 +1586,14 @@ export function keepValidModifiersFromOther(modifiers) {
   let output = [];
   let pushingYourself = false;
   let protecting = false;
+  let usingHarmony = false;
   for (let modifier of modifiers) {
     if (modifier.pushYourself) pushingYourself = true;
     if (modifier.needPushYourself && !pushingYourself) continue;
     if (modifier.protect) protecting = true;
     if (modifier.needProtect && !protecting) continue;
+    if (modifier.isHarmony) usingHarmony = true;
+    if (modifier.needHarmony && !usingHarmony) continue;
     output.push(modifier);
   }
   return output;

@@ -6,14 +6,15 @@
   "system": {
     "description": "<p>You can weave a glamour to disguise a person or object. Take <strong>2 stress</strong> to<br>weave a glamour, plus <strong>1 stress</strong> for each extra feature:</p>\n<ul>\n<li>You can glamour a small group of people or large object,</li>\n<li>The illusion persists without you focusing on it,</li>\n<li>People who interact with your glamour have only vague memories of it.</li>\n</ul>",
     "class": "Beacon",
-    "price": "1",
+    "price": 1,
     "purchased": false,
     "class_default": false,
     "logic": "",
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "popup": "the_moon_upright"
   },
   "effects": [],
   "folder": null,
@@ -31,7 +32,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780857427498,
-    "modifiedTime": 1780857469082,
+    "modifiedTime": 1785989213766,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!GsDOYwxwCvBpkD8Y"
