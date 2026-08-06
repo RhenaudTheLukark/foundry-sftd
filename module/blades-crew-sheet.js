@@ -1,6 +1,7 @@
 import { BladesSheet } from "./blades-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
+import { bladesPopupData } from "./blades-popup.js";
 import { bladesRoll, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
   pruneInvalidConditionalRollModifiers, keepValidModifiersFromRollType, keepValidModifiersFromOther
@@ -51,6 +52,13 @@ export class BladesCrewSheet extends BladesSheet {
     sheetData.system.cache.invested = this.getInvestedCaches();
 
     sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
+
+    for (let item of sheetData.items)
+      if (item.system.popup != '') {
+        let popupData = bladesPopupData[item.system.popup];
+        if (popupData?.button_text)
+          item.system.popup_text = popupData.button_text;
+      }
 
     sheetData.defaultClockThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
 

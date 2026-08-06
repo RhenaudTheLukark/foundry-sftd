@@ -119,10 +119,11 @@ export const bladesRollModifierList = {
     },
     resolveFunc: (fields, extraData) => {
       let protecteeFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
+      let protecteeName = fields['SFTD.Crewmate'] == '' ? game.i18n.localize('SFTD.ProtectEffectOther') : protecteeFull ? protecteeFull.name : 'Unknown Strider';
       return {
         allowHarmonyGain: true,
         rollText: 'SFTD.ProtectEffect',
-        rollTextArgs: { strider: protecteeFull ? protecteeFull.name : 'Unknown Strider' },
+        rollTextArgs: { strider: protecteeName },
         protect: true
       };
     },
@@ -133,6 +134,11 @@ export const bladesRollModifierList = {
     rollType: 'actionRoll',
     impact: 1
   },
+  flow_and_crash_action: {
+    name: 'SFTD.StriderAbility.FlowAndCrash.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
   intercepting_fist_collect_info: {
     name: 'SFTD.StriderAbility.InterceptingFist.CollectInfoTitle',
     rollType: 'collectInfo',
@@ -142,6 +148,12 @@ export const bladesRollModifierList = {
     hidden: true,
     rollType: 'resistance',
     needProtect: true,
+    dice: 1
+  },
+  spark_of_hope: {
+    name: 'SFTD.StriderAbility.SparkOfHope.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    attributeNames: ['command', 'connect'],
     dice: 1
   },
   friendly_face_action: {
@@ -914,7 +926,7 @@ export function getBladesRollStatus(rolls, zeromode, modifiers) {
 export function getBladesRollResistanceStress(rolls, extraResult = 0, zeromode = false) {
   // Sort roll values from lowest to highest.
   let sortedRolls = rolls.map(i => i.result).sort();
-  let result = extraResult + sortedRolls[zeromode ? 0 : sortedRolls.length - 1];
+  let result = Math.min(extraResult + sortedRolls[zeromode ? 0 : sortedRolls.length - 1], 6);
   if (!zeromode && sortedRolls.length >= 2 && sortedRolls[sortedRolls.length - 1] == 6 && sortedRolls[sortedRolls.length - 2] == 6)
     result += 1;
   let useDie = Math.max(Math.min(result, 7), 1);
@@ -1653,6 +1665,8 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
               if (striderFull.type != 'strider') continue;
               result.fields['SFTD.Crewmate'][strider.uuid] = striderFull.name;
             }
+            if (result.protect)
+              result.fields['SFTD.Crewmate'][''] = 'SFTD.Other';
             if (!Object.values(result.fields['SFTD.Crewmate']).length) continue;
           } else if (result.downtime_assist) {
             // Downtime Assist: List all Strider Crew Members, Strider Connections and Specialists

@@ -5,7 +5,13 @@
   </div>
   {{#if item.system.popup}}
   <div class="generic-popup flex-vertical">
-    <button data-popup-id="{{item.system.popup}}">{{localize 'SFTD.Use'}}</button>
+    <button data-popup-id="{{item.system.popup}}">
+      {{#if item.system.popup_text}}
+        {{localize item.system.popup_text}}
+      {{else}}
+        {{localize 'SFTD.Use'}}
+      {{/if}}
+    </button>
   </div>
   {{/if}}
   {{#if (gteq item.system.uses.max 1)}}

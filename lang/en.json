@@ -681,6 +681,7 @@
     "SettingUpEffect": "You are setting something up for {strider}. They can choose to increase their Position or Impact on their next roll.",
     "ProtectTitle": "Protect",
     "ProtectEffect": "You've protected {strider} from harm, directing it toward you instead.",
+    "ProtectEffectOther": "someone not within your Crew",
     "Effect": "Effect",
     "ExtraDie": "Extra Die",
     "ImprovedPosition": "Improved Position",
@@ -763,8 +764,24 @@
           "Description": "{stressGiver} confessed a fear or vulnerable emotion to {stressTaker}. {stressGiver} cleared <strong>1 Stress</strong>, and {stressTaker} suffered <strong>1 Stress</strong>."
         }
       },
+      "Charmguard": {
+        "Message": {
+          "Title": "Charmguard",
+          "Description": "You generate an impenetrable field of charm energy big enough to protect a medium-sized group of people (about 20). The field lasts for a few minutes. You suffered <strong>{stress} Stress</strong></p><p class=\"description\"><em>The field is selectively permeable; you can let air or your friends through while blocking enemy fire or poisonous gasses.</em>"
+        }
+      },
+      "FlowAndCrash": {
+        "Title": "Flow and Crash: Against the Source of Harm Taken While Protecting Crewmates or NPCs?",
+        "Message": {
+          "Title": "Flow and Crash",
+          "Description": "You took Harm while protecting crewmates or NPCs. You cleared <strong>1 Stress</strong>."
+        }
+      },
       "InterceptingFist": {
         "CollectInfoTitle": "Intercepting Fist: Collecting Info on Possible Threats to Your Team or NPCs in the Current Situation?"
+      },
+      "SparkOfHope": {
+        "Title": "Spark of Hope: Involves Anyone Who Witnessed You Resist Harm or Protect Someone?"
       },
       "Charmtongue": {
         "Popup": {
@@ -816,7 +833,7 @@
         "Title": "Long Thought: Making Use of a Solution Prepared in Advance Using This Ability?",
         "Message": {
           "Title": "Long Thought",
-          "Description": "{self} arranged to help overcome an obstacle in advance. They spent <strong>1 Harmony</strong>."
+          "Description": "You arranged to help overcome an obstacle in advance. You spent <strong>1 Harmony</strong>."
         }
       },
       "StormWarning": {
@@ -906,6 +923,7 @@
       },
       "warn": {
         "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
+        "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
         "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability's Use effect!",
         "GenericPopupNoValidCrewmate": "{name}: You must be in a Crew with other Striders and one of you must have Stress to use this ability's Use effect!",
         "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",

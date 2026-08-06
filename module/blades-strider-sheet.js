@@ -1,11 +1,11 @@
 import { BladesSheet } from "./blades-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
+import { bladesPopupData, BladesPopup } from "./blades-popup.js";
 import { enrichHTML } from "./compat.js";
 import { bladesRoll, simpleRollPopup, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
   pruneInvalidConditionalRollModifiers, keepValidModifiersFromOther } from './blades-roll.js';
-import { bladesPopupData, BladesPopup } from "./blades-popup.js";
 
 /**
  * Extend the basic ActorSheet with some very simple modifications
@@ -96,6 +96,13 @@ export class BladesStriderSheet extends BladesSheet {
         "SFTD.Heavy": "SFTD.Heavy"
       };
     }
+
+    for (let item of sheetData.items)
+      if (item.system.popup != '') {
+        let popupData = bladesPopupData[item.system.popup];
+        if (popupData?.button_text)
+          item.system.popup_text = popupData.button_text;
+      }
 
     // Check for additional stress from crew sources
     sheetData.system.scars.value = Object.values(sheetData.system.scars.values).filter(s => s != '').length;

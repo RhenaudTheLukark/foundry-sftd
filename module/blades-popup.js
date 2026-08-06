@@ -5,8 +5,9 @@ import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 export class BladesPopup {
   static async instantiatePopup(actorFull, popupData) {
+    let title = popupData.title ?? 'SFTD.UseAbility';
     let preContent = popupData.pre_content ? popupData.pre_content({}) : '';
-    let form = popupData.fields ? BladesPopup.instantiatePopupForm(actorFull, popupData.fields, popupData.title ?? 'SFTD.UseAbility') : '';
+    let form = popupData.fields ? BladesPopup.instantiatePopupForm(actorFull, popupData.fields, title) : '';
     if (form == null)
       return;
     let postContent = popupData.post_content ? popupData.post_content({}) : '';
@@ -14,7 +15,7 @@ export class BladesPopup {
     if (form == '') {
       let fields = {self: actorFull.uuid};
       if (popupData.validation)
-        if (!popupData.validation(fields, popupData))
+        if (!popupData.validation(fields, popupData, true))
           return;
       if (popupData.effect)
         await popupData.effect(fields, popupData);
@@ -24,8 +25,8 @@ export class BladesPopup {
     }
 
     let dialog = new foundry.applications.api.DialogV2({
-      window: { title: `${game.i18n.localize(popupData.title)}` },
-      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/generic-popup.html', { title: popupData.title, description: popupData.description, pre_content: preContent, form: form, post_content: postContent }),
+      window: { title: `${game.i18n.localize(title)}` },
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/generic-popup.html', { title: title, description: popupData.description, pre_content: preContent, form: form, post_content: postContent }),
       classes: ['generic-popup', ...popupData.classes ?? []],
       buttons: [
         {
@@ -182,24 +183,28 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
-  static simpleStressAbilityValidation(fields, popupData) {
+  static simpleStressAbilityValidation(fields, popupData, noPopup) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const selfNewStress = selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress, popupData.fields);
+    let stressGain = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
+    const selfNewStress = selfFull.system.stress.value + stressGain;
+    if (noPopup && selfNewStress > selfFull.system.stress.max)
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.SimpleStressAbilityTooMuchStress', { name: game.i18n.localize(popupData.title ?? 'SFTD.UseAbility') }));
     return selfNewStress <= selfFull.system.stress.max;
   }
 
 
   static async simpleStressAbilityEffect(fields, popupData) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress, popupData.fields)});
+    await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {})});
   }
 
   static simpleStressAbilityMessageContents(fields, popupData) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    let stress = BladesPopup.defaultGetStress(fields, popupData.stress, popupData.fields);
+    let stress = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
     let effects = '';
-    for (let [fieldName, fieldData] of Object.entries(popupData.fields).filter(f => fields[f[0]] && f[1].message_text != undefined))
-      effects += game.i18n.localize(fieldData.message_text);
+    if (popupData.fields)
+      for (let [fieldName, fieldData] of Object.entries(popupData.fields).filter(f => fields[f[0]] && f[1].message_text != undefined))
+        effects += game.i18n.localize(fieldData.message_text);
     return game.i18n.format(popupData.message.description, { effects: effects, stress: stress });
   }
 
@@ -275,6 +280,14 @@ export class BladesPopup {
     const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
     await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1});
   }
+
+  /* ----------------------------------------- */
+
+  static async flowAndCrashEffect(fields) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    if (selfFull.system.stress.value > 0)
+      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value - 1});
+  }
 }
 
 export const bladesPopupData = {
@@ -298,6 +311,24 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.StriderAbility.AlloyedMettle.Message.Title',
       contents: BladesPopup.alloyedMettleMessageContents
+    }
+  },
+  charmguard: {
+    title: 'SFTD.StriderAbility.Charmguard.Message.Title',
+    stress: 2,
+    validation: BladesPopup.simpleStressAbilityValidation,
+    effect: BladesPopup.simpleStressAbilityEffect,
+    message: {
+      title: 'SFTD.StriderAbility.Charmguard.Message.Title',
+      description: 'SFTD.StriderAbility.Charmguard.Message.Description',
+      contents: BladesPopup.simpleStressAbilityMessageContents
+    }
+  },
+  flow_and_crash: {
+    effect: BladesPopup.flowAndCrashEffect,
+    message: {
+      title: 'SFTD.StriderAbility.FlowAndCrash.Message.Title',
+      description: 'SFTD.StriderAbility.FlowAndCrash.Message.Description',
     }
   },
   charmtongue: {
