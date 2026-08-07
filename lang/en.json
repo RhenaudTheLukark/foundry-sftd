@@ -441,6 +441,7 @@
     "Action": "Action",
     "Leader": "Leader",
     "Attribute": "Attribute",
+    "GroupActionCoordinatedNote": "NOTE: {leader}'s coordination allows this action to have +1 or -1 scale, their choice.",
     "RollGroupAction": "Roll Group Action",
     "RollGroupActionSpecialist": "Roll Group Action (Specialist)",
     "RevealGroupActionResult": "Reveal Group Action Result",

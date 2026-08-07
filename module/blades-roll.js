@@ -1969,7 +1969,7 @@ export async function postRollProcessing(actor, extraFields) {
   }
 }
 
-export async function computeGroupActionResultAndSendMessage(groupActionData, crew) {
+export async function computeGroupActionResultAndSendMessage(groupActionData, crewFull) {
   const action_label = BladesHelpers.getRollLabel(groupActionData.action);
 
   if (Object.values(groupActionData.rolls).length == 0) {
@@ -1978,13 +1978,19 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
   }
 
   let result = Object.values(groupActionData.rolls).sort((a, b) => rollResultIndex.indexOf(b) - rollResultIndex.indexOf(a))[0];
-  const resultOccurrences = Object.values(groupActionData.rolls).reduce((acc, curr) => {
+  // Coordinated: Prevent failed rolls to count for stress gain
+  let rolls = Object.fromEntries(Object.entries(foundry.utils.deepClone(groupActionData.rolls))
+    .map(r => [ BladesHelpers.resolveActor(r[0]), r[1] ])
+    .filter(r => r[0] && (r[1] != 'failure' || !r[0].system.coordinated))
+  );
+
+  const resultOccurrences = Object.values(rolls).reduce((acc, curr) => {
     acc[curr] = (acc[curr] || 0) + 1;
     return acc;
   }, {});
 
   // Synchronized: Count separate 6s (success) for a critical success
-  if (crew.system.synchronized && result == 'success' && resultOccurrences['success'] >= 2)
+  if (crewFull.system.synchronized && result == 'success' && resultOccurrences['success'] >= 2)
     result = 'critical-success';
 
   const leaderFull = BladesHelpers.resolveActor(groupActionData.leader);

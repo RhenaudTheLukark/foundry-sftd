@@ -11,6 +11,10 @@
   </div>
 </div>
 
+{{#if leader.system.coordinated}}
+<p class="description" style="text-align: center"><em>{{localize 'SFTD.GroupActionCoordinatedNote' leader=leader.name}}</em></p>
+{{/if}}
+
 <div class="button">
   <button class="roll-group-action">{{localize 'SFTD.RollGroupAction'}}</button>
 </div>
