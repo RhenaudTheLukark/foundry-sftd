@@ -263,6 +263,16 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
+  static charmsyncValidation(fields, popupData, noPopup) {
+    const stressRequirement = BladesPopup.simpleStressAbilityValidation(fields, popupData, noPopup);
+    const fieldEntries = Object.entries(popupData.fields ?? {});
+    if (!fieldEntries.find(f => fields[f[0]] && f[1].stress != undefined))
+      return false;
+    return stressRequirement;
+  }
+
+  /* ----------------------------------------- */
+
   static longThoughtValidation(fields) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
@@ -368,7 +378,7 @@ export const bladesPopupData = {
   the_moon_upright: {
     title: 'SFTD.StriderAbility.TheMoonUpright.Popup.Title',
     description: 'SFTD.StriderAbility.TheMoonUpright.Popup.Description',
-    classes: ['the_moon_upright'],
+    classes: ['the-moon-upright'],
     pre_content: null,
     fields: {
       wide_effect: {
@@ -399,12 +409,79 @@ export const bladesPopupData = {
       contents: BladesPopup.simpleStressAbilityMessageContents
     }
   },
+  charmsync: {
+    title: 'SFTD.StriderAbility.Charmsync.Popup.Title',
+    description: 'SFTD.StriderAbility.Charmsync.Popup.Description',
+    classes: ['charmsync'],
+    fields: {
+      setup: {
+        name: 'SFTD.StriderAbility.Charmsync.Popup.SetupArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmsync.Message.Setup'
+      },
+      push: {
+        name: 'SFTD.StriderAbility.Charmsync.Popup.PushArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmsync.Message.Push'
+      },
+      protect: {
+        name: 'SFTD.StriderAbility.Charmsync.Popup.ProtectArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmsync.Message.Protect'
+      }
+    },
+    stress: 1,
+    validation: BladesPopup.charmsyncValidation,
+    effect: BladesPopup.simpleStressAbilityEffect,
+    message: {
+      title: 'SFTD.StriderAbility.Charmsync.Message.Title',
+      description: 'SFTD.StriderAbility.Charmsync.Message.Description',
+      contents: BladesPopup.simpleStressAbilityMessageContents
+    }
+  },
   long_thought: {
     validation: BladesPopup.longThoughtValidation,
     effect: BladesPopup.longThoughtEffect,
     message: {
       title: 'SFTD.StriderAbility.LongThought.Message.Title',
       description: 'SFTD.StriderAbility.LongThought.Message.Description',
+    }
+  },
+  charmveil: {
+    title: 'SFTD.StriderAbility.Charmveil.Popup.Title',
+    description: 'SFTD.StriderAbility.Charmveil.Popup.Description',
+    classes: ['charmveil'],
+    pre_content: null,
+    fields: {
+      lasting: {
+        name: 'SFTD.StriderAbility.Charmveil.Popup.LastingArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmveil.Message.Lasting'
+      },
+      wide_effect: {
+        name: 'SFTD.StriderAbility.Charmveil.Popup.WideEffectArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmveil.Message.WideEffect'
+      },
+      awareness: {
+        name: 'SFTD.StriderAbility.Charmveil.Popup.AwarenessArgName',
+        type: 'checkbox',
+        stress: 1,
+        message_text: 'SFTD.StriderAbility.Charmveil.Message.Awareness'
+      }
+    },
+    stress: 2,
+    validation: BladesPopup.simpleStressAbilityValidation,
+    effect: BladesPopup.simpleStressAbilityEffect,
+    message: {
+      title: 'SFTD.StriderAbility.Charmveil.Message.Title',
+      description: 'SFTD.StriderAbility.Charmveil.Message.Description',
+      contents: BladesPopup.simpleStressAbilityMessageContents
     }
   }
 }

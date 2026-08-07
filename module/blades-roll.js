@@ -41,12 +41,20 @@ export const bladesRollModifierList = {
       'SFTD.Effect': ['SFTD.ExtraDie', 'SFTD.ImprovedImpact', 'SFTD.IgnoreHarm']
     },
     resolveFunc: (fields, extraData) => {
+      const crewFull = extraData.actorFull.type == 'crew' ? extraData.actorFull : BladesHelpers.resolveActor(extraData.actorFull.system.crew);
+      const hasCharmsync = crewFull ? crewFull.system.charmsync_push_yourself_owners?.length > 0 : extraData.actorFull.system.charmsync;
+      const charmsyncActive = hasCharmsync && extraData.modifiers.find(m => m.assist) && extraData.modifiers.find(m => m.key == 'charmsync_push_yourself');
+      const stress = charmsyncActive ? 1 : 2;
       return {
-        stress: 2,
+        stress: stress,
         dice: fields['SFTD.Effect'] == 'SFTD.ExtraDie' ? 1 : 0,
         impact: fields['SFTD.Effect'] == 'SFTD.ImprovedImpact' ? 1 : 0,
         rollText: `SFTD.PushYourselfEffect`,
-        rollTextArgs: { effect: game.i18n.localize(`${fields['SFTD.Effect']}Effect`) },
+        rollTextArgs: {
+          effect: game.i18n.localize(`${fields['SFTD.Effect']}Effect`),
+          stress: stress,
+          charmsyncText: charmsyncActive ? game.i18n.localize('SFTD.PushYourselfCharmsync') : ''
+        },
         pushYourself: true
       };
     },
@@ -100,14 +108,16 @@ export const bladesRollModifierList = {
       'SFTD.Effect': ['SFTD.Position', 'SFTD.Impact']
     },
     resolveFunc: (fields) => {
-      let setupGiverFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
-      let isImpact = fields['SFTD.Effect'] == 'SFTD.Impact';
+      const setupGiverFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
+      const isImpact = fields['SFTD.Effect'] != 'SFTD.Position';
+      const isPosition = fields['SFTD.Effect'] != 'SFTD.Impact';
+      const effectText = fields['SFTD.Effect'] == 'SFTD.BothCharmsync' ? 'SFTD.PositionAndImpact' : fields['SFTD.Effect'];
       return {
         impact: isImpact ? 1 : 0,
-        position: isImpact ? 0 : 1,
+        position: isPosition ? 1 : 0,
         allowHarmonyGain: true,
         rollText: 'SFTD.SetupEffect',
-        rollTextArgs: {  strider: setupGiverFull ? setupGiverFull.name : 'Unknown Strider', effect: game.i18n.localize(fields['SFTD.Effect']) } };
+        rollTextArgs: { strider: setupGiverFull ? setupGiverFull.name : 'Unknown Strider', effect: game.i18n.localize(effectText) } };
     },
     setup: true
   },
@@ -193,6 +203,19 @@ export const bladesRollModifierList = {
     rollTypes: ['actionRoll', 'groupAction'],
     dice: 1
   },
+  charmsync_push_yourself: {
+    name: 'SFTD.StriderAbility.Charmsync.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    needPushYourself: true,
+    exclude: true
+  },
+  charmsync_resistance: {
+    name: 'SFTD.StriderAbility.Charmsync.ResistanceTitle',
+    rollType: 'resistance',
+    needProtect: true,
+    rollText: 'SFTD.StriderAbility.Charmsync.ResistanceDescription',
+    exclude: true
+  },
   long_thought: {
     name: 'SFTD.StriderAbility.LongThought.Title',
     rollTypes: ['actionRoll', 'groupAction'],
@@ -201,6 +224,16 @@ export const bladesRollModifierList = {
   },
   storm_warning: {
     name: 'SFTD.StriderAbility.StormWarning.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  way_of_the_seeker_collect_info: {
+    name: 'SFTD.StriderAbility.WayOfTheSeeker.CollectInfoTitle',
+    rollType: 'collectInfo',
+    impact: 1
+  },
+  way_of_the_seeker_action: {
+    name: 'SFTD.StriderAbility.WayOfTheSeeker.ActionTitle',
     rollTypes: ['actionRoll', 'groupAction'],
     dice: 1
   },
@@ -1668,6 +1701,8 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
             if (result.protect)
               result.fields['SFTD.Crewmate'][''] = 'SFTD.Other';
             if (!Object.values(result.fields['SFTD.Crewmate']).length) continue;
+            if (result.setup && crewFull.system.charmsync_push_yourself_owners?.length)
+              result.fields['SFTD.Effect'].push('SFTD.BothCharmsync');
           } else if (result.downtime_assist) {
             // Downtime Assist: List all Strider Crew Members, Strider Connections and Specialists
             if (actorFull.type != 'strider') continue;
@@ -1703,6 +1738,8 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
       }
 
       let result = foundry.utils.deepClone(bladesRollModifierList[modifierId]);
+      if (!result)
+        continue;
       result.key = modifierId;
       output.push(result);
     }
@@ -1763,8 +1800,8 @@ export function buildConditionalModifiersHTML(modifiers, actorFull) {
           output += `<input type="checkbox" name="${fieldName}" ${fieldDataArray ? ' checked' : ''}>`;
         else if (fieldDataArray instanceof Array) {
           let first = true;
-          let multiple = fieldName == 'BITD.Effects';
-          output += `<select field="${fieldName}"${multiple ? ' data-tooltip="BITD.MultipleSelectUsage" multiple': ''}>`
+          let multiple = fieldName == 'SFTD.Effects';
+          output += `<select field="${fieldName}"${multiple ? ' data-tooltip="SFTD.MultipleSelectUsage" multiple': ''}>`
           for (let fieldData of fieldDataArray) {
             output += `<option value="${fieldData}" ${first ? 'selected' : ''}>${game.i18n.localize(fieldData)}</option>`;
             first = false;
@@ -1772,8 +1809,8 @@ export function buildConditionalModifiersHTML(modifiers, actorFull) {
           output += '</select>';
         } else {
           let first = true;
-          let multiple = fieldName == 'BITD.Effects';
-          output += `<select field="${fieldName}"${multiple ? ' data-tooltip="BITD.MultipleSelectUsage" multiple': ''}>`
+          let multiple = fieldName == 'SFTD.Effects';
+          output += `<select field="${fieldName}"${multiple ? ' data-tooltip="SFTD.MultipleSelectUsage" multiple': ''}>`
           for (let [fieldDataInternal, fieldData] of Object.entries(fieldDataArray)) {
             output += `<option value="${fieldDataInternal}" ${first ? 'selected' : ''}>${game.i18n.localize(fieldData)}</option>`;
             first = false;
@@ -1848,7 +1885,7 @@ export function resolveConditionalModifiers(dialog, actorFull, attributeName) {
           extraData.leader = leaderFull.name;
         }
       }
-      let attribute = BladesHelpers.getAttributeFromAction(attributeName);
+      extraData.modifiers = dialog.permanentModifiers.concat(Array.from(checkedModifiers).map(m => dialog.conditionalModifiers[parseInt(m.dataset.modifierId)]));
       conditionalModifier = conditionalModifier.resolveFunc(fields, extraData);
       if (!conditionalModifier)
         continue;
@@ -1933,8 +1970,7 @@ export async function postRollProcessing(actor, extraFields) {
 }
 
 export async function computeGroupActionResultAndSendMessage(groupActionData, crew) {
-  let action_label = BladesHelpers.getRollLabel(groupActionData.action);
-  let attribute = BladesHelpers.getAttributeFromAction(groupActionData.action);
+  const action_label = BladesHelpers.getRollLabel(groupActionData.action);
 
   if (Object.values(groupActionData.rolls).length == 0) {
     ui.notifications.warn(game.i18n.localize('SFTD.log.warn.GroupActionNoRollsToParse'));
@@ -1942,7 +1978,7 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
   }
 
   let result = Object.values(groupActionData.rolls).sort((a, b) => rollResultIndex.indexOf(b) - rollResultIndex.indexOf(a))[0];
-  let resultOccurrences = Object.values(groupActionData.rolls).reduce((acc, curr) => {
+  const resultOccurrences = Object.values(groupActionData.rolls).reduce((acc, curr) => {
     acc[curr] = (acc[curr] || 0) + 1;
     return acc;
   }, {});
@@ -1951,8 +1987,12 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
   if (crew.system.synchronized && result == 'success' && resultOccurrences['success'] >= 2)
     result = 'critical-success';
 
-  let leaderFull = BladesHelpers.resolveActor(groupActionData.leader);
+  const leaderFull = BladesHelpers.resolveActor(groupActionData.leader);
   let stress = resultOccurrences['failure'] ?? 0;
+
+  // Mother Duck: Divide stress by 2 if action is Wayfare, Shadow or Trace
+  if (leaderFull.system.mother_duck && ['wayfare', 'shadow', 'trace'].includes(groupActionData.action))
+    stress = Math.floor(stress / 2);
 
   // Expertise: If leader's selected action, max stress at 1
   for (let expertise of leaderFull.items.filter(i => i.system.expertise == true))

@@ -211,8 +211,10 @@ export class BladesHelpers {
   static async tryCreate(objectsData, parentFull) {
     if (objectsData && parentFull && parentFull.isOwner) {
       let items = await Item.create(objectsData, {parent: parentFull});
-      for (let [itemIndex, item] of Object.entries(items))
+      for (let [itemIndex, item] of Object.entries(items)) {
         await BladesHelpers.tryUpdate(item, {'system.original_id': objectsData[itemIndex]._id});
+        await BladesHelpers.postCreateItem(item, parentFull);
+      }
       return items;
     }
     else if (parentFull)
@@ -350,6 +352,14 @@ export class BladesHelpers {
     long_thought: {
       conditional: true,
       includeOwner: true
+    },
+    charmsync_push_yourself: {
+      conditional: true,
+      includeOwner: true
+    },
+    charmsync_resistance: {
+      conditional: true,
+      includeOwner: true
     }
   };
 
@@ -358,14 +368,14 @@ export class BladesHelpers {
       await BladesHelpers.tryUpdate(itemFull, {'system.==crew': actorFull.uuid});
 
     // Crew-wide modifiers: Update the crew's values
-    if (actorFull?.type == 'character')
+    if (actorFull?.type == 'strider')
       if (itemFull.effects.filter(e => e.changes.filter(c => c.value == "true" && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
         await actorFull.updateCrewWideAbilityOwnership();
   }
 
   static async postDeleteItem(itemCopy, actorFull, realDelete = true) {
     // Crew-wide modifiers: Update the crew's values
-    if (actorFull?.type == 'character')
+    if (actorFull?.type == 'strider')
       if (itemCopy.effects.filter(e => e.changes.filter(c => c.value == "true" && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
         await actorFull.updateCrewWideAbilityOwnership();
   }

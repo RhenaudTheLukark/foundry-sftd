@@ -324,6 +324,7 @@
     "ForcePosition": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's position to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",
     "Impact": "Impact",
     "ForceImpact": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's impact to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",
+    "PositionAndImpact": "Position and Impact",
     "Modifier": "Modifier",
 
     "Encumbered": "encumbered",
@@ -427,6 +428,7 @@
     "Other": "Other",
     "RegionProsperity": "Region Prosperity",
     "Arguments": "Arguments",
+    "BothCharmsync": "Both (Charmsync)",
 
     "OtherRoll": "Misc. Roll",
     "OtherRollFull": "Miscellaneous Roll",
@@ -666,7 +668,8 @@
     "Cost": "Cost",
     "NotAProblem": "Not A Problem",
     "PushYourself": "Push Yourself",
-    "PushYourselfEffect": "You pushed yourself to {effect}. You suffered <strong>2 Stress</strong>.",
+    "PushYourselfEffect": "You pushed yourself to {effect}. You suffered <strong>{stress} Stress</strong>{charmsyncText}.",
+    "PushYourselfCharmsync": " instead of 2 thanks to Charmsync",
     "Assist": "Assist",
     "AssistEffect": "{strider} assisted you. They suffered <strong>1 Stress</strong>. You have gained <strong>+1d</strong>.",
     "AssistNotAProblemEffect": "{strider} assisted you. They suffered no Stress due to foreseeing this particular event. You have gained <strong>+1d</strong>.",
@@ -676,7 +679,7 @@
     "DowntimeAssistOtherEffect": "An ally or your direct superior assisted you. It is likely to provide access to resources otherwise unavailable.",
     "Crewmate": "Crewmate",
     "Setup": "Setup (Receiving)",
-    "SetupEffect": "{strider} set you up for success. Your {effect} has improved.",
+    "SetupEffect": "{strider} set you up for success. Your <strong>{effect}</strong> has improved.",
     "SettingUp": "Setup (Starting)",
     "SettingUpEffect": "You are setting something up for {strider}. They can choose to increase their Position or Impact on their next roll.",
     "ProtectTitle": "Protect",
@@ -829,6 +832,25 @@
       "ThreadsOfFate": {
         "Title": "Threads of Fate: Versus a Target With Whom You Have an Intimate Relationship? <i class=\"fas fa-question-circle\" data-tooltip=\"This ability isn't just for social interactions; any action can get the bonus. What counts as “intimate” is up to you and your group to define, but it's not confined to romantic intimacy.\"></i>"
       },
+      "Charmsync": {
+        "ActionTitle": "Charmsync: Is the Charmsync Effect \"Push Costs Only 1 Stress If Someone Assists You\" Active?",
+        "ResistanceTitle": "Charmsync: Is the Charmsync Effect \"You Can Protect a Teammate Regardless of the Distance Between You\" Active?",
+        "ResistanceDescription": "Thanks to Charmsync, you can protect a teammate regardless of the distance between you.",
+        "Popup": {
+          "Title": "Charmsync",
+          "Description": "You can establish a transcendent connection between your crewmates to enhance your teamwork. <br/>Spend 2 Stress to enable one of these abilities, plus 1 Stress for each extra feature.",
+          "SetupArgName": "Setup actions grant both improved Position and +1 Impact",
+          "PushArgName": "Pushing yourself costs only 1 Stress if someone assists you",
+          "ProtectArgName": "You can protect a teammate regardless of the distance between you"
+        },
+        "Message": {
+          "Title": "Charmsync",
+          "Description": "You established a transcendent connection between your crewmates to enhance your teamwork. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "Setup": "Setup actions grant both improved Position and +1 Impact. ",
+          "Push": "Pushing yourself costs only 1 Stress if someone assists you. ",
+          "Protect": "You can protect a teammate regardless of the distance between you. "
+        }
+      },
       "LongThought": {
         "Title": "Long Thought: Making Use of a Solution Prepared in Advance Using This Ability?",
         "Message": {
@@ -836,8 +858,28 @@
           "Description": "You arranged to help overcome an obstacle in advance. You spent <strong>1 Harmony</strong>."
         }
       },
+      "Charmveil": {
+        "Popup": {
+          "Title": "Charmveil",
+          "Description": "You wrap yourself in a cloak of charmed shadow, masking you from sight,<br/>scent, and hearing for a few minutes.<br/>Spend 2 Stress to use this ability, plus 1 Stress for each extra feature below.",
+          "LastingArgName": "The cloak lasts for a few hours",
+          "WideEffectArgName": "The cloak covers a small group",
+          "AwarenessArgName": "While cloaked, you're magically aware of anyone nearby"
+        },
+        "Message": {
+          "Title": "Charmveil",
+          "Description": "You wrap yourself in a cloak of charmed shadow, masking you from sight,<br/>scent, and hearing for a few minutes. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "Lasting": "The cloak lasts for a few hours. ",
+          "WideEffect": "The cloak covers a small group. ",
+          "Awareness": "While cloaked, you're magically aware of anyone nearby. "
+        }
+      },
       "StormWarning": {
         "Title": "Storm Warning: Outracing, Outmaneuver or Combatting Opponents in Hostile Weather?"
+      },
+      "WayOfTheSeeker": {
+        "CollectInfoTitle": "Way of the Seeker: Discovering a Location or Figuring Out Where Something or Someone is Hidden?",
+        "ActionTitle": "Way of the Seeker: Hide in a Prepared Position or Using Camouflage to Avoid Detection?"
       }
     },
     "StriderLoadout": {},

@@ -265,28 +265,29 @@ export class BladesActor extends Actor {
   async updateCrewWideAbilityOwnership() {
     const modifiersCollection = ['roll_modifiers', 'conditional_roll_modifiers'];
 
-    let crewFull = this.type == 'crew' ? this : BladesHelpers.resolveActor(this.system.crew);
+    const crewFull = this.type == 'crew' ? this : BladesHelpers.resolveActor(this.system.crew);
     if (!crewFull) return;
 
-    let characterLists = {};
-    for (let modifier of Object.keys(BladesHelpers.crewWideModifiers))
-      characterLists[modifier] = [];
+    let striderLists = {};
+    for (const modifier of Object.keys(BladesHelpers.crewWideModifiers))
+      striderLists[modifier] = [];
 
-    // Fetch character modifiers applying to the whole crew
-    for (let characterUuid of Object.values(crewFull.system.members).map(e => e.uuid)) {
-      let characterFull = BladesHelpers.resolveActor(characterUuid);
-      if (!characterFull || characterFull.type != 'character') continue;
-      for (let modifierPath of modifiersCollection) {
-        let characterCrewWideModifiers = Object.fromEntries(Object.entries(characterFull.system[modifierPath]).filter(([k, v]) => Object.keys(BladesHelpers.crewWideModifiers).includes(k) && v));
-        for (let modifier of Object.keys(characterCrewWideModifiers))
-          if (!characterLists[modifier].includes(characterFull.uuid))
-            characterLists[modifier].push(characterFull.uuid);
+    // Fetch strider modifiers applying to the whole crew
+    for (const striderUuid of Object.values(crewFull.system.members).map(e => e.uuid)) {
+      const striderFull = BladesHelpers.resolveActor(striderUuid);
+      if (!striderFull || striderFull.type != 'strider') continue;
+      const containers = [striderFull.system].concat(modifiersCollection.map(m => striderFull.system[m]));
+      for (const container of containers) {
+        const striderCrewWideModifiers = Object.fromEntries(Object.entries(container).filter(([k, v]) => Object.keys(BladesHelpers.crewWideModifiers).includes(k) && v));
+        for (const modifier of Object.keys(striderCrewWideModifiers))
+          if (!striderLists[modifier].includes(striderFull.uuid))
+            striderLists[modifier].push(striderFull.uuid);
       }
     }
 
     // Store the uuid of all members of the team who owns crew-wide abilities
     let updateObject = {};
-    for (let [modifier, owners] of Object.entries(characterLists))
+    for (const [modifier, owners] of Object.entries(striderLists))
       updateObject[`system.==${modifier}_owners`] = owners;
     await BladesHelpers.tryUpdate(crewFull, updateObject);
   }

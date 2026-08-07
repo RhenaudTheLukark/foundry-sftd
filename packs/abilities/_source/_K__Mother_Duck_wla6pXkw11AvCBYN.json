@@ -6,16 +6,62 @@
   "system": {
     "description": "<p>When you lead a group <strong>Wayfare</strong>, <strong>Shadow</strong>, or <strong>Trace </strong>action, you take half the stress you normally would, rounded down.</p>",
     "class": "Kestrel",
-    "price": "1",
+    "price": 1,
     "purchased": false,
     "class_default": false,
     "logic": "",
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "popup": ""
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Mother Duck Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.ability.Item.wla6pXkw11AvCBYN",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "FSbzdDemlbwHNRtq",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.mother_duck",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1786037977745,
+        "modifiedTime": 1786037992544,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!wla6pXkw11AvCBYN.FSbzdDemlbwHNRtq"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
@@ -31,7 +77,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780858199759,
-    "modifiedTime": 1780858222296,
+    "modifiedTime": 1786037993619,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!wla6pXkw11AvCBYN"
