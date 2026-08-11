@@ -159,7 +159,7 @@ function _migrateSettings(version) {
       }
     };
     clockStyles = foundry.utils.mergeObject(clockStyles, defaultClockStyles);
-    game.settings.set('beamsaber', 'ClockStyles', new ClockStylesData({ contents: clockStyles }));
+    game.settings.set('songs-for-the-dusk', 'ClockStyles', new ClockStylesData({ contents: clockStyles }));
   }
 }
 

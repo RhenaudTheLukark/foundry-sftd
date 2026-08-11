@@ -381,6 +381,22 @@
     "AcquireAssetExtra": "To raise the result beyond critical, you may spend <strong>2 coin</strong> per +1 Tier bonus.",
     "CrewTier": "Crew Tier",
 
+    "UseMelody": "Use Melody",
+    "MelodyUsageOptions": "Melody Usage Options",
+    "MelodyUsed": "Melody Used",
+    "MelodyUsedText": "You are in tune with your body. Your determination to get this job done allows you to",
+    "MelodyOptions": {
+      "IWillBeWater": "Resist a magical consequence"
+    },
+    "Usage": "Usage",
+    "MelodyPushOptions": {
+      "IWillBeWater": {
+        "Key": "I Will Be Water",
+        "Details": "Channeling transcendent forces",
+        "Description": "channel transcendent forces"
+      }
+    },
+
     "RollTypes": "Roll Types",
     "SimpleRoll": "Simple Roll",
     "AttributeRollTitle": "Roll {attribute} Resistance",
@@ -669,7 +685,10 @@
     "Cost": "Cost",
     "NotAProblem": "Not A Problem",
     "PushYourself": "Push Yourself",
-    "PushYourselfEffect": "You pushed yourself to {effect}. You suffered <strong>{stress} Stress</strong>{charmsyncText}.",
+    "PushYourselfEffect": "You pushed yourself to {effect}. {cost}.",
+    "PushYourselfStressCost": "You suffered <strong>{stress} Stress</strong>{charmsyncText}",
+    "PushYourselfMelodyCost": "You used your <strong>Melody</strong> to {usage}",
+    "PushYourselfUnknownMelodyUsage": "perform an unspecified action",
     "PushYourselfCharmsync": " instead of 2 thanks to Charmsync",
     "Assist": "Assist",
     "AssistEffect": "{strider} assisted you. They suffered <strong>1 Stress</strong>. You have gained <strong>+1d</strong>.",
@@ -965,6 +984,7 @@
         "SameCrew": "The dropped Crew is the current crew of this strider."
       },
       "warn": {
+        "NoMelodyOptions": "You currently have no way to utilize your Melody! Right click the checkbox if you want to manually disable your Melody.",
         "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
         "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
         "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability's Use effect!",

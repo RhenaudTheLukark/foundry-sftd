@@ -5,12 +5,14 @@
       "gender": "",
       "form": "",
       "look": "",
-      "melody": "",
       "heritage": "",
       "background": "",
       "anchors": "",
       "class": null,
       "crew": null,
+      "melody": true,
+      "melody_options": [],
+      "melody_push_yourself_options": [],
       "stress": {
         "value": 0,
         "max": 9

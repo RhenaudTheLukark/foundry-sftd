@@ -2,6 +2,7 @@ import { BladesSheet } from "./blades-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { bladesPopupData, BladesPopup } from "./blades-popup.js";
+import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 import { enrichHTML } from "./compat.js";
 import { bladesRoll, simpleRollPopup, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
@@ -158,6 +159,94 @@ export class BladesStriderSheet extends BladesSheet {
 
   /* -------------------------------------------- */
 
+  async _onMelodyToggleLeftClick(event) {
+    if (!event.target.classList.contains('fa-music-note'))
+      await BladesHelpers.tryUpdate(this.actor, {'system.==melody': true});
+    else
+      await this.melodyUsagePopup();
+  }
+
+  async _onMelodyToggleRightClick(event) {
+    await BladesHelpers.tryUpdate(this.actor, {'system.==melody': !event.target.classList.contains('fa-music-note')});
+  }
+
+  /**
+   * Call a popup for using melody.
+   */
+  async melodyUsagePopup() {
+    let melodyOptions = '';
+    for (let melodyOption of this.actor.system.melody_options) {
+      let optionText = game.i18n.localize(`SFTD.MelodyOptions.${melodyOption}`);
+      melodyOptions += `
+      <div class="radio-group">
+        <label>
+          <input type="radio" data-text="${optionText[0].toLowerCase() + optionText.slice(1)}" name="melodyOption" ${melodyOptions.length == 0 ? 'checked' : ''}> ${optionText}
+        </label>
+      </div>`;
+    }
+
+    if (!melodyOptions) {
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NoMelodyOptions'));
+      return;
+    }
+
+    let contents = `
+      <h2>${game.i18n.localize('SFTD.UseMelody')}</h2>
+      <form>
+        <fieldset class="form-group melody-options">
+          <legend>${game.i18n.localize('SFTD.MelodyUsageOptions')}</legend>
+          ${melodyOptions}
+        </fieldset>
+        <div class="form-group">
+          <label>${game.i18n.localize('SFTD.Notes')}:</label>
+          <input id="note" name="note" type="text" value="">
+        </div>
+      </form>`;
+
+    let dialog = new foundry.applications.api.DialogV2({
+      window: { title: `${game.i18n.localize('SFTD.UseMelody')}` },
+      content: contents,
+      buttons: [
+        {
+          icon: 'fas fa-burst',
+          label: game.i18n.localize('SFTD.UseMelody'),
+          action: 'use',
+        },
+        {
+          icon: 'fas fa-times',
+          label: game.i18n.localize('Cancel'),
+          action: 'cancel',
+        }
+      ],
+      submit: async (result, dialog) => {
+        if (result != 'use') return;
+
+        let html = $(dialog.element);
+        let input = dialog.element.querySelector('input[type=radio]:checked');
+        let note = dialog.element.querySelector('[name="note"]').value;
+        if (input) {
+          let contents = input.dataset.text;
+          let speaker = {
+            actor: this.actor._id,
+            alias: this.actor.name,
+            scene: null,
+            token: this.actor.prototypeToken._id
+          };
+          let messageData = {
+            speaker: speaker,
+            content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/melody-usage.html', { contents: contents, note: note })
+          }
+          SFTDChatMessage.create(messageData);
+
+          await BladesHelpers.tryUpdate(this.actor, {'system.==melody': false});
+        }
+      }
+    });
+    dialog.render(true);
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   activateListeners(html) {
     super.activateListeners(html);
@@ -165,9 +254,11 @@ export class BladesStriderSheet extends BladesSheet {
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    html.find('.melody-toggle').click(async ev => {
-      await BladesHelpers.tryUpdate(this.actor, {'system.melody': !this.actor.system.melody});
+    html.find('.melody-toggle').click((e) => {
+      e.preventDefault();
+      this._onMelodyToggleLeftClick(e);
     });
+    html.find('.melody-toggle').contextmenu((e) => { this._onMelodyToggleRightClick(e); });
 
     // Delete Strider's Class
     html.find('.delete-class').click(async ev => {

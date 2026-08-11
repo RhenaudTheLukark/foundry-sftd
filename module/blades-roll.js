@@ -38,22 +38,33 @@ export const bladesRollModifierList = {
     name: 'SFTD.PushYourself',
     rollTypes: ['actionRoll', 'groupAction', 'fortune'],
     fields: {
+      'SFTD.Cost': [],
+      'SFTD.Usage': [],
       'SFTD.Effect': ['SFTD.ExtraDie', 'SFTD.ImprovedImpact', 'SFTD.IgnoreHarm']
     },
     resolveFunc: (fields, extraData) => {
       const crewFull = extraData.actorFull.type == 'crew' ? extraData.actorFull : BladesHelpers.resolveActor(extraData.actorFull.system.crew);
       const hasCharmsync = crewFull ? crewFull.system.charmsync_push_yourself_owners?.length > 0 : extraData.actorFull.system.charmsync;
       const charmsyncActive = hasCharmsync && extraData.modifiers.find(m => m.assist) && extraData.modifiers.find(m => m.key == 'charmsync_push_yourself');
-      const stress = charmsyncActive ? 1 : 2;
+
+      const costType = (fields['SFTD.Cost'] ?? 'SFTD.Stress').slice(5);
+      const costTextKey = `SFTD.PushYourself${costType}Cost`;
+      const stress = costType != 'Stress' ? 0 : charmsyncActive ? 1 : 2;
+      const usageKey = fields['SFTD.Usage'] == 'SFTD.None' ? 'SFTD.PushYourselfUnknownMelodyUsage' : `${(fields['SFTD.Usage'] ?? '.Key').slice(0, -4)}.Description`;
+
       return {
         stress: stress,
         dice: fields['SFTD.Effect'] == 'SFTD.ExtraDie' ? 1 : 0,
         impact: fields['SFTD.Effect'] == 'SFTD.ImprovedImpact' ? 1 : 0,
-        rollText: `SFTD.PushYourselfEffect`,
+        useMelody: costType == 'Melody' ? -1 : undefined,
+        rollText: 'SFTD.PushYourselfEffect',
         rollTextArgs: {
           effect: game.i18n.localize(`${fields['SFTD.Effect']}Effect`),
-          stress: stress,
-          charmsyncText: charmsyncActive ? game.i18n.localize('SFTD.PushYourselfCharmsync') : ''
+          cost: game.i18n.format(costTextKey, {
+            stress: stress,
+            charmsyncText: charmsyncActive ? game.i18n.localize('SFTD.PushYourselfCharmsync') : '',
+            usage: game.i18n.localize(usageKey)
+          })
         },
         pushYourself: true
       };
@@ -273,6 +284,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   let downtimeCountChanges = rollTypeKey ? (BladesHelpers.isDowntime(rollTypeKey[0]) ? -1 : 0) : 0;
 
   let allowHarmonyGain = false;
+  let useMelody = false;
   let harmonyChanges = 0;
 
   // Add modifiers effects to the roll/actor
@@ -285,6 +297,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
       for (let [uuid, value] of Object.entries(modifier.otherStress))
         stressChanges[uuid] = (stressChanges[uuid] ?? 0) + Number(value);
     if (modifier.shells) shellChanges += modifier.shells;
+    if (modifier.useMelody) useMelody = true;
     if (modifier.bonusRoll) {
       downtimeCountChanges = 0;
       extraFields.bonusRoll = true;
@@ -366,25 +379,28 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
 
   // Update the main actor in case of no further data update
   if (extraFields.actor) {
-    let actorUpdateObject;
+    let actorUpdateObject = {};
     if (extraFields.actor.type == 'strider') {
       let downtimeShift = Math.max(extraFields.actor.system.downtime_count.value + downtimeCountChanges, 0);
-      actorUpdateObject = {system: {
-        downtime_count: {'==value': downtimeShift},
-      }};
+      actorUpdateObject['system.downtime_count.==value'] = downtimeShift;
       if (downtimeCountChanges < 0) {
         let rollTypeString = Object.entries(rollTypeLabels).find(l => l[1] == attributeOrRollName)[0];
-        actorUpdateObject.system.downtime_activities = {};
-        actorUpdateObject.system.downtime_activities[`==${rollTypeString}`] = true;
+        actorUpdateObject[`system.downtime_activities.==${rollTypeString}`] = true;
         rollData.downtime = {value: downtimeShift, activities: {train_types: {}}};
         if (!extraFields.actor.system.downtime_activities[rollTypeString])
           rollData.downtime.activities[rollTypeString] = true;
         if (attributeOrRollName == 'SFTD.TrainRoll') {
-          actorUpdateObject.system.downtime_activities.train_types = {};
-          actorUpdateObject.system.downtime_activities.train_types[`==${extraFields.trainType}`] = true;
+          actorUpdateObject[`system.downtime_activities.train_types.==${extraFields.trainType}`] = true;
           if (!extraFields.actor.system.downtime_activities.train_types[extraFields.trainType])
             rollData.downtime.activities.train_types[extraFields.trainType] = true;
         }
+      }
+
+      // Melody Changes
+      extraFields.melody = useMelody && extraFields.actor.system.melody;
+      if (extraFields.melody) {
+        rollData.melody = true;
+        actorUpdateObject['system.==melody'] = false;
       }
     } else
       actorUpdateObject = {'==name': extraFields.actor.name};
@@ -829,15 +845,15 @@ export async function cancelRollResult(rollData, actorFull) {
   let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
   let crewUpdateObject = {};
   if (rollData.realShells)
-    crewUpdateObject['system.shells.value'] = Math.min(Math.max(Number(crewFull.system.shells.value) - rollData.realShells, 0), Number(crewFull.system.shells.max));
+    crewUpdateObject['system.shells.==value'] = Math.min(Math.max(Number(crewFull.system.shells.value) - rollData.realShells, 0), Number(crewFull.system.shells.max));
   if (rollData.realHarmony)
-    crewUpdateObject['system.harmony.value'] = Math.min(Math.max(Number(crewFull.system.harmony.value) - rollData.realHarmony, 0), Number(crewFull.system.harmony.max));
+    crewUpdateObject['system.harmony.==value'] = Math.min(Math.max(Number(crewFull.system.harmony.value) - rollData.realHarmony, 0), Number(crewFull.system.harmony.max));
   if (Object.keys(crewUpdateObject).length > 0)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
 
   for (let [stressChangeId, stressChange] of Object.entries(rollData.stressChanges)) {
     let stressActorFull = BladesHelpers.resolveActor(`Actor.${stressChangeId}`);
-    await BladesHelpers.tryUpdate(stressActorFull, {'system.stress.value': Math.min(Math.max(Number(stressActorFull.system.stress.value) - stressChange.realValue, 0), stressActorFull.system.stress.max)});
+    await BladesHelpers.tryUpdate(stressActorFull, {'system.stress.==value': Math.min(Math.max(Number(stressActorFull.system.stress.value) - stressChange.realValue, 0), stressActorFull.system.stress.max)});
   }
   for (let [otherChangeId, otherChangeObj] of Object.entries(rollData.otherChanges)) {
     let otherActorFull = BladesHelpers.resolveActor(`Actor.${otherChangeId}`);
@@ -863,14 +879,16 @@ export async function cancelRollResult(rollData, actorFull) {
   let actorUpdateObject = {};
   if (rollData.downtime) {
     if (rollData.downtime.value != 0)
-      actorUpdateObject['system.downtime_count.value'] = actorFull.system.downtime_count.value - rollData.downtime.value;
+      actorUpdateObject['system.downtime_count.==value'] = actorFull.system.downtime_count.value - rollData.downtime.value;
     for (let activity of Object.keys(rollData.downtime.activities)) {
       if (activity != 'train_types')
-        actorUpdateObject[`system.downtime_activities.${activity}`] = false;
+        actorUpdateObject[`system.downtime_activities.==${activity}`] = false;
       for (let train_type of Object.keys(rollData.downtime.activities.train_types))
-        actorUpdateObject[`system.downtime_activities.train_types.${train_type}`] = false;
+        actorUpdateObject[`system.downtime_activities.train_types.==${train_type}`] = false;
     }
   }
+  if (rollData.melody)
+    actorUpdateObject['system.==melody'] = true;
   if (Object.keys(actorUpdateObject).length > 0)
     await BladesHelpers.tryUpdate(actorFull, actorUpdateObject);
 
@@ -881,7 +899,7 @@ export async function cancelRollResult(rollData, actorFull) {
     let connectionIndex = Object.entries(actorFull.system.connections).find(c => c[1].uuid == connectionFull.uuid)[0];
     let connection = actorFull.system.connections[connectionIndex];
     let connectionUpdateObject = {};
-    connectionUpdateObject[`system.connections.${connectionIndex}.clock.value`] = Math.min(Math.max(connection.clock.value - connectionShift, 0), 4);
+    connectionUpdateObject[`system.connections.${connectionIndex}.clock.==value`] = Math.min(Math.max(connection.clock.value - connectionShift, 0), 4);
     await BladesHelpers.tryUpdate(ownerFull, connectionUpdateObject);
   }
 
@@ -889,12 +907,12 @@ export async function cancelRollResult(rollData, actorFull) {
     if (modifier.itemNeeded) {
       let exhaustableItems = actor.items.filter(i => i.system[modifier.itemNeeded] && Number(i.system.uses.value) < Number(i.system.uses.max));
       if (exhaustableItems.length > 0)
-        await BladesHelpers.tryUpdate(exhaustableItems[exhaustableItems.length - 1], {'system.uses.value': exhaustableItems[exhaustableItems.length - 1].system.uses.value + 1});
+        await BladesHelpers.tryUpdate(exhaustableItems[exhaustableItems.length - 1], {'system.uses.==value': exhaustableItems[exhaustableItems.length - 1].system.uses.value + 1});
     }
     if (modifier.convictionCutLoose)
-      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.value': Math.max(Number(actor.system.conviction_uses.value) - 1, 0)});
+      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.==value': Math.max(Number(actor.system.conviction_uses.value) - 1, 0)});
     if (modifier.convictionExtra)
-      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.value': Math.min(Number(actor.system.conviction_uses.value) + 1, actor.system.conviction_uses.max)});
+      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.==value': Math.min(Number(actor.system.conviction_uses.value) + 1, actor.system.conviction_uses.max)});
   }
 }
 
@@ -1685,7 +1703,17 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
           if (result.exclude)
             continue;
           result.key = key;
-          if (result.assist || result.setup || result.protect) {
+          if (result.push_yourself) {
+            // Push Yourself: Choose the right cost
+            if (actorFull.type != 'strider') continue;
+            if (actorFull.system.melody_push_yourself_options.length && actorFull.system.melody) {
+              result.fields['SFTD.Cost'] = ['SFTD.Stress', 'SFTD.Melody'];
+              result.fields['SFTD.Usage'] = ['SFTD.None'].concat(actorFull.system.melody_push_yourself_options.map(o => `SFTD.MelodyPushOptions.${o}.Key`));
+            } else {
+              result.fields['SFTD.Cost'] = undefined;
+              result.fields['SFTD.Usage'] = undefined;
+            }
+          } else if (result.assist || result.setup || result.protect) {
             // Assist & Co.: List all other Striders in the Crew
             if (actorFull.type != 'strider') continue;
             let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
