@@ -4,7 +4,7 @@
   "_id": "h7bjLy4NerpKXJ4g",
   "img": "icons/svg/item-bag.svg",
   "system": {
-    "description": "<p>A fully-outfitted gym and training ground. Once you have constructed a training facility, you gain <strong>2 xp</strong> for training <strong>Kinesis </strong>during&nbsp;<strong>downtime </strong>instead of the usual <strong>1</strong>.</p>",
+    "description": "<p>A fully-outfitted gym and training ground. Once you have constructed a training facility, you gain <strong>2 XP</strong> for training <strong>Kinesis </strong>during&nbsp;<strong>downtime </strong>instead of the usual <strong>1</strong>.</p>",
     "prosperity_level": 1,
     "cache_cost": 2,
     "is_complex": false

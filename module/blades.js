@@ -364,8 +364,8 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
   if (message.content.includes("roll-group-action")) {
     for (const button of html.querySelectorAll('.roll-group-action')) {
       button.addEventListener('click', async (_) => {
-        let speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
-        let crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
+        const speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
+        const crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
         if (!speakerFull)
           ui.notifications.warn(game.i18n.localize('SFTD.log.warn.GroupActionRollNoActor'));
         else if (speakerFull.type != 'strider')
@@ -378,27 +378,46 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
     }
     for (const select of html.querySelectorAll('.specialist-block > select'))
       select.addEventListener('change', async (ev) => {
-        let element = ev.currentTarget;
-        let divElement = element.nextElementSibling;
-        let buttonElement = divElement.nextElementSibling.querySelector('button');
-        let specialistId = element.value;
-        let crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
-        let specialistFull = crewFull.items.contents[specialistId];
-        let noSpecialist = specialistId == 'None';
+        const element = ev.currentTarget;
+        const divElement = element.nextElementSibling;
+        const buttonElement = divElement.nextElementSibling.querySelector('button');
+        const specialistId = element.value;
+        const crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
+        const specialistFull = crewFull.items.contents[specialistId];
+        const noSpecialist = specialistId == 'None';
         divElement.innerHTML = noSpecialist ? '' : `<img src="${specialistFull.img}" data-tooltip="${specialistFull.name}" width="48" height="48"/><div class="name">${specialistFull.name}</div>`;
         buttonElement.disabled = noSpecialist;
       });
     for (const button of html.querySelectorAll('.roll-group-action-specialist')) {
       button.addEventListener('click', async (ev) => {
-        let element = ev.currentTarget;
-        let specialistId = element.closest('.specialist-block').querySelector('select').value;
-        let crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
-        let specialistFull = crewFull.items.contents[specialistId];
+        const element = ev.currentTarget;
+        const specialistId = element.closest('.specialist-block').querySelector('select').value;
+        const crewFull = BladesHelpers.resolveActor(message.system.groupActionCrew);
+        const specialistFull = crewFull.items.contents[specialistId];
         await crewFull.sheet.createSpecialistRollPopup(specialistFull, crewFull.system.group_action);
       });
     }
     for (const button of html.querySelectorAll('.reveal-group-action-result'))
       button.addEventListener('click', async (_) => BladesHelpers.resolveActor(message.system.groupActionCrew)?.revealGroupActionResult());
+  }
+  // Cut Loose Begin Message
+  if (message.content.includes("roll-cut-loose")) {
+    for (const button of html.querySelectorAll('.roll-cut-loose')) {
+      button.addEventListener('click', async (_) => {
+        const speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
+        const crewFull = BladesHelpers.resolveActor(message.system.cutLooseCrew);
+        if (!speakerFull)
+          ui.notifications.warn(game.i18n.localize('SFTD.log.warn.CutLooseRollNoActor'));
+        else if (speakerFull.type != 'strider')
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.CutLooseRollNotAStrider', { obj: game.i18n.localize(`TYPES.Actor.${speakerFull.type}`) }));
+        else if (speakerFull.system.crew != crewFull?.uuid)
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.CutLooseRollStriderNotInCrew', { char: speakerFull.name, crew: crewFull.name }));
+        else
+          speakerFull.sheet.downtimeRollPopup(speakerFull.sheet, ['cutLoose']);
+      });
+    }
+    for (const button of html.querySelectorAll('.reveal-cut-loose-result'))
+      button.addEventListener('click', async (_) => BladesHelpers.resolveActor(message.system.cutLooseCrew)?.revealCutLooseResult());
   }
   for (const element of html.querySelectorAll('.gm-only')) {
     if (!game.user.isGM)

@@ -19,6 +19,7 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
       'system.objectUuid': data.objectUuid,
       'system.objectData': data.objectData,
       'system.groupActionCrew': data.groupActionCrew,
+      'system.cutLooseCrew': data.cutLooseCrew,
       'system.updateQuery': data.updateQuery,
       'system.needWait': data.needWait
     });

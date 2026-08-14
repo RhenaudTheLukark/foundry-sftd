@@ -637,67 +637,20 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   }
   // Check for Cut Loose roll
   else if (attributeOrRollName == 'SFTD.CutLooseRoll') {
-    extraFields.rollData.connectionUuid = extraFields.connection.uuid;
-    let connectionFull = BladesHelpers.resolveActor(extraFields.connection);
-    let clearStress = getBladesRollCutLoose(rolls, extraResult, zeromode);
-    if (extraFields.rollData.carouseStress)
-      clearStress = Math.ceil(clearStress / 2);
+    let clearStress = getBladesRollCutLooseUnwind(rolls, extraResult, zeromode);
     let realClearStress = clearStress;
-    let remainingStress = extraFields.stress - clearStress;
-    let savedByConviction = remainingStress < 0 && extraFields.conviction;
-    let savedByFunctioningVice = (extraFields.actor.system.functioningVice && remainingStress >= -2 && remainingStress < 0) ? -remainingStress : 0;
-    let savedByCarouse = extraFields.rollData.carouseStress == true && extraFields.rollData.oldStressChanges[extraFields.actor._id].value > extraFields.stress;
+    let remainingStress = extraFields.actor.system.stress.value - clearStress;
     if (!extraFields.forcedResult)
-      rollStatus = (remainingStress >= 0 || savedByConviction || savedByCarouse || savedByFunctioningVice > 0) ? 'success' : 'failure';
+      rollStatus = remainingStress >= 0 ? 'success' : 'failure';
     if (remainingStress < 0) {
       remainingStress = 0;
-      clearStress = extraFields.stress;
+      clearStress = extraFields.actor.system.stress.value;
     }
-    // Functioning Vice: reduce other Strider's stress by 1
-    if (extraFields.actor.system.functioningVice) {
-      if (connectionFull.type == 'strider') {
-        if (Number(connectionFull.system.stress.value) > 0)
-          if (extraFields.rollData.stressChanges[connectionFull._id]) {
-            extraFields.rollData.stressChanges[connectionFull._id].value += 1;
-            extraFields.rollData.stressChanges[connectionFull._id].realValue += 1;
-          } else
-            extraFields.rollData.stressChanges[connectionFull._id] = {value: 1, realValue: 1};
-        await BladesHelpers.tryUpdate(connectionFull, {'system.stress.value': Math.max(Number(connectionFull.system.stress.value) - 1, 0)});
-      }
-    }
-    extraFields.rollData.connections = {};
-    // Increase the Strider's connection clock by 1/2, reset the clock if maxxed
-    let connectionId = Object.entries(extraFields.actor.system.connections).find(c => c[1].uuid == connectionFull.uuid)[0];
-    let connection = extraFields.actor.system.connections[connectionId];
-    let newClockValue = Number(connection.clock.value) + (extraFields.rollData.carouseStriderRelationship ? 2 : 1);
-    let clockMaxxed = newClockValue >= connection.clock.max;
-    newClockValue = newClockValue - (clockMaxxed ? 3 : 0);
-    let updateObject = {};
-    updateObject[`system.connections.${connectionId}.clock.value`] = newClockValue;
-    extraFields.rollData.connections[`${extraFields.actor._id}/${connectionFull._id}`] = newClockValue - Number(connection.clock.value);
-    // Carouse: Increase relationship from the connection to the Strider if the option is picked
-    let otherClockMaxxed = false;
-    if (extraFields.rollData.carouseOtherRelationship) {
-      let connectionId = Object.entries(connectionFull.system.connections).find(c => c[1].uuid == extraFields.actor.uuid)[0];
-      let connection = connectionFull.system.connections[connectionId];
-      let newClockValue = Number(connection.clock.value) + 1;
-      otherClockMaxxed = newClockValue >= connection.clock.max;
-      newClockValue = newClockValue - (otherClockMaxxed ? 3 : 0);
-      let connectionUpdateObject = {};
-      connectionUpdateObject[`system.connections.${connectionId}.clock.value`] = newClockValue;
-      extraFields.rollData.connections[`${connectionFull._id}/${extraFields.actor._id}`] = newClockValue - Number(connection.clock.value);
-      await BladesHelpers.tryUpdate(connectionFull, connectionUpdateObject);
-    }
-    updateObject['system.stress.value'] = remainingStress;
-    let shiftValue = remainingStress - extraFields.stress;
-    if (extraFields.rollData.stressChanges[extraFields.actor._id]) {
-      extraFields.rollData.stressChanges[extraFields.actor._id].value += realClearStress;
-      extraFields.rollData.stressChanges[extraFields.actor._id].realValue += shiftValue;
-    } else
-      extraFields.rollData.stressChanges[extraFields.actor._id] = {value: realClearStress, realValue: shiftValue};
-    await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
 
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, saved_by_conviction: savedByConviction, saved_by_functioning_vice: savedByFunctioningVice, saved_by_carouse: savedByCarouse, attribute_label: attributeLabel, strider: connectionFull ? connectionFull.name : 'Unknown Strider', clear_stress: clearStress, connection_maxxed: clockMaxxed, other_connection_maxxed: otherClockMaxxed, note: note, extraFields: extraFields });
+    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    crewFull.updateCutLooseRoll(extraFields.actor.id, rollStatus, clearStress);
+
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, stress: clearStress, note: note, extraFields: extraFields });
   }
   // Check for Long-Term Project roll
   else if (attributeOrRollName == 'SFTD.LongTermProjectRoll') {
@@ -743,6 +696,35 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let shellsNeededForSuccess = Math.max(successTier - tierQuality, 0);
     let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/manufacture-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
+  }
+  // Check for Unwind roll
+  else if (attributeOrRollName == 'SFTD.UnwindRoll') {
+    let clearStress = getBladesRollCutLooseUnwind(rolls, extraResult, zeromode);
+    let realClearStress = clearStress;
+    let remainingStress = extraFields.actor.system.stress.value - clearStress;
+    if (!extraFields.forcedResult)
+      rollStatus = remainingStress >= 0 ? 'success' : 'failure';
+    if (remainingStress < 0) {
+      remainingStress = 0;
+      clearStress = extraFields.actor.system.stress.value;
+    }
+
+    let beliefFullText = '';
+    let updateObject = {'system.stress.==value': remainingStress };
+    updateObject['system.belief.clock.==value'] = (extraFields.actor.system.belief.clock.value + 1) % extraFields.actor.system.belief.clock.max;
+    if (updateObject['system.belief.clock.==value'] < extraFields.actor.system.belief.clock.value)
+      beliefFullText = game.i18n.localize('SFTD.RollUnwindBeliefFull');
+    await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
+
+    let unwindNPCName = '';
+    if (extraFields.unwindNPC == 'other')      unwindNPCName = game.i18n.localize('SFTD.RollUnwingOther');
+    else if (extraFields.unwindNPC == 'group') unwindNPCName = game.i18n.localize('SFTD.RollUnwingGroup');
+    else {
+      let unwindNPCFull = BladesHelpers.resolveActor(extraFields.unwindNPC);
+      unwindNPCName = unwindNPCFull?.name ?? 'Unknown NPC';
+    }
+
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/unwind-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, npc: unwindNPCName, stress: clearStress, belief_full_text: beliefFullText, note: note, extraFields: extraFields });
   }
   // Check for Fortune Roll
   else if (attributeOrRollName == 'SFTD.FortuneRoll')
@@ -795,8 +777,25 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
   extraFields.modifier_text = (extraFields.modifier_text ?? '') + computeModifierMessages(extraFields.modifiers);
 
   let result;
+  if (attributeOrRollName == 'SFTD.CutLooseBeginRoll') {
+    const crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    await crewFull.createCutLoose(extraFields.actor, note);
+    const speaker = {
+      actor: crewFull._id,
+      alias: crewFull.name,
+      scene: null,
+      token: crewFull.prototypeToken._id
+    };
+    const messageData = {
+      speaker: speaker,
+      cutLooseCrew: crewFull.uuid,
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-begin.html', { leader: extraFields.actor, note: note })
+    }
+    await SFTDChatMessage.create(messageData);
+    return;
+  }
   // Check for Recover
-  if (attributeOrRollName == 'SFTD.RecoverRoll') {
+  else if (attributeOrRollName == 'SFTD.RecoverRoll') {
     let levelOneHarm = extraFields.actor.system.harm.light.one != '' || extraFields.actor.system.harm.light.two != '';
 
     // Reduce all Harm by one level
@@ -1000,6 +999,19 @@ export function getBladesRollCollect(rolls, extraResult = 0, zeromode = false) {
 }
 
 /**
+ * Get stress cleared with a Cut Loose or Unwind Roll.
+ * @param {Array} rolls
+ * @param {Boolean} zeromode
+ */
+export function getBladesRollCutLooseUnwind(rolls, extraResult = 0, zeromode = false) {
+  // Sort roll values from lowest to highest.
+  let sortedRolls = rolls.map(i => i.result).sort();
+  let result = extraResult + sortedRolls[zeromode ? 0 : sortedRolls.length - 1];
+  result = Math.max(Math.min(result, 6), 1);
+  return result;
+}
+
+/**
  * Get value used for various Downtime activity rolls.
  * @param {Array} rolls
  * @param {Boolean} zeromode
@@ -1025,7 +1037,7 @@ export function getRollType(rollType, rollTypeLabel, first, single, strict, extr
     </div>`
 }
 
-const rollTypeLabels = {
+export const rollTypeLabels = {
   actionRoll: 'SFTD.ActionRoll',
   groupAction: 'SFTD.GroupActionRoll',
   resistance: 'SFTD.ResistanceRoll',
@@ -1037,15 +1049,17 @@ const rollTypeLabels = {
   upkeep: 'SFTD.UpkeepRollFull',
 
   constructFoundation: 'SFTD.ConstructFoundationRoll',
+  cutLooseBegin: 'SFTD.CutLooseBeginRoll',
+  cutLoose: 'SFTD.CutLooseRoll',
   recover: 'SFTD.RecoverRoll',
   train: 'SFTD.TrainRoll',
+  unwind: 'SFTD.UnwindRoll',
 
   acquireAsset: 'SFTD.AcquireAssetRoll',
   enhance: 'SFTD.EnhanceRoll',
   fix: 'SFTD.FixRoll',
   manufacture: 'SFTD.ManufactureRoll',
   salvage: 'SFTD.SalvageRoll',
-  cutLoose: 'SFTD.CutLooseRoll',
   longTermProject: 'SFTD.LongTermProjectRoll',
   schmooze: 'SFTD.SchmoozeRoll',
   moveBase: 'SFTD.MoveBaseRoll',
@@ -1166,16 +1180,6 @@ const rollTypeArgs = {
         ${Array(11).fill().map((_, i) => `<option value="${i}">-${i}d</option>`).join('')}
       </select>
     </span>`,
-  cutLoose: (strict, args) => `
-    <span>
-      <label>${game.i18n.localize('SFTD.Connection')}:</label>
-      ${args.forcedFields.connection ?
-      `<div class="actor-contents flex-horizontal">
-        <img src="${args.forcedFields.connection.img}" data-tooltip="${args.forcedFields.connection.name}" width="32" height="32"/>
-        <a class="item-name">${args.forcedFields.connection.name}</a>
-      </div>` :
-      `<select id="connection" name="connection">${args.connectionsText}</select>`}
-    </span>`,
   longTermProject: (strict, args) => `
     ${args.actor?.type == 'strider' ? `<span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
@@ -1222,6 +1226,11 @@ const rollTypeArgs = {
     <span>
       <label>${game.i18n.localize('SFTD.Type')}:</label>
       <select id="trainType" name="trainType">${args.trainTypes}</select>
+    </span>`,
+  unwind: (strict, args) => `
+    <span>
+      <label>${game.i18n.localize('TYPES.Actor.npc')}:</label>
+      <select id="unwindNpc" name="unwindNpc">${args.npcs}</select>
     </span>`,
   specialist: (_) => `
     <span>
@@ -1308,6 +1317,15 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       trainTypesText = trainTypes.map((t, i) => `<option value="${t}"${i == 0 ? ' selected' : ''}>${game.i18n.localize(`SFTD.Actions${BladesHelpers.capitalize(t)}`)}</option>`).join('');
 
       thirdArg = {...thirdArg, trainTypes: trainTypesText};
+    } else if (rollType == 'unwind') {
+      const crewFull = BladesHelpers.resolveActor(actor.system.crew);
+      const npcsText = Object.values(crewFull.system.members)
+        .map(m => BladesHelpers.resolveActor(m)).filter(m => m && m.type == 'npc')
+        .map((m, i) => `<option value="${m.uuid}"${i == 0 ? ' selected' : ''}>${m.name}`).join('');
+      npcsText += `<option value="other">${game.i18n.localize('SFTD.Other')}</option>`;
+      npcsText += `<option value="group">${game.i18n.localize('SFTD.Group')}</option>`;
+
+      thirdArg = {...thirdArg, npcs: npcsText};
     }
     if (rollType == 'constructFoundation') {
       let crewFull = BladesHelpers.resolveActor(actor.system.crew);
@@ -2039,9 +2057,54 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
   if (resultStress != leaderFull.system.stress.value)
     await BladesHelpers.tryUpdate(leaderFull, {system: {stress: {'==value': resultStress}}});
 
+  let speaker = {
+    actor: crewFull._id,
+    alias: crewFull.name,
+    scene: null,
+    token: crewFull.prototypeToken._id
+  };
+
   let messageData = {
-    speaker: ChatMessage.getSpeaker(),
+    speaker: speaker,
     content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader_name: leaderFull.name, stress: stress, note: groupActionData.note })
   };
-  ChatMessage.create(messageData);
+  SFTDChatMessage.create(messageData);
+}
+
+export async function computeCutLooseResultAndSendMessage(cutLooseData, crewFull) {
+  if (Object.values(cutLooseData.rolls).length == 0) {
+    ui.notifications.warn(game.i18n.localize('SFTD.log.warn.CutLooseNoRollsToParse'));
+    return;
+  }
+
+  const rollStatus = Object.values(cutLooseData.rolls).map(r => r.result).includes('failure') ? 'failure' : 'success';
+  const resultArray = Object.entries(cutLooseData.rolls).map(r => { return {strider: BladesHelpers.resolveActor(`Actor.${r[0]}`), stress: r[1].stress}; }).filter(r => r.strider);
+
+  let stressText = '';
+  let beliefClockFull = false;
+  for (const result of resultArray) {
+    let striderUpdateObject = {'system.stress.==value': Math.clamp(result.strider.system.stress.value - result.stress, 0, result.strider.system.stress.max) };
+    stressText += game.i18n.format(`SFTD.RollCutLooseResultStress`, {strider: result.strider.name, stress: result.stress});
+    striderUpdateObject['system.belief.clock.==value'] = (result.strider.system.belief.clock.value + 1) % result.strider.system.belief.clock.max;
+    if (striderUpdateObject['system.belief.clock.==value'] < result.strider.system.belief.clock.value) {
+      stressText += ' ' + game.i18n.localize(`SFTD.RollCutLooseResultBeliefFull`);
+      beliefClockFull = true;
+    }
+    await BladesHelpers.tryUpdate(result.strider, striderUpdateObject);
+    stressText += '<br/>';
+  }
+  if (stressText != '')
+    stressText = stressText.slice(0, -5);
+
+  const speaker = {
+    actor: crewFull._id,
+    alias: crewFull.name,
+    scene: null,
+    token: crewFull.prototypeToken._id
+  };
+  const messageData = {
+    speaker: speaker,
+    content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-result.html', { roll_status: rollStatus, stress_text: stressText, belief_clock_full: beliefClockFull, note: cutLooseData.note })
+  };
+  SFTDChatMessage.create(messageData);
 }

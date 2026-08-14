@@ -1,6 +1,6 @@
 import { bladesRoll, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing, pruneInvalidConditionalRollModifiers,
-  keepValidModifiersFromOther, computeGroupActionResultAndSendMessage, impactIndex
+  keepValidModifiersFromOther, computeGroupActionResultAndSendMessage, computeCutLooseResultAndSendMessage, impactIndex
 } from "./blades-roll.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { openFormDialog } from "./lib/dialog-compat.js";
@@ -85,7 +85,7 @@ export class BladesActor extends Actor {
    */
   getAttributeDiceToThrow() {
     // Calculate Dice to throw.
-    let diceAmount = {};
+    let diceAmount = { 'SFTD.CutLoose': 9 };
     let attributes = this.getComputedAttributes();
 
     for (var attributeName in attributes) {
@@ -97,6 +97,7 @@ export class BladesActor extends Actor {
         if (diceAmount[actionName] > 0)
           diceAmount[attributeName]++;
       }
+      diceAmount['SFTD.CutLoose'] = Math.min(diceAmount['SFTD.CutLoose'], diceAmount[attributeName]);
     }
 
     return diceAmount;
@@ -354,6 +355,26 @@ export class BladesActor extends Actor {
       return;
     }
     computeGroupActionResultAndSendMessage(this.system.group_action, this);
+  }
+
+  /* -------------------------------------------- */
+
+  async createCutLoose(leaderFull, note) {
+    this.system.cut_loose = { leader: leaderFull.uuid, note: note, rolls: {} };
+    await BladesHelpers.tryUpdate(this, {'system.==cut_loose': this.system.cut_loose});
+  }
+
+  async updateCutLooseRoll(actorId, result, stress) {
+    this.system.cut_loose.rolls[actorId] = { result: result, stress: stress };
+    await BladesHelpers.tryUpdate(this, {'system.cut_loose.==rolls': this.system.cut_loose.rolls});
+  }
+
+  async revealCutLooseResult() {
+    if (!this.system.cut_loose) {
+      ui.notifications.error(game.i18n.localize('SFTD.log.error.NoCutLoose'));
+      return;
+    }
+    computeCutLooseResultAndSendMessage(this.system.cut_loose, this);
   }
 
   /* -------------------------------------------- */

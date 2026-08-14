@@ -4,7 +4,7 @@
   "_id": "2zBglolcJ6kVs7t8",
   "img": "icons/svg/item-bag.svg",
   "system": {
-    "description": "<p>A local space where community members frequently host social and cultural events. Once you have constructed a training facility, you gain <strong>2 xp</strong> for training <strong>Semiosis</strong> during&nbsp;<strong>downtime </strong>instead of the usual <strong>1</strong>.</p>",
+    "description": "<p>A local space where community members frequently host social and cultural events. Once you have constructed a training facility, you gain <strong>2 XP</strong> for training <strong>Semiosis</strong> during&nbsp;<strong>downtime </strong>instead of the usual <strong>1</strong>.</p>",
     "prosperity_level": 1,
     "cache_cost": 2,
     "is_complex": false

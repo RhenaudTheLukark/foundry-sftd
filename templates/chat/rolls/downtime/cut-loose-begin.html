@@ -1,0 +1,21 @@
+<div class="chat-label label-stripe-chat">{{localize 'SFTD.CutLooseRoll'}}</div>
+
+<div class="leader-block">
+  <label><b>{{localize 'SFTD.Leader'}}</b></label>
+  <div class="flex-horizontal">
+    <img src="{{leader.img}}" data-tooltip="{{leader.name}}" width="48" height="48"/>
+    <div class="name">{{leader.name}}</div>
+  </div>
+</div>
+
+<div class="button">
+  <button class="roll-cut-loose">{{localize 'SFTD.RollCutLooseButton'}}</button>
+</div>
+
+<div class="button gm-only">
+  <button class="reveal-cut-loose-result">{{localize 'SFTD.RevealCutLooseResult'}}</button>
+</div>
+
+{{#if note}}
+  <p><em>{{note}}</em></p>
+{{/if}}

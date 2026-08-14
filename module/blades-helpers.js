@@ -11,7 +11,7 @@ export class BladesHelpers {
   }
 
   static isDowntime(attributeOrRollName) {
-    return ['acquireAsset', 'collect', 'cutLoose', 'longTermProject', 'manufacture', 'recover', 'schmooze', 'train', 'moveBase'].includes(attributeOrRollName);
+    return ['constructFoundation', 'cutLooseBegin', 'longTermProject', 'recover', 'train', 'unwind'].includes(attributeOrRollName);
   }
 
   static addToRollTypeError(missingRollTypes, key, str) {

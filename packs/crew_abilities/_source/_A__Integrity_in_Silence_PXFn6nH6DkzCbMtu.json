@@ -4,7 +4,7 @@
   "_id": "PXFn6nH6DkzCbMtu",
   "img": "icons/svg/item-bag.svg",
   "system": {
-    "description": "<p>When your crew decides to keep the solution to a mystery secret at cost to yourselves, you may <strong>mark xp</strong> for the crew and for each Strider.</p>",
+    "description": "<p>When your crew decides to keep the solution to a mystery secret at cost to yourselves, you may <strong>mark XP</strong> for the crew and for each Strider.</p>",
     "class": "Augurs",
     "price": "1",
     "purchased": false,

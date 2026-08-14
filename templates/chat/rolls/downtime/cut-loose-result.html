@@ -1,0 +1,33 @@
+<div class="dice-tooltip blades-die-tooltip">
+  <div class="chat-label label-stripe-chat">{{localize 'SFTD.CutLooseRoll'}}</div>
+
+  {{#if (eq roll_status "success")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollSuccess'}}</div>
+  <div class="description">
+    <p>{{{localize 'SFTD.RollCutLooseResultSuccess'}}}</p>
+    <p>{{{stress_text}}}</p>
+  </div>
+  {{else if (eq roll_status "failure")}}
+  <div class="die {{roll_status}}">{{localize 'SFTD.RollFailure'}}</div>
+  <div class="description">
+    <p>{{{localize 'SFTD.RollCutLooseResultFailure'}}}</p>
+    <ul>
+      <li>{{{localize 'SFTD.RollCutLooseResultFailureDisharmony'}}}</li>
+      <li>{{{localize 'SFTD.RollCutLooseResultFailureExtraTrouble'}}}</li>
+      <li>{{{localize 'SFTD.RollCutLooseResultFailureInternalStrain'}}}</li>
+      <li>{{{localize 'SFTD.RollCutLooseResultFailureUnfocused'}}}</li>
+    </ul>
+    <p>{{{stress_text}}}</p>
+  </div>
+  {{/if}}
+
+  {{#if belief_clock_full}}
+  <div class="description">
+    <p>{{{localize 'SFTD.RollCutLooseResultBeliefFullDescription'}}}</p>
+  </div>
+  {{/if}}
+
+  {{#if note}}
+  <em>{{note}}</em>
+  {{/if}}
+</div>
