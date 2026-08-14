@@ -421,10 +421,11 @@
     "CutLooseRoll": "Cut Loose",
     "LongTermProjectRoll": "Long-Term Project",
     "RecoverRoll": "Recover",
+    "ReducePressureRoll": "Reduce Pressure",
     "SchmoozeRoll": "Schmooze",
     "TrainRoll": "Train",
     "UnwindRoll": "Unwind",
-    "MoveBaseRoll": "Move Base",
+    "MoveCityRoll": "Move City",
     "SpecialistRoll": "Specialist Roll",
     "GroupSpecialistRoll": "Group Specialist Roll",
     "Table": "Table",
@@ -445,6 +446,7 @@
     "Dice": "Dice",
     "Helper": "Helper",
     "Other": "Other",
+    "ReduceHazard": "Reduce Hazard?",
     "RegionProsperity": "Region Prosperity",
     "Arguments": "Arguments",
     "BothCharmsync": "Both (Charmsync)",
@@ -615,6 +617,10 @@
     "RollRecoverLevelOneHarm": "All Level 1 Harm has been cleared.",
     "RollRecoverResultFull": "All Harm has been reduced by one level.",
 
+    "RollReducePressure": "You spent some time smoothing out your reputation both within your community and in this region as a whole. Pressure has been lowered by <strong>{tick}</strong> tick(s).",
+    "RollReducePressureHazard": "The Hazard reduction clock has also gained <strong>{tick}</strong> tick(s).",
+    "RollReducePressureHazardFull": "The Hazard reduction clock has been filled. Your community's <strong>Hazard level has lowered</strong>. Change your community ideals in response. You may either alter an existing ideal, get rid of an ideal, or add a new one.",
+
     "TrainText": "You spend some time training {trainTypeDesc}. Your {trainTypeText} XP was increased by <strong>{num}</strong>.",
     "TrainTextGeneral": "yourself",
     "TrainTextStrider": "your {trainType}",
@@ -651,7 +657,7 @@
     "RollUnwindBeliefFull": " Your belief clock is full.",
     "RollUnwindBeliefFullDescription": "Since your belief clock is full, you can ask any player (including the MC) about a truth related to you current belief (if you choose the MC, ask about one character, not the community at large.) The player must answer honestly, directly or not, then write a new belief about your Strider's relationship to the community, accounting for your Strider's memories and this new truth they've learned. They also <strong>mark 2 XP</strong>.",
 
-    "RollMoveBase": "You spent some time relocating your mobile FOB to a new location.",
+    "RollMoveCity": "You spent some time relocating your mobile city to a new location.",
 
     "DowntimeExtraResult": "You may spend up to {num} Shells to improve the result level, at the cost of 1 Shell per result level.",
 
@@ -668,7 +674,8 @@
       "NoMateriel": "The Crew owns no Materiel",
       "NoExhaustedQuirk": "No exhausted Quirk",
       "NoOngoingLTP": "No currently ongoing Long-Term Project",
-      "NoMobileBase": "Your FOB is not mobile"
+      "NoPressureHazard": "No Pressure or Hazard level",
+      "NoMobileCity": "Your base and community are not mobile"
     },
 
     "CollectionAgency": "Collection Agency",
@@ -828,6 +835,10 @@
       "FriendlyFace": {
         "ActionTitle": "Friendly Face: Navigating Bureaucracy?",
         "CollectInfoTitle": "Friendly Face: Collecting Info about the Social and Political Dynamics of a Location or Culture?"
+      },
+      "NightMarket": {
+        "Title": "Night Market: Use For a Free Downtime Activity?",
+        "Description": "This activity was free thanks to your Night Market."
       },
       "StandUpTalkDown": {
         "Title": "Stand Up, Talk Down: Speaking?",

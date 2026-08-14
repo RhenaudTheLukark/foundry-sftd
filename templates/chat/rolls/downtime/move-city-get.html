@@ -1,0 +1,17 @@
+<div class="dice-tooltip blades-die-tooltip">
+  <div class="chat-label label-stripe-chat">{{localize 'SFTD.MoveCityRoll'}}</div>
+
+  <div class="description">
+    <p>{{{localize 'SFTD.RollMoveCity'}}}</p>
+  </div>
+
+  {{#if extraFields.modifier_text}}
+  <div class="description">
+    <p>{{{extraFields.modifier_text}}}</p>
+  </div>
+  {{/if}}
+
+  {{#if note}}
+    <em>{{note}}</em>
+  {{/if}}
+</div>

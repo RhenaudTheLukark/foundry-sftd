@@ -195,7 +195,8 @@ export const bladesRollModifierList = {
     name: 'SFTD.StriderAbility.NightMarket.Title',
     rollType: 'reducePressure',
     itemNeeded: 'night_market',
-    bonusRoll: true
+    bonusRoll: true,
+    rollText: 'SFTD.StriderAbility.NightMarket.Description'
   },
   stand_up_talk_down: {
     name: 'SFTD.StriderAbility.StandUpTalkDown.Title',
@@ -697,6 +698,24 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/manufacture-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
   }
+  // Check for Reduce Pressure roll
+  else if (attributeOrRollName == 'SFTD.ReducePressureRoll') {
+    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    let ticks = getBladesRollDowntime(rolls, extraResult, zeromode);
+    let crewUpdateObject = {'system.pressure.==value': Math.max(crewFull.system.pressure.value - ticks, 0)};
+
+    let hazardFull = false;
+    if (extraFields.rpHazard) {
+      let newTick = Math.min(crewFull.system.hazard.reduction.value + ticks, crewFull.system.hazard.reduction.max);
+      hazardFull = newTick == crewFull.system.hazard.reduction.max;
+      if (hazardFull)
+        crewUpdateObject['system.hazard.==value'] = crewFull.system.hazard.value - 1;
+      crewUpdateObject['system.hazard.reduction.==value'] = newTick % crewFull.system.hazard.reduction.max;
+    }
+    await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
+
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/reduce-pressure-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: ticks, hazard_full: hazardFull, note: note, extraFields: extraFields });
+  }
   // Check for Unwind roll
   else if (attributeOrRollName == 'SFTD.UnwindRoll') {
     let clearStress = getBladesRollCutLooseUnwind(rolls, extraResult, zeromode);
@@ -830,8 +849,8 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/train-get.html', { train_type_desc: trainTypeDescription, train_type_text: trainTypeText, num: xpGain, level_up: levelUp, note: note, extraFields: extraFields });
   }
   // Check for Move Base
-  else if (attributeOrRollName == 'SFTD.MoveBaseRoll')
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/move-base-get.html', { note: note, extraFields: extraFields });
+  else if (attributeOrRollName == 'SFTD.MoveCityRoll')
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/move-city-get.html', { note: note, extraFields: extraFields });
 
   let messageData = {
     speaker: speaker,
@@ -1051,18 +1070,14 @@ export const rollTypeLabels = {
   constructFoundation: 'SFTD.ConstructFoundationRoll',
   cutLooseBegin: 'SFTD.CutLooseBeginRoll',
   cutLoose: 'SFTD.CutLooseRoll',
+  longTermProject: 'SFTD.LongTermProjectRoll',
+  moveCity: 'SFTD.MoveCityRoll',
   recover: 'SFTD.RecoverRoll',
+  reducePressure: 'SFTD.ReducePressureRoll',
   train: 'SFTD.TrainRoll',
   unwind: 'SFTD.UnwindRoll',
 
-  acquireAsset: 'SFTD.AcquireAssetRoll',
-  enhance: 'SFTD.EnhanceRoll',
-  fix: 'SFTD.FixRoll',
   manufacture: 'SFTD.ManufactureRoll',
-  salvage: 'SFTD.SalvageRoll',
-  longTermProject: 'SFTD.LongTermProjectRoll',
-  schmooze: 'SFTD.SchmoozeRoll',
-  moveBase: 'SFTD.MoveBaseRoll',
 
   collectionAgency: 'SFTD.CollectionAgency',
   sideBusiness: 'SFTD.SideBusiness',
@@ -1163,23 +1178,6 @@ const rollTypeArgs = {
       <label>${game.i18n.localize('SFTD.Foundation')}:</label>
       <select id="cfFoundation" name="cfFoundation">${args.projects}</select>
     </span>`,
-  acquireAsset: (_, args) => `
-    <span>
-      <label>${game.i18n.localize('SFTD.SuccessTier')}:</label>
-      <input type="number" id="acquireAssetSuccessTier" name="acquireAssetSuccessTier" onkeypress="return BladesHelpers.isNumberKey(event)" value="0">
-    </span>`,
-  collect: (strict, args) => `
-    <span>
-      <label>${game.i18n.localize('SFTD.Region')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.CollectDragDropInfo')}"></i></a>:</label>
-      <div id="collectRegion">${game.i18n.localize('SFTD.None')}</div>
-    </span>
-    <span>
-      <label>${game.i18n.localize('SFTD.Vigilance')}:</label>
-      <select id="collectVigilance" name="collectVigilance">
-        <option value="0" selected disabled hidden>-0d</option>
-        ${Array(11).fill().map((_, i) => `<option value="${i}">-${i}d</option>`).join('')}
-      </select>
-    </span>`,
   longTermProject: (strict, args) => `
     ${args.actor?.type == 'strider' ? `<span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
@@ -1201,15 +1199,15 @@ const rollTypeArgs = {
         <option value="interface">${game.i18n.localize('SFTD.ActionsInterface')}</option>
       </select>
     </span>`,
-  schmooze: (strict, args) => `
-    <span>
-      <label>${game.i18n.localize('TYPES.Actor.faction')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.SchmoozeDragDropInfo')}"></i></a>:</label>
-      <div id="schmoozeFaction">${game.i18n.localize('SFTD.None')}</div>
-    </span>
+  reducePressure: (_, args) => `
     ${args.actor?.type == 'strider' ? `<span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
-      <select id="schmoozeAction" name="schmoozeAction">${args.actions}</select>
-    </span>`: ''}`,
+      <select id="rpAction" name="rpAction">${args.actions}</select>
+    </span>` : ''}
+    ${args.needsHazardReduction ? `<span>
+      <label>${game.i18n.localize('SFTD.ReduceHazard')}:</label>
+      <input type="checkbox" id="rpHazard" name="rpHazard" checked>
+    </span>` : ''}`,
   upkeep: (strict, args) => `
     <span>
       <label>${game.i18n.localize('TYPES.Actor.faction')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.UpkeepDragDropInfo')}"></i></a>:</label>
@@ -1302,7 +1300,7 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       }
 
       thirdArg = {...thirdArg, healActors: healActors};
-    } else if (['collectInfo', 'constructFoundation', 'longTermProject'].includes(rollType) && actor?.type == 'strider') {
+    } else if (['collectInfo', 'constructFoundation', 'longTermProject','reducePressure'].includes(rollType) && actor?.type == 'strider') {
       let actionList = Object.keys(actor.getRollData().diceAmount).filter(a => BladesHelpers.isAttributeAction(a));
       let actions = actionList.map((value, index) => `<option value="${value}"${((rollType != 'constructFoundation' && index == 0) || (rollType == 'constructFoundation' && value == 'shape')) ? ' selected' : ''}>${game.i18n.localize(BladesHelpers.getAttributeLabel(value))}</option>`).join('');
 
@@ -1319,7 +1317,7 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       thirdArg = {...thirdArg, trainTypes: trainTypesText};
     } else if (rollType == 'unwind') {
       const crewFull = BladesHelpers.resolveActor(actor.system.crew);
-      const npcsText = Object.values(crewFull.system.members)
+      let npcsText = Object.values(crewFull.system.members)
         .map(m => BladesHelpers.resolveActor(m)).filter(m => m && m.type == 'npc')
         .map((m, i) => `<option value="${m.uuid}"${i == 0 ? ' selected' : ''}>${m.name}`).join('');
       npcsText += `<option value="other">${game.i18n.localize('SFTD.Other')}</option>`;
@@ -1340,6 +1338,9 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       projectsString = `${(rollType == 'longTermProject' && crewFull.system.irons_in_the_fire) ? ` data-tooltip="SFTD.MultipleSelectUsage" size="${Math.min(projectList.length, 4)}" multiple` : ''}>${projectsString}`;
 
       thirdArg = {...thirdArg, projects: projectsString};
+    } else if (rollType == 'reducePressure') {
+      let crewFull = BladesHelpers.resolveActor(actor.system.crew);
+      thirdArg = {...thirdArg, needsHazardReduction: crewFull.system.hazard.value > 0};
     }
     rollTypesHTML += getRollType(rollType, rollTypeLabels[rollType], rollTypesHTML.length == 0, rollTypes.length == 1, strict, thirdArg);
     rollTypesArgs += rollTypeArgs[rollType] ? rollTypeArgs[rollType](strict, thirdArg) : '';

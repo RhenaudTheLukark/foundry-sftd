@@ -392,6 +392,12 @@ export class BladesStriderSheet extends BladesSheet {
               extraFields.noRoll = true;
               await bladesRoll(0, 'SFTD.RecoverRoll', note, extraFields);
               break;
+            case 'reducePressure':
+              let rpAction = dialog.element.querySelector('#rpAction').value;
+              let rpDice = actorSheet.actor.getRollData().diceAmount[rpAction] + extraDice;
+              extraFields.rpHazard = dialog.element.querySelector('#rpHazard')?.checked;
+              await bladesRoll(rpDice, 'SFTD.ReducePressureRoll', note, extraFields);
+              break;
             case 'train':
               extraFields.noRoll = true;
               let trainType = html.find('[name="trainType"]')[0].value;
@@ -403,9 +409,9 @@ export class BladesStriderSheet extends BladesSheet {
               extraFields.unwindNPC = dialog.element.querySelector('#unwindNpc').value;
               await bladesRoll(unwindDice, 'SFTD.UnwindRoll', note, extraFields);
               break;
-            case 'moveBase':
+            case 'moveCity':
               extraFields.noRoll = true;
-              await bladesRoll(0, 'SFTD.MoveBaseRoll', note, extraFields);
+              await bladesRoll(0, 'SFTD.MoveCityRoll', note, extraFields);
               break;
             default:
               ui.notifications.warn(game.i18n.format('SFTD.log.warn.UnknownRollType', { type: input[0].id.split('-')[0] }));
@@ -507,7 +513,7 @@ export class BladesStriderSheet extends BladesSheet {
 
   // Remove unavailable roll types
   getDowntimeRollTypesToRemove(forcedRollTypes = null) {
-    let rollTypes = forcedRollTypes ?? ['constructFoundation', 'cutLooseBegin', 'longTermProject', 'recover', 'train', 'unwind'];
+    let rollTypes = forcedRollTypes ?? ['constructFoundation', 'cutLooseBegin', 'longTermProject', 'moveCity', 'recover', 'reducePressure', 'train', 'unwind'];
     let missingRollTypes = {};
 
     let trainTypes = ['playbook', 'analysis', 'kinesis', 'semiosis'];
@@ -527,12 +533,15 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'cutLooseBegin', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'cutLoose', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoCrew');
-      BladesHelpers.addToRollTypeError(missingRollTypes, 'manufacture', 'SFTD.BadRoll.NoCrew');
+      BladesHelpers.addToRollTypeError(missingRollTypes, 'moveCity', 'SFTD.BadRoll.NoCrew');
+      BladesHelpers.addToRollTypeError(missingRollTypes, 'reducePressure', 'SFTD.BadRoll.NoCrew');
     } else {
       if (!Object.values(crewFull.system.projects).filter(p => p.clock.value < p.clock.max && !p.foundation).length)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoOngoingLTP');
-      if (!crewFull.system.mobile_base)
-        BladesHelpers.addToRollTypeError(missingRollTypes, 'moveBase', 'SFTD.BadRoll.NoMobileBase');
+      if (crewFull.system.pressure.value == 0 && crewFull.system.hazard.value == 0)
+        BladesHelpers.addToRollTypeError(missingRollTypes, 'reducePressure', 'SFTD.BadRoll.NoPressureHazard');
+      if (!crewFull.system.mobile_city)
+        BladesHelpers.addToRollTypeError(missingRollTypes, 'moveCity', 'SFTD.BadRoll.NoMobileCity');
     }
     return [
       rollTypes.filter(r => !Object.keys(missingRollTypes).includes(r)),

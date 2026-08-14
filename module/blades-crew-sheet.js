@@ -700,6 +700,7 @@ export class BladesCrewSheet extends BladesSheet {
               await bladesRoll(specialistFull.system.quality + extraDice, 'SFTD.GroupSpecialistRoll', note, extraFields);
               break;
             case 'reducePressure':
+              extraFields.rpHazard = dialog.element.querySelector('#rpHazard')?.checked;
               await bladesRoll(diceAmount, 'SFTD.ReducePressureRoll', note, extraFields);
               break;
             case 'longTermProject':
