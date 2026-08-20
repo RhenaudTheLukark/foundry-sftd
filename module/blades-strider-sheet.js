@@ -498,14 +498,14 @@ export class BladesStriderSheet extends BladesSheet {
     if (dialog.element.querySelector('#cfNewFoundationCost'))
       dialog.element.querySelector('#cfNewFoundationCost').addEventListener('change', (ev) => {
         let element = ev.currentTarget;
-        let rollType = element.closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
+        let rollType = element.closest('.form-group').querySelector('input[type=radio]:checked').id.split('-')[0];
         if (rollType == 'constructFoundation')
           element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
       });
     if (dialog.element.querySelector('#cfFoundation'))
       dialog.element.querySelector('#cfFoundation').addEventListener('change', (ev) => {
         let element = ev.currentTarget;
-        let rollType = element.closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
+        let rollType = element.closest('.form-group').querySelector('input[type=radio]:checked').id.split('-')[0];
         if (rollType == 'constructFoundation')
           element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
       });
