@@ -2,7 +2,6 @@
  * Extend the basic ItemSheet
  * @extends {ItemSheet}
  */
-import {onManageActiveEffect, prepareActiveEffectCategories} from './effects.js';
 import { BladesActiveEffect } from './blades-active-effect.js';
 import { getItemSheetClass, enrichHTML } from './compat.js';
 import { BladesHelpers } from './blades-helpers.js';
@@ -102,7 +101,7 @@ export class BladesItemSheet extends BaseItemSheet {
     sheetData.editable = superData.editable;
 
     // Prepare Active Effects
-    sheetData.effects = prepareActiveEffectCategories(this.document.effects);
+    sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.document.effects);
 
     sheetData.system.description = await enrichHTML(sheetData.system.description, {secrets: sheetData.owner, async: true});
 

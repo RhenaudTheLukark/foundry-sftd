@@ -1,4 +1,4 @@
-<div class="item-with-container{{#if (eq item.system.suppressed true)}} disabled-item{{/if}}">
+<div class="item-with-container{{#if item.system.suppressed}} disabled-item{{/if}}">
   <div class="item flex-horizontal" data-item-id="{{item._id}}">
     {{#if (eq item.system.is_container true)}}
     <div class="collapse flex-horizontal"><a class="collapse-button"><i class="fas fa-{{#if (eq item.system.collapsed true)}}plus{{else}}minus{{/if}}-square"></i></a></div>

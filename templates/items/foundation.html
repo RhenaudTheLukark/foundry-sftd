@@ -39,6 +39,16 @@
         <input type='checkbox' name='system.is_upgrade' data-dType='Boolean' {{checked system.is_upgrade}}>
       </div>
     </div>
+    <div class='flex-horizontal'>
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.IsWeatherDamaged'}}</label>
+        <input type='checkbox' name='system.is_weather_damaged' data-dType='Boolean' {{checked system.is_weather_damaged}}>
+      </div>
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.IsUnderDisaster'}}</label>
+        <input type='checkbox' name='system.is_under_disaster' data-dType='Boolean' {{checked system.is_under_disaster}}>
+      </div>
+    </div>
     {{#if isGM}}
       <div class='label-stripe'>{{localize 'SFTD.Effects'}}</div>
       <div id='effects'>{{> 'systems/songs-for-the-dusk/templates/parts/active-effects.html'}}</div>

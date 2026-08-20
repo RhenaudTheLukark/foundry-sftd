@@ -15,24 +15,21 @@ export class BladesActiveEffect extends ActiveEffect {
   /* --------------------------------------------- */
   /** @inheritdoc */
   apply(actor, change) {
-    if ( this.isSuppressed ) return null;
+    if (this.parent?.system?.suppressed) return null;
+    if (this.isSuppressed) return null;
     //this allows for math and actor data references in the change values. Probably not necessary for
     // blades, but it was simple, and you never know what users will do. Probably ruin everything.
     change.value = Roll.replaceFormulaData(change.value, actor.system);
-    try {
-      change.value = Roll.safeEval(change.value).toString();
-    } catch (e) {
+    try { change.value = Roll.safeEval(change.value).toString(); }
+    catch (e) {
       // this is a valid case, e.g., if the effect change simply is a string
     }
     let parsed;
-    try{
-      parsed = JSON.parse(change.value);
-    }
-    catch(e){
-    }
-    if(parsed instanceof Array){
+    try { parsed = JSON.parse(change.value); }
+    catch(e) {}
+
+    if (parsed instanceof Array)
       change.value = parsed;
-    }
     return super.apply(actor, change);
   }
   /* --------------------------------------------- */
@@ -55,7 +52,7 @@ export class BladesActiveEffect extends ActiveEffect {
     const a = event.currentTarget;
     const selector = a.closest("tr");
     const effect = selector.dataset.effectId ? owner.effects.get(selector.dataset.effectId) : null;
-    switch ( a.dataset.action ) {
+    switch (a.dataset.action) {
       case "create":
         return owner.createEmbeddedDocuments("ActiveEffect", [{
           name: "New Effect",
@@ -81,7 +78,6 @@ export class BladesActiveEffect extends ActiveEffect {
    * @return {object}                   Data for rendering
    */
   static prepareActiveEffectCategories(effects) {
-
     // Define effect header categories
     const categories = {
       temporary: {
@@ -109,17 +105,13 @@ export class BladesActiveEffect extends ActiveEffect {
 
     // Iterate over active effects, classifying them into categories
     for ( let e of effects ) {
-      //e._getSourceName(); // Trigger a lookup for the source name
-      e.origin;  //fixes deprecation of _getSourceName?
-	  if ( e.isSuppressed ) categories.suppressed.effects.push(e);
-      else if ( e.disabled ) categories.inactive.effects.push(e);
-      else if ( e.isTemporary ) categories.temporary.effects.push(e);
+	    if (e.isSuppressed) categories.suppressed.effects.push(e);
+      else if (e.disabled) categories.inactive.effects.push(e);
+      else if (e.isTemporary) categories.temporary.effects.push(e);
       else categories.passive.effects.push(e);
     }
     return categories;
   }
-
-
 }
 
 // Portions of this code are copyright 2021 Andrew Clayton

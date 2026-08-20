@@ -5777,6 +5777,25 @@
 .songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .generic-popup input {
   margin: 0px;
 }
+.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities div:has(> .overlay), .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations div:has(> .overlay), .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout div:has(> .overlay) {
+  position: relative;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities div:has(> .overlay) > .overlay, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations div:has(> .overlay) > .overlay, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout div:has(> .overlay) > .overlay {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  background: rgba(0, 0, 0, 0.5019607843);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities div:has(> .overlay) > .overlay img, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations div:has(> .overlay) > .overlay img, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout div:has(> .overlay) > .overlay img {
+  height: 80%;
+  border: 0px;
+}
 .songs-for-the-dusk.actor.sheet .tab-content .item .item-name {
   font-weight: bold;
 }

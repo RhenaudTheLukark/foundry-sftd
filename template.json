@@ -354,7 +354,8 @@
         "type": "",
         "target": null,
         "amount": null
-      }
+      },
+      "suppressed": false
     },
     "item": {
       "templates": ["default", "logic", "container"],
@@ -432,7 +433,10 @@
       "cache_cost": 0,
       "npc": null,
       "is_complex": false,
-      "is_upgrade": false
+      "is_upgrade": false,
+      "is_weather_damaged": false,
+      "is_under_disaster": false,
+      "excluded_pilots": []
     },
     "crew_ability": {
       "templates": ["ability", "activatedEffect"],

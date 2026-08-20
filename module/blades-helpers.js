@@ -213,7 +213,7 @@ export class BladesHelpers {
       let items = await Item.create(objectsData, {parent: parentFull});
       for (let [itemIndex, item] of Object.entries(items)) {
         await BladesHelpers.tryUpdate(item, {'system.original_id': objectsData[itemIndex]._id});
-        await BladesHelpers.postCreateItem(item, parentFull);
+        await BladesHelpers.postCreateItem(item);
       }
       return items;
     }
@@ -344,7 +344,7 @@ export class BladesHelpers {
     };
     let result = await actor.createEmbeddedDocuments('Item', [data]);
     for (let item of result)
-      await BladesHelpers.postCreateItem(item, actor);
+      await BladesHelpers.postCreateItem(item);
     return result;
   }
 
@@ -363,20 +363,40 @@ export class BladesHelpers {
     }
   };
 
-  static async postCreateItem(itemFull, actorFull) {
+  static async postCreateItem(itemFull) {
+    const actorFull = itemFull.actor;
     if (itemFull.type == 'specialist')
       await BladesHelpers.tryUpdate(itemFull, {'system.==crew': actorFull.uuid});
 
+    // Armor: Auto-fill
+    const armorChangingEffects = itemFull.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max'));
+    if (armorChangingEffects.length) {
+      const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
+      BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.min(actorFull.system.armor.value + value, actorFull.system.armor.max)})
+    }
+
     // Crew-wide modifiers: Update the crew's values
     if (actorFull?.type == 'strider')
-      if (itemFull.effects.filter(e => e.changes.filter(c => c.value == "true" && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
+      if (itemFull.effects.filter(e => e.changes.filter(c => c.value == 'true' && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
         await actorFull.updateCrewWideAbilityOwnership();
   }
 
-  static async postDeleteItem(itemCopy, actorFull, realDelete = true) {
+  static async preDeleteItem(itemFull, realDelete = true) {
+    const actorFull = itemFull.actor;
+  }
+
+  static async postDeleteItem(itemCopy, realDelete = true) {
+    const actorFull = itemCopy.actor;
+    // Armor: Auto-fill
+    const armorChangingEffects = itemCopy.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max'));
+    if (armorChangingEffects.length) {
+      const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
+      BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.max(actorFull.system.armor.value - value, 0)})
+    }
+
     // Crew-wide modifiers: Update the crew's values
     if (actorFull?.type == 'strider')
-      if (itemCopy.effects.filter(e => e.changes.filter(c => c.value == "true" && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
+      if (itemCopy.effects.filter(e => e.changes.filter(c => c.value == 'true' && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
         await actorFull.updateCrewWideAbilityOwnership();
   }
 

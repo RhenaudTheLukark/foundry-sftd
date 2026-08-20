@@ -20,7 +20,52 @@
     "extra_description": "",
     "additional_info": ""
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Heavy Armor Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.item.Item.9yuNfAKFfntJ0Ov5",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "ExYwixPkaChncGql",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.armor.max",
+          "mode": 2,
+          "value": "2",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1787211670098,
+        "modifiedTime": 1787211687236,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!9yuNfAKFfntJ0Ov5.ExYwixPkaChncGql"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

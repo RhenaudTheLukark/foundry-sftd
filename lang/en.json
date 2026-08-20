@@ -319,6 +319,8 @@
     "AssignedNPC": "Assigned NPC",
     "IsComplex": "Is Complex?",
     "IsUpgrade": "Is Upgrade?",
+    "IsWeatherDamaged": "Is Weather Damaged?",
+    "IsUnderDisaster": "Is Under Disaster?",
 
     "Position": "Position",
     "ForcePosition": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's position to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",

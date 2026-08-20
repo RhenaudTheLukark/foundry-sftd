@@ -1783,6 +1783,8 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
         if (ownerId >= 0)
           modifierOwners.splice(ownerId, 1);
       }
+      if (modifierOwners.length == 0)
+        continue;
 
       let result = foundry.utils.deepClone(bladesRollModifierList[modifierId]);
       if (!result)

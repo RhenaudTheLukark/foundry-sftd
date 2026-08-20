@@ -26,7 +26,7 @@ export class BladesItem extends Item {
   async _onCreate(data, options, userId) {
     await super._onCreate(data, options, userId);
 
-    if (this.type === "specialist") {
+    if (this.type == 'specialist') {
       const itemData = this.system;
       this.updateSpecialistQuality();
     }
@@ -34,7 +34,26 @@ export class BladesItem extends Item {
 
   async updateSpecialistQuality(forcedTier) {
     let quality = this.computeSpecialistQuality(forcedTier);
-    await BladesHelpers.tryUpdate(this, {'system.quality': quality});
+    await BladesHelpers.tryUpdate(this, {'system.==quality': quality});
+  }
+
+  /** @override */
+  async _onUpdate(changed, options, userId) {
+    super._onUpdate(changed, options, userId);
+    if (this.type == 'foundation' && (changed.system?.is_weather_damaged != undefined || changed.system?.is_under_disaster != undefined))
+      await this.updateFoundation();
+  }
+
+  async updateFoundation() {
+    let isSuppressed = this.system.is_weather_damaged || this.system.is_under_disaster;
+
+    if (this.system.suppressed != isSuppressed) {
+      await BladesHelpers.tryUpdate(this, {'system.==suppressed': suppressed});
+      if (isSuppressed)
+        await BladesHelpers.preDeleteItem(this, false);
+      else
+        await BladesHelpers.postCreateItem(this);
+    }
   }
 
   computeSpecialistQuality(forcedTier) {
