@@ -5,10 +5,33 @@
   <input type="checkbox" name="thread" checked>
   <label>{{{localize 'SFTD.EndMissionThread'}}}</label>
 </div>
-<div class="form-group-inline">
-  <input type="checkbox" name="upkeep" checked>
-  <label>{{{localize 'SFTD.EndMissionUpkeepRoll'}}}</label>
-</div>
+
+<div class="category-collapse">{{localize 'SFTD.EndMissionReward'}} ({{localize 'SFTD.EndMissionClickHereToExpand'}})</div>
+<fieldset class="collapse-category collapsed-category">
+  <legend>{{localize 'SFTD.EndMissionReward'}} ({{localize 'SFTD.EndMissionClickHereToCollapse'}})</legend>
+  <div class="form-group-inline">
+    <input type="checkbox" name="upkeep" checked>
+    <label>{{{localize 'SFTD.EndMissionUpkeepRoll'}}}</label>
+  </div>
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="aStrangerWalksIntoTown">
+    <label>{{{localize 'SFTD.EndMissionAftermathAStrangerWalksIntoTownTitle'}}}</label>
+  </div>
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="dangerousMission">
+    <label>{{{localize 'SFTD.EndMissionAftermathDangerousMissionTitle'}}}</label>
+  </div>
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="highProfileOp">
+    <label>{{{localize 'SFTD.EndMissionAftermathHighProfileOpTitle'}}}</label>
+  </div>
+  {{#if extraData.expertsTalkLogistics}}
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="expertsTalkLogistics" checked>
+    <label>{{{localize 'SFTD.EndMissionExpertsTalkLogisticsTitle'}}}</label>
+  </div>
+  {{/if}}
+</fieldset>
 
 <div class="category-collapse">{{localize 'SFTD.EndMissionPressureGain'}} ({{localize 'SFTD.EndMissionClickHereToExpand'}})</div>
 <fieldset class="collapse-category collapsed-category">
@@ -59,9 +82,3 @@
   <input type="checkbox" class="automated" name="aftermath" checked>
   <label>{{{localize 'SFTD.EndMissionAftermath'}}}</label>
 </div>
-{{#if extraData.expertsTalkLogistics}}
-<div class="form-group-inline">
-  <input type="checkbox" class="automated" name="expertsTalkLogistics" checked>
-  <label>{{{localize 'SFTD.EndMissionExpertsTalkLogisticsTitle'}}}</label>
-</div>
-{{/if}}

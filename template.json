@@ -189,7 +189,9 @@
         "assist": true,
         "setting_up": true,
         "setup": true,
-        "protect": true
+        "protect": true,
+        "cut_loose_unfocused": true,
+        "aftermath_dangerous_mission": true
       },
       "not_a_problem_uses": {
         "value": 2,

@@ -150,6 +150,16 @@ export const bladesRollModifierList = {
     },
     protect: true
   },
+  aftermath_dangerous_mission: {
+    name: 'SFTD.AftermathDangerousMission',
+    rollType: 'engagement',
+    dice: -1
+  },
+  cut_loose_unfocused: {
+    name: 'SFTD.CutLooseUnfocused',
+    rollType: 'engagement',
+    dice: -1
+  },
   alloyed_mettle: {
     name: 'SFTD.StriderAbility.AlloyedMettle.Title',
     rollType: 'actionRoll',

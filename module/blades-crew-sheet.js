@@ -3,8 +3,8 @@ import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { bladesPopupData } from "./blades-popup.js";
 import { bladesRoll, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
-  checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
-  pruneInvalidConditionalRollModifiers, keepValidModifiersFromRollType, keepValidModifiersFromOther
+  dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,  pruneInvalidConditionalRollModifiers,
+  keepValidModifiersFromRollType, keepValidModifiersFromOther
 } from './blades-roll.js';
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 import { renderHandlebarsTemplate as renderTemplate } from "./compat.js";
@@ -479,8 +479,11 @@ export class BladesCrewSheet extends BladesSheet {
         if (melodyUsed)
           messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionRecoverMelody')}</p></div>`;
 
-        // Set Phase to Mission & Reset Harmony to 2
-        await BladesHelpers.tryUpdate(this.actor, {'system.phase': 'mission', 'system.harmony.value': 2});
+        // Set Phase to Mission & Reset Harmony to 2 (1 if Disharmony)
+        let disharmony = dialog.element.querySelector('[name="cutLooseDisharmony"]').checked;
+        if (disharmony)
+          messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionCutLooseDisharmony')}</p></div>`;
+        await BladesHelpers.tryUpdate(this.actor, {'system.phase': 'mission', 'system.harmony.value': disharmony ? 1 : 2});
 
         let speaker = {
           actor: this.actor._id,
@@ -531,6 +534,38 @@ export class BladesCrewSheet extends BladesSheet {
 
         let messageContents = '';
 
+        // All Shell-generating items are implemented here
+        const shellGeneratorList = {
+          aStrangerWalksIntoTown: {
+            value: 2,
+            key: 'AftermathAStrangerWalksIntoTown'
+          },
+          dangerousMission: {
+            value: 3,
+            key: 'AftermathDangerousMission'
+          },
+          highProfileOp: {
+            value: 2,
+            key: 'AftermathHighProfileOp'
+          },
+          expertsTalkLogistics: {
+            value: 1,
+            key: 'ExpertsTalkLogistics'
+          }
+        }
+
+        for (let [id, shellGenerator] of Object.entries(shellGeneratorList))
+          if (dialog.element.querySelector(`[name="${id}"]`)?.checked) {
+            let message = `<div class="description"><p>${game.i18n.localize(`SFTD.EndMission${shellGenerator.key}`)}`;
+            let newShells = Math.min(this.actor.system.shells.value + shellGenerator.value, this.actor.system.shells.max);
+            let overShells = this.actor.system.shells.value + shellGenerator.value - newShells;
+            if (newShells)
+              await BladesHelpers.tryUpdate(this.actor, {'system.shells.==value': newShells});
+            if (overShells)
+              message += ` ${game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: overShells})}`;
+            messageContents += message + '</p></div>';
+          }
+
         // Pressure Changes
         let pressureChange = 0;
         let pressureCollateralDamage = dialog.element.querySelector('[name="pressureCollateralDamage"]:checked').value;
@@ -568,16 +603,6 @@ export class BladesCrewSheet extends BladesSheet {
           await postRollProcessing(this.actor, extraFieldsRoll);
         }
 
-        // Experts Talk Logistics: Add 1 Shell
-        if (dialog.element.querySelector('[name="expertsTalkLogistics"]')?.checked) {
-          let message = `<div class="description"><p>${game.i18n.localize('SFTD.EndMissionExpertsTalkLogistics')}`;
-          if (this.actor.system.shells.value < this.actor.system.shells.max)
-            await BladesActiveEffect.tryUpdate(this.actor, {'system.shells.==value': this.actor.system.shells.value + 1});
-          else
-            message += ` ${game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: 1})}`;
-          messageContents += message + '</p></div>';
-        }
-
         // Reset Strider Downtime Activities
         for (let member of Object.values(this.actor.system.members)) {
           let memberFull = BladesHelpers.resolveActor(member.uuid);
@@ -601,6 +626,7 @@ export class BladesCrewSheet extends BladesSheet {
         SFTDChatMessage.create(messageData);
       }
     });
+    extraData.dialog = dialog;
     await dialog.render(true);
 
     for (let element of dialog.element.querySelectorAll('.collapse-category legend'))
@@ -608,12 +634,14 @@ export class BladesCrewSheet extends BladesSheet {
         let element = ev.currentTarget;
         let fieldSetElement = element.parentElement;
         fieldSetElement.classList.add('collapsed-category');
+        extraData.dialog.setPosition();
       });
     for (let element of dialog.element.querySelectorAll('div:has(+ .collapse-category)'))
       element.addEventListener('click', (ev) => {
         let element = ev.currentTarget;
         let fieldSetElement = element.nextElementSibling;
         fieldSetElement.classList.remove('collapsed-category');
+        extraData.dialog.setPosition();
       });
   }
 
