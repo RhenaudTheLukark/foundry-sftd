@@ -389,10 +389,27 @@
     "MelodyUsed": "Melody Used",
     "MelodyUsedText": "You are in tune with your body. Your determination to get this job done allows you to",
     "MelodyOptions": {
+      "HitsKeepComing": "Completely avoid Harm from an attack in combat",
+      "WontGoQuiet": "Resist a social consequence",
       "IWillBeWater": "Resist a magical consequence"
     },
     "Usage": "Usage",
     "MelodyPushOptions": {
+      "HitsKeepComing": {
+        "Key": "Hits Keep Coming",
+        "Details": "Participating in a fight",
+        "Description": "participate in a fight"
+      },
+      "WontGoQuiet": {
+        "Key": "Won't Go Quiet",
+        "Details": "Connecting with or persuading people",
+        "Description": "try to connect with or persuade people"
+      },
+      "EverybodyGetsThroughThis": {
+        "Key": "Everybody Gets Through This",
+        "Details": "Connecting with or persuading people",
+        "Description": "try to connect with or persuade people"
+      },
       "IWillBeWater": {
         "Key": "I Will Be Water",
         "Details": "Channeling transcendent forces",
@@ -828,6 +845,9 @@
       },
       "SparkOfHope": {
         "Title": "Spark of Hope: Involves Anyone Who Witnessed You Resist Harm or Protect Someone?"
+      },
+      "Tidebreak": {
+        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Perform a superhuman feat of physical force,</li><li>Engage a small group on equal footing in combat.</li></ul>"
       },
       "Charmtongue": {
         "Popup": {

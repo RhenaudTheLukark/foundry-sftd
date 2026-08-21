@@ -187,6 +187,11 @@ export const bladesRollModifierList = {
     attributeNames: ['command', 'connect'],
     dice: 1
   },
+  tidebreak: {
+    hidden: true,
+    needPushYourself: true,
+    rollText: 'SFTD.StriderAbility.Tidebreak.Description'
+  },
   friendly_face_action: {
     name: 'SFTD.StriderAbility.FriendlyFace.ActionTitle',
     rollTypes: ['actionRoll', 'groupAction'],
