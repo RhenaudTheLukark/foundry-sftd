@@ -16,30 +16,24 @@
       {{{system.description}}}
     {{/if}}
     <div class='flex-horizontal'>
-      <div class='three-line'>
+      <div class='two-line'>
         <label class='label-stripe'>{{localize 'SFTD.Load'}}</label>
         <input type='number' name='system.load' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.load}}'>
       </div>
-      <div class='three-line'>
+      <div class='two-line'>
         <label class='label-stripe'>{{localize 'SFTD.Class'}}</label>
         <input type='text' name='system.class' value='{{system.class}}'>
-      </div>
-      <div class='three-line'>
-        <label class='label-stripe'>{{localize 'SFTD.Uses'}}</label>
-        <input type='number' name='system.uses.max' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.uses.max}}'>
       </div>
     </div>
     <div class='flex-horizontal'>
       <div class='two-line'>
-        <label class='label-stripe'>{{localize 'SFTD.IsContainer'}}</label>
-        <input type='checkbox' name='system.is_container' data-dType='Boolean' {{checked system.is_container}}>
+        <label class='label-stripe'>{{localize 'SFTD.Uses'}}</label>
+        <input type='number' name='system.uses.max' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.uses.max}}'>
       </div>
-      {{#if system.is_container}}
       <div class='two-line'>
-        <label class='label-stripe'>{{localize 'SFTD.ContainerLoad'}}</label>
-        <input type='number' name='system.container_load' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.container_load}}'>
+        <label class='label-stripe'>{{localize 'SFTD.ReplenishOnMissionStart'}}</label>
+        <input type='checkbox' name='system.replenish' data-dType='Boolean' {{checked system.replenish}}>
       </div>
-      {{/if}}
     </div>
     <label class='label-stripe'>{{localize 'SFTD.AdditionalInfo'}}</label>
     <textarea type='text' name='system.additional_info' value=''>{{system.additional_info}}</textarea>

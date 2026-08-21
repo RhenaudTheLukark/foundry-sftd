@@ -311,9 +311,14 @@
       "ability": {
         "description": "",
         "class": "",
-        "price": 1,
-        "purchased": false,
-        "class_default": false
+        "price": 1
+      },
+      "usable": {
+        "uses": {
+          "value": 0,
+          "max": 0
+        },
+        "replenish": true
       },
       "logic": {
         "logic": ""
@@ -347,11 +352,6 @@
         "long": null,
         "units": ""
       },
-      "uses": {
-        "value": 0,
-        "max": 0,
-        "per": null
-      },
       "consume": {
         "type": "",
         "target": null,
@@ -360,13 +360,9 @@
       "suppressed": false
     },
     "item": {
-      "templates": ["default", "logic", "container"],
+      "templates": ["default", "usable", "logic", "container"],
       "class": "",
       "load": 0,
-      "uses": {
-        "value": 0,
-        "max": 0
-      },
       "extra_description": "",
       "additional_info": ""
     },
@@ -375,11 +371,7 @@
       "experience_clues": ""
     },
     "ability": {
-      "templates": ["ability", "logic", "activatedEffect"],
-      "uses": {
-        "value": 0,
-        "max": 0
-      },
+      "templates": ["ability", "usable", "logic", "activatedEffect"],
       "popup": ""
     },
     "specialist": {
@@ -430,7 +422,7 @@
       "armor": false
     },
     "foundation": {
-      "templates": ["default", "activatedEffect"],
+      "templates": ["default", "ability", "usable", "activatedEffect"],
       "prosperity_level": 1,
       "cache_cost": 0,
       "npc": null,
@@ -441,11 +433,7 @@
       "excluded_pilots": []
     },
     "crew_ability": {
-      "templates": ["ability", "activatedEffect"],
-      "uses": {
-        "value": 0,
-        "max": 0
-      },
+      "templates": ["ability", "usable", "activatedEffect"],
       "popup": ""
     },
     "crew_type": {

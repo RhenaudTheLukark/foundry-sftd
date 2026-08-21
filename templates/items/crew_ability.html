@@ -13,23 +13,27 @@
 
     <div class="flex-vertical">
       <div class='flex-horizontal'>
-        <div class='two-line'>
+        <div class='three-line'>
           <label class="label-stripe">{{localize "SFTD.AbilityPrice"}}</label>
-          <input id="crew-ability-price" type="text" name="system.price" onkeypress="return BladesHelpers.isNumberKey(event)" data-dType="Number" value="{{system.price}}" placeholder="{{localize 'SFTD.AbilityPrice'}}">
+          <inputtype="text" name="system.price" onkeypress="return BladesHelpers.isNumberKey(event)" data-dType="Number" value="{{system.price}}" placeholder="{{localize 'SFTD.AbilityPrice'}}">
         </div>
-        <div class='two-line'>
+        <div class='three-line'>
           <label class="label-stripe">{{localize "SFTD.AbilityClass"}}</label>
-          <input id="crew-ability-class" type="text" name="system.class" value="{{system.class}}" placeholder="{{localize 'SFTD.AbilityClass'}}">
+          <input type="text" name="system.class" value="{{system.class}}" placeholder="{{localize 'SFTD.AbilityClass'}}">
+        </div>
+        <div class='three-line'>
+          <label class="label-stripe">{{localize "SFTD.PopupID"}}</label>
+          <input type="text" name="system.popup" value="{{system.popup}}" placeholder="{{localize 'SFTD.PopupID'}}">
         </div>
       </div>
       <div class='flex-horizontal'>
         <div class='two-line'>
           <label class="label-stripe">{{localize "SFTD.Uses"}}</label>
-          <input id="crew-ability-uses" type="text" name="system.uses.max" onkeypress="return BladesHelpers.isNumberKey(event)" data-dType="Number" value="{{system.uses.max}}" placeholder="{{localize 'SFTD.Uses'}}">
+          <input type="text" name="system.uses.max" onkeypress="return BladesHelpers.isNumberKey(event)" data-dType="Number" value="{{system.uses.max}}" placeholder="{{localize 'SFTD.Uses'}}">
         </div>
         <div class='two-line'>
-          <label class="label-stripe">{{localize "SFTD.PopupID"}}</label>
-          <input id="crew-ability-popup" type="text" name="system.popup" value="{{system.popup}}" placeholder="{{localize 'SFTD.PopupID'}}">
+          <label class='label-stripe'>{{localize 'SFTD.ReplenishOnMissionStart'}}</label>
+          <input type='checkbox' name='system.replenish' data-dType='Boolean' {{checked system.replenish}}>
         </div>
       </div>
       {{#if isGM}}
