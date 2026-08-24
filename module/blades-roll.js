@@ -8,7 +8,7 @@ export const bladesRollModifierList = {
     name: 'SFTD.LevelOneHarm',
     nameArgs: {},
     rollTypes: ['actionRoll', 'groupAction'],
-    effect: -1
+    impact: -1
   },
   level_two_harm: {
     name: 'SFTD.LevelTwoHarm',
@@ -20,7 +20,7 @@ export const bladesRollModifierList = {
     name: 'SFTD.LevelTwoHarm',
     nameArgs: {},
     rollTypes: ['actionRoll', 'groupAction'],
-    effect: -1
+    impact: -1
   },
   level_three_harm_relentless: {
     name: 'SFTD.LevelThreeHarm',
