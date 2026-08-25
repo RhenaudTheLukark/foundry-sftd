@@ -190,6 +190,7 @@
         "setting_up": true,
         "setup": true,
         "protect": true,
+        "downtime_assist": true,
         "cut_loose_unfocused": true,
         "aftermath_dangerous_mission": true
       },
