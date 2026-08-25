@@ -30,7 +30,7 @@ export const bladesRollModifierList = {
   },
   lotus_bargain: {
     name: 'SFTD.LotusBargainTitle',
-    notRollTypes: ['recover', 'train'],
+    notRollTypes: ['moveCity', 'recover', 'train'],
     dice: 1,
     rollText: 'SFTD.LotusBargainEffect'
   },
@@ -73,7 +73,7 @@ export const bladesRollModifierList = {
   },
   harmony: {
     name: 'SFTD.Harmony',
-    notRollTypes: ['recover', 'train'],
+    notRollTypes: ['moveCity', 'recover', 'train'],
     dice: 1,
     harmony: -1,
     rollText: 'SFTD.HarmonyEffect',
@@ -149,6 +149,22 @@ export const bladesRollModifierList = {
       };
     },
     protect: true
+  },
+  downtime_assist: {
+    name: 'SFTD.Assist',
+    rollTypes: ['constructFoundation', 'cutLoose', 'longTermProject', 'reducePressure', 'synthetize', 'unwind'],
+    fields: {
+      'SFTD.Helper': []
+    },
+    resolveFunc: (fields, extraData) => {
+      let helperFull = BladesHelpers.resolveActor(fields['SFTD.Helper']);
+      return {
+        dice: 1,
+        rollText: 'SFTD.DowntimeAssistEffect',
+        rollTextArgs: { helper: game.i18n.localize(helperFull?.name ?? 'SFTD.AnAlly') }
+      };
+    },
+    downtime_assist: true
   },
   aftermath_dangerous_mission: {
     name: 'SFTD.AftermathDangerousMission',
@@ -1766,7 +1782,7 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
             if (result.setup && crewFull.system.charmsync_push_yourself_owners?.length)
               result.fields['SFTD.Effect'].push('SFTD.BothCharmsync');
           } else if (result.downtime_assist) {
-            // Downtime Assist: List all Strider Crew Members, Strider Connections and Specialists
+            // Downtime Assist: List all Strider Crew Members, NPCs and Specialists
             if (actorFull.type != 'strider') continue;
             result.fields['SFTD.Helper'] = {};
             let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
@@ -1775,12 +1791,17 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
                 if (member.uuid == actorFull.uuid) continue;
                 let striderFull = BladesHelpers.resolveActor(member.uuid);
                 if (striderFull.type != 'strider') continue;
-                result.fields['SFTD.Helper'][striderFull.uuid] = striderll.name;
+                result.fields['SFTD.Helper'][striderFull.uuid] = striderFull.name;
               }
-            }
-            if (crewFull)
+              for (let member of Object.values(crewFull.system.members)) {
+                if (member.uuid == actorFull.uuid) continue;
+                let npcFull = BladesHelpers.resolveActor(member.uuid);
+                if (npcFull.type != 'npc') continue;
+                result.fields['SFTD.Helper'][npcFull.uuid] = npcFull.name;
+              }
               for (let specialist of crewFull.items.filter(i => i.type == 'specialist'))
                 result.fields['SFTD.Helper'][specialist.uuid] = specialist.name;
+            }
             result.fields['SFTD.Helper'][''] = 'SFTD.Other';
           }
           output.push(result);

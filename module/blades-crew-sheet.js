@@ -468,13 +468,13 @@ export class BladesCrewSheet extends BladesSheet {
             messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionNoCutLooseScarEffect')}${cutLooseScarMessage}</p></div>`;
         }
 
-        // Reset Downtime Activities, Melody, Replenishable Items & Not A Problem uses for all Striders
+        // Reset Downtime Activities, Melody, Replenishable Items, Armor & Not A Problem uses for all Striders
         let melodyUsed = false;
         for (let member of Object.values(this.actor.system.members)) {
           let memberFull = BladesHelpers.resolveActor(member.uuid);
           if (!memberFull || memberFull.type != 'strider') continue;
           melodyUsed ||= !memberFull.system.melody;
-          await BladesHelpers.tryUpdate(memberFull, {'system.==downtime_activities': {train_types: {}}, 'system.==melody': true, 'system.not_a_problem_uses.==value': memberFull.system.not_a_problem_uses.max});
+          await BladesHelpers.tryUpdate(memberFull, {'system.==downtime_activities': {train_types: {}}, 'system.==melody': true, 'system.armor.==value': memberFull.system.armor.max, 'system.not_a_problem_uses.==value': memberFull.system.not_a_problem_uses.max});
           for (let item of memberFull.items.filter(i => i.system.uses?.max && i.system.replenish))
             await BladesHelpers.tryUpdate(item, {'system.uses.==value': item.system.uses.max});
         }
