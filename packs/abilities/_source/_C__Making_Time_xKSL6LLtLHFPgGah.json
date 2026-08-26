@@ -6,14 +6,16 @@
   "system": {
     "description": "<p>Thanks to your careful planning, you can give yourself or another crew member <strong>+1 downtime activity</strong> during downtime.</p>",
     "class": "Charter",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
-      "max": 0
-    }
+      "max": 1
+    },
+    "replenish": true,
+    "logic": "",
+    "popup": "making_time",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
@@ -31,7 +33,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780857924467,
-    "modifiedTime": 1780857942768,
+    "modifiedTime": 1787698685623,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!xKSL6LLtLHFPgGah"

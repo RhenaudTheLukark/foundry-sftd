@@ -71,6 +71,27 @@ export const bladesRollModifierList = {
     },
     push_yourself: true
   },
+  push_yourself_long_term_project: {
+    name: 'SFTD.PushYourself',
+    rollType: 'longTermProject',
+    fields: {
+      'SFTD.Cost': ['SFTD.Melody'],
+      'SFTD.Effect': ['SFTD.ExtraDie']
+    },
+    resolveFunc: (fields, extraData) => {
+      return {
+        dice: 1,
+        useMelody: -1,
+        rollText: 'SFTD.PushYourselfEffect',
+        rollTextArgs: {
+          effect: game.i18n.localize(`SFTD.ExtraDieEffect`),
+          cost: game.i18n.localize('SFTD.PushYourselfMelodyCost')
+        },
+        pushYourself: true
+      };
+    },
+    push_yourself_melody: true,
+  },
   harmony: {
     name: 'SFTD.Harmony',
     notRollTypes: ['moveCity', 'recover', 'train'],
@@ -1753,7 +1774,11 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
           if (result.exclude)
             continue;
           result.key = key;
-          if (result.push_yourself) {
+          if (result.push_yourself_melody) {
+            // Push Yourself with Melody: Prevent it if no melody
+            if (actorFull.type != 'strider') continue;
+            if (!actorFull.system.melody) continue;
+          } else if (result.push_yourself) {
             // Push Yourself: Choose the right cost
             if (actorFull.type != 'strider') continue;
             if (actorFull.system.melody_push_yourself_options.length && actorFull.system.melody) {

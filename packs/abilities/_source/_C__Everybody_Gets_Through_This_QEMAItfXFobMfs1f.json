@@ -6,16 +6,75 @@
   "system": {
     "description": "<p>You can use your <strong>melody</strong> to <strong>protect </strong>a teammate, or to <strong>push yourself </strong>when you roll a <strong>setup action </strong>or work on a <strong>long-term project</strong>.<br><em>When you use this ability, tick the melody box on your playbook sheet. If you </em><em>protect a teammate, this ability negates or reduces the severity of a consequence </em><em>your teammate is facing. Your melody is restored at the beginning of downtime.</em></p>",
     "class": "Charter",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Everybody Gets Through This Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.ability.Item.QEMAItfXFobMfs1f",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "m41u3yiBdYOZT692",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.melody_options",
+          "mode": 2,
+          "value": "EverybodyGetsThroughThis",
+          "priority": 30
+        },
+        {
+          "key": "system.melody_push_yourself_options",
+          "mode": 2,
+          "value": "EverybodyGetsThroughThis",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.push_yourself_long_term_project",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1787698250565,
+        "modifiedTime": 1787698409654,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!QEMAItfXFobMfs1f.m41u3yiBdYOZT692"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
@@ -31,7 +90,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780857854892,
-    "modifiedTime": 1780857882895,
+    "modifiedTime": 1787698412172,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!QEMAItfXFobMfs1f"

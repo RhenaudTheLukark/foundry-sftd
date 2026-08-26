@@ -392,6 +392,7 @@
     "MelodyOptions": {
       "HitsKeepComing": "Completely avoid Harm from an attack in combat",
       "WontGoQuiet": "Resist a social consequence",
+      "EverybodyGetsThroughThis": "Resist a crewmate's consequence",
       "IWillBeWater": "Resist a magical consequence"
     },
     "Usage": "Usage",
@@ -408,8 +409,8 @@
       },
       "EverybodyGetsThroughThis": {
         "Key": "Everybody Gets Through This",
-        "Details": "Connecting with or persuading people",
-        "Description": "try to connect with or persuade people"
+        "Details": "Rolling a setup action",
+        "Description": "roll a setup action"
       },
       "IWillBeWater": {
         "Key": "I Will Be Water",
@@ -926,6 +927,16 @@
           "Description": "You arranged to help overcome an obstacle in advance. You spent <strong>1 Harmony</strong>."
         }
       },
+      "MakingTime": {
+        "Popup": {
+          "Title": "Making Time",
+          "Description": "Thanks to your careful planning, you can give yourself or another<br/>crew member +1 Downtime Activity during Downtime."
+        },
+        "Message": {
+          "Title": "Making Time",
+          "Description": "Thanks to your careful planning, {crewmate} can perform <strong>+1 Downtime Activity</strong> during Downtime."
+        }
+      },
       "Charmveil": {
         "Popup": {
           "Title": "Charmveil",
@@ -1035,8 +1046,9 @@
         "NoMelodyOptions": "You currently have no way to utilize your Melody! Right click the checkbox if you want to manually disable your Melody.",
         "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
         "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
-        "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability's Use effect!",
-        "GenericPopupNoValidCrewmate": "{name}: You must be in a Crew with other Striders and one of you must have Stress to use this ability's Use effect!",
+        "GenericPopupNoUses": "{name}: You cannot use this ability anymore!",
+        "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability!",
+        "GenericPopupNoValidCrewmate": "{name}: There is no Strider eligible to be targeted by this ability!",
         "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",
         "GroupActionRollNoActor": "You currently have no strider assigned! Select a Token first or get a strider assigned by your GM.",
         "GroupActionRollNotAStrider": "Your currently selected actor is not a Strider, it is a {obj}.",

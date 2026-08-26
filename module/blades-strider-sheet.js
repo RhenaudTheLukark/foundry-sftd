@@ -302,12 +302,12 @@ export class BladesStriderSheet extends BladesSheet {
 
     html.find('.generic-popup').click(async ev => {
       const element = $(ev.currentTarget).closest('.item');
-      let item = this.actor.items.get(element.data('itemId'));
-      let popupData = bladesPopupData[item.system.popup];
+      let itemFull = this.actor.items.get(element.data('itemId'));
+      let popupData = bladesPopupData[itemFull.system.popup];
       if (!popupData)
-        ui.notifications.error(game.i18n.format('SFTD.log.error.BadPopupID', {id: item.system.popup}), { permanent: true });
+        ui.notifications.error(game.i18n.format('SFTD.log.error.BadPopupID', {id: itemFull.system.popup}), { permanent: true });
       else
-        await BladesPopup.instantiatePopup(this.actor, popupData);
+        await BladesPopup.instantiatePopup(this.actor, itemFull, popupData);
     });
   }
 
