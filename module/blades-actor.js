@@ -359,8 +359,8 @@ export class BladesActor extends Actor {
 
   /* -------------------------------------------- */
 
-  async createCutLoose(leaderFull, note) {
-    this.system.cut_loose = { leader: leaderFull.uuid, note: note, rolls: {} };
+  async createCutLoose(leaderFull, participants, note) {
+    this.system.cut_loose = { leader: leaderFull.uuid, note: note, participants: participants, rolls: {} };
     await BladesHelpers.tryUpdate(this, {'system.==cut_loose': this.system.cut_loose});
   }
 
@@ -374,6 +374,13 @@ export class BladesActor extends Actor {
       ui.notifications.error(game.i18n.localize('SFTD.log.error.NoCutLoose'));
       return;
     }
+    if (Object.values(this.system.cut_loose.rolls).length < this.system.cut_loose.participants.length) {
+      let missingParticipants = this.system.cut_loose.participants.filter(p => !Object.keys(this.system.cut_loose.rolls).map(r => `Actor.${r}`).includes(p));
+      let missingParticipantsString = missingParticipants.map(m => BladesHelpers.resolveActor(m)?.name ?? 'Unknown Strider').join(', ');
+      ui.notifications.warn(game.i18n.format(`SFTD.log.warn.CutLooseMissingParticipant${missingParticipants.length > 1 ? 's' : ''}`, { participants: missingParticipantsString }));
+      return;
+    }
+
     computeCutLooseResultAndSendMessage(this.system.cut_loose, this);
   }
 

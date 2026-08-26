@@ -5,7 +5,16 @@
   {{#if (eq roll_status "success")}}
   <div class="die {{roll_status}}">{{localize 'SFTD.RollSuccess'}}</div>
   <div class="description">
-    <p>{{{localize 'SFTD.RollCutLooseSuccess' stress=stress}}}</p>
+    <p>
+      {{{localize 'SFTD.RollCutLooseSuccess' stress=stress}}}
+      {{#if (gt extraFields.tendingTheLanternsSafetyNet 0)}}
+        {{#if (gt extraFields.savedByTendingTheLanterns 0)}}
+          {{{localize 'SFTD.RollCutLooseSavedByTendingTheLanterns' num=extraFields.savedByTendingTheLanterns max_num=extraFields.tendingTheLanternsSafetyNet}}}
+        {{else}}
+          {{{localize 'SFTD.RollCutLooseTendingTheLanterns' num=extraFields.tendingTheLanternsSafetyNet}}}
+        {{/if}}
+      {{/if}}
+    </p>
   </div>
   {{else if (eq roll_status "failure")}}
   <div class="die {{roll_status}}">{{localize 'SFTD.RollFailure'}}</div>

@@ -363,7 +363,7 @@ export class BladesStriderSheet extends BladesSheet {
               let constructFoundationNewFoundation = dialog.constructFoundationNewFoundation;
               let constructFoundationNewFoundationCost = dialog.element.querySelector('#cfNewFoundationCost')?.value;
               let constructFoundationFoundation = Number(dialog.element.querySelector('#cfFoundation').value);
-              let constructFoundationDice = actorSheet.actor.getRollData().diceAmount[dialog.element.querySelector('#cfAction').value] ?? 0 + extraDice;
+              let constructFoundationDice = actorSheet.actor.getRollData().diceAmount[constructFoundationAction] ?? 0 + extraDice;
               if (constructFoundationNewFoundation) {
                 let newFoundation = foundry.utils.deepClone(constructFoundationNewFoundation);
                 newFoundation.system.cache_cost = Number(constructFoundationNewFoundationCost);
@@ -376,6 +376,10 @@ export class BladesStriderSheet extends BladesSheet {
               break;
             case 'cutLooseBegin':
               extraFields.noRoll = true;
+              extraFields.participants = [actorSheet.actor.uuid];
+              let cutLooseParticipants = dialog.element.querySelector('#cutLooseParticipants');
+              for (let selectedOption of cutLooseParticipants.selectedOptions)
+                extraFields.participants.push(selectedOption.value);
               await bladesRoll(0, 'SFTD.CutLooseBeginRoll', note, extraFields);
               break;
             case 'cutLoose':
@@ -509,6 +513,13 @@ export class BladesStriderSheet extends BladesSheet {
         if (rollType == 'constructFoundation')
           element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
       });
+    if (dialog.element.querySelector('#cutLooseParticipants'))
+      dialog.element.querySelector('#cutLooseParticipants').addEventListener('change', (ev) => {
+        let element = ev.currentTarget;
+        let rollType = element.closest('.form-group').querySelector('input[type=radio]:checked').id.split('-')[0];
+        if (rollType == 'cutLooseBegin')
+          element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !Array.from(element.selectedOptions).length;
+      });
   }
 
   // Remove unavailable roll types
@@ -536,6 +547,8 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'moveCity', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'reducePressure', 'SFTD.BadRoll.NoCrew');
     } else {
+      if (!Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m != this.actor && m.type == 'strider' && m.system.stress.value > 0).length)
+        BladesHelpers.addToRollTypeError(missingRollTypes, 'cutLooseBegin', 'SFTD.BadRoll.NoOtherStressedStrider');
       if (!Object.values(crewFull.system.projects).filter(p => p.clock.value < p.clock.max && !p.foundation).length)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoOngoingLTP');
       if (crewFull.system.pressure.value == 0 && crewFull.system.hazard.value == 0)

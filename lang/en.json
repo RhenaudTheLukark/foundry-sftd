@@ -119,6 +119,7 @@
     "Foundation": "Foundation",
     "Foundations": "Foundations",
     "NewFoundation": "New Foundation",
+    "Participants": "Participants",
     "Community": "Community",
     "Beliefs": "Beliefs",
     "Projects": "Projects",
@@ -254,9 +255,8 @@
     "RollDoSpecialist": "The specialist does it.",
     "RollPartialSuccessSpecialist": "The specialist is having trouble.",
     "RollFailureSpecialist": "The specialist fails.",
-    "RollResistance": "You <strong>reduce</strong> or <strong>avoid</strong> the effects of the consequence (GM chooses).<br/>Suffer <strong>{stress} stress</strong>.",
-    "RollResistanceCritical": "You <strong>reduce</strong> or <strong>avoid</strong> the effects of the consequence (GM chooses).<br/>Clear <strong>1 stress</strong>.",
-    "RollPeril": "Peril",
+    "RollResistance": "You <strong>reduce</strong> or <strong>avoid</strong> the effects of the consequence (GM chooses).<br/>You suffered <strong>{stress} Stress</strong>.",
+    "RollResistanceCritical": "You <strong>reduce</strong> or <strong>avoid</strong> the effects of the consequence (GM chooses).<br/>You cleared <strong>1 Stress</strong>.",
     "RollThreatSuccess": "You avoid the threat.",
     "RollThreatPeril": "Suffer a reduced consequence or <strong>push yourself</strong> to avoid the threat.",
     "RollThreatThreat": "You suffer the consequence If you <strong>push yourself</strong>, reduce the consequence.",
@@ -652,6 +652,8 @@
     "RevealCutLooseResult": "Reveal Cut Loose Result",
 
     "RollCutLooseSuccess": "You cut loose with the crew. You will clear <strong>{stress} Stress</strong> upon the Cut Loose activity's completion.",
+    "RollCutLooseTendingTheLanterns": "Thanks to some participants' efforts, you're allowed to manually adjust the amount of stress recovered by up to +{num} or -{num}.",
+    "RollCutLooseSavedByTendingTheLanterns": "Thanks to some participants' efforts, you were prevented you from overindulging by {num}, since it allows you to manually adjust the amount of stress recovered by up to +{max_num} or -{max_num}.",
     "RollCutLooseFailure": "You cut loose with the crew and <strong>overindulge</strong>. You will clear <strong>{stress} Stress</strong> upon the Cut Loose activity's completion.",
     "RollCutLooseResultSuccess": "The crew successfully cuts loose.",
     "RollCutLooseResultFailure": "The crew cuts loose, but some of its members overindulged. Choose <strong>one</strong> of the following consequences:",
@@ -695,6 +697,7 @@
       "NoMateriel": "The Crew owns no Materiel",
       "NoExhaustedQuirk": "No exhausted Quirk",
       "NoOngoingLTP": "No currently ongoing Long-Term Project",
+      "NoOtherStressedStrider": "No other Strider has Stress",
       "NoPressureHazard": "No Pressure or Hazard level",
       "NoMobileCity": "Your base and community are not mobile"
     },
@@ -927,6 +930,12 @@
           "Description": "You arranged to help overcome an obstacle in advance. You spent <strong>1 Harmony</strong>."
         }
       },
+      "Polymath": {
+        "ActionTitle": "Polymath: Using This Action Rating While Performing Another Action?",
+        "ActionDescription": "Since you used this action instead of the one that was required, you suffered <strong>2 Stress</strong>. Say how you adapt your skill to this use.",
+        "ResistanceTitle": "Polymath: Suffering Consequences From an Action Using Polymath?",
+        "ResistanceDescription": "Since you are resisting consequences from a result of a roll in wich you used this ability, you suffered <strong>1 Stress</strong>."
+      },
       "MakingTime": {
         "Popup": {
           "Title": "Making Time",
@@ -1057,6 +1066,9 @@
         "CutLooseRollNoActor": "You currently have no strider assigned! Select a Token first or get a strider assigned by your GM.",
         "CutLooseRollNotAStrider": "Your currently selected actor is not a Strider, it is a {obj}.",
         "CutLooseRollStriderNotInCrew": "Your currently selected Strider \"{char}\" does not belong to the Crew \"{crew}\".",
+        "CutLooseRollStriderNotInCutLoose": "Your currently selected Strider \"{char}\" is not part of the current Cut Loose.",
+        "CutLooseMissingParticipant": "{participants} has not yet run their Cut Loose roll!",
+        "CutLooseMissingParticipants": "{participants} have not yet run their Cut Loose roll!",
         "ClockStylesRequestNoActiveGM": "Clock styles could not be retrieved due to having no Gamemaster or Assistant Gamemaster currently connected. They will be received once one of them connects to the server.",
         "TryCreateNoActiveGM": "Some data could not be created due to having no Gamemaster or Assistant Gamemaster currently connected. It will be created once one of them connects to the server.",
         "TryUpdateNoActiveGM": "Some data could not be updated due to having no Gamemaster or Assistant Gamemaster currently connected. It will be updated once one of them connects to the server.",

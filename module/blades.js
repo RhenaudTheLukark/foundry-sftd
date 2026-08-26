@@ -406,12 +406,17 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
       button.addEventListener('click', async (_) => {
         const speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
         const crewFull = BladesHelpers.resolveActor(message.system.cutLooseCrew);
-        if (!speakerFull)
+        const cutLooseFull = crewFull?.system?.cut_loose;
+        if (!cutLooseFull)
+          ui.notifications.error(game.i18n.localize('SFTD.log.error.NoCutLoose'));
+        else if (!speakerFull)
           ui.notifications.warn(game.i18n.localize('SFTD.log.warn.CutLooseRollNoActor'));
         else if (speakerFull.type != 'strider')
           ui.notifications.warn(game.i18n.format('SFTD.log.warn.CutLooseRollNotAStrider', { obj: game.i18n.localize(`TYPES.Actor.${speakerFull.type}`) }));
         else if (speakerFull.system.crew != crewFull?.uuid)
           ui.notifications.warn(game.i18n.format('SFTD.log.warn.CutLooseRollStriderNotInCrew', { char: speakerFull.name, crew: crewFull.name }));
+        else if (!cutLooseFull.participants.includes(speakerFull.uuid))
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.CutLooseRollStriderNotInCutLoose', { char: speakerFull.name }));
         else
           speakerFull.sheet.downtimeRollPopup(speakerFull.sheet, ['cutLoose']);
       });

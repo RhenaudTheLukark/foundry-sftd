@@ -344,6 +344,10 @@ select {
   overflow-y: auto;
   height: auto;
 
+  &[multiple] {
+    min-height: 0px;
+  }
+
   option:checked {
     color: light-dark(rgb(16, 16, 16), rgb(255, 255, 255));
   }

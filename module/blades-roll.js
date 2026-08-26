@@ -286,6 +286,18 @@ export const bladesRollModifierList = {
     impact: 1,
     exclude: true
   },
+  polymath_action: {
+    name: 'SFTD.StriderAbility.Polymath.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    stress: 2,
+    rollText: 'SFTD.StriderAbility.Polymath.ActionDescription',
+  },
+  polymath_resistance: {
+    name: 'SFTD.StriderAbility.Polymath.ResistanceTitle',
+    rollType: 'resistance',
+    stress: 1,
+    rollText: 'SFTD.StriderAbility.Polymath.ResistanceDescription',
+  },
   storm_warning: {
     name: 'SFTD.StriderAbility.StormWarning.Title',
     rollTypes: ['actionRoll', 'groupAction'],
@@ -691,16 +703,17 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   // Check for Cut Loose roll
   else if (attributeOrRollName == 'SFTD.CutLooseRoll') {
     let clearStress = getBladesRollCutLooseUnwind(rolls, extraResult, zeromode);
-    let realClearStress = clearStress;
     let remainingStress = extraFields.actor.system.stress.value - clearStress;
+    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    extraFields.tendingTheLanternsSafetyNet = crewFull.system.cut_loose.participants.map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider' && m != extraFields.actor && m.system.tending_the_lanterns).length * 2;
+    extraFields.savedByTendingTheLanterns = (remainingStress >= -extraFields.tendingTheLanternsSafetyNet && remainingStress < 0) ? -remainingStress : 0;
     if (!extraFields.forcedResult)
-      rollStatus = remainingStress >= 0 ? 'success' : 'failure';
+      rollStatus = (remainingStress >= 0 || extraFields.savedByTendingTheLanterns > 0) ? 'success' : 'failure';
     if (remainingStress < 0) {
       remainingStress = 0;
       clearStress = extraFields.actor.system.stress.value;
     }
 
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     crewFull.updateCutLooseRoll(extraFields.actor.id, rollStatus, clearStress);
 
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, stress: clearStress, note: note, extraFields: extraFields });
@@ -850,7 +863,8 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
   let result;
   if (attributeOrRollName == 'SFTD.CutLooseBeginRoll') {
     const crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    await crewFull.createCutLoose(extraFields.actor, note);
+    await crewFull.createCutLoose(extraFields.actor, extraFields.participants, note);
+    const participants = extraFields.participants.map(p => BladesHelpers.resolveActor(p)).filter(p => p != extraFields.actor);
     const speaker = {
       actor: crewFull._id,
       alias: crewFull.name,
@@ -860,7 +874,7 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
     const messageData = {
       speaker: speaker,
       cutLooseCrew: crewFull.uuid,
-      content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-begin.html', { leader: extraFields.actor, note: note })
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-begin.html', { leader: extraFields.actor, participants: participants, note: note })
     }
     await SFTDChatMessage.create(messageData);
     return;
@@ -1230,6 +1244,11 @@ const rollTypeArgs = {
       <label>${game.i18n.localize('SFTD.Foundation')}:</label>
       <select id="cfFoundation" name="cfFoundation">${args.projects}</select>
     </span>`,
+  cutLooseBegin: (_, args) => `
+    <span>
+      <label>${game.i18n.localize('SFTD.Participants')}:</label>
+      <select id="cutLooseParticipants" name="cutLooseParticipants" data-tooltip="SFTD.MultipleSelectUsage" multiple ${args.participants}</select>
+    </span>`,
   longTermProject: (strict, args) => `
     ${args.actor?.type == 'strider' ? `<span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
@@ -1323,6 +1342,12 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
         actionsText += `<option value="command">${game.i18n.localize(BladesHelpers.getAttributeLabel('command'))}</option>`;
 
       thirdArg = {...thirdArg, actions: actionsText};
+    } else if (rollType == 'cutLooseBegin') {
+      let crewFull = BladesHelpers.resolveActor(actor.system.crew);
+      let stridersList = Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m != actor && m.type == 'strider' && m.system.stress.value > 0);
+      let stridersString = stridersList.map((s, i) => `<option value="${s.uuid}"${i == 0 ? ' selected' : ''}>${s.name}</option>`).join('');
+
+      thirdArg = {...thirdArg, participants: `size="${Math.min(stridersList.length, 4)}">${stridersString}`};
     } else if (rollType == 'cutLoose') {
       let connectionsText = '';
       let crewFull = BladesHelpers.resolveActor(actor.system.crew);

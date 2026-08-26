@@ -7928,6 +7928,9 @@
   overflow-y: auto;
   height: auto;
 }
+.application.dialog select[multiple] {
+  min-height: 0px;
+}
 .application.dialog select option:checked {
   color: light-dark(rgb(16, 16, 16), rgb(255, 255, 255));
 }

@@ -8,6 +8,16 @@
   </div>
 </div>
 
+<div class="leader-block">
+  <label><b>{{localize 'SFTD.Participants'}}</b></label>
+  {{#each participants as |participant id|}}
+  <div class="flex-horizontal">
+    <img src="{{participant.img}}" data-tooltip="{{participant.name}}" width="24" height="24"/>
+    <div class="name">{{participant.name}}</div>
+  </div>
+  {{/each}}
+</div>
+
 <div class="button">
   <button class="roll-cut-loose">{{localize 'SFTD.RollCutLooseButton'}}</button>
 </div>
