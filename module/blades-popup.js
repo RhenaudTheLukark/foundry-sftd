@@ -88,6 +88,8 @@ export class BladesPopup {
               otherMembers = otherMembers.filter(m => m.system.stress.value > 0);
             if (fieldData.modifiers.includes('needsAnyStress'))
               otherMembers = otherMembers.filter(m => actorFull.system.stress.value > 0 || m.system.stress.value > 0);
+            if (fieldData.modifiers.includes('needsHarm'))
+              otherMembers = otherMembers.filter(m => m.system.harm.light.one != '' || m.system.harm.light.two != '' || m.system.harm.medium.one != '' || m.system.harm.medium.two != '' || m.system.harm.heavy.one != '' || m.system.harm.deadly.one != '');
           }
           if (!otherMembers.length) {
             ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoValidCrewmate', {name: game.i18n.localize(popupName)}));
@@ -218,15 +220,34 @@ export class BladesPopup {
     if (popupData.fields)
       for (let [fieldName, fieldData] of Object.entries(popupData.fields).filter(f => fields[f[0]] && f[1].message_text != undefined))
         effects += game.i18n.localize(fieldData.message_text);
-    return game.i18n.format(popupData.message.description, { effects: effects, stress: stress });
+    return game.i18n.format(popupData.message?.description ?? '', { effects: effects, stress: stress });
+  }
+
+  /* ----------------------------------------- */
+
+  static simpleCrewValidation(fields, popupData, noPopup) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
+    if (!crewFull) {
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupData.title ?? 'SFTD.UseAbility') }));
+      return false;
+    }
+    return true
   }
 
   /* ----------------------------------------- */
 
   static simpleCrewmateValidation(fields, popupData, noPopup) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData))
+      return false;
     if (!fields.crewmate)
       return false;
     return true;
+  }
+
+  static simpleCrewmateMessageContents(fields, popupData) {
+    const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
+    return game.i18n.format(popupData.message?.description ?? '', { crewmate: crewmateFull.name });
   }
 
   /* ----------------------------------------- */
@@ -236,6 +257,15 @@ export class BladesPopup {
     if (!hasAnyUses)
       ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoUses', { name: game.i18n.localize(popupData.title) }));
     return hasAnyUses;
+  }
+
+  /* ----------------------------------------- */
+
+  static simpleMelodyValidation(fields, popupData, noPopup) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    if (!selfFull.system.melody)
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoMelody', { name: game.i18n.localize(popupData.title) }));
+    return selfFull.system.melody;
   }
 
   /* ----------------------------------------- */
@@ -265,8 +295,8 @@ export class BladesPopup {
       </div>`;
   }
 
-  static alloyedMettleValidation(fields) {
-    if (!this.simpleCrewmateValidation(fields))
+  static alloyedMettleValidation(fields, popupData) {
+    if (!this.simpleCrewmateValidation(fields, popupData))
       return false;
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
@@ -293,6 +323,14 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
+  static async flowAndCrashEffect(fields) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    if (selfFull.system.stress.value > 0)
+      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value - 1});
+  }
+
+  /* ----------------------------------------- */
+
   static charmsyncValidation(fields, popupData, noPopup) {
     const stressRequirement = BladesPopup.simpleStressAbilityValidation(fields, popupData, noPopup);
     const fieldEntries = Object.entries(popupData.fields ?? {});
@@ -303,13 +341,12 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
-  static longThoughtValidation(fields) {
+  static longThoughtValidation(fields, popupData) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData))
+      return false;
+
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
-    if (!crewFull) {
-      ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize('SFTD.StriderAbility.LongThought.Message.Title')}));
-      return false;
-    }
     if (crewFull.system.harmony.value <= 0)
       ui.notifications.warn(game.i18n.localize('SFTD.log.warn.LongThoughtNoHarmony'));
     return crewFull.system.harmony.value > 0;
@@ -328,17 +365,10 @@ export class BladesPopup {
     await BladesHelpers.tryUpdate(crewmateFull, {'system.downtime_count.==value': crewmateFull.system.downtime_count.value + 1});
   }
 
-  static makingTimeMessageContents(fields, popupData) {
-    const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
-    return game.i18n.format('SFTD.StriderAbility.MakingTime.Message.Description', { crewmate: crewmateFull.name });
-  }
-
   /* ----------------------------------------- */
 
-  static async flowAndCrashEffect(fields) {
-    const selfFull = BladesHelpers.resolveActor(fields.self);
-    if (selfFull.system.stress.value > 0)
-      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value - 1});
+  static hallowlinkHealingNotePreValidation(fields, popupData) {
+    return BladesPopup.simpleMelodyValidation(fields, popupData) && BladesPopup.simpleCrewValidation(fields, popupData);
   }
 }
 
@@ -507,14 +537,13 @@ export const bladesPopupData = {
     effect: BladesPopup.makingTimeEffect,
     message: {
       title: 'SFTD.StriderAbility.MakingTime.Message.Title',
-      contents: BladesPopup.makingTimeMessageContents
+      contents: BladesPopup.simpleCrewmateMessageContents
     }
   },
   charmveil: {
     title: 'SFTD.StriderAbility.Charmveil.Popup.Title',
     description: 'SFTD.StriderAbility.Charmveil.Popup.Description',
     classes: ['charmveil'],
-    pre_content: null,
     fields: {
       lasting: {
         name: 'SFTD.StriderAbility.Charmveil.Popup.LastingArgName',
@@ -543,5 +572,23 @@ export const bladesPopupData = {
       description: 'SFTD.StriderAbility.Charmveil.Message.Description',
       contents: BladesPopup.simpleStressAbilityMessageContents
     }
-  }
+  },
+  hallowlink_healing_note: {
+    title: 'SFTD.StriderAbility.HallowlinkHealingNote.Popup.Title',
+    description: 'SFTD.StriderAbility.HallowlinkHealingNote.Popup.Description',
+    pre_validation: BladesPopup.hallowlinkHealingNotePreValidation,
+    classes: ['hallowlink-healing-note'],
+    fields: {
+      crewmate: {
+        type: 'crewmate',
+        modifiers: ['needsHarm']
+      }
+    },
+    validation: BladesPopup.simpleCrewmateValidation,
+    message: {
+      title: 'SFTD.StriderAbility.HallowlinkHealingNote.Message.Title',
+      description: 'SFTD.StriderAbility.HallowlinkHealingNote.Message.Description',
+      contents: BladesPopup.simpleCrewmateMessageContents
+    }
+  },
 }

@@ -6,14 +6,16 @@
   "system": {
     "description": "<p>Your connection with your familiar grows stronger, and it gains the transcendent power&nbsp;<strong>Healing Note</strong>: your familiar can use your <strong>melody</strong> to heal any single&nbsp;instance of <strong>harm</strong>.<br><em>Healing note can be used on both others and yourself.</em></p>",
     "class": "Witch",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "popup": "hallowlink_healing_note",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
@@ -31,7 +33,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859562277,
-    "modifiedTime": 1780859604448,
+    "modifiedTime": 1787792373745,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!dIRrzCorCkWAisXW"

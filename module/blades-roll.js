@@ -92,6 +92,26 @@ export const bladesRollModifierList = {
     },
     push_yourself_melody: true,
   },
+  push_yourself_engagement: {
+    name: 'SFTD.PushYourself',
+    rollType: 'engagement',
+    fields: {
+      'SFTD.Cost': ['SFTD.Stress'],
+      'SFTD.Effect': ['SFTD.ExtraDie']
+    },
+    resolveFunc: (fields, extraData) => {
+      return {
+        dice: 1,
+        stress: 2,
+        rollText: 'SFTD.PushYourselfEffect',
+        rollTextArgs: {
+          effect: game.i18n.localize(`SFTD.ExtraDieEffect`),
+          cost: game.i18n.format('SFTD.PushYourselfStressCost', { stress: 2, charmsyncText: '' })
+        },
+        pushYourself: true
+      };
+    }
+  },
   harmony: {
     name: 'SFTD.Harmony',
     notRollTypes: ['moveCity', 'recover', 'train'],
@@ -298,6 +318,11 @@ export const bladesRollModifierList = {
     stress: 1,
     rollText: 'SFTD.StriderAbility.Polymath.ResistanceDescription',
   },
+  snapsight_shot: {
+    hidden: true,
+    needPushYourself: true,
+    rollText: 'SFTD.StriderAbility.SnapsightShot.Description'
+  },
   storm_warning: {
     name: 'SFTD.StriderAbility.StormWarning.Title',
     rollTypes: ['actionRoll', 'groupAction'],
@@ -312,6 +337,27 @@ export const bladesRollModifierList = {
     name: 'SFTD.StriderAbility.WayOfTheSeeker.ActionTitle',
     rollTypes: ['actionRoll', 'groupAction'],
     dice: 1
+  },
+  charmbreak: {
+    hidden: true,
+    needPushYourself: true,
+    rollText: 'SFTD.StriderAbility.Charmbreak.Description'
+  },
+  kindred_all_connect: {
+    name: 'SFTD.StriderAbility.KindredAll.ConnectActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    attributeName: 'connect',
+    dice: 1
+  },
+  kindred_all_action: {
+    name: 'SFTD.StriderAbility.KindredAll.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    position: 1
+  },
+  weaving_wreaths: {
+    name: 'SFTD.StriderAbility.WeavingWreaths.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1
   },
   backchatter_network: {
     name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',

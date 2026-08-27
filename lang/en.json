@@ -393,6 +393,7 @@
       "HitsKeepComing": "Completely avoid Harm from an attack in combat",
       "WontGoQuiet": "Resist a social consequence",
       "EverybodyGetsThroughThis": "Resist a crewmate's consequence",
+      "FireTakesControl": "Resist a hidden or unexpected danger",
       "IWillBeWater": "Resist a magical consequence"
     },
     "Usage": "Usage",
@@ -411,6 +412,11 @@
         "Key": "Everybody Gets Through This",
         "Details": "Rolling a setup action",
         "Description": "roll a setup action"
+      },
+      "FireTakesControl": {
+        "Key": "Fire Takes Control",
+        "Details": "Acting quickly and decisively",
+        "Description": "act quickly and decisively"
       },
       "IWillBeWater": {
         "Key": "I Will Be Water",
@@ -962,12 +968,35 @@
           "Awareness": "While cloaked, you're magically aware of anyone nearby. "
         }
       },
+      "SnapsightShot": {
+        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Attack from an extreme distance beyond your weapon's normal range,</li><li>Curve or ricochet a projectile to make an impossible shot.</li></ul>"
+      },
       "StormWarning": {
         "Title": "Storm Warning: Outracing, Outmaneuver or Combatting Opponents in Hostile Weather?"
       },
       "WayOfTheSeeker": {
         "CollectInfoTitle": "Way of the Seeker: Discovering a Location or Figuring Out Where Something or Someone is Hidden?",
         "ActionTitle": "Way of the Seeker: Hide in a Prepared Position or Using Camouflage to Avoid Detection?"
+      },
+      "Charmbreak": {
+        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Unleash an enormous blast of magical force,</li><li>Call down a natural or unnatural storm around you (gale-force winds, whirling sunfire, gravitic vortices, etc.).</li></ul>"
+      },
+      "HallowlinkHealingNote": {
+        "Popup": {
+          "Title": "Hallowlink: Healing Note",
+          "Description": "Your familiar can use your Melody to heal any single instance of Harm."
+        },
+        "Message": {
+          "Title": "Healing Note",
+          "Description": "Using your <strong>Melody</strong>, your familiar heals any single instance of Harm from {crewmate}. Remove one Harm from their sheet."
+        }
+      },
+      "KindredAll": {
+        "ConnectActionTitle": "Kindred All: Connecting With the Locals After Getting to Know People and Listening to Their Problems?",
+        "ActionTitle": "Kindred All: Communicating With Spirits or Transcendant Beings?"
+      },
+      "WeavingWreaths": {
+        "Title": "Weaving Wreaths: Trying to Convince People to Act Selflessly or in Others' Best Interests?"
       }
     },
     "StriderLoadout": {},
@@ -1056,6 +1085,7 @@
         "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
         "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
         "GenericPopupNoUses": "{name}: You cannot use this ability anymore!",
+        "GenericPopupNoMelody": "{name}: Your Melody has already been spent!",
         "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability!",
         "GenericPopupNoValidCrewmate": "{name}: There is no Strider eligible to be targeted by this ability!",
         "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",

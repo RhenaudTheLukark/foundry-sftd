@@ -6,16 +6,69 @@
   "system": {
     "description": "<p>When you spend time at a location getting to know people and listening to their troubles, take <strong>+1d</strong> to <strong>Connect </strong>with the locals. You get <strong>improved position </strong>when communicating with spirits and transcendent beings.</p>",
     "class": "Witch",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Kindred All Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.ability.Item.KMmwjNQ1hbucDA5q",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "oYsz46bGPB4D3bgV",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.kindred_all_connect",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.kindred_all_action",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1787796297535,
+        "modifiedTime": 1787796332653,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!KMmwjNQ1hbucDA5q.oYsz46bGPB4D3bgV"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
@@ -31,7 +84,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859389913,
-    "modifiedTime": 1780859422544,
+    "modifiedTime": 1787796354725,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!KMmwjNQ1hbucDA5q"
