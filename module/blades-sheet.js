@@ -113,6 +113,35 @@ export class BladesSheet extends BaseActorSheet {
 
   /* -------------------------------------------- */
 
+  /** @override */
+  async _onDropItem(event, droppedItem) {
+    if (!this.actor.isOwner) {
+      ui.notifications.error(`You do not have sufficient permissions to edit this actor. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
+      return false;
+    }
+    await this.handleDrop(event, await Item.implementation.fromDropData(droppedItem));
+  }
+
+  /** @override */
+  async _onDropActor(event, droppedActor) {
+    await super._onDropActor(event, droppedActor);
+    if (!this.actor.isOwner) {
+      ui.notifications.error(`You do not have sufficient permissions to edit this actor. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
+      return false;
+    }
+    await this.handleDrop(event, droppedActor);
+  }
+
+  /** @override */
+  async handleDrop(event, droppedEntity) {
+    let droppedEntityFull = BladesHelpers.resolveActor(droppedEntity.uuid);
+    await this.handleAddedObjects([droppedEntityFull]);
+  }
+
+  async handleAddedObjects(droppedEntitiesFull) {}
+
+  /* -------------------------------------------- */
+
   async onItemAddClick(event) {
     event.preventDefault();
     const itemTypes = $(event.currentTarget).data('itemType').split(',');
@@ -137,7 +166,7 @@ export class BladesSheet extends BaseActorSheet {
     let items = await BladesHelpers.getAllObjectDocumentsByType(itemTypes, [], game);
     let title = '';
     for (let itemType of itemTypes)
-      title += (title.length ? ' / ' : '') + game.i18n.localize(`TYPES.Item.${itemType}`);
+      title += game.i18n.localize(`TYPES.Item.${itemType}`) + (itemTypes[itemTypes.length - 1] != itemType ? ' / ' : '');
     if (items.length == 0) {
       ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NothingToAdd'));
       return;
@@ -177,7 +206,7 @@ export class BladesSheet extends BaseActorSheet {
       submit: async (result, dialog) => {
         if (result == 'add')
           for (let itemType of itemTypes)
-            await this.addItemsToSheet(itemType, $(dialog.element).find('.objects-to-add'), valuePath, addAsItem, containerId);
+            await this.addItemsToSheetFromDialog(itemType, $(dialog.element).find('.objects-to-add'), valuePath, addAsItem, containerId);
       }
     });
 
@@ -208,7 +237,9 @@ export class BladesSheet extends BaseActorSheet {
       }
 
     if (!title)
-      title = game.i18n.localize(`TYPES.Actor.${actorTypes}`);
+      title = '';
+      for (let itemType of actorTypes)
+        title += game.i18n.localize(`TYPES.Actor.${itemType}`) + (actorTypes[actorTypes.length - 1] != itemType ? ' / ' : '');
 
     let dialogId = foundry.applications.api.ApplicationV2._appId + 1;
     let actors = [];
@@ -294,7 +325,7 @@ export class BladesSheet extends BaseActorSheet {
 
   /* -------------------------------------------- */
 
-  async addItemsToSheet(itemType, el, valuePath, addAsItem, containerId, extraModifiers) {
+  async addItemsToSheetFromDialog(itemType, el, valuePath, addAsItem, containerId, extraModifiers) {
     let items = await BladesHelpers.getAllObjectDocumentsByType(itemType, [], game);
     let itemsToAdd = [];
     el.find('input:checked').each(function() {
@@ -303,6 +334,10 @@ export class BladesSheet extends BaseActorSheet {
         itemsToAdd.push(item);
     });
 
+    await this.addItemsToSheet(itemsToAdd, valuePath, addAsItem, containerId, extraModifiers);
+  }
+
+  async addItemsToSheet(itemsToAdd, valuePath, addAsItem, containerId, extraModifiers) {
     if (!valuePath) {
       let items = await BladesHelpers.tryCreate(itemsToAdd, this.actor);
       for (let item of items) {

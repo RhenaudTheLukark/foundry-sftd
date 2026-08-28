@@ -359,6 +359,17 @@ export const bladesRollModifierList = {
     rollTypes: ['actionRoll', 'groupAction'],
     impact: 1
   },
+  shield_bracer: {
+    name: 'SFTD.StriderLoadout.ShieldBracer.Title',
+    rollType: 'resistance',
+    resultEffect: 1
+  },
+  field_notes: {
+    name: 'SFTD.StriderLoadout.FieldNotes.Title',
+    rollType: 'collectInfo',
+    itemNeeded: 'is_field_notes',
+    dice: 1
+  },
   backchatter_network: {
     name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',
     rollType: 'collectInfo',
@@ -667,9 +678,9 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   // Check for Resistance roll
   else if (attributeOrRollName == 'SFTD.ResistanceRoll') {
     let stress = getBladesRollResistanceStress(rolls, extraResult, zeromode);
-    let resultStress = Math.max(Math.min(Number(extraFields.actor.system.stress.value) + stress, Number(extraFields.actor.system.stress.max)), 0);
+    let resultStress = Math.clamp(extraFields.actor.system.stress.value + stress, 0, extraFields.actor.system.stress.max);
     if (resultStress != extraFields.actor.system.stress.value)
-      await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': resultStress}}});
+      await BladesHelpers.tryUpdate(extraFields.actor, {'system.stress.==value': resultStress});
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/resistance-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, stress: stress, note: note, extraFields: extraFields });
   }
   // Check for Aftermath roll
@@ -1100,6 +1111,8 @@ export function getBladesRollStatus(rolls, zeromode, modifiers) {
       numberedRollStatus += modifier.result;
       extraResult += modifier.result;
     }
+    else if (modifier.resultEffect)
+      extraResult += modifier.resultEffect;
   rollStatus = rollResultIndex[Math.min(Math.max(numberedRollStatus, 0), 3)];
 
   return [rollStatus, useDie, extraResult];
@@ -1116,8 +1129,8 @@ export function getBladesRollResistanceStress(rolls, extraResult = 0, zeromode =
   let result = Math.min(extraResult + sortedRolls[zeromode ? 0 : sortedRolls.length - 1], 6);
   if (!zeromode && sortedRolls.length >= 2 && sortedRolls[sortedRolls.length - 1] == 6 && sortedRolls[sortedRolls.length - 2] == 6)
     result += 1;
-  let useDie = Math.max(Math.min(result, 7), 1);
-  return 6 - useDie;
+  result = Math.clamp(result, 1, 7);
+  return 6 - result;
 }
 
 /**
@@ -1131,7 +1144,7 @@ export function getBladesRollCollect(rolls, extraResult = 0, zeromode = false) {
   let result = extraResult + sortedRolls[zeromode ? 0 : sortedRolls.length - 1];
   if (!zeromode && sortedRolls.length >= 2 && sortedRolls[sortedRolls.length - 1] == 6 && sortedRolls[sortedRolls.length - 2] == 6)
     result += 1;
-  result = Math.max(Math.min(result, 7), 1);
+  result = Math.clamp(result, 1, 7);
   return result == 7 ? 9 : result;
 }
 
@@ -1144,7 +1157,7 @@ export function getBladesRollCutLooseUnwind(rolls, extraResult = 0, zeromode = f
   // Sort roll values from lowest to highest.
   let sortedRolls = rolls.map(i => i.result).sort();
   let result = extraResult + sortedRolls[zeromode ? 0 : sortedRolls.length - 1];
-  result = Math.max(Math.min(result, 6), 1);
+  result = Math.clamp(result, 1, 6);
   return result;
 }
 
@@ -1159,9 +1172,9 @@ export function getBladesRollDowntime(rolls, extraResult = 0, zeromode = false) 
   let useDie = sortedRolls[zeromode ? 0 : sortedRolls.length - 1];
   if (!zeromode && sortedRolls.length >= 2 && sortedRolls[sortedRolls.length - 1] == 6 && sortedRolls[sortedRolls.length - 2] == 6)
     useDie += 1;
-  useDie = Math.max(Math.min(useDie, 7), 1);
+  useDie = Math.clamp(useDie, 1, 7);
   let result = extraResult + (useDie <= 3 ? 1 : useDie < 6 ? 2 : (useDie - 3));
-  result = Math.max(Math.min(result, 4), 1);
+  result = Math.clamp(result, 1, 4);
   return result == 4 ? 5 : result;
 }
 

@@ -40,34 +40,10 @@ export class BladesFactionSheet extends BladesSheet {
     return sheetData;
   }
 
-    /** @override */
-  async _onDropItem(event, droppedItem) {
-    await super._onDropItem(event, droppedItem);
-    if (!this.actor.isOwner) {
-      ui.notifications.error(`You do not have sufficient permissions to edit this faction. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
-      return false;
-    }
-    await this.handleDrop(event, droppedItem);
-  }
+  /* -------------------------------------------- */
 
   /** @override */
-  async _onDropActor(event, droppedActor) {
-    await super._onDropActor(event, droppedActor);
-    if (!this.actor.isOwner) {
-      ui.notifications.error(`You do not have sufficient permissions to edit this faction. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
-      return false;
-    }
-    await this.handleDrop(event, droppedActor);
-  }
-
-  /** @override */
-  async handleDrop(event, droppedEntity) {
-    let droppedEntityFull = BladesHelpers.resolveActor(droppedEntity.uuid);
-    await this.handleAddedObjects([droppedEntityFull]);
-  }
-
   async handleAddedObjects(droppedEntitiesFull) {
-    let currentTab = this._tabs[0].active;
     for (let droppedEntityFull of droppedEntitiesFull) {
       if (!droppedEntityFull || droppedEntityFull.uuid == this.actor.uuid)
         continue;

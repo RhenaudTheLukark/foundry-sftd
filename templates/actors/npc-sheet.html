@@ -30,15 +30,15 @@
         <textarea id="npc-{{_id}}-description" name="system.description">{{system.description}}</textarea>
       </div>
       <div class="flex-horizontal">
-        <a class="text-line actor-add-popup" data-actor-type="crew" data-unique="true" data-value-path="system.crew">{{localize 'SFTD.Associated'}} {{localize 'TYPES.Actor.crew'}}:</a>
-        {{#if (ne system.crew null)}}
-        <div class="item flex-horizontal" data-item-id="{{system.crew.uuid}}">
+        <a class="text-line actor-add-popup" data-actor-type="crew,faction" data-unique="true" data-value-path="system.faction">{{localize 'SFTD.Associated'}} {{localize 'TYPES.Actor.faction'}}:</a>
+        {{#if (ne system.faction null)}}
+        <div class="item flex-horizontal" data-item-id="{{system.faction.uuid}}">
           <div class="open-actor flex-horizontal">
-            <img src="{{system.crew.img}}" data-tooltip="{{system.crew.name}}" width="24" height="24"/>
-            <a class="item-name">{{system.crew.name}}</a>
+            <img src="{{system.faction.img}}" data-tooltip="{{system.faction.name}}" width="24" height="24"/>
+            <a class="item-name">{{system.faction.name}}</a>
           </div>
           <div class="item-controls flex-horizontal">
-            <a class="item-control delete-crew" data-tooltip="{{localize 'SFTD.TitleDeleteCrew'}}"><i class="fas fa-trash"></i></a>
+            <a class="item-control delete-faction" data-tooltip="{{localize 'SFTD.TitleDeleteCrew'}}"><i class="fas fa-trash"></i></a>
           </div>
         </div>
         {{/if}}

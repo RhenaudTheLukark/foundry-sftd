@@ -30,7 +30,7 @@ export class BladesNPCSheet extends BladesSheet {
     sheetData.document = superData.document;
     sheetData.isGM = game.user.isGM;
 
-    sheetData.system.crew = BladesHelpers.resolveActor(sheetData.system.crew, { name: "Unknown Crew" });
+    sheetData.system.faction = BladesHelpers.resolveActor(sheetData.system.faction, { name: "Unknown Faction" });
 
     //sheetData.system.description = await enrichHTML(sheetData.system.description, {secrets: sheetData.owner, async: true});
 
@@ -40,31 +40,6 @@ export class BladesNPCSheet extends BladesSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async _onDropItem(event, droppedItem) {
-    await super._onDropItem(event, droppedItem);
-    if (!this.actor.isOwner) {
-      ui.notifications.error(`You do not have sufficient permissions to edit this NPC. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
-      return false;
-    }
-    await this.handleDrop(event, droppedItem);
-  }
-
-  /** @override */
-  async _onDropActor(event, droppedActor) {
-    await super._onDropActor(event, droppedActor);
-    if (!this.actor.isOwner) {
-      ui.notifications.error(`You do not have sufficient permissions to edit this NPC. Please speak to your GM if you feel you have reached this message in error.`, { permanent: true });
-      return false;
-    }
-    await this.handleDrop(event, droppedActor);
-  }
-
-  /** @override */
-  async handleDrop(event, droppedEntity) {
-    let droppedEntityFull = BladesHelpers.resolveActor(droppedEntity.uuid);
-    await this.handleAddedObjects([droppedEntityFull]);
-  }
-
   async handleAddedObjects(droppedEntitiesFull) {
     for (let droppedEntityFull of droppedEntitiesFull) {
       if (!droppedEntityFull || droppedEntityFull.uuid == this.actor.uuid)
@@ -82,15 +57,15 @@ export class BladesNPCSheet extends BladesSheet {
 
   /* -------------------------------------------- */
 
-    /** @override */
+  /** @override */
 	activateListeners(html) {
     super.activateListeners(html);
 
     // Everything below here is only needed if the sheet is editable
     if (!this.options.editable) return;
 
-    // Delete NPC's Crew Type
-    html.find('.delete-crew').click(async ev => {
+    // Delete NPC's Faction
+    html.find('.delete-faction').click(async ev => {
       await BladesHelpers.removeFactionNPC(this.actor);
     });
 	}

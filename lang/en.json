@@ -999,7 +999,14 @@
         "Title": "Weaving Wreaths: Trying to Convince People to Act Selflessly or in Others' Best Interests?"
       }
     },
-    "StriderLoadout": {},
+    "StriderLoadout": {
+      "ShieldBracer": {
+        "Title": "Shield Bracer: Resisting a Consequence That the Shield Could Help Stop?"
+      },
+      "FieldNotes": {
+        "Title": "Field Notes: Investigating Historical Events or Ancient Technology?"
+      }
+    },
     "CrewAbility": {},
     "CrewFoundation": {
       "BackchatterNetwork": {

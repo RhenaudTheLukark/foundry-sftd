@@ -5,6 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>[1 load] A physical or hard-light shield that attaches to your arm. When you resist a consequence that the shield could help stop, you take -1 stress.</p>",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "logic": "",
     "owner": null,
     "is_container": false,
@@ -13,14 +18,55 @@
     "container_type": "TYPES.Item.item",
     "class": "Aegis",
     "load": 1,
-    "uses": {
-      "value": 0,
-      "max": 0
-    },
     "extra_description": "",
     "additional_info": ""
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Shield Bracer Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.item.Item.87Mkbyg20XKEUV4p",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "rkMSjmQp5WS2bCxI",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.shield_bracer",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1787941302648,
+        "modifiedTime": 1787941323915,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!87Mkbyg20XKEUV4p.rkMSjmQp5WS2bCxI"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
