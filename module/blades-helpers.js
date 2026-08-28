@@ -369,7 +369,7 @@ export class BladesHelpers {
       await BladesHelpers.tryUpdate(itemFull, {'system.==crew': actorFull.uuid});
 
     // Armor: Auto-fill
-    const armorChangingEffects = itemFull.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max'));
+    const armorChangingEffects = itemFull.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
     if (armorChangingEffects.length) {
       const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
       BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.min(actorFull.system.armor.value + value, actorFull.system.armor.max)})
@@ -388,7 +388,7 @@ export class BladesHelpers {
   static async postDeleteItem(itemCopy, realDelete = true) {
     const actorFull = itemCopy.actor;
     // Armor: Auto-fill
-    const armorChangingEffects = itemCopy.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max'));
+    const armorChangingEffects = itemCopy.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
     if (armorChangingEffects.length) {
       const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
       BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.max(actorFull.system.armor.value - value, 0)})

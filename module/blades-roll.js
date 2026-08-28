@@ -363,6 +363,12 @@ export const bladesRollModifierList = {
     name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',
     rollType: 'collectInfo',
     dice: 1
+  },
+  resonant_antennae: {
+    name: 'SFTD.CrewFoundation.ResonantAntennae.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    attributeName: 'tune',
+    dice: 1
   }
 }
 
