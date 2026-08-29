@@ -113,7 +113,11 @@ export const bladesRollModifierList = {
     }
   },
   harmony: {
-    name: 'SFTD.Harmony',
+    name: 'SFTD.HarmonyDisplay',
+    nameArgs: {
+      harmony: '{system.crew.system.harmony.value}',
+      max: '{system.crew.system.harmony.max}'
+    },
     notRollTypes: ['moveCity', 'recover', 'train'],
     dice: 1,
     harmony: -1,

@@ -367,24 +367,6 @@
     "InvestedCaches": "Invested Caches",
     "InvestedCacheInfo": "This cache has been invested. It cannot be removed. ",
 
-    "DangerousFriends": "Dangerous Friends",
-    "EnemiesRivals": "Enemies and Rivals",
-    "DeadlyFriends": "Deadly Friends",
-    "Blank": "",
-    "CleverFriends": "Clever Friends",
-    "ShadyFriends": "Shady Friends",
-    "SlyFriends": "Sly Friends",
-    "ShrewdFriends": "Shrewd Friends",
-    "DarkServants": "Dark Servants",
-    "StrangeFriends": "Strange Friends",
-
-    "SacredSites": "Sacred Sites",
-    "SalesTerritory": "Sales Territory",
-    "CargoTypes": "Cargo Types",
-
-    "AcquireAssetExtra": "To raise the result beyond critical, you may spend <strong>2 coin</strong> per +1 Tier bonus.",
-    "CrewTier": "Crew Tier",
-
     "UseMelody": "Use Melody",
     "MelodyUsageOptions": "Melody Usage Options",
     "MelodyUsed": "Melody Used",
@@ -730,6 +712,7 @@
     "PushYourselfMelodyCost": "You used your <strong>Melody</strong> to {usage}",
     "PushYourselfUnknownMelodyUsage": "perform an unspecified action",
     "PushYourselfCharmsync": " instead of 2 thanks to Charmsync",
+    "HarmonyDisplay": "Harmony ({harmony}/{max})",
     "Assist": "Assist",
     "AssistEffect": "{strider} assisted you. They suffered <strong>1 Stress</strong>. You have gained <strong>+1d</strong>.",
     "AssistNotAProblemEffect": "{strider} assisted you. They suffered no Stress due to foreseeing this particular event. You have gained <strong>+1d</strong>.",
