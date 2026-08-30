@@ -236,10 +236,11 @@ export class BladesSheet extends BaseActorSheet {
         exclusionList = Object.values(exclusionList).map(e => e.uuid);
       }
 
-    if (!title)
+    if (!title) {
       title = '';
       for (let itemType of actorTypes)
         title += game.i18n.localize(`TYPES.Actor.${itemType}`) + (actorTypes[actorTypes.length - 1] != itemType ? ' / ' : '');
+    }
 
     let dialogId = foundry.applications.api.ApplicationV2._appId + 1;
     let actors = [];
@@ -342,16 +343,16 @@ export class BladesSheet extends BaseActorSheet {
       let items = await BladesHelpers.tryCreate(itemsToAdd, this.actor);
       for (let item of items) {
         if (containerId)
-          await BladesHelpers.tryUpdate(item, {system: {'==owner': containerId}});
+          await BladesHelpers.tryUpdate(item, {'system.==owner': containerId});
         if (item?.system?.uses?.value != undefined)
-          await BladesHelpers.tryUpdate(item, {system: {uses: {'==value': item.system.uses.max}}});
+          await BladesHelpers.tryUpdate(item, {'system.uses.==value': item.system.uses.max});
         if (extraModifiers)
           await BladesHelpers.tryUpdate(item, extraModifiers);
       }
     } else if (addAsItem)
       await this.handleAddedObjects(itemsToAdd);
     else
-      this.addItemAsReference(itemsToAdd[0], valuePath);
+      await this.addItemAsReference(itemsToAdd[0], valuePath);
   }
 
   async addItemAsObjectAndStoreReference(itemToAdd, valuePath) {
@@ -359,7 +360,7 @@ export class BladesSheet extends BaseActorSheet {
     if (!itemFull)
       return;
     if (itemFull.system.uses)
-      await BladesHelpers.tryUpdate(itemFull, {system: {uses: {'==value': itemFull.system.uses.max}}});
+      await BladesHelpers.tryUpdate(itemFull, {'system.uses.==value': itemFull.system.uses.max});
     let updateObject = BladesHelpers.createUpdateObjectFromPath(itemFull._id, valuePath);
     // Fetch object and delete it if it exists
     let objectToDelete = this.actor;

@@ -217,7 +217,7 @@ export class BladesStriderSheet extends BladesSheet {
             speaker: speaker,
             content: await foundry.applications.handlebars.renderTemplate('systems/songs-for-the-dusk/templates/chat/melody-usage.html', { contents: contents, note: note })
           }
-          SFTDChatMessage.create(messageData);
+          await ChatMessage.create(messageData);
 
           await BladesHelpers.tryUpdate(this.actor, {'system.==melody': false});
         }

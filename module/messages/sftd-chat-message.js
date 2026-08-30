@@ -8,24 +8,6 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
   static handledMessages = [];
 
   /** @override */
-  _preCreate(data, options, user) {
-    super._preCreate(data, options, user);
-    this.updateSource({
-      'system.messageType': data.messageType,
-      'system.clockStyles': data.clockStyles,
-      'system.userId': data.userId,
-      'system.parentUuid': data.parentUuid,
-      'system.objectEmbeddedName': data.objectEmbeddedName,
-      'system.objectUuid': data.objectUuid,
-      'system.objectData': data.objectData,
-      'system.groupActionCrew': data.groupActionCrew,
-      'system.cutLooseCrew': data.cutLooseCrew,
-      'system.updateQuery': data.updateQuery,
-      'system.needWait': data.needWait
-    });
-  }
-
-  /** @override */
   get visible() {
     if (!this.system.messageType)
       return super.visible;
@@ -117,8 +99,10 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
     const speaker = ChatMessage.getSpeaker();
     const messageData = {
       speaker: speaker,
-      messageType: 'clockStylesResponse',
-      clockStyles: BladesHelpers.clockStyles,
+      system: {
+        messageType: 'clockStylesResponse',
+        clockStyles: BladesHelpers.clockStyles
+      },
       content: '<div class="special-message"></div>',
       blind: true,
       whisper: [this.system.userId]

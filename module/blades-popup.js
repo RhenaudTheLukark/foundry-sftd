@@ -5,15 +5,22 @@ import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 export class BladesPopup {
   static async instantiatePopup(actorFull, itemFull, popupData) {
-    let title = popupData.title ?? 'SFTD.UseAbility';
-    let preContent = popupData.pre_content ? popupData.pre_content({}) : '';
-    let form = popupData.fields ? BladesPopup.instantiatePopupForm(actorFull, popupData.fields, title) : '';
+    const popupFields = foundry.utils.deepClone(popupData.fields ?? {});
+    if (actorFull.isCharmworkAvailable())
+      popupFields.charmwork = {
+        name: 'SFTD.StriderAbility.Charmwork.Title',
+        type: 'checkbox'
+      };
+
+    const title = popupData.title ?? 'SFTD.UseAbility';
+    const preContent = popupData.pre_content ? popupData.pre_content({}) : '';
+    const form = Object.keys(popupFields) ? BladesPopup.instantiatePopupForm(actorFull, popupFields, title) : '';
     if (form == null)
       return;
-    let postContent = popupData.post_content ? popupData.post_content({}) : '';
+    const postContent = popupData.post_content ? popupData.post_content({}) : '';
 
+    const fields = {self: actorFull.uuid, itemFull: itemFull};
     if (form == '') {
-      let fields = {self: actorFull.uuid, itemFull: itemFull};
       if (popupData.validation)
         if (!popupData.validation(fields, popupData, true))
           return;
@@ -22,13 +29,11 @@ export class BladesPopup {
       if (popupData.message)
         await BladesPopup.sendMessage(fields, popupData);
       return;
-    } else if (popupData.pre_validation) {
-      let fields = {self: actorFull.uuid, itemFull: itemFull};
+    } else if (popupData.pre_validation)
       if (!popupData.pre_validation(fields, popupData, true))
         return;
-    }
 
-    let dialog = new foundry.applications.api.DialogV2({
+    const dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize(title)}` },
       content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/generic-popup.html', { title: title, description: popupData.description, pre_content: preContent, form: form, post_content: postContent }),
       classes: ['generic-popup', ...popupData.classes ?? []],
@@ -182,7 +187,7 @@ export class BladesPopup {
       speaker: speaker,
       content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/generic-message.html', { extraFields: extraFields })
     }
-    await SFTDChatMessage.create(newMessageData);
+    await ChatMessage.create(newMessageData);
   }
 
   static defaultMessageContents(fields, popupData) {
@@ -201,26 +206,34 @@ export class BladesPopup {
 
   static simpleStressAbilityValidation(fields, popupData, noPopup) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    let stressGain = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
+    const stressGain = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
     const selfNewStress = selfFull.system.stress.value + stressGain;
-    if (noPopup && selfNewStress > selfFull.system.stress.max)
+    const hasCharmwork = selfFull.isCharmworkAvailable();
+    if (noPopup && selfNewStress > selfFull.system.stress.max && !hasCharmwork)
       ui.notifications.warn(game.i18n.format('SFTD.log.warn.SimpleStressAbilityTooMuchStress', { name: game.i18n.localize(popupData.title ?? 'SFTD.UseAbility') }));
-    return selfNewStress <= selfFull.system.stress.max;
+    return selfNewStress <= selfFull.system.stress.max || (hasCharmwork && fields.charmwork);
   }
 
 
   static async simpleStressAbilityEffect(fields, popupData) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {})});
+    const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
+    if (fields.charmwork)
+      await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1 });
+    else
+      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {})});
   }
 
   static simpleStressAbilityMessageContents(fields, popupData) {
-    let stress = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
+    const stress = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
     let effects = '';
     if (popupData.fields)
       for (let [fieldName, fieldData] of Object.entries(popupData.fields).filter(f => fields[f[0]] && f[1].message_text != undefined))
         effects += game.i18n.localize(fieldData.message_text);
-    return game.i18n.format(popupData.message?.description ?? '', { effects: effects, stress: stress });
+    return game.i18n.format(popupData.message?.description ?? '', {
+      effects: effects,
+      cost: game.i18n.format(`SFTD.StriderAbility.Charmwork.${fields.charmwork ? '' : 'Not'}Usage`, { stress : stress })
+    });
   }
 
   /* ----------------------------------------- */
@@ -232,7 +245,7 @@ export class BladesPopup {
       ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupData.title ?? 'SFTD.UseAbility') }));
       return false;
     }
-    return true
+    return true;
   }
 
   /* ----------------------------------------- */
@@ -296,7 +309,7 @@ export class BladesPopup {
   }
 
   static alloyedMettleValidation(fields, popupData) {
-    if (!this.simpleCrewmateValidation(fields, popupData))
+    if (!BladesPopup.simpleCrewmateValidation(fields, popupData))
       return false;
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
@@ -397,7 +410,8 @@ export const bladesPopupData = {
     }
   },
   charmguard: {
-    title: 'SFTD.StriderAbility.Charmguard.Message.Title',
+    title: 'SFTD.StriderAbility.Charmguard.Popup.Title',
+    description: 'SFTD.StriderAbility.Charmguard.Popup.Description',
     stress: 2,
     validation: BladesPopup.simpleStressAbilityValidation,
     effect: BladesPopup.simpleStressAbilityEffect,

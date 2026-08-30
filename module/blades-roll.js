@@ -897,8 +897,10 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
 
   let messageData = {
     speaker: speaker,
+    system: {
+      rollData: extraFields.rollData
+    },
     content: result,
-    rollData: extraFields.rollData,
     rolls: [r]
   }
   await SFTDChatMessage.create(messageData);
@@ -922,8 +924,6 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
       token: extraFields.actor.prototypeToken?._id
     };
 
-  let attribute_label = BladesHelpers.getRollLabel(attributeOrRollName);
-
   // Compute extra text from modifiers
   extraFields.modifier_text = (extraFields.modifier_text ?? '') + computeModifierMessages(extraFields.modifiers);
 
@@ -940,7 +940,9 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
     };
     const messageData = {
       speaker: speaker,
-      cutLooseCrew: crewFull.uuid,
+      system: {
+        cutLooseCrew: crewFull.uuid
+      },
       content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-begin.html', { leader: extraFields.actor, participants: participants, note: note })
     }
     await SFTDChatMessage.create(messageData);
@@ -989,7 +991,7 @@ async function showChatMessage(dice, attributeOrRollName = '', note = '', extraF
     speaker: speaker,
     content: result
   }
-  ChatMessage.create(messageData);
+  await ChatMessage.create(messageData);
 }
 
 export async function cancelRollResult(rollData, actorFull) {
@@ -2226,7 +2228,7 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
     speaker: speaker,
     content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader_name: leaderFull.name, stress: stress, note: groupActionData.note })
   };
-  SFTDChatMessage.create(messageData);
+  await ChatMessage.create(messageData);
 }
 
 export async function computeCutLooseResultAndSendMessage(cutLooseData, crewFull) {
@@ -2264,5 +2266,5 @@ export async function computeCutLooseResultAndSendMessage(cutLooseData, crewFull
     speaker: speaker,
     content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/cut-loose-result.html', { roll_status: rollStatus, stress_text: stressText, belief_clock_full: beliefClockFull, note: cutLooseData.note })
   };
-  SFTDChatMessage.create(messageData);
+  await ChatMessage.create(messageData);
 }

@@ -9,7 +9,8 @@ export class BladesItem extends Item {
 
   /** @override */
   async _preCreate(data, options, user) {
-    await super._preCreate(data, options, user);
+    const allowed = await super._preCreate(data, options, user);
+    if (allowed === false) return false;
 
     let removeItems = [];
     if (user.id === game.user.id) {

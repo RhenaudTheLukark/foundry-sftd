@@ -242,10 +242,12 @@ export class BladesCrewSheet extends BladesSheet {
         await this.actor.createGroupAction(attribute, position, true, impact, true, leaderFull, note);
         let messageData = {
           speaker: speaker,
-          groupActionCrew: this.actor.uuid,
+          system: {
+            groupActionCrew: this.actor.uuid
+          },
           content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-begin.html', { attribute_label: BladesHelpers.getAttributeLabel(attribute), position: this.actor.system.group_action.position, impact: this.actor.system.group_action.impact, leader: leaderFull, crew: this.actor, note: note })
         }
-        SFTDChatMessage.create(messageData);
+        await SFTDChatMessage.create(messageData);
       }
     });
     dialog.render(true);
@@ -482,7 +484,7 @@ export class BladesCrewSheet extends BladesSheet {
           speaker: speaker,
           content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents })
         }
-        SFTDChatMessage.create(messageData);
+        await ChatMessage.create(messageData);
       }
     });
     await dialog.render(true);
@@ -610,7 +612,7 @@ export class BladesCrewSheet extends BladesSheet {
           speaker: speaker,
           content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/end-mission.html', { contents: messageContents })
         }
-        SFTDChatMessage.create(messageData);
+        await ChatMessage.create(messageData);
       }
     });
     extraData.dialog = dialog;

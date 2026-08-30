@@ -822,9 +822,13 @@
         }
       },
       "Charmguard": {
+        "Popup": {
+          "Title": "Charmguard",
+          "Description": "You generate an impenetrable field of charm energy big enough to protect a\nmedium-sized group of people (about 20). The field lasts for a few minutes."
+        },
         "Message": {
           "Title": "Charmguard",
-          "Description": "You generate an impenetrable field of charm energy big enough to protect a medium-sized group of people (about 20). The field lasts for a few minutes. You suffered <strong>{stress} Stress</strong></p><p class=\"description\"><em>The field is selectively permeable; you can let air or your friends through while blocking enemy fire or poisonous gasses.</em>"
+          "Description": "You generate an impenetrable field of charm energy big enough to protect a medium-sized group of people (about 20). The field lasts for a few minutes. You {cost}.</p><p class=\"description\"><em>The field is selectively permeable; you can let air or your friends through while blocking enemy fire or poisonous gasses.</em>"
         }
       },
       "FlowAndCrash": {
@@ -853,7 +857,7 @@
         },
         "Message": {
           "Title": "Charmtongue",
-          "Description": "You speak to the world around you, reshaping it according to your desires. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "Description": "You speak to the world around you, reshaping it according to your desires. {effects}You {cost}.",
           "Stable": "The effect is stable. ",
           "NoRadiation": "The effect doesn't radiate transcendent energies. ",
           "NoChange": "You aren't changed in turn. "
@@ -884,7 +888,7 @@
         },
         "Message": {
           "Title": "The Moon Upright",
-          "Description": "You weave a glamour to disguise a person or object. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "Description": "You weave a glamour to disguise a person or object. {effects}You {cost}.",
           "WideEffect": "You can glamour a small group of people or large object. ",
           "NoFocus": "The illusion persists without you focusing on it. ",
           "VagueMemories": "People who interact with your glamour have only vague memories of it. "
@@ -906,7 +910,7 @@
         },
         "Message": {
           "Title": "Charmsync",
-          "Description": "You established a transcendent connection between your crewmates to enhance your teamwork. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "Description": "You established a transcendent connection between your crewmates to enhance your teamwork. {effects}You {cost}.",
           "Setup": "Setup actions grant both improved Position and +1 Impact. ",
           "Push": "Pushing yourself costs only 1 Stress if someone assists you. ",
           "Protect": "You can protect a teammate regardless of the distance between you. "
@@ -945,7 +949,7 @@
         },
         "Message": {
           "Title": "Charmveil",
-          "Description": "You wrap yourself in a cloak of charmed shadow, masking you from sight,<br/>scent, and hearing for a few minutes. {effects}You suffered <strong>{stress} Stress</strong>.",
+          "Description": "You wrap yourself in a cloak of charmed shadow, masking you from sight,<br/>scent, and hearing for a few minutes. {effects}You {cost}.",
           "Lasting": "The cloak lasts for a few hours. ",
           "WideEffect": "The cloak covers a small group. ",
           "Awareness": "While cloaked, you're magically aware of anyone nearby. "
@@ -963,6 +967,11 @@
       },
       "Charmbreak": {
         "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Unleash an enormous blast of magical force,</li><li>Call down a natural or unnatural storm around you (gale-force winds, whirling sunfire, gravitic vortices, etc.).</li></ul>"
+      },
+      "Charmwork": {
+        "Title": "Charmwork",
+        "NotUsage": "suffered <strong>{stress} Stress</strong>",
+        "Usage": "spent <strong>1 Harmony</strong> thanks to Charmwork"
       },
       "HallowlinkHealingNote": {
         "Popup": {

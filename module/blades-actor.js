@@ -386,6 +386,17 @@ export class BladesActor extends Actor {
 
   /* -------------------------------------------- */
 
+  static isCharmworkAvailable() {
+    if (this.type != 'strider')
+      return false;
+    const charmwork = this.system.charmwork;
+    const crewFull = BladesHelpers.resolveActor(this.system.crew);
+    const hasHarmony = crewFull?.system.harmony.value;
+    return charmwork && hasHarmony;
+  }
+
+  /* -------------------------------------------- */
+
   getTier(forcedValue) {
     if (this.type != 'crew') return 0;
     return 1 + Math.min(Math.floor((forcedValue ?? this.system.cache.value) / 12), 3);
