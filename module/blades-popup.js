@@ -1,12 +1,11 @@
 import { renderHandlebarsTemplate as renderTemplate } from "./compat.js";
 import { openFormDialog } from "./lib/dialog-compat.js";
 import { BladesHelpers } from "./blades-helpers.js";
-import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 
 export class BladesPopup {
   static async instantiatePopup(actorFull, itemFull, popupData) {
     const popupFields = foundry.utils.deepClone(popupData.fields ?? {});
-    if (actorFull.isCharmworkAvailable())
+    if (actorFull.isCharmworkAvailable() && popupData.stress)
       popupFields.charmwork = {
         name: 'SFTD.StriderAbility.Charmwork.Title',
         type: 'checkbox'
@@ -14,7 +13,7 @@ export class BladesPopup {
 
     const title = popupData.title ?? 'SFTD.UseAbility';
     const preContent = popupData.pre_content ? popupData.pre_content({}) : '';
-    const form = Object.keys(popupFields) ? BladesPopup.instantiatePopupForm(actorFull, popupFields, title) : '';
+    const form = Object.keys(popupFields).length ? BladesPopup.instantiatePopupForm(actorFull, popupFields, title) : '';
     if (form == null)
       return;
     const postContent = popupData.post_content ? popupData.post_content({}) : '';

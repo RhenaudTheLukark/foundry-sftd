@@ -50,6 +50,7 @@ export const bladesRollModifierList = {
       const costType = (fields['SFTD.Cost'] ?? 'SFTD.Stress').slice(5);
       const costTextKey = `SFTD.PushYourself${costType}Cost`;
       const stress = costType != 'Stress' ? 0 : charmsyncActive ? 1 : 2;
+      const harmony = costType == 'Harmony' ? -1 : 0;
       const usageKey = fields['SFTD.Usage'] == 'SFTD.None' ? 'SFTD.PushYourselfUnknownMelodyUsage' : `${(fields['SFTD.Usage'] ?? '.Key').slice(0, -4)}.Description`;
 
       return {
@@ -57,6 +58,7 @@ export const bladesRollModifierList = {
         dice: fields['SFTD.Effect'] == 'SFTD.ExtraDie' ? 1 : 0,
         impact: fields['SFTD.Effect'] == 'SFTD.ImprovedImpact' ? 1 : 0,
         useMelody: costType == 'Melody' ? -1 : undefined,
+        harmony: harmony,
         rollText: 'SFTD.PushYourselfEffect',
         rollTextArgs: {
           effect: game.i18n.localize(`${fields['SFTD.Effect']}Effect`),
@@ -128,23 +130,38 @@ export const bladesRollModifierList = {
     name: 'SFTD.Assist',
     rollTypes: ['actionRoll', 'resistance', 'fortune', 'collectInfo', 'engagement'],
     fields: {
+      'SFTD.Cost': [],
       'SFTD.Crewmate': [],
       'SFTD.NotAProblem': false
     },
     resolveFunc: (fields, extraData) => {
-      let assistFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
-      let otherStress = {};
-      let otherValue = {};
-      if (!fields['SFTD.NotAProblem'])
-        otherStress[assistFull.uuid] = 1;
-      else
-        otherValue[assistFull.uuid] = {'system.not_a_problem_uses.value': -1};
+      const assistFull = BladesHelpers.resolveActor(fields['SFTD.Crewmate']);
+      const otherStress = {};
+      const otherValue = {};
+      const costType = (fields['SFTD.Cost'] ?? 'SFTD.Stress').slice(5);
+      const harmonyCost = costType == 'Harmony' ? -1 : 0;
+      let stressCost = 0;
+      if (costType == 'Stress') {
+        if (!fields['SFTD.NotAProblem']) {
+          otherStress[assistFull.uuid] = 1;
+          stressCost = 1;
+        } else
+          otherValue[assistFull.uuid] = {'system.not_a_problem_uses.value': -1};
+      }
       return {
         dice: 1,
         otherStress: otherStress,
         otherValue: otherValue,
+        harmony: harmonyCost,
         rollText: `SFTD.Assist${fields['SFTD.NotAProblem'] ? 'NotAProblem' : ''}Effect`,
-        rollTextArgs: { strider: assistFull ? assistFull.name : 'Unknown Strider' },
+        rollTextArgs: {
+          strider: assistFull ? assistFull.name : 'Unknown Strider',
+          cost: game.i18n.format(`SFTD.PushYourself${costType}Cost`, {
+            stress: stressCost,
+            charmsyncText: '',
+            usage: ''
+          })
+        },
         allowHarmonyGain: true
       };
     },
@@ -313,8 +330,28 @@ export const bladesRollModifierList = {
   polymath_action: {
     name: 'SFTD.StriderAbility.Polymath.ActionTitle',
     rollTypes: ['actionRoll', 'groupAction'],
-    stress: 2,
-    rollText: 'SFTD.StriderAbility.Polymath.ActionDescription',
+    fields: {
+      'SFTD.Cost': []
+    },
+    resolveFunc: (fields, extraData) => {
+      const costType = (fields['SFTD.Cost'] ?? 'SFTD.Stress').slice(5);
+      const harmonyCost = costType == 'Harmony' ? -1 : 0;
+      const stressCost = costType == 'Stress' ? 2 : 0;
+      return {
+        stress: stressCost,
+        harmony: harmonyCost,
+        rollText: 'SFTD.StriderAbility.Polymath.ActionDescription',
+        rollTextArgs: {
+          cost: game.i18n.format(`SFTD.PushYourself${costType}Cost`, {
+            stress: stressCost,
+            charmsyncText: '',
+            usage: ''
+          })
+        },
+        allowHarmonyGain: true
+      };
+    },
+    charmwork_bound: true
   },
   polymath_resistance: {
     name: 'SFTD.StriderAbility.Polymath.ResistanceTitle',
@@ -565,7 +602,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
 
     await showChatRollMessage(r, zeromode, attributeOrRollName, note, extraFields);
   } else
-    await showChatMessage(diceAmount, attributeOrRollName, note, extraFields);
+    await showChatMessage(attributeOrRollName, note, extraFields);
 }
 
 /**
@@ -914,7 +951,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
  * @param {string} note
  * @param {Object} extraFields
  */
-async function showChatMessage(dice, attributeOrRollName = '', note = '', extraFields = {}) {
+async function showChatMessage(attributeOrRollName = '', note = '', extraFields = {}) {
   let speaker = ChatMessage.getSpeaker();
   if (extraFields.actor)
     speaker = {
@@ -1689,7 +1726,7 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
       if (crewmateSelector) {
         crewmateSelector.addEventListener('change', (event) => {
           let modifierElement = $(crewmateSelector).closest(".modifier");
-          let crewmateSelectElementVal = $(modifierElement).find('span:first-of-type select').val();
+          let crewmateSelectElementVal = $(modifierElement).find('span select[field="SFTD.Crewmate"]').val();
           if (!crewmateSelectElementVal)
             return;
 
@@ -1877,13 +1914,16 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
           } else if (result.push_yourself) {
             // Push Yourself: Choose the right cost
             if (actorFull.type != 'strider') continue;
+            result.fields['SFTD.Cost'] = ['SFTD.Stress'];
+            result.fields['SFTD.Usage'] = undefined;
             if (actorFull.system.melody_push_yourself_options.length && actorFull.system.melody) {
-              result.fields['SFTD.Cost'] = ['SFTD.Stress', 'SFTD.Melody'];
+              result.fields['SFTD.Cost'].push('SFTD.Melody');
               result.fields['SFTD.Usage'] = ['SFTD.None'].concat(actorFull.system.melody_push_yourself_options.map(o => `SFTD.MelodyPushOptions.${o}.Key`));
-            } else {
-              result.fields['SFTD.Cost'] = undefined;
-              result.fields['SFTD.Usage'] = undefined;
             }
+            if (actorFull.isCharmworkAvailable())
+              result.fields['SFTD.Cost'].push('SFTD.Harmony');
+            if (result.fields['SFTD.Cost'].length == 1)
+              result.fields['SFTD.Cost'] = undefined;
           } else if (result.assist || result.setup || result.protect) {
             // Assist & Co.: List all other Striders in the Crew
             if (actorFull.type != 'strider') continue;
@@ -1902,6 +1942,13 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
             if (!Object.values(result.fields['SFTD.Crewmate']).length) continue;
             if (result.setup && crewFull.system.charmsync_push_yourself_owners?.length)
               result.fields['SFTD.Effect'].push('SFTD.BothCharmsync');
+            if (result.fields['SFTD.Cost'] != undefined) {
+              result.fields['SFTD.Cost'] = ['SFTD.Stress'];
+              if (actorFull.isCharmworkAvailable())
+                result.fields['SFTD.Cost'].push('SFTD.Harmony');
+              if (result.fields['SFTD.Cost'].length == 1)
+                result.fields['SFTD.Cost'] = undefined;
+            }
           } else if (result.downtime_assist) {
             // Downtime Assist: List all Strider Crew Members, NPCs and Specialists
             if (actorFull.type != 'strider') continue;
@@ -1924,6 +1971,12 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
                 result.fields['SFTD.Helper'][specialist.uuid] = specialist.name;
             }
             result.fields['SFTD.Helper'][''] = 'SFTD.Other';
+          } else if (result.charmwork_bound) {
+            result.fields['SFTD.Cost'] = ['SFTD.Stress'];
+            if (actorFull.isCharmworkAvailable())
+              result.fields['SFTD.Cost'].push('SFTD.Harmony');
+            if (result.fields['SFTD.Cost'].length == 1)
+              result.fields['SFTD.Cost'] = undefined;
           }
           output.push(result);
         } else
@@ -1935,6 +1988,8 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
   if (crewFull) {
     for (let [modifierId, modifierData] of Object.entries(BladesHelpers.crewWideModifiers).filter(m => m[1].conditional == conditional)) {
       let modifierOwners = foundry.utils.deepClone(crewFull.system[`${modifierId}_owners`]);
+      if (!modifierOwners)
+        continue;
       if (!modifierData.includeOwner) {
         let ownerId = modifierOwners.indexOf(actorFull.uuid);
         if (ownerId >= 0)

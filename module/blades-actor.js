@@ -193,7 +193,7 @@ export class BladesActor extends Actor {
       if (crewmateSelector) {
         crewmateSelector.addEventListener('change', (event) => {
           let modifierElement = $(crewmateSelector).closest(".modifier");
-          let crewmateSelectElementVal = $(modifierElement).find('span:first-of-type select').val();
+          let crewmateSelectElementVal = $(modifierElement).find('span select[field="SFTD.Crewmate"]').val();
           if (!crewmateSelectElementVal)
             return;
 
@@ -386,7 +386,7 @@ export class BladesActor extends Actor {
 
   /* -------------------------------------------- */
 
-  static isCharmworkAvailable() {
+  isCharmworkAvailable() {
     if (this.type != 'strider')
       return false;
     const charmwork = this.system.charmwork;
