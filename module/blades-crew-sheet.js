@@ -408,7 +408,7 @@ export class BladesCrewSheet extends BladesSheet {
     for (let member of Object.values(this.actor.system.members)) {
       let memberFull = BladesHelpers.resolveActor(member.uuid);
       if (!memberFull || memberFull.type != 'strider') continue;
-      let scars = Number(memberFull.system.scars.value);
+      let scars = Object.values(memberFull.system.scars.values).filter(s => s != '').length;
       if (scars > 0 && !memberFull.system.downtime_activities.cutLoose)
         scarredStridersWithNoCutLoose.push(memberFull);
     }
@@ -436,19 +436,27 @@ export class BladesCrewSheet extends BladesSheet {
 
         let messageContents = '';
 
+        let cutLooseScarMembersWithCharmwork = {};
         if (dialog.element.querySelector('[name="cutLooseScar"]').checked && dialog.element.querySelector('[name="cutLooseScarStriders"]')) {
           let selectedOptions = dialog.element.querySelector('[name="cutLooseScarStriders"]').selectedOptions;
           let cutLooseScarMessage = '';
           for (let selectedOption of selectedOptions) {
             let memberFull = BladesHelpers.resolveActor(selectedOption.value);
-            let scars = Number(memberFull.system.scars.value);
-            let resultStress = Math.max(Math.min(Number(memberFull.system.stress.value) + scars, memberFull.system.stress.max), 0);
+            let scars = Object.values(memberFull.system.scars.values).filter(s => s != '').length
+            let oldStress = Number(memberFull.system.stress.value);
+            let resultStress = Math.clamp(Number(memberFull.system.stress.value) + scars, 0, memberFull.system.stress.max);
+            cutLooseScarMembersWithCharmwork[memberFull.uuid] = resultStress - oldStress;
             await BladesHelpers.tryUpdate(memberFull, {'system.stress.value': resultStress});
             cutLooseScarMessage += ` ${game.i18n.format('SFTD.StartMissionNoCutLooseScarStriderEffect', {strider: memberFull.name, num: scars})}`;
           }
           if (cutLooseScarMessage)
             messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionNoCutLooseScarEffect')}${cutLooseScarMessage}</p></div>`;
         }
+        cutLooseScarMembersWithCharmwork = Object.fromEntries(Object.entries(cutLooseScarMembersWithCharmwork)
+          .map(m => [BladesHelpers.resolveActor(m[0]), m[1]])
+          .filter(m => m[0] != null && m[0].system.charmwork && m[1] > 0)
+          .map(m => [m[0].uuid, m[1]])
+        );
 
         // Reset Downtime Activities, Melody, Replenishable Items, Armor & Not A Problem uses for all Striders
         let melodyUsed = false;
@@ -463,12 +471,12 @@ export class BladesCrewSheet extends BladesSheet {
         if (melodyUsed)
           messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionRecoverMelody')}</p></div>`;
 
-
         // Reset Crew Abilities & Foundations
         for (let item of this.actor.items.filter(i => i.system.uses?.max && i.system.replenish))
           await BladesHelpers.tryUpdate(item, {'system.uses.==value': item.system.uses.max});
 
         // Set Phase to Mission & Reset Harmony to 2 (1 if Disharmony)
+        let oldHarmony = this.actor.system.harmony.value;
         let disharmony = dialog.element.querySelector('[name="cutLooseDisharmony"]').checked;
         if (disharmony)
           messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionCutLooseDisharmony')}</p></div>`;
@@ -482,7 +490,12 @@ export class BladesCrewSheet extends BladesSheet {
         };
         let messageData = {
           speaker: speaker,
-          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents })
+          system: {
+            cutLooseScarMembersWithCharmwork: cutLooseScarMembersWithCharmwork,
+            oldHarmony: oldHarmony,
+            messageContents: messageContents
+          },
+          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents, hasAnyCutLooseScarMembersWithCharmwork: Object.keys(cutLooseScarMembersWithCharmwork).length > 0, oldHarmony: oldHarmony })
         }
         await ChatMessage.create(messageData);
       }

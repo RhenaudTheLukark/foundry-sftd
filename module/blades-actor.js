@@ -150,8 +150,6 @@ export class BladesActor extends Actor {
             case 'groupAction':
               attributeName = html.find('[name="groupActionAction"]')[0].value;
             case 'actionRoll':
-              extraFields.dire = this.system.stress.value == this.system.stress.max;
-              extraFields.last_stand = this.system.modifiers.last_stand;
               extraFields.group_action = groupActionData;
 
               let position, forcedPosition, impact, forcedImpact;
@@ -169,9 +167,8 @@ export class BladesActor extends Actor {
               await this.rollAttribute(attributeName, extraDice, position, forcedPosition, impact, forcedImpact, note, extraFields);
               break;
             case 'resistance':
-              if (["expertise", "acuity"].includes(attributeName)) extraFields.noRoll = true;
               extraFields.resistance_attribute = attributeName;
-              await bladesRoll(actionDiceAmount, "SFTD.ResistanceRoll", note, extraFields);
+              await bladesRoll(actionDiceAmount, 'SFTD.ResistanceRoll', note, extraFields);
               break;
             default:
               ui.notifications.warn(game.i18n.format('SFTD.log.warn.UnknownRollType', { type: rollType }));
@@ -227,7 +224,7 @@ export class BladesActor extends Actor {
 
     diceAmount += additionalDiceAmount;
 
-    await bladesRoll(diceAmount, attributeName, note, { position: position, forcedPosition: forcedPosition, impact: impact, forcedImpact: forcedImpact, ...extraFields });
+    await bladesRoll(diceAmount, attributeName, note, { additionalDiceFromActionRoll: additionalDiceAmount, position: position, forcedPosition: forcedPosition, impact: impact, forcedImpact: forcedImpact, ...extraFields });
   }
 
   /* -------------------------------------------- */

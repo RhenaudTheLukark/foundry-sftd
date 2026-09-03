@@ -440,13 +440,21 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   let numberedPosition = positionIndex.indexOf(extraFields.position);
   let numberedImpact = impactIndex.indexOf(extraFields.impact);
 
-  let rollData = extraFields.rollData ?? {modifiers: foundry.utils.deepClone(extraFields.modifiers), note: note};
+  let rollData = extraFields.rollData ?? {
+    rollTypeOrAttributeName: attributeOrRollName,
+    attributeName: attributeOrRollName == 'SFTD.ResistanceRoll' ? extraFields.resistance_attribute : attributeOrRollName,
+    modifiers: foundry.utils.deepClone(extraFields.modifiers),
+    position: extraFields.position,
+    forcedPosition: extraFields.forcedPosition,
+    effect: extraFields.effect,
+    forcedEffect: extraFields.forcedEffect,
+    note: note
+  };
 
   let stressChanges = {};
-  stressChanges[extraFields.actor?.uuid] = 0;
+  stressChanges[extraFields.actor?._id] = 0;
 
   let crewFull = BladesHelpers.resolveActor(extraFields.actor?.system.crew);
-  let factionFull = BladesHelpers.resolveActor(crewFull?.system.faction);
   let shellChanges = extraFields.shells ?? 0;
   let rollTypeKey = Object.entries(rollTypeLabels).find(r => r[1] == attributeOrRollName);
   let otherChanges = {};
@@ -461,10 +469,10 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     if (modifier.dice) diceAmount += modifier.dice;
     if (modifier.position && extraFields.position) numberedPosition += modifier.position;
     if (modifier.impact && extraFields.impact) numberedImpact += modifier.impact;
-    if (modifier.stress) stressChanges[extraFields.actor?.uuid] = Number(modifier.stress);
+    if (modifier.stress) stressChanges[extraFields.actor?._id] = Number(modifier.stress);
     if (modifier.otherStress)
-      for (let [uuid, value] of Object.entries(modifier.otherStress))
-        stressChanges[uuid] = (stressChanges[uuid] ?? 0) + Number(value);
+      for (let [id, value] of Object.entries(modifier.otherStress))
+        stressChanges[id] = (stressChanges[id] ?? 0) + Number(value);
     if (modifier.shells) shellChanges += modifier.shells;
     if (modifier.useMelody) useMelody = true;
     if (modifier.bonusRoll) {
@@ -489,10 +497,10 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     let stressChangeItem = {value: stressChange, realValue: stressChange};
     let stressActorFull = BladesHelpers.resolveActor(stressActorUuid);
     if (stressChange != 0 && stressActorFull?.system.stress?.value != undefined) {
-      let resultStress = Math.max(Math.min(Number(stressActorFull.system.stress.value) + stressChange, stressActorFull.system.stress.max), 0);
+      let resultStress = Math.clamp(Number(stressActorFull.system.stress.value) + stressChange, 0, stressActorFull.system.stress.max);
       stressChangeItem.realValue = resultStress - Number(stressActorFull.system.stress.value);
       if (resultStress != stressActorFull.system.stress.value)
-        await BladesHelpers.tryUpdate(stressActorFull, {system: {stress: {'==value': resultStress}}});
+        await BladesHelpers.tryUpdate(stressActorFull, {'system.stress.==value': resultStress});
       rollData.stressChanges[stressActorFull._id] = stressChangeItem;
     }
   }
@@ -501,20 +509,20 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   extraFields.shells = shellChanges;
   if (extraFields.shells != 0)
     rollData.shells = shellChanges;
-  let crewUpdateObject = {system: {}};
-  if (shellChanges) {
-    crewUpdateObject.system.shells = {'==value': Math.min(Math.max(Number(crewFull.system.shells.value) + shellChanges, 0), Number(crewFull.system.shells.max))};
-    rollData.realShells = crewUpdateObject.system.shells - Number(crewFull.system.shells.value);
+  let crewUpdateObject = {};
+  if (shellChanges != 0) {
+    crewUpdateObject['system.shells.==value'] = Math.clamp(Number(crewFull.system.shells.value) + shellChanges, 0, Number(crewFull.system.shells.max));
+    rollData.realShells = crewUpdateObject['system.shells.==value'] - Number(crewFull.system.shells.value);
   }
   // Harmony Changes
   extraFields.harmony = harmonyChanges;
   if (extraFields.harmony != 0)
     rollData.harmony = harmonyChanges;
-  if (harmonyChanges) {
-    crewUpdateObject.system.harmony = {'==value': Math.min(Math.max(Number(crewFull.system.harmony.value) + harmonyChanges, 0), Number(crewFull.system.harmony.max))};
-    rollData.realHarmony = crewUpdateObject.system.harmony - Number(crewFull.system.harmony.value);
+  if (harmonyChanges != 0) {
+    crewUpdateObject['system.harmony.==value'] = Math.clamp(Number(crewFull.system.harmony.value) + harmonyChanges, 0, Number(crewFull.system.harmony.max));
+    rollData.realHarmony = crewUpdateObject['system.harmony.==value'] - Number(crewFull.system.harmony.value);
   }
-  if (Object.keys(crewUpdateObject.system).length)
+  if (Object.keys(crewUpdateObject).length)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
 
   // Other Changes
@@ -577,10 +585,10 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   }
 
   // Only apply modified position and impact if they haven't been forced
-  if (extraFields.position && !extraFields.forcedPosition) extraFields.position = positionIndex[Math.min(Math.max(numberedPosition, 0), 2)];
-  if (extraFields.impact && !extraFields.forcedImpact) extraFields.impact = impactIndex[Math.min(Math.max(numberedImpact, 0), 4)];
+  if (extraFields.position && !extraFields.forcedPosition) extraFields.position = positionIndex[Math.clamp(numberedPosition, 0, 2)];
+  if (extraFields.impact && !extraFields.forcedImpact) extraFields.impact = impactIndex[Math.clamp(numberedImpact, 0, 4)];
 
-  extraFields.allowHarmonyGain = allowHarmonyGain || numberedPosition == 0 || (extraFields.actor?.system.seventh_sense && numberedPosition == 1);
+  extraFields.allowHarmonyGain = !extraFields.group_action && (allowHarmonyGain || numberedPosition == 0 || (extraFields.actor?.system.seventh_sense && numberedPosition == 1));
   extraFields.rollData = rollData;
 
   if (!extraFields.noRoll) {
@@ -639,8 +647,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     extraFields.modifier_text = `${extraFields.modifier_text ?? ''}<p>${game.i18n.localize('SFTD.HarmonyGained')}</p>`;
   }
 
-  if (!extraFields.rollData)
-    extraFields.rollData = {};
   extraFields.rollData.rolls = r;
 
   // Only keep valid modifiers with the given dice result
@@ -670,9 +676,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   // Check for Group Action roll
   } else if (extraFields.group_action) {
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
-    // Dire Action
-    if (extraFields.dire && rollStatus == 'critical-success')
-      await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': Math.max(Number(extraFields.actor.system.stress.value) - 1, 0)}}});
 
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     crewFull?.updateGroupActionRoll(extraFields.actor.id, rollStatus);
@@ -710,18 +713,21 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       default:
         impactLocalize = 'SFTD.ImpactNormal'
     }
-    // Dire Action
-    if (extraFields.dire && rollStatus == 'critical-success')
-      await BladesHelpers.tryUpdate(extraFields.actor, {system: {stress: {'==value': Math.max(Number(extraFields.actor.system.stress.value) - 1, 0)}}});
 
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, position_localize: positionLocalize, impact_localize: impactLocalize, note: note, extraFields: extraFields });
   }
   // Check for Resistance roll
   else if (attributeOrRollName == 'SFTD.ResistanceRoll') {
-    let stress = getBladesRollResistanceStress(rolls, extraResult, zeromode);
-    let resultStress = Math.clamp(extraFields.actor.system.stress.value + stress, 0, extraFields.actor.system.stress.max);
-    if (resultStress != extraFields.actor.system.stress.value)
-      await BladesHelpers.tryUpdate(extraFields.actor, {'system.stress.==value': resultStress});
+    const stress = getBladesRollResistanceStress(rolls, extraResult, zeromode);
+    if (!extraFields.rollData.charmwork) {
+      let rollStressValue = (extraFields.rollData.stressChanges[extraFields.actor._id]?.value ?? 0) + stress;
+      let newStress = Math.clamp(Number(extraFields.actor.system.stress.value) + rollStressValue, 0, extraFields.actor.system.stress.max);
+      extraFields.rollData.stressChanges[extraFields.actor._id] = {value: rollStressValue, realValue: newStress - Number(extraFields.actor.system.stress.value)};
+
+      let resultStress = Math.clamp(extraFields.actor.system.stress.value + stress, 0, extraFields.actor.system.stress.max);
+      if (resultStress != extraFields.actor.system.stress.value)
+        await BladesHelpers.tryUpdate(extraFields.actor, {'system.stress.==value': resultStress});
+    }
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/resistance-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, stress: stress, note: note, extraFields: extraFields });
   }
   // Check for Aftermath roll
@@ -1035,9 +1041,9 @@ export async function cancelRollResult(rollData, actorFull) {
   let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
   let crewUpdateObject = {};
   if (rollData.realShells)
-    crewUpdateObject['system.shells.==value'] = Math.min(Math.max(Number(crewFull.system.shells.value) - rollData.realShells, 0), Number(crewFull.system.shells.max));
+    crewUpdateObject['system.shells.==value'] = Math.clamp(Number(crewFull.system.shells.value) - rollData.realShells, 0, Number(crewFull.system.shells.max));
   if (rollData.realHarmony)
-    crewUpdateObject['system.harmony.==value'] = Math.min(Math.max(Number(crewFull.system.harmony.value) - rollData.realHarmony, 0), Number(crewFull.system.harmony.max));
+    crewUpdateObject['system.harmony.==value'] = Math.clamp(Number(crewFull.system.harmony.value) - rollData.realHarmony, 0, Number(crewFull.system.harmony.max));
   if (Object.keys(crewUpdateObject).length > 0)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
 
@@ -1081,17 +1087,6 @@ export async function cancelRollResult(rollData, actorFull) {
     actorUpdateObject['system.==melody'] = true;
   if (Object.keys(actorUpdateObject).length > 0)
     await BladesHelpers.tryUpdate(actorFull, actorUpdateObject);
-
-  for (let [connectionPair, connectionShift] of Object.entries(rollData.connections)) {
-    let [ownerId, connectionId] = connectionPair.split('/');
-    let ownerFull = BladesHelpers.resolveActor(`Actor.${ownerId}`);
-    let connectionFull = BladesHelpers.resolveActor(`Actor.${connectionId}`);
-    let connectionIndex = Object.entries(actorFull.system.connections).find(c => c[1].uuid == connectionFull.uuid)[0];
-    let connection = actorFull.system.connections[connectionIndex];
-    let connectionUpdateObject = {};
-    connectionUpdateObject[`system.connections.${connectionIndex}.clock.==value`] = Math.min(Math.max(connection.clock.value - connectionShift, 0), 4);
-    await BladesHelpers.tryUpdate(ownerFull, connectionUpdateObject);
-  }
 
   for (let modifier of rollData.modifiers) {
     if (modifier.itemNeeded) {
@@ -1784,9 +1779,31 @@ export function dialogOnRender(context, options, thisPass) {
 export function refreshModifiers(dialog, rollType, rollPosition, attributeName) {
   dialog.permanentModifiers = keepValidModifiersFromRollType(dialog.allPermanentModifiers, rollType, rollPosition, attributeName);
   dialog.conditionalModifiers = keepValidModifiersFromRollType(dialog.allConditionalModifiers, rollType, rollPosition, attributeName);
-  let newConditionalModifiersHTML = buildConditionalModifiersHTML(dialog.conditionalModifiers, dialog.actor);
-  dialog.element.querySelector('.toggleable-modifiers').innerHTML = newConditionalModifiersHTML;
-  dialog.element.querySelector('.toggleable-modifiers').style.display = Object.entries(dialog.conditionalModifiers.filter(m => !m.hidden)).length == 0 ? 'none' : '';
+  const newConditionalModifiersHTML = buildConditionalModifiersHTML(dialog.conditionalModifiers, dialog.actor);
+  const toggleableModifiersElement = dialog.element.querySelector('.toggleable-modifiers');
+  toggleableModifiersElement.innerHTML = newConditionalModifiersHTML;
+  toggleableModifiersElement.style.display = Object.entries(dialog.conditionalModifiers.filter(m => !m.hidden)).length == 0 ? 'none' : '';
+  for (const checkboxElement of toggleableModifiersElement.querySelectorAll('.modifier > label > input:first-of-type')) {
+    const modifierElement = checkboxElement.closest('.modifier');
+    if (modifierElement.querySelector('select[field="SFTD.Cost"]'))
+      modifierElement.querySelector('select[field="SFTD.Cost"]').addEventListener('change', async (_) => harmonySanityCheck(dialog));
+    checkboxElement.addEventListener('click', async (_) => harmonySanityCheck(dialog));
+  }
+}
+
+export async function harmonySanityCheck(dialog) {
+  var valid = true;
+  if (!dialog.actor)
+    valid = false;
+  else {
+    const enabledConditionalModifiers = keepValidModifiersFromOther(resolveConditionalModifiers(dialog, dialog.actor));
+    const modifiers = [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ];
+    const harmonyRequirement = -modifiers.filter(m => m.harmony).map(m => m.harmony).reduce((acc, m) => acc + m, 0);
+    const crewFull = dialog.actor.type == 'crew' ? dialog.actor : BladesHelpers.resolveActor(dialog.actor.system.crew);
+    valid = (crewFull?.system.harmony.value ?? 0) >= harmonyRequirement;
+  }
+
+  dialog.element.querySelector('[data-action="roll"]').disabled = !valid;
 }
 
 export function getRollModifiers(actor) {
@@ -1971,6 +1988,10 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
                 result.fields['SFTD.Helper'][specialist.uuid] = specialist.name;
             }
             result.fields['SFTD.Helper'][''] = 'SFTD.Other';
+          } else if (result.isHarmony) {
+            let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+            if (!crewFull?.system.harmony.value)
+              continue;
           } else if (result.charmwork_bound) {
             result.fields['SFTD.Cost'] = ['SFTD.Stress'];
             if (actorFull.isCharmworkAvailable())
@@ -2221,16 +2242,16 @@ export async function postRollProcessing(actor, extraFields) {
     if (modifier.itemNeeded) {
       let exhaustableItems = actor.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value > 0);
       if (exhaustableItems.length > 0)
-        await BladesHelpers.tryUpdate(exhaustableItems[0], {system: {uses: {'==value': exhaustableItems[0].system.uses.value - 1}}});
+        await BladesHelpers.tryUpdate(exhaustableItems[0], {'system.uses.==value': exhaustableItems[0].system.uses.value - 1});
     }
     if (modifier.convictionCutLoose)
-      await BladesHelpers.tryUpdate(actor, {system: {conviction_uses: {'==value': Math.min(Number(actor.system.conviction_uses.value) + 1, actor.system.conviction_uses.max)}}});
+      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.==value': Math.min(Number(actor.system.conviction_uses.value) + 1, actor.system.conviction_uses.max)});
     if (modifier.convictionExtra)
-      await BladesHelpers.tryUpdate(actor, {system: {conviction_uses: {'==value': Math.max(Number(actor.system.conviction_uses.value) - 1, 0)}}});
+      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.==value': Math.max(Number(actor.system.conviction_uses.value) - 1, 0)});
   }
 }
 
-export async function computeGroupActionResultAndSendMessage(groupActionData, crewFull) {
+export async function computeGroupActionResultAndSendMessage(groupActionData, crewFull, charmwork = false) {
   const action_label = BladesHelpers.getRollLabel(groupActionData.action);
 
   if (Object.values(groupActionData.rolls).length == 0) {
@@ -2238,12 +2259,12 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
     return;
   }
 
-  let result = Object.values(groupActionData.rolls).sort((a, b) => rollResultIndex.indexOf(b) - rollResultIndex.indexOf(a))[0];
+  var result = Object.values(groupActionData.rolls).sort((a, b) => rollResultIndex.indexOf(b) - rollResultIndex.indexOf(a))[0];
   // Coordinated: Prevent failed rolls to count for stress gain
-  let rolls = Object.fromEntries(Object.entries(foundry.utils.deepClone(groupActionData.rolls))
-    .map(r => [ BladesHelpers.resolveActor(r[0]), r[1] ])
-    .filter(r => r[0] && (r[1] != 'failure' || !r[0].system.coordinated))
-  );
+  const rolls = Object.fromEntries(Object.entries(foundry.utils.deepClone(groupActionData.rolls))
+    .map(r => [ BladesHelpers.resolveActor(`Actor.${r[0]}`), r[1] ])
+    .filter(r => r[0] && r[1] == 'failure' && !r[0].system.coordinated)
+    .map(r => [ r[0]._id, r[1] ]));
 
   const resultOccurrences = Object.values(rolls).reduce((acc, curr) => {
     acc[curr] = (acc[curr] || 0) + 1;
@@ -2255,33 +2276,46 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
     result = 'critical-success';
 
   const leaderFull = BladesHelpers.resolveActor(groupActionData.leader);
-  let stress = resultOccurrences['failure'] ?? 0;
+  var stress = resultOccurrences['failure'] ?? 0;
 
   // Mother Duck: Divide stress by 2 if action is Wayfare, Shadow or Trace
   if (leaderFull.system.mother_duck && ['wayfare', 'shadow', 'trace'].includes(groupActionData.action))
     stress = Math.floor(stress / 2);
 
   // Expertise: If leader's selected action, max stress at 1
-  for (let expertise of leaderFull.items.filter(i => i.system.expertise == true))
+  for (const expertise of leaderFull.items.filter(i => i.system.expertise == true))
     if (expertise.system.expertise_action == groupActionData.action) {
       stress = Math.min(stress, 1);
       break;
     }
 
-  let resultStress = Math.max(Math.min(Number(leaderFull.system.stress.value) + stress, Number(leaderFull.system.stress.max)), 0);
-  if (resultStress != leaderFull.system.stress.value)
-    await BladesHelpers.tryUpdate(leaderFull, {system: {stress: {'==value': resultStress}}});
+  if (!charmwork) {
+    const resultStress = Math.clamp(Number(leaderFull.system.stress.value) + stress, 0, Number(leaderFull.system.stress.max));
+    await BladesHelpers.tryUpdate(crewFull, {'system.group_action.==stress': resultStress - Number(leaderFull.system.stress.value)});
+    if (resultStress != leaderFull.system.stress.value)
+      await BladesHelpers.tryUpdate(leaderFull, {'system.stress.==value': resultStress});
+  } else
+    await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1});
 
-  let speaker = {
+  var harmonyText = '';
+  if (rollResultIndex.indexOf(result) >= 2) {
+    if (!charmwork) {
+      let newHarmony = Math.clamp(crewFull.system.harmony.value + 1, 0, crewFull.system.harmony.max);
+      await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': newHarmony});
+    }
+    harmonyText = `<p>${game.i18n.localize('SFTD.HarmonyGained')}</p>`;
+  }
+
+  const speaker = {
     actor: crewFull._id,
     alias: crewFull.name,
     scene: null,
     token: crewFull.prototypeToken._id
   };
 
-  let messageData = {
+  const messageData = {
     speaker: speaker,
-    content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader_name: leaderFull.name, stress: stress, note: groupActionData.note })
+    content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-result.html', { action: action_label, position: groupActionData.position, impact: groupActionData.impact, roll_status: result, leader: leaderFull, stress: stress, harmony_text: harmonyText, charmwork: charmwork, note: groupActionData.note })
   };
   await ChatMessage.create(messageData);
 }

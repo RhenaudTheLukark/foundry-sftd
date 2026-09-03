@@ -5,7 +5,7 @@ import { BladesHelpers } from "./blades-helpers.js";
 export class BladesPopup {
   static async instantiatePopup(actorFull, itemFull, popupData) {
     const popupFields = foundry.utils.deepClone(popupData.fields ?? {});
-    if (actorFull.isCharmworkAvailable() && popupData.stress)
+    if (actorFull.isCharmworkAvailable() && (popupData.stress || popupData.charmwork))
       popupFields.charmwork = {
         name: 'SFTD.StriderAbility.Charmwork.Title',
         type: 'checkbox'
@@ -286,7 +286,7 @@ export class BladesPopup {
     if (!fields.crewmate)
       return '';
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
+    const selfNewStress = selfFull.system.stress.value + ((fields.charmwork && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1));
     const selfRed = selfNewStress >= selfFull.system.stress.max;
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     const crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
@@ -311,16 +311,20 @@ export class BladesPopup {
     if (!BladesPopup.simpleCrewmateValidation(fields, popupData))
       return false;
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const selfNewStress = selfFull.system.stress.value + (fields.reverse ? -1 : 1);
+    const selfNewStress = selfFull.system.stress.value + ((fields.charmwork && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1));
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     const crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
-    return selfNewStress >= 0 && selfNewStress <= selfFull.system.stress.max && crewmateNewStress >= 0 && crewmateNewStress <= crewmateFull.system.stress.max;
+    return !(fields.charmwork && fields.reverse) && selfNewStress >= 0 && selfNewStress <= selfFull.system.stress.max && crewmateNewStress >= 0 && crewmateNewStress <= crewmateFull.system.stress.max;
   }
 
   static async alloyedMettleEffect(fields) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
-    await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + (fields.reverse ? -1 : 1)});
+    if (fields.charmwork && !fields.reverse) {
+      const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
+      await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1});
+    } else
+      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + (fields.reverse ? -1 : 1)});
     await BladesHelpers.tryUpdate(crewmateFull, {'system.stress.==value': crewmateFull.system.stress.value + (fields.reverse ? 1 : -1)});
   }
 
@@ -329,7 +333,10 @@ export class BladesPopup {
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     return game.i18n.format('SFTD.StriderAbility.AlloyedMettle.Message.Description', {
       stressGiver: fields.reverse ? selfFull.name : crewmateFull.name,
-      stressTaker: fields.reverse ? crewmateFull.name : selfFull.name
+      stressTaker: fields.reverse ? crewmateFull.name : selfFull.name,
+      cost: game.i18n.format(`SFTD.StriderAbility.Charmwork.${fields.charmwork ? '' : 'Not'}Usage`, {
+        stress: 1
+      })
     });
   }
 
@@ -389,6 +396,7 @@ export const bladesPopupData = {
     title: 'SFTD.StriderAbility.AlloyedMettle.Popup.Title',
     description: 'SFTD.StriderAbility.AlloyedMettle.Popup.Description',
     classes: ['alloyed-mettle'],
+    charmwork: true,
     pre_content: null,
     fields: {
       crewmate: {

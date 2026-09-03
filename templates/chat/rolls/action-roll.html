@@ -2,18 +2,14 @@
   {{#if attribute_label}}<div class="chat-label label-stripe-chat">{{localize attribute_label}}</div>{{/if}}
   {{#if extraFields.position}}
     <div class="chat-label-small label-stripe-chat-small">
-      {{{localize position_localize}}} | {{{localize impact_localize}}} {{#if zeromode}}| 0d {{/if}}{{#if extraFields.dire}}| {{localize 'SFTD.DireAction'}} {{/if}}
+      {{{localize position_localize}}} | {{{localize impact_localize}}} {{#if zeromode}}| 0d {{/if}}
     </div>
   {{/if}}
 
   {{#if (eq roll_status "critical-success")}}
   <div class="die {{roll_status}}">{{localize 'SFTD.RollCriticalSuccess'}}</div>
   <div class="description">
-    {{#if extraFields.dire}}
-    <p>{{{localize 'SFTD.RollDoDireCritical'}}}</p>
-    {{else}}
     <p>{{{localize 'SFTD.RollDoWithIncreasedImpact'}}}</p>
-    {{/if}}
   </div>
   {{/if}}
 
@@ -22,9 +18,6 @@
   <div class="description">
     <p>
       {{{localize 'SFTD.RollDo'}}}
-      {{#if extraFields.dire}}
-      {{{localize 'SFTD.RollDireSuccess'}}}
-      {{/if}}
     </p>
   </div>
   {{/if}}
@@ -41,13 +34,6 @@
       {{{localize 'SFTD.RollPartialSuccessPosition'}}}
       {{/if}}
     </p>
-    {{#if extraFields.dire}}
-    {{#if extraFields.last_stand}}
-    <p>{{{localize 'SFTD.RollDireSuccess'}}}</p>
-    {{else}}
-    <p>{{{localize 'SFTD.RollDireFailure'}}}</p>
-    {{/if}}
-    {{/if}}
   </div>
   {{/if}}
 
@@ -63,9 +49,6 @@
       {{{localize 'SFTD.RollFailurePositionDesperate'}}}
       {{/if}}
     </p>
-    {{#if extraFields.dire}}
-    <p>{{{localize 'SFTD.RollDireFailure'}}}</p>
-    {{/if}}
   </div>
   {{/if}}
 

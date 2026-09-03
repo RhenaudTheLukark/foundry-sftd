@@ -6,4 +6,10 @@
   <div class="description">
     <p>{{localize 'SFTD.StartMissionStart'}}</p>
   </div>
+
+  {{#if (and hasAnyCutLooseScarMembersWithCharmwork (gt oldHarmony 0))}}
+  <div class="button start-mission-charmwork-only">
+    <button class="charmwork">{{localize 'SFTD.StriderAbility.Charmwork.StartMissionButton' oldHarmony=oldHarmony}}</button>
+  </div>
+  {{/if}}
 </div>

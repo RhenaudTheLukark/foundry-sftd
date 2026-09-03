@@ -34,4 +34,10 @@
       {{/unless}}
     {{/if}}
   </ol>
+
+  {{#if (and extraFields.actor.system.charmwork (gt stress 0) (not extraFields.rollData.charmwork))}}
+  <div class="button owner-only">
+    <button class="charmwork">{{localize 'SFTD.StriderAbility.Charmwork.Button'}}</button>
+  </div>
+  {{/if}}
 </div>

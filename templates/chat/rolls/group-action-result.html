@@ -41,10 +41,22 @@
   {{/if}}
 
   <div class="description">
-    {{{localize 'SFTD.LeaderTextStress' leader=leader_name stress=stress}}}
+    {{#if charmwork}}
+      {{{localize 'SFTD.LeaderTextHarmony' leader=leader.name}}}
+    {{else}}
+      {{{localize 'SFTD.LeaderTextStress' leader=leader.name stress=stress}}}
+    {{/if}}
   </div>
+
+  {{{harmony_text}}}
 
   {{#if note}}
     <p><em>{{note}}</em></p>
+  {{/if}}
+
+  {{#if (and leader.system.charmwork (gt stress 0) (not charmwork))}}
+  <div class="button leader-only">
+    <button class="charmwork">{{localize 'SFTD.StriderAbility.Charmwork.Button'}}</button>
+  </div>
   {{/if}}
 </div>
