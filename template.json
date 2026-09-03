@@ -365,7 +365,8 @@
       "class": "",
       "load": 0,
       "extra_description": "",
-      "additional_info": ""
+      "additional_info": "",
+      "type": "other"
     },
     "class": {
       "templates": ["default", "logic", "activatedEffect"],
@@ -373,6 +374,8 @@
     },
     "ability": {
       "templates": ["ability", "usable", "logic", "activatedEffect"],
+      "is_starting_ability": false,
+      "is_charm": false,
       "popup": ""
     },
     "specialist": {

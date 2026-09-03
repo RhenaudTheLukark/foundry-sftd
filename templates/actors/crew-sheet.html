@@ -131,7 +131,7 @@
 
   <section class="flex-horizontal">
     <div id="crew-{{_id}}-class" class="class-name crew-class flex-vertical" data-tooltip="{{localize 'SFTD.CrewTypeBox'}}" data-distinct="true" data-item-type="crew_type">
-      {{#each items as |item id|}}
+      {{#each orderedItems as |item id|}}
       {{#if (eq item.type "crew_type")}}
       <div class="big-name">{{item.name}}</div>
       <div class="big-description">{{{item.system.short_description}}}</div>
@@ -299,7 +299,7 @@
         <p><a class="item-add-popup" data-item-type="crew_ability"><i class="fas fa-plus-square"></i></a></p>
       </div>
       <div class="tab-list">
-        {{#each items as |item id|}}
+        {{#each orderedItems as |item id|}}
         {{#if (eq item.type "crew_ability")}}
         {{> "systems/songs-for-the-dusk/templates/parts/item_display/crew_ability.html" item=item id=id actor=../this}}
         {{/if}}
@@ -362,7 +362,7 @@
         <p><a class="add-item" data-item-type="specialist"><i class="fas fa-plus-square"></i></a></p>
       </div>
       <div class="specialists flex-horizontal">
-        {{#each items as |item id|}}
+        {{#each orderedItems as |item id|}}
         {{#if (eq item.type "specialist")}}
         {{> "systems/songs-for-the-dusk/templates/parts/specialist-block.html" item=item}}
         {{/if}}
@@ -406,7 +406,7 @@
       <div class="label-stripe">
         <p><label>{{localize "SFTD.AllItems"}}</label></p>
       </div>
-      {{#each items as |item id|}}
+      {{#each orderedItems as |item id|}}
       <div class="item flex-horizontal" data-item-id="{{item._id}}" data-item-uuid="{{item.uuid}}">
         <div class="item-body item-sheet-open flex-horizontal">
           <img src="{{item.img}}" data-tooltip="{{item.name}}" width="24" height="24"/>

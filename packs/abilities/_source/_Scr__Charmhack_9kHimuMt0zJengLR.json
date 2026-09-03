@@ -6,14 +6,17 @@
   "system": {
     "description": "<p>You may <strong>push yourself </strong>to do one of the following:</p>\n<ul>\n<li>Instantly repair or sabotage technology in the immediate area,</li>\n<li>Mystically assemble new technology from available materials, scrap, and old tech.</li>\n</ul>\n<p><em>When you push yourself to activate this ability, you still get one of the normal</em><br><em>benefits of pushing yourself (+1d, +1 impact, etc.)</em></p>",
     "class": "Scrapper",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_charm": true,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
@@ -31,7 +34,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859020088,
-    "modifiedTime": 1780859054427,
+    "modifiedTime": 1788464034895,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!9kHimuMt0zJengLR"

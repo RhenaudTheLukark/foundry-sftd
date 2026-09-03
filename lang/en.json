@@ -322,6 +322,8 @@
     "IsWeatherDamaged": "Is Weather Damaged?",
     "IsUnderDisaster": "Is Under Disaster?",
     "ReplenishOnMissionStart": "Replenish On Mission Start?",
+    "IsStartingAbility": "Is Starting Ability?",
+    "IsCharm": "Is Charm?",
 
     "Position": "Position",
     "ForcePosition": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's position to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",
@@ -965,6 +967,9 @@
       "WayOfTheSeeker": {
         "CollectInfoTitle": "Way of the Seeker: Discovering a Location or Figuring Out Where Something or Someone is Hidden?",
         "ActionTitle": "Way of the Seeker: Hide in a Prepared Position or Using Camouflage to Avoid Detection?"
+      },
+      "Charmsight": {
+        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Temporarily enhance your senses to pierce solid matter,</li><li>View the past of a transcendent artifact or location.</li></ul>"
       },
       "Charmbreak": {
         "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Unleash an enormous blast of magical force,</li><li>Call down a natural or unnatural storm around you (gale-force winds, whirling sunfire, gravitic vortices, etc.).</li></ul>"

@@ -13,6 +13,8 @@
     },
     "replenish": true,
     "logic": "",
+    "is_starting_ability": true,
+    "is_charm": true,
     "popup": "",
     "purchased": false,
     "class_default": false
@@ -78,7 +80,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859204977,
-    "modifiedTime": 1788035265001,
+    "modifiedTime": 1788465901415,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!aaDP7q4O11hEBrD1"

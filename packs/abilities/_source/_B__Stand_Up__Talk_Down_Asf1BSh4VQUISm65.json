@@ -7,14 +7,17 @@
     "description": "<p>Whenever you <strong>spend harmony</strong> while speaking, hostilities and danger also pause while you speak.</p>",
     "class": "Beacon",
     "price": 1,
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
     },
-    "popup": ""
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": true,
+    "is_charm": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [
     {
@@ -77,7 +80,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780857040948,
-    "modifiedTime": 1785950453820,
+    "modifiedTime": 1788465848205,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!Asf1BSh4VQUISm65"

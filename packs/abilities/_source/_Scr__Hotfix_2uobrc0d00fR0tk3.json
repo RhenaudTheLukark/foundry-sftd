@@ -6,14 +6,18 @@
   "system": {
     "description": "<p>When you <strong>spend harmony </strong>on a roll to repair, modify, upgrade, or sabotage technology, you gain <strong>+1 impact</strong>. When you work on a <strong>synthesis </strong>project during <strong>downtime</strong>, your roll adds <strong>+1 tick</strong> to the project clock.</p>",
     "class": "",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": true,
+    "is_charm": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
@@ -31,7 +35,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780858868232,
-    "modifiedTime": 1780858892288,
+    "modifiedTime": 1788465887773,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!2uobrc0d00fR0tk3"

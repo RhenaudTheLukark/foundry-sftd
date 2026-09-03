@@ -593,6 +593,10 @@ export class BladesHelpers {
     return item;
   }
 
+  static itemEntryCompareFunc(a, b) {
+    return a.name.localeCompare(b.name, 'en-US');
+  }
+
   // Sets the crew of a strider and add the strider to the crew's member list
   static async addCrewStrider(crewFull, striderFull, fromCrew) {
     if (striderFull.system.crew === crewFull.uuid) {

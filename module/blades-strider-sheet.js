@@ -108,6 +108,8 @@ export class BladesStriderSheet extends BladesSheet {
     // Check for additional stress from crew sources
     sheetData.system.scars.value = Object.values(sheetData.system.scars.values).filter(s => s != '').length;
 
+    sheetData.orderedItems = sheetData.items.sort(BladesHelpers.itemEntryCompareFunc);
+
     sheetData.defaultClockThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
 
     return sheetData;

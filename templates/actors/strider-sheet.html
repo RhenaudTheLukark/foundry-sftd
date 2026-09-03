@@ -279,7 +279,7 @@
         </div>
 
         <div id="strider-{{_id}}-abilities-list" class="tab-list">
-          {{#each items as |item id|}}
+          {{#each orderedItems as |item id|}}
           {{#if (eq item.type "ability")}}
           {{> "systems/songs-for-the-dusk/templates/parts/item_display/ability.html" item=item id=id actor=../this}}
           {{/if}}
@@ -315,7 +315,7 @@
           </div>
         </div>
         <div class="tab-list">
-          {{#each items as |item id|}}
+          {{#each orderedItems as |item id|}}
           {{#if (eq item.type "item")}}
           {{> "systems/songs-for-the-dusk/templates/parts/item_display/item.html" item=item id=id actor=../this gearOwner=../gearOwner}}
           {{/if}}
@@ -343,7 +343,7 @@
         <div class="label-stripe">
           <p><label>{{localize "SFTD.AllItems"}}</label></p>
         </div>
-        {{#each items as |item id|}}
+        {{#each orderedItems as |item id|}}
         <div class="item flex-horizontal" data-item-id="{{item._id}}" data-item-uuid="{{item.uuid}}">
           <div class="item-body item-sheet-open flex-horizontal">
             <img src="{{item.img}}" data-tooltip="{{item.name}}" width="24" height="24"/>

@@ -379,6 +379,11 @@ export const bladesRollModifierList = {
     rollTypes: ['actionRoll', 'groupAction'],
     dice: 1
   },
+  charmsight: {
+    hidden: true,
+    needPushYourself: true,
+    rollText: 'SFTD.StriderAbility.Charmsight.Description'
+  },
   charmbreak: {
     hidden: true,
     needPushYourself: true,

@@ -43,7 +43,7 @@ export class BladesCrewSheet extends BladesSheet {
     sheetData.onlyDirectRelationships = Object.keys(sheetData.system.relationships).length == Object.keys(sheetData.system.direct_relationships).length;
 
     // Get foundation NPCs & Data
-    sheetData.foundations = Object.fromEntries(Object.entries(sheetData.items).filter(i => i[1].type == 'foundation').map(f => [f[0], {item: f[1], npc: BladesHelpers.resolveActor(f[1].system.npc)}]));
+    sheetData.foundations = Object.fromEntries(Object.entries(sheetData.items.sort(BladesHelpers.itemEntryCompareFunc)).filter(i => i[1].type == 'foundation').map(f => [f[0], {item: f[1], npc: BladesHelpers.resolveActor(f[1].system.npc)}]));
 
     // Prepare active effects
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.actor.effects);
@@ -59,6 +59,8 @@ export class BladesCrewSheet extends BladesSheet {
         if (popupData?.button_text)
           item.system.popup_text = popupData.button_text;
       }
+
+    sheetData.orderedItems = sheetData.items.sort(BladesHelpers.itemEntryCompareFunc);
 
     sheetData.defaultClockThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
 

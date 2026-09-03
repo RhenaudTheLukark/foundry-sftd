@@ -6,14 +6,17 @@
   "system": {
     "description": "<p>Take a charm ability from another playbook. When you use the ability, take <strong>+1 stress</strong> and say how you reverse-engineered it and how it looks different for its rediscovery.<br><em>You can&rsquo;t use this ability to reverse-engineer the Witch&rsquo;s &ldquo;Charmwork&rdquo;; the restriction on starting abilities still applies.</em></p>",
     "class": "Scholar",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_charm": true,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
@@ -31,7 +34,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780858604255,
-    "modifiedTime": 1780858633719,
+    "modifiedTime": 1788464033249,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!5Z2psT6wgVUONXvU"

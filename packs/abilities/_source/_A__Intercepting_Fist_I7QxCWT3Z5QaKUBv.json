@@ -6,15 +6,19 @@
   "system": {
     "description": "<p>When you <strong>protect </strong>teammates or NPCs, take <strong>+1d</strong> to your resistance roll. When you <strong>collect info </strong>about possible threats to your team or NPCs in the current situation, you get <strong>+1 impact</strong>.</p>",
     "class": "Aegis",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
     },
-    "popup": ""
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": true,
+    "is_charm": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false,
+    "is_starting_abiilty": true
   },
   "effects": [
     {
@@ -83,7 +87,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780856241132,
-    "modifiedTime": 1780856263353,
+    "modifiedTime": 1788465832630,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!I7QxCWT3Z5QaKUBv"

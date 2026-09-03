@@ -6900,16 +6900,16 @@
   width: 100%;
   text-align: center;
 }
-.songs-for-the-dusk.item.sheet .two-line, .songs-for-the-dusk.item.sheet .three-line {
+.songs-for-the-dusk.item.sheet .two-line, .songs-for-the-dusk.item.sheet .three-line, .songs-for-the-dusk.item.sheet .four-line {
   width: 100%;
   white-space: nowrap;
   display: flex;
   flex-direction: column;
 }
-.songs-for-the-dusk.item.sheet .two-line > input[type=checkbox], .songs-for-the-dusk.item.sheet .three-line > input[type=checkbox] {
+.songs-for-the-dusk.item.sheet .two-line > input[type=checkbox], .songs-for-the-dusk.item.sheet .three-line > input[type=checkbox], .songs-for-the-dusk.item.sheet .four-line > input[type=checkbox] {
   align-self: center;
 }
-.songs-for-the-dusk.item.sheet .two-line > select[multiple], .songs-for-the-dusk.item.sheet .three-line > select[multiple] {
+.songs-for-the-dusk.item.sheet .two-line > select[multiple], .songs-for-the-dusk.item.sheet .three-line > select[multiple], .songs-for-the-dusk.item.sheet .four-line > select[multiple] {
   height: 48px;
   overflow-y: auto;
 }

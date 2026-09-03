@@ -7,14 +7,16 @@
     "description": "<p>You can generate an impenetrable field of charm energy. Spend <strong>2 stress</strong> to weave a field big enough to protect a medium-sized group of people (about 20). The field lasts for a few minutes.<br><em>The field is selectively permeable; you can let air or your friends through while blocking enemy fire or poisonous gasses.</em></p>",
     "class": "Aegis",
     "price": 1,
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
     },
-    "popup": "charmguard"
+    "replenish": true,
+    "logic": "",
+    "is_charm": true,
+    "popup": "charmguard",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
@@ -32,7 +34,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780856357733,
-    "modifiedTime": 1785993446761,
+    "modifiedTime": 1788464023475,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!54l1IqNCFjUBdNaV"
