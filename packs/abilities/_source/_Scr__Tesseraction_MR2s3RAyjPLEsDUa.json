@@ -6,14 +6,16 @@
   "system": {
     "description": "<p>Choose a piece of tech that you&rsquo;ve synthesized before. You can unweave the fabric of reality for this machine and tie it loosely to your own. The tech is perfectly concealed within the weave of your own existence and has <strong>0 load</strong>. Spend <strong>1 stress</strong> to deploy its effects.<br><em>Switching the tech is a 4-step long-term project clock. You know all equipment </em><em>on your tech belt.</em></p>",
     "class": "Scrapper",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
@@ -31,7 +33,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859118528,
-    "modifiedTime": 1780859151331,
+    "modifiedTime": 1788123838416,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!MR2s3RAyjPLEsDUa"

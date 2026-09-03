@@ -477,8 +477,8 @@
     "RevealGroupActionResult": "Reveal Group Action Result",
 
     "CreateGroupAction": "Create Group Action",
-    "LeaderTextStress": "The leader of this group action, {leader}, suffered <strong>{stress} Stress </strong> due to failed actions.",
-    "LeaderTextQuirk": "The leader of this group action, {leader}, expends <strong>{quirks} Quirk(s) </strong> due to failed actions.",
+    "LeaderTextStress": "The leader of this group action, {leader}, suffered <strong>{stress} Stress</strong> due to failed actions.",
+    "LeaderTextHarmony": "The leader of this group action, {leader}, spent <strong>1 Harmony</strong> instead of Stress thanks to Charmwork due to failed actions.",
 
     "RollCollectInformationCritical": "You do it with <strong>increased impact</strong>.",
     "RollCollectInformationSuccess": "You do it.",
@@ -707,16 +707,17 @@
     "Cost": "Cost",
     "NotAProblem": "Not A Problem",
     "PushYourself": "Push Yourself",
-    "PushYourselfEffect": "You pushed yourself to {effect}. {cost}.",
-    "PushYourselfStressCost": "You suffered <strong>{stress} Stress</strong>{charmsyncText}",
-    "PushYourselfMelodyCost": "You used your <strong>Melody</strong> to {usage}",
+    "PushYourselfEffect": "You pushed yourself to {effect}. You {cost}.",
+    "PushYourselfStressCost": "suffered <strong>{stress} Stress</strong>{charmsyncText}",
+    "PushYourselfMelodyCost": "used your <strong>Melody</strong> to {usage}",
+    "PushYourselfHarmonyCost": "spent <strong>1 Harmony</strong> thanks to Charmwork",
     "PushYourselfUnknownMelodyUsage": "perform an unspecified action",
     "PushYourselfCharmsync": " instead of 2 thanks to Charmsync",
     "HarmonyDisplay": "Harmony ({harmony}/{max})",
     "Assist": "Assist",
-    "AssistEffect": "{strider} assisted you. They suffered <strong>1 Stress</strong>. You have gained <strong>+1d</strong>.",
+    "AssistEffect": "{strider} assisted you. They {cost}. You have gained <strong>+1d</strong>.",
     "AssistNotAProblemEffect": "{strider} assisted you. They suffered no Stress due to foreseeing this particular event. You have gained <strong>+1d</strong>.",
-    "HarmonyEffect": "You spent Harmony and gained <strong>+1d</strong>.",
+    "HarmonyEffect": "You spent <strong> 1 Harmony</strong> and gained <strong>+1d</strong>.",
     "HarmonyGained": "The crew's Harmony has increased.",
     "DowntimeAssistEffect": "{helper} assisted you, granting you <strong>+1d</strong>.",
     "AnAlly": "An ally",
@@ -818,7 +819,7 @@
         },
         "Message": {
           "Title": "Alloyed Mettle",
-          "Description": "{stressGiver} confessed a fear or vulnerable emotion to {stressTaker}. {stressGiver} cleared <strong>1 Stress</strong>, and {stressTaker} suffered <strong>1 Stress</strong>."
+          "Description": "{stressGiver} confessed a fear or vulnerable emotion to {stressTaker}. {stressGiver} cleared <strong>1 Stress</strong>, and {stressTaker} {cost}."
         }
       },
       "Charmguard": {
@@ -925,7 +926,7 @@
       },
       "Polymath": {
         "ActionTitle": "Polymath: Using This Action Rating While Performing Another Action?",
-        "ActionDescription": "Since you used this action instead of the one that was required, you suffered <strong>2 Stress</strong>. Say how you adapt your skill to this use.",
+        "ActionDescription": "Since you used this action instead of the one that was required, you {cost}. Say how you adapt your skill to this use.",
         "ResistanceTitle": "Polymath: Suffering Consequences From an Action Using Polymath?",
         "ResistanceDescription": "Since you are resisting consequences from a result of a roll in wich you used this ability, you suffered <strong>1 Stress</strong>."
       },
@@ -971,7 +972,11 @@
       "Charmwork": {
         "Title": "Charmwork",
         "NotUsage": "suffered <strong>{stress} Stress</strong>",
-        "Usage": "spent <strong>1 Harmony</strong> thanks to Charmwork"
+        "Usage": "spent <strong>1 Harmony</strong> thanks to Charmwork",
+        "TimeTravelUsage": "Thanks to Charmwork, all of this roll's Stress costs have been cancelled at the cost of <strong>1 Harmony</strong>.",
+        "Button": "Charmwork: Cancel Stress Costs for 1 Harmony",
+        "StartMissionButton": "Charmwork: Cancel Stress Costs for 1 Harmony from last mission ({oldHarmony})",
+        "StartMissionTimeTravel": "Thanks to Chamwork, {strider} cleared <strong>{stress} Stress</strong> at the cost of <strong>1 Harmony</strong> from last mission."
       },
       "HallowlinkHealingNote": {
         "Popup": {
@@ -1110,7 +1115,10 @@
         "NothingToAdd": "There is no available object that can be added to this actor.",
         "TriedRemovingInvestedCache": "You cannot remove a cache that has already been invested.",
         "NoClockImage": "There is no existing clock image for the theme {theme}, color {color}, size {size} and fill {fill}.",
-        "NoRollType": "You cannot perform this roll at this time."
+        "NoRollType": "You cannot perform this roll at this time.",
+        "CharmworkLackingHarmony": "Charmwork: Your Crew must at least have 1 Harmony to use this ability!",
+        "StartMissionCharmworkNoActor": "Charmwork: You have no available Strider usable for this ability!",
+        "StartMissionCharmworkSeveralActors": "Charmwork: You have several available Striders usable for this ability.\nPlease select the one you want to use this ability with and click the Charmwork button again."
       },
       "error": {
         "NoGroupAction": "This Crew does not have a Group Action. This message shouldn't be visible!",

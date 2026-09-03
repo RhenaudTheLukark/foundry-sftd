@@ -8,7 +8,7 @@
 import { registerSystemSettings } from "./settings.js";
 import { registerSystemKeybinds } from "./keybinds.js";
 import { preloadHandlebarsTemplates } from "./blades-templates.js";
-import { bladesRoll, simpleRollPopup } from "./blades-roll.js";
+import { bladesRoll, simpleRollPopup, cancelRollResult, computeGroupActionResultAndSendMessage } from "./blades-roll.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { BladesActor } from "./blades-actor.js";
 import { BladesItem } from "./blades-item.js";
@@ -424,8 +424,110 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
     for (const button of html.querySelectorAll('.reveal-cut-loose-result'))
       button.addEventListener('click', async (_) => BladesHelpers.resolveActor(message.system.cutLooseCrew)?.revealCutLooseResult());
   }
-  for (const element of html.querySelectorAll('.gm-only')) {
+  // Charmwork processing
+  for (const button of html.querySelectorAll('.charmwork'))
+    button.addEventListener('click', async (ev) => {
+      const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+      const crewFull = speakerActorFull.type == 'crew' ? speakerActorFull : BladesHelpers.resolveActor(speakerActorFull.system.crew);
+      if (!crewFull?.system.harmony.value) {
+        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.CharmworkLackingHarmony'));
+        return;
+      }
+
+      if (message.system.rollData?.rollTypeOrAttributeName == 'SFTD.ResistanceRoll') {
+        // Resistance roll
+        await cancelRollResult(message.system.rollData, speakerActorFull);
+        message.system.rollData.modifiers.push({
+          stress: -message.system.rollData.stressChanges[speakerActorFull._id].value,
+          harmony: -1,
+          rollText: `SFTD.StriderAbility.Charmwork.TimeTravelUsage`,
+          key: 'charmwork'
+        });
+        message.system.rollData.charmwork = true;
+
+        const attributeName = message.system.rollData.attributeName;
+        const extraDice = message.system.rollData.additionalDiceFromActionRoll ?? 0;
+        const note = message.system.rollData.note;
+        const diceAmount = speakerActorFull.getRollData().diceAmount[attributeName] + extraDice;
+        const extraFields = { roll_type: 'resistance', modifiers: message.system.rollData.modifiers, actor: speakerActorFull, rollData: message.system.rollData, resistance_attribute: attributeName };
+        await bladesRoll(diceAmount, 'SFTD.ResistanceRoll', note, extraFields);
+        await BladesHelpers.tryDelete(message);
+      } else if (message.system.oldHarmony != undefined) {
+        // Start Mission message
+        message.system.cutLooseScarMembersWithCharmwork = foundry.utils.flattenObject(message.system.cutLooseScarMembersWithCharmwork);
+        const availableActors = Object.fromEntries(Object.entries(message.system.cutLooseScarMembersWithCharmwork).map(m => [BladesHelpers.resolveActor(m[0]), m[1]]).filter(m => m[0] != null && m[0].isOwner).map(m => [m[0].uuid, m[1]]));
+        var actorFull = null;
+        var stress = 0;
+        if (!Object.keys(availableActors).length) {
+          ui.notifications.warn(game.i18n.localize('SFTD.log.warn.StartMissionCharmworkNoActor'));
+          return;
+        } else if (Object.keys(availableActors).length > 1) {
+          const speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
+          if (!speakerFull || !Object.keys(availableActors).includes(speakerFull?.uuid)) {
+            ui.notifications.warn(game.i18n.localize('SFTD.log.warn.StartMissionCharmworkSeveralActors'));
+            return;
+          }
+          actorFull = speakerFull;
+          stress = availableActors[speakerFull.uuid];
+        } else {
+          [actorFull, stress] = Object.entries(availableActors)[0];
+          actorFull = BladesHelpers.resolveActor(actorFull);
+        }
+        await BladesHelpers.tryUpdate(actorFull, {'system.stress.==value': Math.clamp(actorFull.system.stress.value - stress, 0, actorFull.system.stress.max)});
+
+        const id = Object.keys(message.system.cutLooseScarMembersWithCharmwork).indexOf(actorFull.uuid);
+        message.system.cutLooseScarMembersWithCharmwork = Object.fromEntries(Object.entries(message.system.cutLooseScarMembersWithCharmwork).filter((_, i) => i != id));
+        const oldHarmony = message.system.oldHarmony - 1;
+        await BladesHelpers.tryUpdate(message, {
+          '==content': await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: message.system.messageContents, hasAnyCutLooseScarMembersWithCharmwork: Object.keys(message.system.cutLooseScarMembersWithCharmwork).length > 0, oldHarmony: oldHarmony }),
+          'system.==cutLooseScarMembersWithCharmwork': message.system.cutLooseScarMembersWithCharmwork,
+          'system.==oldHarmony': oldHarmony
+        });
+
+        let speaker = {
+          actor: actorFull._id,
+          alias: actorFull.name,
+          scene: null,
+          token: actorFull.prototypeToken._id
+        };
+        const extraFields = {
+          title: game.i18n.localize('SFTD.StriderAbility.Charmwork.Title'),
+          contents: game.i18n.format('SFTD.StriderAbility.Charmwork.StartMissionTimeTravel', {
+            stress: stress,
+            strider: actorFull.name
+          }),
+        }
+        let messageData = {
+          speaker: speaker,
+          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/generic-message.html', { extraFields: extraFields })
+        }
+        await ChatMessage.create(messageData);
+      } else {
+        // Group Action Failure Stress
+        speakerActorFull.system.group_action.charmwork = true;
+        let leaderFull = BladesHelpers.resolveActor(speakerActorFull.system.group_action.leader);
+        await BladesHelpers.tryUpdate(leaderFull, {'system.stress.==value': Math.clamp(leaderFull.system.stress.value - speakerActorFull.system.group_action.stress, leaderFull.system.stress.max, 0)});
+        computeGroupActionResultAndSendMessage(speakerActorFull.system.group_action, speakerActorFull, true);
+        await BladesHelpers.tryDelete(message);
+      }
+    });
+  for (const element of html.querySelectorAll('.gm-only'))
     if (!game.user.isGM)
       element.style.display = "none";
+  for (const element of html.querySelectorAll('.owner-only')) {
+    const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+    if (!speakerActorFull.isOwner)
+      element.style.display = "none";
+  }
+  for (const element of html.querySelectorAll('.leader-only')) {
+    const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+    const leaderFull = BladesHelpers.resolveActor(speakerActorFull.system.group_action?.leader)
+    if (!leaderFull?.isOwner)
+      element.style.display = "none";
+  }
+  for (const element of html.querySelectorAll('.start-mission-charmwork-only')) {
+    const availableActors = foundry.utils.flattenObject(Object.keys(message.system.cutLooseScarMembersWithCharmwork)).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.isOwner);
+    if (availableActors.length == 0)
+      element.style.display = 'none';
   }
 });
