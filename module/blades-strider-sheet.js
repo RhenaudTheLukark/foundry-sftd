@@ -287,8 +287,10 @@ export class BladesStriderSheet extends BladesSheet {
       let popupData = bladesPopupData[itemFull.system.popup];
       if (!popupData)
         ui.notifications.error(game.i18n.format('SFTD.log.error.BadPopupID', {id: itemFull.system.popup}), { permanent: true });
-      else
+      else {
+        popupData.key = itemFull.system.popup;
         await BladesPopup.instantiatePopup(this.actor, itemFull, popupData);
+      }
     });
   }
 

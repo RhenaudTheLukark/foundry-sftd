@@ -1013,6 +1013,16 @@
         "Title": "Resonant Antennae: On-site?"
       }
     },
+    "Neohuman": {
+      "Popup": {
+        "Title": "Neohuman Ability",
+        "Description": "You may use the Neohuman Ability {ability} at a given Stress cost."
+      },
+      "Message": {
+        "Title": "Neohuman Ability",
+        "Description": "You used the Neohuman Ability {ability} and {cost}."
+      }
+    },
 
     "Settings": {
       "Action": {

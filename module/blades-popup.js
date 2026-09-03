@@ -10,6 +10,8 @@ export class BladesPopup {
         name: 'SFTD.StriderAbility.Charmwork.Title',
         type: 'checkbox'
       };
+    if (popupData.key == 'neohuman')
+      popupData.descriptionArgs = { ability: itemFull.name };
 
     const title = popupData.title ?? 'SFTD.UseAbility';
     const preContent = popupData.pre_content ? popupData.pre_content({}) : '';
@@ -26,7 +28,7 @@ export class BladesPopup {
       if (popupData.effect)
         await popupData.effect(fields, popupData);
       if (popupData.message)
-        await BladesPopup.sendMessage(fields, popupData);
+        await BladesPopup.sendMessage(fields, popupData, itemFull);
       return;
     } else if (popupData.pre_validation)
       if (!popupData.pre_validation(fields, popupData, true))
@@ -34,7 +36,13 @@ export class BladesPopup {
 
     const dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize(title)}` },
-      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/generic-popup.html', { title: title, description: popupData.description, pre_content: preContent, form: form, post_content: postContent }),
+      content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/generic-popup.html', {
+        title: title,
+        description: game.i18n.format(popupData.description, popupData.descriptionArgs ?? {}),
+        pre_content: preContent,
+        form: form,
+        post_content: postContent
+      }),
       classes: ['generic-popup', ...popupData.classes ?? []],
       buttons: [
         {
@@ -58,7 +66,7 @@ export class BladesPopup {
         if (dialog.itemFull.system.uses.value > 0)
           await BladesHelpers.tryUpdate(itemFull, { 'system.uses.==value': itemFull.system.uses.value - 1})
         if (dialog.popupData.message)
-          await BladesPopup.sendMessage(fields, dialog.popupData);
+          await BladesPopup.sendMessage(fields, dialog.popupData, itemFull);
       }
     });
     dialog.popupData = popupData;
@@ -73,7 +81,7 @@ export class BladesPopup {
   static instantiatePopupForm(actorFull, fields, popupName) {
     let result = `<div class="field" data-field="self" data-value="${actorFull.uuid}" style="display: none;"></div>`;
     for (let [fieldName, fieldData] of Object.entries(fields)) {
-      let isInline = ['checkbox'].includes(fieldData.type);
+      let isInline = ['select', 'checkbox'].includes(fieldData.type);
       let fieldContainer = `<div class="field flex-${isInline ? 'horizontal shrink' : 'vertical'}" data-field="${fieldName}" data-type="${fieldData.type}">`;
       if (fieldData.name)
         fieldContainer += `<label>${game.i18n.localize(fieldData.name)}</label>`;
@@ -109,6 +117,9 @@ export class BladesPopup {
               </td>${(i % 2 == 1 || i == otherMembers.length - 1) ? '</tr>' : ''}`).join('')}
             </table>`;
           break;
+        case 'select':
+          fieldContainer += `<select>${fieldData.values.map((d, i) => `<option value="${d}" ${i == 0 ? 'selected' : ''}>${game.i18n.localize(d)}</option>`).join('')}</select>`;
+          break;
         case 'checkbox':
           fieldContainer += `<input type="checkbox">`;
           break;
@@ -135,6 +146,11 @@ export class BladesPopup {
         BladesPopup.updateFormValues(dialog);
       });
     }
+    for (let element of dialog.element.querySelectorAll('.field > select')) {
+      element.addEventListener('change', async function(ev) {
+        BladesPopup.updateFormValues(dialog);
+      });
+    }
   }
 
   static fetchFormValues(dialog) {
@@ -148,6 +164,9 @@ export class BladesPopup {
             let selectedCell = element.querySelector('.actor-cell.selected');
             let crewmate = selectedCell ? selectedCell.dataset.actorId : null;
             fields[element.dataset.field] = crewmate;
+            break;
+          case 'select':
+            fields[element.dataset.field] = Array(element.querySelector('select').selectedOptions).length == 1 ? element.querySelector('select').value : Array(element.querySelector('select').selectedOptions);
             break;
           case 'checkbox':
             fields[element.dataset.field] = element.querySelector('input[type="checkbox"]').checked;
@@ -168,11 +187,11 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
-  static async sendMessage(fields, popupData) {
+  static async sendMessage(fields, popupData, itemFull) {
     const messageData = popupData.message;
     const extraFields = {
       title: game.i18n.localize(messageData.title ?? 'SFTD.UseAbility'),
-      contents: messageData.contents ? messageData.contents(fields, popupData) : BladesPopup.defaultMessageContents(fields, popupData)
+      contents: messageData.contents ? messageData.contents(fields, popupData, itemFull) : BladesPopup.defaultMessageContents(fields, popupData, itemFull)
     };
 
     const selfFull = BladesHelpers.resolveActor(fields.self);
@@ -388,6 +407,31 @@ export class BladesPopup {
 
   static hallowlinkHealingNotePreValidation(fields, popupData) {
     return BladesPopup.simpleMelodyValidation(fields, popupData) && BladesPopup.simpleCrewValidation(fields, popupData);
+  }
+
+  /* ----------------------------------------- */
+
+  static neohumanValidation(fields, popupData) {
+    if (fields.charmwork && fields.stress == 0)
+      return false;
+    const popupDataCopy = foundry.utils.deepClone(popupData);
+    popupDataCopy.stress = Number(fields.stress);
+    return BladesPopup.simpleStressAbilityValidation(fields, popupDataCopy);
+  }
+
+  static async neohumanEffect(fields, popupData) {
+    const popupDataCopy = foundry.utils.deepClone(popupData);
+    popupDataCopy.stress = Number(fields.stress);
+    return await BladesPopup.simpleStressAbilityEffect(fields, popupDataCopy);
+  }
+
+  static neohumanMessageContents(fields, popupData, itemFull) {
+    return game.i18n.format('SFTD.Neohuman.Message.Description', {
+      ability: itemFull.name,
+      cost: game.i18n.format(`SFTD.StriderAbility.Charmwork.${fields.charmwork ? '' : 'Not'}Usage`, {
+        stress: fields.stress
+      })
+    });
   }
 }
 
@@ -612,4 +656,24 @@ export const bladesPopupData = {
       contents: BladesPopup.simpleCrewmateMessageContents
     }
   },
+  neohuman: {
+    title: 'SFTD.Neohuman.Popup.Title',
+    description: 'SFTD.Neohuman.Popup.Description',
+    classes: ['neohuman'],
+    fields: {
+      stress: {
+        name: 'SFTD.Stress',
+        type: 'select',
+        values: ['0', '1', '2', '3']
+      }
+    },
+    charmwork: true,
+    validation: BladesPopup.neohumanValidation,
+    effect: BladesPopup.neohumanEffect,
+    message: {
+      title: 'SFTD.Neohuman.Message.Title',
+      description: 'SFTD.Neohuman.Message.Description',
+      contents: BladesPopup.neohumanMessageContents
+    }
+  }
 }

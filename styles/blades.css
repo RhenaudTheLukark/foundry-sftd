@@ -7847,6 +7847,9 @@
 .application.dialog.generic-popup .popup-container.form .field > label {
   height: fit-content;
 }
+.application.dialog.generic-popup .popup-container.form .field select {
+  width: fit-content;
+}
 .application.dialog.generic-popup .popup-container.form .field .crewmate-group {
   width: auto;
 }
