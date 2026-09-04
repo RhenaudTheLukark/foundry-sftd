@@ -382,12 +382,30 @@ export const bladesRollModifierList = {
   charmsight: {
     hidden: true,
     needPushYourself: true,
-    rollText: 'SFTD.StriderAbility.Charmsight.Description'
+    resolveFunc: (extraData) => {
+      const item = extraData.actorFull.items.find(i => i.effects.find(e => e.changes.find(c => c.key.endsWith('.charmsight'))));
+      const isCharmtrickBound = item?.system.bound_by_charmtrick;
+      return {
+        rollText: 'SFTD.StriderAbility.Charmsight.Description',
+        rollTextArgs: {
+          charmtrick: isCharmtrickBound ? game.i18n.localize('SFTD.StriderAbility.Charmtrick.PushYourselfNotice') : ''
+        }
+      }
+    }
   },
   charmbreak: {
     hidden: true,
     needPushYourself: true,
-    rollText: 'SFTD.StriderAbility.Charmbreak.Description'
+    resolveFunc: (extraData) => {
+      const item = extraData.actorFull.items.find(i => i.effects.find(e => e.changes.find(c => c.key.endsWith('.charmbreak'))));
+      const isCharmtrickBound = item?.system.bound_by_charmtrick;
+      return {
+        rollText: 'SFTD.StriderAbility.Charmbreak.Description',
+        rollTextArgs: {
+          charmtrick: isCharmtrickBound ? game.i18n.localize('SFTD.StriderAbility.Charmtrick.PushYourselfNotice') : ''
+        }
+      }
+    }
   },
   kindred_all_connect: {
     name: 'SFTD.StriderAbility.KindredAll.ConnectActionTitle',
@@ -2202,8 +2220,26 @@ export function resolveConditionalModifiers(dialog, actorFull, attributeName) {
 
   // Fetch hidden, always on modifiers
   for (let modifier of dialog.allConditionalModifiers)
-    if (modifier.hidden)
-      output.push(modifier);
+    if (modifier.hidden) {
+      let conditionalModifier = foundry.utils.deepClone(modifier);
+
+      if (conditionalModifier.resolveFunc !== undefined) {
+        let extraData = {actorFull: actorFull};
+        if (actorFull.system.crew) {
+          let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+          let groupAction = crewFull?.system.group_action;
+          if (groupAction) {
+            let leaderFull = BladesHelpers.resolveActor(groupAction.leader);
+            extraData.leader = leaderFull.name;
+          }
+        }
+        extraData.modifiers = dialog.permanentModifiers.concat(Array.from(checkedModifiers).map(m => dialog.conditionalModifiers[parseInt(m.dataset.modifierId)]));
+        conditionalModifier = conditionalModifier.resolveFunc(extraData);
+        if (!conditionalModifier)
+          continue;
+      }
+      output.push(conditionalModifier);
+    }
 
   return output;
 }

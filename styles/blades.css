@@ -5769,12 +5769,12 @@
 .songs-for-the-dusk.actor.sheet .tab-content .tab.relationships .relationship-container .relationship-child-list {
   margin-left: 10px;
 }
-.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .generic-popup, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .generic-popup, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .generic-popup {
+.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .generic-popup, .songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .charm-ability, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .generic-popup, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .charm-ability, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .generic-popup, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .charm-ability {
   text-align: center;
   align-self: center;
   align-items: center;
 }
-.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .generic-popup input {
+.songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.abilities .charm-ability input, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations .charm-ability input, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .generic-popup input, .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout .charm-ability input {
   margin: 0px;
 }
 .songs-for-the-dusk.actor.sheet .tab-content .tab.abilities div:has(> .overlay), .songs-for-the-dusk.actor.sheet .tab-content .tab.foundations div:has(> .overlay), .songs-for-the-dusk.actor.sheet .tab-content .tab.loadout div:has(> .overlay) {

@@ -376,6 +376,7 @@
       "templates": ["ability", "usable", "logic", "activatedEffect"],
       "is_starting_ability": false,
       "is_charm": false,
+      "bound_by_charmtrick": false,
       "popup": ""
     },
     "specialist": {

@@ -461,6 +461,7 @@
     "RegionProsperity": "Region Prosperity",
     "Arguments": "Arguments",
     "BothCharmsync": "Both (Charmsync)",
+    "CharmAbility": "Charm Ability",
 
     "OtherRoll": "Misc. Roll",
     "OtherRollFull": "Miscellaneous Roll",
@@ -969,10 +970,14 @@
         "ActionTitle": "Way of the Seeker: Hide in a Prepared Position or Using Camouflage to Avoid Detection?"
       },
       "Charmsight": {
-        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Temporarily enhance your senses to pierce solid matter,</li><li>View the past of a transcendent artifact or location.</li></ul>"
+        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Temporarily enhance your senses to pierce solid matter,</li><li>View the past of a transcendent artifact or location.</li></ul>{charmtrick}"
+      },
+      "Charmtrick": {
+        "PopupNotice": "<p>NOTE: Since this ability is selected by Charmtrick, its usage's Stress cost will increase by 1.</p>",
+        "PushYourselfNotice": "Because of Charmtrick, if you use this ability, you must also suffer 1 Stress."
       },
       "Charmbreak": {
-        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Unleash an enormous blast of magical force,</li><li>Call down a natural or unnatural storm around you (gale-force winds, whirling sunfire, gravitic vortices, etc.).</li></ul>"
+        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Unleash an enormous blast of magical force,</li><li>Call down a natural or unnatural storm around you (gale-force winds, whirling sunfire, gravitic vortices, etc.).</li></ul>{charmtrick}"
       },
       "Charmwork": {
         "Title": "Charmwork",

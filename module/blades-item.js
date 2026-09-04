@@ -27,10 +27,8 @@ export class BladesItem extends Item {
   async _onCreate(data, options, userId) {
     await super._onCreate(data, options, userId);
 
-    if (this.type == 'specialist') {
-      const itemData = this.system;
+    if (this.type == 'specialist')
       this.updateSpecialistQuality();
-    }
   }
 
   async updateSpecialistQuality(forcedTier) {
@@ -38,11 +36,34 @@ export class BladesItem extends Item {
     await BladesHelpers.tryUpdate(this, {'system.==quality': quality});
   }
 
+  async _preUpdate(changed, options, user) {
+    const allowed = await super._preUpdate(changed, options, user);
+    if (allowed === false) return false;
+
+    if (this.type == 'ability' && changed.system?.['==charm_ability'] != undefined) {
+      const oldCharmAbility = this.system.charm_ability == 'none' ? null : this.parent.items.contents.find(i => i._id == this.system.charm_ability);
+      if (oldCharmAbility)
+        await BladesHelpers.tryUpdate(oldCharmAbility, {'system.==bound_by_charmtrick': false});
+      const newCharmAbility = changed.system['==charm_ability'] == 'none' ? null : this.parent.items.contents.find(i => i._id == changed.system['==charm_ability']);
+      if (newCharmAbility)
+        await BladesHelpers.tryUpdate(newCharmAbility, {'system.==bound_by_charmtrick': true});
+    }
+  }
+
   /** @override */
   async _onUpdate(changed, options, userId) {
-    super._onUpdate(changed, options, userId);
+    await super._onUpdate(changed, options, userId);
+
     if (this.type == 'foundation' && (changed.system?.is_weather_damaged != undefined || changed.system?.is_under_disaster != undefined))
       await this.updateFoundation();
+  }
+
+  /** @override */
+  async _onDelete(options, userId) {
+    if (this.type == 'ability' && [undefined, 'none'].includes(this.system?.charm_ability))
+      await BladesHelpers.tryUpdate(this.parent.items[this.system.charm_ability], {'system.==bound_by_charmtrick': false});
+
+    await super._onDelete(options, userId);
   }
 
   async updateFoundation() {

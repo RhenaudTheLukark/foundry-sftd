@@ -14,7 +14,9 @@ export class BladesPopup {
       popupData.descriptionArgs = { ability: itemFull.name };
 
     const title = popupData.title ?? 'SFTD.UseAbility';
-    const preContent = popupData.pre_content ? popupData.pre_content({}) : '';
+    var preContent = popupData.pre_content ? popupData.pre_content({}) : '';
+    if (itemFull.system.bound_by_charmtrick)
+      preContent = game.i18n.localize('SFTD.StriderAbility.Charmtrick.PopupNotice') + preContent;
     const form = Object.keys(popupFields).length ? BladesPopup.instantiatePopupForm(actorFull, popupFields, title) : '';
     if (form == null)
       return;
@@ -23,15 +25,15 @@ export class BladesPopup {
     const fields = {self: actorFull.uuid, itemFull: itemFull};
     if (form == '') {
       if (popupData.validation)
-        if (!popupData.validation(fields, popupData, true))
+        if (!popupData.validation(fields, popupData, true, itemFull))
           return;
       if (popupData.effect)
-        await popupData.effect(fields, popupData);
+        await popupData.effect(fields, popupData, itemFull);
       if (popupData.message)
         await BladesPopup.sendMessage(fields, popupData, itemFull);
       return;
     } else if (popupData.pre_validation)
-      if (!popupData.pre_validation(fields, popupData, true))
+      if (!popupData.pre_validation(fields, popupData, true, itemFull))
         return;
 
     const dialog = new foundry.applications.api.DialogV2({
@@ -62,7 +64,7 @@ export class BladesPopup {
 
         let fields = BladesPopup.fetchFormValues(dialog);
         if (dialog.popupData.effect)
-          await dialog.popupData.effect(fields, dialog.popupData);
+          await dialog.popupData.effect(fields, dialog.popupData, dialog.itemFull);
         if (dialog.itemFull.system.uses.value > 0)
           await BladesHelpers.tryUpdate(itemFull, { 'system.uses.==value': itemFull.system.uses.value - 1})
         if (dialog.popupData.message)
@@ -180,9 +182,12 @@ export class BladesPopup {
 
   static updateFormValues(dialog) {
     const fields = BladesPopup.fetchFormValues(dialog);
-    dialog.element.querySelector('.pre-content').innerHTML = dialog.popupData.pre_content ? dialog.popupData.pre_content(fields) : '';
+    var preContent = dialog.popupData.pre_content ? dialog.popupData.pre_content(fields) : '';
+    if (dialog.itemFull.system.bound_by_charmtrick)
+      preContent = game.i18n.localize('SFTD.StriderAbility.Charmtrick.PopupNotice') + preContent;
+    dialog.element.querySelector('.pre-content').innerHTML = preContent;
     dialog.element.querySelector('.post-content').innerHTML = dialog.popupData.post_content ? dialog.popupData.post_content(fields) : '';
-    dialog.element.querySelector('button[data-action="use"]').disabled = dialog.popupData.validation ? !dialog.popupData.validation(fields, dialog.popupData ?? {}) : false;
+    dialog.element.querySelector('button[data-action="use"]').disabled = dialog.popupData.validation ? !dialog.popupData.validation(fields, dialog.popupData ?? {}, false, dialog.itemFull) : false;
   }
 
   /* ----------------------------------------- */
@@ -213,8 +218,10 @@ export class BladesPopup {
     return game.i18n.format(popupData.message?.description ?? '', {self: selfFull.name});
   }
 
-  static defaultGetStress(fields, baseStress, fieldsData) {
+  static defaultGetStress(fields, baseStress, fieldsData, itemFull) {
     let stressGain = baseStress;
+    if (itemFull.system.bound_by_charmtrick)
+      stressGain ++;
     for (let [fieldName, fieldData] of Object.entries(fieldsData).filter(f => fields[f[0]] && f[1].stress != undefined))
       stressGain += fieldData.stress;
     return stressGain;
@@ -222,9 +229,9 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
-  static simpleStressAbilityValidation(fields, popupData, noPopup) {
+  static simpleStressAbilityValidation(fields, popupData, noPopup, itemFull) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const stressGain = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
+    const stressGain = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {}, itemFull);
     const selfNewStress = selfFull.system.stress.value + stressGain;
     const hasCharmwork = selfFull.isCharmworkAvailable();
     if (noPopup && selfNewStress > selfFull.system.stress.max && !hasCharmwork)
@@ -233,17 +240,17 @@ export class BladesPopup {
   }
 
 
-  static async simpleStressAbilityEffect(fields, popupData) {
+  static async simpleStressAbilityEffect(fields, popupData, itemFull) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
     if (fields.charmwork)
       await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1 });
     else
-      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {})});
+      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {}, itemFull)});
   }
 
-  static simpleStressAbilityMessageContents(fields, popupData) {
-    const stress = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {});
+  static simpleStressAbilityMessageContents(fields, popupData, itemFull) {
+    const stress = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {}, itemFull);
     let effects = '';
     if (popupData.fields)
       for (let [fieldName, fieldData] of Object.entries(popupData.fields).filter(f => fields[f[0]] && f[1].message_text != undefined))

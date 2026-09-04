@@ -185,10 +185,10 @@ Hooks.once("init", async function() {
     selected = selected instanceof Array ? selected.map(String) : [String(selected)];
 
     // Create an option
-    const option = (key, object) => {
-      if (localize) object.label = game.i18n.localize(object.label);
+    const option = (key, label) => {
+      if (localize) label = game.i18n.localize(label);
       let isSelected = selected.includes(key);
-      html += `<option value="${key}" ${isSelected ? "selected" : ""}>${object.label}</option>`;
+      html += `<option value="${key}" ${isSelected ? "selected" : ""}>${label}</option>`;
     };
 
     // Create the options

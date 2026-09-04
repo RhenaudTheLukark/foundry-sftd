@@ -110,6 +110,11 @@ export class BladesStriderSheet extends BladesSheet {
 
     sheetData.orderedItems = sheetData.items.sort(BladesHelpers.itemEntryCompareFunc);
 
+    sheetData.charmAbilityDropdown = {
+      'none': 'SFTD.None',
+      ...Object.fromEntries(sheetData.orderedItems.filter(i => i.type == 'ability' && i.system.is_charm && !i.system.is_starting_ability && !i.system.is_charmtrick).map(i => [i._id, i.name]))
+    };
+
     sheetData.defaultClockThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
 
     return sheetData;
@@ -274,6 +279,13 @@ export class BladesStriderSheet extends BladesSheet {
       for (let id in connectionsEntries)
         connectionsEntries[id][0] = String(id);
       await BladesHelpers.tryUpdate(this.actor, {system: {'==connections': Object.fromEntries(connectionsEntries)}});
+    });
+
+    html.find('.charm-ability select').change(async ev => {
+      const element = ev.currentTarget.closest('.item');
+      const item = this.actor.items.get(element.dataset.itemId);
+      const itemId = ev.currentTarget.value;
+      await BladesHelpers.tryUpdate(item, {'system.==charm_ability': itemId});
     });
 
     html.find('.other-rolls').click(async _ => {

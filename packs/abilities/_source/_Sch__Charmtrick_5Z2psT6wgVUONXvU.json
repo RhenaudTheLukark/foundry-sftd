@@ -16,7 +16,8 @@
     "is_charm": true,
     "popup": "",
     "purchased": false,
-    "class_default": false
+    "class_default": false,
+    "is_charmtrick": true
   },
   "effects": [],
   "folder": null,

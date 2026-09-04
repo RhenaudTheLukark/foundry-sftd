@@ -3,12 +3,13 @@
     <div class="item-name"><p>{{item.name}}</p></div>
     <div class="item-description">{{{item.system.description}}}</div>
   </div>
-  {{#if item.system.expertise}}
-  <div class="expertise flex-vertical">
-    <label><b>{{localize 'SFTD.Action'}}</b></label>
+  {{#if item.system.is_charmtrick}}
+  <div class="charm-ability flex-vertical">
+    <label><b>{{localize 'SFTD.CharmAbility'}}</b></label>
     <select>
-      {{selectOptions actor.expertiseDropdown selected=item.system.expertise_action localize=true}}
+      {{selectOptionsWithLabel actor.charmAbilityDropdown selected=item.system.charm_ability localize=true}}
     </select>
+    </button>
   </div>
   {{/if}}
   {{#if item.system.popup}}
