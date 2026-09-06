@@ -214,7 +214,7 @@ export const bladesRollModifierList = {
   },
   downtime_assist: {
     name: 'SFTD.Assist',
-    rollTypes: ['constructFoundation', 'cutLoose', 'longTermProject', 'reducePressure', 'synthetize', 'unwind'],
+    rollTypes: ['constructFoundation', 'longTermProject', 'reducePressure', 'synthesis'],
     fields: {
       'SFTD.Helper': []
     },
@@ -386,12 +386,19 @@ export const bladesRollModifierList = {
       const item = extraData.actorFull.items.find(i => i.effects.find(e => e.changes.find(c => c.key.endsWith('.charmsight'))));
       const isCharmtrickBound = item?.system.bound_by_charmtrick;
       return {
+        needPushYourself: true,
         rollText: 'SFTD.StriderAbility.Charmsight.Description',
         rollTextArgs: {
           charmtrick: isCharmtrickBound ? game.i18n.localize('SFTD.StriderAbility.Charmtrick.PushYourselfNotice') : ''
         }
       }
     }
+  },
+  hypertext_transmat_protocol: {
+    name: 'SFTD.StriderAbility.HypertextTransmatProtocol.Title',
+    rollTypes: ['constructFoundation', 'longTermProject', 'reducePressure', 'synthesis'],
+    downtimeAction: 'decipher',
+    result: 1
   },
   charmbreak: {
     hidden: true,
@@ -400,6 +407,7 @@ export const bladesRollModifierList = {
       const item = extraData.actorFull.items.find(i => i.effects.find(e => e.changes.find(c => c.key.endsWith('.charmbreak'))));
       const isCharmtrickBound = item?.system.bound_by_charmtrick;
       return {
+        needPushYourself: true,
         rollText: 'SFTD.StriderAbility.Charmbreak.Description',
         rollTextArgs: {
           charmtrick: isCharmtrickBound ? game.i18n.localize('SFTD.StriderAbility.Charmtrick.PushYourselfNotice') : ''
@@ -458,6 +466,8 @@ export const impactIndex = ['zero', 'weak', 'normal', 'strong', 'extreme'];
  * @param {Object} extraFields
  */
 export async function bladesRoll(diceAmount, attributeOrRollName = '', note = '', extraFields = {}) {
+  if (extraFields.modifiers)
+    extraFields.modifiers = keepValidModifiersFromFields(extraFields.modifiers, extraFields);
   if (attributeOrRollName.includes('SpecialistRoll') && !extraFields.within_expertise) diceAmount = 0;
 
   let numberedPosition = positionIndex.indexOf(extraFields.position);
@@ -873,29 +883,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     extraFields.clockFilled = clockFilled;
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/long-term-project-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
   }
-  // Check for Manufacture roll
-  else if (attributeOrRollName == 'SFTD.ManufactureRoll') {
-    let successTier = Number(extraFields.successTier);
-    let tierQuality = Number(extraFields.tier);
-    let origTierQuality = tierQuality;
-    switch (rollStatus) {
-      case 'critical-success':
-        tierQuality = tierQuality + 2;
-        break;
-      case 'success':
-        tierQuality = tierQuality + 1;
-        break;
-      case 'failure':
-        if (tierQuality > 0)
-          tierQuality = tierQuality - 1;
-        break;
-      default:
-        break;
-    }
-    let shellsNeededForSuccess = Math.max(successTier - tierQuality, 0);
-    let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/manufacture-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
-  }
   // Check for Reduce Pressure roll
   else if (attributeOrRollName == 'SFTD.ReducePressureRoll') {
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
@@ -913,6 +900,28 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
 
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/reduce-pressure-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: ticks, hazard_full: hazardFull, note: note, extraFields: extraFields });
+  }
+  // Check for Synthesis roll
+  else if (attributeOrRollName == 'SFTD.SynthesisRoll') {
+    let successTier = Number(extraFields.successTier);
+    let tierQuality = Number(extraFields.tier);
+    switch (rollStatus) {
+      case 'critical-success':
+        tierQuality = tierQuality + 2;
+        break;
+      case 'success':
+        tierQuality = tierQuality + 1;
+        break;
+      case 'failure':
+        if (tierQuality > 0)
+          tierQuality = tierQuality - 1;
+        break;
+      default:
+        break;
+    }
+    let shellsNeededForSuccess = Math.max(successTier - tierQuality, 0);
+    let successRollStatus = shellsNeededForSuccess > 0 ? 'failure' : 'success';
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/synthesis-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, success_roll_status: successRollStatus, attribute_label: attributeLabel, tier_quality: tierQuality, success_tier: successTier, success_shells: shellsNeededForSuccess, note: note, extraFields: extraFields });
   }
   // Check for Unwind roll
   else if (attributeOrRollName == 'SFTD.UnwindRoll') {
@@ -1266,10 +1275,9 @@ export const rollTypeLabels = {
   moveCity: 'SFTD.MoveCityRoll',
   recover: 'SFTD.RecoverRoll',
   reducePressure: 'SFTD.ReducePressureRoll',
+  synthesis: 'SFTD.SynthesisRoll',
   train: 'SFTD.TrainRoll',
   unwind: 'SFTD.UnwindRoll',
-
-  manufacture: 'SFTD.ManufactureRoll',
 
   collectionAgency: 'SFTD.CollectionAgency',
   sideBusiness: 'SFTD.SideBusiness',
@@ -1311,7 +1319,7 @@ const rollTypeArgs = {
   groupAction: (_, args) => `
     <span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
-      <select id="groupActionAction" name="groupActionAction">${args.actions}</select>
+      <select id="gaAction" name="gaAction">${args.actions}</select>
     </span>`,
   aftermath: (_, args) => `
     <span>
@@ -1375,7 +1383,7 @@ const rollTypeArgs = {
       <label>${game.i18n.localize('SFTD.Participants')}:</label>
       <select id="cutLooseParticipants" name="cutLooseParticipants" data-tooltip="SFTD.MultipleSelectUsage" multiple ${args.participants}</select>
     </span>`,
-  longTermProject: (strict, args) => `
+  longTermProject: (_, args) => `
     ${args.actor?.type == 'strider' ? `<span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
       <select id="ltpAction" name="ltpAction">${args.actions}</select>
@@ -1384,17 +1392,14 @@ const rollTypeArgs = {
       <label>${game.i18n.localize(`SFTD.Project${args.projects.includes('multiple>') ? 's' : ''}`)}:</label>
       <select id="ltpId" name="ltpId"${args.projects}</select>
     </span>`,
-  manufacture: (_, args) => `
+  synthesis: (_, args) => `
     <span>
       <label>${game.i18n.localize('SFTD.SuccessTier')}:</label>
-      <input type="number" id="manufactureSuccessTier" name="manufactureSuccessTier" onkeypress="return BladesHelpers.isNumberKey(event)" value="0">
+      <input type="number" id="synSuccessTier" name="synSuccessTier" onkeypress="return BladesHelpers.isNumberKey(event)" value="0">
     </span>
     <span>
       <label>${game.i18n.localize('SFTD.Action')}:</label>
-      <select id="manufactureAction" name="manufactureAction">
-        <option value="engineer" selected>${game.i18n.localize('SFTD.ActionsEngineer')}</option>
-        <option value="interface">${game.i18n.localize('SFTD.ActionsInterface')}</option>
-      </select>
+      <select id="synAction" name="synAction">${args.actions}</select>
     </span>`,
   reducePressure: (_, args) => `
     ${args.actor?.type == 'strider' ? `<span>
@@ -1405,7 +1410,7 @@ const rollTypeArgs = {
       <label>${game.i18n.localize('SFTD.ReduceHazard')}:</label>
       <input type="checkbox" id="rpHazard" name="rpHazard" checked>
     </span>` : ''}`,
-  upkeep: (strict, args) => `
+  upkeep: () => `
     <span>
       <label>${game.i18n.localize('TYPES.Actor.faction')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.UpkeepDragDropInfo')}"></i></a>:</label>
       <div id="upkeepFaction">${game.i18n.localize('SFTD.None')}</div>
@@ -1417,12 +1422,12 @@ const rollTypeArgs = {
         ${Array(6).fill().map((_, i) => `<option value="${i}">${i}</option>`).join('')}
       </select>
     </span>`,
-  train: (strict, args) => `
+  train: (_, args) => `
     <span>
       <label>${game.i18n.localize('SFTD.Type')}:</label>
       <select id="trainType" name="trainType">${args.trainTypes}</select>
     </span>`,
-  unwind: (strict, args) => `
+  unwind: (_, args) => `
     <span>
       <label>${game.i18n.localize('TYPES.Actor.npc')}:</label>
       <select id="unwindNpc" name="unwindNpc">${args.npcs}</select>
@@ -1505,7 +1510,7 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       thirdArg = {...thirdArg, healActors: healActors};
     } else if (['collectInfo', 'constructFoundation', 'longTermProject','reducePressure'].includes(rollType) && actor?.type == 'strider') {
       let actionList = Object.keys(actor.getRollData().diceAmount).filter(a => BladesHelpers.isAttributeAction(a));
-      let actions = actionList.map((value, index) => `<option value="${value}"${((rollType != 'constructFoundation' && index == 0) || (rollType == 'constructFoundation' && value == 'shape')) ? ' selected' : ''}>${game.i18n.localize(BladesHelpers.getAttributeLabel(value))}</option>`).join('');
+      let actions = actionList.map((value, index) => `<option value="${value}"${((!['constructFoundaton', 'synthesis'].includes(rollType) && index == 0) || (['constructFoundaton', 'synthesis'].includes(rollType) && value == 'shape')) ? ' selected' : ''}>${game.i18n.localize(BladesHelpers.getAttributeLabel(value))}</option>`).join('');
 
       thirdArg = {...thirdArg, actions: actions};
     } else if (rollType == 'train') {
@@ -1660,13 +1665,13 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
             await bladesRoll(aftermathDice + diceQty, 'SFTD.AftermathRoll', note, extraFields);
             break;
           case 'collectInfo':
-            let attributeName = dialog.element.querySelector('[name="ciAction"]').value;
-            let collectInfoDiceAmount = targetActor?.getRollData().diceAmount[attributeName] ?? 0;
+            let attribute = dialog.element.querySelector('#ciAction').value;
+            let collectInfoDiceAmount = targetActor?.getRollData().diceAmount[attribute] ?? 0;
             let position = dialog.element.querySelector('[name="pos"]').value;
             let forcedPosition = dialog.element.querySelector('[name="forcedPos"]').checked;
             let impact = dialog.element.querySelector('[name="impact"]').value;
             let forcedImpact = dialog.element.querySelector('[name="forcedImpact"]').checked;
-            extraFields = { attributeName: BladesHelpers.getAttributeLabel(attributeName), position: position, forcedPosition: forcedPosition, impact: impact, forcedImpact: forcedImpact, ...extraFields };
+            extraFields = { attributeName: BladesHelpers.getAttributeLabel(attribute), attribute: attribute, position: position, forcedPosition: forcedPosition, impact: impact, forcedImpact: forcedImpact, ...extraFields };
             await bladesRoll(collectInfoDiceAmount + diceQty, 'SFTD.CollectInformationRoll', note, extraFields);
             break;
           case 'engagement':
@@ -1783,10 +1788,8 @@ export function dialogOnFirstRender(context, options, thisPass) {
       let rollButton = dialog.element.querySelectorAll('button[data-action=roll]')[0];
       let rollType = el.id.split('-')[0];
       let buttonAvailable = true;
-      if (rollType == 'cutLoose') {
-        let connections = dialog.element.querySelector('select[name=connection]');
-        buttonAvailable = connections.innerHTML.length != 0;
-      }
+      if (BladesHelpers.isDowntime(rollType))
+        buttonAvailable &&= checkDowntimeRules(dialog);
       rollButton.disabled = !buttonAvailable;
     });
   }
@@ -1806,12 +1809,13 @@ export function refreshModifiers(dialog, rollType, rollPosition, attributeName) 
   const toggleableModifiersElement = dialog.element.querySelector('.toggleable-modifiers');
   toggleableModifiersElement.innerHTML = newConditionalModifiersHTML;
   toggleableModifiersElement.style.display = Object.entries(dialog.conditionalModifiers.filter(m => !m.hidden)).length == 0 ? 'none' : '';
-  for (const checkboxElement of toggleableModifiersElement.querySelectorAll('.modifier > label > input:first-of-type')) {
-    const modifierElement = checkboxElement.closest('.modifier');
-    if (modifierElement.querySelector('select[field="SFTD.Cost"]'))
-      modifierElement.querySelector('select[field="SFTD.Cost"]').addEventListener('change', async (_) => harmonySanityCheck(dialog));
-    checkboxElement.addEventListener('click', async (_) => harmonySanityCheck(dialog));
-  }
+  if (!BladesHelpers.isDowntime(rollType))
+    for (const checkboxElement of toggleableModifiersElement.querySelectorAll('.modifier > label > input:first-of-type')) {
+      const modifierElement = checkboxElement.closest('.modifier');
+      if (modifierElement.querySelector('select[field="SFTD.Cost"]'))
+        modifierElement.querySelector('select[field="SFTD.Cost"]').addEventListener('change', async (_) => harmonySanityCheck(dialog));
+      checkboxElement.addEventListener('click', async (_) => harmonySanityCheck(dialog));
+    }
 }
 
 export async function harmonySanityCheck(dialog) {
@@ -1901,6 +1905,18 @@ export function keepValidModifiersFromOther(modifiers) {
     if (modifier.needProtect && !protecting) continue;
     if (modifier.isHarmony) usingHarmony = true;
     if (modifier.needHarmony && !usingHarmony) continue;
+    output.push(modifier);
+  }
+  return output;
+}
+
+export function keepValidModifiersFromFields(modifiers, extraFields) {
+  let output = [];
+  for (let modifier of modifiers) {
+    if (extraFields.action) {
+      if (modifier.downtimeAction && modifier.downtimeAction != extraFields.action) continue;
+      if (modifier.downtimeActions && !modifier.downtimeActions.includes(extraFields.action)) continue;
+    }
     output.push(modifier);
   }
   return output;

@@ -356,20 +356,21 @@ export class BladesStriderSheet extends BladesSheet {
           let crewFull = BladesHelpers.resolveActor(actorSheet.actor.system.crew);
           switch (rollType) {
             case 'constructFoundation':
-              let constructFoundationAction = dialog.element.querySelector('#cfAction').value;
-              let constructFoundationNewFoundation = dialog.constructFoundationNewFoundation;
-              let constructFoundationNewFoundationCost = dialog.element.querySelector('#cfNewFoundationCost')?.value;
-              let constructFoundationFoundation = Number(dialog.element.querySelector('#cfFoundation').value);
-              let constructFoundationDice = actorSheet.actor.getRollData().diceAmount[constructFoundationAction] ?? 0 + extraDice;
-              if (constructFoundationNewFoundation) {
-                let newFoundation = foundry.utils.deepClone(constructFoundationNewFoundation);
-                newFoundation.system.cache_cost = Number(constructFoundationNewFoundationCost);
+              let cfAction = dialog.element.querySelector('#cfAction').value;
+              let cfNewFoundation = dialog.constructFoundationNewFoundation;
+              let cfNewFoundationCost = dialog.element.querySelector('#cfNewFoundationCost')?.value;
+              let cfFoundation = Number(dialog.element.querySelector('#cfFoundation').value);
+              let cfDice = actorSheet.actor.getRollData().diceAmount[cfAction] ?? 0 + extraDice;
+              if (cfNewFoundation) {
+                let newFoundation = foundry.utils.deepClone(cfNewFoundation);
+                newFoundation.system.cache_cost = Number(cfNewFoundationCost);
                 await BladesHelpers.addProject(crewFull, newFoundation);
-                constructFoundationFoundation = Object.values(crewFull.system.projects).length - 1;
+                cfFoundation = Object.values(crewFull.system.projects).length - 1;
               }
-              extraFields.cfId = constructFoundationFoundation;
-              extraFields.isNewFoundation = constructFoundationNewFoundation != null;
-              await bladesRoll(constructFoundationDice, 'SFTD.ConstructFoundationRoll', note, extraFields);
+              extraFields.action = cfAction;
+              extraFields.cfId = cfFoundation;
+              extraFields.isNewFoundation = cfNewFoundation != null;
+              await bladesRoll(cfDice, 'SFTD.ConstructFoundationRoll', note, extraFields);
               break;
             case 'cutLooseBegin':
               extraFields.noRoll = true;
@@ -386,6 +387,7 @@ export class BladesStriderSheet extends BladesSheet {
             case 'longTermProject':
               let ltpAction = dialog.element.querySelector('#ltpAction').value;
               let ltpDice = actorSheet.actor.getRollData().diceAmount[ltpAction] + extraDice;
+              extraFields.action = ltpAction;
               extraFields.ltpId = dialog.element.querySelector('#ltpId').value;
               await bladesRoll(ltpDice, 'SFTD.LongTermProjectRoll', note, extraFields);
               break;
@@ -396,8 +398,18 @@ export class BladesStriderSheet extends BladesSheet {
             case 'reducePressure':
               let rpAction = dialog.element.querySelector('#rpAction').value;
               let rpDice = actorSheet.actor.getRollData().diceAmount[rpAction] + extraDice;
+              extraFields.action = rpAction;
               extraFields.rpHazard = dialog.element.querySelector('#rpHazard')?.checked;
               await bladesRoll(rpDice, 'SFTD.ReducePressureRoll', note, extraFields);
+              break;
+            case 'synthesis':
+              let synSuccessTier = html.find('[name="synSuccessTier"]')[0].value;
+              let synAction = html.find('[name="synAction"]')[0].value;
+              let synDiceAmount = this.actor.getRollData().diceAmount[synAction] + extraDice;
+              extraFields.action = synAction;
+              extraFields.tier = crewFull.getTier();
+              extraFields.successTier = synSuccessTier;
+              await bladesRoll(synDiceAmount, 'SFTD.SynthesisRoll', note, extraFields);
               break;
             case 'train':
               extraFields.noRoll = true;
@@ -451,6 +463,10 @@ export class BladesStriderSheet extends BladesSheet {
       let hasSelectedValidFoundation = element.querySelector('#cfFoundation').value != 'None';
       return !(newFoundationTooCostly || !(hasNewFoundation ^ hasSelectedValidFoundation));
     }
+    dialog.isCutLooseValid = function (dialog) {
+      let element = dialog.element.querySelector('#cutLooseParticipants');
+      return !Array.from(element.selectedOptions).length > 0;
+    }
     await dialog.render(true);
 
     let htmlElement = $(dialog.element);
@@ -464,33 +480,35 @@ export class BladesStriderSheet extends BladesSheet {
             dropFull = await game.packs.contents.find(p => p.metadata.id == dropFull.pack).getDocument(dropFull._id);
           dialog.constructFoundationNewFoundation = dropFull;
           // Drop a Foundation for the Construct Foundation roll
-          $(this).find('#cfNewFoundation')[0].innerHTML = `
+          this.querySelector('#cfNewFoundation').innerHTML = `
             <div class="actor-contents flex-horizontal" data-actor-id="${dropData.uuid}">
               <a class="item-name">${dropFull.name}</a>
               <a class="delete-actor"><i class="fas fa-times"></i></a>
             </div>`;
-          $(this).find('#cfNewFoundationCost')[0].innerHTML = Array(9).fill().map((_, i) => `<option value="${i}"${i == dropFull.system.cache_cost ? ' selected' : ''}>${i}</option>`).join('')
-          $(this).find('#cfNewFoundation .delete-actor')[0].onclick = function (ev) {
+          this.querySelector('#cfNewFoundationCost').innerHTML = Array(9).fill().map((_, i) => `<option value="${i}"${i == dropFull.system.cache_cost ? ' selected' : ''}>${i}</option>`).join('')
+          this.querySelector('#cfNewFoundation .delete-actor').onclick = function (ev) {
             dialog.constructFoundationNewFoundation = null;
-            let rollType = $(this).closest('.form-group').find('input[type=radio]:checked')[0].id.split('-')[0];
-            $(this).closest('.radio-group').find('#cfNewFoundationCost')[0].innerHTML = '';
-            $(this).closest('#cfNewFoundation')[0].innerHTML = game.i18n.localize('SFTD.None');
+            let rollType = this.closest('.form-group').querySelector('input[type=radio]:checked').id.split('-')[0];
+            this.closest('.radio-group').querySelector('#cfNewFoundationCost').innerHTML = '';
+            this.closest('#cfNewFoundation').innerHTML = game.i18n.localize('SFTD.None');
             if (rollType == 'constructFoundation')
-              $(this).closest('.window-content').find('button[data-action="roll"]')[0].disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
+              this.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
           }
-          let rollType = $(this).find('input[type=radio]:checked')[0].id.split('-')[0];
+          let rollType = this.querySelector('input[type=radio]:checked').id.split('-')[0];
           if (rollType == 'constructFoundation')
-            $(this).find('[data-action="roll"]')[0].disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
+            this.querySelector('[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
         }
       }
     };
     for (let element of htmlElement.find('input[type=radio]')) {
       element.onclick = function (ev) {
         let rollType = this.id.split('-')[0];
-        let rollButton = $(this).closest('.window-content').find('button[data-action="roll"]')[0];
+        let rollButton = this.closest('.window-content').querySelector('button[data-action="roll"]');
         let allowedToRoll = true;
         if (rollType == 'constructFoundation')
           allowedToRoll = dialog.isConstructFoundationValid(dialog);
+        if (rollType == 'cutLooseBegin')
+          allowedToRoll = dialog.isCutLooseValid(dialog);
 
         allowedToRoll &&= checkDowntimeRules(dialog);
         rollButton.disabled = !allowedToRoll;
@@ -515,13 +533,13 @@ export class BladesStriderSheet extends BladesSheet {
         let element = ev.currentTarget;
         let rollType = element.closest('.form-group').querySelector('input[type=radio]:checked').id.split('-')[0];
         if (rollType == 'cutLooseBegin')
-          element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !Array.from(element.selectedOptions).length;
+          element.closest('.window-content').querySelector('button[data-action="roll"]').disabled = !dialog.isCutLooseValid(dialog) || !checkDowntimeRules(dialog);
       });
   }
 
   // Remove unavailable roll types
   getDowntimeRollTypesToRemove(forcedRollTypes = null) {
-    let rollTypes = forcedRollTypes ?? ['constructFoundation', 'cutLooseBegin', 'longTermProject', 'moveCity', 'recover', 'reducePressure', 'train', 'unwind'];
+    let rollTypes = forcedRollTypes ?? ['constructFoundation', 'cutLooseBegin', 'longTermProject', 'moveCity', 'recover', 'reducePressure', 'synthesis', 'train', 'unwind'];
     let missingRollTypes = {};
 
     let trainTypes = ['playbook', 'analysis', 'kinesis', 'semiosis'];
@@ -543,6 +561,7 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'moveCity', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'reducePressure', 'SFTD.BadRoll.NoCrew');
+      BladesHelpers.addToRollTypeError(missingRollTypes, 'synthesis', 'SFTD.BadRoll.NoCrew');
     } else {
       if (!Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m != this.actor && m.type == 'strider' && m.system.stress.value > 0).length)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'cutLooseBegin', 'SFTD.BadRoll.NoOtherStressedStrider');

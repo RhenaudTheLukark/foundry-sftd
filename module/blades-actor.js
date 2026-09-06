@@ -148,7 +148,7 @@ export class BladesActor extends Actor {
           let extraFields = { roll_type: rollType, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: this };
           switch (rollType) {
             case 'groupAction':
-              attributeName = html.find('[name="groupActionAction"]')[0].value;
+              attributeName = html.find('#gaAction')[0].value;
             case 'actionRoll':
               extraFields.group_action = groupActionData;
 
