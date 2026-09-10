@@ -7,17 +7,22 @@
     "description": "<p>When you make a successful action roll, you may choose to decrease your <strong>impact</strong>. For each level of impact you give up, clear <strong>1 stress</strong> from any crewmate.</p>",
     "class": "Witch",
     "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
-  "sort": 0,
+  "sort": 3800000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -31,7 +36,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859709753,
-    "modifiedTime": 1780859730613,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!QfkuiRO523p4QA4U"

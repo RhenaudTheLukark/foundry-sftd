@@ -395,10 +395,60 @@ export const bladesRollModifierList = {
     }
   },
   hypertext_transmat_protocol: {
-    name: 'SFTD.StriderAbility.HypertextTransmatProtocol.Title',
     rollTypes: ['constructFoundation', 'longTermProject', 'reducePressure', 'synthesis'],
     downtimeAction: 'decipher',
     result: 1
+  },
+  lateral_thinking_success: {
+    rollType: 'collectInfo',
+    rollStatus: ['success'],
+    rollText: 'SFTD.StriderAbility.LateralThinking.SuccessDescription',
+  },
+  lateral_thinking_critical: {
+    rollType: 'collectInfo',
+    rollStatus: ['critical-success'],
+    rollText: 'SFTD.StriderAbility.LateralThinking.CriticalDescription',
+  },
+  charmhack: {
+    hidden: true,
+    needPushYourself: true,
+    resolveFunc: (extraData) => {
+      const item = extraData.actorFull.items.find(i => i.effects.find(e => e.changes.find(c => c.key.endsWith('.charmhack'))));
+      const isCharmtrickBound = item?.system.bound_by_charmtrick;
+      return {
+        needPushYourself: true,
+        rollText: 'SFTD.StriderAbility.Charmhack.Description',
+        rollTextArgs: {
+          charmtrick: isCharmtrickBound ? game.i18n.localize('SFTD.StriderAbility.Charmtrick.PushYourselfNotice') : ''
+        }
+      }
+    }
+  },
+  controlled_chaos: {
+    name: 'SFTD.StriderAbility.ControlledChaos.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    rollText: 'SFTD.StriderAbility.ControlledChaos.Description'
+  },
+  fine_motor_skills_action: {
+    name: 'SFTD.StriderAbility.FineMotorSkills.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1
+  },
+  fine_motor_skills_resistance: {
+    name: 'SFTD.StriderAbility.FineMotorSkills.ResistanceTitle',
+    rollType: 'resistance',
+    dice: 1
+  },
+  hotfix_harmony: {
+    name: 'SFTD.StriderAbility.Hotfix.HarmonyTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    needHarmony: true,
+    impact: 1
+  },
+  hotfix_long_term_project: {
+    name: 'SFTD.StriderAbility.Hotfix.LongTermProjectTitle',
+    rollType: 'longTermProject',
+    ticks: 1
   },
   charmbreak: {
     hidden: true,
@@ -496,6 +546,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   let allowHarmonyGain = false;
   let useMelody = false;
   let harmonyChanges = 0;
+  let extraTicks = 0;
 
   // Add modifiers effects to the roll/actor
   for (let modifier of extraFields.modifiers) {
@@ -507,6 +558,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
       for (let [id, value] of Object.entries(modifier.otherStress))
         stressChanges[id] = (stressChanges[id] ?? 0) + Number(value);
     if (modifier.shells) shellChanges += modifier.shells;
+    if (modifier.ticks) extraTicks += modifier.ticks;
     if (modifier.useMelody) useMelody = true;
     if (modifier.bonusRoll) {
       downtimeCountChanges = 0;
@@ -557,6 +609,8 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   }
   if (Object.keys(crewUpdateObject).length)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
+
+  extraFields.extraTicks = extraTicks;
 
   // Other Changes
   if (rollData.otherChanges)
@@ -820,15 +874,13 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   else if (attributeOrRollName == 'SFTD.ConstructFoundationRoll') {
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     let crewUpdateObject = {system: {projects: {}}};
-    let tick = getBladesRollDowntime(rolls, extraResult, zeromode);
-    let baseTick = tick;
-    let tickRemainder;
+    let ticks = getBladesRollDowntime(rolls, extraResult, extraFields.extraTicks, zeromode);
 
     let project = crewFull.system.projects[extraFields.cfId];
-    let newTick = Math.min(project.clock.value + tick, project.clock.max);
+    let newTick = Math.min(project.clock.value + ticks, project.clock.max);
     let clockFilled = newTick >= project.clock.max;
     if (clockFilled)
-      tick = project.clock.max - project.clock.value;
+      ticks = project.clock.max - project.clock.value;
     crewUpdateObject.system.projects[extraFields.cfId] = {clock: {'==value': newTick}};
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
     if (clockFilled) {
@@ -841,7 +893,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     extraFields.isFoundationUpgrade = project.is_foundation_upgrade;
     extraFields.clockFilled = clockFilled;
 
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/construct-foundation-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/construct-foundation-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: ticks, note: note, extraFields: extraFields });
   }
   // Check for Cut Loose roll
   else if (attributeOrRollName == 'SFTD.CutLooseRoll') {
@@ -865,15 +917,13 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   else if (attributeOrRollName == 'SFTD.LongTermProjectRoll') {
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     let crewUpdateObject = {system: {projects: {}}};
-    let tick = getBladesRollDowntime(rolls, extraResult, zeromode);
-    let baseTick = tick;
-    let tickRemainder;
+    let ticks = getBladesRollDowntime(rolls, extraResult, extraFields.extraTicks, zeromode);
 
     let project = crewFull.system.projects[extraFields.ltpId];
-    let newTick = Math.min(Number(project.clock.value) + tick, Number(project.clock.max));
+    let newTick = Math.min(Number(project.clock.value) + ticks, Number(project.clock.max));
     let clockFilled = newTick >= Number(project.clock.max);
     if (clockFilled)
-      tick = Number(project.clock.max) - Number(project.clock.value);
+      ticks = Number(project.clock.max) - Number(project.clock.value);
     crewUpdateObject.system.projects[extraFields.ltpId] = {clock: {'==value': newTick}};
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
 
@@ -881,12 +931,12 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     extraFields.improvementLevels = improvementLevels.indexOf(rollStatus);
     extraFields.project = project.title;
     extraFields.clockFilled = clockFilled;
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/long-term-project-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: tick, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/long-term-project-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, tick: ticks, note: note, extraFields: extraFields });
   }
   // Check for Reduce Pressure roll
   else if (attributeOrRollName == 'SFTD.ReducePressureRoll') {
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    let ticks = getBladesRollDowntime(rolls, extraResult, zeromode);
+    let ticks = getBladesRollDowntime(rolls, extraResult, extraFields.extraTicks, zeromode);
     let crewUpdateObject = {'system.pressure.==value': Math.max(crewFull.system.pressure.value - ticks, 0)};
 
     let hazardFull = false;
@@ -1236,7 +1286,7 @@ export function getBladesRollCutLooseUnwind(rolls, extraResult = 0, zeromode = f
  * @param {Array} rolls
  * @param {Boolean} zeromode
  */
-export function getBladesRollDowntime(rolls, extraResult = 0, zeromode = false) {
+export function getBladesRollDowntime(rolls, extraResult, extraTicks, zeromode) {
   // Sort roll values from lowest to highest.
   let sortedRolls = rolls.map(i => i.result).sort();
   let useDie = sortedRolls[zeromode ? 0 : sortedRolls.length - 1];
@@ -1245,7 +1295,7 @@ export function getBladesRollDowntime(rolls, extraResult = 0, zeromode = false) 
   useDie = Math.clamp(useDie, 1, 7);
   let result = extraResult + (useDie <= 3 ? 1 : useDie < 6 ? 2 : (useDie - 3));
   result = Math.clamp(result, 1, 4);
-  return result == 4 ? 5 : result;
+  return (result == 4 ? 5 : result) + extraTicks;
 }
 
 export function getRollType(rollType, rollTypeLabel, first, single, strict, extraArg) {

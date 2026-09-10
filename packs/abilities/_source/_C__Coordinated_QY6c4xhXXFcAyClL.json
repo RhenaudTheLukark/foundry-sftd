@@ -7,14 +7,18 @@
     "description": "<p>When you lead a <strong>group action</strong>, you have <strong>+1</strong> or <strong>-1 scale</strong>, your choice. The leader of a group action doesn&rsquo;t take stress on your behalf if you participate and fail the roll (even if it&rsquo;s you).</p>",
     "class": "Charter",
     "price": 1,
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
     },
-    "popup": ""
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [
     {
@@ -63,7 +67,7 @@
     }
   ],
   "folder": null,
-  "sort": 0,
+  "sort": 3700000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -77,7 +81,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780857593437,
-    "modifiedTime": 1786081453384,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!QY6c4xhXXFcAyClL"

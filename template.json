@@ -273,7 +273,8 @@
       "group_action": null,
       "cut_loose": null,
       "phase": "downtime",
-      "specialist_downtime_done": false
+      "specialist_downtime_done": false,
+      "parallel_processing_ticks": 0
     },
     "faction": {
       "tier": {

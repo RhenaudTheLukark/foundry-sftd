@@ -7,14 +7,18 @@
     "description": "<p>Take <strong>+1d</strong> to rolls to navigate bureaucracy or to collect info about the social and political dynamics of a location or culture. During <strong>downtime</strong>, you get <strong>+1d</strong> to <strong>reduce pressure</strong>.</p>",
     "class": "Beacon",
     "price": 1,
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
     },
-    "popup": ""
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [
     {
@@ -75,7 +79,7 @@
     }
   ],
   "folder": null,
-  "sort": 0,
+  "sort": 4300000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -89,7 +93,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780857069509,
-    "modifiedTime": 1785954373599,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!VFLY0u8nu9UeJ6WN"

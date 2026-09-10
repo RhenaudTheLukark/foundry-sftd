@@ -78,6 +78,13 @@
   </div>
 </fieldset>
 
+{{#if (gt extraData.parallelProcessingTicks 0)}}
+<div class="form-group-inline">
+  <input type="checkbox" class="automated" name="parallelProcessingTicks" checked>
+  <label>{{{localize 'SFTD.EndMissionParallelProcessing' ticks=extraData.parallelProcessingTicks}}}</label>
+</div>
+{{/if}}
+
 <div class="form-group-inline">
   <input type="checkbox" class="automated" name="aftermath" checked>
   <label>{{{localize 'SFTD.EndMissionAftermath'}}}</label>

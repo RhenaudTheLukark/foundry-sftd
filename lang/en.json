@@ -378,6 +378,8 @@
       "WontGoQuiet": "Resist a social consequence",
       "EverybodyGetsThroughThis": "Resist a crewmate's consequence",
       "FireTakesControl": "Resist a hidden or unexpected danger",
+      "LegendOfThisLand": "Resist a consequence from historical or Radiant threats",
+      "BraveNewFoundry": "Resist a consequence from technological malfunction or damage",
       "IWillBeWater": "Resist a magical consequence"
     },
     "Usage": "Usage",
@@ -401,6 +403,16 @@
         "Key": "Fire Takes Control",
         "Details": "Acting quickly and decisively",
         "Description": "act quickly and decisively"
+      },
+      "LegendOfThisLand": {
+        "Key": "Legend of This Land",
+        "Details": "Dealing with ancient history or technology",
+        "Description": "deal with ancient history or technology"
+      },
+      "BraveNewFoundry": {
+        "Key": "Brave New Foundry",
+        "Details": "Modifying, repairing, or building machinery",
+        "Description": "modify, repair, or build machinery"
       },
       "IWillBeWater": {
         "Key": "I Will Be Water",
@@ -797,14 +809,16 @@
     "EndMissionPressureVendetta": "Add Pressure for each Faction that holds a vendetta against you.<br/>Current Faction(s) in vendetta with you: {vendettas}",
     "EndMissionPressureSevereInjury": "Were people severely injured or killed on the mission?",
     "EndMissionPressureSevereInjuryYourFault": "Was anyone in your crew responsible for such?",
+    "EndMissionParallelProcessing": "Parallel Processing: +{ticks} ticks to distribute among Long-Term Projects involving investigation or synthesis",
     "EndMissionAftermath": "You must roll an Aftermath, as nothing happens in isolation.",
-    "EndMissionDowntimeStart": "The Mission has ended, Striders may now partake in Downtime Activities.",
     "EndMissionPressureRecap": "You garnered <strong>{num} Pressure</strong> because of your previous mission.",
     "EndMissionPressureRecapHazardIncrease": "Your Hazard level has increased. Change your community ideals in response. You can either alter an existing ideal, get rid of an ideal, or add a new one.",
     "EndMissionAftermathAStrangerWalksIntoTown": "You have gained <strong>2 Shells</strong> from taking that generous job offer.",
     "EndMissionAftermathHighProfileOp": "Since you took a high-profile job, you have gained <strong>2 Shells</strong>.",
     "EndMissionAftermathDangerousMission": "Since you took a dangerous mission, you have gained <strong>3 Shells</strong>.",
     "EndMissionExpertsTalkLogistics": "Thanks to your expertise, you have gained <strong>1 Shell</strong>.",
+    "EndMissionParallelProcessingEffect": "Thanks to some Striders' Parallel Processing, you get <strong>{ticks} ticks</strong> to distribute among any <strong>Long-Term Project</strong> clocks that involve investigation or synthesis.",
+    "EndMissionDowntimeStart": "The Mission has ended, Striders may now partake in Downtime Activities.",
 
     "EndSessionCheatSheet": "End Session Cheat Sheet",
     "EndSessionDescription": "This sheet has no automation linked to it. It is merely just a cheat sheet for handling the end of a session.<br/>Feel free to untick tasks you've already done as you go through them with your players!",
@@ -982,6 +996,29 @@
       },
       "Charmbreak": {
         "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Unleash an enormous blast of magical force,</li><li>Call down a natural or unnatural storm around you (gale-force winds, whirling sunfire, gravitic vortices, etc.).</li></ul>{charmtrick}"
+      },
+      "HypertextTransmatProtocol": {
+        "SuccessDescription": "Thanks to Lateral Thinking, you may add <strong>one tick</strong> to any <strong>Long-Term Project</strong> clock involving research or investigation. Say what sudden insight you gained into your project.",
+        "CriticalDescription": "Thanks to Lateral Thinking, you may add <strong>up to two ticks</strong> to any <strong>Long-Term Project</strong> clock involving research or investigation. Say what sudden insight you gained into your project."
+      },
+      "LateralThinking": {
+        "SuccessDescription": "Thanks to Lateral Thinking, you may add <strong>one tick</strong> to any <strong>Long-Term Project</strong> clock involving research or investigation. Say what sudden insight you gained into your project.",
+        "CriticalDescription": "Thanks to Lateral Thinking, you may add <strong>up to two ticks</strong> to any <strong>Long-Term Project</strong> clock involving research or investigation. Say what sudden insight you gained into your project."
+      },
+      "Charmhack": {
+        "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Instantly repair or sabotage technology in the immediate area,</li><li>Mystically assemble new technology from available materials, scrap, and old tech.</li></ul>{charmtrick}"
+      },
+      "ControlledChaos": {
+        "Title": "Controlled Chaos: Sabotaging Technology or Infrastructure & Choose to Keep This Work Quiet and Well-Hidden From Casual Inspection?",
+        "Description": "While sabotaging technology or infrastructure, you choose to keep your work quiet and well-hidden from casual inspection."
+      },
+      "FineMotorSkills": {
+        "ActionTitle": "Fine Motor Skills: Handling Vehicle Controls?",
+        "ResistanceTitle": "Fine Motor Skills: Resisting a Consequence From Driving or Piloting?"
+      },
+      "Hotfix": {
+        "LongTermProjectTitle": "Hotfix: Working on a Synthesis Project?",
+        "HarmonyTitle": "Hotfix: Repairing, Modifying, Upgrading or Sabotaging Technology?"
       },
       "Charmwork": {
         "Title": "Charmwork",

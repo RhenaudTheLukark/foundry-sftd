@@ -7,14 +7,18 @@
     "description": "<p>You can use your <strong>melody </strong>to completely avoid <strong>harm </strong>from an attack in combat or to <strong>push yourself </strong>during a fight.<br><em>When you use this ability, tick the melody box on your playbook sheet. Your melody is restored at the beginning of downtime.</em></p>",
     "class": "Aegis",
     "price": 1,
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
     },
-    "popup": ""
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [
     {
@@ -69,7 +73,7 @@
     }
   ],
   "folder": null,
-  "sort": 0,
+  "sort": 1400000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -83,7 +87,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780856277648,
-    "modifiedTime": 1787260617312,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!BsqYwsst2qfRtCMx"

@@ -6,18 +6,68 @@
   "system": {
     "description": "<p>During <strong>downtime</strong>, you get <strong>two ticks</strong> to distribute among any <strong>long-term project</strong> clocks that involve investigation or synthesis.</p>",
     "class": "Scholar",
-    "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Parallel Processing Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.ability.Item.84FYkVAfkT1aXioW",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "MHekcCEg4S5MLkLx",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "sytem.modifiers.crew.parallel_processing_ticks",
+          "mode": 2,
+          "value": "2",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1788676204123,
+        "modifiedTime": 1788676225345,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!84FYkVAfkT1aXioW.MHekcCEg4S5MLkLx"
+    }
+  ],
   "folder": null,
-  "sort": 0,
+  "sort": 1100000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -31,7 +81,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780858772526,
-    "modifiedTime": 1780858793792,
+    "modifiedTime": 1788676235355,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!84FYkVAfkT1aXioW"

@@ -7,17 +7,22 @@
     "description": "<p>Choose a special ability from another source. You can&rsquo;t choose a charm or starting ability from another playbook. You may take this ability a maximum of three times.</p>",
     "class": "Aegis",
     "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
-  "sort": 0,
+  "sort": 5600000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -31,7 +36,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780856601066,
-    "modifiedTime": 1780856612346,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!m9QIVUJVF0WRPUdJ"

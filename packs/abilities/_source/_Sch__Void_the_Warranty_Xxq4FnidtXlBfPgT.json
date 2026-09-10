@@ -7,17 +7,22 @@
     "description": "<p>Your fine climbing tools double as weaponry. You can use your <strong>Handle </strong>rating to enact violence with them.</p>",
     "class": "Scholar",
     "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
-  "sort": 0,
+  "sort": 4400000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -31,7 +36,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780858847491,
-    "modifiedTime": 1780858858238,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!Xxq4FnidtXlBfPgT"

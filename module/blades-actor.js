@@ -295,22 +295,11 @@ export class BladesActor extends Actor {
     let modifiersCollection = { modifiers: actor.system.modifiers, roll_modifiers: actor.system.roll_modifiers, conditional_roll_modifiers: actor.system.conditional_roll_modifiers };
 
     let crewFull = BladesHelpers.resolveActor(actor.system.crew);
-    if (crewFull) {
-      // Fetch crew-level modifiers applying to the object
-      for (let modifierPath of Object.keys(modifiersCollection))
-        if (crewFull?.system[modifierPath][actor.type] !== undefined)
-          modifiersCollection[modifierPath] = BladesHelpers.mergeAddObjects(modifiersCollection[modifierPath], ['specialist', 'strider'], crewFull.system[modifierPath][actor.type]);
-
-      if (['crew', 'specialist'].includes(actor.type))
-        // Fetch strider modifiers
-        for (let striderUuid of Object.values(crewFull.system.members).map(e => e.uuid)) {
-          let striderFull = BladesHelpers.resolveActor(striderUuid);
-          if (striderFull.type != 'strider') continue;
-          for (let modifierPath of Object.keys(modifiersCollection))
-            if (striderFull.system[modifierPath][actor.type])
-              for (let [modifierName, modifierValue] of Object.entries(striderFull.system[modifierPath][actor.type]))
-                actor.system[modifierPath][modifierName] = modifierValue;
-        }
+    for (let modifierPath of Object.keys(modifiersCollection)) {
+      let actorsFull = (crewFull ? [crewFull] : Object.values(actor.system.members).map(m => BladesHelpers.resolveActor(m))).filter(m => m != null && ['crew', 'strider'].includes(m.type));
+      for (let actorFull of actorsFull)
+        if (actorFull.system[modifierPath][actor.type] !== undefined)
+          modifiersCollection[modifierPath] = BladesHelpers.mergeAddObjects(modifiersCollection[modifierPath], [], actorFull.system[modifierPath][actor.type]);
     }
 
     return [modifiersCollection.modifiers, modifiersCollection.roll_modifiers, modifiersCollection.conditional_roll_modifiers];
@@ -318,13 +307,15 @@ export class BladesActor extends Actor {
 
   applyModifiers(sheetData) {
     // Catch unmigrated actor data and apply the Mastery crew ability to attribute maxes
-    sheetData.system.attributes = this.getComputedAttributes();
+    if (sheetData.type == 'strider')
+      sheetData.system.attributes = this.getComputedAttributes();
 
     // Apply all stat changes
-    sheetData.system = BladesHelpers.mergeAddObjects(sheetData.system, ['crew'], sheetData.system.modifiers);
+    sheetData.system = BladesHelpers.mergeAddObjects(sheetData.system, ['crew', 'strider', 'specialist'], sheetData.system.modifiers);
 
     // Sanitize some data (make sure it's kept within its normal bounds)
-    sheetData.system.load = Math.clamp(sheetData.system.load, 0, 11);
+    if (sheetData.type == 'strider')
+      sheetData.system.load = Math.clamp(sheetData.system.load, 0, 11);
   }
 
   /* -------------------------------------------- */

@@ -13,11 +13,14 @@
     },
     "replenish": true,
     "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
     "popup": "neohuman"
   },
   "effects": [],
   "folder": null,
-  "sort": 0,
+  "sort": 4000000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -31,7 +34,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1788416226834,
-    "modifiedTime": 1788416264827,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!RVTapyczG6MJ8zCA"

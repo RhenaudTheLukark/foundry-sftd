@@ -7,17 +7,22 @@
     "description": "<p>You gain a companion animal, small drone, or similar. Name and describe it and say how you two met; then create it as a specialist with expertise appropriate to your playbook.</p>",
     "class": "Scrapper",
     "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": 0
-    }
+    },
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [],
   "folder": null,
-  "sort": 0,
+  "sort": 3000000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -31,7 +36,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780858996824,
-    "modifiedTime": 1780859008424,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!M5jItphamvDnjDV0"

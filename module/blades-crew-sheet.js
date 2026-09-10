@@ -51,6 +51,10 @@ export class BladesCrewSheet extends BladesSheet {
     // Compute invested caches
     sheetData.system.cache.invested = this.getInvestedCaches();
 
+    // Catch unmigrated actor data
+    [sheetData.system.modifiers, sheetData.system.roll_modifiers, sheetData.system.conditional_roll_modifiers] = this.actor.getModifiers();
+    this.actor.applyModifiers(sheetData);
+
     sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
 
     for (let item of sheetData.items)
@@ -407,9 +411,7 @@ export class BladesCrewSheet extends BladesSheet {
     extraData.tier = this.actor.getTier();
 
     let scarredStridersWithNoCutLoose = [];
-    for (let member of Object.values(this.actor.system.members)) {
-      let memberFull = BladesHelpers.resolveActor(member.uuid);
-      if (!memberFull || memberFull.type != 'strider') continue;
+    for (let memberFull of Object.values(this.actor.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider')) {
       let scars = Object.values(memberFull.system.scars.values).filter(s => s != '').length;
       if (scars > 0 && !memberFull.system.downtime_activities.cutLoose)
         scarredStridersWithNoCutLoose.push(memberFull);
@@ -462,9 +464,7 @@ export class BladesCrewSheet extends BladesSheet {
 
         // Reset Downtime Activities, Melody, Replenishable Items, Armor & Not A Problem uses for all Striders
         let melodyUsed = false;
-        for (let member of Object.values(this.actor.system.members)) {
-          let memberFull = BladesHelpers.resolveActor(member.uuid);
-          if (!memberFull || memberFull.type != 'strider') continue;
+        for (let memberFull of Object.values(this.actor.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider')) {
           melodyUsed ||= !memberFull.system.melody;
           await BladesHelpers.tryUpdate(memberFull, {'system.==downtime_activities': {train_types: {}}, 'system.==melody': true, 'system.armor.==value': memberFull.system.armor.max, 'system.not_a_problem_uses.==value': memberFull.system.not_a_problem_uses.max});
           for (let item of memberFull.items.filter(i => i.system.uses?.max && i.system.replenish))
@@ -509,6 +509,7 @@ export class BladesCrewSheet extends BladesSheet {
    * Call a popup for finishing a mission.
    */
   async endMissionPopup() {
+    const fullActorData = this.getData();
     let extraData = {};
     let vendettas = BladesHelpers.fetchAllRelationships(this.actor).filter(r => r.status == -3).map(r => BladesHelpers.resolveActor(r.owner)).filter(r => r != null);
     extraData.vendettas = vendettas.map(r => r.name).join(', ');
@@ -516,6 +517,7 @@ export class BladesCrewSheet extends BladesSheet {
     if (extraData.vendettas == '')
       extraData.vendettas = 'SFTD.None';
     extraData.expertsTalkLogistics = this.actor.system.experts_talk_logistics;
+    extraData.parallelProcessingTicks = fullActorData.system.parallel_processing_ticks ?? 0;
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.EndMission')}` },
@@ -592,6 +594,13 @@ export class BladesCrewSheet extends BladesSheet {
             ${hazardChange ? game.i18n.format('SFTD.EndMissionPressureRecapHazardIncrease') : ''}
           </p></div>`
           messageContents += pressureRecap;
+        }
+
+        // Parallel Processing: Warn about extra Long-Term Project ticks to assign
+        if (dialog.element.querySelector('[name="parallelProcessingTicks"]')?.checked) {
+          messageContents += `<div class="description"><p>
+            ${game.i18n.format('SFTD.EndMissionParallelProcessingEffect', {ticks: extraData.parallelProcessingTicks})}
+          </p></div>`;
         }
 
         // Roll Aftermath if the option is enabled

@@ -526,7 +526,7 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
       element.style.display = "none";
   }
   for (const element of html.querySelectorAll('.start-mission-charmwork-only')) {
-    const availableActors = foundry.utils.flattenObject(Object.keys(message.system.cutLooseScarMembersWithCharmwork)).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.isOwner);
+    const availableActors = Object.keys(foundry.utils.flattenObject(message.system.cutLooseScarMembersWithCharmwork)).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.isOwner);
     if (availableActors.length == 0)
       element.style.display = 'none';
   }

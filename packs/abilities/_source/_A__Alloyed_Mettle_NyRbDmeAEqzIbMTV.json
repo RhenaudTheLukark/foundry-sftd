@@ -7,14 +7,18 @@
     "description": "<p>When another character honestly confesses a fear or vulnerable emotion to you, you get <strong>+1 impact</strong> to reassure or comfort them. When you or another strider confess such feelings to each other, either of you can take 1 stress to clear 1 stress from the other.</p>",
     "class": "Aegis",
     "price": "1",
-    "purchased": false,
-    "class_default": false,
-    "logic": "",
     "uses": {
       "value": 0,
       "max": "0"
     },
-    "popup": "alloyed_mettle"
+    "replenish": true,
+    "logic": "",
+    "is_starting_ability": false,
+    "is_charm": false,
+    "bound_by_charmtrick": false,
+    "popup": "alloyed_mettle",
+    "purchased": false,
+    "class_default": false
   },
   "effects": [
     {
@@ -63,7 +67,7 @@
     }
   ],
   "folder": null,
-  "sort": 0,
+  "sort": 3500000,
   "ownership": {
     "default": 0,
     "NKBqJZbUpn1DnvhY": 3
@@ -77,7 +81,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780856311537,
-    "modifiedTime": 1785304975034,
+    "modifiedTime": 1788675188142,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!NyRbDmeAEqzIbMTV"
