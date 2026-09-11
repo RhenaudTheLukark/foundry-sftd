@@ -40,7 +40,7 @@
       "system": {},
       "changes": [
         {
-          "key": "sytem.modifiers.crew.parallel_processing_ticks",
+          "key": "system.modifiers.crew.parallel_processing_ticks",
           "mode": 2,
           "value": "2",
           "priority": 30
@@ -60,7 +60,7 @@
         "systemId": "songs-for-the-dusk",
         "systemVersion": "0.0.1",
         "createdTime": 1788676204123,
-        "modifiedTime": 1788676225345,
+        "modifiedTime": 1788680171502,
         "lastModifiedBy": "NKBqJZbUpn1DnvhY"
       },
       "_key": "!items.effects!84FYkVAfkT1aXioW.MHekcCEg4S5MLkLx"

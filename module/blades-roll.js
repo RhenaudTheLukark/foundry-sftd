@@ -409,6 +409,11 @@ export const bladesRollModifierList = {
     rollStatus: ['critical-success'],
     rollText: 'SFTD.StriderAbility.LateralThinking.CriticalDescription',
   },
+  neurocoupling: {
+    name: 'SFTD.StriderAbility.Neurocoupling.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1
+  },
   charmhack: {
     hidden: true,
     needPushYourself: true,

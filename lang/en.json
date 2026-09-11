@@ -1020,6 +1020,9 @@
         "LongTermProjectTitle": "Hotfix: Working on a Synthesis Project?",
         "HarmonyTitle": "Hotfix: Repairing, Modifying, Upgrading or Sabotaging Technology?"
       },
+      "Neurocoupling": {
+        "Title": "Neurocoupling: Performing an Action In Digital Spaces or In Which You Mentally Interface With Technology?"
+      },
       "Charmwork": {
         "Title": "Charmwork",
         "NotUsage": "suffered <strong>{stress} Stress</strong>",
