@@ -312,10 +312,6 @@ export class BladesActor extends Actor {
 
     // Apply all stat changes
     sheetData.system = BladesHelpers.mergeAddObjects(sheetData.system, ['crew', 'strider', 'specialist'], sheetData.system.modifiers);
-
-    // Sanitize some data (make sure it's kept within its normal bounds)
-    if (sheetData.type == 'strider')
-      sheetData.system.load = Math.clamp(sheetData.system.load, 0, 11);
   }
 
   /* -------------------------------------------- */

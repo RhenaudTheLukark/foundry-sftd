@@ -3,7 +3,7 @@
  * @extends {ItemSheet}
  */
 import { BladesActiveEffect } from './blades-active-effect.js';
-import { getItemSheetClass, enrichHTML } from './compat.js';
+import { getItemSheetClass } from './compat.js';
 import { BladesHelpers } from './blades-helpers.js';
 
 const BaseItemSheet = getItemSheetClass();
@@ -92,7 +92,7 @@ export class BladesItemSheet extends BaseItemSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async getData(options) {
+  getData(options) {
     const superData = super.getData(options);
     const sheetData = superData.data;
 
@@ -103,7 +103,7 @@ export class BladesItemSheet extends BaseItemSheet {
     // Prepare Active Effects
     sheetData.effects = BladesActiveEffect.prepareActiveEffectCategories(this.document.effects);
 
-    sheetData.system.description = await enrichHTML(sheetData.system.description, {secrets: sheetData.owner, async: true});
+    //sheetData.system.description = await enrichHTML(sheetData.system.description, {secrets: sheetData.owner, async: true});
 
     if (sheetData.type == 'specialist') {
       sheetData.system.edge_list = ['Independent', 'Unrelenting', 'Loyal', 'Sociable'];

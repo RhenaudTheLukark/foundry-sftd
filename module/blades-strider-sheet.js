@@ -3,7 +3,6 @@ import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
 import { bladesPopupData, BladesPopup } from "./blades-popup.js";
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
-import { enrichHTML } from "./compat.js";
 import { bladesRoll, simpleRollPopup, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
   pruneInvalidConditionalRollModifiers, keepValidModifiersFromOther, rollTypeLabels } from './blades-roll.js';
@@ -28,7 +27,7 @@ export class BladesStriderSheet extends BladesSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async getData(options) {
+  getData(options) {
     const superData = super.getData(options);
     const sheetData = superData.data;
     sheetData.owner = superData.owner;
@@ -46,7 +45,7 @@ export class BladesStriderSheet extends BladesSheet {
     let load = 0;
     sheetData.items.forEach(i => {
       let itemLoad = 0;
-      if (i.type === "item") {
+      if (i.type === 'item') {
         itemLoad = parseInt(i.system.load);
         if (sheetData.system.signature_gear?.id == i.system.original_id) itemLoad --;
         if (sheetData.system.crew?.system.signature_gear?.id == i.system.original_id) itemLoad --;
@@ -55,10 +54,7 @@ export class BladesStriderSheet extends BladesSheet {
     });
     sheetData.system.load = load;
 
-    sheetData.system.description = await enrichHTML(sheetData.system.description, {
-      secrets: sheetData.owner,
-      async: true
-    });
+    //sheetData.system.description = enrichHTML(sheetData.system.description, { secrets: sheetData.owner, async: true });
 
     // Catch unmigrated actor data
     [sheetData.system.modifiers, sheetData.system.roll_modifiers, sheetData.system.conditional_roll_modifiers] = this.actor.getModifiers();
@@ -66,37 +62,22 @@ export class BladesStriderSheet extends BladesSheet {
 
     // Encumbrance Levels
     let load_level;
-    let mule_level;
-    if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad')) {
-      load_level = ["SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Conspicuous", "SFTD.Conspicuous", "SFTD.Encumbered",
-        "SFTD.Encumbered", "SFTD.Encumbered", "SFTD.OverMax", "SFTD.OverMax"];
-      mule_level = ["SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Discreet", "SFTD.Conspicuous",
-        "SFTD.Conspicuous", "SFTD.Encumbered", "SFTD.Encumbered", "SFTD.OverMax"];
-    } else {
-      load_level = ["SFTD.Light", "SFTD.Light", "SFTD.Light", "SFTD.Light", "SFTD.Normal", "SFTD.Normal", "SFTD.Heavy", "SFTD.Encumbered",
-        "SFTD.Encumbered", "SFTD.Encumbered", "SFTD.OverMax", "SFTD.OverMax"];
-      mule_level = ["SFTD.Light", "SFTD.Light", "SFTD.Light", "SFTD.Light", "SFTD.Light", "SFTD.Light", "SFTD.Normal", "SFTD.Normal",
-        "SFTD.Heavy", "SFTD.Encumbered", "SFTD.OverMax", "SFTD.OverMax"];
-    }
+    if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad'))
+      load_level = ['SFTD.Discreet', 'SFTD.Discreet', 'SFTD.Discreet', 'SFTD.Discreet', 'SFTD.Discreet', 'SFTD.Conspicuous', 'SFTD.Conspicuous', 'SFTD.Encumbered',
+        'SFTD.Encumbered', 'SFTD.Encumbered', 'SFTD.OverMax', 'SFTD.OverMax'];
+    else
+      load_level = ['SFTD.Light', 'SFTD.Light', 'SFTD.Light', 'SFTD.Light', 'SFTD.Normal', 'SFTD.Normal', 'SFTD.Heavy', 'SFTD.Encumbered',
+        'SFTD.Encumbered', 'SFTD.Encumbered', 'SFTD.OverMax', 'SFTD.OverMax'];
+    sheetData.system.load_level = load_level[Math.clamp(load - (sheetData.system.crew.system.distributed_weight ? 2 : 0), 0, load_level.length - 1)];
 
-    //look for Mule ability
-    // @todo - fix translation.
-    let mule_present = 0;
-    sheetData.items.forEach(i => {
-      if (i.type === "ability" && i.name === "(C) Mule")
-        mule_present = true;
-    });
-    sheetData.system.load_level = mule_present ? mule_level[load] : load_level[load];
-
-    if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad')) {
-      sheetData.system.load_levels = {"SFTD.Discreet": "SFTD.Discreet", "SFTD.Conspicuous": "SFTD.Conspicuous"};
-    } else {
+    if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad'))
+      sheetData.system.load_levels = {'SFTD.Discreet': 'SFTD.Discreet', 'SFTD.Conspicuous': 'SFTD.Conspicuous'};
+    else
       sheetData.system.load_levels = {
-        "SFTD.Light": "SFTD.Light",
-        "SFTD.Normal": "SFTD.Normal",
-        "SFTD.Heavy": "SFTD.Heavy"
+        'SFTD.Light': 'SFTD.Light',
+        'SFTD.Normal': 'SFTD.Normal',
+        'SFTD.Heavy': 'SFTD.Heavy'
       };
-    }
 
     for (let item of sheetData.items)
       if (item.system.popup != '') {
