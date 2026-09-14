@@ -325,7 +325,7 @@ export class BladesStriderSheet extends BladesSheet {
           switch (rollType) {
             case 'constructFoundation':
               let cfAction = dialog.element.querySelector('#cfAction').value;
-              let cfNewFoundation = dialog.constructFoundationNewFoundation;
+              let cfNewFoundation = dialog.cfNewFoundation;
               let cfNewFoundationCost = dialog.element.querySelector('#cfNewFoundationCost')?.value;
               let cfFoundation = Number(dialog.element.querySelector('#cfFoundation').value);
               let cfDice = actorSheet.actor.getRollData().diceAmount[cfAction] ?? 0 + extraDice;
@@ -359,6 +359,15 @@ export class BladesStriderSheet extends BladesSheet {
               extraFields.ltpId = dialog.element.querySelector('#ltpId').value;
               await bladesRoll(ltpDice, 'SFTD.LongTermProjectRoll', note, extraFields);
               break;
+            case 'moveCity':
+              extraFields.noRoll = true;
+              await bladesRoll(0, 'SFTD.MoveCityRoll', note, extraFields);
+              break;
+            case 'mutualAid':
+              extraFields.noRoll = true;
+              extraFields.maFaction = dialog.maFaction;
+              await bladesRoll(0, 'SFTD.MutualAidRoll', note, extraFields);
+              break;
             case 'recover':
               extraFields.noRoll = true;
               await bladesRoll(0, 'SFTD.RecoverRoll', note, extraFields);
@@ -390,10 +399,6 @@ export class BladesStriderSheet extends BladesSheet {
               extraFields.unwindNPC = dialog.element.querySelector('#unwindNpc').value;
               await bladesRoll(unwindDice, 'SFTD.UnwindRoll', note, extraFields);
               break;
-            case 'moveCity':
-              extraFields.noRoll = true;
-              await bladesRoll(0, 'SFTD.MoveCityRoll', note, extraFields);
-              break;
             default:
               ui.notifications.warn(game.i18n.format('SFTD.log.warn.UnknownRollType', { type: input[0].id.split('-')[0] }));
           }
@@ -420,7 +425,8 @@ export class BladesStriderSheet extends BladesSheet {
       allowedToRoll &&= checkDowntimeRules(this);
       this.element.querySelector('[data-action="roll"]').disabled = !allowedToRoll;
     };
-    dialog.constructFoundationNewFoundation = null;
+    dialog.cfNewFoundation = null;
+    dialog.maFaction = null;
     dialog.refreshModifiers = refreshModifiers;
     dialog.actor = this.actor;
     dialog.isConstructFoundationValid = function(dialog) {
@@ -431,9 +437,16 @@ export class BladesStriderSheet extends BladesSheet {
       let hasSelectedValidFoundation = element.querySelector('#cfFoundation').value != 'None';
       return !(newFoundationTooCostly || !(hasNewFoundation ^ hasSelectedValidFoundation));
     }
-    dialog.isCutLooseValid = function (dialog) {
+    dialog.isCutLooseValid = function(dialog) {
       let element = dialog.element.querySelector('#cutLooseParticipants');
       return !Array.from(element.selectedOptions).length > 0;
+    }
+    dialog.isMutualAidValid = function(dialog) {
+      const hasFaction = dialog.maFaction != null;
+      const crewFull = BladesHelpers.resolveActor(dialog.actor.system.crew);
+      const tooCostly = crewFull.system.shells.value - Number(dialog.maFaction?.system.tier.value ?? 0) < 0;
+      const maxxedRelationship = (BladesHelpers.getRelationship(crewFull, dialog.maFaction)?.status ?? 0) == 3;
+      return hasFaction && !tooCostly && !maxxedRelationship;
     }
     await dialog.render(true);
 
@@ -445,7 +458,7 @@ export class BladesStriderSheet extends BladesSheet {
         if (dropFull.type == 'foundation') {
           if (dropFull.pack)
             dropFull = await game.packs.contents.find(p => p.metadata.id == dropFull.pack).getDocument(dropFull._id);
-          dialog.constructFoundationNewFoundation = dropFull;
+          dialog.cfNewFoundation = dropFull;
           // Drop a Foundation for the Construct Foundation roll
           this.querySelector('#cfNewFoundation').innerHTML = `
             <div class="actor-contents flex-horizontal" data-actor-id="${dropData.uuid}">
@@ -454,7 +467,7 @@ export class BladesStriderSheet extends BladesSheet {
             </div>`;
           this.querySelector('#cfNewFoundationCost').innerHTML = Array(9).fill().map((_, i) => `<option value="${i}"${i == dropFull.system.cache_cost ? ' selected' : ''}>${i}</option>`).join('')
           this.querySelector('#cfNewFoundation .delete-actor').onclick = function (ev) {
-            dialog.constructFoundationNewFoundation = null;
+            dialog.cfNewFoundation = null;
             let rollType = this.closest('.form-group').querySelector('input[type=radio]:checked').id.split('-')[0];
             this.closest('.radio-group').querySelector('#cfNewFoundationCost').innerHTML = '';
             this.closest('#cfNewFoundation').innerHTML = game.i18n.localize('SFTD.None');
@@ -464,6 +477,31 @@ export class BladesStriderSheet extends BladesSheet {
           let rollType = this.querySelector('input[type=radio]:checked').id.split('-')[0];
           if (rollType == 'constructFoundation')
             this.querySelector('[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
+        }
+        else if (dropFull.type == 'faction') {
+          const dropFull = BladesHelpers.resolveActor(dropData.uuid);
+          dialog.maFaction = dropFull;
+          // Check that Mutual Aid rolls are available
+          const maFactionElement = this.querySelector('#maFaction');
+          if (!maFactionElement)
+            return;
+
+          // Drop a Faction for the Mutual Aid roll
+          let rollType = this.querySelector('input[type=radio]:checked').id.split('-')[0];
+          if (rollType == 'mutualAid')
+            this.querySelector('[data-action="roll"]').disabled = !dialog.isMutualAidValid(dialog) || !checkDowntimeRules(dialog);
+          this.querySelector('#maFaction').innerHTML = `
+            <div class="actor-contents flex-horizontal" data-actor-id="${dropData.uuid}">
+              <img src="${dropFull.img}" data-tooltip="${dropFull.name}" width="32" height="32"/>
+              <a class="item-name">${dropFull.name}</a>
+              <a class="delete-actor"><i class="fas fa-times"></i></a>
+            </div>`;
+          this.querySelector('#maFaction .delete-actor').onclick = function (ev) {
+            let rollType = this.closest('.form-group').querySelector('input[type=radio]:checked').id.split('-')[0];
+            if (rollType == 'mutualAid')
+              this.closest('.window-content').querySelector('button[data-action="roll"]').disabled = true;
+            this.closest('#maFaction').innerHTML = game.i18n.localize('SFTD.None');
+          }
         }
       }
     });
@@ -476,6 +514,8 @@ export class BladesStriderSheet extends BladesSheet {
           allowedToRoll = dialog.isConstructFoundationValid(dialog);
         if (rollType == 'cutLooseBegin')
           allowedToRoll = dialog.isCutLooseValid(dialog);
+        if (rollType == 'mutualAid')
+          allowedToRoll = dialog.isMutualAidValid(dialog);
 
         allowedToRoll &&= checkDowntimeRules(dialog);
         rollButton.disabled = !allowedToRoll;
@@ -506,7 +546,7 @@ export class BladesStriderSheet extends BladesSheet {
 
   // Remove unavailable roll types
   getDowntimeRollTypesToRemove(forcedRollTypes = null) {
-    let rollTypes = forcedRollTypes ?? ['constructFoundation', 'cutLooseBegin', 'longTermProject', 'moveCity', 'recover', 'reducePressure', 'synthesis', 'train', 'unwind'];
+    let rollTypes = forcedRollTypes ?? ['constructFoundation', 'cutLooseBegin', 'longTermProject', 'moveCity', 'mutualAid', 'recover', 'reducePressure', 'synthesis', 'train', 'unwind'];
     let missingRollTypes = {};
 
     let trainTypes = ['playbook', 'analysis', 'kinesis', 'semiosis'];
@@ -527,6 +567,7 @@ export class BladesStriderSheet extends BladesSheet {
       BladesHelpers.addToRollTypeError(missingRollTypes, 'cutLoose', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'longTermProject', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'moveCity', 'SFTD.BadRoll.NoCrew');
+      BladesHelpers.addToRollTypeError(missingRollTypes, 'mutualAid', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'reducePressure', 'SFTD.BadRoll.NoCrew');
       BladesHelpers.addToRollTypeError(missingRollTypes, 'synthesis', 'SFTD.BadRoll.NoCrew');
     } else {
@@ -538,6 +579,8 @@ export class BladesStriderSheet extends BladesSheet {
         BladesHelpers.addToRollTypeError(missingRollTypes, 'reducePressure', 'SFTD.BadRoll.NoPressureHazard');
       if (!crewFull.system.mobile_city)
         BladesHelpers.addToRollTypeError(missingRollTypes, 'moveCity', 'SFTD.BadRoll.NoMobileCity');
+      if (!crewFull.system.mutual_aid)
+        BladesHelpers.addToRollTypeError(missingRollTypes, 'mutualAid', 'SFTD.BadRoll.NoMutualAid');
     }
     return [
       rollTypes.filter(r => !Object.keys(missingRollTypes).includes(r)),

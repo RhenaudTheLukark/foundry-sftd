@@ -449,15 +449,14 @@
     "TrainRoll": "Train",
     "UnwindRoll": "Unwind",
     "MoveCityRoll": "Move City",
+    "MutualAidRoll": "Mutual Aid",
     "SpecialistRoll": "Specialist Roll",
     "GroupSpecialistRoll": "Group Specialist Roll",
     "Table": "Table",
     "SuccessTier": "Success Tier",
-    "CollectDragDropInfo": "Drag & drop a known Region here to set it as the Region to collect from.",
-    "SchmoozeDragDropInfo": "Drag & drop a known Faction here to set it as the Faction to improve relationship with.",
+    "ConstructFoundationDragDropInfo": "Drag & drop a Foundation from a Compendium here to set it as the new Foundation to construct.",
     "UpkeepDragDropInfo": "Drag & drop a known Faction here to set it as the Faction to gain supplies from.",
-    "TargetFactionDragDropInfo": "Drag & drop a Faction here to set it as the Faction who was the target for that mission.",
-    "EmployerFactionDragDropInfo": "Drag & drop a Faction here to set it as the Faction who issued that mission to the crew.",
+    "MutualAidDragDropInfo": "Drag & drop a known Faction here to set it as the Faction to provide mutual aid to.",
     "Vigilance": "Vigilance",
     "You": "You",
     "Fixer": "Fixer",
@@ -634,26 +633,8 @@
     "RollConstructFoundationFull": "The Foundation '{foundation}' has been <strong>completed</strong>. <strong>You must add it manually for now.</strong>",
     "RollConstructFoundationFullAssignNPC": "Don't forget to create/assign an NPC to this Foundation.",
 
-    "RollLongTermProject": "You spent some time working on the Long-Term Project '{ltp}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
-    "RollLongTermProjectFull": "The project '{ltp}' has been <strong>completed</strong>.",
-
-    "RollRecover": "You spent some time resting to treat your wounds.",
-    "RollRecoverLevelOneHarm": "All Level 1 Harm has been cleared.",
-    "RollRecoverResultFull": "All Harm has been reduced by one level.",
-
-    "RollReducePressure": "You spent some time smoothing out your reputation both within your community and in this region as a whole. Pressure has been lowered by <strong>{tick}</strong> tick(s).",
-    "RollReducePressureHazard": "The Hazard reduction clock has also gained <strong>{tick}</strong> tick(s).",
-    "RollReducePressureHazardFull": "The Hazard reduction clock has been filled. Your community's <strong>Hazard level has lowered</strong>. Change your community ideals in response. You may either alter an existing ideal, get rid of an ideal, or add a new one.",
-
-    "TrainText": "You spend some time training {trainTypeDesc}. Your {trainTypeText} XP was increased by <strong>{num}</strong>.",
-    "TrainTextGeneral": "yourself",
-    "TrainTextStrider": "your {trainType}",
-    "TrainLevelUpPlaybook": "Your XP track has been filled. Take a <strong>new Playbook special ability</strong>.",
-    "TrainLevelUpAttribute": "Your XP track has been filled. <strong>Add an Action Point</strong> under the {trainType} attribute.",
-
     "RollCutLooseButton": "Roll Cut Loose",
     "RevealCutLooseResult": "Reveal Cut Loose Result",
-
     "RollCutLooseSuccess": "You cut loose with the crew. You will clear <strong>{stress} Stress</strong> upon the Cut Loose activity's completion.",
     "RollCutLooseTendingTheLanterns": "Thanks to some participants' efforts, you're allowed to manually adjust the amount of stress recovered by up to +{num} or -{num}.",
     "RollCutLooseSavedByTendingTheLanterns": "Thanks to some participants' efforts, you were prevented you from overindulging by {num}, since it allows you to manually adjust the amount of stress recovered by up to +{max_num} or -{max_num}.",
@@ -668,6 +649,21 @@
     "RollCutLooseResultBeliefFull": "Their belief clock is full.",
     "RollCutLooseResultBeliefFullDescription": "For any Strider whose belief clock is full, you can ask any player (including the MC) about a truth related to you current belief (if you choose the MC, ask about one character, not the community at large.) The player must answer honestly, directly or not, then write a new belief about your Strider's relationship to the community, accounting for your Strider's memories and this new truth they've learned. They also <strong>mark 2 XP</strong>.",
 
+    "RollLongTermProject": "You spent some time working on the Long-Term Project '{ltp}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollLongTermProjectFull": "The project '{ltp}' has been <strong>completed</strong>.",
+
+    "RollMoveCity": "You spent some time relocating your mobile city to a new location.",
+
+    "RollMutualAid": "You built up positive relationships with the Faction \"{faction}\". Your relationship with them has increased to <strong>{statusText}</strong> ({status}) at the cost of <strong>{shells} Shells</strong>.",
+
+    "RollRecover": "You spent some time resting to treat your wounds.",
+    "RollRecoverLevelOneHarm": "All Level 1 Harm has been cleared.",
+    "RollRecoverResultFull": "All Harm has been reduced by one level.",
+
+    "RollReducePressure": "You spent some time smoothing out your reputation both within your community and in this region as a whole. Pressure has been lowered by <strong>{tick}</strong> tick(s).",
+    "RollReducePressureHazard": "The Hazard reduction clock has also gained <strong>{tick}</strong> tick(s).",
+    "RollReducePressureHazardFull": "The Hazard reduction clock has been filled. Your community's <strong>Hazard level has lowered</strong>. Change your community ideals in response. You may either alter an existing ideal, get rid of an ideal, or add a new one.",
+
     "RollSynthesisCritical": "Exceptional result.",
     "RollSynthesisSuccess": "Good result.",
     "RollSynthesisPartialSuccess": "Mixed result.",
@@ -675,6 +671,12 @@
     "RollSynthesisResultSuccess": "You synthesize an item of <strong>Tier {tier_quality}</strong> quality.",
     "RollSynthesisResultFailure": "It was unfortunately not enough. You could not synthesize an item of <strong>Tier {success_tier}</strong> quality or above. If you want to synthesize it anyway, since your current item is of <strong>Tier {tier_quality}</strong> quality, you need to spend <strong>{shells} Shells</strong> in total.",
     "RollSynthesisExtra": "To raise the result of this roll, you may spend 1 Shell per Tier level, even beyond critical success.",
+
+    "TrainText": "You spend some time training {trainTypeDesc}. Your {trainTypeText} XP was increased by <strong>{num}</strong>.",
+    "TrainTextGeneral": "yourself",
+    "TrainTextStrider": "your {trainType}",
+    "TrainLevelUpPlaybook": "Your XP track has been filled. Take a <strong>new Playbook special ability</strong>.",
+    "TrainLevelUpAttribute": "Your XP track has been filled. <strong>Add an Action Point</strong> under the {trainType} attribute.",
 
     "RollUnwindOther": "a community member",
     "RollUnwindGroup": "several community members",
@@ -686,8 +688,6 @@
     "RollUnwindFailureScatteredFocus": "<strong>Scattered Focus:</strong> It's hard to get your focus back, and one of your projects gets away from you. <strong>Remove 1 tick</strong> from Foundation or Long-Term Project clock as you lose track of time and effort or make a mistake.",
     "RollUnwindBeliefFull": " Your belief clock is full.",
     "RollUnwindBeliefFullDescription": "Since your belief clock is full, you can ask any player (including the MC) about a truth related to you current belief (if you choose the MC, ask about one character, not the community at large.) The player must answer honestly, directly or not, then write a new belief about your Strider's relationship to the community, accounting for your Strider's memories and this new truth they've learned. They also <strong>mark 2 XP</strong>.",
-
-    "RollMoveCity": "You spent some time relocating your mobile city to a new location.",
 
     "DowntimeExtraResult": "You may spend up to {num} Shells to improve the result level, at the cost of 1 Shell per result level.",
 
@@ -706,7 +706,8 @@
       "NoOngoingLTP": "No currently ongoing Long-Term Project",
       "NoOtherStressedStrider": "No other Strider has Stress",
       "NoPressureHazard": "No Pressure or Hazard level",
-      "NoMobileCity": "Your base and community are not mobile"
+      "NoMobileCity": "Your base and community are not mobile",
+      "NoMutualAid": "You do not have the Crew Upgrade \"Mutual Aid\""
     },
 
     "CollectionAgency": "Collection Agency",
@@ -758,6 +759,16 @@
     "ExtraDieEffect": "gain <strong>+1d</strong>",
     "ImprovedImpactEffect": "improve your Impact",
     "IgnoreHarmEffect": "ignore your Level 3 Harm",
+
+    "FactionRelationship": {
+      "-3": "Vendetta",
+      "-2": "Hostile",
+      "-1": "Interfering",
+      "0": "Neutral",
+      "1": "Helpful",
+      "2": "Friendly",
+      "3": "Allies"
+    },
 
     "Short": "Short",
     "Full": "Full",

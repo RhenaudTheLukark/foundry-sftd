@@ -684,9 +684,13 @@ export class BladesHelpers {
     relationships = Object.assign({}, BladesHelpers.sortObjects(relationships, BladesHelpers.fetchRelationshipsData, BladesHelpers._relationshipCompareFunc, BladesHelpers.rebuildRelationshipListFromData));
 
     // Update the relationship data
-    await BladesHelpers.tryUpdate(ownerFull, {system: {'==relationships': relationships}});
+    await BladesHelpers.tryUpdate(ownerFull, {'system.==relationships': relationships});
     if (!recursive)
       await BladesHelpers.addRelationship(entityFull, ownerFull, true);
+  }
+
+  static getRelationship(ownerFull, entityFull) {
+    return Object.values(ownerFull.system.relationships).find(s => s.uuid == entityFull?.uuid);
   }
 
   static fetchAllRelationships(entityFull) {
@@ -769,6 +773,8 @@ export class BladesHelpers {
   }
 
   static async handleRelationshipValue(ownerFull, entityFull, path, change, set = false, recursive = false) {
+    if (!BladesHelpers.getRelationship(ownerFull, entityFull))
+      await BladesHelpers.addRelationship(ownerFull, entityFull);
     let [relationshipId, relationship] = Object.entries(ownerFull.system.relationships).find(s => s[1].uuid == entityFull.uuid);
     let result = set ? Number(change) : (Number(relationship[path]) + Number(change));
 
@@ -796,7 +802,7 @@ export class BladesHelpers {
     let newRelationships = Object.assign({}, relationshipsArray);
 
     // Update the data
-    await BladesHelpers.tryUpdate(ownerFull, {system: {'==relationships': newRelationships}});
+    await BladesHelpers.tryUpdate(ownerFull, {'system.==relationships': newRelationships});
     if (!recursive)
       await BladesHelpers.removeRelationship(entityFull, ownerFull, true);
   }

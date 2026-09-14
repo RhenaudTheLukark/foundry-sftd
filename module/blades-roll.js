@@ -1116,6 +1116,15 @@ async function showChatMessage(attributeOrRollName = '', note = '', extraFields 
   // Check for Move Base
   else if (attributeOrRollName == 'SFTD.MoveCityRoll')
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/move-city-get.html', { note: note, extraFields: extraFields });
+  // Check for Mutual Aid
+  else if (attributeOrRollName == 'SFTD.MutualAidRoll') {
+    const crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+    const shells = extraFields.maFaction.system.tier.value;
+    await BladesHelpers.tryUpdate(crewFull, {'system.shells.==value': crewFull.system.shells.value - shells});
+    await BladesHelpers.handleRelationshipValue(crewFull, extraFields.maFaction, 'status', 1);
+    const status = BladesHelpers.getRelationship(crewFull, extraFields.maFaction).status;
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/mutual-aid-get.html', { faction: extraFields.maFaction, statusText: game.i18n.localize(`SFTD.FactionRelationship.${status}`), status: status, shells: shells, note: note, extraFields: extraFields });
+  }
 
   let messageData = {
     speaker: speaker,
@@ -1328,6 +1337,7 @@ export const rollTypeLabels = {
   cutLoose: 'SFTD.CutLooseRoll',
   longTermProject: 'SFTD.LongTermProjectRoll',
   moveCity: 'SFTD.MoveCityRoll',
+  mutualAid: 'SFTD.MutualAidRoll',
   recover: 'SFTD.RecoverRoll',
   reducePressure: 'SFTD.ReducePressureRoll',
   synthesis: 'SFTD.SynthesisRoll',
@@ -1446,6 +1456,11 @@ const rollTypeArgs = {
     <span>
       <label>${game.i18n.localize(`SFTD.Project${args.projects.includes('multiple>') ? 's' : ''}`)}:</label>
       <select id="ltpId" name="ltpId"${args.projects}</select>
+    </span>`,
+  mutualAid: () => `
+    <span>
+      <label>${game.i18n.localize('SFTD.Faction')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.MutualAidDragDropInfo')}"></i></a>:</label>
+      <div id="maFaction">${game.i18n.localize('SFTD.None')}</div>
     </span>`,
   synthesis: (_, args) => `
     <span>
