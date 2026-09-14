@@ -22,7 +22,6 @@ export class BladesSheet extends BaseActorSheet {
 
     html.find('.item-add-popup').click(this.onItemAddClick.bind(this));
     html.find('.actor-add-popup').click(this.onActorAddClick.bind(this));
-    html.find('.update-box').click(this.onUpdateBoxClick.bind(this));
 
     html.find('label.radio-toggle').click((e) => {
       BladesHelpers.onRadioToggle(e);
@@ -35,8 +34,8 @@ export class BladesSheet extends BaseActorSheet {
 
     // Post item to chat
     html.find('.item-post').click((ev) => {
-      const element = $(ev.currentTarget).closest('.item');
-      const item = this.actor.items.get(element.data('itemId'));
+      const element = ev.currentTarget.closest('.item');
+      const item = this.actor.items.get(element.dataset.itemId);
       item.sendToChat();
     });
 
@@ -44,8 +43,8 @@ export class BladesSheet extends BaseActorSheet {
 
     // Update Inventory Item
     html.find('.item-body').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let item = this.actor.items.get(element.data('itemId'));
+      const element = ev.currentTarget.closest('.item');
+      let item = this.actor.items.get(element.dataset.itemId);
       item?.sheet.render(true);
     });
 
@@ -59,12 +58,12 @@ export class BladesSheet extends BaseActorSheet {
 
     // Open Actor
     html.find('.open-actor').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item, .item-embed');
+      const element = ev.currentTarget.closest('.item, .item-embed');
       //acqId is the UUID of the Actor
-      let acqId = element.data('itemId');
+      let acqId = element.dataset.itemId;
       let actor = BladesHelpers.resolveActor(acqId);
       if (!actor) {
-        let acqUuid = element.data('itemUuid');
+        let acqUuid = element.dataset.itemUuid;
         actor = BladesHelpers.resolveActor(acqUuid);
       }
       actor?.sheet.render(true);
@@ -72,25 +71,25 @@ export class BladesSheet extends BaseActorSheet {
 
     // Delete Inventory Item
     html.find('.delete-item').click(async ev => {
-      let element = $(ev.currentTarget).closest('.item');
-      let item = this.actor.items.get(element.data('itemId'));
-      if (element.parent().hasClass('item-with-container'))
-        element = element.parent();
-      element.slideUp(200, async () => await this.actor.removeItem(item));
+      let element = ev.currentTarget.closest('.item');
+      let item = this.actor.items.get(element.dataset.itemId);
+      if (element.parentElement.classList.contains('item-with-container'))
+        element = element.parentElement;
+      $(element).slideUp(200, async () => await this.actor.removeItem(item));
     });
 
     // Update Relationship Status
     html.find('.status-block label.input').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let entityFull = BladesHelpers.resolveActor(element.data('itemId'));
+      const element = ev.currentTarget.closest('.item');
+      let entityFull = BladesHelpers.resolveActor(element.dataset.itemId);
       if (entityFull)
-        await BladesHelpers.handleRelationshipValue(this.actor, entityFull, 'status', $(ev.currentTarget).data('value'), true);
+        await BladesHelpers.handleRelationshipValue(this.actor, entityFull, 'status', ev.currentTarget.dataset.value, true);
     });
 
     // Delete Relationship
     html.find('.delete-relationship:not(.disabled-item)').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let entityFull = BladesHelpers.resolveActor(element.data('itemId'));
+      const element = ev.currentTarget.closest('.item');
+      let entityFull = BladesHelpers.resolveActor(element.dataset.itemId);
       if (entityFull)
         BladesHelpers.removeRelationship(this.actor, entityFull);
     });
@@ -144,16 +143,16 @@ export class BladesSheet extends BaseActorSheet {
 
   async onItemAddClick(event) {
     event.preventDefault();
-    const itemTypes = $(event.currentTarget).data('itemType').split(',');
-    const valuePath = $(event.currentTarget).data('valuePath');
-    const unique = $(event.currentTarget).data('unique');
-    const addAsItem = $(event.currentTarget).data('addAsItem') ?? true;
-    const containerId = $(event.currentTarget).data('containerId');
+    const itemTypes = event.currentTarget.dataset.itemType.split(',');
+    const valuePath = event.currentTarget.dataset.valuePath;
+    const unique = event.currentTarget.dataset.unique;
+    const addAsItem = event.currentTarget.dataset.addAsItem ?? true;
+    const containerId = event.currentTarget.dataset.containerId;
     let inputType = 'checkbox';
 
-    let itemElement = $(event.currentTarget).closest('.item-with-container').children('.item');
-    if (itemElement.length) {
-      let [_, item] = this.actor.getItemOwner(itemElement[0].data('itemId'));
+    let itemElement = event.currentTarget.closest('.item-with-container').querySelector('.item');
+    if (itemElement) {
+      let [_, item] = this.actor.getItemOwner(itemElement.dataset.itemId);
       if (item.system.suppressed) {
         ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NoAddFromSuppressedContainer'));
         return;
@@ -206,7 +205,7 @@ export class BladesSheet extends BaseActorSheet {
       submit: async (result, dialog) => {
         if (result == 'add')
           for (let itemType of itemTypes)
-            await this.addItemsToSheetFromDialog(itemType, $(dialog.element).find('.objects-to-add'), valuePath, addAsItem, containerId);
+            await this.addItemsToSheetFromDialog(itemType, dialog.element.querySelector('.objects-to-add'), valuePath, addAsItem, containerId);
       }
     });
 
@@ -216,11 +215,11 @@ export class BladesSheet extends BaseActorSheet {
 
   async onActorAddClick(event) {
     event.preventDefault();
-    let actorTypes = $(event.currentTarget).data('actorType');
-    let valuePaths = $(event.currentTarget).data('valuePath');
-    const parentPath = $(event.currentTarget).data('parentPath');
-    const unique = $(event.currentTarget).data('unique');
-    let title = $(event.currentTarget).data('title');
+    let actorTypes = event.currentTarget.dataset.actorType;
+    let valuePaths = event.currentTarget.dataset.valuePath;
+    const parentPath = event.currentTarget.dataset.parentPath;
+    const unique = event.currentTarget.dataset.unique;
+    let title = event.currentTarget.dataset.title;
 
     let inputType = 'checkbox';
     if (unique !== undefined)
@@ -299,7 +298,7 @@ export class BladesSheet extends BaseActorSheet {
       ],
       submit: async (result, dialog) => {
         if (result == 'add')
-          await this.addActorsToSheet(actorTypes, $(dialog.element).find('.objects-to-add'));
+          await this.addActorsToSheet(actorTypes, dialog.element.querySelector('.objects-to-add'));
       }
     });
 
@@ -329,8 +328,8 @@ export class BladesSheet extends BaseActorSheet {
   async addItemsToSheetFromDialog(itemType, el, valuePath, addAsItem, containerId, extraModifiers) {
     let items = await BladesHelpers.getAllObjectDocumentsByType(itemType, [], game);
     let itemsToAdd = [];
-    el.find('input:checked').each(function() {
-      let item = items.find(e => e._id === $(this).val());
+    Array.from(el.querySelectorAll('input:checked')).forEach(function(v) {
+      let item = items.find(e => e._id === v.value);
       if (item)
         itemsToAdd.push(item);
     });
@@ -385,8 +384,10 @@ export class BladesSheet extends BaseActorSheet {
   async addActorsToSheet(actorTypes, el) {
     let actors = await BladesHelpers.getAllObjectDocumentsByType(actorTypes, [], game);
     let actorsToAdd = [];
-    el.find('input:checked').each(function() {
-      actorsToAdd.push(actors.find(e => e._id === $(this).val()));
+    Array.from(el.querySelectorAll('input:checked')).forEach(function(v) {
+      let actor = actors.find(e => e._id === v.value);
+      if (actor)
+        actorsToAdd.push(actor);
     });
 
     await this.actor.sheet.handleAddedObjects(actorsToAdd);
@@ -399,30 +400,8 @@ export class BladesSheet extends BaseActorSheet {
    * @param {*} event
    */
   async onRollAttributeDieClick(event) {
-    const attributeName = $(event.currentTarget).data('rollAttribute');
+    const attributeName = event.currentTarget.dataset.rollAttribute;
     await this.actor.rollAttributePopup(attributeName);
-  }
-
-  /* -------------------------------------------- */
-
-  async onUpdateBoxClick(event) {
-    event.preventDefault();
-    const itemId = $(event.currentTarget).data('item');
-    var updateValue = $(event.currentTarget).data('value');
-    const updateType = $(event.currentTarget).data('utype');
-    if (updateValue === undefined)
-      updateValue = document.getElementById('fac-' + updateType + '-' + itemId).value;
-    var update;
-    if (updateType === 'status')
-      update = {_id: itemId, system: {status: {value: updateValue}}};
-    else if (updateType == 'hold')
-      update = {_id: itemId, system: {hold: {value: updateValue}}};
-    else {
-      console.log('update attempted for type undefined in blades-sheet.js onUpdateBoxClick function');
-      return;
-    };
-
-    await this.actor.updateEmbeddedDocuments('Item', [update]);
   }
 
   /* -------------------------------------------- */

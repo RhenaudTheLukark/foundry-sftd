@@ -133,22 +133,21 @@ export class BladesActor extends Actor {
       submit: async (result, dialog) => {
         if (result != "roll") return;
 
-        let html = $(dialog.element);
-        let extraDice = parseInt(html.find('[name="mod"]')[0].value);
-        let note = html.find('[name="note"]')[0].value;
+        let extraDice = parseInt(dialog.element.querySelector('[name="mod"]').value);
+        let note = dialog.element.querySelector('[name="note"]').value;
         let actionDiceAmount = this.getRollData().diceAmount[attributeName] + extraDice;
 
         // Fetch enabled conditional roll modifiers by HTML inspection
         let enabledConditionalModifiers = resolveConditionalModifiers(dialog, this, attributeName);
         enabledConditionalModifiers = keepValidModifiersFromOther(enabledConditionalModifiers);
 
-        let input = html.find("input[type=radio]:checked");
-        if (input.length > 0) {
-          let rollType = input[0].id.split('-')[0];
+        let input = dialog.element.querySelector("input[type=radio]:checked");
+        if (input) {
+          let rollType = input.id.split('-')[0];
           let extraFields = { roll_type: rollType, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: this };
           switch (rollType) {
             case 'groupAction':
-              attributeName = html.find('#gaAction')[0].value;
+              attributeName = dialog.element.querySelector('#gaAction').value;
             case 'actionRoll':
               extraFields.group_action = groupActionData;
 
@@ -159,10 +158,10 @@ export class BladesActor extends Actor {
                 impact = extraFields.group_action.impact;
                 forcedImpact = extraFields.group_action.forcedImpact;
               } else {
-                position = html.find('[name="pos"]')[0].value;
-                forcedPosition = html.find('[name="forcedPos"]')[0].checked;
-                impact = html.find('[name="impact"]')[0].value;
-                forcedImpact = html.find('[name="forcedImpact"]')[0].checked;
+                position = dialog.element.querySelector('[name="pos"]').value;
+                forcedPosition = dialog.element.querySelector('[name="forcedPos"]').checked;
+                impact = dialog.element.querySelector('[name="impact"]').value;
+                forcedImpact = dialog.element.querySelector('[name="forcedImpact"]').checked;
               }
               await this.rollAttribute(attributeName, extraDice, position, forcedPosition, impact, forcedImpact, note, extraFields);
               break;
@@ -189,8 +188,8 @@ export class BladesActor extends Actor {
       let crewmateSelector = this.element.querySelector('.modifier[data-modifier="assist"] select[field="SFTD.Crewmate"]');
       if (crewmateSelector) {
         crewmateSelector.addEventListener('change', (event) => {
-          let modifierElement = $(crewmateSelector).closest(".modifier");
-          let crewmateSelectElementVal = $(modifierElement).find('span select[field="SFTD.Crewmate"]').val();
+          let modifierElement = crewmateSelector.closest('.modifier');
+          let crewmateSelectElementVal = modifierElement.querySelector('span select[field="SFTD.Crewmate"]').value;
           if (!crewmateSelectElementVal)
             return;
 

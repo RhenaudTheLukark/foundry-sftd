@@ -23,7 +23,7 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
     if (!this.system.messageType || SFTDChatMessage.handledMessages.includes(this._id))
       return html;
 
-    $(html).addClass('special-message');
+    html.classList.add('special-message');
     SFTDChatMessage.handledMessages.push(this._id);
     if (SFTDChatMessage.handledMessages.length > 10)
       SFTDChatMessage.handledMessages.shift();

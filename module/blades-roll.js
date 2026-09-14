@@ -1803,8 +1803,8 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
       let crewmateSelector = ev.currentTarget.closest('.window-content').querySelector('.modifier[data-modifier="assist"] select[field="SFTD.Crewmate"]');
       if (crewmateSelector) {
         crewmateSelector.addEventListener('change', (event) => {
-          let modifierElement = $(crewmateSelector).closest(".modifier");
-          let crewmateSelectElementVal = $(modifierElement).find('span select[field="SFTD.Crewmate"]').val();
+          let modifierElement = crewmateSelector.closest('.modifier');
+          let crewmateSelectElementVal = modifierElement.querySelector('span select[field="SFTD.Crewmate"]').value;
           if (!crewmateSelectElementVal)
             return;
 
@@ -2244,7 +2244,7 @@ export function resolveConditionalModifiers(dialog, actorFull, attributeName) {
       let selectElements = checkedModifier.querySelectorAll('span > select');
       let fields = {};
       for (let field of selectElements)
-        fields[field.attributes.field.value] = $(field).val();
+        fields[field.attributes.field.value] = Array.from(field.selectedOptions).map(o => o.value);
       let checkboxElements = checkedModifier.querySelectorAll('span > input[type=checkbox]');
       for (let checkbox of checkboxElements)
         fields[checkbox.attributes.name.value] = checkbox.checked;

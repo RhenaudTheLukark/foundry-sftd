@@ -233,12 +233,11 @@ export class BladesCrewSheet extends BladesSheet {
       submit: async (result, dialog) => {
         if (result != 'create-group-action') return;
 
-        let html = $(dialog.element);
-        let attribute = html.find('[name="attribute"]')[0].value;
-        let position = html.find('[name="pos"]')[0].value;
-        let impact = html.find('[name="impact"]')[0].value;
-        let leaderFull = BladesHelpers.resolveActor(html.find('[name="leader"]')[0].value);
-        let note = html.find('[name="note"]')[0].value;
+        let attribute = dialog.element.querySelector('[name="attribute"]').value;
+        let position = dialog.element.querySelector('[name="pos"]').value;
+        let impact = dialog.element.querySelector('[name="impact"]').value;
+        let leaderFull = BladesHelpers.resolveActor(dialog.element.querySelector('[name="leader"]').value);
+        let note = dialog.element.querySelector('[name="note"]').value;
         let speaker = {
           actor: this.actor._id,
           alias: this.actor.name,
@@ -332,16 +331,16 @@ export class BladesCrewSheet extends BladesSheet {
       submit: async (result, dialog) => {
         if (result == 'cancel')
           return;
-        const itemsToAddElements = $(dialog.element).find('.objects-to-add');
+        const itemsToAddElements = dialog.element.querySelector('.objects-to-add');
         if (result == 'add')
           await this.addItemsToSheetFromDialog('foundation', itemsToAddElements, null, true, null, dialog.isFoundationFree ? {system: {cache_cost: 0}} : null);
         if (result == 'addAsProject') {
           let items = await BladesHelpers.getAllObjectDocumentsByType('foundation', [], game);
           let itemsToAdd = [];
-          itemsToAddElements.find('input:checked').each(function() {
-            let item = items.find(e => e._id === $(this).val());
+          Array.from(itemsToAddElements.querySelectorAll('input:checked')).forEach(function(v) {
+            let item = items.find(e => e._id === v.value);
             if (item)
-              itemsToAdd.push(items.find(e => e._id === $(this).val()));
+              itemsToAdd.push(item);
           });
           for (let itemToAdd of itemsToAdd)
             await BladesHelpers.addProject(dialog.actor, itemToAdd, dialog.isFoundationFree);
@@ -718,18 +717,17 @@ export class BladesCrewSheet extends BladesSheet {
       submit: async (result, dialog) => {
         if (result != 'roll') return;
 
-        let html = $(dialog.element);
-        let extraDice = parseInt(html.find('[name="mod"]')[0].value);
-        let withinExpertise = html.find('[name="expertise"]')[0].checked;
-        let note = html.find('[name="note"]')[0].value;
+        let extraDice = parseInt(dialog.element.querySelector('[name="mod"]').value);
+        let withinExpertise = dialog.element.querySelector('[name="expertise"]').checked;
+        let note = dialog.element.querySelector('[name="note"]').value;
 
         // Fetch actor roll modifiers & enabled conditional roll modifiers
         let enabledConditionalModifiers = resolveConditionalModifiers(dialog, specialistFull);
         enabledConditionalModifiers = keepValidModifiersFromOther(enabledConditionalModifiers);
 
-        let input = html.find('input[type=radio]:checked');
-        if (input.length > 0) {
-          let rollType = input[0].id.split('-')[0];
+        let input = dialog.element.querySelector('input[type=radio]:checked');
+        if (input) {
+          let rollType = input.id.split('-')[0];
           let diceAmount = specialistFull.system.quality + extraDice;
           let extraFields = { roll_type: rollType, within_expertise: withinExpertise, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: specialistFull };
           switch (rollType) {
@@ -808,7 +806,6 @@ export class BladesCrewSheet extends BladesSheet {
     let hazardDelta = resultHazard - this.actor.system.hazard.value;
     let hazardHasChanged = hazardDelta != 0;
     let pressureHasChanged = pressureDelta != 0;
-    let resultString = '';
     if (pressureHasChanged || hazardHasChanged) {
       let updateObject = {};
       updateObject[`system.pressure.==value`] = resultPressure;
@@ -859,8 +856,8 @@ export class BladesCrewSheet extends BladesSheet {
 
     // Delete Project
     html.find('.delete-project').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let currentProjectId = element.data('projectId');
+      const element = ev.currentTarget.closest('.item');
+      let currentProjectId = element.dataset.projectId;
       let projectsEntries = Object.entries(this.actor.system.projects);
       projectsEntries.splice(currentProjectId, 1);
       for (let id in projectsEntries)
@@ -869,8 +866,8 @@ export class BladesCrewSheet extends BladesSheet {
     });
 
     html.find('.delete-member').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let memberUuid = element.data('itemId');
+      const element = ev.currentTarget.closest('.item');
+      let memberUuid = element.dataset.itemId;
       let memberFull = BladesHelpers.resolveActor(memberUuid);
       if (!memberFull) return;
       if (memberFull.type == 'strider')
@@ -880,21 +877,19 @@ export class BladesCrewSheet extends BladesSheet {
     });
 
     // Specialist Block Harm handler
-    html.find('.specialist-block-harm input[type="radio"]').change( async ev => {
-      const element = $(ev.currentTarget).parents(".item");
+    html.find('.specialist-block-harm input[type="radio"]').change(async ev => {
+      const element = ev.currentTarget.closest('.item');
 
-      let item_id = element.data("itemId")
-      let harm_id = $(ev.currentTarget).val();
+      let item_id = element.dataset.itemId;
+      let harm_id = ev.currentTarget.value;
 
-      await this.actor.updateEmbeddedDocuments('Item', [{
-        _id: item_id,
-        "system.harm": [harm_id]}]);
+      await this.actor.updateEmbeddedDocuments('Item', [{ _id: item_id, 'system.harm': [harm_id]}]);
       this.render(false);
     });
 
     html.find('.specialist-block-wrapper .add-specialist-roll').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let specialistId = element.data('itemId');
+      const element = ev.currentTarget.closest('.item');
+      let specialistId = element.dataset.itemId;
       let specialistFull = this.actor.items.filter(i => i._id == specialistId)[0];
       await this.createSpecialistRollPopup(specialistFull);
     })

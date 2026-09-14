@@ -349,12 +349,12 @@ Hooks.on('getSceneControlButtons', controls => {
 });
 
 Hooks.on("renderSceneControls", async (app, html) => {
-	if (foundry.utils.isNewerVersion(13,game.version)) {
+	if (foundry.utils.isNewerVersion(13, game.version)) {
 	  let dice_roller = $('<li class="scene-control" data-tooltip="Dice Roll"><i class="fas fa-dice"></i></li>');
-	  dice_roller.click( async function() {
+	  dice_roller.click(async function() {
 		  await simpleRollPopup();
 	  });
-	  html.children().first().append( dice_roller );
+	  html.children().first().append(dice_roller);
 	}
 });
 

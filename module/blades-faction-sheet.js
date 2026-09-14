@@ -1,6 +1,6 @@
 
-import { BladesHelpers } from "./blades-helpers.js";
-import { BladesSheet } from "./blades-sheet.js";
+import { BladesHelpers } from './blades-helpers.js';
+import { BladesSheet } from './blades-sheet.js';
 
 /**
  * @extends {BladesSheet}
@@ -10,11 +10,11 @@ export class BladesFactionSheet extends BladesSheet {
   /** @override */
 	static get defaultOptions() {
 	  return foundry.utils.mergeObject(super.defaultOptions, {
-  	  classes: ["songs-for-the-dusk", "sheet", "actor", "faction"],
-  	  template: "systems/songs-for-the-dusk/templates/actors/faction-sheet.html",
+  	  classes: ['songs-for-the-dusk', 'sheet', 'actor', 'faction'],
+  	  template: 'systems/songs-for-the-dusk/templates/actors/faction-sheet.html',
       width: 500,
       height: 'auto',
-      tabs: [{navSelector: ".tabs", contentSelector: ".tab-content"}]
+      tabs: [{navSelector: '.tabs', contentSelector: '.tab-content'}]
     });
   }
 
@@ -80,18 +80,18 @@ export class BladesFactionSheet extends BladesSheet {
         max: 4,
         value: 0
       }
-      await BladesHelpers.tryUpdate(this.actor, {system: {'==clocks': clocks}});
+      await BladesHelpers.tryUpdate(this.actor, {'system.==clocks': clocks});
     });
 
     // Delete Clock
     html.find('.delete-clock').click(async ev => {
-      const element = $(ev.currentTarget).closest(".item");
-      let currentClockId = element.data("clockId");
+      const element = ev.currentTarget.closest('.item');
+      let currentClockId = element.dataset.clockId;
       let clocksEntries = Object.entries(this.actor.system.clocks);
       clocksEntries.splice(currentClockId, 1);
       for (let id in clocksEntries)
         clocksEntries[id][0] = String(id);
-      await BladesHelpers.tryUpdate(this.actor, {system: {'==clocks': Object.fromEntries(clocksEntries)}});
+      await BladesHelpers.tryUpdate(this.actor, {'system.==clocks': Object.fromEntries(clocksEntries)});
     });
 	}
 }

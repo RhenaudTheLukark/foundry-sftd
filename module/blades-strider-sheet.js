@@ -190,7 +190,6 @@ export class BladesStriderSheet extends BladesSheet {
       submit: async (result, dialog) => {
         if (result != 'use') return;
 
-        let html = $(dialog.element);
         let input = dialog.element.querySelector('input[type=radio]:checked');
         let note = dialog.element.querySelector('[name="note"]').value;
         if (input) {
@@ -231,13 +230,13 @@ export class BladesStriderSheet extends BladesSheet {
 
     // Delete Strider's Class
     html.find('.delete-class').click(async ev => {
-      let element = $(ev.currentTarget).closest('.item');
-      let item = this.actor.items.get(element.data('itemId'));
-      if (element.parent().hasClass('item-with-container'))
-        element = element.parent();
-      element.slideUp(200, async () => {
+      let element = ev.currentTarget.closest('.item');
+      let item = this.actor.items.get(element.dataset.itemId);
+      if (element.parentElement.classList.contains('item-with-container'))
+        element = element.parentElement;
+      $(element).slideUp(200, async () => {
         await this.actor.removeItem(item);
-        await BladesHelpers.tryUpdate(this.actor, {system: {'==class': null}});
+        await BladesHelpers.tryUpdate(this.actor, {'system.==class': null});
       });
     });
 
@@ -249,17 +248,6 @@ export class BladesStriderSheet extends BladesSheet {
     // Delete Signature Gear
     html.find('.delete-signature-gear').click(async _ => {
       await BladesHelpers.tryUpdate(this.actor, {'system.signature_gear': null});
-    });
-
-    // Delete Connection
-    html.find('.delete-connection').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let currentConnectionId = element.data('connectionId');
-      let connectionsEntries = Object.entries(this.actor.system.connections);
-      connectionsEntries.splice(currentConnectionId, 1);
-      for (let id in connectionsEntries)
-        connectionsEntries[id][0] = String(id);
-      await BladesHelpers.tryUpdate(this.actor, {system: {'==connections': Object.fromEntries(connectionsEntries)}});
     });
 
     html.find('.charm-ability select').change(async ev => {
@@ -277,8 +265,8 @@ export class BladesStriderSheet extends BladesSheet {
     html.find('.downtime').click(async _ => await this.downtimeRollPopup(this));
 
     html.find('.generic-popup').click(async ev => {
-      const element = $(ev.currentTarget).closest('.item');
-      let itemFull = this.actor.items.get(element.data('itemId'));
+      const element = ev.currentTarget.closest('.item');
+      let itemFull = this.actor.items.get(element.dataset.itemId);
       let popupData = bladesPopupData[itemFull.system.popup];
       if (!popupData)
         ui.notifications.error(game.i18n.format('SFTD.log.error.BadPopupID', {id: itemFull.system.popup}), { permanent: true });
@@ -322,17 +310,16 @@ export class BladesStriderSheet extends BladesSheet {
       submit: async (result, dialog) => {
         if (result != 'roll') return;
 
-        let html = $(dialog.element);
-        let extraDice = parseInt(html.find('[name="mod"]')[0].value);
-        let note = html.find('[name="note"]')[0].value;
+        let extraDice = parseInt(dialog.element.querySelector('[name="mod"]').value);
+        let note = dialog.element.querySelector('[name="note"]').value;
 
         // Fetch enabled conditional roll modifiers by HTML inspection
         let enabledConditionalModifiers = resolveConditionalModifiers(dialog, actorSheet.actor);
         enabledConditionalModifiers = keepValidModifiersFromOther(enabledConditionalModifiers);
 
-        let input = html.find('input[type=radio]:checked');
-        if (input.length > 0) {
-          let rollType = input[0].id.split('-')[0];
+        let input = dialog.element.querySelector('input[type=radio]:checked');
+        if (input) {
+          let rollType = input.id.split('-')[0];
           let extraFields = { roll_type: rollType, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: actorSheet.actor };
           let crewFull = BladesHelpers.resolveActor(actorSheet.actor.system.crew);
           switch (rollType) {
@@ -384,8 +371,8 @@ export class BladesStriderSheet extends BladesSheet {
               await bladesRoll(rpDice, 'SFTD.ReducePressureRoll', note, extraFields);
               break;
             case 'synthesis':
-              let synSuccessTier = html.find('[name="synSuccessTier"]')[0].value;
-              let synAction = html.find('[name="synAction"]')[0].value;
+              let synSuccessTier = dialog.element.querySelector('[name="synSuccessTier"]').value;
+              let synAction = dialog.element.querySelector('[name="synAction"]').value;
               let synDiceAmount = this.actor.getRollData().diceAmount[synAction] + extraDice;
               extraFields.action = synAction;
               extraFields.tier = crewFull.getTier();
@@ -394,7 +381,7 @@ export class BladesStriderSheet extends BladesSheet {
               break;
             case 'train':
               extraFields.noRoll = true;
-              let trainType = html.find('[name="trainType"]')[0].value;
+              let trainType = dialog.element.querySelector('[name="trainType"]').value;
               extraFields.trainType = trainType;
               await bladesRoll(0, 'SFTD.TrainRoll', note, extraFields);
               break;
@@ -450,8 +437,7 @@ export class BladesStriderSheet extends BladesSheet {
     }
     await dialog.render(true);
 
-    let htmlElement = $(dialog.element);
-    htmlElement[0].ondrop = async function(ev) {
+    dialog.element.addEventListener('drop', async function(ev) {
       ev.preventDefault();
       const dropData = foundry.applications.ux.TextEditor.implementation.getDragEventData(ev);
       if (dropData.uuid) {
@@ -480,9 +466,9 @@ export class BladesStriderSheet extends BladesSheet {
             this.querySelector('[data-action="roll"]').disabled = !dialog.isConstructFoundationValid(dialog) || !checkDowntimeRules(dialog);
         }
       }
-    };
-    for (let element of htmlElement.find('input[type=radio]')) {
-      element.onclick = function (ev) {
+    });
+    for (let element of dialog.element.querySelectorAll('input[type=radio]')) {
+      element.addEventListener('click', function (ev) {
         let rollType = this.id.split('-')[0];
         let rollButton = this.closest('.window-content').querySelector('button[data-action="roll"]');
         let allowedToRoll = true;
@@ -493,7 +479,7 @@ export class BladesStriderSheet extends BladesSheet {
 
         allowedToRoll &&= checkDowntimeRules(dialog);
         rollButton.disabled = !allowedToRoll;
-      };
+      });
     }
     if (dialog.element.querySelector('#cfNewFoundationCost'))
       dialog.element.querySelector('#cfNewFoundationCost').addEventListener('change', (ev) => {
