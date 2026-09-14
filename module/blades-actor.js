@@ -332,8 +332,8 @@ export class BladesActor extends Actor {
     await BladesHelpers.tryUpdate(this, {system: {'==group_action': this.system.group_action}});
   }
 
-  async updateGroupActionRoll(actorId, roll) {
-    this.system.group_action.rolls[actorId] = roll;
+  async updateGroupActionRoll(actorUuid, roll) {
+    this.system.group_action.rolls[actorUuid] = roll;
     await BladesHelpers.tryUpdate(this, {system: {group_action: {"==rolls": this.system.group_action.rolls}}});
   }
 

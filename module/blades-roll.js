@@ -540,7 +540,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   };
 
   let stressChanges = {};
-  stressChanges[extraFields.actor?._id] = 0;
+  stressChanges[extraFields.actor?.uuid] = 0;
 
   let crewFull = BladesHelpers.resolveActor(extraFields.actor?.system.crew);
   let shellChanges = extraFields.shells ?? 0;
@@ -558,7 +558,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     if (modifier.dice) diceAmount += modifier.dice;
     if (modifier.position && extraFields.position) numberedPosition += modifier.position;
     if (modifier.impact && extraFields.impact) numberedImpact += modifier.impact;
-    if (modifier.stress) stressChanges[extraFields.actor?._id] = Number(modifier.stress);
+    if (modifier.stress) stressChanges[extraFields.actor?.uuid] += Number(modifier.stress);
     if (modifier.otherStress)
       for (let [id, value] of Object.entries(modifier.otherStress))
         stressChanges[id] = (stressChanges[id] ?? 0) + Number(value);
@@ -591,7 +591,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
       stressChangeItem.realValue = resultStress - Number(stressActorFull.system.stress.value);
       if (resultStress != stressActorFull.system.stress.value)
         await BladesHelpers.tryUpdate(stressActorFull, {'system.stress.==value': resultStress});
-      rollData.stressChanges[stressActorFull._id] = stressChangeItem;
+      rollData.stressChanges[stressActorFull.uuid] = stressChangeItem;
     }
   }
 
@@ -642,7 +642,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
         otherChangeItem.realValue[otherPath] = resultOther - Number(otherValue);
       }
       await BladesHelpers.tryUpdate(otherActorFull, updateObject);
-      rollData.otherChanges[otherActorFull._id] = otherChangeItem;
+      rollData.otherChanges[otherActorFull.uuid] = otherChangeItem;
     }
   }
 
@@ -764,13 +764,13 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   } else if (attributeOrRollName == 'SFTD.GroupSpecialistRoll') {
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    crewFull?.updateGroupActionRoll(extraFields.actor.id, rollStatus);
+    crewFull?.updateGroupActionRoll(extraFields.actor.uuid, rollStatus);
   // Check for Group Action roll
   } else if (extraFields.group_action) {
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
 
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    crewFull?.updateGroupActionRoll(extraFields.actor.id, rollStatus);
+    crewFull?.updateGroupActionRoll(extraFields.actor.uuid, rollStatus);
   }
   // Check for Action roll
   else if (BladesHelpers.isAttributeAction(attributeOrRollName)) {
@@ -812,9 +812,9 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   else if (attributeOrRollName == 'SFTD.ResistanceRoll') {
     const stress = getBladesRollResistanceStress(rolls, extraResult, zeromode);
     if (!extraFields.rollData.charmwork) {
-      let rollStressValue = (extraFields.rollData.stressChanges[extraFields.actor._id]?.value ?? 0) + stress;
+      let rollStressValue = (extraFields.rollData.stressChanges[extraFields.actor.uuid]?.value ?? 0) + stress;
       let newStress = Math.clamp(Number(extraFields.actor.system.stress.value) + rollStressValue, 0, extraFields.actor.system.stress.max);
-      extraFields.rollData.stressChanges[extraFields.actor._id] = {value: rollStressValue, realValue: newStress - Number(extraFields.actor.system.stress.value)};
+      extraFields.rollData.stressChanges[extraFields.actor.uuid] = {value: rollStressValue, realValue: newStress - Number(extraFields.actor.system.stress.value)};
 
       let resultStress = Math.clamp(extraFields.actor.system.stress.value + stress, 0, extraFields.actor.system.stress.max);
       if (resultStress != extraFields.actor.system.stress.value)
@@ -1134,12 +1134,12 @@ export async function cancelRollResult(rollData, actorFull) {
   if (Object.keys(crewUpdateObject).length > 0)
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
 
-  for (let [stressChangeId, stressChange] of Object.entries(rollData.stressChanges)) {
-    let stressActorFull = BladesHelpers.resolveActor(`Actor.${stressChangeId}`);
+  for (let [stressChangeUuid, stressChange] of Object.entries(foundry.utils.flattenObject(rollData.stressChanges))) {
+    let stressActorFull = BladesHelpers.resolveActor(stressChangeUuid);
     await BladesHelpers.tryUpdate(stressActorFull, {'system.stress.==value': Math.min(Math.max(Number(stressActorFull.system.stress.value) - stressChange.realValue, 0), stressActorFull.system.stress.max)});
   }
-  for (let [otherChangeId, otherChangeObj] of Object.entries(rollData.otherChanges)) {
-    let otherActorFull = BladesHelpers.resolveActor(`Actor.${otherChangeId}`);
+  for (let [otherChangeUuid, otherChangeObj] of Object.entries(foundry.utils.flattenObject(rollData.otherChanges))) {
+    let otherActorFull = BladesHelpers.resolveActor(otherChangeUuid);
     if (otherActorFull) {
       let updateObject = {};
       for (let [otherPath, otherChange] of Object.entries(otherChangeObj.realValue)) {
@@ -2371,12 +2371,12 @@ export async function computeGroupActionResultAndSendMessage(groupActionData, cr
     return;
   }
 
-  var result = Object.values(groupActionData.rolls).sort((a, b) => rollResultIndex.indexOf(b) - rollResultIndex.indexOf(a))[0];
+  var result = Object.values(foundry.utils.flattenObject(groupActionData.rolls)).sort((a, b) => rollResultIndex.indexOf(b) - rollResultIndex.indexOf(a))[0];
   // Coordinated: Prevent failed rolls to count for stress gain
-  const rolls = Object.fromEntries(Object.entries(foundry.utils.deepClone(groupActionData.rolls))
-    .map(r => [ BladesHelpers.resolveActor(`Actor.${r[0]}`), r[1] ])
-    .filter(r => r[0] && r[1] == 'failure' && !r[0].system.coordinated)
-    .map(r => [ r[0]._id, r[1] ]));
+  const rolls = Object.entries(foundry.utils.flattenObject(foundry.utils.deepClone(groupActionData.rolls)))
+    .map(r => [ BladesHelpers.resolveActor(r[0]), r[1] ])
+    .filter(r => r[0] && !(r[1] == 'failure' && r[0].system.coordinated))
+    .map(r => r[1]);
 
   const resultOccurrences = Object.values(rolls).reduce((acc, curr) => {
     acc[curr] = (acc[curr] || 0) + 1;
