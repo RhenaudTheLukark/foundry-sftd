@@ -787,6 +787,9 @@
     "Type": "Type",
     "Owner": "Owner",
 
+    "BuildingBondsName": "{striderName}'s Companion",
+    "OneOfUsName": "{crewName}'s Vehicle",
+
     "StartMission": "Start Mission",
     "StartMissionDescription": "This popup allows you to automate some parts of the mission starting process.<br/>Any ticked checkbox will let the system automate that part of the process to the best of its ability.<br/>This also serves as a cheat sheet: only green options have automation linked to them.",
     "StartMissionPrepareMission": "The group covers the mission's target, objective, employer, loadout. They also come up with an approach and its detail.<br/>Its detail is the element that makes the approach work. If you don't know the detail, you can collect information in some way to figure one out.<ul><li>Studied: Use scholarship, intelligence, and lore. Detail: How do you use archival or collected knowledge to your advantage?</li><li>Curious: Investigate, experiment, discover. Detail: How do you seek out new information?</li><li>Patient: Be slow, thoughtful, and thorough. Detail: How do you make use of the extra time you spend?</li><li>Rapid: Act fast. Detail: How do you gain the speed advantage?</li><li>Subtle: Act without notice or pass without trace. Detail: How do you minimize your presence?</li><li>Brazen: Command attention, make bold moves. Detail: How do you maximize your presence?</li></ul>",
@@ -1070,7 +1073,11 @@
         "Title": "Field Notes: Investigating Historical Events or Ancient Technology?"
       }
     },
-    "CrewAbility": {},
+    "CrewAbility": {
+      "PunchIt": {
+        "Title": "Punch It: When Entering Danger Aboard a Vehicle, Using Vehicle Speed or Maneuverability?"
+      }
+    },
     "CrewFoundation": {
       "BackchatterNetwork": {
         "Title": "Backchatter Network: Collecting Info For a Mission?"

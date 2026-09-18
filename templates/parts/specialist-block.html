@@ -10,7 +10,7 @@
         <div class='add-specialist-roll' data-tooltip='SFTD.SpecialistRoll'>
           {{> 'systems/songs-for-the-dusk/templates/svg/d20.hbs'}}
         </div>
-        {{#if (eq item.system.owner null)}}
+        {{#if (not item.system.specialist_owner)}}
         <a class='item-control delete-item' data-tooltip='{{localize 'SFTD.TitleDeleteItem'}}'><i class='fas fa-trash'></i></a>
         {{/if}}
         <a class='item-control item-post' data-tooltip='{{localize 'SFTD.TitlePostItem'}}'><i class='fas fa-comment'></i></a>
@@ -27,12 +27,12 @@
           {{/multiboxes}}
           {{/each}}
         </div>
-        {{#if (gt (add item.system.armor.max item.system.armor.modifier) 0)}}
+        {{#if (gt item.system.armor.max 0)}}
         <div class='specialist-armor-block'>
-          <label class='multi-radio-toggle'{{#if (gt (add item.system.armor.max item.system.armor.modifier) 1)}} data-tooltip='{{{localize "SFTD.MultiRadioToggleTooltip"}}}'{{/if}} data-field='system.armor.value' data-max='{{add item.system.armor.max item.system.armor.modifier}}' data-value='{{item.system.armor.value}}'>
+          <label class='multi-radio-toggle'{{#if (gt item.system.armor.max 1)}} data-tooltip='{{{localize "SFTD.MultiRadioToggleTooltip"}}}'{{/if}} data-field='system.armor.value' data-max='{{item.system.armor.max}}' data-value='{{item.system.armor.value}}'>
             <a><i class='fa{{#if (gt item.system.armor.value 0)}}s{{else}}-regular{{/if}} fa-shield'></i></a>
           </label>
-          {{#if (and (gt (add item.system.armor.max item.system.armor.modifier) 1) (gt item.system.armor.value 0))}}
+          {{#if (and (gt item.system.armor.max 1) (gt item.system.armor.value 0))}}
             <label class='non-interactible armor-value'>{{item.system.armor.value}}</label>
           {{/if}}
         </div>

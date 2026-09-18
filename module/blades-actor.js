@@ -388,8 +388,6 @@ export class BladesActor extends Actor {
   /* -------------------------------------------- */
 
   async removeItem(item) {
-    const itemCopy = foundry.utils.deepClone(item);
     await BladesHelpers.tryDelete(item, this);
-    await BladesHelpers.postDeleteItem(itemCopy, this);
   }
 }

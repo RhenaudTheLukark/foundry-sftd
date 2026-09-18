@@ -1,4 +1,4 @@
-import { BladesHelpers } from "./blades-helpers.js";
+import { BladesHelpers } from './blades-helpers.js';
 
 /**
  * Extend the base ActiveEffect class to implement system-specific logic.
@@ -50,23 +50,23 @@ export class BladesActiveEffect extends ActiveEffect {
   static onManageActiveEffect(event, owner) {
     event.preventDefault();
     const a = event.currentTarget;
-    const selector = a.closest("tr");
+    const selector = a.closest('tr');
     const effect = selector.dataset.effectId ? owner.effects.get(selector.dataset.effectId) : null;
     switch (a.dataset.action) {
-      case "create":
-        return owner.createEmbeddedDocuments("ActiveEffect", [{
-          name: "New Effect",
-          img: "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      case 'create':
+        return BladesHelpers.tryCreate([{
+          name: 'New Effect',
+          img: 'systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png',
           origin: owner.uuid,
-          "duration.rounds": selector.dataset.effectType === "temporary" ? 1 : undefined,
-          disabled: selector.dataset.effectType === "inactive"
-        }]);
-      case "edit":
+          'duration.rounds': selector.dataset.effectType === 'temporary' ? 1 : undefined,
+          disabled: selector.dataset.effectType === 'inactive'
+        }], owner, 'ActiveEffect');
+      case 'edit':
         return effect.sheet.render(true);
-      case "delete":
-        console.log("delete effect");
+      case 'delete':
+        console.log('delete effect');
         return effect.delete();
-      case "toggle":
+      case 'toggle':
         return effect.update({disabled: !effect.disabled});
     }
   }
@@ -81,30 +81,30 @@ export class BladesActiveEffect extends ActiveEffect {
     // Define effect header categories
     const categories = {
       temporary: {
-        type: "temporary",
-        name: "Temporary Effects",
+        type: 'temporary',
+        name: 'Temporary Effects',
         effects: []
       },
       passive: {
-        type: "passive",
-        name: "Passive Effects",
+        type: 'passive',
+        name: 'Passive Effects',
         effects: []
       },
       inactive: {
-        type: "inactive",
-        name: "Inactive Effects",
+        type: 'inactive',
+        name: 'Inactive Effects',
         effects: []
       },
       suppressed: {
-        type: "suppressed",
-        name: "Suppressed Effects",
+        type: 'suppressed',
+        name: 'Suppressed Effects',
         effects: []
       }
 
     };
 
     // Iterate over active effects, classifying them into categories
-    for ( let e of effects ) {
+    for (let e of effects) {
 	    if (e.isSuppressed) categories.suppressed.effects.push(e);
       else if (e.disabled) categories.inactive.effects.push(e);
       else if (e.isTemporary) categories.temporary.effects.push(e);

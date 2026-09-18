@@ -79,17 +79,10 @@ export class SFTDChatMessage extends foundry.documents.ChatMessage {
     const parent = BladesHelpers.resolveActor(this.system.parentUuid);
     const document = BladesHelpers.resolveActor(this.system.objectUuid);
     if (document) {
-      if (this.system.needWait) {
-        if (parent && this.system.objectEmbeddedName)
-          await parent.deleteEmbeddedDocuments(this.system.objectEmbeddedName, [document.id]);
-        else if (!parent && !this.system.objectEmbeddedName)
-          await document.delete();
-      } else {
-        if (parent && this.system.objectEmbeddedName)
-          parent.deleteEmbeddedDocuments(this.system.objectEmbeddedName, [document.id]);
-        else if (!parent && !this.system.objectEmbeddedName)
-          document.delete();
-      }
+      if (this.system.needWait)
+        await BladesHelpers.tryDelete(document, parent, true, this.system.objectEmbeddedName);
+      else
+        BladesHelpers.tryDelete(document, parent, true, this.system.objectEmbeddedName);
     }
     return html;
   }

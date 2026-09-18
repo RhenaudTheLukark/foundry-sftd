@@ -15,7 +15,7 @@
               <td><a class="remove-quality"><i class="fas fa-minus-square"></i></a></div></td>
             </tr>
             <tr>
-              <td><div class="armor">{{localize 'SFTD.Armor'}}: {{add system.armor.max system.armor.modifier}} ({{system.armor.modifier}})</div></td>
+              <td><div class="armor">{{localize 'SFTD.Armor'}}: {{system.armor.max}} ({{system.armor.modifier}})</div></td>
               <td><a class="add-armor"><i class="fas fa-plus-square"></i></a></div></td>
               <td><a class="remove-armor"><i class="fas fa-minus-square"></i></a></div></td>
             </tr>
@@ -109,10 +109,10 @@
       {{/multiboxes}}
       {{#if (gt (add system.armor.max system.armor.modifier) 0)}}
       <div class="specialist-armor-block">
-        <label class="multi-radio-toggle"{{#if (gt (add system.armor.max system.armor.modifier) 1)}} data-tooltip="{{{localize 'SFTD.MultiRadioToggleTooltip'}}}"{{/if}} data-field="system.armor.value" data-max="{{add system.armor.max system.armor.modifier}}" data-value="{{system.armor.value}}">
+        <label class="multi-radio-toggle"{{#if (gt system.armor.max 1)}} data-tooltip="{{{localize 'SFTD.MultiRadioToggleTooltip'}}}"{{/if}} data-field="system.armor.value" data-max="{{system.armor.max}}" data-value="{{system.armor.value}}">
           <a><i class="fa{{#if (gt system.armor.value 0)}}s{{else}}-regular{{/if}} fa-shield"></i></a>
         </label>
-        {{#if (and (gt (add system.armor.max system.armor.modifier) 1) (gt system.armor.value 0))}}
+        {{#if (and (gt system.armor.max 1) (gt system.armor.value 0))}}
         <label class="non-interactible armor-value">{{system.armor.value}}</label>
         {{/if}}
       </div>

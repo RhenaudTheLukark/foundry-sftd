@@ -7,10 +7,73 @@
     "description": "<p>When you enter danger aboard a vehicle, you gain <strong>+1 impact</strong> for vehicle speed and maneuverability and you don&rsquo;t suffer a worse position when moving around on the outside of a high-speed vehicle. Your vehicles gain <strong>armor</strong>.<br><em>This means that all sorts of vehicle maneuvers which might ordinarily be </em><em>desperate&mdash;jumping from one rover to another, crawling along the outside of a </em><em>dropjet, etc.&mdash;are more likely to be risky. Any vehicles which already have armor </em><em>gain an additional armor box.</em></p>",
     "class": "Couriers",
     "price": "1",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
+    "popup": "",
     "purchased": false,
     "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Punch It Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.crew_ability.Item.qMUMzRlpNFl3ICnH",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "8mRlhvDLqDUqaBHb",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.vehicle_armor",
+          "mode": 2,
+          "value": "1",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.strider.punch_it",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.specialist.punch_it",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1789715300074,
+        "modifiedTime": 1789725542007,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!qMUMzRlpNFl3ICnH.8mRlhvDLqDUqaBHb"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

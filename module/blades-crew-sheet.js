@@ -57,12 +57,15 @@ export class BladesCrewSheet extends BladesSheet {
 
     sheetData.investedCachesDropdown = Object.fromEntries(Array(9).fill().map((_, i) => [String(i), String(i)]));
 
-    for (let item of sheetData.items)
+    for (let item of sheetData.items) {
       if (item.system.popup != '') {
         let popupData = bladesPopupData[item.system.popup];
         if (popupData?.button_text)
           item.system.popup_text = popupData.button_text;
       }
+      if (item.type == 'specialist')
+        item.system.armor.max += item.system.armor.modifier + (item.system.vehicle ? sheetData.system.vehicle_armor : 0);
+    }
 
     sheetData.orderedItems = sheetData.items.sort(BladesHelpers.itemEntryCompareFunc);
 

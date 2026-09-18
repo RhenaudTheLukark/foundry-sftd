@@ -497,6 +497,11 @@ export const bladesRollModifierList = {
     itemNeeded: 'is_field_notes',
     dice: 1
   },
+  punch_it: {
+    name: 'SFTD.CrewAbility.PunchIt.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1
+  },
   backchatter_network: {
     name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',
     rollType: 'collectInfo',

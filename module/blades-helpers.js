@@ -210,9 +210,9 @@ export class BladesHelpers {
    * @param {Actor} objectFull
    * @param {object} updateObject
    */
-  static async tryCreate(objectsData, parentFull) {
+  static async tryCreate(objectsData, parentFull, itemType = 'Item') {
     if (objectsData && parentFull && parentFull.isOwner) {
-      let items = await Item.create(objectsData, {parent: parentFull});
+      let items = await parentFull.createEmbeddedDocuments(itemType, objectsData);
       for (let [itemIndex, item] of Object.entries(items)) {
         await BladesHelpers.tryUpdate(item, {'system.original_id': objectsData[itemIndex]._id});
         await BladesHelpers.postCreateItem(item);
@@ -262,11 +262,19 @@ export class BladesHelpers {
    * @param {Actor} objectFull
    * @param {object} updateObject
    */
-  static async tryDelete(objectFull, parentFull, needWait = true) {
+  static async tryDelete(objectFull, parentFull, needWait = true, itemType = 'Item') {
     if (!objectFull)
       return;
-    if (parentFull && parentFull.canUserModify(game.user, 'delete'))
-      await parentFull.deleteEmbeddedDocuments('Item', [objectFull._id]);
+    if (parentFull && parentFull.canUserModify(game.user, 'delete')) {
+      var objectCopy = null;
+      if (itemType == 'Item') {
+        await BladesHelpers.preDeleteItem(objectFull);
+        objectCopy = foundry.utils.deepClone(objectFull);
+      }
+      await parentFull.deleteEmbeddedDocuments(itemType, [objectFull._id]);
+      if (itemType == 'Item')
+        await BladesHelpers.postDeleteItem(objectCopy);
+    }
     else if (!parentFull && objectFull.canUserModify(game.user, 'delete'))
       await objectFull.delete();
     else {
@@ -371,9 +379,7 @@ export class BladesHelpers {
       name: randomID(),
       type: itemType
     };
-    let result = await actor.createEmbeddedDocuments('Item', [data]);
-    for (let item of result)
-      await BladesHelpers.postCreateItem(item);
+    let result = await BladesHelpers.tryCreate([data], actor);
     return result;
   }
 
@@ -398,34 +404,53 @@ export class BladesHelpers {
       await BladesHelpers.tryUpdate(itemFull, {'system.==crew': actorFull.uuid});
 
     // Armor: Auto-fill
-    const armorChangingEffects = itemFull.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
-    if (armorChangingEffects.length) {
+    const armorChangingEffects = itemFull.effects?.contents.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
+    if (armorChangingEffects?.length) {
       const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
       BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.min(actorFull.system.armor.value + value, actorFull.system.armor.max)})
     }
 
+    // Well-Trained Hunter Robot: Create a special Cohort
+    if (itemFull.system.hunter_robot) {
+      const crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+      if (crewFull) {
+        let data = {name: game.i18n.format('SFTD.BuildingBondsName', {striderName: actorFull.name}), type: 'specialist', system: {specialist_owner: actorFull.uuid}};
+        await BladesHelpers.tryCreate([data], crewFull);
+      }
+    }
+
     // Crew-wide modifiers: Update the crew's values
     if (actorFull?.type == 'strider')
-      if (itemFull.effects.filter(e => e.changes.filter(c => c.value == 'true' && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
+      if (itemFull.effects.contents.filter(e => e.changes.filter(c => c.value == 'true' && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
         await actorFull.updateCrewWideAbilityOwnership();
   }
 
   static async preDeleteItem(itemFull, realDelete = true) {
     const actorFull = itemFull.actor;
+
+    // Well-Trained Hunter Robot: Remove the special Cohort
+    if (itemFull.system.hunter_robot) {
+      let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+      if (crewFull) {
+        let specialistIds = crewFull.items.filter(i => i.system.specialist_owner == actorFull.uuid).map(i => i._id);
+        if (specialistIds.length)
+          await BladesHelpers.tryDelete(specialistIds[0], crewFull);
+      }
+    }
   }
 
   static async postDeleteItem(itemCopy, realDelete = true) {
     const actorFull = itemCopy.actor;
     // Armor: Auto-fill
-    const armorChangingEffects = itemCopy.effects.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
-    if (armorChangingEffects.length) {
+    const armorChangingEffects = itemCopy.effects?.contents.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
+    if (armorChangingEffects?.length) {
       const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
       BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.max(actorFull.system.armor.value - value, 0)})
     }
 
     // Crew-wide modifiers: Update the crew's values
     if (actorFull?.type == 'strider')
-      if (itemCopy.effects.filter(e => e.changes.filter(c => c.value == 'true' && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
+      if (itemCopy.effects.contents.filter(e => e.changes.filter(c => c.value == 'true' && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
         await actorFull.updateCrewWideAbilityOwnership();
   }
 
