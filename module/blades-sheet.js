@@ -159,15 +159,6 @@ export class BladesSheet extends BaseActorSheet {
     const containerId = event.currentTarget.dataset.containerId;
     let inputType = 'checkbox';
 
-    let itemElement = event.currentTarget.closest('.item-with-container').querySelector('.item');
-    if (itemElement) {
-      let [_, item] = this.actor.getItemOwner(itemElement.dataset.itemId);
-      if (item.system.suppressed) {
-        ui.notifications.warn(game.i18n.localize('SFTD.log.warn.NoAddFromSuppressedContainer'));
-        return;
-      }
-    }
-
     if (unique !== undefined)
       inputType = 'radio';
 

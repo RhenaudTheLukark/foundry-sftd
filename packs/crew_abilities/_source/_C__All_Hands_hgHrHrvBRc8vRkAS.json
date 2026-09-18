@@ -7,10 +7,61 @@
     "description": "<p>During <strong>downtime</strong>, one of your <strong>specialists </strong>may perform a downtime activity for the crew to <strong>reduce pressure </strong>or work on a <strong>long-term project</strong>.</p>",
     "class": "Couriers",
     "price": "1",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
+    "popup": "",
     "purchased": false,
     "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "All Hands Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.crew_ability.Item.hgHrHrvBRc8vRkAS",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "yS8rHDxDGcK5jKW3",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.all_hands",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1789693949044,
+        "modifiedTime": 1789693963997,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!hgHrHrvBRc8vRkAS.yS8rHDxDGcK5jKW3"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

@@ -622,8 +622,8 @@ export class BladesCrewSheet extends BladesSheet {
             BladesHelpers.tryUpdate(memberFull, {'system.downtime_count.==value': memberFull.system.downtime_count.base});
         }
 
-        // Set Phase to Downtime & Reset Cohort Downtime Activity for All Hands
-        BladesHelpers.tryUpdate(this.actor, {'system.==phase': 'downtime', 'system.==cohort_downtime_done': false});
+        // Set Phase to Downtime & Reset Specialist Downtime Activity for All Hands
+        BladesHelpers.tryUpdate(this.actor, {'system.==phase': 'downtime', 'system.==specialist_downtime_done': false});
 
         let speaker = {
           actor: this.actor._id,
@@ -696,6 +696,10 @@ export class BladesCrewSheet extends BladesSheet {
         missingRollTypes[game.i18n.localize('SFTD.LongTermProjectRoll')] = game.i18n.localize('SFTD.BadRoll.NoOngoingLTP');
         rollTypes.splice(rollTypes.indexOf('longTermProject'), 1);
       }
+      if (this.actor.system.pressure.value == 0 && this.actor.system.hazard.value == 0){
+        missingRollTypes[game.i18n.localize('SFTD.ReducePressureRoll')] = game.i18n.localize('SFTD.BadRoll.NoPressureHazard');
+        rollTypes.splice(rollTypes.indexOf('reducePressure'), 1);
+      }
     }
 
     let title = game.i18n.localize(`SFTD.${groupActionData ? 'Group' : ''}SpecialistRoll`);
@@ -743,19 +747,13 @@ export class BladesCrewSheet extends BladesSheet {
               await bladesRoll(diceAmount, 'SFTD.ReducePressureRoll', note, extraFields);
               break;
             case 'longTermProject':
-              let ltpSelect = dialog.element.querySelector('[name="ltpId"]');
-              if (ltpSelect.multiple) {
-                extraFields.ltpIds = [];
-                for (let selectedOption of ltpSelect.selectedOptions)
-                  extraFields.ltpIds.push(selectedOption.value);
-              } else
-                extraFields.ltpId = ltpSelect.value;
+              extraFields.ltpId = dialog.element.querySelector('#ltpId').value;
               await bladesRoll(diceAmount, 'SFTD.LongTermProjectRoll', note, extraFields);
               break;
             default:
               break;
           }
-          if (rollType != 'specialist'&& rollType != 'groupSpecialist')
+          if (rollType != 'specialist' && rollType != 'groupSpecialist')
             await BladesHelpers.tryUpdate(this.actor, {system: {'==specialist_downtime_done': true}});
           await postRollProcessing(this.actor, extraFields);
         }
@@ -776,7 +774,7 @@ export class BladesCrewSheet extends BladesSheet {
         let element = ev.currentTarget;
         let rollType = element.id.split('-')[0];
         let rollButton = element.closest('.window-content').querySelector('button[data-action="roll"]');
-        let rollButtonText = `${game.i18n.localize('SFTD.Roll')} (${game.i18n.localize(`SFTD.DowntimeCohortRoll${dialog.actor.system.cohort_downtime_done ? 'Done' : ''}`)})`;
+        let rollButtonText = `${game.i18n.localize('SFTD.Roll')} (${game.i18n.localize(`SFTD.DowntimeSpecialistRoll${dialog.actor.system.specialist_downtime_done ? 'Done' : ''}`)})`;
         if (rollType == 'specialist' || rollType == 'groupSpecialist')
           rollButtonText = `${game.i18n.localize('SFTD.Roll')}`;
         rollButton.querySelector('span').innerHTML = rollButtonText;
