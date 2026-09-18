@@ -218,7 +218,8 @@ export class BladesHelpers {
         await BladesHelpers.postCreateItem(item);
       }
       return items;
-    }
+    } else
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.CouldNotCreateObject', {type: itemType, parent: parentFull.name}), {permanent: true});
     return [];
   }
 
@@ -379,8 +380,7 @@ export class BladesHelpers {
       name: randomID(),
       type: itemType
     };
-    let result = await BladesHelpers.tryCreate([data], actor);
-    return result;
+    return await BladesHelpers.tryCreate([data], actor);
   }
 
   static crewWideModifiers = {
@@ -410,8 +410,8 @@ export class BladesHelpers {
       BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.min(actorFull.system.armor.value + value, actorFull.system.armor.max)})
     }
 
-    // Well-Trained Hunter Robot: Create a special Cohort
-    if (itemFull.system.hunter_robot) {
+    // Building Bonds: Create a special Cohort
+    if (itemFull.system?.building_bonds) {
       const crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
       if (crewFull) {
         let data = {name: game.i18n.format('SFTD.BuildingBondsName', {striderName: actorFull.name}), type: 'specialist', system: {specialist_owner: actorFull.uuid}};
@@ -428,13 +428,13 @@ export class BladesHelpers {
   static async preDeleteItem(itemFull, realDelete = true) {
     const actorFull = itemFull.actor;
 
-    // Well-Trained Hunter Robot: Remove the special Cohort
-    if (itemFull.system.hunter_robot) {
+    // Building Bonds: Remove the Specialist
+    if (itemFull.system?.building_bonds) {
       let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
       if (crewFull) {
-        let specialistIds = crewFull.items.filter(i => i.system.specialist_owner == actorFull.uuid).map(i => i._id);
-        if (specialistIds.length)
-          await BladesHelpers.tryDelete(specialistIds[0], crewFull);
+        let specialistFull = crewFull.items.filter(i => i.system.specialist_owner == actorFull.uuid);
+        if (specialistFull.length)
+          await BladesHelpers.tryDelete(specialistFull[0], crewFull);
       }
     }
   }

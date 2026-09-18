@@ -1201,7 +1201,8 @@
         "NoRollType": "You cannot perform this roll at this time.",
         "CharmworkLackingHarmony": "Charmwork: Your Crew must at least have 1 Harmony to use this ability!",
         "StartMissionCharmworkNoActor": "Charmwork: You have no available Strider usable for this ability!",
-        "StartMissionCharmworkSeveralActors": "Charmwork: You have several available Striders usable for this ability.\nPlease select the one you want to use this ability with and click the Charmwork button again."
+        "StartMissionCharmworkSeveralActors": "Charmwork: You have several available Striders usable for this ability.\nPlease select the one you want to use this ability with and click the Charmwork button again.",
+        "CouldNotCreateObject": "Could not create an object of type \"{type}\" with parent \"{parent}\"! Errors may appear if you see this. Try undoing whatever you did last if you can!"
       },
       "error": {
         "NoGroupAction": "This Crew does not have a Group Action. This message shouldn't be visible!",

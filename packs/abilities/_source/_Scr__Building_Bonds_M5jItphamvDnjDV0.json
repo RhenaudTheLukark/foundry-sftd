@@ -18,7 +18,8 @@
     "bound_by_charmtrick": false,
     "popup": "",
     "purchased": false,
-    "class_default": false
+    "class_default": false,
+    "building_bonds": true
   },
   "effects": [],
   "folder": null,
