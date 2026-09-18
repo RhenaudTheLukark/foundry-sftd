@@ -6377,7 +6377,7 @@
 .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-armor {
   display: none;
 }
-.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle {
+.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle, .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-armor-block {
   display: flex;
   min-width: 30px;
   align-items: center;
@@ -6386,15 +6386,27 @@
   border-top: none;
   border-left: none;
   padding: 0 5px;
+  position: relative;
 }
-.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle a > i.fa-shield.fas {
+.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle a > i.fa-shield.fas, .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-armor-block a > i.fa-shield.fas {
   color: #DAA520;
 }
-.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle a > i.fa-shield.fa-regular {
+.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle a > i.fa-shield.fa-regular, .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-armor-block a > i.fa-shield.fa-regular {
   color: #191813;
 }
-.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle a > i:before {
+.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle a > i:before, .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-armor-block a > i:before {
   font-size: 20px;
+}
+.songs-for-the-dusk.actor.sheet.crew .specialists .radio-toggle .non-interactible, .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-armor-block .non-interactible {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-specialties, .songs-for-the-dusk.actor.sheet.crew .specialists .specialist-description {
   margin: 0 10px;
@@ -6738,13 +6750,13 @@
 .songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div input {
   display: none;
 }
-.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i {
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i, .songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .multi-radio-toggle > a > i {
   font-size: 20px;
 }
-.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i.fa-shield.fas {
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i.fa-shield.fas, .songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .multi-radio-toggle > a > i.fa-shield.fas {
   color: #DAA520;
 }
-.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i.fa-shield.fa-regular {
+.songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .radio-toggle > a > i.fa-shield.fa-regular, .songs-for-the-dusk.actor.sheet.strider .harm-armor .strider-armor div .multi-radio-toggle > a > i.fa-shield.fa-regular {
   color: #191813;
 }
 .songs-for-the-dusk.actor.sheet.strider .quirks tr, .songs-for-the-dusk.actor.sheet.strider .connections tr {
@@ -6957,7 +6969,7 @@
 .songs-for-the-dusk.item.sheet .harm-list .specialist-armor {
   display: none;
 }
-.songs-for-the-dusk.item.sheet .harm-list .radio-toggle {
+.songs-for-the-dusk.item.sheet .harm-list .radio-toggle, .songs-for-the-dusk.item.sheet .harm-list .specialist-armor-block {
   display: flex;
   min-width: 30px;
   align-items: center;
@@ -6966,15 +6978,27 @@
   border-top: none;
   border-left: none;
   padding: 0 5px;
+  position: relative;
 }
-.songs-for-the-dusk.item.sheet .harm-list .radio-toggle a > i.fa-shield.fas {
+.songs-for-the-dusk.item.sheet .harm-list .radio-toggle a > i.fa-shield.fas, .songs-for-the-dusk.item.sheet .harm-list .specialist-armor-block a > i.fa-shield.fas {
   color: #DAA520;
 }
-.songs-for-the-dusk.item.sheet .harm-list .radio-toggle a > i.fa-shield.fa-regular {
+.songs-for-the-dusk.item.sheet .harm-list .radio-toggle a > i.fa-shield.fa-regular, .songs-for-the-dusk.item.sheet .harm-list .specialist-armor-block a > i.fa-shield.fa-regular {
   color: #191813;
 }
-.songs-for-the-dusk.item.sheet .harm-list .radio-toggle a > i:before {
+.songs-for-the-dusk.item.sheet .harm-list .radio-toggle a > i:before, .songs-for-the-dusk.item.sheet .harm-list .specialist-armor-block a > i:before {
   font-size: 20px;
+}
+.songs-for-the-dusk.item.sheet .harm-list .radio-toggle .non-interactible, .songs-for-the-dusk.item.sheet .harm-list .specialist-armor-block .non-interactible {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 .songs-for-the-dusk.item.sheet .quality-container th {
   padding: 0px;

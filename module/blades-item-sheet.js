@@ -58,13 +58,30 @@ export class BladesItemSheet extends BaseItemSheet {
       e.preventDefault();
     });
 
+    html.find('label.multi-radio-toggle').click((e) => {
+      BladesHelpers.onMultiRadioToggle(e, this.item);
+      e.preventDefault();
+    });
+    html.find('label.multi-radio-toggle').contextmenu((e) => {
+      BladesHelpers.onMultiRadioToggle(e, this.item);
+      e.preventDefault();
+    });
+
     html.find('.add-quality').click(async (e) => {
-      await this.object.update({'system.quality_modifier': this.object.system.quality_modifier + 1});
+      await this.object.update({'system.==quality_modifier': this.object.system.quality_modifier + 1});
       await this.object.updateSpecialistQuality();
     });
     html.find('.remove-quality').click(async (e) => {
-      await this.object.update({'system.quality_modifier': this.object.system.quality_modifier - 1});
+      await this.object.update({'system.==quality_modifier': this.object.system.quality_modifier - 1});
       await this.object.updateSpecialistQuality();
+    });
+
+    html.find('.add-armor').click(async (e) => {
+      await this.object.update({'system.armor.==modifier': this.object.system.armor.modifier + 1, 'system.armor.==value': this.object.system.armor.value + 1});
+    });
+    html.find('.remove-armor').click(async (e) => {
+      const newMaxArmor = Math.max(this.object.system.armor.max + this.object.system.armor.modifier - 1, 0);
+      await this.object.update({'system.armor.==modifier': this.object.system.armor.modifier - 1, 'system.armor.==value': Math.min(this.object.system.armor.value, newMaxArmor)});
     });
 
     html.find('.edge > input').click(async (e) => {

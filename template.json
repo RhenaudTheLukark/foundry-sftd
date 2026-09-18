@@ -425,7 +425,11 @@
       "conditional_roll_modifiers": {
         "lotus_bargain": true
       },
-      "armor": false
+      "armor": {
+        "max": 0,
+        "modifier": 0,
+        "value": 0
+      }
     },
     "foundation": {
       "templates": ["default", "ability", "usable", "activatedEffect"],

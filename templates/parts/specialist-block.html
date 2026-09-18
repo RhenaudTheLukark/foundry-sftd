@@ -1,4 +1,4 @@
-<div class='item specialist-block-wrapper grow-two' data-item-id='{{_id}}'>
+<div class='item specialist-block-wrapper grow-two' data-item-id='{{item._id}}'>
   <div class='specialist-block'>
     <div class='label-stripe' style='justify-content: space-between'>
       <div class='item-body'>
@@ -27,8 +27,16 @@
           {{/multiboxes}}
           {{/each}}
         </div>
-        <input class="specialist-armor" type="checkbox"{{#if item.system.armor}} checked{{/if}}>
-        <label class="radio-toggle"><a><i class="fa{{#if item.system.armor}}s{{else}}-regular{{/if}} fa-shield"></i></a></label>
+        {{#if (gt (add item.system.armor.max item.system.armor.modifier) 0)}}
+        <div class='specialist-armor-block'>
+          <label class='multi-radio-toggle'{{#if (gt (add item.system.armor.max item.system.armor.modifier) 1)}} data-tooltip='{{{localize "SFTD.MultiRadioToggleTooltip"}}}'{{/if}} data-field='system.armor.value' data-max='{{add item.system.armor.max item.system.armor.modifier}}' data-value='{{item.system.armor.value}}'>
+            <a><i class='fa{{#if (gt item.system.armor.value 0)}}s{{else}}-regular{{/if}} fa-shield'></i></a>
+          </label>
+          {{#if (and (gt (add item.system.armor.max item.system.armor.modifier) 1) (gt item.system.armor.value 0))}}
+            <label class='non-interactible armor-value'>{{item.system.armor.value}}</label>
+          {{/if}}
+        </div>
+        {{/if}}
       </div>
 
       <div class='specialist-specialties'>{{localize 'SFTD.Specialties'}}: {{html-list text=system.specialties}}</div>

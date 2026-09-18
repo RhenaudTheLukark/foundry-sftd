@@ -32,6 +32,15 @@ export class BladesSheet extends BaseActorSheet {
       e.preventDefault();
     });
 
+    html.find('label.multi-radio-toggle').click((e) => {
+      BladesHelpers.onMultiRadioToggle(e, this.actor);
+      e.preventDefault();
+    });
+    html.find('label.multi-radio-toggle').contextmenu((e) => {
+      BladesHelpers.onMultiRadioToggle(e, this.actor);
+      e.preventDefault();
+    });
+
     // Post item to chat
     html.find('.item-post').click((ev) => {
       const element = ev.currentTarget.closest('.item');

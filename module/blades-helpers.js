@@ -334,6 +334,31 @@ export class BladesHelpers {
     }
   }
 
+  static async onMultiRadioToggle(event, actorFull) {
+    const element = event.target.closest('.multi-radio-toggle');
+    const field = element.dataset.field;
+    const max = Number(element.dataset.max);
+    var value = Number(element.dataset.value);
+
+    if (max > 1) {
+      if (event.type == 'contextmenu')
+        value = Math.max(value - 1, 0);
+      else
+        value = Math.min(value + 1, max);
+    } else
+      value = 1 - value;
+
+    const fieldKey = field.split('.').reverse().map((v, i) => `${i == 0 ? '==' : ''}${v}`).reverse().join('.');
+    const updateObject = {};
+    updateObject[`${fieldKey}`] = value;
+
+    const itemRootId = event.target.closest('.item')?.dataset.itemId;
+    var updateObjectFull = actorFull;
+    if (itemRootId)
+      updateObjectFull = BladesHelpers.resolveActor(`${actorFull.uuid}.Item.${itemRootId}`) ?? actorFull;
+    await BladesHelpers.tryUpdate(updateObjectFull, updateObject);
+  }
+
   /**
    * Add item functionality
    */

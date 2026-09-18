@@ -457,6 +457,7 @@
     "ConstructFoundationDragDropInfo": "Drag & drop a Foundation from a Compendium here to set it as the new Foundation to construct.",
     "UpkeepDragDropInfo": "Drag & drop a known Faction here to set it as the Faction to gain supplies from.",
     "MutualAidDragDropInfo": "Drag & drop a known Faction here to set it as the Faction to provide mutual aid to.",
+    "MultiRadioToggleTooltip": "Left Click to Increase, Right Click to Decrease",
     "Vigilance": "Vigilance",
     "You": "You",
     "Fixer": "Fixer",

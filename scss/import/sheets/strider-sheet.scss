@@ -269,7 +269,7 @@ table.drive-table {
         display: none;
       }
 
-      .radio-toggle > a > i {
+      .radio-toggle > a > i, .multi-radio-toggle > a > i {
         font-size: 20px;
 
         &.fa-shield {

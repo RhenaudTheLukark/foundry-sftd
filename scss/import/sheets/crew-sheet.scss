@@ -376,7 +376,7 @@ section:has(~ .tab-content) {
     display: none;
   }
 
-  .radio-toggle {
+  .radio-toggle, .specialist-armor-block {
     display: flex;
     min-width: 30px;
     align-items: center;
@@ -385,6 +385,7 @@ section:has(~ .tab-content) {
     border-top: none;
     border-left: none;
     padding: 0 5px;
+    position: relative;
 
     a > i {
       &.fa-shield {
@@ -398,6 +399,18 @@ section:has(~ .tab-content) {
       &:before {
         font-size: 20px;
       }
+    }
+
+    .non-interactible {
+      width: 100%;
+      height: 100%;
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+      display: flex;
+      justify-content: center;
+      align-items: center;
     }
   }
 
