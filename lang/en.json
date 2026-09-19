@@ -746,7 +746,7 @@
     "Setup": "Setup (Receiving)",
     "SetupEffect": "{strider} set you up for success. Your <strong>{effect}</strong> has improved.",
     "SettingUp": "Setup (Starting)",
-    "SettingUpEffect": "You are setting something up for {strider}. They can choose to increase their Position or Impact on their next roll.",
+    "SettingUpEffect": "You are setting something up for the rest of the team. They can choose to increase their Position or Impact on their next roll.",
     "ProtectTitle": "Protect",
     "ProtectEffect": "You've protected {strider} from harm, directing it toward you instead.",
     "ProtectEffectOther": "someone not within your Crew",
