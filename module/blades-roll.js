@@ -2263,8 +2263,12 @@ export function resolveConditionalModifiers(dialog, actorFull, attributeName) {
     if (conditionalModifier.resolveFunc !== undefined) {
       let selectElements = checkedModifier.querySelectorAll('span > select');
       let fields = {};
-      for (let field of selectElements)
-        fields[field.attributes.field.value] = Array.from(field.selectedOptions).map(o => o.value);
+      for (let field of selectElements) {
+        let value = Array.from(field.selectedOptions).map(o => o.value);
+        if (value.length == 1)
+          value = value[0];
+        fields[field.attributes.field.value] = value;
+      }
       let checkboxElements = checkedModifier.querySelectorAll('span > input[type=checkbox]');
       for (let checkbox of checkboxElements)
         fields[checkbox.attributes.name.value] = checkbox.checked;
