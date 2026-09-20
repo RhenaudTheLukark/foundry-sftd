@@ -410,13 +410,19 @@ export class BladesHelpers {
       BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.min(actorFull.system.armor.value + value, actorFull.system.armor.max)})
     }
 
-    // Building Bonds: Create a special Cohort
+    // Building Bonds: Create a special Specialist
     if (itemFull.system?.building_bonds) {
       const crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
       if (crewFull) {
         let data = {name: game.i18n.format('SFTD.BuildingBondsName', {striderName: actorFull.name}), type: 'specialist', system: {specialist_owner: actorFull.uuid}};
         await BladesHelpers.tryCreate([data], crewFull);
       }
+    }
+
+    // One of Us: Create a special Specialist
+    if (itemFull.system?.one_of_us) {
+      let data = {name: game.i18n.format('SFTD.OneOfUsName', {crewName: actorFull.name}), type: 'specialist', system: {specialist_owner: actorFull.uuid, vehicle: true}};
+      await BladesHelpers.tryCreate([data], actorFull);
     }
 
     // Crew-wide modifiers: Update the crew's values
@@ -436,6 +442,13 @@ export class BladesHelpers {
         if (specialistFull.length)
           await BladesHelpers.tryDelete(specialistFull[0], crewFull);
       }
+    }
+
+    // One of Us: Remove the Specialist
+    if (itemFull.system?.one_of_us) {
+      let specialistFull = actorFull.items.filter(i => i.system.specialist_owner == actorFull.uuid);
+      if (specialistFull.length)
+        await BladesHelpers.tryDelete(specialistFull[0], actorFull);
     }
   }
 

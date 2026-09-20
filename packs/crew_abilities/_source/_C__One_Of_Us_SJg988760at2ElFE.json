@@ -1,5 +1,5 @@
 {
-  "name": "(C) One Of Us",
+  "name": "(C) One of Us",
   "type": "crew_ability",
   "_id": "SJg988760at2ElFE",
   "img": "icons/svg/item-bag.svg",
@@ -7,8 +7,15 @@
     "description": "<p>Create one of your vehicles as a <strong>specialist </strong>using special vehicle edges and flaws. Its&nbsp;<strong>Quality </strong>is equal to your community <strong>Prosperity</strong>. The vehicle has access to teamwork maneuvers, using its quality for rolls. A vehicle can&rsquo;t lead a group action, but it can participate.</p>",
     "class": "Couriers",
     "price": "1",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
+    "popup": "",
     "purchased": false,
-    "class_default": false
+    "class_default": false,
+    "one_of_us": true
   },
   "effects": [],
   "folder": null,
@@ -26,7 +33,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780774034637,
-    "modifiedTime": 1784942044786,
+    "modifiedTime": 1789860260447,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!SJg988760at2ElFE"

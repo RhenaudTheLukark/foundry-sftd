@@ -5,13 +5,68 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>A comfortable library and a set of technical sims to hone your perception. Once you have constructed a training facility, you gain <strong>2 XP</strong> for training <strong>Analysis</strong> during&nbsp;<strong>downtime </strong>instead of the usual <strong>1</strong>.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 1,
     "cache_cost": 2,
     "npc": "null",
     "is_complex": false,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Training Facility: Analysis Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.pwYQ5HigNaVPB665",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "qr5z6QLb9wzxH9ve",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.modifiers.strider.xp_gain.analysis",
+          "mode": 2,
+          "value": "1",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1789862345371,
+        "modifiedTime": 1789862397757,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!pwYQ5HigNaVPB665.qr5z6QLb9wzxH9ve"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
