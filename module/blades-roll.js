@@ -120,10 +120,22 @@ export const bladesRollModifierList = {
       harmony: '{system.crew.system.harmony.value}',
       max: '{system.crew.system.harmony.max}'
     },
-    notRollTypes: ['moveCity', 'recover', 'train'],
-    dice: 1,
-    harmony: -1,
-    rollText: 'SFTD.HarmonyEffect',
+    rollTypes: ['actionRoll', 'groupAction', 'collectInfo'],
+    fields: {},
+    resolveFunc: (fields, extraData) => {
+      const effect = (fields['SFTD.Effect'] ?? 'SFTD.ExtraDie').slice(5);
+      return {
+        dice: effect == 'ExtraDie' ? 1 : 0,
+        position: effect == 'ImprovedPosition' ? 1 : 0,
+        impact: effect == 'ImprovedImpact' ? 1 : 0,
+        harmony: -1,
+        rollText: 'SFTD.HarmonyEffect',
+        rollTextArgs: {
+          effect: game.i18n.localize(`SFTD.${effect}Effect`)
+        },
+        isHarmony: true
+      }
+    },
     isHarmony: true
   },
   assist: {
@@ -2123,6 +2135,8 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
             let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
             if (!crewFull?.system.harmony.value)
               continue;
+            if (crewFull.system.the_quickening_bloom)
+              result.fields['SFTD.Effect'] = ['SFTD.ExtraDie', 'SFTD.ImprovedPosition', 'SFTD.ImprovedImpact'];
           } else if (result.charmwork_bound) {
             result.fields['SFTD.Cost'] = ['SFTD.Stress'];
             if (actorFull.isCharmworkAvailable())

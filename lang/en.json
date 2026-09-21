@@ -738,7 +738,7 @@
     "Assist": "Assist",
     "AssistEffect": "{strider} assisted you. They {cost}. You have gained <strong>+1d</strong>.",
     "AssistNotAProblemEffect": "{strider} assisted you. They suffered no Stress due to foreseeing this particular event. You have gained <strong>+1d</strong>.",
-    "HarmonyEffect": "You spent <strong> 1 Harmony</strong> and gained <strong>+1d</strong>.",
+    "HarmonyEffect": "You spent <strong> 1 Harmony</strong> and {effect}.",
     "HarmonyGained": "The crew's Harmony has increased.",
     "DowntimeAssistEffect": "{helper} assisted you, granting you <strong>+1d</strong>.",
     "AnAlly": "An ally",
@@ -758,6 +758,7 @@
     "ImprovedImpact": "Improved Impact",
     "IgnoreHarm": "Ignore Harm",
     "ExtraDieEffect": "gain <strong>+1d</strong>",
+    "ImprovedPositionEffect": "improve your Position",
     "ImprovedImpactEffect": "improve your Impact",
     "IgnoreHarmEffect": "ignore your Level 3 Harm",
 
