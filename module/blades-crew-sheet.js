@@ -858,12 +858,7 @@ export class BladesCrewSheet extends BladesSheet {
     // Delete Project
     html.find('.delete-project').click(async ev => {
       const element = ev.currentTarget.closest('.item');
-      let currentProjectId = element.dataset.projectId;
-      let projectsEntries = Object.entries(this.actor.system.projects);
-      projectsEntries.splice(currentProjectId, 1);
-      for (let id in projectsEntries)
-        projectsEntries[id][0] = String(id);
-      await BladesHelpers.tryUpdate(this.actor, {system: {'==projects': Object.fromEntries(projectsEntries)}});
+      await BladesHelpers.removeProject(this.actor, element.dataset.projectId);
     });
 
     html.find('.delete-member').click(async ev => {

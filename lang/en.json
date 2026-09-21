@@ -629,9 +629,9 @@
     },
     "RollAftermathCantHateUs": "Your crew really can't be hated by outsiders. Roll a second aftermath and pick the one you prefer among the two.",
 
-    "RollConstructFoundationStart": "You started construction of the Foundation '{foundation}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
-    "RollConstructFoundation": "You continued the construction of the Foundation '{foundation}'. Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
-    "RollConstructFoundationFull": "The Foundation '{foundation}' has been <strong>completed</strong>. <strong>You must add it manually for now.</strong>",
+    "RollConstructFoundationStart": "You started construction of the Foundation \"{foundation}\". {}Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollConstructFoundation": "You continued the construction of the Foundation \"{foundation}\". Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollConstructFoundationFull": "The Foundation \"{foundation}\" has been <strong>completed</strong>.",
     "RollConstructFoundationFullAssignNPC": "Don't forget to create/assign an NPC to this Foundation.",
 
     "RollCutLooseButton": "Roll Cut Loose",
@@ -1101,6 +1101,10 @@
       },
       "PunchIt": {
         "Title": "Punch It: When Entering Danger Aboard a Vehicle, Using Vehicle Speed or Maneuverability?"
+      },
+      "Engineers": {
+        "ActionTitle": "Engineers: Modifying, Repairing or Sabotaging Technology or MAchines in the Field?",
+        "CollectInfoTitle": "Engineers: Collecting Info about Damaged Machinery?"
       }
     },
     "CrewFoundation": {

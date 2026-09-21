@@ -70,7 +70,7 @@ export class BladesItem extends Item {
     let isSuppressed = this.system.is_weather_damaged || this.system.is_under_disaster;
 
     if (this.system.suppressed != isSuppressed) {
-      await BladesHelpers.tryUpdate(this, {'system.==suppressed': suppressed});
+      await BladesHelpers.tryUpdate(this, {'system.==suppressed': isSuppressed});
       if (isSuppressed)
         await BladesHelpers.preDeleteItem(this, false);
       else

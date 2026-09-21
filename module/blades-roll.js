@@ -521,6 +521,16 @@ export const bladesRollModifierList = {
     rollTypes: ['actionRoll', 'groupAction'],
     impact: 1
   },
+  engineers_action: {
+    name: 'SFTD.CrewAbility.Engineers.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1
+  },
+  engineers_collect_info: {
+    name: 'SFTD.CrewAbility.Engineers.CollectInfoTitle',
+    rollType: 'collectInfo',
+    dice: 1
+  },
   backchatter_network: {
     name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',
     rollType: 'collectInfo',
@@ -916,10 +926,16 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let clockFilled = newTick >= project.clock.max;
     if (clockFilled)
       ticks = project.clock.max - project.clock.value;
-    crewUpdateObject.system.projects[extraFields.cfId] = {clock: {'==value': newTick}};
+    crewUpdateObject.system.projects[extraFields.cfId] = {'clock.==value': newTick};
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
     if (clockFilled) {
-      // TODO: Actually add the Foundation
+      const foundations = await BladesHelpers.getAllObjectsByType('foundation', []);
+      const foundationFull = foundations.find(v => v._id == project.foundation);
+      if (foundationFull)
+        crewFull.sheet.addItemsToSheet([foundationFull]);
+      else
+        ui.notifications.warn(game.i18n.format('SFTD.log.warn.ConstructFoundationCouldNotFindFoundation', { project: project.title }));
+      await BladesHelpers.removeProject(crewFull, extraFields.cfId);
     }
 
     let improvementLevels = ['critical-success', 'success', 'partial-success', 'failure'];
@@ -1614,7 +1630,7 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
       thirdArg = {...thirdArg, healActors: healActors};
     } else if (['collectInfo', 'constructFoundation', 'longTermProject','reducePressure'].includes(rollType) && actor?.type == 'strider') {
       let actionList = Object.keys(actor.getRollData().diceAmount).filter(a => BladesHelpers.isAttributeAction(a));
-      let actions = actionList.map((value, index) => `<option value="${value}"${((!['constructFoundaton', 'synthesis'].includes(rollType) && index == 0) || (['constructFoundaton', 'synthesis'].includes(rollType) && value == 'shape')) ? ' selected' : ''}>${game.i18n.localize(BladesHelpers.getAttributeLabel(value))}</option>`).join('');
+      let actions = actionList.map((value, index) => `<option value="${value}"${((!['constructFoundation', 'synthesis'].includes(rollType) && index == 0) || (['constructFoundation', 'synthesis'].includes(rollType) && value == 'shape')) ? ' selected' : ''}>${game.i18n.localize(BladesHelpers.getAttributeLabel(value))}</option>`).join('');
 
       thirdArg = {...thirdArg, actions: actions};
     } else if (rollType == 'train') {

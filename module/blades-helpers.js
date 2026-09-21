@@ -92,12 +92,12 @@ export class BladesHelpers {
   }
 
   /**
-   * Get the list of all available ingame objects by type.
+   * Get the list of all available in-game objects by type.
    *
    * @param {string | List<string>} objectTypes
    * @param {Object} game
    */
-  static getAllObjectsByType(objectTypes, exclusionList, game) {
+  static async getAllObjectsByType(objectTypes, exclusionList) {
     if (!Array.isArray(objectTypes))
       objectTypes = [objectTypes];
 
@@ -110,10 +110,10 @@ export class BladesHelpers {
       let objectList = worldObjects;
       if (!isActor) {
         let pack = game.packs.find(e => e.metadata.name === objectType);
-        let compendiumItems = [];
-        for (let object of pack)
-          compendiumItems.push(object);
-        objectList = objectList.concat(compendiumItems);
+        if (pack) {
+          await pack.getDocuments();
+          objectList = objectList.concat(pack.contents);
+        }
       }
       output = output.concat(objectList.sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())));
     }
@@ -146,17 +146,6 @@ export class BladesHelpers {
       output = output.concat(objectList.sort((a, b) => a.name.toUpperCase().localeCompare(b.name.toUpperCase())));
     }
     return output;
-  }
-
-  static prepareItemDropdown(itemType, allowEmpty, game) {
-    let items = BladesHelpers.getAllObjectsByType(itemType, [], game);
-
-    let result = {};
-    if (allowEmpty)
-      result[''] = game.i18n.localize('SFTD.None');
-    items.forEach(item => { result[item._id] = item.name; });
-
-    return result;
   }
 
   static getOwnedItem(obj, itemId, defaultValue = null) {
@@ -887,8 +876,17 @@ export class BladesHelpers {
       foundation: linkedFoundation ? linkedFoundation._id : undefined,
       is_foundation_upgrade: linkedFoundation ? linkedFoundation.system.is_upgrade : false
     }
-    await BladesHelpers.tryUpdate(actorFull, {system: {'==projects': projects}});
+    await BladesHelpers.tryUpdate(actorFull, {'system.==projects': projects});
   }
+
+  static async removeProject(actorFull, projectId) {
+    let projectsEntries = Object.entries(actorFull.system.projects);
+    projectsEntries.splice(projectId, 1);
+    for (let id in projectsEntries)
+      projectsEntries[id][0] = String(id);
+    await BladesHelpers.tryUpdate(actorFull, {'system.==projects': Object.fromEntries(projectsEntries)});
+  }
+
   /* -------------------------------------------- */
 
   /**
