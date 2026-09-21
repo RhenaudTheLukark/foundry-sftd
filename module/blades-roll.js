@@ -497,6 +497,13 @@ export const bladesRollModifierList = {
     itemNeeded: 'is_field_notes',
     dice: 1
   },
+  case_file_dive: {
+  name: 'SFTD.CrewAbility.CaseFileDive.Title',
+    rollType: 'longTermProject',
+    itemNeeded: 'is_case_file_dive',
+    bonusRoll: true,
+    rollText: 'SFTD.CrewAbility.CaseFileDive.Description'
+  },
   punch_it: {
     name: 'SFTD.CrewAbility.PunchIt.Title',
     rollTypes: ['actionRoll', 'groupAction'],
@@ -577,7 +584,6 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     if (modifier.otherValue)
       for (let [uuid, value] of Object.entries(modifier.otherValue))
         otherChanges[uuid] = otherChanges[uuid] ? BladesHelpers.mergeAddObjects(otherChanges[uuid], [], value) : value;
-    if (modifier.downtime) downtimeCountChanges += modifier.downtime;
     if (modifier.convictionCutLoose) extraFields.conviction = true;
     if (modifier.workHardPlayHard) extraFields.workHardPlayHard = true;
     if (modifier.harmony) harmonyChanges += modifier.harmony;
@@ -678,6 +684,13 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
       }
     } else
       actorUpdateObject = {'==name': extraFields.actor.name};
+
+    // Specialist Downtime Roll Handler
+    if (extraFields.isSpecialistDowntimeRoll) {
+      const crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
+      if (downtimeCountChanges > 0 && crewFull)
+        await BladesHelpers.tryUpdate(crewFull, {'system.==specialist_downtime_done': true});
+    }
     await BladesHelpers.tryUpdate(extraFields.actor, actorUpdateObject);
   }
 
@@ -1191,7 +1204,11 @@ export async function cancelRollResult(rollData, actorFull) {
 
   for (let modifier of rollData.modifiers) {
     if (modifier.itemNeeded) {
-      let exhaustableItems = actor.items.filter(i => i.system[modifier.itemNeeded] && Number(i.system.uses.value) < Number(i.system.uses.max));
+      let exhaustableItems = [];
+      if (actorFull.items)
+        exhaustableItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && Number(i.system.uses.value) < Number(i.system.uses.max)));
+      if (crewFull)
+        exhaustableItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && Number(i.system.uses.value) < Number(i.system.uses.max)));
       if (exhaustableItems.length > 0)
         await BladesHelpers.tryUpdate(exhaustableItems[exhaustableItems.length - 1], {'system.uses.==value': exhaustableItems[exhaustableItems.length - 1].system.uses.value + 1});
     }
@@ -2147,8 +2164,15 @@ export function pruneInvalidConditionalRollModifiers(actorFull, modifiers) {
   let output = [];
   for (let modifier of modifiers) {
     if (modifier.invalid) continue;
-    if (modifier.itemNeeded && actorFull.items)
-      if (actorFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == i.system.uses.value || i.system.uses.value > 0)).length == 0) continue;
+    if (modifier.itemNeeded) {
+      let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+      let validItems = [];
+      if (actorFull.items)
+        validItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == i.system.uses.value || i.system.uses.value > 0)));
+      if (crewFull)
+        validItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == i.system.uses.value || i.system.uses.value > 0)));
+      if (validItems.length == 0) continue;
+    }
     if (modifier.conviction && (!actorFull || actorFull.system.conviction_uses?.value == 0)) continue;
     if (modifier.terminator) {
       let ownerFull = BladesHelpers.resolveActor(actorFull.system.owner);
@@ -2372,18 +2396,23 @@ export function checkDowntimeRules(dialog) {
   return true;
 }
 
-export async function postRollProcessing(actor, extraFields) {
+export async function postRollProcessing(actorFull, extraFields) {
   // Decrease uses for itemNeeded modifiers
   for (let modifier of extraFields.modifiers) {
     if (modifier.itemNeeded) {
-      let exhaustableItems = actor.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value > 0);
+      const crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+      let exhaustableItems = [];
+      if (actorFull.items)
+        exhaustableItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value > 0));
+      if (crewFull)
+        exhaustableItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value > 0));
       if (exhaustableItems.length > 0)
         await BladesHelpers.tryUpdate(exhaustableItems[0], {'system.uses.==value': exhaustableItems[0].system.uses.value - 1});
     }
     if (modifier.convictionCutLoose)
-      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.==value': Math.min(Number(actor.system.conviction_uses.value) + 1, actor.system.conviction_uses.max)});
+      await BladesHelpers.tryUpdate(actorFull, {'system.conviction_uses.==value': Math.min(Number(actorFull.system.conviction_uses.value) + 1, actorFull.system.conviction_uses.max)});
     if (modifier.convictionExtra)
-      await BladesHelpers.tryUpdate(actor, {'system.conviction_uses.==value': Math.max(Number(actor.system.conviction_uses.value) - 1, 0)});
+      await BladesHelpers.tryUpdate(actorFull, {'system.conviction_uses.==value': Math.max(Number(actorFull.system.conviction_uses.value) - 1, 0)});
   }
 }
 

@@ -374,7 +374,7 @@ export class BladesActor extends Actor {
       return false;
     const charmwork = this.system.charmwork;
     const crewFull = BladesHelpers.resolveActor(this.system.crew);
-    const hasHarmony = crewFull?.system.harmony.value;
+    const hasHarmony = crewFull?.system.harmony.value > 0;
     return charmwork && hasHarmony;
   }
 

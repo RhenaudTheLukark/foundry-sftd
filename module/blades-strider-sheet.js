@@ -1,7 +1,7 @@
 import { BladesSheet } from "./blades-sheet.js";
 import { BladesActiveEffect } from "./blades-active-effect.js";
 import { BladesHelpers } from "./blades-helpers.js";
-import { bladesPopupData, BladesPopup } from "./blades-popup.js";
+import { bladesPopupData } from "./blades-popup.js";
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 import { bladesRoll, simpleRollPopup, buildRollPopup, resolveRollModifierArray, resolveConditionalModifiers,
   checkDowntimeRules, dialogOnFirstRender, dialogOnRender, refreshModifiers, postRollProcessing,
@@ -263,18 +263,6 @@ export class BladesStriderSheet extends BladesSheet {
 
     // Downtime Roll Menu
     html.find('.downtime').click(async _ => await this.downtimeRollPopup(this));
-
-    html.find('.generic-popup').click(async ev => {
-      const element = ev.currentTarget.closest('.item');
-      let itemFull = this.actor.items.get(element.dataset.itemId);
-      let popupData = bladesPopupData[itemFull.system.popup];
-      if (!popupData)
-        ui.notifications.error(game.i18n.format('SFTD.log.error.BadPopupID', {id: itemFull.system.popup}), { permanent: true });
-      else {
-        popupData.key = itemFull.system.popup;
-        await BladesPopup.instantiatePopup(this.actor, itemFull, popupData);
-      }
-    });
   }
 
   async downtimeRollPopup(actorSheet, forcedRollTypes = null) {

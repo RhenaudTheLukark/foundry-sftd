@@ -1074,6 +1074,30 @@
       }
     },
     "CrewAbility": {
+      "CaseFileDive": {
+        "Title": "Case File Dive: Project Related to Investigating or Solving Mysteries?",
+        "Description": "This activity was free thanks to Case File Dive."
+      },
+      "IntegrityInSilence": {
+        "Message": {
+          "Title": "Integrity in Silence",
+          "Description": "Since you decided to keep the solution to a mystery secret at cost to yourselves, you may <strong>mark 1 XP</strong> for the Crew and for each Strider."
+        }
+      },
+      "RescueWarp": {
+        "Popup": {
+          "Title": "Rescue Warp",
+          "Description": "Any of you can spend 3 Stress to perform one of the following actions.",
+          "ActionTeleportSelf": "Instantly warp to the side of one of your crewmates",
+          "ActionTeleportOther": "Instantly warp one of your crewmates to your side"
+        },
+        "Message": {
+          "Title": "Rescue Warp",
+          "Description": "{crewmate} {cost} in order to {action}.",
+          "ActionTeleportSelf": "instantly warp to the side of one of your crewmates",
+          "ActionTeleportOther": "instantly warp one of your crewmates to your side"
+        }
+      },
       "PunchIt": {
         "Title": "Punch It: When Entering Danger Aboard a Vehicle, Using Vehicle Speed or Maneuverability?"
       }

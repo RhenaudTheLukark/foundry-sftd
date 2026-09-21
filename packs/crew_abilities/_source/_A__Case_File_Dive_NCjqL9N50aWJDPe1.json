@@ -7,15 +7,68 @@
     "description": "<p>Your crew gains an extra <strong>downtime </strong>activity to work on <strong>long-term projects</strong> (including <strong>synthesis </strong>projects) related to investigating and solving mysteries.</p>",
     "class": "Augurs",
     "price": "1",
-    "purchased": false,
-    "class_default": false,
     "uses": {
       "value": 0,
-      "max": "0"
+      "max": 1
     },
-    "popup": ""
+    "replenish": true,
+    "popup": "",
+    "purchased": false,
+    "class_default": false,
+    "is_case_file_dive": true
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Case File Dive Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.crew_ability.Item.NCjqL9N50aWJDPe1",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "2aTFZgNTO1H1Lvgd",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.case_file_dive",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.specialist.case_file_dive",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1789868605904,
+        "modifiedTime": 1789868689846,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!NCjqL9N50aWJDPe1.2aTFZgNTO1H1Lvgd"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
@@ -31,7 +84,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780771958301,
-    "modifiedTime": 1785304984104,
+    "modifiedTime": 1789868654929,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!NCjqL9N50aWJDPe1"

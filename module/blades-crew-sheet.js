@@ -746,18 +746,18 @@ export class BladesCrewSheet extends BladesSheet {
               await bladesRoll(specialistFull.system.quality + extraDice, 'SFTD.GroupSpecialistRoll', note, extraFields);
               break;
             case 'reducePressure':
+              extraFields.isSpecialistDowntimeRoll = true;
               extraFields.rpHazard = dialog.element.querySelector('#rpHazard')?.checked;
               await bladesRoll(diceAmount, 'SFTD.ReducePressureRoll', note, extraFields);
               break;
             case 'longTermProject':
+              extraFields.isSpecialistDowntimeRoll = true;
               extraFields.ltpId = dialog.element.querySelector('#ltpId').value;
               await bladesRoll(diceAmount, 'SFTD.LongTermProjectRoll', note, extraFields);
               break;
             default:
               break;
           }
-          if (rollType != 'specialist' && rollType != 'groupSpecialist')
-            await BladesHelpers.tryUpdate(this.actor, {system: {'==specialist_downtime_done': true}});
           await postRollProcessing(this.actor, extraFields);
         }
       }

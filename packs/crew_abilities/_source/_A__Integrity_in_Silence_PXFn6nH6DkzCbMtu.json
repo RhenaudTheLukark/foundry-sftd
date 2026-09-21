@@ -7,6 +7,12 @@
     "description": "<p>When your crew decides to keep the solution to a mystery secret at cost to yourselves, you may <strong>mark XP</strong> for the crew and for each Strider.</p>",
     "class": "Augurs",
     "price": "1",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
+    "popup": "integrity_in_silence",
     "purchased": false,
     "class_default": false
   },
@@ -26,7 +32,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780772036114,
-    "modifiedTime": 1780772062492,
+    "modifiedTime": 1789870066294,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!PXFn6nH6DkzCbMtu"

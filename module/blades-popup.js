@@ -14,13 +14,13 @@ export class BladesPopup {
       popupData.descriptionArgs = { ability: itemFull.name };
 
     const title = popupData.title ?? 'SFTD.UseAbility';
-    var preContent = popupData.pre_content ? popupData.pre_content({}) : '';
+    var preContent = popupData.pre_content ? popupData.pre_content({}, popupData) : '';
     if (itemFull.system.bound_by_charmtrick)
       preContent = game.i18n.localize('SFTD.StriderAbility.Charmtrick.PopupNotice') + preContent;
     const form = Object.keys(popupFields).length ? BladesPopup.instantiatePopupForm(actorFull, popupFields, title) : '';
     if (form == null)
       return;
-    const postContent = popupData.post_content ? popupData.post_content({}) : '';
+    const postContent = popupData.post_content ? popupData.post_content({}, popupData) : '';
 
     const fields = {self: actorFull.uuid, itemFull: itemFull};
     if (form == '') {
@@ -31,6 +31,8 @@ export class BladesPopup {
         await popupData.effect(fields, popupData, itemFull);
       if (popupData.message)
         await BladesPopup.sendMessage(fields, popupData, itemFull);
+      if (popupData.post_message)
+        await popupData.post_message(popupData);
       return;
     } else if (popupData.pre_validation)
       if (!popupData.pre_validation(fields, popupData, true, itemFull))
@@ -69,6 +71,8 @@ export class BladesPopup {
           await BladesHelpers.tryUpdate(itemFull, { 'system.uses.==value': itemFull.system.uses.value - 1})
         if (dialog.popupData.message)
           await BladesPopup.sendMessage(fields, dialog.popupData, itemFull);
+        if (dialog.popupData.post_message)
+          await dialog.popupData.post_message(dialog.popupData);
       }
     });
     dialog.popupData = popupData;
@@ -89,7 +93,7 @@ export class BladesPopup {
         fieldContainer += `<label>${game.i18n.localize(fieldData.name)}</label>`;
       switch (fieldData.type) {
         case 'crewmate':
-          let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+          let crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
           if (!crewFull) {
             ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupName)}));
             return null;
@@ -182,11 +186,11 @@ export class BladesPopup {
 
   static updateFormValues(dialog) {
     const fields = BladesPopup.fetchFormValues(dialog);
-    var preContent = dialog.popupData.pre_content ? dialog.popupData.pre_content(fields) : '';
+    var preContent = dialog.popupData.pre_content ? dialog.popupData.pre_content(fields, dialog.popupData, dialog) : '';
     if (dialog.itemFull.system.bound_by_charmtrick)
       preContent = game.i18n.localize('SFTD.StriderAbility.Charmtrick.PopupNotice') + preContent;
     dialog.element.querySelector('.pre-content').innerHTML = preContent;
-    dialog.element.querySelector('.post-content').innerHTML = dialog.popupData.post_content ? dialog.popupData.post_content(fields) : '';
+    dialog.element.querySelector('.post-content').innerHTML = dialog.popupData.post_content ? dialog.popupData.post_content(fields, dialog.popupData, dialog) : '';
     dialog.element.querySelector('button[data-action="use"]').disabled = dialog.popupData.validation ? !dialog.popupData.validation(fields, dialog.popupData ?? {}, false, dialog.itemFull) : false;
   }
 
@@ -218,11 +222,15 @@ export class BladesPopup {
     return game.i18n.format(popupData.message?.description ?? '', {self: selfFull.name});
   }
 
-  static defaultGetStress(fields, baseStress, fieldsData, itemFull) {
+  static defaultGetStress(fields, baseStress, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
     let stressGain = baseStress;
     if (itemFull.system.bound_by_charmtrick)
       stressGain ++;
-    for (let [fieldName, fieldData] of Object.entries(fieldsData).filter(f => fields[f[0]] && f[1].stress != undefined))
+    const crewFull = selfFull?.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull?.system.crew);
+    if (crewFull.system.transcendent_loom && !popupData.isNotAnAbility)
+      stressGain = Math.max(stressGain - 1, 0);
+    for (let [fieldName, fieldData] of Object.entries(popupData.fields ?? {}).filter(f => fields[f[0]] && f[1].stress != undefined))
       stressGain += fieldData.stress;
     return stressGain;
   }
@@ -231,22 +239,17 @@ export class BladesPopup {
 
   static simpleStressAbilityValidation(fields, popupData, noPopup, itemFull) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const stressGain = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {}, itemFull);
-    const selfNewStress = selfFull.system.stress.value + stressGain;
     const hasCharmwork = selfFull.isCharmworkAvailable();
-    if (noPopup && selfNewStress > selfFull.system.stress.max && !hasCharmwork)
-      ui.notifications.warn(game.i18n.format('SFTD.log.warn.SimpleStressAbilityTooMuchStress', { name: game.i18n.localize(popupData.title ?? 'SFTD.UseAbility') }));
-    return selfNewStress <= selfFull.system.stress.max || (hasCharmwork && fields.charmwork);
+    return !fields.charmwork || hasCharmwork;
   }
-
 
   static async simpleStressAbilityEffect(fields, popupData, itemFull) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
     if (fields.charmwork)
       await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1 });
     else
-      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {}, itemFull)});
+      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': Math.clamp(selfFull.system.stress.value + BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData, itemFull), 0, selfFull.system.stress.max)});
   }
 
   static simpleStressAbilityMessageContents(fields, popupData, itemFull) {
@@ -265,7 +268,7 @@ export class BladesPopup {
 
   static simpleCrewValidation(fields, popupData, noPopup) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
     if (!crewFull) {
       ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupData.title ?? 'SFTD.UseAbility') }));
       return false;
@@ -312,10 +315,10 @@ export class BladesPopup {
     if (!fields.crewmate)
       return '';
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const selfNewStress = selfFull.system.stress.value + ((fields.charmwork && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1));
+    const selfNewStress = Math.clamp(selfFull.system.stress.value + ((fields.charmwork && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1)), 0, selfFull.system.stress.max);
     const selfRed = selfNewStress >= selfFull.system.stress.max;
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
-    const crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
+    const crewmateNewStress = Math.clamp(crewmateFull.system.stress.value + (fields.reverse ? 1 : -1), 0, crewmateFull.system.stress.max);
     const crewmateRed = crewmateNewStress >= crewmateFull.system.stress.max;
     return `
       <div class="stress-transfer flex-horizontal">
@@ -340,7 +343,7 @@ export class BladesPopup {
     const selfNewStress = selfFull.system.stress.value + ((fields.charmwork && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1));
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     const crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
-    return !(fields.charmwork && fields.reverse) && selfNewStress >= 0 && selfNewStress <= selfFull.system.stress.max && crewmateNewStress >= 0 && crewmateNewStress <= crewmateFull.system.stress.max;
+    return !(fields.charmwork && fields.reverse) && selfNewStress >= 0 && crewmateNewStress >= 0;
   }
 
   static async alloyedMettleEffect(fields) {
@@ -350,8 +353,8 @@ export class BladesPopup {
       const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
       await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1});
     } else
-      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': selfFull.system.stress.value + (fields.reverse ? -1 : 1)});
-    await BladesHelpers.tryUpdate(crewmateFull, {'system.stress.==value': crewmateFull.system.stress.value + (fields.reverse ? 1 : -1)});
+      await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': Math.clamp(selfFull.system.stress.value + (fields.reverse ? -1 : 1), 0, selfFull.system.stress.max)});
+    await BladesHelpers.tryUpdate(crewmateFull, {'system.stress.==value': Math.clamp(crewmateFull.system.stress.value + (fields.reverse ? 1 : -1), 0, crewmateFull.system.stress.max)});
   }
 
   static alloyedMettleMessageContents(fields, popupData) {
@@ -429,7 +432,7 @@ export class BladesPopup {
   static async neohumanEffect(fields, popupData) {
     const popupDataCopy = foundry.utils.deepClone(popupData);
     popupDataCopy.stress = Number(fields.stress);
-    return await BladesPopup.simpleStressAbilityEffect(fields, popupDataCopy);
+    await BladesPopup.simpleStressAbilityEffect(fields, popupDataCopy);
   }
 
   static neohumanMessageContents(fields, popupData, itemFull) {
@@ -439,6 +442,69 @@ export class BladesPopup {
         stress: fields.stress
       })
     });
+  }
+
+  /* ----------------------------------------- */
+
+  static rescueWarpValidation(fields, popupData, noPopup, itemFull) {
+    const newFields = foundry.utils.deepClone(fields);
+    newFields.self = fields.crewmate;
+    if (!BladesHelpers.resolveActor(newFields.self))
+      return false;
+    return BladesPopup.simpleStressAbilityValidation(newFields, popupData, noPopup, itemFull) && BladesPopup.simpleCrewmateValidation(newFields, popupData, noPopup, itemFull);
+  }
+
+  static rescueWarpPreContent(fields, popupData, dialog) {
+    var needsCharmwork = false;
+    if (fields.crewmate) {
+      const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
+      needsCharmwork = crewmateFull.isCharmworkAvailable();
+    }
+    if (popupData.fields.charmwork && !needsCharmwork) {
+      delete popupData.fields.charmwork;
+      if (dialog) {
+        const formElement = dialog.element.querySelector('.form');
+        formElement.removeChild(formElement.lastElementChild);
+      }
+    } else if (!popupData.fields.charmwork && needsCharmwork) {
+      popupData.fields.charmwork = {
+        name: 'SFTD.StriderAbility.Charmwork.Title',
+        type: 'checkbox'
+      }
+      if (dialog) {
+        const charmworkElement = document.createElement('div');
+        charmworkElement.innerHTML = `<div class="field flex-horizontal shrink" data-field="charmwork" data-type="checkbox"><label>Charmwork</label><input type="checkbox"></div>`;
+        charmworkElement.querySelector('input').addEventListener('click', async function(ev) {
+          BladesPopup.updateFormValues(dialog);
+        });
+        dialog.element.querySelector('.form').appendChild(charmworkElement);
+      }
+    }
+    return '';
+  }
+
+  static async rescueWarpEffect(fields, popupData, itemFull) {
+    const newFields = foundry.utils.deepClone(fields);
+    newFields.self = fields.crewmate;
+    if (!BladesHelpers.resolveActor(newFields.self))
+      return;
+    await BladesPopup.simpleStressAbilityEffect(newFields, popupData, itemFull);
+  }
+
+  static rescueWarpMessageContents(fields, popupData, itemFull) {
+    const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
+    const stress = BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData, itemFull);
+    const action = game.i18n.localize(`SFTD.CrewAbility.RescueWarp.Message.${fields.action.split('.').at(-1)}`);
+    return game.i18n.format(popupData.message?.description ?? '', {
+      crewmate: crewmateFull.name,
+      cost: game.i18n.format(`SFTD.StriderAbility.Charmwork.${fields.charmwork ? '' : 'Not'}Usage`, { stress : stress }),
+      action: action
+    });
+  }
+
+  static rescueWarpPostMessage(popupData) {
+    if (popupData.fields.charmwork)
+      delete popupData.fields.charmwork;
   }
 }
 
@@ -682,5 +748,39 @@ export const bladesPopupData = {
       description: 'SFTD.Neohuman.Message.Description',
       contents: BladesPopup.neohumanMessageContents
     }
+  },
+  integrity_in_silence: {
+    message: {
+      title: 'SFTD.CrewAbility.IntegrityInSilence.Message.Title',
+      description: 'SFTD.CrewAbility.IntegrityInSilence.Message.Description',
+    }
+  },
+  rescue_warp: {
+    title: 'SFTD.CrewAbility.RescueWarp.Popup.Title',
+    description: 'SFTD.CrewAbility.RescueWarp.Popup.Description',
+    classes: ['rescue-warp'],
+    pre_content: BladesPopup.rescueWarpPreContent,
+    fields: {
+      crewmate: {
+        type: 'crewmate'
+      },
+      action: {
+        name: 'SFTD.Action',
+        type: 'select',
+        values: [
+          'SFTD.CrewAbility.RescueWarp.Popup.ActionTeleportSelf',
+          'SFTD.CrewAbility.RescueWarp.Popup.ActionTeleportOther'
+        ]
+      }
+    },
+    stress: 3,
+    validation: BladesPopup.rescueWarpValidation,
+    effect: BladesPopup.rescueWarpEffect,
+    message: {
+      title: 'SFTD.CrewAbility.RescueWarp.Message.Title',
+      description: 'SFTD.CrewAbility.RescueWarp.Message.Description',
+      contents: BladesPopup.rescueWarpMessageContents
+    },
+    post_message: BladesPopup.rescueWarpPostMessage
   }
 }

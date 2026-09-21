@@ -1,5 +1,6 @@
 import { BladesActiveEffect } from './blades-active-effect.js';
 import { BladesHelpers } from './blades-helpers.js';
+import { bladesPopupData, BladesPopup } from "./blades-popup.js";
 import { getActorSheetClass, renderHandlebarsTemplate as renderTemplate } from './compat.js';
 
 const BaseActorSheet = getActorSheetClass();
@@ -116,6 +117,18 @@ export class BladesSheet extends BaseActorSheet {
       let path = element.dataset.path;
       let themeColor = element.dataset.themeColor;
       await this.clockStylePickerPopup(path, themeColor);
+    });
+
+    html.find('.generic-popup').click(async ev => {
+      const element = ev.currentTarget.closest('.item');
+      const itemFull = this.actor.items.get(element.dataset.itemId);
+      const popupData = bladesPopupData[itemFull.system.popup];
+      if (!popupData)
+        ui.notifications.error(game.i18n.format('SFTD.log.error.BadPopupID', {id: itemFull.system.popup}), { permanent: true });
+      else {
+        popupData.key = itemFull.system.popup;
+        await BladesPopup.instantiatePopup(this.actor, itemFull, popupData);
+      }
     });
   }
 
