@@ -915,11 +915,13 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/upkeep-roll.html', { rolls: rolls, zeromode: zeromode, method: method, num: shells, overShells: overShells, note: note, extraFields: extraFields });
   }
 
-  // Check for Acquire Asset roll
+  // Check for Construct Foundation roll
   else if (attributeOrRollName == 'SFTD.ConstructFoundationRoll') {
     let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     let crewUpdateObject = {system: {projects: {}}};
     let ticks = getBladesRollDowntime(rolls, extraResult, extraFields.extraTicks, zeromode);
+    if (extraFields.isNewFoundation && crewFull.system.foundation_frames)
+      ticks ++;
 
     let project = crewFull.system.projects[extraFields.cfId];
     let newTick = Math.min(project.clock.value + ticks, project.clock.max);

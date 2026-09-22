@@ -629,7 +629,7 @@
     },
     "RollAftermathCantHateUs": "Your crew really can't be hated by outsiders. Roll a second aftermath and pick the one you prefer among the two.",
 
-    "RollConstructFoundationStart": "You started construction of the Foundation \"{foundation}\". {}Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
+    "RollConstructFoundationStart": "You started construction of the Foundation \"{foundation}\". Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
     "RollConstructFoundation": "You continued the construction of the Foundation \"{foundation}\". Its Progress Clock was filled by <strong>{tick}</strong> tick(s).",
     "RollConstructFoundationFull": "The Foundation \"{foundation}\" has been <strong>completed</strong>.",
     "RollConstructFoundationFullAssignNPC": "Don't forget to create/assign an NPC to this Foundation.",
