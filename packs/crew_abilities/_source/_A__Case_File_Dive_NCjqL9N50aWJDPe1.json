@@ -6,7 +6,7 @@
   "system": {
     "description": "<p>Your crew gains an extra <strong>downtime </strong>activity to work on <strong>long-term projects</strong> (including <strong>synthesis </strong>projects) related to investigating and solving mysteries.</p>",
     "class": "Augurs",
-    "price": "1",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 1
@@ -84,7 +84,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780771958301,
-    "modifiedTime": 1789868654929,
+    "modifiedTime": 1790122487978,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!NCjqL9N50aWJDPe1"

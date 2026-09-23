@@ -1105,6 +1105,12 @@
       "Engineers": {
         "ActionTitle": "Engineers: Modifying, Repairing or Sabotaging Technology or MAchines in the Field?",
         "CollectInfoTitle": "Engineers: Collecting Info about Damaged Machinery?"
+      },
+      "Resilience": {
+        "Title": "Resilience: Resisting Technological or Transcendent Threats?"
+      },
+      "Scrapyards": {
+        "LongTermProjectTitle": "Scrapyards: Project Related to Developing Technology?"
       }
     },
     "CrewFoundation": {

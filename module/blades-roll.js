@@ -510,7 +510,7 @@ export const bladesRollModifierList = {
     dice: 1
   },
   case_file_dive: {
-  name: 'SFTD.CrewAbility.CaseFileDive.Title',
+    name: 'SFTD.CrewAbility.CaseFileDive.Title',
     rollType: 'longTermProject',
     itemNeeded: 'is_case_file_dive',
     bonusRoll: true,
@@ -529,6 +529,20 @@ export const bladesRollModifierList = {
   engineers_collect_info: {
     name: 'SFTD.CrewAbility.Engineers.CollectInfoTitle',
     rollType: 'collectInfo',
+    dice: 1
+  },
+  resilience: {
+    name: 'SFTD.CrewAbility.Resilience.Title',
+    rollType: 'resistance',
+    dice: 1
+  },
+  scrapyards_construct_foundation: {
+    rollType: 'constructFoundation',
+    ticks: 1
+  },
+  scrapyards_long_term_project: {
+    name: 'SFTD.CrewAbility.Scrapyards.LongTermProjectTitle',
+    rollType: 'longTermProject',
     dice: 1
   },
   backchatter_network: {
@@ -1236,9 +1250,9 @@ export async function cancelRollResult(rollData, actorFull) {
     if (modifier.itemNeeded) {
       let exhaustableItems = [];
       if (actorFull.items)
-        exhaustableItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && Number(i.system.uses.value) < Number(i.system.uses.max)));
+        exhaustableItems = exhaustableItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value < i.system.uses.max));
       if (crewFull)
-        exhaustableItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && Number(i.system.uses.value) < Number(i.system.uses.max)));
+        exhaustableItems = exhaustableItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value < i.system.uses.max));
       if (exhaustableItems.length > 0)
         await BladesHelpers.tryUpdate(exhaustableItems[exhaustableItems.length - 1], {'system.uses.==value': exhaustableItems[exhaustableItems.length - 1].system.uses.value + 1});
     }
@@ -2200,9 +2214,9 @@ export function pruneInvalidConditionalRollModifiers(actorFull, modifiers) {
       let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
       let validItems = [];
       if (actorFull.items)
-        validItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == i.system.uses.value || i.system.uses.value > 0)));
+        validItems = validItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == 0 || i.system.uses.value > 0)));
       if (crewFull)
-        validItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == i.system.uses.value || i.system.uses.value > 0)));
+        validItems = validItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == 0 || i.system.uses.value > 0)));
       if (validItems.length == 0) continue;
     }
     if (modifier.conviction && (!actorFull || actorFull.system.conviction_uses?.value == 0)) continue;
@@ -2435,9 +2449,9 @@ export async function postRollProcessing(actorFull, extraFields) {
       const crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
       let exhaustableItems = [];
       if (actorFull.items)
-        exhaustableItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value > 0));
+        exhaustableItems = exhaustableItems.concat(actorFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == 0 || i.system.uses.value > 0)));
       if (crewFull)
-        exhaustableItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && i.system.uses.value > 0));
+        exhaustableItems = exhaustableItems.concat(crewFull.items.filter(i => i.system[modifier.itemNeeded] && (i.system.uses.max == 0 || i.system.uses.value > 0)));
       if (exhaustableItems.length > 0)
         await BladesHelpers.tryUpdate(exhaustableItems[0], {'system.uses.==value': exhaustableItems[0].system.uses.value - 1});
     }
