@@ -1111,6 +1111,16 @@
       },
       "Scrapyards": {
         "LongTermProjectTitle": "Scrapyards: Project Related to Developing Technology?"
+      },
+      "SumOfItsParts": {
+        "Title": "Sum of its Parts: Assembling or Modifying Technology?",
+        "Description": "Since you used Harmony on this roll, you may treat the tech you worked on as <strong>1 Quality</strong> higher until your next Downtime."
+      },
+      "DisasterRelief": {
+        "Title": "Disaster Relief: Providing Aid or Relief to Groups, Factions or Locations you've Helped in the Past?"
+      },
+      "ForgedInFire": {
+        "Title": "Forged in Fire: Resisting in Combat or Against Physical Injury?"
       }
     },
     "CrewFoundation": {

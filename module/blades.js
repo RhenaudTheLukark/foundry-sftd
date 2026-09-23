@@ -438,7 +438,6 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
         // Resistance roll
         await cancelRollResult(message.system.rollData, speakerActorFull);
         message.system.rollData.modifiers.push({
-          stress: -message.system.rollData.stressChanges[speakerActorFull._id].value,
           harmony: -1,
           rollText: `SFTD.StriderAbility.Charmwork.TimeTravelUsage`,
           key: 'charmwork'
