@@ -7,10 +7,67 @@
     "description": "<p>When any of you speaks from the heart, your words can reach even your most hardened enemies, and you take <strong>+1 impact</strong>.<br><em>Note that &ldquo;speak from the heart&rdquo; doesn&rsquo;t necessarily mean &ldquo;tell the truth.&rdquo;</em></p>",
     "class": "Silvers",
     "price": "1",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
+    "popup": "",
     "purchased": false,
     "class_default": false
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Heartfelt Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.crew_ability.Item.971xLYmD4sVmpCLc",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "EbpabVbO25Sg1PNu",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.heartfelt",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.specialist.heartfelt",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1790205392058,
+        "modifiedTime": 1790205437058,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!971xLYmD4sVmpCLc.EbpabVbO25Sg1PNu"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

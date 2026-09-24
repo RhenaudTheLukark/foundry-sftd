@@ -284,7 +284,6 @@ export class BladesCrewSheet extends BladesSheet {
       return html;
     }
 
-    let element = event.currentTarget;
     let availableCaches = this.actor.system.cache.value - this.getInvestedCaches();
 
     let items = await BladesHelpers.getAllObjectDocumentsByType('foundation', [], game);
@@ -518,6 +517,9 @@ export class BladesCrewSheet extends BladesSheet {
     extraData.vendettaCount = vendettas.length;
     if (extraData.vendettas == '')
       extraData.vendettas = 'SFTD.None';
+    extraData.getInLine = this.actor.system.get_in_line;
+    extraData.locals = this.actor.system.locals;
+    extraData.viewFromTheTop = this.actor.system.view_from_the_top;
     extraData.expertsTalkLogistics = this.actor.system.experts_talk_logistics;
     extraData.parallelProcessingTicks = fullActorData.system.parallel_processing_ticks ?? 0;
 
@@ -581,15 +583,17 @@ export class BladesCrewSheet extends BladesSheet {
         else if (pressureCollateralDamage == 'minor') pressureChange += 2;
         else if (pressureCollateralDamage == 'major') pressureChange += 4;
         else if (pressureCollateralDamage == 'devastating') pressureChange += 6;
-        if (dialog.element.querySelector('[name="pressureHighTargetProfile"]').checked) pressureChange += 1;
-        if (dialog.element.querySelector('[name="pressureHostileTerritory"]').checked) pressureChange += 1;
-        if (dialog.element.querySelector('[name="pressureVendetta"]').checked) pressureChange += extraData.vendettaCount;
+        if (dialog.element.querySelector('[name="pressureHighTargetProfile"]').checked) pressureChange ++;
+        if (dialog.element.querySelector('[name="pressureHostileTerritory"]').checked) pressureChange ++;
+        if (dialog.element.querySelector('[name="pressureVendetta"]').checked) pressureChange += extraData.getInLine ? Math.min(extraData.vendettaCount, 1) : extraData.vendettaCount;
         if (dialog.element.querySelector('[name="pressureSevereInjury"]').checked) {
-          pressureChange += 1;
-          if (dialog.element.querySelector('[name="pressureSevereInjuryYourFault"]').checked) pressureChange += 1;
+          pressureChange ++;
+          if (dialog.element.querySelector('[name="pressureSevereInjuryYourFault"]').checked) pressureChange ++;
         }
+        if (dialog.element.querySelector('[name="pressureLocals"]')?.checked) pressureChange --;
+        if (dialog.element.querySelector('[name="pressureViewFromTheTop"]')?.checked) pressureChange --;
 
-        if (pressureChange != 0) {
+        if (pressureChange > 0) {
           let hazardChange = await this.handlePressure(pressureChange);
           let pressureRecap = `<div class="description"><p>
             ${game.i18n.format('SFTD.EndMissionPressureRecap', {num: pressureChange})}

@@ -66,7 +66,7 @@
   </div>
   <div class="form-group-inline">
     <input type="checkbox" class="automated" name="pressureVendetta"{{#if (ne extraData.vendettas 'SFTD.None')}} checked{{/if}}>
-    <label>{{{localize 'SFTD.EndMissionPressureVendetta' vendettas=(localize extraData.vendettas)}}}</label>
+    <label>{{{localize 'SFTD.EndMissionPressureVendetta' vendettas=(localize extraData.vendettas)}}}{{#if extraData.getInLine}} {{{localize 'SFTD.EndMissionPressureVendettaGetInLine'}}}{{/if}}</label>
   </div>
   <div class="form-group-inline">
     <input type="checkbox" class="automated" name="pressureSevereInjury">
@@ -76,6 +76,18 @@
     <input type="checkbox" class="automated" name="pressureSevereInjuryYourFault">
     <label>{{{localize 'SFTD.EndMissionPressureSevereInjuryYourFault'}}}</label>
   </div>
+  {{#if extraData.locals}}
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureLocals" checked>
+    <label>{{{localize 'SFTD.EndMissionPressureLocals'}}}</label>
+  </div>
+  {{/if}}
+  {{#if extraData.viewFromTheTop}}
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureViewFromTheTop" checked>
+    <label>{{{localize 'SFTD.EndMissionPressureViewFromTheTop'}}}</label>
+  </div>
+  {{/if}}
 </fieldset>
 
 {{#if (gt extraData.parallelProcessingTicks 0)}}

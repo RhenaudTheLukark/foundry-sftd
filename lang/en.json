@@ -823,8 +823,11 @@
     "EndMissionPressureHighProfileTarget": "Mission was conducted against a high-profile or well-connected target?",
     "EndMissionPressureHostileTerritory": "Operation conducted in hostile territory?",
     "EndMissionPressureVendetta": "Add Pressure for each Faction that holds a vendetta against you.<br/>Current Faction(s) in vendetta with you: {vendettas}",
+    "EndMissionPressureVendettaGetInLine": "(Max 1 Pressure thanks to Get In Line)",
     "EndMissionPressureSevereInjury": "Were people severely injured or killed on the mission?",
     "EndMissionPressureSevereInjuryYourFault": "Was anyone in your crew responsible for such?",
+    "EndMissionPressureLocals": "Locals: Reduce Pressure gain by 1",
+    "EndMissionPressureViewFromTheTop": "View From the Top: Reduce Pressure gain by 1",
     "EndMissionParallelProcessing": "Parallel Processing: +{ticks} ticks to distribute among Long-Term Projects involving investigation or synthesis",
     "EndMissionAftermath": "You must roll an Aftermath, as nothing happens in isolation.",
     "EndMissionPressureRecap": "You garnered <strong>{num} Pressure</strong> because of your previous mission.",
@@ -1121,9 +1124,30 @@
       },
       "ForgedInFire": {
         "Title": "Forged in Fire: Resisting in Combat or Against Physical Injury?"
+      },
+      "Reassuring": {
+        "Title1": "Reassuring: Leading NPCs Through Danger or Treating Their Wounds?",
+        "Title2": "Reassuring: Speaking to NPCs you're Protecting in a Dangerous Situation?"
+      },
+      "TheEasyWay": {
+        "Title": "The Easy Way: Intimidating Hostiles into Standing Down and More than One of you is Present?"
+      },
+      "Heartfelt": {
+        "Title": "Heartfelt: Speaking from the Heart?"
+      },
+      "Locals": {
+        "ActionTitle": "Locals: Passing Yourself Off as an Ordinary Citizen?",
+        "CollectInfoTitle": "Locals: Collecting Info about Ordinary Citizens?"
+      },
+      "ViewFromTheTop": {
+        "ActionTitle": "View From the Top: Passing Yourself Off as a Member of a Region's Elite?",
+        "CollectInfoTitle": "View From the Top: Collecting Info about Members of a Region's Elite?"
       }
     },
     "CrewFoundation": {
+      "CondorSatellite": {
+        "Title": "CONDOR Satellite: Use?"
+      },
       "BackchatterNetwork": {
         "Title": "Backchatter Network: Collecting Info For a Mission?"
       },

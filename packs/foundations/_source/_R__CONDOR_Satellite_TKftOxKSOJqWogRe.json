@@ -5,13 +5,68 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>Your crew has discovered an uplink to one of the few still-functioning satellites that hang in Earth&rsquo;s orbit. The CONDOR provides high-quality terrain maps, tracks major landmarks, and provides you with stealthy routes across the continent. Consider this a <strong>major advantage</strong> for <strong>engagement rolls</strong> where it applies.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 0,
     "cache_cost": 0,
     "npc": "null",
     "is_complex": false,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "CONDOR Satellite Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.TKftOxKSOJqWogRe",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "uLMLCAMARpLMNh3X",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.condor_satellite",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1790216545582,
+        "modifiedTime": 1790216582514,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!TKftOxKSOJqWogRe.uLMLCAMARpLMNh3X"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

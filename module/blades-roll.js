@@ -561,6 +561,51 @@ export const bladesRollModifierList = {
     rollType: 'resistance',
     dice: 1
   },
+  reassuring_action_1: {
+    name: 'SFTD.CrewAbility.Reassuring.Title1',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  reassuring_action_2: {
+    name: 'SFTD.CrewAbility.Reassuring.Title2',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1
+  },
+  the_easy_way: {
+    name: 'SFTD.CrewAbility.TheEasyWay.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  heartfelt: {
+    name: 'SFTD.CrewAbility.Heartfelt.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  locals_action: {
+    name: 'SFTD.CrewAbility.Locals.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  locals_collect_info: {
+    name: 'SFTD.CrewAbility.Locals.CollectInfoTitle',
+    rollType: 'collectInfo',
+    dice: 1
+  },
+  view_from_the_top_action: {
+    name: 'SFTD.CrewAbility.ViewFromTheTop.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  view_from_the_top_collect_info: {
+    name: 'SFTD.CrewAbility.ViewFromTheTop.CollectInfoTitle',
+    rollType: 'collectInfo',
+    dice: 1
+  },
+  condor_satellite: {
+    name: 'SFTD.CrewFoundation.CondorSatellite.Title',
+    rollType: 'engagement',
+    dice: 1
+  },
   backchatter_network: {
     name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',
     rollType: 'collectInfo',
@@ -1747,7 +1792,7 @@ export function getMiscRollTypesToRemove(actorFull) {
   if (!actorFull) {
     BladesHelpers.addToRollTypeError(missingRollTypes, 'aftermath', 'SFTD.BadRoll.NoActor');
   } else {
-    let crewFull = BladesHelpers.resolveActor(actorFull.system.crew);
+    let crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
     if (!crewFull)
       BladesHelpers.addToRollTypeError(missingRollTypes, 'aftermath', 'SFTD.BadRoll.NoCrew');
   }
@@ -1808,7 +1853,7 @@ export async function simpleRollPopup(title1 = 'SFTD.SimpleRoll', title2 = 'SFTD
       if (input) {
         let rollType = input.id.split('-')[0];
         let extraFields = { roll_type: rollType, modifiers: [ ...dialog.permanentModifiers, ...enabledConditionalModifiers ], actor: targetActor };
-        let crewFull = BladesHelpers.resolveActor(targetActor?.system.crew);
+        let crewFull = targetActor?.type == 'crew' ? targetActor : BladesHelpers.resolveActor(targetActor?.system.crew);
         switch (rollType) {
           case 'aftermath':
             extraFields.hazard = Number(dialog.element.querySelector('[name="hazard"]').value);
