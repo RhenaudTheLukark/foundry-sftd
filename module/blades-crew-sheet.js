@@ -520,6 +520,7 @@ export class BladesCrewSheet extends BladesSheet {
     extraData.getInLine = this.actor.system.get_in_line;
     extraData.locals = this.actor.system.locals;
     extraData.viewFromTheTop = this.actor.system.view_from_the_top;
+    extraData.certifiedLicensing = this.actor.system.certified_licensing;
     extraData.expertsTalkLogistics = this.actor.system.experts_talk_logistics;
     extraData.parallelProcessingTicks = fullActorData.system.parallel_processing_ticks ?? 0;
 
@@ -592,6 +593,7 @@ export class BladesCrewSheet extends BladesSheet {
         }
         if (dialog.element.querySelector('[name="pressureLocals"]')?.checked) pressureChange --;
         if (dialog.element.querySelector('[name="pressureViewFromTheTop"]')?.checked) pressureChange --;
+        if (dialog.element.querySelector('[name="pressureCertifiedLicensing"]')?.checked) pressureChange -= 2;
 
         if (pressureChange > 0) {
           let hazardChange = await this.handlePressure(pressureChange);

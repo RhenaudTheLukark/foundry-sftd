@@ -260,7 +260,9 @@
       "relationships": {},
       "modifiers": {
         "strider": {},
-        "specialist": {}
+        "specialist": {},
+        "aftermath_dangerous_mission": true,
+        "cut_loose_unfocused": true
       },
       "roll_modifiers": {
         "strider": {},

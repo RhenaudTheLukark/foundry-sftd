@@ -5,13 +5,74 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>Take <strong>+1d</strong> to rolls to work on <strong>long-term projects</strong> related to scientific or transcendent investigation.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 2,
     "cache_cost": 4,
     "npc": "null",
     "is_complex": false,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Research Lab Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.AP217XHea8XUUkep",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "Q9jMta0JSexiNkOB",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.research_lab",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.specialist.research_lab",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1790302446206,
+        "modifiedTime": 1790302484226,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!AP217XHea8XUUkep.Q9jMta0JSexiNkOB"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

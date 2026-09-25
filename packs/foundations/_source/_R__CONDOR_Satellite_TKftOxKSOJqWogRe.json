@@ -45,6 +45,12 @@
           "mode": 5,
           "value": "true",
           "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.condor_satellite",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
         }
       ],
       "description": "",
@@ -61,7 +67,7 @@
         "systemId": "songs-for-the-dusk",
         "systemVersion": "0.0.1",
         "createdTime": 1790216545582,
-        "modifiedTime": 1790216582514,
+        "modifiedTime": 1790265658708,
         "lastModifiedBy": "NKBqJZbUpn1DnvhY"
       },
       "_key": "!items.effects!TKftOxKSOJqWogRe.uLMLCAMARpLMNh3X"

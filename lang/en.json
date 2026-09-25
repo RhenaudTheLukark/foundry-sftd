@@ -242,6 +242,7 @@
     "RollSuccess": "Success",
     "RollPartialSuccess": "Partial Success",
     "RollSomeDice": "Roll Some Dice!",
+    "RollTokenDescription": "If you want to pull stats from an actor, select their Token first.",
     "RollNumberOfDice": "Number of Dice",
     "RollDoWithIncreasedImpact": "You do it with <strong>increased impact</strong>.",
     "RollDo": "You do it.",
@@ -660,6 +661,7 @@
     "RollRecover": "You spent some time resting to treat your wounds.",
     "RollRecoverLevelOneHarm": "All Level 1 Harm has been cleared.",
     "RollRecoverResultFull": "All Harm has been reduced by one level.",
+    "RollRecoverRegenerationManifold": "All Harm has been removed thanks to Regeneration Manifold.",
 
     "RollReducePressure": "You spent some time smoothing out your reputation both within your community and in this region as a whole. Pressure has been lowered by <strong>{tick}</strong> tick(s).",
     "RollReducePressureHazard": "The Hazard reduction clock has also gained <strong>{tick}</strong> tick(s).",
@@ -828,6 +830,7 @@
     "EndMissionPressureSevereInjuryYourFault": "Was anyone in your crew responsible for such?",
     "EndMissionPressureLocals": "Locals: Reduce Pressure gain by 1",
     "EndMissionPressureViewFromTheTop": "View From the Top: Reduce Pressure gain by 1",
+    "EndMissionPressureCertifiedLicensing": "Certified Licensing: Reduce Pressure gain by 2",
     "EndMissionParallelProcessing": "Parallel Processing: +{ticks} ticks to distribute among Long-Term Projects involving investigation or synthesis",
     "EndMissionAftermath": "You must roll an Aftermath, as nothing happens in isolation.",
     "EndMissionPressureRecap": "You garnered <strong>{num} Pressure</strong> because of your previous mission.",
@@ -1148,11 +1151,51 @@
       "CondorSatellite": {
         "Title": "CONDOR Satellite: Use?"
       },
+      "AmplifierMesh": {
+        "Title": "Amplifier Mesh: Using a Brazen Mission Approach?"
+      },
       "BackchatterNetwork": {
         "Title": "Backchatter Network: Collecting Info For a Mission?"
       },
+      "BatteryTerachargers": {
+        "Title": "Battery Terachargers: Using a Patient Mission Approach?"
+      },
+      "BlackwingNests": {
+        "Title": "Blackwing Nests: Using a Subtle Mission Approach?"
+      },
+      "CollationEngine": {
+        "Title": "Collation Engine: Using a Curious Mission Approach?"
+      },
+      "Observatory": {
+        "ActionTitle": "Observatory: Observing Celestial Phenomena?",
+        "TraceTitle": "Observatory: On-site?"
+      },
+      "RadiantArchive": {
+        "Title": "Radiant Archive: On-site & Archive Could Help your Research or Construction Project."
+      },
+      "RadiantAutofleet": {
+        "Title": "Radiant Autofleet: Using a Rapid Mission Approach?"
+      },
+      "RegenerationManifold": {
+        "Title": "Regeneration Manifold: Use?"
+      },
+      "ResearchLab": {
+        "Title": "Research Lab: Project Related to Scientific or Ttranscendent Investigation?"
+      },
       "ResonantAntennae": {
         "Title": "Resonant Antennae: On-site?"
+      },
+      "SecondStoryPassages": {
+        "Title": "Second-Story Passages: On-site?"
+      },
+      "TerrainLibraries": {
+        "Title": "Terrain Libraries: Using a Studied Mission Approach?"
+      },
+      "TranscendentPools": {
+        "Title": "Transcendent Pools: Connecting with Transcendent Forces On-site?"
+      },
+      "Workshop": {
+        "LongTermProjectTitle": "Workshop: Working on a Synthesis Project?"
       }
     },
     "Neohuman": {

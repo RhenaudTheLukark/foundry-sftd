@@ -5,13 +5,74 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>Tracks your findings, stores your field data, and draws connections a human or neohuman might never think to make. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>curious </strong>mission approaches.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 1,
     "cache_cost": 3,
     "npc": "null",
     "is_complex": false,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Collation Engine Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.IfFXeQTdLIh3acHk",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "jt1HUjn8SL9pu8yV",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.collation_engine",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.collation_engine",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1790293261119,
+        "modifiedTime": 1790293309129,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!IfFXeQTdLIh3acHk.jt1HUjn8SL9pu8yV"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

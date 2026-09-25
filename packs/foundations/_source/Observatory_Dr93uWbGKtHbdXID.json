@@ -5,13 +5,80 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>Eyes on the sky. Take <strong>+1d</strong> to <strong>Trace</strong> rolls on-site, as well as any rolls that involve observing celestial phenomena.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 1,
     "cache_cost": 2,
     "npc": "null",
     "is_complex": false,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Observatory Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.Dr93uWbGKtHbdXID",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "CaQE2ZLBJkqZqvJS",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.observatory_action",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.specialist.specialist.observatory_action",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.strider.observatory_trace",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1790293841058,
+        "modifiedTime": 1790294332776,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!Dr93uWbGKtHbdXID.CaQE2ZLBJkqZqvJS"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

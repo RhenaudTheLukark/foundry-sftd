@@ -140,7 +140,7 @@ export const bladesRollModifierList = {
   },
   assist: {
     name: 'SFTD.Assist',
-    rollTypes: ['actionRoll', 'resistance', 'fortune', 'collectInfo', 'engagement'],
+    rollTypes: ['actionRoll', 'resistance', 'fortune', 'collectInfo'],
     fields: {
       'SFTD.Cost': [],
       'SFTD.Crewmate': [],
@@ -606,15 +606,94 @@ export const bladesRollModifierList = {
     rollType: 'engagement',
     dice: 1
   },
+  amplifier_mesh: {
+    name: 'SFTD.CrewFoundation.AmplifierMesh.Title',
+    rollType: 'engagement',
+    dice: 1
+  },
   backchatter_network: {
     name: 'SFTD.CrewFoundation.BackchatterNetwork.Title',
     rollType: 'collectInfo',
+    dice: 1
+  },
+  battery_terachargers: {
+    name: 'SFTD.CrewFoundation.BatteryTerachargers.Title',
+    rollType: 'engagement',
+    dice: 1
+  },
+  blackwing_nests: {
+    name: 'SFTD.CrewFoundation.BlackwingNests.Title',
+    rollType: 'engagement',
+    dice: 1
+  },
+  collation_engine: {
+    name: 'SFTD.CrewFoundation.CollationEngine.Title',
+    rollType: 'engagement',
+    dice: 1
+  },
+  observatory_action: {
+    name: 'SFTD.CrewFoundation.Observatory.ActionTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    dice: 1
+  },
+  observatory_trace: {
+    name: 'SFTD.CrewFoundation.Observatory.TraceTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    attributeName: 'trace',
+    dice: 1
+  },
+  radiant_archive: {
+    name: 'SFTD.CrewFoundation.RadiantArchive.Title',
+    rollTypes: ['constructFoundation', 'longTermProject'],
+    attributeNames: ['decipher', 'shape'],
+    dice: 1
+  },
+  radiant_autofleet: {
+    name: 'SFTD.CrewFoundation.RadiantAutofleet.Title',
+    rollType: 'engagement',
+    dice: 1
+  },
+  regeneration_manifold: {
+    name: 'SFTD.CrewFoundation.RegenerationManifold.Title',
+    rollType: 'recover',
+    itemNeeded: "is_regeneration_manifold",
+    regenerationManifold: true
+  },
+  research_lab: {
+    name: 'SFTD.CrewFoundation.ResearchLab.Title',
+    rollType: 'longTermProject',
     dice: 1
   },
   resonant_antennae: {
     name: 'SFTD.CrewFoundation.ResonantAntennae.Title',
     rollTypes: ['actionRoll', 'groupAction'],
     attributeName: 'tune',
+    dice: 1
+  },
+  second_story_passages: {
+    name: 'SFTD.CrewFoundation.SecondStoryPassages.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    attributeNames: ['wayfare', 'shadow'],
+    dice: 1
+  },
+  terrain_libraries: {
+    name: 'SFTD.CrewFoundation.TerrainLibraries.Title',
+    rollType: 'engagement',
+    dice: 1
+  },
+  transcendent_pools: {
+    name: 'SFTD.CrewFoundation.TranscendentPools.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    attributeName: 'connect',
+    dice: 1
+  },
+  workshop_long_term_project: {
+    name: 'SFTD.CrewFoundation.Workshop.LongTermProjectTitle',
+    rollType: 'longTermProject',
+    dice: 1
+  },
+  workshop_synthesis: {
+    rollType: 'synthesis',
     dice: 1
   }
 }
@@ -683,6 +762,7 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
         otherChanges[id] = otherChanges[id] ? BladesHelpers.mergeAddObjects(otherChanges[id], [], value) : value;
     if (modifier.convictionCutLoose) extraFields.conviction = true;
     if (modifier.workHardPlayHard) extraFields.workHardPlayHard = true;
+    if (modifier.regenerationManifold) extraFields.regenerationManifold = true;
     if (modifier.harmony) harmonyChanges += modifier.harmony;
     if (modifier.allowHarmonyGain) allowHarmonyGain = true;
   }
@@ -1204,21 +1284,22 @@ async function showChatMessage(attributeOrRollName = '', note = '', extraFields 
   // Check for Recover
   else if (attributeOrRollName == 'SFTD.RecoverRoll') {
     let levelOneHarm = extraFields.actor.system.harm.light.one != '' || extraFields.actor.system.harm.light.two != '';
+    let highHarm = extraFields.actor.system.harm.medium.one != '' || extraFields.actor.system.harm.medium.two != '' ||  extraFields.actor.system.harm.heavy.one != '' || extraFields.actor.system.harm.deadly.one != '';
 
-    // Reduce all Harm by one level
+    // Reduce all Harm by one level or all Harm if using Regeneration Manifold
     let updateObject = {};
     let harmLevels = ['', 'light', 'medium', 'heavy', 'deadly'];
     for (let [harmId, harmLevel] of Object.entries(harmLevels)) {
       if (harmId == 0) continue;
       let sourceHarmId = Number(harmId) + 1;
       let sourceHarmLevel = sourceHarmId >= harmLevels.length ? '' : harmLevels[sourceHarmId];
-      updateObject[`system.harm.${harmLevel}.one`] = sourceHarmLevel != '' ? extraFields.actor.system.harm[sourceHarmLevel].one : '';
+      updateObject[`system.harm.${harmLevel}.one`] = extraFields.regenerationManifold ? '' : sourceHarmLevel != '' ? extraFields.actor.system.harm[sourceHarmLevel].one : '';
       if (harmId <= 2)
-        updateObject[`system.harm.${harmLevel}.two`] = (sourceHarmLevel != '' && sourceHarmId <= 2) ? extraFields.actor.system.harm[sourceHarmLevel].two : '';
+        updateObject[`system.harm.${harmLevel}.two`] = extraFields.regenerationManifold ? '' : (sourceHarmLevel != '' && sourceHarmId <= 2) ? extraFields.actor.system.harm[sourceHarmLevel].two : '';
     }
     await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
 
-    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/recover-get.html', { levelOneHarm: levelOneHarm, note: note, extraFields: extraFields });
+    result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/downtime/recover-get.html', { levelOneHarm: levelOneHarm, highHarm: highHarm, note: note, extraFields: extraFields });
   }
   // Check for Train
   else if (attributeOrRollName == 'SFTD.TrainRoll') {

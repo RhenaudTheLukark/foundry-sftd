@@ -2,7 +2,19 @@
   <div class="chat-label label-stripe-chat">{{localize 'SFTD.RecoverRoll'}}</div>
 
   <div class="description">
-    <p>{{{localize 'SFTD.RollRecover'}}} {{#if levelOneHarm}}{{{localize 'SFTD.RollRecoverLevelOneHarm'}}} {{/if}}{{{localize 'SFTD.RollRecoverResultFull'}}}</p>
+    <p>
+      {{{localize 'SFTD.RollRecover'}}}
+      {{#if extraFields.regenerationManifold}}
+          {{{localize 'SFTD.RollRecoverRegenerationManifold'}}}
+      {{else}}
+        {{#if levelOneHarm}}
+          {{{localize 'SFTD.RollRecoverLevelOneHarm'}}}
+        {{/if}}
+        {{#if highHarm}}
+          {{{localize 'SFTD.RollRecoverResultFull'}}}
+        {{/if}}
+      {{/if}}
+    </p>
   </div>
 
   {{#if extraFields.modifier_text}}

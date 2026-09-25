@@ -88,6 +88,12 @@
     <label>{{{localize 'SFTD.EndMissionPressureViewFromTheTop'}}}</label>
   </div>
   {{/if}}
+  {{#if extraData.certifiedLicensing}}
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureCertifiedLicensing" checked>
+    <label>{{{localize 'SFTD.EndMissionPressureCertifiedLicensing'}}}</label>
+  </div>
+  {{/if}}
 </fieldset>
 
 {{#if (gt extraData.parallelProcessingTicks 0)}}

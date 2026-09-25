@@ -5,11 +5,21 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>This miraculous technology seems to synthesize matter from pure energy. Your first custom asset each mission is free and has <strong>+1 quality</strong>.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 1
+    },
+    "replenish": true,
     "prosperity_level": 4,
     "cache_cost": 6,
     "npc": "null",
     "is_complex": true,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
   "effects": [],
   "folder": null,
@@ -27,7 +37,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780868253157,
-    "modifiedTime": 1784945442626,
+    "modifiedTime": 1790266742462,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!BQI2BDRc1axQK8mW"

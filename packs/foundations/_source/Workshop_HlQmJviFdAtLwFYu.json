@@ -5,13 +5,80 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>3D printers, welding and soldering torches, a forge, high-end computers, arcane texts, ancient runes, and plenty of raw material. Take <strong>+1d</strong> to <strong>synthesis </strong>projects.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 1,
     "cache_cost": 4,
     "npc": "null",
     "is_complex": false,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Workshop Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.HlQmJviFdAtLwFYu",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "x5rPO6Gz90nwcKTB",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.workshop_long_term_project",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.specialist.workshop_long_term_project",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.roll_modifiers.strider.workshop_synthesis",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1790305687473,
+        "modifiedTime": 1790305801694,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!HlQmJviFdAtLwFYu.x5rPO6Gz90nwcKTB"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {

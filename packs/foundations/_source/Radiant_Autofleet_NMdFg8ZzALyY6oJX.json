@@ -5,13 +5,74 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>These drones maintain, repair, and deploy your gear automatically between missions&mdash;just grab it and go. Take <strong>+1d</strong> to the <strong>engagement roll </strong>for <strong>rapid </strong>mission approaches.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 2,
     "cache_cost": 3,
     "npc": "null",
     "is_complex": false,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": []
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Radiant Autofleet Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.foundation.Item.NMdFg8ZzALyY6oJX",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "UMK3p9OeVC08KTWn",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strider.radiant_autofleet",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        },
+        {
+          "key": "system.conditional_roll_modifiers.radiant_autofleet",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1790300217699,
+        "modifiedTime": 1790300255296,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!NMdFg8ZzALyY6oJX.UMK3p9OeVC08KTWn"
+    }
+  ],
   "folder": null,
   "sort": 0,
   "ownership": {
