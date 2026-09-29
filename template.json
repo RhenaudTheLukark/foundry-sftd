@@ -210,7 +210,8 @@
         "analysis": 1,
         "kinesis": 1,
         "semiosis": 1
-      }
+      },
+      "research_assessment_misses": 0
     },
     "crew": {
       "base": "",

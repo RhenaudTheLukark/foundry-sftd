@@ -172,7 +172,7 @@ export class BladesPopup {
             fields[element.dataset.field] = crewmate;
             break;
           case 'select':
-            fields[element.dataset.field] = Array(element.querySelector('select').selectedOptions).length == 1 ? element.querySelector('select').value : Array(element.querySelector('select').selectedOptions);
+            fields[element.dataset.field] = Array.from(element.querySelector('select').selectedOptions).length == 1 ? element.querySelector('select').value : Array.from(element.querySelector('select').selectedOptions);
             break;
           case 'checkbox':
             fields[element.dataset.field] = element.querySelector('input[type="checkbox"]').checked;
@@ -421,18 +421,18 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
-  static neohumanValidation(fields, popupData) {
+  static neohumanValidation(fields, popupData, noPopup, itemFull) {
     if (fields.charmwork && fields.stress == 0)
       return false;
     const popupDataCopy = foundry.utils.deepClone(popupData);
     popupDataCopy.stress = Number(fields.stress);
-    return BladesPopup.simpleStressAbilityValidation(fields, popupDataCopy);
+    return BladesPopup.simpleStressAbilityValidation(fields, popupDataCopy, noPopup, itemFull);
   }
 
-  static async neohumanEffect(fields, popupData) {
+  static async neohumanEffect(fields, popupData, itemFull) {
     const popupDataCopy = foundry.utils.deepClone(popupData);
     popupDataCopy.stress = Number(fields.stress);
-    await BladesPopup.simpleStressAbilityEffect(fields, popupDataCopy);
+    await BladesPopup.simpleStressAbilityEffect(fields, popupDataCopy, itemFull);
   }
 
   static neohumanMessageContents(fields, popupData, itemFull) {

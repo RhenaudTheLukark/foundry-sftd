@@ -815,6 +815,7 @@
     "EndMissionAftermathHighProfileOpTitle": "Aftermath - High-Profile Op: +2 Shells",
     "EndMissionAftermathDangerousMissionTitle": "Aftermath - Dangerous Mission: +3 Shells",
     "EndMissionExpertsTalkLogisticsTitle": "Experts Talk Logistics: +1 Shell",
+    "EndMissionResearchAssessmentTitle": "Research Assessment: +1 Shell & +1 Cache per selected Strider<br/>Unselect the Striders who do not send useful data back to their benefactor",
     "EndMissionUpkeepRoll": "If the mission was successful, take an Upkeep Roll from the employer Faction.<br/>(Must be manually rolled through the Misc. Rolls menu on the Strider sheet).",
     "EndMissionPressureGain": "Pressure Gain",
     "EndMissionPressureCollateralDamage": "Collateral Damage",
@@ -839,6 +840,9 @@
     "EndMissionAftermathHighProfileOp": "Since you took a high-profile job, you have gained <strong>2 Shells</strong>.",
     "EndMissionAftermathDangerousMission": "Since you took a dangerous mission, you have gained <strong>3 Shells</strong>.",
     "EndMissionExpertsTalkLogistics": "Thanks to your expertise, you have gained <strong>1 Shell</strong>.",
+    "EndMissionResearchAssessment": "{sendingNames} sent useful research back to their backers. You have gained <strong>{num} Shell(s)</strong> and <strong>{num} Cache(s)</strong>.",
+    "EndMissionResearchAssessmentNotSending": "{notSending} did not send useful research back to their backers.",
+    "EndMissionResearchAssessmentConsequences": "{striders} did not send useful research back to their backers for several downtime phases. They're going to send someone calling. Be prepared for that.",
     "EndMissionParallelProcessingEffect": "Thanks to some Striders' Parallel Processing, you get <strong>{ticks} ticks</strong> to distribute among any <strong>Long-Term Project</strong> clocks that involve investigation or synthesis.",
     "EndMissionDowntimeStart": "The Mission has ended, Striders may now partake in Downtime Activities.",
 

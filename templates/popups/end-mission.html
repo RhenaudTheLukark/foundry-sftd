@@ -31,6 +31,20 @@
     <label>{{{localize 'SFTD.EndMissionExpertsTalkLogisticsTitle'}}}</label>
   </div>
   {{/if}}
+  {{#if (gt extraData.researchAssessmentStridersCount 0)}}
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="researchAssessment" checked>
+    <div>
+      <label>{{{localize 'SFTD.EndMissionResearchAssessmentTitle'}}}</label>
+      <div class="flex-horizontal actor-contents">
+        <label>{{localize 'TYPES.Actor.strider'}}:</label>
+        <select name="researchAssessmentStriders" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.researchAssessmentStridersCount}}" multiple>
+          {{{extraData.researchAssessmentStriders}}}
+        </select>
+      </div>
+    </div>
+  </div>
+  {{/if}}
 </fieldset>
 
 <div class="category-collapse">{{localize 'SFTD.EndMissionPressureGain'}} ({{localize 'SFTD.EndMissionClickHereToExpand'}})</div>

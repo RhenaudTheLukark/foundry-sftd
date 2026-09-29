@@ -443,9 +443,8 @@ export class BladesCrewSheet extends BladesSheet {
 
         let cutLooseScarMembersWithCharmwork = {};
         if (dialog.element.querySelector('[name="cutLooseScar"]').checked && dialog.element.querySelector('[name="cutLooseScarStriders"]')) {
-          let selectedOptions = dialog.element.querySelector('[name="cutLooseScarStriders"]').selectedOptions;
           let cutLooseScarMessage = '';
-          for (let selectedOption of selectedOptions) {
+          for (let selectedOption of dialog.element.querySelector('[name="cutLooseScarStriders"]').selectedOptions) {
             let memberFull = BladesHelpers.resolveActor(selectedOption.value);
             let scars = Object.values(memberFull.system.scars.values).filter(s => s != '').length
             let oldStress = Number(memberFull.system.stress.value);
@@ -523,6 +522,8 @@ export class BladesCrewSheet extends BladesSheet {
     extraData.certifiedLicensing = this.actor.system.certified_licensing;
     extraData.expertsTalkLogistics = this.actor.system.experts_talk_logistics;
     extraData.parallelProcessingTicks = fullActorData.system.parallel_processing_ticks ?? 0;
+    extraData.researchAssessmentStriders = Object.values(this.actor.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider' && m.system.research_assessment).map(m => `<option value="${m.uuid}" selected>${m.name}</option>`);
+    extraData.researchAssessmentStridersCount = extraData.researchAssessmentStriders.length;
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.EndMission')}` },
@@ -562,20 +563,58 @@ export class BladesCrewSheet extends BladesSheet {
           expertsTalkLogistics: {
             value: 1,
             key: 'ExpertsTalkLogistics'
-          }
+          },
+          researchAssessment: {
+            value: 1,
+            key: 'ResearchAssessment'
+          },
         }
 
-        for (let [id, shellGenerator] of Object.entries(shellGeneratorList))
-          if (dialog.element.querySelector(`[name="${id}"]`)?.checked) {
-            let message = `<div class="description"><p>${game.i18n.localize(`SFTD.EndMission${shellGenerator.key}`)}`;
-            let newShells = Math.min(this.actor.system.shells.value + shellGenerator.value, this.actor.system.shells.max);
-            let overShells = this.actor.system.shells.value + shellGenerator.value - newShells;
-            if (newShells)
-              await BladesHelpers.tryUpdate(this.actor, {'system.shells.==value': newShells});
-            if (overShells)
-              message += ` ${game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: overShells})}`;
+        for (let [id, shellGenerator] of Object.entries(shellGeneratorList)) {
+          let element = dialog.element.querySelector(`[name="${id}"]`);
+          if (element?.checked) {
+            let researchAssessmentArgs = id == 'researchAssessment' ? {
+              sending: Array.from(element.nextElementSibling.querySelector(`select`).selectedOptions).map(o => BladesHelpers.resolveActor(o.value)),
+              notSending: Array.from(element.nextElementSibling.querySelector(`select`).options).filter(o => !Array.from(element.nextElementSibling.querySelector(`select`).selectedOptions).includes(o)).map(o => BladesHelpers.resolveActor(o.value))
+            } : {};
+            if (id == 'researchAssessment') {
+              shellGenerator.value = researchAssessmentArgs.sending.length;
+              researchAssessmentArgs.num = researchAssessmentArgs.sending.length;
+              researchAssessmentArgs.sendingNames = researchAssessmentArgs.sending.map(m => m.name).join(', ');
+            }
+            let message = '<div class="description"><p>';
+            let anyText = false;
+            if (id != 'researchAssessment' || researchAssessmentArgs.sending?.length) {
+              message = `<div class="description"><p>${game.i18n.format(`SFTD.EndMission${shellGenerator.key}`, researchAssessmentArgs)}`;
+              anyText = true;
+              let newShells = Math.min(this.actor.system.shells.value + shellGenerator.value, this.actor.system.shells.max);
+              let overShells = this.actor.system.shells.value + shellGenerator.value - newShells;
+              if (newShells)
+                await BladesHelpers.tryUpdate(this.actor, {'system.shells.==value': newShells});
+              if (overShells)
+                message += ` ${game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: overShells})}`;
+            }
+
+            if (id == 'researchAssessment') {
+              if (researchAssessmentArgs.sending.length > 0)
+                await BladesHelpers.tryUpdate(this.actor, {'system.cache.==value': Math.min(this.actor.system.cache.value + researchAssessmentArgs.sending.length, 4*12)});
+              for (let senderFull of researchAssessmentArgs.sending)
+                if (senderFull.system.research_assessment_misses != 0)
+                  await BladesHelpers.tryUpdate(senderFull, {'system.==research_assessment_misses': 0});
+              if (researchAssessmentArgs.notSending.length > 0)
+                message += `${anyText ? '<br/>' : ''}${game.i18n.format('SFTD.EndMissionResearchAssessmentNotSending', {notSending: researchAssessmentArgs.notSending.map(m => m.name).join(', ')})}`;
+              for (let notSenderFull of researchAssessmentArgs.notSending) {
+                let consequencesList = [];
+                await BladesHelpers.tryUpdate(notSenderFull, {'system.==research_assessment_misses': 1 - notSenderFull.system.research_assessment_misses});
+                if (notSenderFull.system.research_assessment_misses == 0)
+                  consequencesList.push(notSenderFull.name);
+                if (consequencesList.length > 0)
+                  message += `<br/>${game.i18n.format('SFTD.EndMissionResearchAssessmentConsequences', {striders: consequencesList.join(', ')})}`;
+              }
+            }
             messageContents += message + '</p></div>';
           }
+        }
 
         // Pressure Changes
         let pressureChange = 0;
