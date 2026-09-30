@@ -312,6 +312,7 @@
     "Use": "Use",
     "Uses": "No. of Uses",
     "UsesShort": "Uses",
+    "ItemType": "Item Type",
     "NumberAvailable": "Number Available",
     "AdditionalInfo": "Additional Information",
     "IsContainer": "Is Container?",
@@ -326,6 +327,12 @@
     "ReplenishOnMissionStart": "Replenish On Mission Start?",
     "IsStartingAbility": "Is Starting Ability?",
     "IsCharm": "Is Charm?",
+    "ItemTypes":  {
+      "Kit": "Kit",
+      "Pack": "Pack",
+      "Tool": "Tool",
+      "Weapon": "Weapon"
+    },
 
     "Position": "Position",
     "ForcePosition": "Force? <i class=\"fas fa-question-circle\" data-tooltip=\"Enable this to force the roll's position to be as selected without taking in account effects from abilities, upgrades and items.\"></i>",
@@ -726,6 +733,8 @@
     "LevelOneHarm": "<span style=\"color:#ffc0c0\">Level One Harm: {harm} <i class=\"fas fa-question-circle\" data-tooltip=\"Only enable this if this Harm impairs your ability to perform this action.\"></i></span>",
     "LevelTwoHarm": "<span style=\"color:#ffc0c0\">Level Two Harm: {harm} <i class=\"fas fa-question-circle\" data-tooltip=\"Only enable this if this Harm impairs your ability to perform this action.\"></i></span>",
     "LevelThreeHarm": "<span style=\"color:#ffc0c0\">Level Three Harm: {harm} <i class=\"fas fa-question-circle\" data-tooltip=\"Only enable this if this Harm impairs your ability to perform this action.\"></i></span>",
+    "ItemQualityModifierTitle": "Using an Item with Higher Quality?",
+    "ItemQualityModifier": "You used {item}, which is an item of quality {num}. Your Impact increased by {num}.",
     "LotusBargainTitle": "Lotus Bargain",
     "LotusBargainEffect": "You took a Lotus Bargain. Its consequences are unavoidable, nor can they be reduced or negated with a resistance roll or armor.",
     "Cost": "Cost",
@@ -1212,6 +1221,12 @@
       },
       "Workshop": {
         "LongTermProjectTitle": "Workshop: Working on a Synthesis Project?"
+      },
+      "WormholeGate": {
+        "Message": {
+          "Title": "Wormhole Gate",
+          "Description": "You spent <strong>3 Shells</strong> in fuel to open a wormhole to a given location. It can stay open for a few hours at most."
+        }
       }
     },
     "Neohuman": {
@@ -1301,6 +1316,7 @@
       "warn": {
         "NoMelodyOptions": "You currently have no way to utilize your Melody! Right click the checkbox if you want to manually disable your Melody.",
         "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
+        "WormholeGateNotEnoughShells": "Wormhole Gate: You do not have enough Shells to use this ability!",
         "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
         "GenericPopupNoUses": "{name}: You cannot use this ability anymore!",
         "GenericPopupNoMelody": "{name}: Your Melody has already been spent!",

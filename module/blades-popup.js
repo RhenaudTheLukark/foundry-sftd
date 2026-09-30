@@ -312,6 +312,9 @@ export class BladesPopup {
   /* ----------------------------------------- */
 
   static simpleHarmonyValidation(fields, popupData, noPopup) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData))
+      return false;
+
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
     if (crewFull.system.harmony.value == 0 && noPopup)
@@ -521,6 +524,25 @@ export class BladesPopup {
   static rescueWarpPostMessage(popupData) {
     if (popupData.fields.charmwork)
       delete popupData.fields.charmwork;
+  }
+
+  /* ----------------------------------------- */
+
+  static wormholeGateValidation(fields, popupData, noPopup, itemFull) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData))
+      return false;
+
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    if (crewFull.system.shells.value <= 3 && noPopup)
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.WormholeGateNotEnoughShells'));
+    return crewFull.system.shells.value >= 3;
+  }
+
+  static async wormholeGateEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    await BladesHelpers.tryUpdate(crewFull, {'system.shells.==value': crewFull.system.shells.value - 3});
   }
 }
 
@@ -806,6 +828,15 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.CrewFoundation.OracleMechanism.Message.Title',
       description: 'SFTD.CrewFoundation.OracleMechanism.Message.Description',
+    }
+  },
+  wormhole_gate: {
+    title: 'SFTD.CrewFoundation.WormholeGate.Message.Title',
+    validation: BladesPopup.wormholeGateValidation,
+    effect: BladesPopup.wormholeGateEffect,
+    message: {
+      title: 'SFTD.CrewFoundation.WormholeGate.Message.Title',
+      description: 'SFTD.CrewFoundation.WormholeGate.Message.Description',
     }
   }
 }

@@ -69,11 +69,11 @@ export class BladesItemSheet extends BaseItemSheet {
 
     html.find('.add-quality').click(async (e) => {
       await this.object.update({'system.==quality_modifier': this.object.system.quality_modifier + 1});
-      await this.object.updateSpecialistQuality();
+      await this.object.updateItemQuality();
     });
     html.find('.remove-quality').click(async (e) => {
       await this.object.update({'system.==quality_modifier': this.object.system.quality_modifier - 1});
-      await this.object.updateSpecialistQuality();
+      await this.object.updateItemQuality();
     });
 
     html.find('.add-armor').click(async (e) => {

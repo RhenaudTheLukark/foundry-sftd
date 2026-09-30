@@ -27,13 +27,14 @@ export class BladesItem extends Item {
   async _onCreate(data, options, userId) {
     await super._onCreate(data, options, userId);
 
-    if (this.type == 'specialist')
-      this.updateSpecialistQuality();
+    if (this.system.quality != undefined)
+      await this.updateItemQuality();
   }
 
-  async updateSpecialistQuality(forcedTier) {
-    let quality = this.computeSpecialistQuality(forcedTier);
-    await BladesHelpers.tryUpdate(this, {'system.==quality': quality});
+  async updateItemQuality(forcedTier) {
+    let quality = this.computeItemQuality(forcedTier);
+    if (quality != this.system.quality)
+      await BladesHelpers.tryUpdate(this, {'system.==quality': quality});
   }
 
   async _preUpdate(changed, options, user) {
@@ -78,13 +79,19 @@ export class BladesItem extends Item {
     }
   }
 
-  computeSpecialistQuality(forcedTier) {
+  computeItemQuality(forcedTier) {
     let quality = 0;
 
     // Adds Scale and Quality
     if (this.actor?.system) {
-      let isHooked = this.actor.overrides?.system?.hooked || this.actor.system.hooked;
-      quality = parseInt(forcedTier ?? this.actor.getTier()) + (isHooked ? 1 : 0) + this.system.quality_modifier;
+      quality = this.system.quality_modifier;
+      if (this.type == 'specialist') {
+        let isHooked = this.actor.overrides?.system?.hooked || this.actor.system.hooked;
+        quality += parseInt(forcedTier ?? this.actor?.getTier() ?? 0) + (isHooked ? 1 : 0);
+      } else if (this.type == 'item') {
+        const crewFull = BladesHelpers.resolveActor(this.actor?.system.crew);
+        quality += (crewFull?.system.item_quality_modifier[this.system.type] ?? 0);
+      }
     }
 
     return quality;

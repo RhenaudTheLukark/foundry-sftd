@@ -5,11 +5,22 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>It can take you anywhere you can dream, as long as you have the right coordinates. Try not to open a wormhole into thin air. The gate consumes <strong>3 shells</strong> in fuel to open a wormhole to a given location, and can stay open for a few hours at most.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 4,
     "cache_cost": 6,
     "npc": "null",
     "is_complex": true,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": [],
+    "popup": "wormhole_gate"
   },
   "effects": [],
   "folder": null,
@@ -27,7 +38,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780868395856,
-    "modifiedTime": 1784946967078,
+    "modifiedTime": 1790805143953,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!o1TdNmPbhbxtmy1J"

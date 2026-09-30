@@ -414,6 +414,16 @@ export class BladesHelpers {
       await BladesHelpers.tryCreate([data], actorFull);
     }
 
+    // Item Quality Modification: Update item qualities
+    const itemQualityChangingEffects = itemFull.effects?.contents.filter(e => e.changes.filter(c => c.key.startsWith('system.item_quality_modifier.')).length);
+    if (itemQualityChangingEffects?.length) {
+      const crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
+      if (crewFull)
+        for (let memberFull of Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider'))
+          for (let itemFull of memberFull.items.filter(i => i.type == 'item'))
+            await itemFull.updateItemQuality(0);
+    }
+
     // Crew-wide modifiers: Update the crew's values
     if (actorFull?.type == 'strider')
       if (itemFull.effects.contents.filter(e => e.changes.filter(c => c.value == 'true' && c.mode == 5 && Object.keys(BladesHelpers.crewWideModifiers).includes(c.key.split('.').reverse()[0])).length).length)
@@ -443,11 +453,22 @@ export class BladesHelpers {
 
   static async postDeleteItem(itemCopy, realDelete = true) {
     const actorFull = itemCopy.actor;
+
     // Armor: Auto-fill
     const armorChangingEffects = itemCopy.effects?.contents.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
     if (armorChangingEffects?.length) {
       const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
       BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.max(actorFull.system.armor.value - value, 0)})
+    }
+
+    // Item Quality Modification: Update item qualities
+    const itemQualityChangingEffects = itemCopy.effects?.contents.filter(e => e.changes.filter(c => c.key.startsWith('system.item_quality_modifier.')).length);
+    if (itemQualityChangingEffects?.length) {
+      const crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
+      if (crewFull)
+        for (let memberFull of Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider'))
+          for (let itemFull of memberFull.items.filter(i => i.type == 'item'))
+            await itemFull.updateItemQuality(0);
     }
 
     // Crew-wide modifiers: Update the crew's values

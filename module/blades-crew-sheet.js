@@ -125,7 +125,7 @@ export class BladesCrewSheet extends BladesSheet {
       return;
     let newTier = this.actor.getTier(value);
     for (let specialist of this.actor.items.filter(i => i.type == 'specialist'))
-      await specialist.updateSpecialistQuality(newTier);
+      await specialist.updateItemQuality(newTier);
   }
 
   investedCacheClick(ev) {

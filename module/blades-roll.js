@@ -28,6 +28,24 @@ export const bladesRollModifierList = {
     rollTypes: ['actionRoll', 'groupAction'],
     dice: -1
   },
+  item_quality: {
+    name: 'SFTD.ItemQualityModifierTitle',
+    rollTypes: ['actionRoll', 'groupAction'],
+    fields: {
+      'TYPES.Item.item': {}
+    },
+    resolveFunc: (fields, extraData) => {
+      const itemFull = BladesHelpers.resolveActor(`${extraData.actorFull.uuid}.Item.${fields['TYPES.Item.item']}`);
+      return {
+        impact: itemFull.system.quality,
+        rollText: 'SFTD.ItemQualityModifier',
+        rollTextArgs: {
+          item: itemFull.name,
+          num: itemFull.system.quality
+        }
+      };
+    }
+  },
   lotus_bargain: {
     name: 'SFTD.LotusBargainTitle',
     notRollTypes: ['moveCity', 'recover', 'train'],
@@ -2230,6 +2248,15 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
         result.nameArgs.harm = harm[1];
         output.push(result);
       }
+    }
+
+    // Item Quality Modifier
+    let itemsWithHigherQuality = actorFull?.items.filter(i => i.system.quality > 0);
+    if (itemsWithHigherQuality?.length) {
+      let result = foundry.utils.deepClone(bladesRollModifierList['item_quality']);
+      result.key = 'item_quality';
+      result.fields['TYPES.Item.item'] = Object.fromEntries(itemsWithHigherQuality.map(i => [i.id, i.name]));
+      output.push(result);
     }
   }
 

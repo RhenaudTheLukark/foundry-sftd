@@ -273,6 +273,12 @@
         "strider": {},
         "specialist": {}
       },
+      "item_quality_modifier": {
+        "kit": 0,
+        "pack": 0,
+        "tool": 0,
+        "weapon": 0
+      },
       "group_action": null,
       "cut_loose": null,
       "phase": "downtime",
@@ -368,10 +374,12 @@
     "item": {
       "templates": ["default", "usable", "logic", "container"],
       "class": "",
+      "type": "other",
       "load": 0,
+      "quality": 0,
+      "quality_modifier": 0,
       "extra_description": "",
-      "additional_info": "",
-      "type": "other"
+      "additional_info": ""
     },
     "class": {
       "templates": ["default", "logic", "activatedEffect"],

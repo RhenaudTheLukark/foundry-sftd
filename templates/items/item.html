@@ -1,8 +1,22 @@
 <form class='{{cssClass}}' autocomplete='off'>
   <header class='sheet-header'>
     <img src='{{img}}' data-edit='img' data-tooltip='{{name}}'/>
-    <div class='header-fields'>
+    <div class='header-fields flex-horizontal'>
       <h1 class='charname'><input name='name' type='text' value='{{name}}' placeholder='{{localize 'SFTD.Name'}}'/></h1>
+      <div>
+        <table class="quality-container">
+          <thead>
+            <th colspan="3"><div class="label-stripe flex-horizontal">{{localize 'SFTD.Stats'}}</div></th>
+          </thead>
+          <tbody>
+            <tr>
+              <td><div class="quality">{{localize 'SFTD.Quality'}}: {{system.quality}} ({{system.quality_modifier}})</div></td>
+              <td><a class="add-quality"><i class="fas fa-plus-square"></i></a></div></td>
+              <td><a class="remove-quality"><i class="fas fa-minus-square"></i></a></div></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </header>
 
@@ -16,11 +30,21 @@
       {{{system.description}}}
     {{/if}}
     <div class='flex-horizontal'>
-      <div class='two-line'>
+      <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.Load'}}</label>
         <input type='number' name='system.load' onkeypress='return BladesHelpers.isNumberKey(event)' data-dType='Number' value='{{system.load}}'>
       </div>
-      <div class='two-line'>
+      <div class='three-line'>
+        <label class='label-stripe'>{{localize 'SFTD.ItemType'}}</label>
+        <select name='system.type'>
+          <option value="other" {{#if (or (eq system.type 'other') (not system.type))}} selected{{/if}}>{{localize 'SFTD.Other'}}</option>
+          <option value="kit" {{#if (eq system.type 'kit')}} selected{{/if}}>{{localize 'SFTD.ItemTypes.Kit'}}</option>
+          <option value="pack" {{#if (eq system.type 'pack')}} selected{{/if}}>{{localize 'SFTD.ItemTypes.Pack'}}</option>
+          <option value="tool" {{#if (eq system.type 'tool')}} selected{{/if}}>{{localize 'SFTD.ItemTypes.Tool'}}</option>
+          <option value="weapon" {{#if (eq system.type 'weapon')}} selected{{/if}}>{{localize 'SFTD.ItemTypes.Weapon'}}</option>
+        </select>
+      </div>
+      <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.Class'}}</label>
         <input type='text' name='system.class' value='{{system.class}}'>
       </div>
