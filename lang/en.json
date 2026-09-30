@@ -1180,6 +1180,12 @@
         "ActionTitle": "Observatory: Observing Celestial Phenomena?",
         "TraceTitle": "Observatory: On-site?"
       },
+      "OracleMechanism": {
+        "Message": {
+          "Title": "Oracle Mechanism",
+          "Description": "You spent <strong>1 Harmony</strong> to ask this machine any question connected to a transcendent phenomenon. It will answer as though you had rolled a <strong>6</strong> to <strong>collect info</strong>."
+        }
+      },
       "RadiantArchive": {
         "Title": "Radiant Archive: On-site & Archive Could Help your Research or Construction Project."
       },
@@ -1298,6 +1304,7 @@
         "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
         "GenericPopupNoUses": "{name}: You cannot use this ability anymore!",
         "GenericPopupNoMelody": "{name}: Your Melody has already been spent!",
+        "GenericPopupNoHarmony": "{name}: You are lacking Harmony to use this ability!",
         "GenericPopupNoCrew": "{name}: You must be in a Crew to use this ability!",
         "GenericPopupNoValidCrewmate": "{name}: There is no Strider eligible to be targeted by this ability!",
         "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",

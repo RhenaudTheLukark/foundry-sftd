@@ -311,6 +311,22 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
+  static simpleHarmonyValidation(fields, popupData, noPopup) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    if (crewFull.system.harmony.value == 0 && noPopup)
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoHarmony', { name: game.i18n.localize(popupData.title) }));
+    return crewFull.system.harmony.value > 0;
+  }
+
+  static async simpleHarmonyEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1});
+  }
+
+  /* ----------------------------------------- */
+
   static alloyedMettlePostContent(fields) {
     if (!fields.crewmate)
       return '';
@@ -782,5 +798,14 @@ export const bladesPopupData = {
       contents: BladesPopup.rescueWarpMessageContents
     },
     post_message: BladesPopup.rescueWarpPostMessage
+  },
+  oracle_mechanism: {
+    title: 'SFTD.CrewFoundation.OracleMechanism.Message.Title',
+    validation: BladesPopup.simpleHarmonyValidation,
+    effect: BladesPopup.simpleHarmonyEffect,
+    message: {
+      title: 'SFTD.CrewFoundation.OracleMechanism.Message.Title',
+      description: 'SFTD.CrewFoundation.OracleMechanism.Message.Description',
+    }
   }
 }

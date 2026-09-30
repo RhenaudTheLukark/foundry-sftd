@@ -20,6 +20,17 @@
       <label>{{localize 'SFTD.None'}}</label>
       {{/if}}
     </div>
+    {{#if item.system.popup}}
+    <div class="generic-popup flex-vertical">
+      <button data-popup-id="{{item.system.popup}}">
+        {{#if item.system.popup_text}}
+          {{localize item.system.popup_text}}
+        {{else}}
+          {{localize 'SFTD.Use'}}
+        {{/if}}
+      </button>
+    </div>
+    {{/if}}
     {{#if (gteq item.system.uses.max 1)}}
     <div class="supply-container flex-vertical">
       <label><b>{{localize 'SFTD.UsesShort'}}</b></label>

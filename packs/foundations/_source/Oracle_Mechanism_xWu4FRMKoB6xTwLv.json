@@ -5,11 +5,22 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>You can spend <strong>harmony </strong>to ask this machine any question connected to a transcendent phenomenon. It will answer as thought you had rolled a <strong>6</strong> to <strong>collect info</strong>.</p>",
+    "class": "",
+    "price": 1,
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "prosperity_level": 4,
     "cache_cost": 6,
     "npc": "null",
     "is_complex": true,
-    "is_upgrade": false
+    "is_upgrade": false,
+    "is_weather_damaged": false,
+    "is_under_disaster": false,
+    "excluded_pilots": [],
+    "popup": "oracle_mechanism"
   },
   "effects": [],
   "folder": null,
@@ -27,7 +38,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780868316755,
-    "modifiedTime": 1784946448195,
+    "modifiedTime": 1790797402170,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!xWu4FRMKoB6xTwLv"

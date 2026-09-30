@@ -30,13 +30,17 @@
       </div>
     </div>
     <div class='flex-horizontal'>
-      <div class='two-line'>
+      <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.IsComplex'}}</label>
         <input type='checkbox' name='system.is_complex' data-dType='Boolean' {{checked system.is_complex}}>
       </div>
-      <div class='two-line'>
+      <div class='three-line'>
         <label class='label-stripe'>{{localize 'SFTD.IsUpgrade'}}</label>
         <input type='checkbox' name='system.is_upgrade' data-dType='Boolean' {{checked system.is_upgrade}}>
+      </div>
+      <div class='three-line'>
+        <label class="label-stripe">{{localize "SFTD.PopupID"}}</label>
+        <input type="text" name="system.popup" value="{{system.popup}}" placeholder="{{localize 'SFTD.PopupID'}}">
       </div>
     </div>
     <div class='flex-horizontal'>
