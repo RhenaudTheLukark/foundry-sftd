@@ -265,8 +265,8 @@ export class BladesCrewSheet extends BladesSheet {
 
   async onFoundationAddClick(event) {
     event.preventDefault();
-    let displayFoundation = function(item, availableCaches, dialogId, isFree) {
-      const cacheCost = (isFree ? 0 : item.system.cache_cost);
+    let displayFoundation = function(item, availableCaches, dialogId, isFree, isTradingFavors) {
+      const cacheCost = isFree ? 0 : (isTradingFavors ? Math.floor(item.system.cache_cost / 2) : item.system.cache_cost);
       const isTooExpensive = availableCaches < cacheCost;
       let html = `<input id="${dialogId}-select-item-${item._id}" name="select_items" type="checkbox" data-cache-cost="${cacheCost}" value="${item._id}"${isTooExpensive ? ' disabled' : ''}>`;
       html += `<label class="entry${isTooExpensive ? ' too-expensive' : ''}" for="${dialogId}-select-item-${item._id}" data-cache-cost="${cacheCost}">`;
@@ -274,12 +274,12 @@ export class BladesCrewSheet extends BladesSheet {
       html += `</label>`;
       return html;
     }
-    let displayProsperity = function(level, items, availableCaches, dialogId, isFree) {
+    let displayProsperity = function(level, items, availableCaches, dialogId, isFree, isTradingFavors) {
       const prosperityTitle = level != 0 ? `${game.i18n.localize('SFTD.ProsperityLevel')} ${level}` : game.i18n.localize('SFTD.StartingFoundations');
       let html = `<div class="prosperity-container flex-vertical" data-prosperity="${level}">`;
       html += `<label class="prosperity-title">${prosperityTitle}</label>`;
       for (const item of Object.values(items.filter(i => i.system.prosperity_level == level)))
-        html += displayFoundation(item, availableCaches, dialogId, isFree);
+        html += displayFoundation(item, availableCaches, dialogId, isFree, isTradingFavors);
       html += '</div>';
       return html;
     }
@@ -300,12 +300,14 @@ export class BladesCrewSheet extends BladesSheet {
     let html = `<label class="available-caches" data-caches="${availableCaches}">${game.i18n.localize('SFTD.AvailableCaches')}: ${availableCaches}<span></span></label>`;
     html += `<input id="${dialogId}-search-bar" type="text" data-cache-cost="${availableCaches}" value="" placeholder="${game.i18n.format('SFTD.SearchBar', { obj: game.i18n.localize(`TYPES.Item.foundation`) })}" autofocus>`;
     html += `<div class="free-toggle flex-horizontal"><label>${game.i18n.localize('SFTD.IsFree')}</label><input type="checkbox"></div>`;
+    if (this.actor.system.trading_favors)
+      html += `<div class="trading-favors-toggle flex-horizontal"><label>${game.i18n.localize('SFTD.UsingTradingFavors')}</label><input type="checkbox"></div>`;
     html += `<div class="objects-to-add flex-vertical">`;
     for (const prosperityLevel of Object.keys(prosperityOccurrences)) {
       if (prosperityLevel == 0) continue;
-      html += displayProsperity(prosperityLevel, items, availableCaches, dialogId, false);
+      html += displayProsperity(prosperityLevel, items, availableCaches, dialogId, false, false);
     }
-    html += displayProsperity(0, items, availableCaches, dialogId, false);
+    html += displayProsperity(0, items, availableCaches, dialogId, false, false);
     html += `</div>`;
 
     let dialog = new foundry.applications.api.DialogV2({
@@ -334,18 +336,44 @@ export class BladesCrewSheet extends BladesSheet {
         if (result == 'cancel')
           return;
         const itemsToAddElements = dialog.element.querySelector('.objects-to-add');
-        if (result == 'add')
-          await this.addItemsToSheetFromDialog('foundation', itemsToAddElements, null, true, null, dialog.isFoundationFree ? {system: {cache_cost: 0}} : null);
-        if (result == 'addAsProject') {
+        if (result == 'add' || result == 'addAsProject') {
           let items = await BladesHelpers.getAllObjectDocumentsByType('foundation', [], game);
           let itemsToAdd = [];
+          let costs = [];
           Array.from(itemsToAddElements.querySelectorAll('input:checked')).forEach(function(v) {
             let item = items.find(e => e._id === v.value);
-            if (item)
+            if (item) {
               itemsToAdd.push(item);
+              costs.push(v.dataset.cacheCost);
+            }
           });
-          for (let itemToAdd of itemsToAdd)
-            await BladesHelpers.addProject(dialog.actor, itemToAdd, dialog.isFoundationFree);
+          for (let id in itemsToAdd) {
+            let itemToAdd = itemsToAdd[id];
+            let cost = costs[id];
+            if (result == 'addAsProject')
+              await BladesHelpers.addProject(dialog.actor, itemToAdd, Number(cost));
+            else
+              await this.addItemsToSheet([itemToAdd], null, true, null, dialog.isFoundationFree || dialog.isTradingFavors ? {'system.==cache_cost': Number(cost)} : null);
+            if (dialog.isTradingFavors && !dialog.isFoundationFree) {
+              const factionSelectorElement = dialog.element.querySelector('.trading-favors-faction-choice select');
+              const factionFull = BladesHelpers.resolveActor(factionSelectorElement.value);
+              const contents = game.i18n.format(`SFTD.CrewAbility.TradingFavors.Description${factionFull ? 'Faction' : ''}`, {foundation: itemsToAdd[0].name, faction: factionFull?.name});
+              if (factionFull)
+                await BladesHelpers.handleRelationshipValue(dialog.actor, factionFull, 'status', -1);
+
+              let speaker = {
+                actor: this.actor._id,
+                alias: this.actor.name,
+                scene: null,
+                token: this.actor.prototypeToken._id
+              };
+              let messageData = {
+                speaker: speaker,
+                content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/generic-message.html', { extraFields: {title: game.i18n.localize('SFTD.CrewAbility.TradingFavors.Title'), contents: contents} })
+              }
+              await SFTDChatMessage.create(messageData);
+            }
+          }
         }
       }
     });
@@ -362,14 +390,14 @@ export class BladesCrewSheet extends BladesSheet {
         element.addEventListener('click', async (ev) => {
           const element = ev.currentTarget;
           const objectsToAddElement = element.closest('.objects-to-add');
-          const objectsAdded = objectsToAddElement.querySelectorAll('input:checked'); 
-          let availableCaches = Number(objectsToAddElement.parentElement.querySelector('.available-caches').dataset.caches);
+          const objectsAdded = objectsToAddElement.querySelectorAll('input:checked');
+          var availableCaches = Number(objectsToAddElement.parentElement.querySelector('.available-caches').dataset.caches);
           const originalAvailableCaches = availableCaches;
           for (const objectAdded of objectsAdded)
             availableCaches -= Number(objectAdded.dataset.cacheCost);
 
-          let needCacheDisplay = originalAvailableCaches != availableCaches;
-          let availableCachesSpanElement = objectsToAddElement.parentElement.querySelector('.available-caches span');
+          const needCacheDisplay = originalAvailableCaches != availableCaches;
+          const availableCachesSpanElement = objectsToAddElement.parentElement.querySelector('.available-caches span');
           availableCachesSpanElement.innerHTML = needCacheDisplay ? ` => ${availableCaches}` : '';
 
           for (const input of objectsToAddElement.querySelectorAll('input')) {
@@ -391,11 +419,44 @@ export class BladesCrewSheet extends BladesSheet {
         const element = ev.currentTarget;
         dialog.isFoundationFree = element.checked;
         const dialogContentElement = element.closest('.dialog-content');
+        const tradingFavorsElement = dialogContentElement.querySelector('.trading-favors-toggle input');
         for (const prosperityContainerElement of dialogContentElement.querySelectorAll('.prosperity-container'))
-          prosperityContainerElement.outerHTML = displayProsperity(Number(prosperityContainerElement.dataset.prosperity), items, availableCaches, dialogId, element.checked);
+          prosperityContainerElement.outerHTML = displayProsperity(Number(prosperityContainerElement.dataset.prosperity), items, availableCaches, dialogId, element.checked, tradingFavorsElement.checked);
         addObjectToAddEvents(dialog);
-        let availableCachesSpanElement = dialogContentElement.querySelector('.available-caches span');
+        const availableCachesSpanElement = dialogContentElement.querySelector('.available-caches span');
         availableCachesSpanElement.innerHTML = '';
+        const searchBarElement = dialogContentElement.querySelector('input[type=text]');
+        const event = new Event('input');
+        searchBarElement.dispatchEvent(event);
+      });
+    }
+
+    for (const element of dialog.element.querySelectorAll('.trading-favors-toggle input')) {
+      element.addEventListener('click', async (ev) => {
+        const element = ev.currentTarget;
+        dialog.isTradingFavors = element.checked;
+        const dialogContentElement = element.closest('.dialog-content');
+        const freeElement = dialogContentElement.querySelector('.free-toggle input');
+        if (dialog.isTradingFavors) {
+          const factionChoiceElement = document.createElement('div');
+          element.parentElement.after(factionChoiceElement);
+          factionChoiceElement.outerHTML = `
+            <div class="trading-favors-faction-choice">
+              <label>${game.i18n.localize('TYPES.Actor.faction')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.TradingFavorsFactionDragDropInfo')}"></i></a>:</label>
+              <select id="tfFaction"><option value="null" selected>${game.i18n.localize('SFTD.Other')}</option>${Object.values(dialog.actor.system.relationships).filter(r => r.status > 0 && BladesHelpers.resolveActor(r.uuid) != null).map(r => `<option value="${r.uuid}">${BladesHelpers.resolveActor(r.uuid).name}</option>`)}</div>
+            </div>`;
+        } else {
+          const factionChoiceElement = dialogContentElement.querySelector('.trading-favors-faction-choice');
+          dialogContentElement.removeChild(factionChoiceElement);
+        }
+        for (const prosperityContainerElement of dialogContentElement.querySelectorAll('.prosperity-container'))
+          prosperityContainerElement.outerHTML = displayProsperity(Number(prosperityContainerElement.dataset.prosperity), items, availableCaches, dialogId, freeElement.checked, element.checked);
+        addObjectToAddEvents(dialog);
+        const availableCachesSpanElement = dialogContentElement.querySelector('.available-caches span');
+        availableCachesSpanElement.innerHTML = '';
+        const searchBarElement = dialogContentElement.querySelector('input[type=text]');
+        const event = new Event('input');
+        searchBarElement.dispatchEvent(event);
       });
     }
 

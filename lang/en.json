@@ -159,6 +159,7 @@
     "AvailableCaches": "Available Caches",
     "StartingFoundations": "Starting Foundations",
     "IsFree": "Is Free?",
+    "UsingTradingFavors": "Using Trading Favors?",
 
     "EdgeList": {
       "Independent": {
@@ -1145,6 +1146,11 @@
       "Locals": {
         "ActionTitle": "Locals: Passing Yourself Off as an Ordinary Citizen?",
         "CollectInfoTitle": "Locals: Collecting Info about Ordinary Citizens?"
+      },
+      "TradingFavors": {
+        "Title": "Trading Favors",
+        "Description": "Thanks to your relationship with a faction with which you have a position relationship with, the cost of the Foundation \"{foundation}\" has been halved. You must lose <strong>one Status level</strong> with said faction.",
+        "DescriptionFaction": "Thanks to your positive relationship with {faction}, the cost of the Foundation \"{foundation}\" has been halved. You lost <strong>one Status level</strong> with {faction}."
       },
       "ViewFromTheTop": {
         "ActionTitle": "View From the Top: Passing Yourself Off as a Member of a Region's Elite?",

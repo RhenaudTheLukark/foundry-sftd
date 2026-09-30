@@ -861,7 +861,7 @@ export class BladesHelpers {
 
   /* -------------------------------------------- */
 
-  static async addProject(actorFull, linkedFoundation, makeFoundationFree) {
+  static async addProject(actorFull, linkedFoundation, cost = -1) {
     let projects = actorFull.system.projects;
     projects[Object.keys(projects).length] = {
       title: linkedFoundation ? linkedFoundation.name : '',
@@ -872,7 +872,7 @@ export class BladesHelpers {
         theme_color: null
       },
       description: linkedFoundation ? game.i18n.format('SFTD.AddFoundationProject', { foundation: linkedFoundation.name}) : '',
-      invested_caches: linkedFoundation ? (makeFoundationFree ? 0 : linkedFoundation.system.cache_cost) : 0,
+      invested_caches: linkedFoundation ? (cost != -1 ? cost : linkedFoundation.system.cache_cost) : 0,
       foundation: linkedFoundation ? linkedFoundation._id : undefined,
       is_foundation_upgrade: linkedFoundation ? linkedFoundation.system.is_upgrade : false
     }
