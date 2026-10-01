@@ -5,6 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>[1 load] A mountaineering axe, a set of climbing claws, etc. Helpful when delving into ancient ruins and navigating Radiant installations. </p>",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "logic": "",
     "owner": null,
     "is_container": false,
@@ -12,11 +17,10 @@
     "collapsed": false,
     "container_type": "TYPES.Item.item",
     "class": "Scholar",
+    "type": "tool",
     "load": 1,
-    "uses": {
-      "value": 0,
-      "max": 0
-    },
+    "quality": 0,
+    "quality_modifier": 1,
     "extra_description": "",
     "additional_info": ""
   },
@@ -36,7 +40,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780767431315,
-    "modifiedTime": 1780767448610,
+    "modifiedTime": 1790818526469,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!xeC5BesKgIMzBRL2"

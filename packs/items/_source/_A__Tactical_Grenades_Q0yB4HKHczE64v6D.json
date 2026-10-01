@@ -5,6 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>[1 load] Flashbangs, smoke grenades, or short-range EMP detonators. You can choose a different grenade type each time you mark a use of this item. </p>",
+    "uses": {
+      "value": 0,
+      "max": 3
+    },
+    "replenish": true,
     "logic": "",
     "owner": null,
     "is_container": false,
@@ -12,11 +17,10 @@
     "collapsed": false,
     "container_type": "TYPES.Item.item",
     "class": "Aegis",
+    "type": "other",
     "load": 1,
-    "uses": {
-      "value": 0,
-      "max": 3
-    },
+    "quality": 0,
+    "quality_modifier": 0,
     "extra_description": "",
     "additional_info": ""
   },
@@ -36,7 +40,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780762173727,
-    "modifiedTime": 1780762196556,
+    "modifiedTime": 1790803957328,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!Q0yB4HKHczE64v6D"

@@ -5,6 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>[1 load] Anything from a simple sword or tasseled spear to electromagnetic channeling gloves or a cryo-charged rope dart.</p>",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "logic": "",
     "owner": null,
     "is_container": false,
@@ -12,11 +17,10 @@
     "collapsed": false,
     "container_type": "TYPES.Item.item",
     "class": "",
+    "type": "weapon",
     "load": 1,
-    "uses": {
-      "value": 0,
-      "max": 0
-    },
+    "quality": 0,
+    "quality_modifier": 0,
     "extra_description": "",
     "additional_info": ""
   },
@@ -36,7 +40,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780725673454,
-    "modifiedTime": 1780725697022,
+    "modifiedTime": 1790804026282,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!omDqvLILFTgNTAPp"

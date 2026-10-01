@@ -258,8 +258,8 @@
                 {{else}}
                 <label>{{localize 'SFTD.None'}}</label>
                 {{/if}}
-                {{else}}
-                <label class="title-label">{{localize "SFTD.Motifs"}}:</label>
+                {{else if (eq member.data.type 'npc')}}
+                <label class="title-label">{{localize 'SFTD.Motifs'}}:</label>
                 <label class="motifs"{{#if (ne member.data.system.motifs '')}}data-tooltip="{{member.data.system.motifs}}"{{/if}}>
                   {{#if (ne member.data.system.motifs '')}}
                   {{member.data.system.motifs}}
@@ -402,7 +402,7 @@
     {{/if}}
 
     {{!-- Full Item List --}}
-    <div class="tab grow-two flex-vertical" data-tab="all-items">
+    <div class="all-items tab grow-two flex-vertical" data-tab="all-items">
       <div class="label-stripe">
         <p><label>{{localize "SFTD.AllItems"}}</label></p>
       </div>

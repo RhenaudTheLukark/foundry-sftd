@@ -5,6 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>[2 load] A heavy pack, a sleeping roll, a water bottle and purifier, a few days’ worth of rations, an emergency flare, glowstick, and flashlight, some basic nature guides, a distress beacon, and variousother wilderness survival tools. </p>",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "logic": "",
     "owner": null,
     "is_container": false,
@@ -12,11 +17,10 @@
     "collapsed": false,
     "container_type": "TYPES.Item.item",
     "class": "",
+    "type": "pack",
     "load": 2,
-    "uses": {
-      "value": 0,
-      "max": 0
-    },
+    "quality": 0,
+    "quality_modifier": 0,
     "extra_description": "",
     "additional_info": ""
   },
@@ -36,7 +40,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780725597680,
-    "modifiedTime": 1780725614700,
+    "modifiedTime": 1790804093791,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!cJcwepokobEMPjGZ"

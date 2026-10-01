@@ -732,6 +732,11 @@ export class BladesHelpers {
   static async removeFactionNPC(npcFull) {
     const factionFull = BladesHelpers.resolveActor(npcFull.system.faction);
     if (factionFull) {
+      if (factionFull.type == 'crew') {
+        let foundationsWithThisNPC = factionFull.items.filter(i => i.type == 'foundation' && i.system.npc == npcFull.uuid);
+        for (let foundationFull of foundationsWithThisNPC)
+          await BladesHelpers.tryUpdate(foundationFull, {'system.==npc': null});
+      }
       let factionMembersArray = Object.values(factionFull.system.members);
       factionMembersArray.splice(factionMembersArray.map(e => e.uuid).indexOf(npcFull.uuid), 1);
       let newFactionMembers = Object.assign({}, factionMembersArray);

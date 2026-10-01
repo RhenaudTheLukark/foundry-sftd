@@ -442,7 +442,7 @@ export class BladesCrewSheet extends BladesSheet {
           element.parentElement.after(factionChoiceElement);
           factionChoiceElement.outerHTML = `
             <div class="trading-favors-faction-choice">
-              <label>${game.i18n.localize('TYPES.Actor.faction')} <a><i class="fas fa-question-circle" data-tooltip="${game.i18n.localize('SFTD.TradingFavorsFactionDragDropInfo')}"></i></a>:</label>
+              <label>${game.i18n.localize('TYPES.Actor.faction')}:</label>
               <select id="tfFaction"><option value="null" selected>${game.i18n.localize('SFTD.Other')}</option>${Object.values(dialog.actor.system.relationships).filter(r => r.status > 0 && BladesHelpers.resolveActor(r.uuid) != null).map(r => `<option value="${r.uuid}">${BladesHelpers.resolveActor(r.uuid).name}</option>`)}</div>
             </div>`;
         } else {

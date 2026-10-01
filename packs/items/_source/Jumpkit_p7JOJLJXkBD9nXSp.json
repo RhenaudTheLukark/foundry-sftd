@@ -5,6 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>[2 load] Hip-mounted grappling hooks, magnetic gloves and boots, pitons, rope, carabiners, ascenders and descenders. Useful for scaling cliffs, maneuvering in zero-g, or navigating urban terrain quickly.</p>",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "logic": "",
     "owner": null,
     "is_container": false,
@@ -12,11 +17,10 @@
     "collapsed": false,
     "container_type": "TYPES.Item.item",
     "class": "",
+    "type": "kit",
     "load": 2,
-    "uses": {
-      "value": 0,
-      "max": 0
-    },
+    "quality": 0,
+    "quality_modifier": 0,
     "extra_description": "",
     "additional_info": ""
   },
@@ -36,7 +40,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780726439032,
-    "modifiedTime": 1780726451621,
+    "modifiedTime": 1790804142204,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!p7JOJLJXkBD9nXSp"

@@ -5,6 +5,11 @@
   "img": "icons/svg/item-bag.svg",
   "system": {
     "description": "<p>[1 load] Physical lockpicks, electronic circuit-splices, infrared goggles and mist spray-bottles to reveal laser grids, hooks and wires, oil to silence squeaking hinges, and other varied infiltration gear. </p>",
+    "uses": {
+      "value": 0,
+      "max": 0
+    },
+    "replenish": true,
     "logic": "",
     "owner": null,
     "is_container": false,
@@ -12,11 +17,10 @@
     "collapsed": false,
     "container_type": "TYPES.Item.item",
     "class": "",
+    "type": "kit",
     "load": 1,
-    "uses": {
-      "value": 0,
-      "max": 0
-    },
+    "quality": 0,
+    "quality_modifier": 0,
     "extra_description": "",
     "additional_info": ""
   },
@@ -36,7 +40,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780726395738,
-    "modifiedTime": 1780726406328,
+    "modifiedTime": 1790804138963,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!b4ISFjzEWXM7Evjr"
