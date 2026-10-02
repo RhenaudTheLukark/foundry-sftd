@@ -10,6 +10,12 @@
       <div class="item-name"><p>{{item.name}}</p></div>
       <div class="item-description">{{{item.system.description}}}</div>
     </div>
+    {{#if actor.system.crew.system.smugglers_rigging}}
+    <div class="hidden-item flex-vertical">
+      <label for="{{actor.type}}-{{actor._id}}-loadout-hidden-item-{{id}}"><b>{{localize 'SFTD.Hide'}}</b></label>
+      <input id="{{actor.type}}-{{actor._id}}-loadout-hidden-item-{{id}}" type="checkbox" {{checked item.system.hidden}}>
+    </div>
+    {{/if}}
     {{#if (gteq item.system.uses.max 2)}}
     <div class="supply-container flex-vertical">
       <label id="{{actor.type}}-{{actor._id}}-loadout-uses-{{id}}"><b>{{localize 'SFTD.UsesShort'}}</b></label>
@@ -23,27 +29,11 @@
       </div>
     </div>
     {{/if}}
-    {{#if item.system.hackrig}}
-    <div class="hackrig-type flex-vertical">
-      <label for="{{actor.type}}-{{actor._id}}-loadout-hackrig-type-{{id}}"><b>{{localize 'SFTD.Type'}}</b></label>
-      <select>
-        {{selectOptions actor.hackrigTypeDropdown selected=item.system.container_type localize=true}}
-      </select>
-    </div>
-    {{/if}}
     {{#if item.system.custom_gadget}}
     <div class="extra-description flex-vertical">
       <label for="{{actor.type}}-{{actor._id}}-loadout-extra-description-{{id}}"><b>{{localize 'SFTD.Description'}}</b></label>
       <textarea id="{{actor.type}}-{{actor._id}}-loadout-extra-description-{{id}}" name="item.system.extra_description">{{item.system.extra_description}}</textarea>
     </div>
-    {{/if}}
-    {{#if (ne actor.system.crew null)}}
-    {{#if (or actor.system.crew.system.hide_items actor.system.crew.system.hide_items_load)}}
-    <div class="hidden-item flex-vertical">
-      <label for="{{actor.type}}-{{actor._id}}-loadout-hidden-item-{{id}}"><b>{{localize 'SFTD.Hide'}}</b></label>
-      <input id="{{actor.type}}-{{actor._id}}-loadout-hidden-item-{{id}}" type="checkbox" {{checked item.system.hidden}}{{#if (and actor.system.crew.system.hide_items_load (ne item.system.hidden actor.hasActiveHiddenItem))}} disabled{{/if}}>
-    </div>
-    {{/if}}
     {{/if}}
     <div class="item-controls flex-horizontal">
       <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>

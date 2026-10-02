@@ -200,7 +200,7 @@ $supply_margin: 3px;
     }
 
     &.abilities, &.foundations, &.loadout {
-      .generic-popup, .charm-ability {
+      .generic-popup, .charm-ability, .hidden-item {
         text-align: center;
         align-self: center;
         align-items: center;

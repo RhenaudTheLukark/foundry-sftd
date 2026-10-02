@@ -68,7 +68,7 @@ export class BladesStriderSheet extends BladesSheet {
     else
       load_level = ['SFTD.Light', 'SFTD.Light', 'SFTD.Light', 'SFTD.Light', 'SFTD.Normal', 'SFTD.Normal', 'SFTD.Heavy', 'SFTD.Encumbered',
         'SFTD.Encumbered', 'SFTD.Encumbered', 'SFTD.OverMax', 'SFTD.OverMax'];
-    sheetData.system.load_level = load_level[Math.clamp(load - (sheetData.system.crew.system.distributed_weight ? 2 : 0), 0, load_level.length - 1)];
+    sheetData.system.load_level = load_level[Math.clamp(load - (sheetData.system.crew?.system.distributed_weight ? 2 : 0), 0, load_level.length - 1)];
 
     if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad'))
       sheetData.system.load_levels = {'SFTD.Discreet': 'SFTD.Discreet', 'SFTD.Conspicuous': 'SFTD.Conspicuous'};
@@ -255,6 +255,14 @@ export class BladesStriderSheet extends BladesSheet {
       const item = this.actor.items.get(element.dataset.itemId);
       const itemId = ev.currentTarget.value;
       await BladesHelpers.tryUpdate(item, {'system.==charm_ability': itemId});
+    });
+
+    // Update Items' Hidden Toggle
+    html.find('.hidden-item > input').change(async ev => {
+      const element = ev.currentTarget.closest('.item');
+      const item = this.actor.items.get(element.dataset.itemId);
+      await BladesHelpers.tryUpdate(item, {'system.==hidden': ev.currentTarget.checked});
+      await BladesHelpers.tryUpdate(this.actor, {'==name': this.actor.name});
     });
 
     html.find('.other-rolls').click(async _ => {

@@ -379,7 +379,8 @@
       "quality": 0,
       "quality_modifier": 0,
       "extra_description": "",
-      "additional_info": ""
+      "additional_info": "",
+      "hidden": false
     },
     "class": {
       "templates": ["default", "logic", "activatedEffect"],

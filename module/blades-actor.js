@@ -293,13 +293,16 @@ export class BladesActor extends Actor {
     if (!actor) actor = this;
     let modifiersCollection = { modifiers: actor.system.modifiers, roll_modifiers: actor.system.roll_modifiers, conditional_roll_modifiers: actor.system.conditional_roll_modifiers };
 
-    let crewFull = BladesHelpers.resolveActor(actor.system.crew);
-    for (let modifierPath of Object.keys(modifiersCollection)) {
-      let actorsFull = (crewFull ? [crewFull] : Object.values(actor.system.members).map(m => BladesHelpers.resolveActor(m))).filter(m => m != null && ['crew', 'strider'].includes(m.type));
-      for (let actorFull of actorsFull)
-        if (actorFull.system[modifierPath][actor.type] !== undefined)
-          modifiersCollection[modifierPath] = BladesHelpers.mergeAddObjects(modifiersCollection[modifierPath], [], actorFull.system[modifierPath][actor.type]);
-    }
+    let crewFull = actor.type == 'crew' ? actor : BladesHelpers.resolveActor(actor.system.crew);
+    if (crewFull)
+      for (let modifierPath of Object.keys(modifiersCollection)) {
+        let actorsFull = Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && ['crew', 'strider'].includes(m.type));
+        if (crewFull != actor)
+          actorsFull.push(crewFull);
+        for (let actorFull of actorsFull)
+          if (actorFull.system[modifierPath][actor.type] !== undefined)
+            modifiersCollection[modifierPath] = BladesHelpers.mergeAddObjects(modifiersCollection[modifierPath], [], actorFull.system[modifierPath][actor.type]);
+      }
 
     return [modifiersCollection.modifiers, modifiersCollection.roll_modifiers, modifiersCollection.conditional_roll_modifiers];
   }
