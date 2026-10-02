@@ -529,7 +529,7 @@
     "RollFortuneFailure": "The result is <strong>bad</strong>. You have <strong>poor</strong> or <strong>little impact</strong>.",
 
     "RollUpkeepResult": "You have gained <strong>{shells} Shell(s)</strong>.",
-    "RollUpkeepOverpaid": "<strong>{shells}</strong> of those Shells did not fit in your Crew's Shell storage. Distribute them among Striders as you see fit.",
+    "RollUpkeepOverpaid": " <strong>{shells}</strong> of those Shells did not fit in your Crew's Shell storage. Distribute them among Striders as you see fit.",
 
     "RollAftermath": {
       "0": {
@@ -721,14 +721,6 @@
       "NoMobileCity": "Your base and community are not mobile",
       "NoMutualAid": "You do not have the Crew Upgrade \"Mutual Aid\""
     },
-
-    "CollectionAgency": "Collection Agency",
-    "CollectionAgencyContents": "Your collection agency has collected <strong>{value} Materiel</strong> for you.",
-    "SideBusiness": "Side Business",
-    "SideBusinessContents": "Your side business has collected <strong>{value} Personnel</strong> for you.",
-    "StayLate": "Stay Late",
-    "StayLateInfo": "You may provide a crewmate an extra Downtime Activity at the cost of taking the Level 1 Harm: Tired.<br/>Choose the crewmate who will benefit from an extra Downtime Activity below.",
-    "StayLateDescription": "{target} can take an extra <strong>Downtime Activity</strong>. {actor} takes the <strong>Level 1 Harm: Tired</strong>, which may be resisted as normal.",
 
     "ToggleableModifiers": "Toggleable Modifiers",
     "LevelOneHarm": "<span style=\"color:#ffc0c0\">Level One Harm: {harm} <i class=\"fas fa-question-circle\" data-tooltip=\"Only enable this if this Harm impairs your ability to perform this action.\"></i></span>",
@@ -1213,6 +1205,10 @@
       },
       "SecondStoryPassages": {
         "Title": "Second-Story Passages: On-site?"
+      },
+      "SideBusiness": {
+        "Title": "Side Business",
+        "Description": "Your side business has collected <strong>{shells} Shells</strong> for you.{overShells}"
       },
       "TerrainLibraries": {
         "Title": "Terrain Libraries: Using a Studied Mission Approach?"

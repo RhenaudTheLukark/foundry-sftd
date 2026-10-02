@@ -1083,7 +1083,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     if (crewFull) {
       let newShells = Math.min(crewFull.system.shells.value + shells, crewFull.system.shells.max);
       overShells = crewFull.system.shells.value + shells - newShells;
-      await BladesHelpers.tryUpdate(crewFull, {'system.shells.value': newShells});
+      await BladesHelpers.tryUpdate(crewFull, {'system.shells.==value': newShells});
     }
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/upkeep-roll.html', { rolls: rolls, zeromode: zeromode, method: method, num: shells, overShells: overShells, note: note, extraFields: extraFields });
   }
@@ -1233,15 +1233,14 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/fortune-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: 'SFTD.FortuneRoll', note: note, extraFields: extraFields });
   // Generic roll if not specified
   else {
-    // Collection Agency & Side Business: Update Shells
-    if (['SFTD.CollectionAgency', 'SFTD.SideBusiness'].includes(attributeOrRollName)) {
-      let factionRelationships = Object.values(extraFields.actor.system.relationships).map(r => { return {actor: BladesHelpers.resolveActor(r.uuid), status: r.status}; }).filter(r => r.actor && r.actor.type == 'faction');
-      let minRelationship = factionRelationships.length > 0 ? Math.min(factionRelationships.map(r => Number(r.status)).sort()[0], 0) : 0;
-      let value = Math.max(resultDie + minRelationship, 0);
-      extraFields.contents = game.i18n.format(extraFields.contents, {value: value});
-
-      let updateObject = {'system.shells.value': Math.min(Math.max(Number(extraFields.actor.system.shells.value) + value, 0), Number(extraFields.actor.system.shells.max))};
-      await BladesHelpers.tryUpdate(extraFields.actor, updateObject);
+    // Side Business: Update Shells
+    if (attributeOrRollName == 'SFTD.SideBusiness') {
+      let shells = Math.max(resultDie - extraFields.actor.system.pressure.value, 0);
+      let newShells = Math.min(extraFields.actor.system.shells.value + shells, extraFields.actor.system.shells.max);
+      let overShells = extraFields.actor.system.shells.value + shells - newShells;
+      if (overShells != shells)
+        await BladesHelpers.tryUpdate(extraFields.actor, {'system.shells.==value': newShells});
+      extraFields.contents = game.i18n.format(extraFields.contents, {shells: shells, overShells: overShells > 0 ? game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: overShells}) : ''});
     }
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/generic-message.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, note: note, extraFields: extraFields });
   }
@@ -1570,8 +1569,7 @@ export const rollTypeLabels = {
   train: 'SFTD.TrainRoll',
   unwind: 'SFTD.UnwindRoll',
 
-  collectionAgency: 'SFTD.CollectionAgency',
-  sideBusiness: 'SFTD.SideBusiness',
+  sideBusiness: 'SFTD.CrewFoundation.SideBusiness.Title',
 
   specialist: 'SFTD.SpecialistRoll',
   groupSpecialist: 'SFTD.GroupSpecialistRoll'

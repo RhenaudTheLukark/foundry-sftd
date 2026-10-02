@@ -1,6 +1,7 @@
 import { renderHandlebarsTemplate as renderTemplate } from "./compat.js";
 import { openFormDialog } from "./lib/dialog-compat.js";
 import { BladesHelpers } from "./blades-helpers.js";
+import { bladesRoll } from "./blades-roll.js";
 
 export class BladesPopup {
   static async instantiatePopup(actorFull, itemFull, popupData) {
@@ -29,6 +30,8 @@ export class BladesPopup {
           return;
       if (popupData.effect)
         await popupData.effect(fields, popupData, itemFull);
+      if (itemFull.system.uses.value > 0)
+        await BladesHelpers.tryUpdate(itemFull, { 'system.uses.==value': itemFull.system.uses.value - 1})
       if (popupData.message)
         await BladesPopup.sendMessage(fields, popupData, itemFull);
       if (popupData.post_message)
@@ -68,9 +71,9 @@ export class BladesPopup {
         if (dialog.popupData.effect)
           await dialog.popupData.effect(fields, dialog.popupData, dialog.itemFull);
         if (dialog.itemFull.system.uses.value > 0)
-          await BladesHelpers.tryUpdate(itemFull, { 'system.uses.==value': itemFull.system.uses.value - 1})
+          await BladesHelpers.tryUpdate(dialog.itemFull, { 'system.uses.==value': dialog.itemFull.system.uses.value - 1})
         if (dialog.popupData.message)
-          await BladesPopup.sendMessage(fields, dialog.popupData, itemFull);
+          await BladesPopup.sendMessage(fields, dialog.popupData, dialog.itemFull);
         if (dialog.popupData.post_message)
           await dialog.popupData.post_message(dialog.popupData);
       }
@@ -528,6 +531,14 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
+  static async sideBusinessEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const extraFields = { title: game.i18n.localize('SFTD.CrewFoundation.SideBusiness.Title'), contents: 'SFTD.CrewFoundation.SideBusiness.Description', modifiers: [], actor: selfFull };
+    await bladesRoll(selfFull.getTier(), 'SFTD.SideBusiness', '', extraFields);
+  }
+
+  /* ----------------------------------------- */
+
   static wormholeGateValidation(fields, popupData, noPopup, itemFull) {
     if (!BladesPopup.simpleCrewValidation(fields, popupData))
       return false;
@@ -713,6 +724,7 @@ export const bladesPopupData = {
     effect: BladesPopup.makingTimeEffect,
     message: {
       title: 'SFTD.StriderAbility.MakingTime.Message.Title',
+      description: 'SFTD.StriderAbility.MakingTime.Message.Description',
       contents: BladesPopup.simpleCrewmateMessageContents
     }
   },
@@ -829,6 +841,11 @@ export const bladesPopupData = {
       title: 'SFTD.CrewFoundation.OracleMechanism.Message.Title',
       description: 'SFTD.CrewFoundation.OracleMechanism.Message.Description',
     }
+  },
+  side_business: {
+    title: 'SFTD.CrewFoundation.SideBusiness.Title',
+    validation: BladesPopup.simpleItemUsesValidation,
+    effect: BladesPopup.sideBusinessEffect
   },
   wormhole_gate: {
     title: 'SFTD.CrewFoundation.WormholeGate.Message.Title',

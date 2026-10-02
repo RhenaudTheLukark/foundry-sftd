@@ -653,7 +653,7 @@ export class BladesCrewSheet extends BladesSheet {
               if (newShells)
                 await BladesHelpers.tryUpdate(this.actor, {'system.shells.==value': newShells});
               if (overShells)
-                message += ` ${game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: overShells})}`;
+                message += game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: overShells});
             }
 
             if (id == 'researchAssessment') {
