@@ -168,7 +168,7 @@ export class BladesSheet extends BaseActorSheet {
     const itemTypes = event.currentTarget.dataset.itemType.split(',');
     const valuePath = event.currentTarget.dataset.valuePath;
     const unique = event.currentTarget.dataset.unique;
-    const addAsItem = event.currentTarget.dataset.addAsItem ?? true;
+    const addAsItem = event.currentTarget.dataset.addAsItem == undefined ? true : event.currentTarget.dataset.addAsItem === 'true';
     const containerId = event.currentTarget.dataset.containerId;
     let inputType = 'checkbox';
 

@@ -435,7 +435,7 @@ export class BladesStriderSheet extends BladesSheet {
     }
     dialog.isCutLooseValid = function(dialog) {
       let element = dialog.element.querySelector('#cutLooseParticipants');
-      return !Array.from(element.selectedOptions).length > 0;
+      return Array.from(element.selectedOptions).length > 0;
     }
     dialog.isMutualAidValid = function(dialog) {
       const hasFaction = dialog.maFaction != null;

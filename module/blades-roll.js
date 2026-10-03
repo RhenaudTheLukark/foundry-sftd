@@ -1770,7 +1770,7 @@ export function buildRollPopup(popupTitle, actor, rollTypes, missingRollTypes = 
     } else if (rollType == 'cutLooseBegin') {
       let crewFull = BladesHelpers.resolveActor(actor.system.crew);
       let stridersList = Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m != actor && m.type == 'strider' && m.system.stress.value > 0);
-      let stridersString = stridersList.map((s, i) => `<option value="${s.uuid}"${i == 0 ? ' selected' : ''}>${s.name}</option>`).join('');
+      let stridersString = stridersList.map((s, i) => `<option value="${s.uuid}">${s.name}</option>`).join('');
 
       thirdArg = {...thirdArg, participants: `size="${Math.min(stridersList.length, 4)}">${stridersString}`};
     } else if (rollType == 'cutLoose') {
