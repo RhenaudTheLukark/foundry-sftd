@@ -18,9 +18,55 @@
     "bound_by_charmtrick": false,
     "popup": "",
     "purchased": false,
-    "class_default": false
+    "class_default": false,
+    "strive_to_be_steel": true
   },
-  "effects": [],
+  "effects": [
+    {
+      "name": "Strive to be Steel Effect",
+      "img": "systems/songs-for-the-dusk/styles/assets/icons/Icon.3_13.png",
+      "origin": "Compendium.songs-for-the-dusk.ability.Item.YIpdyV5JLfMbhp4a",
+      "duration": {
+        "startTime": null,
+        "combat": null,
+        "seconds": null,
+        "rounds": null,
+        "turns": null,
+        "startRound": null,
+        "startTurn": null
+      },
+      "disabled": false,
+      "_id": "3sbxVC9PIadjKupM",
+      "type": "base",
+      "system": {},
+      "changes": [
+        {
+          "key": "system.conditional_roll_modifiers.strive_to_be_steel",
+          "mode": 5,
+          "value": "true",
+          "priority": 30
+        }
+      ],
+      "description": "",
+      "tint": "#ffffff",
+      "transfer": true,
+      "statuses": [],
+      "sort": 0,
+      "flags": {},
+      "_stats": {
+        "compendiumSource": null,
+        "duplicateSource": null,
+        "exportSource": null,
+        "coreVersion": "13.351",
+        "systemId": "songs-for-the-dusk",
+        "systemVersion": "0.0.1",
+        "createdTime": 1791436094283,
+        "modifiedTime": 1791436126360,
+        "lastModifiedBy": "NKBqJZbUpn1DnvhY"
+      },
+      "_key": "!items.effects!YIpdyV5JLfMbhp4a.3sbxVC9PIadjKupM"
+    }
+  ],
   "folder": null,
   "sort": 4500000,
   "ownership": {

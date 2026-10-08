@@ -380,7 +380,9 @@
       "quality_modifier": 0,
       "extra_description": "",
       "additional_info": "",
-      "hidden": false
+      "hidden": false,
+      "strive_to_be_steel": false,
+      "tesseraction": false
     },
     "class": {
       "templates": ["default", "logic", "activatedEffect"],

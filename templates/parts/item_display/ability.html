@@ -12,6 +12,24 @@
     </button>
   </div>
   {{/if}}
+  {{#if item.system.strive_to_be_steel}}
+  <div class="strive-to-be-steel flex-vertical">
+    <label><b>{{localize 'TYPES.Item.item'}}</b></label>
+    <select>
+      {{selectOptionsWithLabel actor.striveToBeSteelDropdown selected=item.system.strive_to_be_steel localize=true}}
+    </select>
+    </button>
+  </div>
+  {{/if}}
+  {{#if item.system.tesseraction}}
+  <div class="tesseraction flex-vertical">
+    <label><b>{{localize 'TYPES.Item.item'}}</b></label>
+    <select>
+      {{selectOptionsWithLabel actor.tesseractionDropdown selected=item.system.tesseraction localize=true}}
+    </select>
+    </button>
+  </div>
+  {{/if}}
   {{#if item.system.popup}}
   <div class="generic-popup flex-vertical">
     <button data-popup-id="{{item.system.popup}}">

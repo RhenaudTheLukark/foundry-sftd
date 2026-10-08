@@ -49,6 +49,7 @@ export class BladesStriderSheet extends BladesSheet {
         itemLoad = parseInt(i.system.load);
         if (sheetData.system.signature_gear?.id == i.system.original_id) itemLoad --;
         if (sheetData.system.crew?.system.signature_gear?.id == i.system.original_id) itemLoad --;
+        if (i.system.strive_to_be_steel || i.system.tesseraction) itemLoad = 0;
       }
       load += Math.max(itemLoad, 0);
     });
@@ -94,6 +95,14 @@ export class BladesStriderSheet extends BladesSheet {
     sheetData.charmAbilityDropdown = {
       'none': 'SFTD.None',
       ...Object.fromEntries(sheetData.orderedItems.filter(i => i.type == 'ability' && i.system.is_charm && !i.system.is_starting_ability && !i.system.is_charmtrick).map(i => [i._id, i.name]))
+    };
+    sheetData.striveToBeSteelDropdown = {
+      'none': 'SFTD.None',
+      ...Object.fromEntries(sheetData.orderedItems.filter(i => i.type == 'item' && i.system.type == 'weapon').map(i => [i._id, i.name]))
+    };
+    sheetData.tesseractionDropdown = {
+      'none': 'SFTD.None',
+      ...Object.fromEntries(sheetData.orderedItems.filter(i => i.type == 'item').map(i => [i._id, i.name]))
     };
 
     sheetData.defaultClockThemeColor = game.settings.get('songs-for-the-dusk', 'DefaultClockThemeColor');
@@ -250,11 +259,28 @@ export class BladesStriderSheet extends BladesSheet {
       await BladesHelpers.tryUpdate(this.actor, {'system.signature_gear': null});
     });
 
+    // Update Charmtrick Selection
     html.find('.charm-ability select').change(async ev => {
       const element = ev.currentTarget.closest('.item');
       const item = this.actor.items.get(element.dataset.itemId);
       const itemId = ev.currentTarget.value;
       await BladesHelpers.tryUpdate(item, {'system.==charm_ability': itemId});
+    });
+
+    // Update Strive to be Steel Selection
+    html.find('.strive-to-be-steel select').change(async ev => {
+      const element = ev.currentTarget.closest('.item');
+      const item = this.actor.items.get(element.dataset.itemId);
+      const itemId = ev.currentTarget.value;
+      await BladesHelpers.tryUpdate(item, {'system.==strive_to_be_steel': itemId});
+    });
+
+    // Update Tesseraction Selection
+    html.find('.tesseraction select').change(async ev => {
+      const element = ev.currentTarget.closest('.item');
+      const item = this.actor.items.get(element.dataset.itemId);
+      const itemId = ev.currentTarget.value;
+      await BladesHelpers.tryUpdate(item, {'system.==tesseraction': itemId});
     });
 
     // Update Items' Hidden Toggle

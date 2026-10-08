@@ -16,9 +16,10 @@
     "is_starting_ability": false,
     "is_charm": false,
     "bound_by_charmtrick": false,
-    "popup": "",
+    "popup": "tesseraction",
     "purchased": false,
-    "class_default": false
+    "class_default": false,
+    "tesseraction": true
   },
   "effects": [],
   "folder": null,
@@ -36,7 +37,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859118528,
-    "modifiedTime": 1788675188142,
+    "modifiedTime": 1791435969788,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!MR2s3RAyjPLEsDUa"

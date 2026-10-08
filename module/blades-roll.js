@@ -295,6 +295,11 @@ export const bladesRollModifierList = {
     attributeNames: ['command', 'connect'],
     dice: 1
   },
+  strive_to_be_steel: {
+    name: 'SFTD.StriderAbility.StriveToBeSteel.Title',
+    rollTypes: ['actionRoll', 'groupAction'],
+    impact: 1
+  },
   tidebreak: {
     hidden: true,
     needPushYourself: true,

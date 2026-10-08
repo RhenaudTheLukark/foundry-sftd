@@ -36,7 +36,7 @@
     </div>
     {{/if}}
     <div class="item-controls flex-horizontal">
-      <a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>
+      {{#if (not (or item.system.strive_to_be_steel item.system.tesseraction))}}<a class="item-control delete-item" data-tooltip="{{localize 'SFTD.TitleDeleteItem'}}"><i class="fas fa-trash"></i></a>{{/if}}
       <a class="item-control item-post" data-tooltip="{{localize 'SFTD.TitlePostItem'}}"><i class="fas fa-comment"></i></a>
     </div>
   </div>

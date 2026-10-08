@@ -21,6 +21,8 @@ export class BladesItem extends Item {
         for (let removeItem of removeItems)
           await BladesHelpers.tryDelete(removeItem, actor);
     }
+
+    return true;
   }
 
   /** @override */
@@ -49,6 +51,26 @@ export class BladesItem extends Item {
       if (newCharmAbility)
         await BladesHelpers.tryUpdate(newCharmAbility, {'system.==bound_by_charmtrick': true});
     }
+
+    if (this.type == 'ability' && changed.system?.['==strive_to_be_steel'] != undefined) {
+      const oldStriveToBeSteel = this.system.strive_to_be_steel == 'none' ? null : this.parent.items.contents.find(i => i._id == this.system.strive_to_be_steel);
+      if (oldStriveToBeSteel)
+        await BladesHelpers.tryUpdate(oldStriveToBeSteel, {'system.==strive_to_be_steel': false});
+      const newStriveToBeSteel = changed.system['==strive_to_be_steel'] == 'none' ? null : this.parent.items.contents.find(i => i._id == changed.system['==strive_to_be_steel']);
+      if (newStriveToBeSteel)
+        await BladesHelpers.tryUpdate(newStriveToBeSteel, {'system.==strive_to_be_steel': true});
+    }
+
+    if (this.type == 'ability' && changed.system?.['==tesseraction'] != undefined) {
+      const oldTesseraction = this.system.tesseraction == 'none' ? null : this.parent.items.contents.find(i => i._id == this.system.tesseraction);
+      if (oldTesseraction)
+        await BladesHelpers.tryUpdate(oldTesseraction, {'system.==tesseraction': false});
+      const newTesseraction = changed.system['==tesseraction'] == 'none' ? null : this.parent.items.contents.find(i => i._id == changed.system['==tesseraction']);
+      if (newTesseraction)
+        await BladesHelpers.tryUpdate(newTesseraction, {'system.==tesseraction': true});
+    }
+
+    return true;
   }
 
   /** @override */
@@ -60,11 +82,18 @@ export class BladesItem extends Item {
   }
 
   /** @override */
-  async _onDelete(options, userId) {
-    if (this.type == 'ability' && [undefined, 'none'].includes(this.system?.charm_ability))
-      await BladesHelpers.tryUpdate(this.parent.items[this.system.charm_ability], {'system.==bound_by_charmtrick': false});
+  async _preDelete(options, user) {
+    const allowed = await super._preDelete(options, user);
+    if (allowed === false) return false;
 
-    await super._onDelete(options, userId);
+    if (this.type == 'ability' && ![undefined, 'none'].includes(this.system?.charm_ability))
+      await BladesHelpers.tryUpdate(this, {'system.==charm_ability': 'none'});
+    if (this.type == 'ability' && ![undefined, 'none'].includes(this.system?.strive_to_be_steel))
+      await BladesHelpers.tryUpdate(this, {'system.==strive_to_be_steel': 'none'});
+    if (this.type == 'ability' && ![undefined, 'none'].includes(this.system?.tesseraction))
+      await BladesHelpers.tryUpdate(this, {'system.==tesseraction': 'none'});
+
+    return true;
   }
 
   async updateFoundation() {

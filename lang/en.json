@@ -25,6 +25,7 @@
     "Background": "Background",
     "Anchors": "Anchors",
     "TitleDeleteItem": "Delete Item",
+    "TitleNoDeleteItem": "This item cannot be deleted",
     "TitleDeleteCrew": "Delete Crew",
     "TitleDeleteProject": "Delete Project",
     "TitleDeleteGoal": "Delete Goal",
@@ -895,6 +896,9 @@
       "SparkOfHope": {
         "Title": "Spark of Hope: Involves Anyone Who Witnessed You Resist Harm or Protect Someone?"
       },
+      "StriveToBeSteel": {
+        "Title": "Strive to be Steel: Using Charm-bound Weapon Against Transcendent Combatants?"
+      },
       "Tidebreak": {
         "Description": "Since you pushed yourself, you can do one of the following in addition to the normal benefits:<ul><li>Perform a superhuman feat of physical force,</li><li>Engage a small group on equal footing in combat.</li></ul>"
       },
@@ -1051,6 +1055,16 @@
       },
       "Neurocoupling": {
         "Title": "Neurocoupling: Performing an Action In Digital Spaces or In Which You Mentally Interface With Technology?"
+      },
+      "Tesseraction": {
+        "Popup":{
+          "Title": "Tesseraction",
+          "Description": "You deploy the effects of the technology weaved to your own existence."
+        },
+        "Message":{
+          "Title": "Tesseraction",
+          "Description": "You deploy the effects of the technology weaved to your own existence. You {cost}."
+        }
       },
       "Charmwork": {
         "Title": "Charmwork",

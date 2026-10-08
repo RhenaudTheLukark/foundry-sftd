@@ -563,7 +563,6 @@ export const bladesPopupData = {
     description: 'SFTD.StriderAbility.AlloyedMettle.Popup.Description',
     classes: ['alloyed-mettle'],
     charmwork: true,
-    pre_content: null,
     fields: {
       crewmate: {
         type: 'crewmate',
@@ -726,6 +725,19 @@ export const bladesPopupData = {
       title: 'SFTD.StriderAbility.MakingTime.Message.Title',
       description: 'SFTD.StriderAbility.MakingTime.Message.Description',
       contents: BladesPopup.simpleCrewmateMessageContents
+    }
+  },
+  tesseraction: {
+    title: 'SFTD.StriderAbility.Tesseraction.Popup.Title',
+    description: 'SFTD.StriderAbility.Tesseraction.Popup.Description',
+    classes: ['tesseraction'],
+    stress: 1,
+    validation: BladesPopup.simpleStressAbilityValidation,
+    effect: BladesPopup.simpleStressAbilityEffect,
+    message: {
+      title: 'SFTD.StriderAbility.Tesseraction.Message.Title',
+      description: 'SFTD.StriderAbility.Tesseraction.Message.Description',
+      contents: BladesPopup.simpleStressAbilityMessageContents
     }
   },
   charmveil: {
