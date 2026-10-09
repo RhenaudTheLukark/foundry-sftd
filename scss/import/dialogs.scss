@@ -238,18 +238,18 @@ fieldset.form-group {
           width: fit-content;
         }
 
-        .crewmate-group {
+        .crewmate-group, .strider-group {
           width: auto;
 
           tr {
             display: table;
-            table-layout: fixed;
+            table-layout: auto;
+            width: 100%;
             background-color: var(--table-row-color-odd);
 
             td {
               display: table-cell;
-              width: 2%;
-              padding: 1em;
+              width: 50%;
 
               &.selected {
                 background-color: rgba(255, 255, 255, 0.2);

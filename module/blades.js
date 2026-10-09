@@ -20,6 +20,7 @@ import { BladesCrewSheet } from "./blades-crew-sheet.js";
 import { BladesClockSheet } from "./blades-clock-sheet.js";
 import { BladesNPCSheet } from "./blades-npc-sheet.js";
 import { BladesFactionSheet } from "./blades-faction-sheet.js";
+import { bladesPopupData, BladesPopup } from "./blades-popup.js";
 import { SFTDChatMessage } from "./messages/sftd-chat-message.js";
 import * as migrations from "./migration.js";
 import { getActorSheetClass, getItemSheetClass, registerActorSheet, unregisterActorSheet, registerItemSheet, unregisterItemSheet } from "./compat.js";
@@ -510,6 +511,16 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
         await BladesHelpers.tryDelete(message);
       }
     });
+  for (const element of html.querySelectorAll('.internal-strain')) {
+    element.addEventListener('click', async (ev) => {
+      const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+      const popupData = bladesPopupData.internal_strain;
+      popupData.key = 'internal_strain';
+      popupData.striders = speakerActorFull.system.cut_loose.participants;
+      popupData.messageElement = element;
+      await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
+    });
+  }
   for (const element of html.querySelectorAll('.gm-only'))
     if (!game.user.isGM)
       element.style.display = "none";
@@ -521,7 +532,7 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
   for (const element of html.querySelectorAll('.leader-only')) {
     const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
     const leaderFull = BladesHelpers.resolveActor(speakerActorFull.system.group_action?.leader)
-    if (!leaderFull?.isOwner)
+    if (!leaderFull?.isOwner && !game.user.isGM)
       element.style.display = "none";
   }
   for (const element of html.querySelectorAll('.start-mission-charmwork-only')) {

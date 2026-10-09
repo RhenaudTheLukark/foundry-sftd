@@ -16,9 +16,9 @@ export class BladesPopup {
 
     const title = popupData.title ?? 'SFTD.UseAbility';
     var preContent = popupData.pre_content ? popupData.pre_content({}, popupData) : '';
-    if (itemFull.system.bound_by_charmtrick)
+    if (itemFull?.system.bound_by_charmtrick)
       preContent = game.i18n.localize('SFTD.StriderAbility.Charmtrick.PopupNotice') + preContent;
-    const form = Object.keys(popupFields).length ? BladesPopup.instantiatePopupForm(actorFull, popupFields, title) : '';
+    const form = Object.keys(popupFields).length ? BladesPopup.instantiatePopupForm(actorFull, popupFields, popupData, title) : '';
     if (form == null)
       return;
     const postContent = popupData.post_content ? popupData.post_content({}, popupData) : '';
@@ -30,7 +30,7 @@ export class BladesPopup {
           return;
       if (popupData.effect)
         await popupData.effect(fields, popupData, itemFull);
-      if (itemFull.system.uses.value > 0)
+      if (itemFull?.system.uses.value > 0)
         await BladesHelpers.tryUpdate(itemFull, { 'system.uses.==value': itemFull.system.uses.value - 1})
       if (popupData.message)
         await BladesPopup.sendMessage(fields, popupData, itemFull);
@@ -70,7 +70,7 @@ export class BladesPopup {
         let fields = BladesPopup.fetchFormValues(dialog);
         if (dialog.popupData.effect)
           await dialog.popupData.effect(fields, dialog.popupData, dialog.itemFull);
-        if (dialog.itemFull.system.uses.value > 0)
+        if (dialog.itemFull?.system.uses.value > 0)
           await BladesHelpers.tryUpdate(dialog.itemFull, { 'system.uses.==value': dialog.itemFull.system.uses.value - 1})
         if (dialog.popupData.message)
           await BladesPopup.sendMessage(fields, dialog.popupData, dialog.itemFull);
@@ -87,57 +87,92 @@ export class BladesPopup {
     BladesPopup.updateFormValues(dialog);
   }
 
-  static instantiatePopupForm(actorFull, fields, popupName) {
+  static instantiatePopupForm(actorFull, fields, popupData, popupName) {
     let result = `<div class="field" data-field="self" data-value="${actorFull.uuid}" style="display: none;"></div>`;
-    for (let [fieldName, fieldData] of Object.entries(fields)) {
-      let isInline = ['select', 'checkbox'].includes(fieldData.type);
-      let fieldContainer = `<div class="field flex-${isInline ? 'horizontal shrink' : 'vertical'}" data-field="${fieldName}" data-type="${fieldData.type}">`;
-      if (fieldData.name)
-        fieldContainer += `<label>${game.i18n.localize(fieldData.name)}</label>`;
-      switch (fieldData.type) {
-        case 'crewmate':
-          let crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
-          if (!crewFull) {
-            ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupName)}));
-            return null;
-          }
-          let otherMembers = Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m.uuid)).filter(m => m != null && m.type == 'strider');
-          if (fieldData.modifiers) {
-            if (fieldData.modifiers.includes('excludeUser'))
-              otherMembers = otherMembers.filter(m => m.uuid != actorFull.uuid);
-            if (fieldData.modifiers.includes('needsStress'))
-              otherMembers = otherMembers.filter(m => m.system.stress.value > 0);
-            if (fieldData.modifiers.includes('needsAnyStress'))
-              otherMembers = otherMembers.filter(m => actorFull.system.stress.value > 0 || m.system.stress.value > 0);
-            if (fieldData.modifiers.includes('needsHarm'))
-              otherMembers = otherMembers.filter(m => m.system.harm.light.one != '' || m.system.harm.light.two != '' || m.system.harm.medium.one != '' || m.system.harm.medium.two != '' || m.system.harm.heavy.one != '' || m.system.harm.deadly.one != '');
-          }
-          if (!otherMembers.length) {
-            ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoValidCrewmate', {name: game.i18n.localize(popupName)}));
-            return null;
-          }
-          fieldContainer += `
-            <table class="form-group crewmate-group">
-              ${otherMembers.map((member, i) => `${i % 2 == 0 ? '<tr>' : ''}<td class="actor-cell flex-equal" data-actor-id="${member.uuid}">
-                <div class="actor-contents flex-horizontal">
-                  <img src="${member.img}" data-tooltip="${member.name}" width="48" height="48"/>
-                  <a class="item-name">${member.name}</a>
-                </div>
-              </td>${(i % 2 == 1 || i == otherMembers.length - 1) ? '</tr>' : ''}`).join('')}
-            </table>`;
-          break;
-        case 'select':
-          fieldContainer += `<select>${fieldData.values.map((d, i) => `<option value="${d}" ${i == 0 ? 'selected' : ''}>${game.i18n.localize(d)}</option>`).join('')}</select>`;
-          break;
-        case 'checkbox':
-          fieldContainer += `<input type="checkbox">`;
-          break;
-        default:
-          break;
-      }
-      result += fieldContainer + '</div>';
-    }
+    for (let [fieldName, fieldData] of Object.entries(fields))
+      result += BladesPopup.instantiateFormField(actorFull, fieldName, fieldData, popupData, popupName);
     return result;
+  }
+
+  static instantiateFormField(actorFull, fieldName, fieldData, popupData, popupName, isSubField = false) {
+    let isInline = ['select', 'checkbox'].includes(fieldData.type);
+    let fieldContainer = `<div class="field flex-${isInline ? 'horizontal shrink' : 'vertical'}" data-field="${fieldName}" data-type="${fieldData.type}">`;
+    if (fieldData.name)
+      fieldContainer += `<label>${game.i18n.localize(fieldData.name)}</label>`;
+    let crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
+    switch (fieldData.type) {
+      case 'crewmate':
+        if (!crewFull) {
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupName)}));
+          return null;
+        }
+        let members = Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m.uuid)).filter(m => m != null && m.type == 'strider');
+        if (fieldData.modifiers) {
+          if (fieldData.modifiers.includes('excludeUser'))
+            members = members.filter(m => m.uuid != actorFull.uuid);
+          if (fieldData.modifiers.includes('needsStress'))
+            members = members.filter(m => m.system.stress.value > 0);
+          if (fieldData.modifiers.includes('needsAnyStress'))
+            members = members.filter(m => actorFull.system.stress.value > 0 || m.system.stress.value > 0);
+          if (fieldData.modifiers.includes('needsHarm'))
+            members = members.filter(m => m.system.harm.light.one != '' || m.system.harm.light.two != '' || m.system.harm.medium.one != '' || m.system.harm.medium.two != '' || m.system.harm.heavy.one != '' || m.system.harm.deadly.one != '');
+        }
+        if (!members.length) {
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoValidCrewmate', {name: game.i18n.localize(popupName)}));
+          return null;
+        }
+        fieldContainer += `
+          <table class="form-group crewmate-group">
+            ${members.map((member, i) => `${i % 2 == 0 ? '<tr>' : ''}<td class="actor-cell flex-equal" data-actor-id="${member.uuid}">
+              <div class="actor-contents flex-horizontal">
+                <img src="${member.img}" data-tooltip="${member.name}" width="48" height="48"/>
+                <a class="item-name">${member.name}</a>
+              </div>
+            </td>${(i % 2 == 1 || i == members.length - 1) ? '</tr>' : ''}`).join('')}
+          </table>`;
+        break;
+      case 'strider-field':
+        if (!crewFull && !popupData.striders) {
+          ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoCrew', {name: game.i18n.localize(popupName)}));
+          return null;
+        }
+        fieldContainer += '<table class="form-group strider-group">';
+
+        const stridersFull = popupData.striders ? popupData.striders.map(s => BladesHelpers.resolveActor(s)) : Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m.uuid)).filter(m => m != null && m.type == 'strider');
+        for (let striderFull of stridersFull) {
+          fieldContainer += `
+            <tr>
+              <td class="actor-cell flex-equal" data-actor-id="${striderFull.uuid}">
+                <div class="actor-contents flex-horizontal">
+                  <img src="${striderFull.img}" data-tooltip="${striderFull.name}" width="48" height="48"/>
+                  <a class="item-name">${striderFull.name}</a>
+                </div>
+              </td>
+              <td class="field-cell flex-equal">`;
+          let striderFields = foundry.utils.deepClone(fieldData.fields ?? {});
+          if (striderFull.isCharmworkAvailable() && (popupData.stress || popupData.charmwork))
+            striderFields.charmwork = {
+              name: 'SFTD.StriderAbility.Charmwork.Title',
+              type: 'checkbox'
+            };
+          for (let [striderFieldName, striderFieldData] of Object.entries(striderFields))
+            fieldContainer += BladesPopup.instantiateFormField(striderFull, striderFieldName, striderFieldData, popupData, popupName, true);
+          fieldContainer += `
+              </td>
+            </tr>`
+        }
+        fieldContainer += '</table>';
+        break;
+      case 'select':
+        fieldContainer += `<select>${fieldData.values.map((d, i) => `<option value="${d}" ${i == 0 ? 'selected' : ''}>${game.i18n.localize(d)}</option>`).join('')}</select>`;
+        break;
+      case 'checkbox':
+        fieldContainer += `<input type="checkbox">`;
+        break;
+      default:
+        break;
+    }
+    return fieldContainer + '</div>';
   }
 
   static setupFormEvents(dialog) {
@@ -164,33 +199,31 @@ export class BladesPopup {
 
   static fetchFormValues(dialog) {
     let fields = { itemFull: dialog.itemFull };
-    for (let element of dialog.element.querySelectorAll('.form .field')) {
-      if (element.dataset.value)
-        fields[element.dataset.field] = element.dataset.value;
-      else
-        switch (element.dataset.type) {
-          case 'crewmate':
-            let selectedCell = element.querySelector('.actor-cell.selected');
-            let crewmate = selectedCell ? selectedCell.dataset.actorId : null;
-            fields[element.dataset.field] = crewmate;
-            break;
-          case 'select':
-            fields[element.dataset.field] = Array.from(element.querySelector('select').selectedOptions).length == 1 ? element.querySelector('select').value : Array.from(element.querySelector('select').selectedOptions);
-            break;
-          case 'checkbox':
-            fields[element.dataset.field] = element.querySelector('input[type="checkbox"]').checked;
-            break;
-          default:
-            break;
-        }
-    }
+    for (let element of dialog.element.querySelectorAll('.form > .field'))
+      fields[element.dataset.field] = element.dataset.value ? element.dataset.value : BladesPopup.fetchFormField(element);
     return fields;
+  }
+
+  static fetchFormField(element) {
+    switch (element.dataset.type) {
+      case 'crewmate':
+        let selectedCell = element.querySelector('.actor-cell.selected');
+        let crewmate = selectedCell ? selectedCell.dataset.actorId : null;
+        return crewmate;
+      case 'strider-field':
+        return Object.fromEntries(Array.from(element.querySelectorAll('.actor-cell')).map(e => [e.dataset.actorId, Object.fromEntries(Array.from(e.nextElementSibling.querySelectorAll('.field')).map(e2 => [e2.dataset.field, BladesPopup.fetchFormField(e2)]))]));
+      case 'select':
+        return Array.from(element.querySelector('select').selectedOptions).length == 1 ? element.querySelector('select').value : Array.from(element.querySelector('select').selectedOptions);
+      case 'checkbox':
+        return element.querySelector('input[type="checkbox"]').checked;
+      default:
+    }
   }
 
   static updateFormValues(dialog) {
     const fields = BladesPopup.fetchFormValues(dialog);
     var preContent = dialog.popupData.pre_content ? dialog.popupData.pre_content(fields, dialog.popupData, dialog) : '';
-    if (dialog.itemFull.system.bound_by_charmtrick)
+    if (dialog.itemFull?.system.bound_by_charmtrick)
       preContent = game.i18n.localize('SFTD.StriderAbility.Charmtrick.PopupNotice') + preContent;
     dialog.element.querySelector('.pre-content').innerHTML = preContent;
     dialog.element.querySelector('.post-content').innerHTML = dialog.popupData.post_content ? dialog.popupData.post_content(fields, dialog.popupData, dialog) : '';
@@ -228,7 +261,7 @@ export class BladesPopup {
   static defaultGetStress(fields, baseStress, popupData, itemFull) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     let stressGain = baseStress;
-    if (itemFull.system.bound_by_charmtrick)
+    if (itemFull?.system.bound_by_charmtrick)
       stressGain ++;
     const crewFull = selfFull?.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull?.system.crew);
     if (crewFull.system.transcendent_loom && !popupData.isNotAnAbility)
@@ -297,7 +330,7 @@ export class BladesPopup {
   /* ----------------------------------------- */
 
   static simpleItemUsesValidation(fields, popupData, noPopup) {
-    const hasAnyUses = fields.itemFull.system.uses.value > 0;
+    const hasAnyUses = fields.itemFull?.system.uses.value > 0;
     if (!hasAnyUses)
       ui.notifications.warn(game.i18n.format('SFTD.log.warn.GenericPopupNoUses', { name: game.i18n.localize(popupData.title) }));
     return hasAnyUses;
@@ -535,6 +568,35 @@ export class BladesPopup {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const extraFields = { title: game.i18n.localize('SFTD.CrewFoundation.SideBusiness.Title'), contents: 'SFTD.CrewFoundation.SideBusiness.Description', modifiers: [], actor: selfFull };
     await bladesRoll(selfFull.getTier(), 'SFTD.SideBusiness', '', extraFields);
+  }
+
+  /* ----------------------------------------- */
+
+  static internalStrainValidation(fields, popupData, noPopup, itemFull) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData))
+      return false;
+    return BladesHelpers.resolveActor(fields.self).system.harmony.value >= Object.values(fields.striders).filter(s => s.charmwork).length;
+  }
+
+  static async internalStrainEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const harmonyCost = selfFull.system.harmony.value >= Object.values(fields.striders).filter(s => s.charmwork).length;
+    await BladesHelpers.tryUpdate(selfFull, {'system.harmony.==value': selfFull.system.harmony.value - harmonyCost});
+    for (let [striderUuid, striderFields] of Object.entries(fields.striders)) {
+      const striderFull = BladesHelpers.resolveActor(striderUuid);
+      if (!striderFields.charmwork)
+        await BladesHelpers.tryUpdate(striderFull, {'system.stress.==value': Math.clamp(striderFull.system.stress.value + 1, 0, striderFull.system.stress.max)});
+    }
+    popupData.messageElement
+  }
+
+  static internalStrainMessageContents(fields, popupData, itemFull) {
+    let message = '';
+    for (let [striderUuid, striderFields] of Object.entries(fields.striders)) {
+      const striderFull = BladesHelpers.resolveActor(striderUuid);
+      message += `${striderFull.name} ${game.i18n.format(`SFTD.PushYourself${striderFields.charmwork ? 'Harmony' : 'Stress'}Cost`, { stress: 1, charmsyncText: '' })}. `;
+    }
+    return message;
   }
 
   /* ----------------------------------------- */
@@ -866,6 +928,24 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.CrewFoundation.WormholeGate.Message.Title',
       description: 'SFTD.CrewFoundation.WormholeGate.Message.Description',
+    }
+  },
+  internal_strain: {
+    title: 'SFTD.InternalStrain.Popup.Title',
+    description: 'SFTD.InternalStrain.Popup.Description',
+    classes: ['internal-strain'],
+    fields: {
+      striders: {
+        type: 'strider-field',
+        fields: {}
+      }
+    },
+    charmwork: true,
+    validation: BladesPopup.internalStrainValidation,
+    effect: BladesPopup.internalStrainEffect,
+    message: {
+      title: 'SFTD.InternalStrain.Message.Title',
+      contents: BladesPopup.internalStrainMessageContents
     }
   }
 }

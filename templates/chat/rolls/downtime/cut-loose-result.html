@@ -27,6 +27,12 @@
   </div>
   {{/if}}
 
+  {{#if (eq roll_status "failure")}}
+  <div class="button leader-only">
+    <button class="internal-strain">{{localize 'SFTD.InternalStrain.Button'}}</button>
+  </div>
+  {{/if}}
+
   {{#if note}}
   <em>{{note}}</em>
   {{/if}}

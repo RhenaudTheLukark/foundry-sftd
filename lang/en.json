@@ -860,6 +860,17 @@
 
     "MultipleSelectUsage": "Ctrl + Click to select several choices",
 
+    "InternalStrain": {
+      "Button": "Choose Internal Strain",
+      "Popup": {
+        "Title": "Internal Strain",
+        "Description": "One of you lets slip a cruel joke, an unkind insecurity, or something else, and your bonds as a team are tested.<br/>Maybe this turns into an explosive argument, or maybe you all keep the issue simmering just below the surface.<br/>Either way, everyone takes 1 Stress after the roll and any special abilities are applied."
+      },
+      "Message": {
+        "Title": "Internal Strain"
+      }
+    },
+
     "StriderAbility": {
       "AlloyedMettle": {
         "Title": "Alloyed Mettle: Reassuring or Comforting Someone Who Honestly Confessed a Fear or Vulnerable Emotion to You?",

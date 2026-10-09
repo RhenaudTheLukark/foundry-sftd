@@ -5687,7 +5687,6 @@
 }
 .songs-for-the-dusk.actor.sheet .item .item-body .item-description, .songs-for-the-dusk.actor.sheet .item .open-actor .item-description {
   /*font-style: italic;*/
-  min-width: 50%;
   text-align: justify;
 }
 .songs-for-the-dusk.actor.sheet .item .item-controls > .item-post {
@@ -7875,20 +7874,20 @@
 .application.dialog.generic-popup .popup-container.form .field select {
   width: fit-content;
 }
-.application.dialog.generic-popup .popup-container.form .field .crewmate-group {
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group, .application.dialog.generic-popup .popup-container.form .field .strider-group {
   width: auto;
 }
-.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr {
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr, .application.dialog.generic-popup .popup-container.form .field .strider-group tr {
   display: table;
-  table-layout: fixed;
+  table-layout: auto;
+  width: 100%;
   background-color: var(--table-row-color-odd);
 }
-.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr td {
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr td, .application.dialog.generic-popup .popup-container.form .field .strider-group tr td {
   display: table-cell;
-  width: 2%;
-  padding: 1em;
+  width: 50%;
 }
-.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr td.selected {
+.application.dialog.generic-popup .popup-container.form .field .crewmate-group tr td.selected, .application.dialog.generic-popup .popup-container.form .field .strider-group tr td.selected {
   background-color: rgba(255, 255, 255, 0.2);
 }
 .application.dialog.generic-popup.alloyed-mettle .stress-transfer {
