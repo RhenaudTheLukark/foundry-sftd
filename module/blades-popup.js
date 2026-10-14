@@ -95,11 +95,11 @@ export class BladesPopup {
   }
 
   static instantiateFormField(actorFull, fieldName, fieldData, popupData, popupName, isSubField = false) {
-    let isInline = ['select', 'checkbox'].includes(fieldData.type);
-    let fieldContainer = `<div class="field flex-${isInline ? 'horizontal shrink' : 'vertical'}" data-field="${fieldName}" data-type="${fieldData.type}">`;
+    const isInline = ['select', 'checkbox'].includes(fieldData.type);
+    var fieldContainer = `<div class="field flex-${isInline ? 'horizontal shrink' : 'vertical'}" data-field="${fieldName}" data-type="${fieldData.type}">`;
     if (fieldData.name)
       fieldContainer += `<label>${game.i18n.localize(fieldData.name)}</label>`;
-    let crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
+    const crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
     switch (fieldData.type) {
       case 'crewmate':
         if (!crewFull) {
@@ -139,7 +139,7 @@ export class BladesPopup {
         fieldContainer += '<table class="form-group strider-group">';
 
         const stridersFull = popupData.striders ? popupData.striders.map(s => BladesHelpers.resolveActor(s)) : Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m.uuid)).filter(m => m != null && m.type == 'strider');
-        for (let striderFull of stridersFull) {
+        for (const striderFull of stridersFull) {
           fieldContainer += `
             <tr>
               <td class="actor-cell flex-equal" data-actor-id="${striderFull.uuid}">
@@ -155,7 +155,7 @@ export class BladesPopup {
               name: 'SFTD.StriderAbility.Charmwork.Title',
               type: 'checkbox'
             };
-          for (let [striderFieldName, striderFieldData] of Object.entries(striderFields))
+          for (const [striderFieldName, striderFieldData] of Object.entries(striderFields))
             fieldContainer += BladesPopup.instantiateFormField(striderFull, striderFieldName, striderFieldData, popupData, popupName, true);
           fieldContainer += `
               </td>
@@ -164,7 +164,8 @@ export class BladesPopup {
         fieldContainer += '</table>';
         break;
       case 'select':
-        fieldContainer += `<select>${fieldData.values.map((d, i) => `<option value="${d}" ${i == 0 ? 'selected' : ''}>${game.i18n.localize(d)}</option>`).join('')}</select>`;
+        const values = (typeof fieldData.values == 'string') ? BladesHelpers.parseValuePath(fieldData.values, actorFull) : fieldData.values;
+        fieldContainer += `<select>${values.map((d, i) => `<option value="${d}" ${i == 0 ? 'selected' : ''}>${game.i18n.localize(d)}</option>`).join('')}</select>`;
         break;
       case 'checkbox':
         fieldContainer += `<input type="checkbox">`;
@@ -572,35 +573,6 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
-  static internalStrainValidation(fields, popupData, noPopup, itemFull) {
-    if (!BladesPopup.simpleCrewValidation(fields, popupData))
-      return false;
-    return BladesHelpers.resolveActor(fields.self).system.harmony.value >= Object.values(fields.striders).filter(s => s.charmwork).length;
-  }
-
-  static async internalStrainEffect(fields, popupData, itemFull) {
-    const selfFull = BladesHelpers.resolveActor(fields.self);
-    const harmonyCost = selfFull.system.harmony.value >= Object.values(fields.striders).filter(s => s.charmwork).length;
-    await BladesHelpers.tryUpdate(selfFull, {'system.harmony.==value': selfFull.system.harmony.value - harmonyCost});
-    for (let [striderUuid, striderFields] of Object.entries(fields.striders)) {
-      const striderFull = BladesHelpers.resolveActor(striderUuid);
-      if (!striderFields.charmwork)
-        await BladesHelpers.tryUpdate(striderFull, {'system.stress.==value': Math.clamp(striderFull.system.stress.value + 1, 0, striderFull.system.stress.max)});
-    }
-    popupData.messageElement
-  }
-
-  static internalStrainMessageContents(fields, popupData, itemFull) {
-    let message = '';
-    for (let [striderUuid, striderFields] of Object.entries(fields.striders)) {
-      const striderFull = BladesHelpers.resolveActor(striderUuid);
-      message += `${striderFull.name} ${game.i18n.format(`SFTD.PushYourself${striderFields.charmwork ? 'Harmony' : 'Stress'}Cost`, { stress: 1, charmsyncText: '' })}. `;
-    }
-    return message;
-  }
-
-  /* ----------------------------------------- */
-
   static wormholeGateValidation(fields, popupData, noPopup, itemFull) {
     if (!BladesPopup.simpleCrewValidation(fields, popupData))
       return false;
@@ -616,6 +588,74 @@ export class BladesPopup {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
     await BladesHelpers.tryUpdate(crewFull, {'system.shells.==value': crewFull.system.shells.value - 3});
+  }
+
+  /* ----------------------------------------- */
+
+  static internalStrainValidation(fields, popupData, noPopup, itemFull) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData))
+      return false;
+    return BladesHelpers.resolveActor(fields.self).system.harmony.value >= Object.values(fields.striders).filter(s => s.charmwork).length;
+  }
+
+  static async internalStrainEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const harmonyCost = selfFull.system.harmony.value >= Object.values(fields.striders).filter(s => s.charmwork).length;
+    await BladesHelpers.tryUpdate(selfFull, {'system.harmony.==value': selfFull.system.harmony.value - harmonyCost});
+    for (let [striderUuid, striderFields] of Object.entries(fields.striders)) {
+      const striderFull = BladesHelpers.resolveActor(striderUuid);
+      if (!striderFields.charmwork)
+        await BladesHelpers.tryUpdate(striderFull, {'system.stress.==value': Math.clamp(striderFull.system.stress.value + 1, 0, striderFull.system.stress.max)});
+    }
+  }
+
+  static internalStrainMessageContents(fields, popupData, itemFull) {
+    let message = '';
+    for (let [striderUuid, striderFields] of Object.entries(fields.striders)) {
+      const striderFull = BladesHelpers.resolveActor(striderUuid);
+      message += `${striderFull.name} ${game.i18n.format(`SFTD.PushYourself${striderFields.charmwork ? 'Harmony' : 'Stress'}Cost`, { stress: 1, charmsyncText: '' })}. `;
+    }
+    return message;
+  }
+
+  /* ----------------------------------------- */
+
+  static commitmentPreValidation(fields, popupData) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData, true))
+      return false;
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    const valid = Object.values(crewFull.system.projects).filter(p => p.clock.value < p.clock.max).length > 0;
+    if (!valid)
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.CommitmentNoValidLongTermProject'));
+    return valid;
+  }
+
+  static commitmentValidation(fields, popupData, noPopup, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    if (!fields.project)
+      return false;
+    const projectFull = Object.values(crewFull.system.projects).find(p => p.title == fields.project);
+    if (!projectFull)
+      return false;
+    return projectFull.clock.value < projectFull.clock.max && !Object.values(selfFull.system.commitments).find(c => c.project_id == projectFull.id);
+  }
+
+  static async commitmentEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    if (!fields.project)
+      return false;
+    const projectFull = Object.values(crewFull.system.projects).find(p => p.title == fields.project);
+    if (!projectFull)
+      return false;
+    await BladesHelpers.addCommitment(selfFull, projectFull.id);
+  }
+
+  static commitmentMessageContents(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    return game.i18n.format('SFTD.Commitment.Message.Description', {self: selfFull.name, project: fields.project});
   }
 }
 
@@ -946,6 +986,24 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.InternalStrain.Message.Title',
       contents: BladesPopup.internalStrainMessageContents
+    }
+  },
+  commitment: {
+    title: 'SFTD.Commitment.Popup.Title',
+    description: 'SFTD.Commitment.Popup.Description',
+    pre_validation: BladesPopup.commitmentPreValidation,
+    classes: ['internal-strain'],
+    fields: {
+      project: {
+        type: 'select',
+        values: 'system.crew.system.projects:title'
+      }
+    },
+    validation: BladesPopup.commitmentValidation,
+    effect: BladesPopup.commitmentEffect,
+    message: {
+      title: 'SFTD.Commitment.Message.Title',
+      contents: BladesPopup.commitmentMessageContents
     }
   }
 }

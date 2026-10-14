@@ -211,7 +211,8 @@
         "kinesis": 1,
         "semiosis": 1
       },
-      "research_assessment_misses": 0
+      "research_assessment_misses": 0,
+      "commitments": {}
     },
     "crew": {
       "base": "",
@@ -258,6 +259,7 @@
       },
       "members": {},
       "projects": {},
+      "next_project_id": 1,
       "relationships": {},
       "modifiers": {
         "strider": {},

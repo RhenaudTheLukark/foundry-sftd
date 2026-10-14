@@ -319,7 +319,7 @@ Hooks.once("ready", async function() {
 
   // Determine whether a system migration is required
   const currentVersion = game.settings.get("songs-for-the-dusk", "systemMigrationVersion");
-  const NEEDS_MIGRATION_VERSION = 1.3;
+  const NEEDS_MIGRATION_VERSION = 1.4;
   const needsMigration = currentVersion != NEEDS_MIGRATION_VERSION;
 
   // Perform the migration
@@ -454,8 +454,11 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
         await BladesHelpers.tryDelete(message);
       } else if (message.system.oldHarmony != undefined) {
         // Start Mission message
+        const type = ev.currentTarget.dataset.type;
         message.system.cutLooseScarMembersWithCharmwork = foundry.utils.flattenObject(message.system.cutLooseScarMembersWithCharmwork);
-        const availableActors = Object.fromEntries(Object.entries(message.system.cutLooseScarMembersWithCharmwork).map(m => [BladesHelpers.resolveActor(m[0]), m[1]]).filter(m => m[0] != null && m[0].isOwner).map(m => [m[0].uuid, m[1]]));
+        message.system.unfulfilledCommitmentsMembersWithCharmwork = foundry.utils.flattenObject(message.system.unfulfilledCommitmentsMembersWithCharmwork);
+        let striderObjects = type == 'scar' ? message.system.cutLooseScarMembersWithCharmwork : message.system.unfulfilledCommitmentsMembersWithCharmwork;
+        const availableActors = Object.fromEntries(Object.entries(striderObjects).map(m => [BladesHelpers.resolveActor(m[0]), m[1]]).filter(m => m[0] != null && m[0].isOwner).map(m => [m[0].uuid, m[1]]));
         var actorFull = null;
         var stress = 0;
         if (!Object.keys(availableActors).length) {
@@ -475,14 +478,16 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
         }
         await BladesHelpers.tryUpdate(actorFull, {'system.stress.==value': Math.clamp(actorFull.system.stress.value - stress, 0, actorFull.system.stress.max)});
 
-        const id = Object.keys(message.system.cutLooseScarMembersWithCharmwork).indexOf(actorFull.uuid);
-        message.system.cutLooseScarMembersWithCharmwork = Object.fromEntries(Object.entries(message.system.cutLooseScarMembersWithCharmwork).filter((_, i) => i != id));
+        const id = Object.keys(striderObjects).indexOf(actorFull.uuid);
+        striderObjects = Object.fromEntries(Object.entries(striderObjects).filter((_, i) => i != id));
+
         const oldHarmony = message.system.oldHarmony - 1;
-        await BladesHelpers.tryUpdate(message, {
-          '==content': await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: message.system.messageContents, hasAnyCutLooseScarMembersWithCharmwork: Object.keys(message.system.cutLooseScarMembersWithCharmwork).length > 0, oldHarmony: oldHarmony }),
-          'system.==cutLooseScarMembersWithCharmwork': message.system.cutLooseScarMembersWithCharmwork,
+        const updateObject = {
+          '==content': await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: message.system.messageContents, hasAnyCutLooseScarMembersWithCharmwork: Object.keys(message.system.cutLooseScarMembersWithCharmwork).length > 0, hasAnyUnfulfilledCommitmentsMembersWithCharmwork: Object.keys(message.system.unfulfilledCommitmentsMembersWithCharmwork).length > 0, oldHarmony: oldHarmony }),
           'system.==oldHarmony': oldHarmony
-        });
+        }
+        updateObject[`system.==${type == 'scar' ? 'cutLooseScar' : 'unfulfilledCommitments'}MembersWithCharmwork`] = striderObjects;
+        await BladesHelpers.tryUpdate(message, updateObject);
 
         let speaker = {
           actor: actorFull._id,
@@ -492,10 +497,10 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
         };
         const extraFields = {
           title: game.i18n.localize('SFTD.StriderAbility.Charmwork.Title'),
-          contents: game.i18n.format('SFTD.StriderAbility.Charmwork.StartMissionTimeTravel', {
+          contents: game.i18n.format(`SFTD.StriderAbility.Charmwork.StartMission${BladesHelpers.capitalize(type)}TimeTravel`, {
             stress: stress,
             strider: actorFull.name
-          }),
+          })
         }
         let messageData = {
           speaker: speaker,
@@ -521,6 +526,15 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
       await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
     });
   }
+  for (const element of html.querySelectorAll('.commitment')) {
+    element.addEventListener('click', async (ev) => {
+      const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+      const popupData = bladesPopupData.commitment;
+      popupData.key = 'commitment';
+      popupData.messageElement = element;
+      await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
+    });
+  }
   for (const element of html.querySelectorAll('.gm-only'))
     if (!game.user.isGM)
       element.style.display = "none";
@@ -535,8 +549,13 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
     if (!leaderFull?.isOwner && !game.user.isGM)
       element.style.display = "none";
   }
-  for (const element of html.querySelectorAll('.start-mission-charmwork-only')) {
+  for (const element of html.querySelectorAll('.start-mission-scar-charmwork-only')) {
     const availableActors = Object.keys(foundry.utils.flattenObject(message.system.cutLooseScarMembersWithCharmwork)).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.isOwner);
+    if (availableActors.length == 0)
+      element.style.display = 'none';
+  }
+  for (const element of html.querySelectorAll('.start-mission-commitment-charmwork-only')) {
+    const availableActors = Object.keys(foundry.utils.flattenObject(message.system.unfulfilledCommitmentsMembersWithCharmwork)).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.isOwner);
     if (availableActors.length == 0)
       element.style.display = 'none';
   }

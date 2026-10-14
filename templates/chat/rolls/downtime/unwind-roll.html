@@ -28,7 +28,7 @@
 
   {{#if extraFields.modifier_text}}
   <div class="description">
-    <p>{{{extraFields.modifier_text}}}</p>
+    {{{extraFields.modifier_text}}}
   </div>
   {{/if}}
 
@@ -51,4 +51,10 @@
     {{/unless}}
     {{/if}}
   </ol>
+
+  {{#if (eq roll_status "failure")}}
+  <div class="button owner-only">
+    <button class="commitment">{{localize 'SFTD.Commitment.Button'}}</button>
+  </div>
+  {{/if}}
 </div>

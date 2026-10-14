@@ -8,8 +8,13 @@
   </div>
 
   {{#if (and hasAnyCutLooseScarMembersWithCharmwork (gt oldHarmony 0))}}
-  <div class="button start-mission-charmwork-only">
-    <button class="charmwork">{{localize 'SFTD.StriderAbility.Charmwork.StartMissionButton' oldHarmony=oldHarmony}}</button>
+  <div class="button start-mission-scar-charmwork-only">
+    <button class="charmwork" data-type="scar">{{localize 'SFTD.StriderAbility.Charmwork.CutLooseScarButton' oldHarmony=oldHarmony}}</button>
+  </div>
+  {{/if}}
+  {{#if (and hasAnyUnfulfilledCommitmentsMembersWithCharmwork (gt oldHarmony 0))}}
+  <div class="button start-mission-commitment-charmwork-only">
+    <button class="charmwork" data-type="commitment">{{localize 'SFTD.StriderAbility.Charmwork.UnfulfilledCommitmentButton' oldHarmony=oldHarmony}}</button>
   </div>
   {{/if}}
 </div>

@@ -890,6 +890,7 @@ export class BladesHelpers {
   static async addProject(actorFull, linkedFoundation, cost = -1) {
     let projects = actorFull.system.projects;
     projects[Object.keys(projects).length] = {
+      id: actorFull.system.next_project_id,
       title: linkedFoundation ? linkedFoundation.name : '',
       clock: {
         value: 0,
@@ -902,7 +903,7 @@ export class BladesHelpers {
       foundation: linkedFoundation ? linkedFoundation._id : undefined,
       is_foundation_upgrade: linkedFoundation ? linkedFoundation.system.is_upgrade : false
     }
-    await BladesHelpers.tryUpdate(actorFull, {'system.==projects': projects});
+    await BladesHelpers.tryUpdate(actorFull, {'system.==projects': projects, 'system.==next_project_id': actorFull.system.next_project_id + 1});
   }
 
   static async removeProject(actorFull, projectId) {
@@ -911,6 +912,37 @@ export class BladesHelpers {
     for (let id in projectsEntries)
       projectsEntries[id][0] = String(id);
     await BladesHelpers.tryUpdate(actorFull, {'system.==projects': Object.fromEntries(projectsEntries)});
+  }
+
+  /* -------------------------------------------- */
+
+  static async addCommitment(striderFull, projectId) {
+    const crewFull = BladesHelpers.resolveActor(striderFull.system.crew);
+    if (!crewFull) {
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.UnwindCommitmentNoCrew'));
+      return;
+    }
+    if (!Object.values(crewFull.system.projects).find(p => p.id == projectId)) {
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.UnwindCommitmentBadProject'));
+      return;
+    }
+    var commitments = striderFull.system.commitments;
+    commitments[Object.keys(commitments).length] = {
+      project_id: projectId,
+      fulfilled: false
+    }
+    await BladesHelpers.tryUpdate(striderFull, {'system.==commitments': commitments});
+  }
+
+  static async removeCommitment(actorFull, projectId) {
+    let commitmentEntries = Object.entries(actorFull.system.projects);
+    let commitmentId = commitmentEntries.find(c => c[1].project_id == projectId)?.[0];
+    if (commitmentId != undefined) {
+      commitmentEntries.splice(projectId, commitmentId);
+      for (let id in commitmentEntries)
+        commitmentEntries[id][0] = String(id);
+      await BladesHelpers.tryUpdate(actorFull, {'system.==commitments': Object.fromEntries(commitmentEntries)});
+    }
   }
 
   /* -------------------------------------------- */
@@ -971,6 +1003,51 @@ export class BladesHelpers {
     if (!html) return '';
     let doc = new DOMParser().parseFromString(html, 'text/html');
     return doc.body.textContent || '';
+  }
+
+  /* -------------------------------------------- */
+
+  static parseNameArgs(nameArgs, actorFull) {
+    if (!actorFull) return nameArgs;
+
+    let output = {};
+    for (let [argName, argValue] of Object.entries(nameArgs)) {
+      let processedArg = '';
+      for (let [id, val] of Object.entries(argValue.split('{'))) {
+        if (id == 0) {
+          processedArg = val;
+          continue;
+        }
+        let [key, rest] = val.split('}', 1);
+        processedArg += String(BladesHelpers.parseValuePath(key, actorFull)) + (rest ?? '');
+      }
+      output[argName] = processedArg;
+    }
+    return output;
+  }
+
+  static parseValuePath(path, actorFull) {
+    if (!actorFull) return path;
+
+    let data = actorFull;
+    let explorers = path.split(':', 2);
+    path = explorers[0];
+    for (let pathPart of path.split('.')) {
+      data = data[pathPart];
+      if (Array.isArray(data) || data == null) {
+        data == 'undefined';
+        break;
+      } else if (typeof data == 'string' && data.startsWith('Actor')) {
+        data = BladesHelpers.resolveActor(data);
+        if (!data) {
+          data = 'undefined';
+          break;
+        }
+      }
+    }
+    if (explorers.length == 2 && typeof data === 'object' && !Array.isArray(data) && data !== null)
+      data = Object.entries(data).map(d => BladesHelpers.parseValuePath(explorers[1], d[1]));
+    return data;
   }
 
   /* -------------------------------------------- */

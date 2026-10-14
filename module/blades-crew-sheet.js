@@ -478,8 +478,23 @@ export class BladesCrewSheet extends BladesSheet {
       if (scars > 0 && !memberFull.system.downtime_activities.cutLoose)
         scarredStridersWithNoCutLoose.push(memberFull);
     }
+
+    let stridersWithUnfulfilledCommitments = [];
+    for (let memberFull of Object.values(this.actor.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider')) {
+      let commitmentsToClear = [];
+      for (let commitmentFull of Object.values(memberFull.system.commitments))
+        if (!Object.values(this.actor.system.projects).find(p => p.id == commitmentFull.project_id))
+          commitmentsToClear.push(commitmentFull.project_id);
+      for (let projectId of commitmentsToClear)
+        await BladesHelpers.removeCommitment(memberFull, projectId);
+      if (Object.values(memberFull.system.commitments).filter(c => !c.fulfulled).length)
+        stridersWithUnfulfilledCommitments.push(memberFull);
+    }
+
     extraData.scarredStriders = scarredStridersWithNoCutLoose.map(p => `<option value="${p.uuid}" selected>${p.name}</option>`);
     extraData.scarredStridersCount = scarredStridersWithNoCutLoose.length;
+    extraData.stridersWithUnfulfilledCommitments = stridersWithUnfulfilledCommitments.map(p => `<option value="${p.uuid}" selected>${p.name}</option>`);
+    extraData.stridersWithUnfulfilledCommitmentsCount = stridersWithUnfulfilledCommitments.length;
 
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.StartMission')}` },
@@ -507,7 +522,7 @@ export class BladesCrewSheet extends BladesSheet {
           let cutLooseScarMessage = '';
           for (let selectedOption of dialog.element.querySelector('[name="cutLooseScarStriders"]').selectedOptions) {
             let memberFull = BladesHelpers.resolveActor(selectedOption.value);
-            let scars = Object.values(memberFull.system.scars.values).filter(s => s != '').length
+            let scars = Object.values(memberFull.system.scars.values).filter(s => s != '').length;
             let oldStress = Number(memberFull.system.stress.value);
             let resultStress = Math.clamp(Number(memberFull.system.stress.value) + scars, 0, memberFull.system.stress.max);
             cutLooseScarMembersWithCharmwork[memberFull.uuid] = resultStress - oldStress;
@@ -523,11 +538,38 @@ export class BladesCrewSheet extends BladesSheet {
           .map(m => [m[0].uuid, m[1]])
         );
 
-        // Reset Downtime Activities, Melody, Replenishable Items, Armor & Not A Problem uses for all Striders
+        let unfulfilledCommitmentsMembersWithCharmwork = {};
+        if (dialog.element.querySelector('[name="unfulfilledCommitments"]').checked && dialog.element.querySelector('[name="unfulfilledCommitmentsStriders"]')) {
+          let unfulfilledCommitmentsMessage = '';
+          for (let selectedOption of dialog.element.querySelector('[name="unfulfilledCommitmentsStriders"]').selectedOptions) {
+            let memberFull = BladesHelpers.resolveActor(selectedOption.value);
+            let unfulfilledCommitments = Object.values(memberFull.system.commitments).filter(c => !c.fulfilled).length;
+            let oldStress = Number(memberFull.system.stress.value);
+            let resultStress = Math.clamp(Number(memberFull.system.stress.value) + unfulfilledCommitments, 0, memberFull.system.stress.max);
+            unfulfilledCommitmentsMembersWithCharmwork[memberFull.uuid] = resultStress - oldStress;
+            await BladesHelpers.tryUpdate(memberFull, {'system.stress.value': resultStress});
+            unfulfilledCommitmentsMessage += ` ${game.i18n.format('SFTD.StartMissionUnfulfilledCommitmentsStriderEffect', {strider: memberFull.name, num: unfulfilledCommitments})}`;
+          }
+          if (unfulfilledCommitmentsMessage)
+            messageContents += `<div class="description"><p>${game.i18n.localize('SFTD.StartMissionUnfulfilledCommitmentsEffect')}${unfulfilledCommitmentsMessage}</p></div>`;
+        }
+        unfulfilledCommitmentsMembersWithCharmwork = Object.fromEntries(Object.entries(unfulfilledCommitmentsMembersWithCharmwork)
+          .map(m => [BladesHelpers.resolveActor(m[0]), m[1]])
+          .filter(m => m[0] != null && m[0].system.charmwork && m[1] > 0)
+          .map(m => [m[0].uuid, m[1]])
+        );
+
+        // Reset Downtime Activities, Melody, Replenishable Items, Armor, Not A Problem uses & Commitments for all Striders
         let melodyUsed = false;
         for (let memberFull of Object.values(this.actor.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider')) {
           melodyUsed ||= !memberFull.system.melody;
-          await BladesHelpers.tryUpdate(memberFull, {'system.==downtime_activities': {train_types: {}}, 'system.==melody': true, 'system.armor.==value': memberFull.system.armor.max, 'system.not_a_problem_uses.==value': memberFull.system.not_a_problem_uses.max});
+          await BladesHelpers.tryUpdate(memberFull, {
+            'system.==downtime_activities': {train_types: {}},
+            'system.==melody': true,
+            'system.armor.==value': memberFull.system.armor.max,
+            'system.not_a_problem_uses.==value': memberFull.system.not_a_problem_uses.max,
+            ...Object.fromEntries(Object.keys(memberFull.system.commitments).map(c => [`system.commitments.${c}.==fulfilled`, false]))
+          });
           for (let item of memberFull.items.filter(i => i.system.uses?.max && i.system.replenish))
             await BladesHelpers.tryUpdate(item, {'system.uses.==value': item.system.uses.max});
         }
@@ -555,10 +597,11 @@ export class BladesCrewSheet extends BladesSheet {
           speaker: speaker,
           system: {
             cutLooseScarMembersWithCharmwork: cutLooseScarMembersWithCharmwork,
+            unfulfilledCommitmentsMembersWithCharmwork: unfulfilledCommitmentsMembersWithCharmwork,
             oldHarmony: oldHarmony,
             messageContents: messageContents
           },
-          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents, hasAnyCutLooseScarMembersWithCharmwork: Object.keys(cutLooseScarMembersWithCharmwork).length > 0, oldHarmony: oldHarmony })
+          content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/start-mission.html', { contents: messageContents, hasAnyCutLooseScarMembersWithCharmwork: Object.keys(cutLooseScarMembersWithCharmwork).length > 0, hasAnyUnfulfilledCommitmentsMembersWithCharmwork: Object.keys(unfulfilledCommitmentsMembersWithCharmwork).length > 0, oldHarmony: oldHarmony })
         }
         await ChatMessage.create(messageData);
       }

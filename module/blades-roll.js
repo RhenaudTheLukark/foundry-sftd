@@ -945,12 +945,12 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   let attributeLabel = BladesHelpers.getRollLabel(attributeOrRollName);
 
   // Retrieve Roll status
-  let rolls = (r.terms)[0].results;
+  const rolls = (r.terms)[0].results;
   let [rollStatus, resultDie, extraResult] = getBladesRollStatus(rolls, zeromode, extraFields.modifiers);
   if (extraFields.forcedResult)
     rollStatus = extraFields.forcedResult;
 
-  let crewFull = BladesHelpers.resolveActor(extraFields.actor?.system.crew);
+  const crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
   if (crewFull && extraFields.allowHarmonyGain && rollResultIndex.indexOf(rollStatus) >= 2) {
     let newHarmony = Math.max(Math.min(crewFull.system.harmony.value + 1, crewFull.system.harmony.max), 0);
     await BladesHelpers.tryUpdate(crewFull, {'system.harmony.value': newHarmony});
@@ -981,18 +981,15 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   // Check for Group Specialist rolls
   } else if (attributeOrRollName == 'SFTD.GroupSpecialistRoll') {
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-specialist-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     crewFull?.updateGroupActionRoll(extraFields.actor.uuid, rollStatus);
   // Check for Group Action roll
   } else if (extraFields.group_action) {
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/group-action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
-
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     crewFull?.updateGroupActionRoll(extraFields.actor.uuid, rollStatus);
   }
   // Check for Action roll
   else if (BladesHelpers.isAttributeAction(attributeOrRollName)) {
-    let positionLocalize = '';
+    const positionLocalize = '';
     switch (extraFields.position) {
       case 'controlled':
         positionLocalize = 'SFTD.PositionControlled'
@@ -1005,7 +1002,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
         positionLocalize = 'SFTD.PositionRisky'
     }
 
-    let impactLocalize = '';
+    const impactLocalize = '';
     switch (extraFields.impact) {
       case 'zero':
         impactLocalize = 'SFTD.ImpactZero'
@@ -1030,11 +1027,11 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   else if (attributeOrRollName == 'SFTD.ResistanceRoll') {
     const stress = getBladesRollResistanceStress(rolls, extraResult, zeromode);
     if (!extraFields.rollData.charmwork) {
-      let rollStressValue = (extraFields.rollData.stressChanges[extraFields.actor.id]?.value ?? 0) + stress;
-      let newStress = Math.clamp(Number(extraFields.actor.system.stress.value) + rollStressValue, 0, extraFields.actor.system.stress.max);
+      const rollStressValue = (extraFields.rollData.stressChanges[extraFields.actor.id]?.value ?? 0) + stress;
+      const newStress = Math.clamp(Number(extraFields.actor.system.stress.value) + rollStressValue, 0, extraFields.actor.system.stress.max);
       extraFields.rollData.stressChanges[extraFields.actor.id] = {value: rollStressValue, realValue: newStress - Number(extraFields.actor.system.stress.value)};
 
-      let resultStress = Math.clamp(extraFields.actor.system.stress.value + stress, 0, extraFields.actor.system.stress.max);
+      const resultStress = Math.clamp(extraFields.actor.system.stress.value + stress, 0, extraFields.actor.system.stress.max);
       if (resultStress != extraFields.actor.system.stress.value)
         await BladesHelpers.tryUpdate(extraFields.actor, {'system.stress.==value': resultStress});
     }
@@ -1042,13 +1039,12 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   }
   // Check for Aftermath roll
   else if (attributeOrRollName == 'SFTD.AftermathRoll') {
-    let crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
     extraFields.cantHateUs = crewFull?.system.cant_hate_us;
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/aftermath-roll.html', { rolls: rolls, zeromode: zeromode, method: method, resultDie: resultDie, note: note, extraFields: extraFields });
   }
   // Check for Collect Information roll
   else if (attributeOrRollName == 'SFTD.CollectInformationRoll') {
-    let positionLocalize = '';
+    const positionLocalize = '';
     switch (extraFields.position) {
       case 'controlled':
         positionLocalize = 'SFTD.PositionControlled'
@@ -1061,7 +1057,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
         positionLocalize = 'SFTD.PositionRisky'
     }
 
-    let impactLocalize = '';
+    const impactLocalize = '';
     switch (extraFields.impact) {
       case 'zero':
       case 'weak':
@@ -1082,8 +1078,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/engagement-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, note: note, extraFields: extraFields });
   // Check for Upkeep roll
   else if (attributeOrRollName == 'SFTD.UpkeepRoll') {
-    let shells = getBladesRollCollect(rolls, extraResult, zeromode);
-    let crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
+    const shells = getBladesRollCollect(rolls, extraResult, zeromode);
     let overShells = 0;
     if (crewFull) {
       let newShells = Math.min(crewFull.system.shells.value + shells, crewFull.system.shells.max);
@@ -1095,19 +1090,20 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
 
   // Check for Construct Foundation roll
   else if (attributeOrRollName == 'SFTD.ConstructFoundationRoll') {
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    let crewUpdateObject = {system: {projects: {}}};
     let ticks = getBladesRollDowntime(rolls, extraResult, extraFields.extraTicks, zeromode);
     if (extraFields.isNewFoundation && crewFull.system.foundation_frames)
       ticks ++;
 
-    let project = crewFull.system.projects[extraFields.cfId];
-    let newTick = Math.min(project.clock.value + ticks, project.clock.max);
-    let clockFilled = newTick >= project.clock.max;
+    const project = crewFull.system.projects[extraFields.cfId];
+    const newTick = Math.min(project.clock.value + ticks, project.clock.max);
+    const clockFilled = newTick >= project.clock.max;
     if (clockFilled)
       ticks = project.clock.max - project.clock.value;
-    crewUpdateObject.system.projects[extraFields.cfId] = {'clock.==value': newTick};
+
+    let crewUpdateObject = {};
+    crewUpdateObject[`system.projects.${extraFields.cfId}.clock.==value`] = newTick;
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
+
     if (clockFilled) {
       const foundations = await BladesHelpers.getAllObjectsByType('foundation', []);
       const foundationFull = foundations.find(v => v._id == project.foundation);
@@ -1130,7 +1126,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   else if (attributeOrRollName == 'SFTD.CutLooseRoll') {
     let clearStress = getBladesRollCutLooseUnwind(rolls, extraResult, zeromode);
     let remainingStress = extraFields.actor.system.stress.value - clearStress;
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     extraFields.tendingTheLanternsSafetyNet = crewFull.system.cut_loose.participants.map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider' && m != extraFields.actor && m.system.tending_the_lanterns).length * 2;
     extraFields.savedByTendingTheLanterns = (remainingStress >= -extraFields.tendingTheLanternsSafetyNet && remainingStress < 0) ? -remainingStress : 0;
     if (!extraFields.forcedResult)
@@ -1146,8 +1141,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   }
   // Check for Long-Term Project roll
   else if (attributeOrRollName == 'SFTD.LongTermProjectRoll') {
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-    let crewUpdateObject = {system: {projects: {}}};
     let ticks = getBladesRollDowntime(rolls, extraResult, extraFields.extraTicks, zeromode);
 
     let project = crewFull.system.projects[extraFields.ltpId];
@@ -1155,8 +1148,19 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
     let clockFilled = newTick >= Number(project.clock.max);
     if (clockFilled)
       ticks = Number(project.clock.max) - Number(project.clock.value);
-    crewUpdateObject.system.projects[extraFields.ltpId] = {clock: {'==value': newTick}};
+
+    let crewUpdateObject = {};
+    crewUpdateObject[`system.projects.${extraFields.ltpId}.clock.==value`] = newTick;
     await BladesHelpers.tryUpdate(crewFull, crewUpdateObject);
+
+    // Commitment
+    const associatedCommitment = Object.entries(extraFields.actor.system.commitments).find(c => c[1].project_id == project.id && !c[1].fulfilled);
+    if (associatedCommitment) {
+      let striderUpdateObject = {};
+      striderUpdateObject[`system.commitments.${associatedCommitment[0]}.==fulfilled`] = true;
+      await BladesHelpers.tryUpdate(extraFields.actor, striderUpdateObject);
+      extraFields.modifier_text = `${extraFields.modifier_text ?? ''}<p>${game.i18n.localize('SFTD.RollLongTermProjectCommitment')}</p>`;
+    }
 
     let improvementLevels = ['critical-success', 'success', 'partial-success', 'failure'];
     extraFields.improvementLevels = improvementLevels.indexOf(rollStatus);
@@ -1166,7 +1170,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   }
   // Check for Reduce Pressure roll
   else if (attributeOrRollName == 'SFTD.ReducePressureRoll') {
-    let crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
     let ticks = getBladesRollDowntime(rolls, extraResult, extraFields.extraTicks, zeromode);
     let crewUpdateObject = {'system.pressure.==value': Math.max(crewFull.system.pressure.value - ticks, 0)};
 
@@ -1207,7 +1210,6 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   // Check for Unwind roll
   else if (attributeOrRollName == 'SFTD.UnwindRoll') {
     let clearStress = getBladesRollCutLooseUnwind(rolls, extraResult, zeromode);
-    let realClearStress = clearStress;
     let remainingStress = extraFields.actor.system.stress.value - clearStress;
     if (!extraFields.forcedResult)
       rollStatus = remainingStress >= 0 ? 'success' : 'failure';
@@ -2426,7 +2428,7 @@ export function buildConditionalModifiersHTML(modifiers, actorFull) {
   for (let [id, modifier] of Object.entries(modifiers)) {
     if (modifier.hidden) continue;
     if (modifier.nameArgs)
-      modifier.nameArgs = parseNameArgs(modifier.nameArgs, actorFull);
+      modifier.nameArgs = BladesHelpers.parseNameArgs(modifier.nameArgs, actorFull);
     let title = modifier.nameArgs ? game.i18n.format(modifier.name, modifier.nameArgs) : game.i18n.localize(modifier.name);
     output += `<div class="modifier" data-modifier="${modifier.key}" data-modifier-id=${id}><label><input type="checkbox"> ${title}</label>`;
     if (modifier.fields) {
@@ -2459,39 +2461,6 @@ export function buildConditionalModifiersHTML(modifiers, actorFull) {
       }
     }
     output += '</div>';
-  }
-  return output;
-}
-
-function parseNameArgs(nameArgs, actorFull) {
-  if (!actorFull) return nameArgs;
-
-  let output = {};
-  for (let [argName, argValue] of Object.entries(nameArgs)) {
-    let processedArg = '';
-    for (let [id, val] of Object.entries(argValue.split('{'))) {
-      if (id == 0) {
-        processedArg = val;
-        continue;
-      }
-      let [key, rest] = val.split('}', 1);
-      let keyData = actorFull;
-      for (let pathPart of key.split('.')) {
-        keyData = keyData[pathPart];
-        if (Array.isArray(keyData) || keyData == null) {
-          keyData == 'undefined';
-          break;
-        } else if (typeof keyData == 'string' && keyData.startsWith('Actor')) {
-          keyData = BladesHelpers.resolveActor(keyData);
-          if (!keyData) {
-            keyData = 'undefined';
-            break;
-          }
-        }
-      }
-      processedArg += String(keyData) + (rest ?? '');
-    }
-    output[argName] = processedArg;
   }
   return output;
 }

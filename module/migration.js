@@ -68,7 +68,7 @@ export const migrateWorld = async function(oldVersion, newVersion) {
  * @param {Actor} actorFull   The actor to Update
  * @return {Object}       The updateData to apply
  */
-function _migrateActor(actorFull, version) {
+async function _migrateActor(actorFull, version) {
   let updateData = {};
 
   if (version < 1.2) {
@@ -76,6 +76,17 @@ function _migrateActor(actorFull, version) {
       updateData['system.downtime_count.base'] = 2;
       if (actorFull.system.downtime_count.value > 2)
         updateData['system.downtime_count.value'] = 2;
+    }
+  }
+  if (version < 1.4) {
+    if (actorFull.type == 'crew') {
+      let nextProjectId = actorFull.system.next_project_id;
+      for (let projectId of Object.keys(actorFull.system.projects)) {
+        updateData[`system.projects.${projectId}.id`] = nextProjectId;
+        nextProjectId++;
+      }
+      if (nextProjectId != actorFull.system.next_project_id)
+        updateData['system.next_project_id'] = nextProjectId;
     }
   }
 

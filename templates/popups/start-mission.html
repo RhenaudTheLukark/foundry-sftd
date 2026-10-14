@@ -25,6 +25,23 @@
   </div>
 </div>
 <div class="form-group-inline">
+  <input type="checkbox" class="automated" name="unfulfilledCommitments"{{#if (gt extraData.stridersWithUnfulfilledCommitmentsCount 0)}} checked{{/if}}>
+    <div>
+      <label>{{{localize 'SFTD.StartMissionUnfulfilledCommitments'}}}</label>
+      <div class="flex-horizontal actor-contents">
+        <label>{{localize 'TYPES.Actor.strider'}}:</label>
+        {{#if (gt extraData.stridersWithUnfulfilledCommitmentsCount 0)}}
+        <select name="unfulfilledCommitmentsStriders" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.stridersWithUnfulfilledCommitmentsCount}}" multiple>
+          {{{extraData.stridersWithUnfulfilledCommitments}}}
+        </select>
+        {{else}}
+        {{localize 'SFTD.None'}}
+        {{/if}}
+      </div>
+    </div>
+  </div>
+</div>
+<div class="form-group-inline">
   <input type="checkbox" checked>
   <label>{{{localize 'SFTD.StartMissionEngagement'}}}</label>
 </div>
