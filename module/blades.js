@@ -532,6 +532,17 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
       const popupData = bladesPopupData.commitment;
       popupData.key = 'commitment';
       popupData.messageElement = element;
+      popupData.npc = element.dataset.npc;
+      await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
+    });
+  }
+  for (const element of html.querySelectorAll('.paradigm-shift')) {
+    element.addEventListener('click', async (ev) => {
+      const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+      const popupData = bladesPopupData.paradigm_shift;
+      popupData.key = 'paradigm_shift';
+      popupData.messageElement = element;
+      popupData.npc = element.dataset.npc;
       await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
     });
   }

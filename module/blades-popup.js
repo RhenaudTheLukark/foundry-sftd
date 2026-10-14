@@ -655,7 +655,28 @@ export class BladesPopup {
 
   static commitmentMessageContents(fields, popupData, itemFull) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    return game.i18n.format('SFTD.Commitment.Message.Description', {self: selfFull.name, project: fields.project});
+    return game.i18n.format('SFTD.Commitment.Message.Description', {self: selfFull.name, npc: popupData.npc, project: fields.project});
+  }
+
+  /* ----------------------------------------- */
+
+  static paradigmShiftPreValidation(fields, popupData) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const hasScars = Object.values(selfFull.system.scars.values).filter(s => s != '').length > 0;
+    if (!hasScars)
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.ParadigmShiftNoScar'));
+    return hasScars;
+  }
+
+  static paradigmShiftMessageContents(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    return game.i18n.format('SFTD.ParadigmShift.Message.Description', {
+      self: selfFull.name,
+      npc: popupData.npc,
+      cost: game.i18n.format(`SFTD.StriderAbility.Charmwork.${fields.charmwork ? '' : 'Not'}Usage`, {
+        stress : BladesPopup.defaultGetStress(fields, popupData.stress ?? 0, popupData.fields ?? {}, itemFull)
+      })
+    });
   }
 }
 
@@ -992,7 +1013,7 @@ export const bladesPopupData = {
     title: 'SFTD.Commitment.Popup.Title',
     description: 'SFTD.Commitment.Popup.Description',
     pre_validation: BladesPopup.commitmentPreValidation,
-    classes: ['internal-strain'],
+    classes: ['commitment'],
     fields: {
       project: {
         type: 'select',
@@ -1004,6 +1025,20 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.Commitment.Message.Title',
       contents: BladesPopup.commitmentMessageContents
+    }
+  },
+  paradigm_shift: {
+    title: 'SFTD.ParadigmShift.Popup.Title',
+    description: 'SFTD.ParadigmShift.Popup.Description',
+    pre_validation: BladesPopup.paradigmShiftPreValidation,
+    classes: ['paradigm-shift'],
+    stress: 2,
+    validation: BladesPopup.simpleStressAbilityValidation,
+    effect: BladesPopup.simpleStressAbilityEffect,
+    message: {
+      title: 'SFTD.ParadigmShift.Message.Title',
+      description: 'SFTD.ParadigmShift.Message.Description',
+      contents: BladesPopup.paradigmShiftMessageContents
     }
   }
 }
