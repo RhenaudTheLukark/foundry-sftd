@@ -5789,6 +5789,7 @@
   pointer-events: none;
   background: rgba(0, 0, 0, 0.5019607843);
   display: flex;
+  gap: 2em;
   justify-content: center;
   align-items: center;
 }
@@ -5911,14 +5912,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.songs-for-the-dusk.actor.sheet.faction .tab-content .tab.members .member-class {
+.songs-for-the-dusk.actor.sheet.faction .tab-content .tab.members .member-info {
   height: 100%;
   width: fit-content;
   justify-content: space-evenly;
   text-align: center;
   align-self: center;
 }
-.songs-for-the-dusk.actor.sheet.faction .tab-content .tab.members .member-class .motifs {
+.songs-for-the-dusk.actor.sheet.faction .tab-content .tab.members .member-info .motifs {
   width: 150px;
   max-width: 150px;
   overflow: hidden;
@@ -6248,14 +6249,14 @@
   text-overflow: ellipsis;
   white-space: nowrap;
 }
-.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-class {
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-info {
   height: 100%;
   width: fit-content;
   justify-content: space-evenly;
   text-align: center;
   align-self: center;
 }
-.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-class .motifs {
+.songs-for-the-dusk.actor.sheet.crew .tab-content .tab.community .community-members .member-info .motifs {
   width: 100px;
   max-width: 100px;
   overflow: hidden;

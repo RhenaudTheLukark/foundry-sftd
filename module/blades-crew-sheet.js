@@ -37,7 +37,11 @@ export class BladesCrewSheet extends BladesSheet {
 
     sheetData.system.members = BladesHelpers.fetchSimpleData(sheetData.system.members, [], BladesHelpers._crewMemberCompareFunc);
     const ownedMembers = sheetData.system.members.filter(m => m.isOwner);
-    sheetData.system.members = sheetData.system.members.map((m) => { return { data: m, class: BladesHelpers.getOwnedItem(m, m.system.class) }; });
+    sheetData.system.members = sheetData.system.members.map((m) => { return {
+      data: m,
+      class: BladesHelpers.getOwnedItem(m, m.system.class),
+      foundation: m.type == 'npc' ? (sheetData.items.find(i => i.type == 'foundation' && i.system.npc == m.uuid) ?? null) : null
+    }; });
 
     // Fetch relationships data and direct relationships
     [sheetData.system.relationships, sheetData.system.direct_relationships] = BladesHelpers.fetchFullAndRelativeRelationshipsData(this.actor, sheetData.system.relationships);

@@ -247,7 +247,7 @@
                   </div>
                 </div>
               </div>
-              <div class="member-class flex-vertical">
+              <div class="member-info flex-vertical">
                 {{#if (eq member.data.type 'strider')}}
                 <label class="title-label">{{localize 'SFTD.Class'}}:</label>
                 {{#if (ne member.data.system.class null)}}
@@ -259,6 +259,12 @@
                 <label>{{localize 'SFTD.None'}}</label>
                 {{/if}}
                 {{else if (eq member.data.type 'npc')}}
+                {{#if (ne member.foundation null)}}
+                <label class="title-label">{{localize 'TYPES.Item.foundation'}}:</label>
+                <div class="flex-horizontal item" data-item-id="{{member.foundation._id}}">
+                  <a class="item-body">{{member.foundation.name}}</a>
+                </div>
+                {{else}}
                 <label class="title-label">{{localize 'SFTD.Motifs'}}:</label>
                 <label class="motifs"{{#if (ne member.data.system.motifs '')}}data-tooltip="{{member.data.system.motifs}}"{{/if}}>
                   {{#if (ne member.data.system.motifs '')}}
@@ -267,6 +273,7 @@
                   {{localize 'SFTD.None'}}
                   {{/if}}
                 </label>
+                {{/if}}
                 {{/if}}
               </div>
               <div class="item-controls flex-horizontal">
