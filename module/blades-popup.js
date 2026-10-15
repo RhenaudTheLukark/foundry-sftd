@@ -660,6 +660,35 @@ export class BladesPopup {
 
   /* ----------------------------------------- */
 
+  static conflictValidation(fields, popupData, noPopup, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    const foundationFull = crewFull.items.find(i => i.type == 'foundation' && BladesHelpers.resolveActor(i.system.npc)?.name == popupData.npc);
+    if (!foundationFull)
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.ConflictNPCHasNoFoundation', {npc: popupData.npc}));
+    if (foundationFull.system.excluded_striders.includes(selfFull.uuid))
+      ui.notifications.warn(game.i18n.format('SFTD.log.warn.ConflictAlreadyExcluded', {strider: selfFull.name, foundation: foundationFull.name}));
+    return foundationFull != null;
+  }
+
+  static async conflictEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    const foundationFull = crewFull.items.find(i => i.type == 'foundation' && BladesHelpers.resolveActor(i.system.npc)?.name == popupData.npc);
+    const excludedStriders = foundationFull.system.excluded_striders;
+    excludedStriders.push(selfFull.uuid)
+    await BladesHelpers.tryUpdate(selfFull, {'system.==excluded_striders': excludedStriders});
+  }
+
+  static conflictMessageContents(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    const foundationFull = crewFull.items.find(i => i.type == 'foundation' && BladesHelpers.resolveActor(i.system.npc)?.name == popupData.npc);
+    return game.i18n.format('SFTD.Conflict.Message.Description', {self: selfFull.name, npc: popupData.npc, foundation: foundationFull.name});
+  }
+
+  /* ----------------------------------------- */
+
   static paradigmShiftPreValidation(fields, popupData) {
     const selfFull = BladesHelpers.resolveActor(fields.self);
     const hasScars = Object.values(selfFull.system.scars.values).filter(s => s != '').length > 0;
@@ -1025,6 +1054,15 @@ export const bladesPopupData = {
     message: {
       title: 'SFTD.Commitment.Message.Title',
       contents: BladesPopup.commitmentMessageContents
+    }
+  },
+  conflict: {
+    title: 'SFTD.Conflict.Message.Title',
+    validation: BladesPopup.conflictValidation,
+    effect: BladesPopup.conflictEffect,
+    message: {
+      title: 'SFTD.Conflict.Message.Title',
+      contents: BladesPopup.conflictMessageContents
     }
   },
   paradigm_shift: {

@@ -886,6 +886,13 @@
         "Description": "{self} agreed to help {npc} with the project {project}. They will take <strong>1 Stress</strong> every Downtime that they don't work on the project (including this one)."
       }
     },
+    "Conflict": {
+      "Button": "Choose Conflict",
+      "Message": {
+        "Title": "Conflict",
+        "Description": "{self} got into a fight with {npc}. They lose access to the benefits of the Foundation {foundation} until they can work through the conflict (their crewmates can still use it if they need to.)"
+      }
+    },
     "ParadigmShift": {
       "Button": "Choose Paradigm Shift",
       "Popup": {
@@ -1376,6 +1383,8 @@
         "GenericPopupNoValidCrewmate": "{name}: There is no Strider eligible to be targeted by this ability!",
         "CommitmentNoValidLongTermProject": "Commitment: There is no valid, unfinished Long Term Project that can be selected to choose this option.",
         "ParadigmShiftNoScar": "Paradigm Shift: You need at least one Scar to select this option.",
+        "ConflictNPCHasNoFoundation": "Conflict: {npc} isn't associated with a Foundation!",
+        "ConflictAlreadyExcluded": "Conflict: {strider} has already been excluded from the Foundation {foundation}!",
         "GroupActionNoRollsToParse": "This Group Action has not received any roll, thus its results cannot be revealed.",
         "GroupActionRollNoActor": "You currently have no strider assigned! Select a Token first or get a strider assigned by your GM.",
         "GroupActionRollNotAStrider": "Your currently selected actor is not a Strider, it is a {obj}.",

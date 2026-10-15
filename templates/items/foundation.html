@@ -65,7 +65,7 @@
       <div class='two-line'>
         <label class='label-stripe'>{{localize 'SFTD.ExcludedStriders'}}</label>
         {{#if (not (eq striders undefined))}}
-        <select name='system.excluded_striders' multiple>
+        <select name='system.excluded_striders' data-tooltip='SFTD.MultipleSelectUsage' multiple>
           {{#each striders as |strider id|}}
           <option value="{{strider.uuid}}"{{#if (includes ../system.excluded_striders strider.uuid)}} selected{{/if}}>{{strider.name}}</option>
           {{/each}}

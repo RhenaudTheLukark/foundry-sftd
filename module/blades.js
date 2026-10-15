@@ -537,6 +537,16 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
       await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
     });
   }
+  for (const element of html.querySelectorAll('.conflict')) {
+    element.addEventListener('click', async (ev) => {
+      const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+      const popupData = bladesPopupData.conflict;
+      popupData.key = 'conflict';
+      popupData.messageElement = element;
+      popupData.npc = element.dataset.npc;
+      await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
+    });
+  }
   for (const element of html.querySelectorAll('.paradigm-shift')) {
     element.addEventListener('click', async (ev) => {
       const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
