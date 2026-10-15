@@ -457,7 +457,8 @@
       "is_upgrade": false,
       "is_weather_damaged": false,
       "is_under_disaster": false,
-      "excluded_pilots": []
+      "excluded_striders": [],
+      "is_force_suppressed": false
     },
     "crew_ability": {
       "templates": ["ability", "usable", "activatedEffect"],

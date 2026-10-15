@@ -36,6 +36,7 @@ export class BladesCrewSheet extends BladesSheet {
     sheetData.isGM = game.user.isGM;
 
     sheetData.system.members = BladesHelpers.fetchSimpleData(sheetData.system.members, [], BladesHelpers._crewMemberCompareFunc);
+    const ownedMembers = sheetData.system.members.filter(m => m.isOwner);
     sheetData.system.members = sheetData.system.members.map((m) => { return { data: m, class: BladesHelpers.getOwnedItem(m, m.system.class) }; });
 
     // Fetch relationships data and direct relationships
@@ -65,6 +66,8 @@ export class BladesCrewSheet extends BladesSheet {
       }
       if (item.type == 'specialist')
         item.system.armor.max += item.system.armor.modifier + (item.system.vehicle ? sheetData.system.vehicle_armor : 0);
+      if (item.type == 'foundation')
+        item.allActorsAreExcluded = ownedMembers.filter(m => m.type == 'strider' && !item.system.excluded_striders.includes(m.uuid)).length == 0;
     }
 
     sheetData.orderedItems = sheetData.items.sort(BladesHelpers.itemEntryCompareFunc);

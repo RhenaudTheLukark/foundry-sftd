@@ -7022,6 +7022,9 @@
   align-items: center;
   text-align: center;
 }
+.songs-for-the-dusk.item.sheet select option:checked {
+  background: rgba(0, 0, 0, 0.05);
+}
 
 .settings.clock-styles .rollable-text {
   transition: color 0.2s;

@@ -135,6 +135,7 @@ Hooks.once("init", async function() {
   Handlebars.registerHelper('capitalize', (str) => String(str).charAt(0).toUpperCase() + String(str).substr(1).toLowerCase());
 
   Handlebars.registerHelper('isempty', (a) => a.length == 0);
+  Handlebars.registerHelper('includes', (a, b) => a.includes(b));
 
   // Enrich the HTML replace /n with <br>
   Handlebars.registerHelper('html', (options) => {

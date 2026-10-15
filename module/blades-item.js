@@ -77,7 +77,7 @@ export class BladesItem extends Item {
   async _onUpdate(changed, options, userId) {
     await super._onUpdate(changed, options, userId);
 
-    if (this.type == 'foundation' && (changed.system?.is_weather_damaged != undefined || changed.system?.is_under_disaster != undefined))
+    if (this.type == 'foundation' && (changed.system?.is_weather_damaged != undefined || changed.system?.is_under_disaster != undefined || changed.system?.['==is_force_suppressed'] != undefined))
       await this.updateFoundation();
   }
 
@@ -97,7 +97,7 @@ export class BladesItem extends Item {
   }
 
   async updateFoundation() {
-    let isSuppressed = this.system.is_weather_damaged || this.system.is_under_disaster;
+    let isSuppressed = this.system.is_weather_damaged || this.system.is_under_disaster || this.system.is_force_suppressed;
 
     if (this.system.suppressed != isSuppressed) {
       await BladesHelpers.tryUpdate(this, {'system.==suppressed': isSuppressed});

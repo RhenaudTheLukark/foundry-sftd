@@ -129,8 +129,10 @@ export class BladesItemSheet extends BaseItemSheet {
       sheetData.system.vehicle_flaw_list = ['Guzzler', 'Finicky', 'Flashy'];
       const crewFull = BladesHelpers.resolveActor(superData.item.actor);
       sheetData.system.armor.max += sheetData.system.armor.modifier + (sheetData.system.vehicle ? (crewFull?.system.vehicle_armor ?? 0) : 0);
-    } else if (sheetData.type == 'foundation' && superData.item.actor)
+    } else if (sheetData.type == 'foundation' && superData.item.actor) {
       sheetData.npcs = Object.values(superData.item.actor.system?.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'npc');
+      sheetData.striders = Object.values(superData.item.actor.system?.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider');
+    }
 
     return sheetData;
   }

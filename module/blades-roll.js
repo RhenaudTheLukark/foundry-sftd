@@ -732,6 +732,11 @@ export const impactIndex = ['zero', 'weak', 'normal', 'strong', 'extreme'];
  * @param {Object} extraFields
  */
 export async function bladesRoll(diceAmount, attributeOrRollName = '', note = '', extraFields = {}) {
+  const crewFull = BladesHelpers.resolveActor(extraFields.actor?.system.crew);
+  if (extraFields.actor?.type == 'strider' && crewFull)
+    for (let excludedFoundations of crewFull.items.filter(i => i.type == 'foundation' && i.system.excluded_striders.includes(extraFields.actor.uuid)))
+      await BladesHelpers.tryUpdate(excludedFoundations, {'system.==is_force_suppressed': true});
+
   if (extraFields.modifiers)
     extraFields.modifiers = keepValidModifiersFromFields(extraFields.modifiers, extraFields);
   if (attributeOrRollName.includes('SpecialistRoll') && !extraFields.within_expertise) diceAmount = 0;
@@ -753,7 +758,6 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   let stressChanges = {};
   stressChanges[extraFields.actor?.id] = 0;
 
-  let crewFull = BladesHelpers.resolveActor(extraFields.actor?.system.crew);
   let shellChanges = extraFields.shells ?? 0;
   let rollTypeKey = Object.entries(rollTypeLabels).find(r => r[1] == attributeOrRollName);
   let otherChanges = {};
@@ -886,11 +890,8 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
       actorUpdateObject = {'==name': extraFields.actor.name};
 
     // Specialist Downtime Roll Handler
-    if (extraFields.isSpecialistDowntimeRoll) {
-      const crewFull = BladesHelpers.resolveActor(extraFields.actor.system.crew);
-      if (downtimeCountChanges > 0 && crewFull)
-        await BladesHelpers.tryUpdate(crewFull, {'system.==specialist_downtime_done': true});
-    }
+    if (crewFull && extraFields.isSpecialistDowntimeRoll && downtimeCountChanges > 0)
+      await BladesHelpers.tryUpdate(crewFull, {'system.==specialist_downtime_done': true});
     await BladesHelpers.tryUpdate(extraFields.actor, actorUpdateObject);
   }
 
@@ -921,6 +922,10 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
     await showChatRollMessage(r, zeromode, attributeOrRollName, note, extraFields);
   } else
     await showChatMessage(attributeOrRollName, note, extraFields);
+
+  if (extraFields.actor?.type == 'strider' && crewFull)
+    for (let excludedFoundations of crewFull.items.filter(i => i.type == 'foundation' && i.system.excluded_striders.includes(extraFields.actor.uuid)))
+      await BladesHelpers.tryUpdate(excludedFoundations, {'system.==is_force_suppressed': false});
 }
 
 /**

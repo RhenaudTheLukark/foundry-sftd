@@ -1,9 +1,9 @@
 <form class='{{cssClass}}' autocomplete='off'>
   <header class='sheet-header'>
-      <img src='{{img}}' data-edit='img' title='{{name}}'/>
-      <div class='header-fields'>
-          <h1 class='charname'><input name='name' type='text' value='{{name}}' placeholder='{{localize 'SFTD.Name'}}'/></h1>
-      </div>
+    <img src='{{img}}' data-edit='img' title='{{name}}'/>
+    <div class='header-fields'>
+      <h1 class='charname'><input name='name' type='text' value='{{name}}' placeholder='{{localize 'SFTD.Name'}}'/></h1>
+    </div>
   </header>
 
   {{!-- Sheet Body --}}
@@ -61,6 +61,18 @@
       <div class='two-line'>
         <label class='label-stripe'>{{localize 'SFTD.IsUnderDisaster'}}</label>
         <input type='checkbox' name='system.is_under_disaster' data-dType='Boolean' {{checked system.is_under_disaster}}>
+      </div>
+      <div class='two-line'>
+        <label class='label-stripe'>{{localize 'SFTD.ExcludedStriders'}}</label>
+        {{#if (not (eq striders undefined))}}
+        <select name='system.excluded_striders' multiple>
+          {{#each striders as |strider id|}}
+          <option value="{{strider.uuid}}"{{#if (includes ../system.excluded_striders strider.uuid)}} selected{{/if}}>{{strider.name}}</option>
+          {{/each}}
+        </select>
+        {{else}}
+          {{localize 'SFTD.None'}}
+        {{/if}}
       </div>
     </div>
     {{#if isGM}}

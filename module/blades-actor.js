@@ -294,7 +294,7 @@ export class BladesActor extends Actor {
     let modifiersCollection = { modifiers: actor.system.modifiers, roll_modifiers: actor.system.roll_modifiers, conditional_roll_modifiers: actor.system.conditional_roll_modifiers };
 
     let crewFull = actor.type == 'crew' ? actor : BladesHelpers.resolveActor(actor.system.crew);
-    if (crewFull)
+    if (crewFull) {
       for (let modifierPath of Object.keys(modifiersCollection)) {
         let actorsFull = Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && ['crew', 'strider'].includes(m.type));
         if (crewFull != actor)
@@ -303,6 +303,28 @@ export class BladesActor extends Actor {
           if (actorFull.system[modifierPath][actor.type] !== undefined)
             modifiersCollection[modifierPath] = BladesHelpers.mergeAddObjects(modifiersCollection[modifierPath], [], actorFull.system[modifierPath][actor.type]);
       }
+      for (let excludedFoundations of crewFull.items.contents.filter(i => i.type == 'foundation' && i.system.excluded_striders.includes(actor.uuid))) {
+        for (let effect of excludedFoundations.effects.contents) {
+          for (let change of effect.changes) {
+            let [_, modifierCollection, type, key] = change.key.split('.', 4);
+            if (type != actor.type) continue;
+            if (key && ['modifiers', 'roll_modifiers', 'conditional_roll_modifiers'].includes(modifierCollection)) {
+              let path = key.split('.');
+              let obj = modifiersCollection[modifierCollection];
+              for (let pathPartId in path) {
+                if (pathPartId == path.length - 1) {
+                  if (change.mode == 5 && change.value == 'true')
+                    obj[path[pathPartId]] = false;
+                  else
+                    obj[path[pathPartId]] -= parseInt(change.value);
+                } else
+                  obj = obj[path[pathPartId]];
+              }
+            }
+          }
+        }
+      }
+    }
 
     return [modifiersCollection.modifiers, modifiersCollection.roll_modifiers, modifiersCollection.conditional_roll_modifiers];
   }

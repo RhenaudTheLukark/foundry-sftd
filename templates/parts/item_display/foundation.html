@@ -1,7 +1,15 @@
 <div>
-  {{#if (or item.system.is_under_disaster item.system.is_weather_damaged)}}
+  {{#if (or item.system.is_under_disaster item.allActorsAreExcluded item.system.is_weather_damaged)}}
   <div class="overlay">
-    <img src="systems/songs-for-the-dusk/images/{{#if item.system.is_under_disaster}}earthquake{{else}}thunderstorm{{/if}}.png">
+    {{#if item.system.is_under_disaster}}
+    <img src="systems/songs-for-the-dusk/images/earthquake.png">
+    {{/if}}
+    {{#if item.allActorsAreExcluded}}
+    <img src="systems/songs-for-the-dusk/images/anger.png">
+    {{/if}}
+    {{#if item.system.is_weather_damaged}}
+    <img src="systems/songs-for-the-dusk/images/thunderstorm.png">
+    {{/if}}
   </div>
   {{/if}}
   <div class="item flex-horizontal" data-item-id="{{item._id}}">
