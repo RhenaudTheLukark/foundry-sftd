@@ -994,7 +994,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   }
   // Check for Action roll
   else if (BladesHelpers.isAttributeAction(attributeOrRollName)) {
-    const positionLocalize = '';
+    let positionLocalize = '';
     switch (extraFields.position) {
       case 'controlled':
         positionLocalize = 'SFTD.PositionControlled'
@@ -1007,7 +1007,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
         positionLocalize = 'SFTD.PositionRisky'
     }
 
-    const impactLocalize = '';
+    let impactLocalize = '';
     switch (extraFields.impact) {
       case 'zero':
         impactLocalize = 'SFTD.ImpactZero'
@@ -1049,7 +1049,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
   }
   // Check for Collect Information roll
   else if (attributeOrRollName == 'SFTD.CollectInformationRoll') {
-    const positionLocalize = '';
+    let positionLocalize = '';
     switch (extraFields.position) {
       case 'controlled':
         positionLocalize = 'SFTD.PositionControlled'
@@ -1062,7 +1062,7 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
         positionLocalize = 'SFTD.PositionRisky'
     }
 
-    const impactLocalize = '';
+    let impactLocalize = '';
     switch (extraFields.impact) {
       case 'zero':
       case 'weak':
