@@ -1274,6 +1274,10 @@
       "TerrainLibraries": {
         "Title": "Terrain Libraries: Using a Studied Mission Approach?"
       },
+      "TranscendentLoom": {
+        "PopupArg": "Transcendent Pools: Use?",
+        "PopupArgUncertain": "Transcendent Pools: Use? (Ask GM if applicable in this context)"
+      },
       "TranscendentPools": {
         "Title": "Transcendent Pools: Connecting with Transcendent Forces On-site?"
       },

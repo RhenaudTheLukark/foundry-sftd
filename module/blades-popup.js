@@ -6,11 +6,19 @@ import { bladesRoll } from "./blades-roll.js";
 export class BladesPopup {
   static async instantiatePopup(actorFull, itemFull, popupData) {
     const popupFields = foundry.utils.deepClone(popupData.fields ?? {});
-    if (actorFull.isCharmworkAvailable() && (popupData.stress || popupData.charmwork))
-      popupFields.charmwork = {
-        name: 'SFTD.StriderAbility.Charmwork.Title',
-        type: 'checkbox'
-      };
+    if ((popupData.stress || popupData.charmwork)) {
+      if (actorFull.isCharmworkAvailable())
+        popupFields.charmwork = {
+          name: 'SFTD.StriderAbility.Charmwork.Title',
+          type: 'checkbox'
+        };
+      const crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
+      if (crewFull.system.transcendent_loom && !popupData.no_transcendent_loom)
+        popupFields.transcendent_loom = {
+          name: `SFTD.CrewFoundation.TranscendentLoom.PopupArg${itemFull?.system.is_charm ? '' : 'Uncertain'}`,
+          type: 'checkbox'
+        };
+    }
     if (popupData.key == 'neohuman')
       popupData.descriptionArgs = { ability: itemFull.name };
 
@@ -260,12 +268,10 @@ export class BladesPopup {
   }
 
   static defaultGetStress(fields, baseStress, popupData, itemFull) {
-    const selfFull = BladesHelpers.resolveActor(fields.self);
     let stressGain = baseStress;
     if (itemFull?.system.bound_by_charmtrick)
       stressGain ++;
-    const crewFull = selfFull?.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull?.system.crew);
-    if (crewFull.system.transcendent_loom && !popupData.isNotAnAbility)
+    if (fields.transcendent_loom)
       stressGain = Math.max(stressGain - 1, 0);
     for (let [fieldName, fieldData] of Object.entries(popupData.fields ?? {}).filter(f => fields[f[0]] && f[1].stress != undefined))
       stressGain += fieldData.stress;
@@ -371,7 +377,7 @@ export class BladesPopup {
     if (!fields.crewmate)
       return '';
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const selfNewStress = Math.clamp(selfFull.system.stress.value + ((fields.charmwork && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1)), 0, selfFull.system.stress.max);
+    const selfNewStress = Math.clamp(selfFull.system.stress.value + (((fields.charmwork || fields.transcendent_loom) && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1)), 0, selfFull.system.stress.max);
     const selfRed = selfNewStress >= selfFull.system.stress.max;
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     const crewmateNewStress = Math.clamp(crewmateFull.system.stress.value + (fields.reverse ? 1 : -1), 0, crewmateFull.system.stress.max);
@@ -396,10 +402,10 @@ export class BladesPopup {
     if (!BladesPopup.simpleCrewmateValidation(fields, popupData))
       return false;
     const selfFull = BladesHelpers.resolveActor(fields.self);
-    const selfNewStress = selfFull.system.stress.value + ((fields.charmwork && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1));
+    const selfNewStress = selfFull.system.stress.value + (((fields.charmwork || fields.transcendent_loom) && !fields.reverse) ? 0 : (fields.reverse ? -1 : 1));
     const crewmateFull = BladesHelpers.resolveActor(fields.crewmate);
     const crewmateNewStress = crewmateFull.system.stress.value + (fields.reverse ? 1 : -1);
-    return !(fields.charmwork && fields.reverse) && selfNewStress >= 0 && crewmateNewStress >= 0;
+    return !((fields.charmwork || fields.transcendent_loom) && fields.reverse) && selfNewStress >= 0 && crewmateNewStress >= 0;
   }
 
   static async alloyedMettleEffect(fields) {
@@ -408,7 +414,7 @@ export class BladesPopup {
     if (fields.charmwork && !fields.reverse) {
       const crewFull = BladesHelpers.resolveActor(selfFull.system.crew);
       await BladesHelpers.tryUpdate(crewFull, {'system.harmony.==value': crewFull.system.harmony.value - 1});
-    } else
+    } else if (!fields.transcendent_loom)
       await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': Math.clamp(selfFull.system.stress.value + (fields.reverse ? -1 : 1), 0, selfFull.system.stress.max)});
     await BladesHelpers.tryUpdate(crewmateFull, {'system.stress.==value': Math.clamp(crewmateFull.system.stress.value + (fields.reverse ? 1 : -1), 0, crewmateFull.system.stress.max)});
   }
@@ -1031,6 +1037,7 @@ export const bladesPopupData = {
       }
     },
     charmwork: true,
+    no_transcendent_loom: true,
     validation: BladesPopup.internalStrainValidation,
     effect: BladesPopup.internalStrainEffect,
     message: {
@@ -1071,6 +1078,7 @@ export const bladesPopupData = {
     pre_validation: BladesPopup.paradigmShiftPreValidation,
     classes: ['paradigm-shift'],
     stress: 2,
+    no_transcendent_loom: true,
     validation: BladesPopup.simpleStressAbilityValidation,
     effect: BladesPopup.simpleStressAbilityEffect,
     message: {
