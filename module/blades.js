@@ -490,7 +490,7 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
         updateObject[`system.==${type == 'scar' ? 'cutLooseScar' : 'unfulfilledCommitments'}MembersWithCharmwork`] = striderObjects;
         await BladesHelpers.tryUpdate(message, updateObject);
 
-        let speaker = {
+        const speaker = {
           actor: actorFull._id,
           alias: actorFull.name,
           scene: null,
@@ -503,7 +503,7 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
             strider: actorFull.name
           })
         }
-        let messageData = {
+        const messageData = {
           speaker: speaker,
           content: await renderTemplate('systems/songs-for-the-dusk/templates/chat/generic-message.html', { extraFields: extraFields })
         }
@@ -511,8 +511,8 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
       } else {
         // Group Action Failure Stress
         speakerActorFull.system.group_action.charmwork = true;
-        let leaderFull = BladesHelpers.resolveActor(speakerActorFull.system.group_action.leader);
-        await BladesHelpers.tryUpdate(leaderFull, {'system.stress.==value': Math.clamp(leaderFull.system.stress.value - speakerActorFull.system.group_action.stress, leaderFull.system.stress.max, 0)});
+        const leaderFull = BladesHelpers.resolveActor(speakerActorFull.system.group_action.leader);
+        await BladesHelpers.tryUpdate(leaderFull, {'system.stress.==value': Math.clamp(leaderFull.system.stress.value - speakerActorFull.system.group_action.stress, 0, leaderFull.system.stress.max)});
         computeGroupActionResultAndSendMessage(speakerActorFull.system.group_action, speakerActorFull, true);
         await BladesHelpers.tryDelete(message);
       }
