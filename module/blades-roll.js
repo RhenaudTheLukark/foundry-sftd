@@ -516,6 +516,10 @@ export const bladesRollModifierList = {
     rollTypes: ['actionRoll', 'groupAction'],
     position: 1
   },
+  solace_from_motion: {
+    rollType: 'actionRoll',
+    impact: -1
+  },
   weaving_wreaths: {
     name: 'SFTD.StriderAbility.WeavingWreaths.Title',
     rollTypes: ['actionRoll', 'groupAction'],
@@ -747,11 +751,12 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
   let rollData = extraFields.rollData ?? {
     rollTypeOrAttributeName: attributeOrRollName,
     attributeName: attributeOrRollName == 'SFTD.ResistanceRoll' ? extraFields.resistance_attribute : attributeOrRollName,
+    additionalDiceFromActionRoll: extraFields.additionalDiceFromActionRoll,
     modifiers: foundry.utils.deepClone(extraFields.modifiers),
     position: extraFields.position,
     forcedPosition: extraFields.forcedPosition,
-    effect: extraFields.effect,
-    forcedEffect: extraFields.forcedEffect,
+    impact: extraFields.impact,
+    forcedImpact: extraFields.forcedImpact,
     note: note
   };
 
@@ -897,7 +902,9 @@ export async function bladesRoll(diceAmount, attributeOrRollName = '', note = ''
 
   // Only apply modified position and impact if they haven't been forced
   if (extraFields.position && !extraFields.forcedPosition) extraFields.position = positionIndex[Math.clamp(numberedPosition, 0, 2)];
+  rollData.finalPosition = numberedPosition;
   if (extraFields.impact && !extraFields.forcedImpact) extraFields.impact = impactIndex[Math.clamp(numberedImpact, 0, 4)];
+  rollData.finalImpact = numberedImpact;
 
   extraFields.allowHarmonyGain = !extraFields.group_action && (allowHarmonyGain || numberedPosition == 0 || (extraFields.actor?.system.seventh_sense && numberedPosition == 1));
   extraFields.rollData = rollData;
@@ -957,9 +964,12 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
 
   const crewFull = extraFields.actor?.type == 'crew' ? extraFields.actor : BladesHelpers.resolveActor(extraFields.actor?.system.crew);
   if (crewFull && extraFields.allowHarmonyGain && rollResultIndex.indexOf(rollStatus) >= 2) {
-    let newHarmony = Math.max(Math.min(crewFull.system.harmony.value + 1, crewFull.system.harmony.max), 0);
+    const oldHarmony = crewFull.system.harmony.value;
+    const newHarmony = Math.clamp(crewFull.system.harmony.value + 1, 0, crewFull.system.harmony.max);
     await BladesHelpers.tryUpdate(crewFull, {'system.harmony.value': newHarmony});
     extraFields.modifier_text = `${extraFields.modifier_text ?? ''}<p>${game.i18n.localize('SFTD.HarmonyGained')}</p>`;
+    extraFields.rollData.harmony = (extraFields.rollData.harmony ?? 0) + 1;
+    extraFields.rollData.realHarmony = (extraFields.rollData.realHarmony ?? 0) + (newHarmony - oldHarmony);
   }
 
   extraFields.rollData.rolls = r;
@@ -1025,6 +1035,9 @@ async function showChatRollMessage(r, zeromode, attributeOrRollName, note, extra
       default:
         impactLocalize = 'SFTD.ImpactNormal'
     }
+
+    if (extraFields.actor?.system.solace_from_motion)
+      extraFields.rollData.solace_from_motion = !extraFields.rollData.solace_from_motion;
 
     result = await renderTemplate('systems/songs-for-the-dusk/templates/chat/rolls/action-roll.html', { rolls: rolls, zeromode: zeromode, method: method, roll_status: rollStatus, attribute_label: attributeLabel, position_localize: positionLocalize, impact_localize: impactLocalize, note: note, extraFields: extraFields });
   }

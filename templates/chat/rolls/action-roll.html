@@ -77,4 +77,10 @@
     {{/unless}}
     {{/if}}
   </ol>
+
+  {{#if (and extraFields.rollData.solace_from_motion (ne roll_status 'failure'))}}
+  <div class="button owner-only">
+    <button class="solace-from-motion">{{localize 'SFTD.StriderAbility.SolaceFromMotion.Button'}}</button>
+  </div>
+  {{/if}}
 </div>

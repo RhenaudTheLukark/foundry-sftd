@@ -7907,6 +7907,17 @@
 .application.dialog.generic-popup.alloyed-mettle .stress-transfer .selector {
   justify-content: center;
 }
+.application.dialog.generic-popup.solace-from-motion .less-big {
+  font-size: 16px;
+  text-align: center;
+}
+.application.dialog.generic-popup.solace-from-motion .big {
+  font-size: 20px;
+  text-align: center;
+}
+.application.dialog.generic-popup.solace-from-motion .wrong {
+  color: red;
+}
 .application.dialog.start-mission ul, .application.dialog.end-mission ul, .application.dialog.end-session ul {
   margin-top: 0.25em;
   margin-bottom: 0px;

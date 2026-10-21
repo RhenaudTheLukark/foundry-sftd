@@ -396,7 +396,7 @@ export class BladesHelpers {
     const armorChangingEffects = itemFull.effects?.contents.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
     if (armorChangingEffects?.length) {
       const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
-      BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.min(actorFull.system.armor.value + value, actorFull.system.armor.max)})
+      await BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.min(actorFull.system.armor.value + value, actorFull.system.armor.max)})
     }
 
     // Building Bonds: Create a special Specialist
@@ -458,7 +458,7 @@ export class BladesHelpers {
     const armorChangingEffects = itemCopy.effects?.contents.filter(e => e.changes.filter(c => c.key == 'system.armor.max').length);
     if (armorChangingEffects?.length) {
       const value = armorChangingEffects.reduce((acc, e) => acc + e.changes.filter(c => c.key == 'system.armor.max').reduce((acc, c) => acc + parseInt(c.value), 0), 0);
-      BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.max(actorFull.system.armor.value - value, 0)})
+      await BladesHelpers.tryUpdate(actorFull, {'system.armor.==value': Math.max(actorFull.system.armor.value - value, 0)})
     }
 
     // Item Quality Modification: Update item qualities

@@ -279,6 +279,20 @@ fieldset.form-group {
       }
     }
   }
+
+  &.solace-from-motion {
+    .less-big {
+      font-size: 16px;
+      text-align: center;
+    }
+    .big {
+      font-size: 20px;
+      text-align: center;
+    }
+    .wrong {
+      color: $red;
+    }
+  }
 }
 
 &.start-mission, &.end-mission, &.end-session {

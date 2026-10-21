@@ -1,7 +1,7 @@
 import { renderHandlebarsTemplate as renderTemplate } from "./compat.js";
 import { openFormDialog } from "./lib/dialog-compat.js";
 import { BladesHelpers } from "./blades-helpers.js";
-import { bladesRoll } from "./blades-roll.js";
+import { bladesRoll, cancelRollResult, impactIndex } from "./blades-roll.js";
 
 export class BladesPopup {
   static async instantiatePopup(actorFull, itemFull, popupData) {
@@ -146,7 +146,19 @@ export class BladesPopup {
         }
         fieldContainer += '<table class="form-group strider-group">';
 
-        const stridersFull = popupData.striders ? popupData.striders.map(s => BladesHelpers.resolveActor(s)) : Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m.uuid)).filter(m => m != null && m.type == 'strider');
+        let stridersFull = popupData.striders ? popupData.striders.map(s => BladesHelpers.resolveActor(s)) : Object.values(crewFull.system.members).map(m => BladesHelpers.resolveActor(m.uuid)).filter(m => m != null && m.type == 'strider');
+        if (fieldData.modifiers) {
+          if (fieldData.modifiers.includes('excludeUser'))
+            stridersFull = stridersFull.filter(m => m.uuid != actorFull.uuid);
+          if (fieldData.modifiers.includes('needsStress'))
+            stridersFull = stridersFull.filter(m => m.system.stress.value > 0);
+          if (fieldData.modifiers.includes('needsAnyStress'))
+            stridersFull = stridersFull.filter(m => actorFull.system.stress.value > 0 || m.system.stress.value > 0);
+          if (fieldData.modifiers.includes('needsHarm'))
+            stridersFull = stridersFull.filter(m => m.system.harm.light.one != '' || m.system.harm.light.two != '' || m.system.harm.medium.one != '' || m.system.harm.medium.two != '' || m.system.harm.heavy.one != '' || m.system.harm.deadly.one != '');
+          if (fieldData.modifiers.includes('needsEmptyHarm'))
+            stridersFull = stridersFull.filter(m => m.system.harm.light.one == '' || m.system.harm.light.two == '' || m.system.harm.medium.one == '' || m.system.harm.medium.two == '' || m.system.harm.heavy.one == '');
+        }
         for (const striderFull of stridersFull) {
           fieldContainer += `
             <tr>
@@ -156,7 +168,11 @@ export class BladesPopup {
                   <a class="item-name">${striderFull.name}</a>
                 </div>
               </td>
-              <td class="field-cell flex-equal">`;
+              <td class="strider-field-cell flex-equal" data-actor-id="${striderFull.uuid}">
+                <div class="popup-container flex-vertical mini-pre-content">
+                  ${fieldData.pre_content ? fieldData.pre_content({self: striderFull.uuid}, fieldData) : ''}
+                </div>
+                <div class="popup-container flex-vertical mini-form">`;
           let striderFields = foundry.utils.deepClone(fieldData.fields ?? {});
           if (striderFull.isCharmworkAvailable() && (popupData.stress || popupData.charmwork))
             striderFields.charmwork = {
@@ -166,8 +182,12 @@ export class BladesPopup {
           for (const [striderFieldName, striderFieldData] of Object.entries(striderFields))
             fieldContainer += BladesPopup.instantiateFormField(striderFull, striderFieldName, striderFieldData, popupData, popupName, true);
           fieldContainer += `
+                </div>
+                <div class="popup-container flex-vertical mini-post-content">
+                  ${fieldData.post_content ? fieldData.post_content({self: striderFull.uuid}, fieldData) : ''}
+                </div>
               </td>
-            </tr>`
+            </tr>`;
         }
         fieldContainer += '</table>';
         break;
@@ -178,6 +198,8 @@ export class BladesPopup {
       case 'checkbox':
         fieldContainer += `<input type="checkbox">`;
         break;
+      case 'number':
+        fieldContainer += `<input type="number" min="${fieldData.min}" max="${fieldData.max}" value="${fieldData.value}">`
       default:
         break;
     }
@@ -194,16 +216,18 @@ export class BladesPopup {
         BladesPopup.updateFormValues(dialog);
       });
     }
-    for (let element of dialog.element.querySelectorAll('.field > input[type="checkbox"]')) {
+    for (let element of dialog.element.querySelectorAll('.field > input[type="checkbox"]'))
       element.addEventListener('click', async function(ev) {
         BladesPopup.updateFormValues(dialog);
       });
-    }
-    for (let element of dialog.element.querySelectorAll('.field > select')) {
+    for (let element of dialog.element.querySelectorAll('.field > input[type="number"]'))
       element.addEventListener('change', async function(ev) {
         BladesPopup.updateFormValues(dialog);
       });
-    }
+    for (let element of dialog.element.querySelectorAll('.field > select'))
+      element.addEventListener('change', async function(ev) {
+        BladesPopup.updateFormValues(dialog);
+      });
   }
 
   static fetchFormValues(dialog) {
@@ -225,6 +249,8 @@ export class BladesPopup {
         return Array.from(element.querySelector('select').selectedOptions).length == 1 ? element.querySelector('select').value : Array.from(element.querySelector('select').selectedOptions);
       case 'checkbox':
         return element.querySelector('input[type="checkbox"]').checked;
+      case 'number':
+        return Number(element.querySelector('input[type="number"]').value);
       default:
     }
   }
@@ -237,6 +263,14 @@ export class BladesPopup {
     dialog.element.querySelector('.pre-content').innerHTML = preContent;
     dialog.element.querySelector('.post-content').innerHTML = dialog.popupData.post_content ? dialog.popupData.post_content(fields, dialog.popupData, dialog) : '';
     dialog.element.querySelector('button[data-action="use"]').disabled = dialog.popupData.validation ? !dialog.popupData.validation(fields, dialog.popupData ?? {}, false, dialog.itemFull) : false;
+    for (const striderFieldCellElement of dialog.element.querySelectorAll('.strider-field-cell')) {
+      const fieldName = striderFieldCellElement.closest('[data-field]').dataset.field;
+      const striderUuid = striderFieldCellElement.dataset.actorId;
+      const striderFields = { self: striderUuid, ...fields[fieldName][striderUuid] };
+      const striderPopupData = dialog.popupData.fields[fieldName];
+      striderFieldCellElement.querySelector('.mini-pre-content').innerHTML = striderPopupData.pre_content ? striderPopupData.pre_content(striderFields, striderPopupData, dialog) : '';
+      striderFieldCellElement.querySelector('.mini-post-content').innerHTML = striderPopupData.post_content ? striderPopupData.post_content(striderFields, striderPopupData, dialog) : '';
+    }
   }
 
   /* ----------------------------------------- */
@@ -478,7 +512,89 @@ export class BladesPopup {
   /* ----------------------------------------- */
 
   static hallowlinkHealingNotePreValidation(fields, popupData) {
-    return BladesPopup.simpleMelodyValidation(fields, popupData) && BladesPopup.simpleCrewValidation(fields, popupData);
+    return BladesPopup.simpleMelodyValidation(fields, popupData, true) && BladesPopup.simpleCrewValidation(fields, popupData, true);
+  }
+
+  /* ----------------------------------------- */
+
+  static solaceFromMotionPreValidation(fields, popupData) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData, true))
+      return false;
+    if (popupData.rollData.finalImpact == 0) {
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.SolaceFromMotionZeroImpact'));
+      return false;
+    }
+
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    const totalStress = Object.values(crewFull.system.members).map(s => BladesHelpers.resolveActor(s)).filter(s => s != null && s.type == 'strider').map(s => s.system.stress.value).reduce((acc, sr) => acc += sr, 0);
+    if (totalStress == 0)
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.SolaceFromMotionNoStress'));
+    return totalStress > 0;
+  }
+
+  static solaceFromMotionStriderPostContent(fields, fieldData) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const selfNewStress = selfFull.system.stress.value - Number(fields.stress_recovery ?? 0);
+    const selfRed = selfNewStress < 0;
+    return `<label class="less-big${selfRed ? ' wrong' : ''}">${selfFull.system.stress.value}/${selfFull.system.stress.max} => ${selfNewStress}/${selfFull.system.stress.max}</label>`;
+  }
+
+  static solaceFromMotionPostContent(fields, fieldData) {
+    const totalStressRecovery = fields.striders ? Object.values(fields.striders).map(s => Number(s.stress_recovery)).reduce((acc, sr) => acc += sr, 0) : 0;
+    const recoveryRed = totalStressRecovery != Number(fields.impact_reduction ?? 1);
+    const origImpact = fieldData.rollData.finalImpact;
+    const newImpact = origImpact - Number(fields.impact_reduction ?? 1);
+    const impactRed = newImpact < 0;
+    return `
+      <div class="flex-vertical status-display">
+        <label class="big">${game.i18n.localize('SFTD.StriderAbility.SolaceFromMotion.Popup.TotalStressRecovery')}</label>
+        <label class="big${recoveryRed ? ' wrong' : ''}">${totalStressRecovery}/${Number(fields.impact_reduction)}</label>
+      </div>
+      <div class="flex-vertical impact-display">
+        <label class="big">${game.i18n.localize('SFTD.StriderAbility.SolaceFromMotion.Popup.NewImpact')}</label>
+        <label class="big${impactRed ? ' wrong' : ''}">${game.i18n.localize(`SFTD.Impact${BladesHelpers.capitalize(impactIndex[origImpact])}`)} => ${game.i18n.localize(`SFTD.Impact${newImpact < 0 ? 'TooSmall' : BladesHelpers.capitalize(impactIndex[newImpact])}`)}</label>
+      </div>`;
+  }
+
+  static solaceFromMotionValidation(fields, popupData, noPopup, itemFull) {
+    if (popupData.rollData.finalImpact < Number(fields.impact_reduction))
+      return false;
+    const totalStressRecovery = Object.values(fields.striders).map(s => Number(s.stress_recovery)).reduce((acc, sr) => acc += sr, 0);
+    if (totalStressRecovery != Number(fields.impact_reduction))
+      return false;
+    for (const [striderUuid, striderFields] of Object.entries(fields.striders)) {
+      const striderFull = BladesHelpers.resolveActor(striderUuid);
+      if (Number(striderFields.stress_recovery) > striderFull.system.stress.value)
+        return false;
+    }
+    return true;
+  }
+
+  static async solaceFromMotionEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    await cancelRollResult(popupData.messageObject.system.rollData, selfFull);
+    popupData.messageObject.system.rollData.modifiers.push({
+      impact: -Number(fields.impact_reduction),
+      otherStress: Object.fromEntries(Object.entries(fields.striders).map(s => [BladesHelpers.resolveActor(s[0])?.id, -Number(s[1].stress_recovery)]).filter(s => s[0] != undefined)),
+      rollText: `SFTD.StriderAbility.SolaceFromMotion.Message.Description`,
+      rollTextArgs: {
+        impactReduction: Number(fields.impact_reduction),
+        stressRecovery: Object.entries(fields.striders).map(s => { return {name: BladesHelpers.resolveActor(s[0])?.name, stress: Number(s[1].stress_recovery)}; }).filter(s => s.name != undefined && s.stress > 0).map(s => game.i18n.format('SFTD.StriderAbility.SolaceFromMotion.Message.StressRecovery', {strider: s.name, stress: s.stress})).join(', ')
+      },
+      key: 'solace_from_motion'
+    });
+
+    const extraFields = { roll_type: 'actionRoll', modifiers: popupData.messageObject.system.rollData.modifiers, actor: selfFull, rollData: popupData.messageObject.system.rollData };
+    const attributeName = popupData.messageObject.system.rollData.attributeName;
+    const extraDice = popupData.messageObject.system.rollData.additionalDiceFromActionRoll;
+    const position = popupData.messageObject.system.rollData.position;
+    const forcedPosition = popupData.messageObject.system.rollData.forcedPosition;
+    const impact = popupData.messageObject.system.rollData.impact;
+    const forcedImpact = popupData.messageObject.system.rollData.forcedImpact;
+    const note = popupData.messageObject.system.rollData.note;
+    await selfFull.rollAttribute(attributeName, extraDice, position, forcedPosition, impact, forcedImpact, note, extraFields);
+    await BladesHelpers.tryDelete(popupData.messageObject);
   }
 
   /* ----------------------------------------- */
@@ -948,6 +1064,34 @@ export const bladesPopupData = {
       description: 'SFTD.StriderAbility.HallowlinkHealingNote.Message.Description',
       contents: BladesPopup.simpleCrewmateMessageContents
     }
+  },
+  solace_from_motion: {
+    title: 'SFTD.StriderAbility.SolaceFromMotion.Popup.Title',
+    description: 'SFTD.StriderAbility.SolaceFromMotion.Popup.Description',
+    pre_validation: BladesPopup.solaceFromMotionPreValidation,
+    classes: ['solace-from-motion'],
+    fields: {
+      impact_reduction: {
+        name: 'SFTD.StriderAbility.SolaceFromMotion.Popup.ImpactReductionArg',
+        type: 'select',
+        values: ['1', '2', '3', '4']
+      },
+      striders: {
+        type: 'strider-field',
+        modifiers: ['needsStress'],
+        fields: {
+          stress_recovery: {
+            name: 'SFTD.StriderAbility.SolaceFromMotion.Popup.StressRecoveryArg',
+            type: 'select',
+            values: ['0', '1', '2', '3', '4']
+          }
+        },
+        post_content: BladesPopup.solaceFromMotionStriderPostContent
+      }
+    },
+    post_content: BladesPopup.solaceFromMotionPostContent,
+    validation: BladesPopup.solaceFromMotionValidation,
+    effect: BladesPopup.solaceFromMotionEffect
   },
   neohuman: {
     title: 'SFTD.Neohuman.Popup.Title',

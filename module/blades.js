@@ -363,7 +363,7 @@ Hooks.on("renderSceneControls", async (app, html) => {
 Hooks.on("renderChatMessageHTML", async (message, html, context) => {
   if (!message.isContentVisible) return;
   // Group Action Begin Message
-  if (message.content.includes("roll-group-action")) {
+  if (message.content.includes('roll-group-action')) {
     for (const button of html.querySelectorAll('.roll-group-action')) {
       button.addEventListener('click', async (_) => {
         const speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
@@ -403,7 +403,7 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
       button.addEventListener('click', async (_) => BladesHelpers.resolveActor(message.system.groupActionCrew)?.revealGroupActionResult());
   }
   // Cut Loose Begin Message
-  if (message.content.includes("roll-cut-loose")) {
+  if (message.content.includes('roll-cut-loose')) {
     for (const button of html.querySelectorAll('.roll-cut-loose')) {
       button.addEventListener('click', async (_) => {
         const speakerFull = ChatMessage.getSpeakerActor(ChatMessage.getSpeaker());
@@ -517,6 +517,16 @@ Hooks.on("renderChatMessageHTML", async (message, html, context) => {
         await BladesHelpers.tryDelete(message);
       }
     });
+  for (const element of html.querySelectorAll('.solace-from-motion')) {
+    element.addEventListener('click', async (ev) => {
+      const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);
+      const popupData = bladesPopupData.solace_from_motion;
+      popupData.key = 'solace_from_motion';
+      popupData.messageObject = message;
+      popupData.rollData = message.system.rollData;
+      await BladesPopup.instantiatePopup(speakerActorFull, null, popupData);
+    });
+  }
   for (const element of html.querySelectorAll('.internal-strain')) {
     element.addEventListener('click', async (ev) => {
       const speakerActorFull = ChatMessage.getSpeakerActor(message.speaker);

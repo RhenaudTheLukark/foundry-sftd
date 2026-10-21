@@ -267,6 +267,7 @@
     "PositionControlled": "Controlled",
     "PositionRisky": "Risky",
     "PositionDesperate": "Desperate",
+    "ImpactTooSmall": "Too Small!",
     "ImpactZero": "Zero",
     "ImpactWeak": "Weak",
     "ImpactNormal": "Normal",
@@ -1102,11 +1103,11 @@
         "Title": "Neurocoupling: Performing an Action In Digital Spaces or In Which You Mentally Interface With Technology?"
       },
       "Tesseraction": {
-        "Popup":{
+        "Popup": {
           "Title": "Tesseraction",
           "Description": "You deploy the effects of the technology weaved to your own existence."
         },
-        "Message":{
+        "Message": {
           "Title": "Tesseraction",
           "Description": "You deploy the effects of the technology weaved to your own existence. You {cost}."
         }
@@ -1130,6 +1131,21 @@
         "Message": {
           "Title": "Healing Note",
           "Description": "Using your <strong>Melody</strong>, your familiar heals any single instance of Harm from {crewmate}. Remove one Harm from their sheet."
+        }
+      },
+      "SolaceFromMotion": {
+        "Button": "Solace From Motion: Use?",
+        "Popup": {
+          "Title": "Solace From Motion",
+          "Description": "When you make a successful action roll, you may choose to decrease your Impact.<br/>For each level of Impact you give up, clear 1 Stress from any crewmate.",
+          "ImpactReductionArg": "Impact Reduction",
+          "StressRecoveryArg": "Stress Recovery",
+          "TotalStressRecovery": "Total Stress Recovery",
+          "NewImpact": "New Impact"
+        },
+        "Message": {
+          "Description": "Thanks to Solace From Motion, the action's <strong>Impact has been lowered by {impactReduction}</strong>, however {stressRecovery}.",
+          "StressRecovery": "{strider} cleared <strong>{stress} Stress</strong>"
         }
       },
       "KindredAll": {
@@ -1378,6 +1394,8 @@
       "warn": {
         "NoMelodyOptions": "You currently have no way to utilize your Melody! Right click the checkbox if you want to manually disable your Melody.",
         "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
+        "SolaceFromMotionNoStress": "Solace From Motion: No Strider in your Crew has any Stress to clear!",
+        "SolaceFromMotionZeroImpact": "Solace From Motion: The Action you want to use this ability on has Zero impact!",
         "WormholeGateNotEnoughShells": "Wormhole Gate: You do not have enough Shells to use this ability!",
         "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
         "GenericPopupNoUses": "{name}: You cannot use this ability anymore!",

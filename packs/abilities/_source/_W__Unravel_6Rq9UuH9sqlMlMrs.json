@@ -6,7 +6,7 @@
   "system": {
     "description": "<p>When you witness someone take <strong>harm</strong>, you can spend <strong>stress </strong>equal to the level of harm to divide it between any crew members who agree to receive it. You can&rsquo;t inflict harm on anyone using this ability without their consent.</p>",
     "class": "Witch",
-    "price": "1",
+    "price": 1,
     "uses": {
       "value": 0,
       "max": 0
@@ -36,7 +36,7 @@
     "systemId": "songs-for-the-dusk",
     "systemVersion": "0.0.1",
     "createdTime": 1780859746089,
-    "modifiedTime": 1788675188142,
+    "modifiedTime": 1792400900974,
     "lastModifiedBy": "NKBqJZbUpn1DnvhY"
   },
   "_key": "!items!6Rq9UuH9sqlMlMrs"
