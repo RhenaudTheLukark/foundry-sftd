@@ -72,6 +72,7 @@
     "Defeated": "Defeated",
     "Scars": "Scars",
     "Harm": "Harm",
+    "LevelXHarm": "Level {level} Harm",
     "Armor": "Armor",
     "NeedHelp": "Need Help",
     "Light": "Light",
@@ -1148,6 +1149,23 @@
           "StressRecovery": "{strider} cleared <strong>{stress} Stress</strong>"
         }
       },
+      "Unravel": {
+        "Popup": {
+          "Title": "Unravel",
+          "Description": "When you witness someone take Harm, you can spend Stress equal to the<br/>Level of Harm to divide it between any crew members who agree to receive it.<br/>You can't inflict Harm on anyone using this ability without their consent.",
+          "OriginalHarmArg": "Original Harm",
+          "TotalHarmLevels": "Total Harm Levels",
+          "NewStress": "New Stress"
+        },
+        "LevelXHarm": "Level {level} Harm from Unravel",
+        "Message": {
+          "Title": "Unravel",
+          "Description": "{self} splits the received Harm between willing crewmates. {self} {cost}.{harmDetails}",
+          "HarmDetailsStart": " {strider} suffered",
+          "HarmDetailsOne": " one <strong>{harm}</strong>",
+          "HarmDetailsTwo": " two <strong>{harm}s</strong>"
+        }
+      },
       "KindredAll": {
         "ConnectActionTitle": "Kindred All: Connecting With the Locals After Getting to Know People and Listening to Their Problems?",
         "ActionTitle": "Kindred All: Communicating With Spirits or Transcendant Beings?"
@@ -1396,6 +1414,7 @@
         "LongThoughtNoHarmony": "Long Thought: Your Crew must at least have 1 Harmony to use this ability!",
         "SolaceFromMotionNoStress": "Solace From Motion: No Strider in your Crew has any Stress to clear!",
         "SolaceFromMotionZeroImpact": "Solace From Motion: The Action you want to use this ability on has Zero impact!",
+        "UnravelNoValidStrider": "Unravel: There is no available Strider with empty Harm boxes! (Goodness gracious if you ever reach this message, my condolences)",
         "WormholeGateNotEnoughShells": "Wormhole Gate: You do not have enough Shells to use this ability!",
         "SimpleStressAbilityTooMuchStress": "{name}: You have too much Stress to use this ability!",
         "GenericPopupNoUses": "{name}: You cannot use this ability anymore!",

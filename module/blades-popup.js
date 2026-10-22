@@ -23,15 +23,15 @@ export class BladesPopup {
       popupData.descriptionArgs = { ability: itemFull.name };
 
     const title = popupData.title ?? 'SFTD.UseAbility';
-    var preContent = popupData.pre_content ? popupData.pre_content({}, popupData) : '';
+    const fields = {self: actorFull.uuid, itemFull: itemFull};
+    var preContent = popupData.pre_content ? popupData.pre_content(fields, popupData) : '';
     if (itemFull?.system.bound_by_charmtrick)
       preContent = game.i18n.localize('SFTD.StriderAbility.Charmtrick.PopupNotice') + preContent;
     const form = Object.keys(popupFields).length ? BladesPopup.instantiatePopupForm(actorFull, popupFields, popupData, title) : '';
     if (form == null)
       return;
-    const postContent = popupData.post_content ? popupData.post_content({}, popupData) : '';
+    const postContent = popupData.post_content ? popupData.post_content(fields, popupData) : '';
 
-    const fields = {self: actorFull.uuid, itemFull: itemFull};
     if (form == '') {
       if (popupData.validation)
         if (!popupData.validation(fields, popupData, true, itemFull))
@@ -97,14 +97,14 @@ export class BladesPopup {
 
   static instantiatePopupForm(actorFull, fields, popupData, popupName) {
     let result = `<div class="field" data-field="self" data-value="${actorFull.uuid}" style="display: none;"></div>`;
-    for (let [fieldName, fieldData] of Object.entries(fields))
+    for (const [fieldName, fieldData] of Object.entries(fields))
       result += BladesPopup.instantiateFormField(actorFull, fieldName, fieldData, popupData, popupName);
     return result;
   }
 
-  static instantiateFormField(actorFull, fieldName, fieldData, popupData, popupName, isSubField = false) {
+  static instantiateFormField(actorFull, fieldName, fieldData, popupData, popupName) {
     const isInline = ['select', 'checkbox'].includes(fieldData.type);
-    var fieldContainer = `<div class="field flex-${isInline ? 'horizontal shrink' : 'vertical'}" data-field="${fieldName}" data-type="${fieldData.type}">`;
+    var fieldContainer = `<div class="field flex-${isInline ? 'horizontal shrink' : 'vertical'}" ${fieldName ? `data-field="${fieldName}" ` : ''}data-type="${fieldData.type}">`;
     if (fieldData.name)
       fieldContainer += `<label>${game.i18n.localize(fieldData.name)}</label>`;
     const crewFull = actorFull.type == 'crew' ? actorFull : BladesHelpers.resolveActor(actorFull.system.crew);
@@ -174,13 +174,13 @@ export class BladesPopup {
                 </div>
                 <div class="popup-container flex-vertical mini-form">`;
           let striderFields = foundry.utils.deepClone(fieldData.fields ?? {});
-          if (striderFull.isCharmworkAvailable() && (popupData.stress || popupData.charmwork))
+          if (striderFull.isCharmworkAvailable() && (popupData.stress || popupData.charmwork) && !popupData.no_strider_charmwork)
             striderFields.charmwork = {
               name: 'SFTD.StriderAbility.Charmwork.Title',
               type: 'checkbox'
             };
           for (const [striderFieldName, striderFieldData] of Object.entries(striderFields))
-            fieldContainer += BladesPopup.instantiateFormField(striderFull, striderFieldName, striderFieldData, popupData, popupName, true);
+            fieldContainer += BladesPopup.instantiateFormField(striderFull, striderFieldName, striderFieldData, popupData, popupName);
           fieldContainer += `
                 </div>
                 <div class="popup-container flex-vertical mini-post-content">
@@ -191,12 +191,34 @@ export class BladesPopup {
         }
         fieldContainer += '</table>';
         break;
+      case 'table-field':
+        fieldContainer += `<table class="form-group table-field${fieldData.classes ? ` ${fieldData.classes.join(' ')}` : ''}">`;
+        for (const [rowName, rowData] of Object.entries(fieldData.rows)) {
+          fieldContainer += `<tr class="table-field-row" data-field="${rowName}">`;
+          for (const cellData of rowData) {
+            fieldContainer += `<td class="flex-equal table-field-cell"><div>`;
+            if (cellData.type == 'text')
+              fieldContainer += game.i18n.format(cellData.text, Object.fromEntries(Object.entries(cellData.args).map(a => [a[0], game.i18n.format(a[1][0], a[1][1])])));
+            else
+              for (const [tableFieldName, tableFieldData] of Object.entries(cellData))
+                fieldContainer += BladesPopup.instantiateFormField(actorFull, tableFieldName, tableFieldData, popupData, popupName, true);
+            fieldContainer += '</div></td>';
+          }
+          fieldContainer += '</tr>';
+        }
+        fieldContainer += '</table>';
+        break;
       case 'select':
-        const values = (typeof fieldData.values == 'string') ? BladesHelpers.parseValuePath(fieldData.values, actorFull) : fieldData.values;
-        fieldContainer += `<select>${values.map((d, i) => `<option value="${d}" ${i == 0 ? 'selected' : ''}>${game.i18n.localize(d)}</option>`).join('')}</select>`;
+        var values = (typeof fieldData.values == 'string') ? BladesHelpers.parseValuePath(fieldData.values, actorFull) : fieldData.values;
+        if (fieldData.valuesMap)
+          values = Object.fromEntries(Object.entries(fieldData.values).map(v => [v[0], fieldData.valuesMap(v[1])]));
+        if (Array.isArray(fieldData.values))
+          values = Object.fromEntries(fieldData.values.map(v => [v, v]));
+        fieldContainer += `<select>${Object.entries(values).map((d, i) => `<option value="${d[0]}" ${i == 0 ? 'selected' : ''}>${game.i18n.localize(d[1])}</option>`).join('')}</select>`;
         break;
       case 'checkbox':
-        fieldContainer += `<input type="checkbox">`;
+        var availability = fieldData.availability ? fieldData.availability(actorFull, fieldData) : true;
+        fieldContainer += `<input type="checkbox"${!availability ? ' disabled' : ''}>`;
         break;
       case 'number':
         fieldContainer += `<input type="number" min="${fieldData.min}" max="${fieldData.max}" value="${fieldData.value}">`
@@ -244,7 +266,9 @@ export class BladesPopup {
         let crewmate = selectedCell ? selectedCell.dataset.actorId : null;
         return crewmate;
       case 'strider-field':
-        return Object.fromEntries(Array.from(element.querySelectorAll('.actor-cell')).map(e => [e.dataset.actorId, Object.fromEntries(Array.from(e.nextElementSibling.querySelectorAll('.field')).map(e2 => [e2.dataset.field, BladesPopup.fetchFormField(e2)]))]));
+        return Object.fromEntries(Array.from(element.querySelectorAll('.actor-cell')).map(e => [e.dataset.actorId, Object.fromEntries(Array.from(e.nextElementSibling.querySelectorAll('& > .mini-form > .field')).map(e2 => [e2.dataset.field, BladesPopup.fetchFormField(e2)]))]));
+      case 'table-field':
+        return Object.fromEntries(Array.from(element.querySelectorAll('& > table > tbody > .table-field-row')).map(e => [e.dataset.field, Object.fromEntries(Array.from(e.querySelectorAll('& > td > div > .field')).map(e2 => [e2.dataset.field, BladesPopup.fetchFormField(e2)]))]));
       case 'select':
         return Array.from(element.querySelector('select').selectedOptions).length == 1 ? element.querySelector('select').value : Array.from(element.querySelector('select').selectedOptions);
       case 'checkbox':
@@ -307,7 +331,7 @@ export class BladesPopup {
       stressGain ++;
     if (fields.transcendent_loom)
       stressGain = Math.max(stressGain - 1, 0);
-    for (let [fieldName, fieldData] of Object.entries(popupData.fields ?? {}).filter(f => fields[f[0]] && f[1].stress != undefined))
+    for (const [_, fieldData] of Object.entries(popupData.fields ?? {}).filter(f => fields[f[0]] && f[1].stress != undefined))
       stressGain += fieldData.stress;
     return stressGain;
   }
@@ -595,6 +619,123 @@ export class BladesPopup {
     const note = popupData.messageObject.system.rollData.note;
     await selfFull.rollAttribute(attributeName, extraDice, position, forcedPosition, impact, forcedImpact, note, extraFields);
     await BladesHelpers.tryDelete(popupData.messageObject);
+  }
+
+  /* ----------------------------------------- */
+
+  static unravelPreValidation(fields, popupData) {
+    if (!BladesPopup.simpleCrewValidation(fields, popupData, true))
+      return false;
+
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const crewFull = selfFull.type == 'crew' ? selfFull : BladesHelpers.resolveActor(selfFull.system.crew);
+    const validStriders = Object.values(crewFull.system.members).map(s => BladesHelpers.resolveActor(s)).filter(s => s != null && s.type == 'strider').filter(s => s.system.harm.light.one == '' || s.system.harm.light.two == '' || s.system.harm.medium.one == '' || s.system.harm.medium.two == '' || s.system.harm.heavy.one == '');
+    if (validStriders.length == 0)
+      ui.notifications.warn(game.i18n.localize('SFTD.log.warn.UnravelNoValidStrider'));
+    return validStriders.length > 0;
+  }
+
+  static unravelHarmCheckboxAvailability(actorFull, popupData) {
+    return actorFull.system.harm[popupData.harmLevel][popupData.harmBox] == '';
+  }
+
+  static unravelComputeNewHarmLevels(striders) {
+    var totalNewHarmLevels = 0;
+    for (const strider of Object.values(striders)) {
+      for (const [harmLevelName, harmData] of Object.entries(strider.harm)) {
+        const harmLevel = ['none', 'light', 'medium', 'heavy'].indexOf(harmLevelName);
+        for (const harmBox of Object.values(harmData))
+          if (harmBox) totalNewHarmLevels += harmLevel;
+      }
+    }
+    return totalNewHarmLevels;
+  }
+
+  static unravelFetchNewHarmLevels(striders) {
+    const newHarmLevels = {};
+    for (const [striderUuid, striderData] of Object.entries(striders)) {
+      var striderAdded = false;
+      for (const [harmLevelName, harmData] of Object.entries(striderData.harm)) {
+        const harmLevel = ['none', 'light', 'medium', 'heavy'].indexOf(harmLevelName);
+        for (const [harmBoxName, harmBox] of Object.entries(harmData))
+          if (harmBox) {
+            if (!striderAdded) {
+              newHarmLevels[striderUuid] = {};
+              striderAdded = true;
+            }
+            newHarmLevels[striderUuid][`system.harm.${harmLevelName}.${harmBoxName}`] = game.i18n.format(`SFTD.StriderAbility.Unravel.LevelXHarm`, {level: harmLevel});
+          }
+        }
+    }
+    return newHarmLevels;
+  }
+
+  static unravelPostContent(fields, fieldData) {
+    const totalNewHarmLevels = fields.new_harm ? BladesPopup.unravelComputeNewHarmLevels(fields.new_harm) : 0;
+    const newHarmLevelsRed = totalNewHarmLevels < Number(fields.original_harm ?? 1);
+    const newHarmLevelsYellow = totalNewHarmLevels > Number(fields.original_harm ?? 1);
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const selfNewStress = Math.clamp(selfFull.system.stress.value + (fields.charmwork ? 0 : (Number(fields.original_harm ?? 1) - (fields.transcendent_loom ? 1 : 0))), 0, selfFull.system.stress.max);
+    const selfRed = selfNewStress >= selfFull.system.stress.max;
+    return `
+      <div class="flex-vertical status-display">
+        <label class="big">${game.i18n.localize('SFTD.StriderAbility.Unravel.Popup.TotalHarmLevels')}</label>
+        <label class="big${newHarmLevelsRed ? ' wrong' : (newHarmLevelsYellow ? ' warn' : '')}">${totalNewHarmLevels}/${Number(fields.original_harm)}</label>
+      </div>
+      <div class="flex-vertical impact-display">
+        <label class="big">${game.i18n.localize('SFTD.StriderAbility.Unravel.Popup.NewStress')}</label>
+        <label class="big${selfRed ? ' wrong' : ''}">${selfFull.system.stress.value}/${selfFull.system.stress.max} => ${selfNewStress}/${selfFull.system.stress.max}</label>
+      </div>`;
+  }
+
+  static unravelValidation(fields, popupData, noPopup, itemFull) {
+    const totalNewHarmLevels = fields.new_harm ? BladesPopup.unravelComputeNewHarmLevels(fields.new_harm) : 0;
+    return totalNewHarmLevels >= Number(fields.original_harm);
+  }
+
+  static async unravelEffect(fields, popupData, itemFull) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const stressGain = fields.charmwork ? 0 : (Number(fields.original_harm) - (fields.transcendent_loom ? 1 : 0));
+    await BladesHelpers.tryUpdate(selfFull, {'system.stress.==value': Math.clamp(selfFull.system.stress.value + stressGain, 0, selfFull.system.stress.max)});
+    const newHarmLevels = BladesPopup.unravelFetchNewHarmLevels(fields.new_harm);
+    for (const [striderUuid, newHarms] of Object.entries(newHarmLevels)) {
+      const striderFull = BladesHelpers.resolveActor(striderUuid);
+      await BladesHelpers.tryUpdate(striderFull, newHarms);
+    }
+  }
+
+  static unravelMessageContents(fields, popupData) {
+    const selfFull = BladesHelpers.resolveActor(fields.self);
+    const stressGain = fields.charmwork ? 0 : (Number(fields.original_harm) - (fields.transcendent_loom ? 1 : 0));
+    var harmDetais = '';
+    for (const [striderUuid, striderData] of Object.entries(fields.new_harm)) {
+      var striderAdded = false;
+      var harmAdded = false;
+      for (const [harmLevelName, harmData] of Object.entries(striderData.harm)) {
+        const harmLevel = ['none', 'light', 'medium', 'heavy'].indexOf(harmLevelName);
+        var harmBoxes = 0;
+        for (const [_, harmBox] of Object.entries(harmData))
+          if (harmBox) {
+            if (!striderAdded) {
+              const striderFull = BladesHelpers.resolveActor(striderUuid);
+              harmDetais += game.i18n.format('SFTD.StriderAbility.Unravel.Message.HarmDetailsStart', {strider: striderFull.name});
+              striderAdded = true;
+            }
+            harmBoxes ++;
+          }
+        if (harmBoxes > 0) {
+          harmDetais += (harmAdded ? ',' : '') + game.i18n.format(`SFTD.StriderAbility.Unravel.Message.HarmDetails${['', 'One', 'Two'][harmBoxes]}`, {harm: game.i18n.format('SFTD.LevelXHarm', {level: harmLevel})});
+          harmAdded = true;
+        }
+      }
+      if (striderAdded)
+        harmDetais += '.';
+    }
+    return game.i18n.format(popupData.message.description, {
+      self: selfFull.name,
+      cost: game.i18n.format(`SFTD.StriderAbility.Charmwork.${fields.charmwork ? '' : 'Not'}Usage`, { stress : stressGain }),
+      harmDetails: harmDetais
+    });
   }
 
   /* ----------------------------------------- */
@@ -1092,6 +1233,106 @@ export const bladesPopupData = {
     post_content: BladesPopup.solaceFromMotionPostContent,
     validation: BladesPopup.solaceFromMotionValidation,
     effect: BladesPopup.solaceFromMotionEffect
+  },
+  unravel: {
+    title: 'SFTD.StriderAbility.Unravel.Popup.Title',
+    description: 'SFTD.StriderAbility.Unravel.Popup.Description',
+    pre_validation: BladesPopup.unravelPreValidation,
+    classes: ['unravel'],
+    fields: {
+      original_harm: {
+        name: 'SFTD.StriderAbility.Unravel.Popup.OriginalHarmArg',
+        type: 'select',
+        values: {1: '1', 2: '2', 3: '3', 4: '4'},
+        valuesMap: v => game.i18n.format('SFTD.LevelXHarm', {level: v})
+      },
+      new_harm: {
+        type: 'strider-field',
+        modifiers: ['needsEmptyHarm'],
+        fields: {
+          harm: {
+            type: 'table-field',
+            classes: ['new-harm-table'],
+            columns: 2,
+            rows: {
+              heavy: [
+                {
+                  type: 'text',
+                  text: `<label>{harm}</label>`,
+                  args: {
+                    harm: ['SFTD.LevelXHarm', {level: 3}]
+                  }
+                },
+                {
+                  one: {
+                    type: 'checkbox',
+                    availability: BladesPopup.unravelHarmCheckboxAvailability,
+                    harmLevel: 'heavy',
+                    harmBox: 'one'
+                  }
+                }
+              ],
+              medium: [
+                {
+                  type: 'text',
+                  text: `<label>{harm}</label>`,
+                  args: {
+                    harm: ['SFTD.LevelXHarm', {level: 2}]
+                  }
+                },
+                {
+                  one: {
+                    type: 'checkbox',
+                    availability: BladesPopup.unravelHarmCheckboxAvailability,
+                    harmLevel: 'medium',
+                    harmBox: 'one'
+                  },
+                  two: {
+                    type: 'checkbox',
+                    availability: BladesPopup.unravelHarmCheckboxAvailability,
+                    harmLevel: 'medium',
+                    harmBox: 'two'
+                  },
+                }
+              ],
+              light: [
+                {
+                  type: 'text',
+                  text: `<label>{harm}</label>`,
+                  args: {
+                    harm: ['SFTD.LevelXHarm', {level: 1}]
+                  }
+                },
+                {
+                  one: {
+                    type: 'checkbox',
+                    availability: BladesPopup.unravelHarmCheckboxAvailability,
+                    harmLevel: 'light',
+                    harmBox: 'one'
+                  },
+                  two: {
+                    type: 'checkbox',
+                    availability: BladesPopup.unravelHarmCheckboxAvailability,
+                    harmLevel: 'light',
+                    harmBox: 'two'
+                  },
+                }
+              ]
+            }
+          }
+        }
+      }
+    },
+    charmwork: true,
+    no_strider_charmwork: true,
+    post_content: BladesPopup.unravelPostContent,
+    validation: BladesPopup.unravelValidation,
+    effect: BladesPopup.unravelEffect,
+    message: {
+      title: 'SFTD.StriderAbility.Unravel.Message.Title',
+      description: 'SFTD.StriderAbility.Unravel.Message.Description',
+      contents: BladesPopup.unravelMessageContents
+    }
   },
   neohuman: {
     title: 'SFTD.Neohuman.Popup.Title',

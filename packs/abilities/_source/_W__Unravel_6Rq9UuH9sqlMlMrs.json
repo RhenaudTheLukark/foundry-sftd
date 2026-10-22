@@ -16,7 +16,7 @@
     "is_starting_ability": false,
     "is_charm": false,
     "bound_by_charmtrick": false,
-    "popup": "",
+    "popup": "unravel",
     "purchased": false,
     "class_default": false
   },

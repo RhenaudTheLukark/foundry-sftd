@@ -7918,6 +7918,27 @@
 .application.dialog.generic-popup.solace-from-motion .wrong {
   color: red;
 }
+.application.dialog.generic-popup.unravel .table-field-cell {
+  padding: 0px !important;
+}
+.application.dialog.generic-popup.unravel .table-field-cell > div {
+  display: flex;
+  align-content: space-evenly;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+.application.dialog.generic-popup.unravel .big {
+  font-size: 20px;
+  text-align: center;
+}
+.application.dialog.generic-popup.unravel .wrong {
+  color: red;
+}
+.application.dialog.generic-popup.unravel .warn {
+  color: #DAA520;
+}
 .application.dialog.start-mission ul, .application.dialog.end-mission ul, .application.dialog.end-session ul {
   margin-top: 0.25em;
   margin-bottom: 0px;

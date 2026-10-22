@@ -293,6 +293,31 @@ fieldset.form-group {
       color: $red;
     }
   }
+
+  &.unravel {
+    .table-field-cell {
+      padding: 0px !important;
+
+      & > div {
+        display: flex;
+        align-content: space-evenly;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+      }
+    }
+    .big {
+      font-size: 20px;
+      text-align: center;
+    }
+    .wrong {
+      color: $red;
+    }
+    .warn {
+      color: $gold;
+    }
+  }
 }
 
 &.start-mission, &.end-mission, &.end-session {
