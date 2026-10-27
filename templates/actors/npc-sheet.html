@@ -30,7 +30,7 @@
         <textarea id="npc-{{_id}}-description" name="system.description">{{system.description}}</textarea>
       </div>
       <div class="flex-horizontal">
-        <a class="text-line actor-add-popup" data-actor-type="crew,faction" data-unique="true" data-value-path="system.faction">{{localize 'SFTD.Associated'}} {{localize 'TYPES.Actor.faction'}}:</a>
+        <a class="text-line actor-add-popup" data-actor-type="crew,faction" data-unique="true" data-value-path="system.faction">{{localize 'TYPES.Actor.faction'}}:</a>
         {{#if (ne system.faction null)}}
         <div class="item flex-horizontal" data-item-id="{{system.faction.uuid}}">
           <div class="open-actor flex-horizontal">
