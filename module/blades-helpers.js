@@ -724,8 +724,8 @@ export class BladesHelpers {
     factionMembersArray.push({uuid: npcFull.uuid});
     factionMembersArray = BladesHelpers.sortObjects(factionMembersArray, BladesHelpers.fetchSimpleData, BladesHelpers._simpleCompareFunc, BladesHelpers.rebuildSimplesFromData);
     let newFactionMembers = Object.assign({}, factionMembersArray);
-    await BladesHelpers.tryUpdate(factionFull, {system: {'==members': newFactionMembers}});
-    await BladesHelpers.tryUpdate(npcFull, {system: {'==faction': factionFull.uuid}});
+    await BladesHelpers.tryUpdate(factionFull, {'system.==members': newFactionMembers});
+    await BladesHelpers.tryUpdate(npcFull, {'system.==faction': factionFull.uuid});
   }
 
   // Removes an NPC's crew/faction and remove the NPC from its crew/faction's member list

@@ -48,7 +48,7 @@ export class BladesStriderSheet extends BladesSheet {
       if (i.type === 'item') {
         itemLoad = parseInt(i.system.load);
         if (sheetData.system.signature_gear?.id == i.system.original_id) itemLoad --;
-        if (sheetData.system.crew?.system.signature_gear?.id == i.system.original_id) itemLoad --;
+        if (sheetData.system.crew?.system?.signature_gear?.id == i.system.original_id) itemLoad --;
         if (i.system.strive_to_be_steel || i.system.tesseraction) itemLoad = 0;
       }
       load += Math.max(itemLoad, 0);
@@ -69,7 +69,7 @@ export class BladesStriderSheet extends BladesSheet {
     else
       load_level = ['SFTD.Light', 'SFTD.Light', 'SFTD.Light', 'SFTD.Light', 'SFTD.Normal', 'SFTD.Normal', 'SFTD.Heavy', 'SFTD.Encumbered',
         'SFTD.Encumbered', 'SFTD.Encumbered', 'SFTD.OverMax', 'SFTD.OverMax'];
-    sheetData.system.load_level = load_level[Math.clamp(load - (sheetData.system.crew?.system.distributed_weight ? 2 : 0), 0, load_level.length - 1)];
+    sheetData.system.load_level = load_level[Math.clamp(load - (sheetData.system.crew?.system?.distributed_weight ? 2 : 0), 0, load_level.length - 1)];
 
     if (game.settings.get('songs-for-the-dusk', 'DeepCutLoad'))
       sheetData.system.load_levels = {'SFTD.Discreet': 'SFTD.Discreet', 'SFTD.Conspicuous': 'SFTD.Conspicuous'};

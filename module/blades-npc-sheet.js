@@ -47,6 +47,7 @@ export class BladesNPCSheet extends BladesSheet {
 
       switch (droppedEntityFull.type) {
         case 'crew':
+        case 'faction':
           await BladesHelpers.addFactionNPC(droppedEntityFull, this.actor, false);
           break;
         default:
