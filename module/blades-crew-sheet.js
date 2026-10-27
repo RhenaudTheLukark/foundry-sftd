@@ -636,6 +636,14 @@ export class BladesCrewSheet extends BladesSheet {
     extraData.researchAssessmentStriders = Object.values(this.actor.system.members).map(m => BladesHelpers.resolveActor(m)).filter(m => m != null && m.type == 'strider' && m.system.research_assessment).map(m => `<option value="${m.uuid}" selected>${m.name}</option>`);
     extraData.researchAssessmentStridersCount = extraData.researchAssessmentStriders.length;
 
+    const vehicleSpecialistsFull = this.actor.items.contents.filter(i => i.type == 'specialist' && i.system.vehicle);
+    extraData.guzzlerVehicleSpecialists = vehicleSpecialistsFull.filter(i => i.system.flaws.includes('Guzzler')).map(i => `<option value="${i.uuid}" selected>${i.name}</option>`);
+    extraData.guzzlerVehicleSpecialistsCount = extraData.guzzlerVehicleSpecialists.length;
+    extraData.flashyVehicleSpecialists = vehicleSpecialistsFull.filter(i => i.system.flaws.includes('Flashy')).map(i => `<option value="${i.uuid}" selected>${i.name}</option>`);
+    extraData.flashyVehicleSpecialistsCount = extraData.flashyVehicleSpecialists.length;
+    extraData.autoRepairVehicleSpecialists = vehicleSpecialistsFull.filter(i => i.system.edges.includes('Auto-Repair')).map(i => `<option value="${i.uuid}" selected>${i.name}</option>`);
+    extraData.autoRepairVehicleSpecialistsCount = extraData.autoRepairVehicleSpecialists.length;
+
     let dialog = new foundry.applications.api.DialogV2({
       window: { title: `${game.i18n.localize('SFTD.EndMission')}` },
       content: await renderTemplate('systems/songs-for-the-dusk/templates/popups/end-mission.html', { rep_tiers: Array(6).fill().map((_, i) => `<option value="${i}"${i == 0 ? ' selected' : ''}>${i}</option>`).join(''), extraData: extraData}),
@@ -679,42 +687,51 @@ export class BladesCrewSheet extends BladesSheet {
             value: 1,
             key: 'ResearchAssessment'
           },
+          vehiclesGuzzler: {
+            value: -1,
+            key: 'VehicleGuzzler'
+          }
         }
 
         for (let [id, shellGenerator] of Object.entries(shellGeneratorList)) {
           let element = dialog.element.querySelector(`[name="${id}"]`);
+          const isSelection = ['researchAssessment', 'vehiclesGuzzler'].includes(id);
           if (element?.checked) {
-            let researchAssessmentArgs = id == 'researchAssessment' ? {
-              sending: Array.from(element.nextElementSibling.querySelector(`select`).selectedOptions).map(o => BladesHelpers.resolveActor(o.value)),
-              notSending: Array.from(element.nextElementSibling.querySelector(`select`).options).filter(o => !Array.from(element.nextElementSibling.querySelector(`select`).selectedOptions).includes(o)).map(o => BladesHelpers.resolveActor(o.value))
+            let shellGeneratorArgs = isSelection ? {
+              selected: Array.from(element.nextElementSibling.querySelector(`select`).selectedOptions).map(o => BladesHelpers.resolveActor(o.value)),
+              notSelected: Array.from(element.nextElementSibling.querySelector(`select`).options).filter(o => !Array.from(element.nextElementSibling.querySelector(`select`).selectedOptions).includes(o)).map(o => BladesHelpers.resolveActor(o.value))
             } : {};
-            if (id == 'researchAssessment') {
-              shellGenerator.value = researchAssessmentArgs.sending.length;
-              researchAssessmentArgs.num = researchAssessmentArgs.sending.length;
-              researchAssessmentArgs.sendingNames = researchAssessmentArgs.sending.map(m => m.name).join(', ');
+            if (isSelection)
+              shellGenerator.value = shellGeneratorArgs.selected.length * (id == 'vehiclesGuzzler' ? -1 : 1);
+            if (isSelection) {
+              shellGeneratorArgs.num = shellGeneratorArgs.selected.length;
+              shellGeneratorArgs.selectedNames = shellGeneratorArgs.selected.map(m => m.name).join(', ');
             }
             let message = '<div class="description"><p>';
             let anyText = false;
-            if (id != 'researchAssessment' || researchAssessmentArgs.sending?.length) {
-              message = `<div class="description"><p>${game.i18n.format(`SFTD.EndMission${shellGenerator.key}`, researchAssessmentArgs)}`;
+            if (!isSelection || shellGeneratorArgs.selected?.length) {
+              message = `<div class="description"><p>${game.i18n.format(`SFTD.EndMission${shellGenerator.key}`, shellGeneratorArgs)}`;
               anyText = true;
-              let newShells = Math.min(this.actor.system.shells.value + shellGenerator.value, this.actor.system.shells.max);
-              let overShells = this.actor.system.shells.value + shellGenerator.value - newShells;
+              let newShells = Math.clamp(this.actor.system.shells.value + shellGenerator.value, 0, this.actor.system.shells.max);
+              let overShells = Math.max(this.actor.system.shells.value + shellGenerator.value - newShells, 0);
+              let underShells = Math.min(this.actor.system.shells.value + shellGenerator.value - newShells, 0);
               if (newShells)
                 await BladesHelpers.tryUpdate(this.actor, {'system.shells.==value': newShells});
-              if (overShells)
+              if (overShells > 0)
                 message += game.i18n.format('SFTD.RollUpkeepOverpaid', {shells: overShells});
+              if (underShells < 0)
+                message += game.i18n.format('SFTD.RollUpkeepUnderpaid', {shells: underShells});
             }
 
             if (id == 'researchAssessment') {
-              if (researchAssessmentArgs.sending.length > 0)
-                await BladesHelpers.tryUpdate(this.actor, {'system.cache.==value': Math.min(this.actor.system.cache.value + researchAssessmentArgs.sending.length, 4*12)});
-              for (let senderFull of researchAssessmentArgs.sending)
+              if (shellGeneratorArgs.selected.length > 0)
+                await BladesHelpers.tryUpdate(this.actor, {'system.cache.==value': Math.min(this.actor.system.cache.value + shellGeneratorArgs.selected.length, 4*12)});
+              for (let senderFull of shellGeneratorArgs.selected)
                 if (senderFull.system.research_assessment_misses != 0)
                   await BladesHelpers.tryUpdate(senderFull, {'system.==research_assessment_misses': 0});
-              if (researchAssessmentArgs.notSending.length > 0)
-                message += `${anyText ? '<br/>' : ''}${game.i18n.format('SFTD.EndMissionResearchAssessmentNotSending', {notSending: researchAssessmentArgs.notSending.map(m => m.name).join(', ')})}`;
-              for (let notSenderFull of researchAssessmentArgs.notSending) {
+              if (shellGeneratorArgs.notSelected.length > 0)
+                message += `${anyText ? '<br/>' : ''}${game.i18n.format('SFTD.EndMissionResearchAssessmentNotSelected', {notSelected: shellGeneratorArgs.notSelected.map(m => m.name).join(', ')})}`;
+              for (let notSenderFull of shellGeneratorArgs.notSelected) {
                 let consequencesList = [];
                 await BladesHelpers.tryUpdate(notSenderFull, {'system.==research_assessment_misses': 1 - notSenderFull.system.research_assessment_misses});
                 if (notSenderFull.system.research_assessment_misses == 0)
@@ -722,7 +739,9 @@ export class BladesCrewSheet extends BladesSheet {
                 if (consequencesList.length > 0)
                   message += `<br/>${game.i18n.format('SFTD.EndMissionResearchAssessmentConsequences', {striders: consequencesList.join(', ')})}`;
               }
-            }
+            } else if (id == 'vehiclesGuzzler')
+              if (shellGeneratorArgs.notSelected.length > 0)
+                message += `${anyText ? '<br/>' : ''}${game.i18n.format('SFTD.EndMissionVehicleGuzzlerNotSelected', {vehicles: shellGeneratorArgs.notSelected.map(m => m.name).join(', ')})}`;
             messageContents += message + '</p></div>';
           }
         }
@@ -744,6 +763,7 @@ export class BladesCrewSheet extends BladesSheet {
         if (dialog.element.querySelector('[name="pressureLocals"]')?.checked) pressureChange --;
         if (dialog.element.querySelector('[name="pressureViewFromTheTop"]')?.checked) pressureChange --;
         if (dialog.element.querySelector('[name="pressureCertifiedLicensing"]')?.checked) pressureChange -= 2;
+        if (dialog.element.querySelector('[name="pressureFlashyVehicles"]')?.checked) pressureChange += Array.from(dialog.element.querySelector('[name="pressureFlashyVehicleSpecialists"]').selectedOptions).map(o => BladesHelpers.resolveActor(o.value)).length;
 
         if (pressureChange > 0) {
           let hazardChange = await this.handlePressure(pressureChange);
@@ -758,6 +778,16 @@ export class BladesCrewSheet extends BladesSheet {
         if (dialog.element.querySelector('[name="parallelProcessingTicks"]')?.checked) {
           messageContents += `<div class="description"><p>
             ${game.i18n.format('SFTD.EndMissionParallelProcessingEffect', {ticks: extraData.parallelProcessingTicks})}
+          </p></div>`;
+        }
+
+        // Auto-Repair Vehicles shoud remove all of their Harm
+        if (dialog.element.querySelector('[name="autoRepairVehicles"]')?.checked) {
+          const autoRepairVehicles = Array.from(dialog.element.querySelector('[name="autoRepairVehicleSpecialists"]').selectedOptions).map(o => BladesHelpers.resolveActor(o.value)).filter(v => !v.system.harm.includes('Dead'));
+          for (const autoRepairVehicle of autoRepairVehicles)
+            BladesHelpers.tryUpdate(autoRepairVehicle, {'system.==harm': ['No']});
+          messageContents += `<div class="description"><p>
+            ${game.i18n.format('SFTD.EndMissionVehicleAutoRepairEffect', {vehicles: autoRepairVehicles.map(v => v.name).join(', ')})}
           </p></div>`;
         }
 

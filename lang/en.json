@@ -534,6 +534,7 @@
 
     "RollUpkeepResult": "You have gained <strong>{shells} Shell(s)</strong>.",
     "RollUpkeepOverpaid": " <strong>{shells}</strong> of those Shells did not fit in your Crew's Shell storage. Distribute them among Striders as you see fit.",
+    "RollUpkeepUnderpaid": " You were lacking <strong>{shells}</strong> Shells when making payments.",
 
     "RollAftermath": {
       "0": {
@@ -760,6 +761,10 @@
     "ProtectTitle": "Protect",
     "ProtectEffect": "You've protected {strider} from harm, directing it toward you instead.",
     "ProtectEffectOther": "someone not within your Crew",
+    "VehicleNimbleTitle": "{vehicle} - Nimble: Using as an Assist For Tricky Maneuvers?",
+    "VehicleNimble": "Since {vehicle} is Nimble, you gained <strong>+1d</strong>.",
+    "VehicleFinickyTitle": "{vehicle} - Finicky: Used by Someone Not Used to This Vehicle?",
+    "VehicleFinicky": "Since {vehicle} is Finicky, it lost <strong>1 Quality</strong> under your care, meaning you lost <strong>-1d</strong>.",
     "AftermathDangerousMission": "Aftermath: Dangerous Mission",
     "CutLooseUnfocused": "Cut Loose Overindulgence: Unfocused",
     "Effect": "Effect",
@@ -827,6 +832,7 @@
     "EndMissionAftermathDangerousMissionTitle": "Aftermath - Dangerous Mission: +3 Shells",
     "EndMissionExpertsTalkLogisticsTitle": "Experts Talk Logistics: +1 Shell",
     "EndMissionResearchAssessmentTitle": "Research Assessment: +1 Shell & +1 Cache per selected Strider<br/>Unselect the Striders who do not send useful data back to their benefactor",
+    "EndMissionVehicleGuzzlerTitle": "Guzzler Vehicles: Each vehicle requires 1 Shell's worth of fuel per downtime to keep in operation",
     "EndMissionUpkeepRoll": "If the mission was successful, take an Upkeep Roll from the employer Faction.<br/>(Must be manually rolled through the Misc. Rolls menu on the Strider sheet).",
     "EndMissionPressureGain": "Pressure Gain",
     "EndMissionPressureCollateralDamage": "Collateral Damage",
@@ -843,7 +849,10 @@
     "EndMissionPressureLocals": "Locals: Reduce Pressure gain by 1",
     "EndMissionPressureViewFromTheTop": "View From the Top: Reduce Pressure gain by 1",
     "EndMissionPressureCertifiedLicensing": "Certified Licensing: Reduce Pressure gain by 2",
+    "EndMissionPressureVehicleFlashy": "Flashy Vehicles: Each Vehicle used in the last mission adds 1 Pressure",
     "EndMissionParallelProcessing": "Parallel Processing: +{ticks} ticks to distribute among Long-Term Projects involving investigation or synthesis",
+    "EndMissionSpecialistHealing": "Specialists may heal up to one level of Harm if the situation is appropriate for healing",
+    "EndMissionVehicleAutoRepair": "Auto-Repairing Vehicles: All levels of Harm are cleared",
     "EndMissionAftermath": "You must roll an Aftermath, as nothing happens in isolation.",
     "EndMissionPressureRecap": "You garnered <strong>{num} Pressure</strong> because of your previous mission.",
     "EndMissionPressureRecapHazardIncrease": "Your Hazard level has increased. Change your community ideals in response. You can either alter an existing ideal, get rid of an ideal, or add a new one.",
@@ -851,10 +860,13 @@
     "EndMissionAftermathHighProfileOp": "Since you took a high-profile job, you have gained <strong>2 Shells</strong>.",
     "EndMissionAftermathDangerousMission": "Since you took a dangerous mission, you have gained <strong>3 Shells</strong>.",
     "EndMissionExpertsTalkLogistics": "Thanks to your expertise, you have gained <strong>1 Shell</strong>.",
-    "EndMissionResearchAssessment": "{sendingNames} sent useful research back to their backers. You have gained <strong>{num} Shell(s)</strong> and <strong>{num} Cache(s)</strong>.",
-    "EndMissionResearchAssessmentNotSending": "{notSending} did not send useful research back to their backers.",
+    "EndMissionResearchAssessment": "{selectedNames} sent useful research back to their backers. You have gained <strong>{num} Shell(s)</strong> and <strong>{num} Cache(s)</strong>.",
+    "EndMissionResearchAssessmentNotSelected": "{notSelected} did not send useful research back to their backers.",
     "EndMissionResearchAssessmentConsequences": "{striders} did not send useful research back to their backers for several downtime phases. They're going to send someone calling. Be prepared for that.",
+    "EndMissionVehicleGuzzler": "You paid for fuel for {selectedNames}. You spent <strong>{num} Shell(s)</strong>.",
+    "EndMissionVehicleGuzzlerNotSelected": "You didn't pay for fuel for {vehicles}. They won't be usable during the next mission.",
     "EndMissionParallelProcessingEffect": "Thanks to some Striders' Parallel Processing, you get <strong>{ticks} ticks</strong> to distribute among any <strong>Long-Term Project</strong> clocks that involve investigation or synthesis.",
+    "EndMissionVehicleAutoRepairEffect": "Thanks to {vehicles}'s Auto-Repair ability, all of their Harm has been cleared.",
     "EndMissionDowntimeStart": "The Mission has ended, Striders may now partake in Downtime Activities.",
 
     "EndSessionCheatSheet": "End Session Cheat Sheet",

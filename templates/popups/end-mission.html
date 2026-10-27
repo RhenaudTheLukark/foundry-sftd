@@ -45,6 +45,20 @@
     </div>
   </div>
   {{/if}}
+  {{#if (gt extraData.guzzlerVehicleSpecialistsCount 0)}}
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="vehiclesGuzzler" checked>
+    <div>
+      <label>{{{localize 'SFTD.EndMissionVehicleGuzzlerTitle'}}}</label>
+      <div class="flex-horizontal actor-contents">
+        <label>{{localize 'SFTD.Vehicle'}}:</label>
+        <select name="guzzlerVehicleSpecialists" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.guzzlerVehicleSpecialistsCount}}" multiple>
+          {{{extraData.guzzlerVehicleSpecialists}}}
+        </select>
+      </div>
+    </div>
+  </div>
+  {{/if}}
 </fieldset>
 
 <div class="category-collapse">{{localize 'SFTD.EndMissionPressureGain'}} ({{localize 'SFTD.EndMissionClickHereToExpand'}})</div>
@@ -108,12 +122,46 @@
     <label>{{{localize 'SFTD.EndMissionPressureCertifiedLicensing'}}}</label>
   </div>
   {{/if}}
+  {{#if (gt extraData.flashyVehicleSpecialistsCount 0)}}
+  <div class="form-group-inline">
+    <input type="checkbox" class="automated" name="pressureFlashyVehicles" checked>
+    <div>
+      <label>{{{localize 'SFTD.EndMissionPressureVehicleFlashy'}}}</label>
+      <div class="flex-horizontal actor-contents">
+        <label>{{localize 'SFTD.Vehicle'}}:</label>
+        <select name="pressureFlashyVehicleSpecialists" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.flashyVehicleSpecialistsCount}}" multiple>
+          {{{extraData.flashyVehicleSpecialists}}}
+        </select>
+      </div>
+    </div>
+  </div>
+  {{/if}}
 </fieldset>
 
 {{#if (gt extraData.parallelProcessingTicks 0)}}
 <div class="form-group-inline">
   <input type="checkbox" class="automated" name="parallelProcessingTicks" checked>
   <label>{{{localize 'SFTD.EndMissionParallelProcessing' ticks=extraData.parallelProcessingTicks}}}</label>
+</div>
+{{/if}}
+
+<div class="form-group-inline">
+  <input type="checkbox" checked>
+  <label>{{{localize 'SFTD.EndMissionSpecialistHealing'}}}</label>
+</div>
+
+{{#if (gt extraData.autoRepairVehicleSpecialistsCount 0)}}
+<div class="form-group-inline">
+  <input type="checkbox" class="automated" name="autoRepairVehicles" checked>
+  <div>
+    <label>{{{localize 'SFTD.EndMissionVehicleAutoRepair'}}}</label>
+    <div class="flex-horizontal actor-contents">
+      <label>{{localize 'SFTD.Vehicle'}}:</label>
+      <select name="autoRepairVehicleSpecialists" data-tooltip="{{localize 'SFTD.MultipleSelectUsage'}}" size="{{extraData.autoRepairVehicleSpecialistsCount}}" multiple>
+        {{{extraData.autoRepairVehicleSpecialists}}}
+      </select>
+    </div>
+  </div>
 </div>
 {{/if}}
 

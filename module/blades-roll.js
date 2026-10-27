@@ -258,6 +258,22 @@ export const bladesRollModifierList = {
     },
     downtime_assist: true
   },
+  vehicle_nimble: {
+    name: 'SFTD.VehicleNimbleTitle',
+    nameArgs: {},
+    rollTypes: ['actionRoll'],
+    dice: 1,
+    rollText: 'SFTD.VehicleNimble',
+    rollTextArgs: {}
+  },
+  vehicle_finicky: {
+    name: 'SFTD.VehicleFinickyTitle',
+    nameArgs: {},
+    rollTypes: ['actionRoll'],
+    dice: -1,
+    rollText: 'SFTD.VehicleFinicky',
+    rollTextArgs: {}
+  },
   aftermath_dangerous_mission: {
     name: 'SFTD.AftermathDangerousMission',
     rollType: 'engagement',
@@ -2280,6 +2296,26 @@ export async function resolveRollModifierArray(modifiers, actorFull, conditional
       result.key = 'item_quality';
       result.fields['TYPES.Item.item'] = Object.fromEntries(itemsWithHigherQuality.map(i => [i.id, i.name]));
       output.push(result);
+    }
+
+    // Vehicle Specialist Modifiers
+    const crewFull = actorFull?.type == 'crew' ? actorFull : (actorFull ? BladesHelpers.resolveActor(actorFull.system.crew) : null);
+    if (crewFull) {
+      const vehicleSpecialistsFull = crewFull.items.contents.filter(i => i.type == 'specialist' && i.system.vehicle);
+      for (const nimbleVehicleSpecialistFull of vehicleSpecialistsFull.filter(i => i.system.edges.includes('Nimble'))) {
+        let result = foundry.utils.deepClone(bladesRollModifierList['vehicle_nimble']);
+        result.key = 'vehicle_nimble';
+        result.nameArgs.vehicle = nimbleVehicleSpecialistFull.name;
+        result.rollTextArgs.vehicle = nimbleVehicleSpecialistFull.name;
+        output.push(result);
+      }
+      for (const finickyVehicleSpecialistFull of vehicleSpecialistsFull.filter(i => i.system.flaws.includes('Finicky'))) {
+        let result = foundry.utils.deepClone(bladesRollModifierList['vehicle_finicky']);
+        result.key = 'vehicle_finicky';
+        result.nameArgs.vehicle = finickyVehicleSpecialistFull.name;
+        result.rollTextArgs.vehicle = finickyVehicleSpecialistFull.name;
+        output.push(result);
+      }
     }
   }
 

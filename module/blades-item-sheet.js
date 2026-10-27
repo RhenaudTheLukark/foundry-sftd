@@ -92,7 +92,7 @@ export class BladesItemSheet extends BaseItemSheet {
         edges.splice(edges.indexOf(edge), 1);
       else
         edges.push(edge);
-      await this.object.update({system: {'==edges': edges}});
+      await this.object.update({'system.==edges': edges});
     });
     html.find('.flaw > input').click(async (e) => {
       const element = e.currentTarget;
@@ -102,7 +102,7 @@ export class BladesItemSheet extends BaseItemSheet {
         flaws.splice(flaws.indexOf(flaw), 1);
       else
         flaws.push(flaw);
-      await this.object.update({system: {'==flaws': flaws}});
+      await this.object.update({'system.==flaws': flaws});
     });
   }
 
