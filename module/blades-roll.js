@@ -2547,7 +2547,7 @@ export function resolveConditionalModifiers(dialog, actorFull, attributeName) {
         let groupAction = crewFull?.system.group_action;
         if (groupAction) {
           let leaderFull = BladesHelpers.resolveActor(groupAction.leader);
-          extraData.leader = leaderFull.name;
+          extraData.leader = leaderFull?.name;
         }
       }
       extraData.modifiers = dialog.permanentModifiers.concat(Array.from(checkedModifiers).map(m => dialog.conditionalModifiers[parseInt(m.dataset.modifierId)]));
@@ -2590,7 +2590,7 @@ export function resolveConditionalModifiers(dialog, actorFull, attributeName) {
           let groupAction = crewFull?.system.group_action;
           if (groupAction) {
             let leaderFull = BladesHelpers.resolveActor(groupAction.leader);
-            extraData.leader = leaderFull.name;
+            extraData.leader = leaderFull?.name;
           }
         }
         extraData.modifiers = dialog.permanentModifiers.concat(Array.from(checkedModifiers).map(m => dialog.conditionalModifiers[parseInt(m.dataset.modifierId)]));
